@@ -1,0 +1,532 @@
+.\" dpkg manual page - dpkg-gensymbols(1)
+.\"
+.\" Copyright © 2007-2011 Raphaël Hertzog <hertzog@debian.org>
+.\" Copyright © 2009-2010 Modestas Vainius <modestas@vainius.eu>
+.\" Copyright © 2012-2015 Guillem Jover <guillem@debian.org>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH dpkg\-gensymbols 1 2014\-12\-29 "Projekt Debian" "programy pomocnicze dpkg"
+.SH NAZWA
+dpkg\-gensymbols \- generuje pliki symboli (informacje o zależnościach
+bibliotek współdzielonych)
+.
+.SH SKŁADNIA
+\fBdpkg\-gensymbols\fP [\fIopcja\fP...]
+.
+.SH OPIS
+\fBdpkg\-gensymbols\fP skanuje tymczasowe drzewo budowania (domyślnie
+debian/tmp) w poszukiwaniu bibliotek i generuje opisujący je plik
+\fIsymbols\fP. Plik ten, jeśli nie jest pusty, jest następnie instalowany do
+podkatalogu DEBIAN drzewa budowania, tak więc na końcu zawiera informacje
+kontrolne pakietu.
+.P
+Podczas tworzenia wspomnianych plików, jako wejście są używane pliki symboli
+dostarczone przez opiekuna. Szukane są następujące pliki (używany jest
+pierwszy ze znalezionych):
+.IP \(bu 4
+debian/\fIpakiet\fP.symbols.\fIarch\fP
+.IP \(bu 4
+debian/symbols.\fIarch\fP
+.IP \(bu 4
+debian/\fIpakiet\fP.symbols
+.IP \(bu 4
+debian/symbols
+.P
+The main interest of those files is to provide the minimal version
+associated to each symbol provided by the libraries. Usually it corresponds
+to the first version of that package that provided the symbol, but it can be
+manually incremented by the maintainer if the ABI of the symbol is extended
+without breaking backwards compatibility. It's the responsibility of the
+maintainer to keep those files up\-to\-date and accurate, but
+\fBdpkg\-gensymbols\fP helps with that.
+.P
+Gdy wygenerowane pliki symboli różnią się od dostarczonych przez opiekuna,
+\fBdpkg\-gensymbols\fP wypisze różnicę pomiędzy dwoma wersjami. Co więcej, jeśli
+różnica jest zbyt duża, zakończy się niepowodzeniem (można dostosować
+wielkość tolerowanej różnicy, patrz opcja \fB\-c\fP).
+.SH "ZARZĄDZANIE PLIKAMI SYMBOLI"
+The symbols files are really useful only if they reflect the evolution of
+the package through several releases. Thus the maintainer has to update them
+every time that a new symbol is added so that its associated minimal version
+matches reality.  The diffs contained in the build logs can be used as a
+starting point, but the maintainer, additionally, has to make sure that the
+behaviour of those symbols has not changed in a way that would make anything
+using those symbols and linking against the new version, stop working with
+the old version.  In most cases, the diff applies directly to the
+debian/\fIpackage\fP.symbols file. That said, further tweaks are usually
+needed: it's recommended for example to drop the Debian revision from the
+minimal version so that backports with a lower version number but the same
+upstream version still satisfy the generated dependencies.  If the Debian
+revision can't be dropped because the symbol really got added by the Debian
+specific change, then one should suffix the version with \(oq\fB~\fP\(cq.
+.P
+Przed dodaniem jakiejkolwiek łatki do pliku symboli, opiekun powinien dwa
+razy sprawdzić, czy jest ona poprawna. Publiczne symbole nie mogą znikać,
+więc najlepiej jeśli jedynie dodaje ona nowe wiersze.
+.P
+Note that you can put comments in symbols files: any line with \(oq#\(cq as
+the first character is a comment except if it starts with \(oq#include\(cq
+(see section \fBUsing includes\fP).  Lines starting with \(oq#MISSING:\(cq are
+special comments documenting symbols that have disappeared.
+.P
+Do not forget to check if old symbol versions need to be increased.  There
+is no way \fBdpkg\-gensymbols\fP can warn about this. Blindly applying the diff
+or assuming there is nothing to change if there is no diff, without checking
+for such changes, can lead to packages with loose dependencies that claim
+they can work with older packages they cannot work with. This will introduce
+hard to find bugs with (partial)  upgrades.
+.SS "Używanie podstawień #PACKAGE#"
+.P
+W niektórych rzadkich przypadkach, nazwa biblioteki różni się między
+architekturami. Aby zapobiec kodowaniu nazwy pakietu na sztywno w pliku
+symboli, można użyć markera \fI#PACKAGE#\fP. Zostanie ona zastąpiona prawdziwą
+nazwą pakietu podczas instalacji tych plików symboli. W przeciwieństwie do
+markera \fI#MINVER#\fP, \fI#PACKAGE#\fP nigdy nie pojawi się w pliku symboli
+wewnątrz pakietu binarnego.
+.SS "Używanie znaczników symboli"
+.P
+Symbol tagging is useful for marking symbols that are special in some way.
+Any symbol can have an arbitrary number of tags associated with it. While
+all tags are parsed and stored, only some of them are understood by
+\fBdpkg\-gensymbols\fP and trigger special handling of the symbols. See
+subsection \fBStandard symbol tags\fP for reference of these tags.
+.P
+Określenie znacznika powinno znaleźć się zaraz przed nazwą symbolu (nie ma
+pomiędzy nimi spacji). Zawsze rozpoczyna się nawiasem otwierającym \fB(\fP,
+kończy nawiasem zamykającym \fB)\fP i musi zawierać przynajmniej jeden
+znacznik. Poszczególne znaczniki są oddzielone znakiem \fB|\fP. Każdy znacznik
+może posiadać wartość (opcjonalnie), która jest oddzielona od jego nazwy za
+pomocą znaku \fB=\fP. Nazwy i wartości znaczników mogą zawierać dowolne znaki,
+poza znakami specjalnymi \fB)\fP \fB|\fP \fB=\fP. Nazwy symboli, które znajdują się
+za określeniem znacznika, mogą zostać opcjonalnie ujęte w znaki \fB'\fP lub
+\fB"\fP. Jednak jeśli symbol nie określa żadnych znaczników, cudzysłowy są
+traktowane jako część nazwy symbolu, która kończy się na pierwszej spacji.
+.P
+ (tag1=i am marked|tag name with space)"tagged quoted symbol"@Base 1.0
+ (optional)tagged_unquoted_symbol@Base 1.0 1
+ untagged_symbol@Base 1.0
+.P
+Pierwszy symbol w przykładzie jest nazwany \fItagged quoted symbol\fP i posiada
+dwa znaczniki \fItag1\fP z wartością \fIi am marked\fP i \fItag name with space\fP,
+który nie posiada wartości. Drugi symbol ma nazwę \fItagged_unquoted_symbol\fP
+jest jego jedynym znacznikiem jest \fIoptional\fP. Ostatni symbol jest
+przykładem zwykłego symbolu bez znacznika.
+.P
+Since symbol tags are an extension of the \fBdeb\-symbols\fP(5) format, they can
+only be part of the symbols files used in source packages (those files
+should then be seen as templates used to build the symbols files that are
+embedded in binary packages). When \fBdpkg\-gensymbols\fP is called without the
+\fB\-t\fP option, it will output symbols files compatible to the
+\fBdeb\-symbols\fP(5) format: it fully processes symbols according to the
+requirements of their standard tags and strips all tags from the output. On
+the contrary, in template mode (\fB\-t\fP) all symbols and their tags (both
+standard and unknown ones)  are kept in the output and are written in their
+original form as they were loaded.
+.SS "Standardowe znaczniki symboli"
+.TP 
+\fBoptional\fP
+A symbol marked as optional can disappear from the library at any time and
+that will never cause \fBdpkg\-gensymbols\fP to fail. However, disappeared
+optional symbols will continuously appear as MISSING in the diff in each new
+package revision.  This behaviour serves as a reminder for the maintainer
+that such a symbol needs to be removed from the symbol file or readded to
+the library. When the optional symbol, which was previously declared as
+MISSING, suddenly reappears in the next revision, it will be upgraded back
+to the \(lqexisting\(rq status with its minimum version unchanged.
+
+Znacznik ten jest przydatny do symboli prywatnych, gdy ich zniknięcie nie
+spowoduje złamania ABI. Przykładowo, większość szablonów C++ należy do tej
+kategorii. Podobnie jak każdy inny znacznik, może mieć on również dowolną
+wartość: można jej użyć do określenia powodu, dla którego symbol jest
+opcjonalny.
+.TP 
+\fBarch=\fP\fIarchitecture\-list\fP
+.TQ
+\fBarch\-bits=\fP\fIarchitecture\-bits\fP
+.TQ
+\fBarch\-endian=\fP\fIarchitecture\-endianness\fP
+These tags allow one to restrict the set of architectures where the symbol
+is supposed to exist. The \fBarch\-bits\fP and \fBarch\-endian\fP tags are supported
+since dpkg 1.18.0. When the symbols list is updated with the symbols
+discovered in the library, all arch\-specific symbols which do not concern
+the current host architecture are treated as if they did not exist. If an
+arch\-specific symbol matching the current host architecture does not exist
+in the library, normal procedures for missing symbols apply and it may cause
+\fBdpkg\-gensymbols\fP to fail. On the other hand, if the arch\-specific symbol
+is found when it was not supposed to exist (because the current host
+architecture is not listed in the tag or does not match the endianness and
+bits), it is made arch neutral (i.e. the arch, arch\-bits and arch\-endian
+tags are dropped and the symbol will appear in the diff due to this change),
+but it is not considered as new.
+
+Podczas działania w domyślnym trybie nieszablonowym, spośród symboli
+specyficznych dla architektury tylko te, które pasują do architektury
+bieżącego komputera są zapisywane do pliku symboli. Odwrotnie jest w trybie
+szablonu: wszystkie symbole specyficzne dla architektury (łącznie z tymi,
+należącymi do obcych architektur) są zawsze zapisywane do pliku symboli.
+
+The format of \fIarchitecture\-list\fP is the same as the one used in the
+\fBBuild\-Depends\fP field of \fIdebian/control\fP (except the enclosing square
+brackets []). For example, the first symbol from the list below will be
+considered only on alpha, any\-amd64 and ia64 architectures, the second only
+on linux architectures, while the third one anywhere except on armel.
+
+ (arch=alpha any\-amd64 ia64)64bit_specific_symbol@Base 1.0
+ (arch=linux\-any)linux_specific_symbol@Base 1.0
+ (arch=!armel)symbol_armel_does_not_have@Base 1.0
+
+The \fIarchitecture\-bits\fP is either \fB32\fP or \fB64\fP.
+
+ (arch\-bits=32)32bit_specific_symbol@Base 1.0
+ (arch\-bits=64)64bit_specific_symbol@Base 1.0
+
+The \fIarchitecture\-endianness\fP is either \fBlittle\fP or \fBbig\fP.
+
+ (arch\-endian=little)little_endian_specific_symbol@Base 1.0
+ (arch\-endian=big)big_endian_specific_symbol@Base 1.0
+
+Multiple restrictions can be chained.
+
+ (arch\-bits=32|arch\-endian=little)32bit_le_symbol@Base 1.0
+.TP 
+\fBignore\-blacklist\fP
+dpkg\-gensymbols posiada wewnętrzną, czarną listę symboli, które nie powinny
+pojawić się w plikach symboli, ponieważ są one z reguły jedynie efektem
+ubocznym detali implementacyjnych toolchainu. Jeśli z jakiegoś powodu
+naprawdę chce się włączyć jeden z tych symboli do pliku symboli, należy
+oznaczyć ten symbol znacznikiem \fBignore\-blacklist\fP. Może być potrzebny do
+niektórych niskopoziomowych bibliotek toolchainu, takich jak libgcc.
+.TP 
+\fBc++\fP
+Oznacza wzorzec symbolu \fIc++\fP. Patrz podsekcja \fBUżywanie wzorców symboli\fP
+poniżej.
+.TP 
+\fBsymver\fP
+Oznacza wzorzec symbolu \fIsymver\fP (wersja symbolu). Patrz podsekcja
+\fBUżywanie wzorców symboli\fP poniżej.
+.TP 
+\fBregex\fP
+Oznacza wzorzec symbolu \fIregex\fP. Patrz podsekcja \fBUżywanie wzorców
+symboli\fP poniżej.
+.SS "Używanie wzorców symboli"
+.P
+W przeciwieństwie do standardowej specyfikacji symboli, wzorzec może
+pokrywać wiele symboli rzeczywistych z biblioteki. \fBdpkg\-gensymbols\fP
+postara się dopasować każdy wzorzec do każdego symbolu rzeczywistego, który
+\fInie\fP posiada zdefiniowanego odpowiedniego symbolu specyficznego w pliku
+symboli. Gdy tylko znaleziony zostanie pierwszy pasujący wzorzec, to
+wszystkie jego znaczniki i właściwości będą używane jako podstawa określenia
+symbolu. Jeśli żaden ze wzorców nie zostanie dopasowany, to symbol zostanie
+uznany za nowy.
+
+A pattern is considered lost if it does not match any symbol in the
+library. By default this will trigger a \fBdpkg\-gensymbols\fP failure under
+\fB\-c1\fP or higher level. However, if the failure is undesired, the pattern
+may be marked with the \fIoptional\fP tag. Then if the pattern does not match
+anything, it will only appear in the diff as MISSING. Moreover, like any
+symbol, the pattern may be limited to the specific architectures with the
+\fIarch\fP tag. Please refer to \fBStandard symbol tags\fP subsection above for
+more information.
+
+Patterns are an extension of the \fBdeb\-symbols\fP(5) format hence they are
+only valid in symbol file templates. Pattern specification syntax is not any
+different from the one of a specific symbol. However, symbol name part of
+the specification serves as an expression to be matched against
+\fIname@version\fP of the real symbol. In order to distinguish among different
+pattern types, a pattern will typically be tagged with a special tag.
+
+Obecnie \fBdpkg\-gensymbols\fP obsługuje trzy proste typy symboli:
+.TP  3
+\fBc++\fP
+Ten wzorzec jest oznaczony znacznikiem \fIc++\fP. Dopasowuje on jedynie symbole
+C++ za pomocą ich odkodowanych nazw symboli (takich, jak wypisywanych przez
+narzędzie \fBc++filt\fP(1)). Wzorzec jest bardzo przydatny do dopasowania
+symboli, których zakodowane nazwy mogą różnić się między różnymi
+architekturami, podczas gdy odkodowane nazwy pozostają takie same. Jedną z
+grup takich symboli jest \fInon\-virtual thunks\fP, które posiadają przesunięcia
+(offsety) specyficzne dla architektury, dołączone do zakodowanych
+nazw. Częstym przypadkiem tego przykładu jest wirtualny destruktor, który w
+wirtualnym dziedziczeniu (ang. diamond inheritance) wymaga niewirtualnego
+symbolu thunk. Na przykład nawet jeśli _ZThn8_N3NSB6ClassDD1Ev@Base na
+architekturze 32\-bitowej stanie się prawdopodobnie
+_ZThn16_N3NSB6ClassDD1Ev@Base na 64\-bitowej, może zostać dopasowany
+pojedynczym wzorcem \fIc++\fP:
+.RS
+.PP
+libdummy.so.1 libdummy1 #MINVER#
+ [...]
+ (c++)"non\-virtual thunk to NSB::ClassD::~ClassD()@Base" 1.0
+ [...]
+.P
+Powyższą, odkodowaną nazwę można uzyskać wykonując następujące polecenie:
+.PP
+ $ echo '_ZThn8_N3NSB6ClassDD1Ev@Base' | c++filt
+.P
+Proszę zauważyć, że o ile zakodowana nazwa jest, z definicji, unikatowa w
+bibliotece, o tyle nie musi być to prawdą dla nazw odkodowanych. Kilka
+różniących się symboli rzeczywistych może mieć tę samą nazwę odkodowaną. Na
+przykład dzieje się tak w przypadku niewirtualnych symboli thunk w złożonych
+konfiguracjach dziedziczenia lub w przypadku większości konstruktorów i
+desktruktorów (ponieważ g++ tworzy dla nich z reguły dwa symbole
+rzeczywiste). Jednak, ponieważ konflikty zachodzą na poziomie ABI, nie
+powinny one obniżyć jakości pliku symboli.
+.RE
+.TP 
+\fBsymver\fP
+Wzorzec jest oznaczany znacznikiem \fIsymver\fP. Dobrze zarządzane biblioteki
+posiadają wersjonowane symbole, a każda wersja odpowiada wersji oryginalnej,
+gdzie symbol został dodany. W takim przypadku można użyć wzorca \fIsymver\fP,
+aby dopasować symbol związany z określoną wersją np.:
+.RS
+.PP
+libc.so.6 libc6 #MINVER#
+ (symver)GLIBC_2.0 2.0
+ [...]
+ (symver)GLIBC_2.7 2.7
+ access@GLIBC_2.0 2.2
+.PP
+Wszystkie symbole związane z wersjami GLIBC_2.0 i GLIBC_2.7 prowadzą do,
+odpowiednio, minimalnej wersji 2.0 i 2.7 z wyjątkiem symbolu
+access@GLIBC_2.0. Ostatnie, prowadzi do minimalnej zależności na libc6 w
+wersji 2.2 pomimo, że znajduje się w zakresie wzorca "(symver)GLIBC_2.0",
+ponieważ specyficzne symbole mają pierwszeństwo przed wzorcami.
+.P
+Proszę zauważyć, że o ile wzorca masek starego stylu (oznaczane przez
+"*@version" w polu nazwy symbolu są wciąż obsługiwane, to są obecnie
+zastąpione przez nową składnię "(symver|optional)version". Na przykład
+"*@GLIBC_2.0 2.0" powinno być zapisane jako "(symver|optional)GLIBC_2.0
+2.0", jeśli potrzebne jest takie samo znaczenie.
+.RE
+.TP 
+\fBregex\fP
+Wyrażenia regularne są oznaczane znacznikiem \fIregex\fP. Są dopasowane za
+pomocą wyrażeń regularnych perla, określonych w polu nazwy
+symbolu. Wyrażenie regularne jest dopasowane "jak jest", nie należy jednak
+zapominać rozpocząć go znakiem \fI^\fP, w przeciwnym wypadku dopasuje ono
+dowolną część łańcucha symbolu rzeczywistego \fInazwa@wersja\fP np.:
+.RS
+.PP
+libdummy.so.1 libdummy1 #MINVER#
+ (regex)"^mystack_.*@Base$" 1.0
+ (regex|optional)"private" 1.0
+.P
+Symbole takie jak "mystack_new@Base", :mystack_push@Base",
+"mystack_pop@Base" itd. zostaną dopasowane przez pierwszy wzorzec, natomiast
+np. "ng_mystack_new@Base" \- nie. Drugi wzorzec dopasuje wszystkie symbole
+posiadające łańcuch "private" w swych nazwach, a dopasowania odziedziczą
+znacznik \fIoptional\fP z wzorca.
+.RE
+.P
+Podane wyżej wzorce proste mogą być łączone tam, gdzie ma to sens. W takim
+przypadku są one przetwarzane w takiej kolejności, w jakiej podano znaczniki
+np. oba
+.PP
+ (c++|regex)"^NSA::ClassA::Private::privmethod\ed\e(int\e)@Base" 1.0
+ (regex|c++)N3NSA6ClassA7Private11privmethod\edEi@Base 1.0
+.P
+dopasują symbole "_ZN3NSA6ClassA7Private11privmethod1Ei@Base" i
+"_ZN3NSA6ClassA7Private11privmethod2Ei@Base". Podczas dopasowywania
+pierwszego wzorca, symbol surowy jest najpierw odkodowany jako symbol C++, a
+odkodowana nazwa symbolu jest dopasowywana do wyrażenia regularnego. Z
+drugiej strony, gdy dopasowywany jest drugi wzorzec, wyrażenie regularne
+jest dopasowywane do surowej nazwy symbolu, następnie sprawdzane jest, czy
+symbol jest symbolem C++ przez próbę odkodowania go. Niepowodzenie każdego
+symbolu prostego spowoduje niepowodzenie całego wzorca. Z tego powodu
+np. "__N3NSA6ClassA7Private11privmethod\edEi@Base" nie będzie pasować do
+żadnego ze wzorców, ponieważ nie jest poprawnym symbolem C++.
+.P
+Ogólnie, wszystkie wzorce są podzielone na dwie grupy: aliasy (proste \fIc++\fP
+i \fIsymver\fP) i wzorce ogólne (\fIregex\fP, wszystkie kombinacje wielu prostych
+wzorców). Dopasowanie prostych wzorców opartych na aliasach jest szybkie
+(0(1)), a wzorce ogólne mają 0(N) (N \- liczba wzorców ogólnych) na każdy
+symbol. Z tego powodu nie zaleca się nadużywania wzorców ogólnych.
+.P
+Gdy wiele symboli pasuje do tego samego symbolu rzeczywistego, aliasy
+(najpierw \fIc++\fP, następnie \fIsymver\fP) są preferowane w stosunku do wzorców
+ogólnych. Wzorce ogólne są dopasowywane w takiej kolejności, w jakiej
+zostaną odnalezione w szablonie pliku symboli, aż do pierwszego
+sukcesu. Proszę jednak zwrócić uwagę, że ręczna zmiana kolejności wpisów
+pliku szablonu nie jest zalecana, ponieważ \fBdpkg\-gensymbols\fP tworzy diffy w
+oparciu o alfanumeryczną kolejność ich nazw.
+.SS "Używanie include (dołączeń)"
+.P
+Gdy zestaw eksportowanych symboli różni się między architekturami, może
+okazać się, że używanie pojedynczego pliku symboli nie jest wygodne. W
+takich przypadkach, dyrektywa dołączenia może okazać się przydatna na kilka
+sposobów:
+.IP \(bu 4
+Można przenieść część wspólną do pliku zewnętrznego i dołączyć go do swojego
+pliku \fIpakiet\fP.symbols.\fIarch\fP używając dyrektywy dołączenia podobnej do
+poniższej:
+
+#include "\fIpakiet\fP.symbols.common"
+.IP \(bu
+Dyrektywa dołączenia może zostać otagowana podobnie jak każdy symbol:
+
+(tag|...|tagN)#include "plik\-do\-dołączenia"
+
+W rezultacie, wszystkie symbole z \fIpliku\-do\-dołączenia\fP zostaną domyślnie
+oznaczone przez \fItag\fP ... \fItagN\fP. Można użyć tej funkcji, aby utworzyć
+wspólny plik \fIpakiet\fP.symbols, który dołącza pliki symboli specyficzne dla
+architektury:
+
+  common_symbol1@Base 1.0
+ (arch=amd64 ia64 alpha)#include "package.symbols.64bit"
+ (arch=!amd64 !ia64 !alpha)#include "package.symbols.32bit"
+  common_symbol2@Base 1.0
+.P
+Pliki symboli są czytane wiersz po wierszu, a dyrektywy dołączenia są
+przetwarzane zaraz po ich wystąpieniu. Oznacza to, że zawartość załączonego
+pliku może przesłonić każdą zawartość, która pojawi się przed dyrektywą
+dołączenia, i że zawartość po dyrektywie może przesłonić wszystko, co
+znajduje się w dołączanym pliku. Każdy symbol (lub nawet inna dyrektywa
+#include) w dołączanym pliku może określić dodatkowe znaczniki lub
+przesłonić wartości dziedziczonych znaczników w ich określeniach
+znaczników. Nie ma jednak sposobu, aby symbol usunąć jakikolwiek z
+dziedziczonych znaczników.
+.P
+Dołączone pliki mogą powtórzyć wiersz nagłówkowy zawierający SONAME
+biblioteki. W takim przypadku, przesłoni on wszystkie odczytane wcześniej
+wiersze nagłówkowe. Najlepiej jest jednak zapobiegać duplikowaniu wierszy
+nagłówkowych. Oto jeden ze sposobów:
+.PP
+#include "libsomething1.symbols.common"
+ arch_specific_symbol@Base 1.0
+.SS "Dobre zarządzanie biblioteką"
+.P
+Dobrze zarządzana biblioteka ma następujące cechy:
+.IP \(bu 4
+jej API jest stabilne (symbole publiczne nie są nigdy porzucane, dodawane są
+tylko nowe symbole publiczne), a niekompatybilne zmiany są wykonywane tylko
+przy zmianach SONAME;
+.IP \(bu 4
+idealnie, używa wersjonowania symboli, aby osiągnąć stabilność ABI
+niezależnie od zmian wewnętrznych i rozszerzeń API;
+.IP \(bu 4
+nie eksportuje symboli prywatnych (takie symbole mogą być tagowane jako
+opcjonalne, jako obejście).
+.P
+Podczas zarządzania plikiem symboli łatwo jest zauważyć pojawienie się lub
+zniknięcie symboli. Znacznie trudniej jednak wyłapać niekompatybilną zmianę
+API i ABI. W związku z tym, opiekun pakietu powinien dokładnie sprawdzić w
+dzienniku zmian projektu macierzystego, czy istnieje przypadek, że zasady
+dobrego zarządzania biblioteką zostały złamane. Jeśli odkryje się
+potencjalne problemy, macierzysty autor powinien zostać poinformowany, jako
+że poprawka w projekcie macierzystym jest zawsze lepsza, niż obejście
+problemu w samym Debianie.
+.SH OPCJE
+.TP 
+\fB\-P\fP\fIkatalog\-budowania\-pakietu\fP
+Przeszukuje \fIkatalog\-budowania\-pakietu\fP zamiast debian/tmp.
+.TP 
+\fB\-p\fP\fIpakiet\fP
+Definiuje nazwę pakietu. Wymagane, jeśli więcej niż jeden pakiet binarny
+jest wypisany w debian/control (lub nie ma tego pliku).
+.TP 
+\fB\-v\fP\fIwersja\fP
+Definiuje wersję pakietu. Domyślnie jest to wersja wzięta z
+debian/changelog. Wymagane, jeśli wywołanie ma miejsce spoza drzewa pakietu
+źródłowego.
+.TP 
+\fB\-e\fP\fIplik\-biblioteki\fP
+Only analyze libraries explicitly listed instead of finding all public
+libraries. You can use shell patterns used for pathname expansions (see the
+\fBFile::Glob\fP(3perl) manual page for details) in \fIlibrary\-file\fP to match
+multiple libraries with a single argument (otherwise you need multiple
+\fB\-e\fP).
+.TP 
+\fB\-I\fP\fInazwa\-pliku\fP
+Używa \fInazwy\-pliku\fP jako pliku odniesienia do generowania pliku symboli,
+który jest integrowany w samym pakiecie.
+.TP 
+\fB\-O\fP[\fIfilename\fP]
+Print the generated symbols file to standard output or to \fIfilename\fP if
+specified, rather than to \fBdebian/tmp/DEBIAN/symbols\fP (or
+\fIpackage\-build\-dir\fP\fB/DEBIAN/symbols\fP if \fB\-P\fP was used). If \fIfilename\fP is
+pre\-existing, its contents are used as basis for the generated symbols
+file.  You can use this feature to update a symbols file so that it matches
+a newer upstream version of your library.
+.TP 
+\fB\-t\fP
+Write the symbol file in template mode rather than the format compatible
+with \fBdeb\-symbols\fP(5). The main difference is that in the template mode
+symbol names and tags are written in their original form contrary to the
+post\-processed symbol names with tags stripped in the compatibility mode.
+Moreover, some symbols might be omitted when writing a standard
+\fBdeb\-symbols\fP(5) file (according to the tag processing rules) while all
+symbols are always written to the symbol file template.
+.TP 
+\fB\-c\fP\fI[0\-4]\fP
+Definiuje sprawdzenia do wykonania podczas porównywania wygenerowanego pliku
+symboli z plikiem szablonu używanym na początku. Domyślnym poziomem jest
+1. Zwiększanie poziomu wykonuje więcej sprawdzeń i zawiera wszystkie
+sprawdzenia z niższego poziomu. Poziom 0 nigdy nie kończy się błędem. Poziom
+1 sprawdza, czy jakieś symbole nie zniknęły. Poziom 2 zawodzi, gdy
+wprowadzono jakieś nowe symbole. Poziom 3 zwraca błąd, gdy zniknęły jakieś
+biblioteki. Poziom 4 \- gdy wprowadzono biblioteki.
+
+This value can be overridden by the environment variable
+\fBDPKG_GENSYMBOLS_CHECK_LEVEL\fP.
+.TP 
+\fB\-q\fP
+Keep quiet and never generate a diff between generated symbols file and the
+template file used as starting point or show any warnings about new/lost
+libraries or new/lost symbols. This option only disables informational
+output but not the checks themselves (see \fB\-c\fP option).
+.TP 
+\fB\-a\fP\fIarchitektura\fP
+Zakłada \fIarchitekturę\fP jako architekturę hosta w czasie przetwarzania
+plików symboli. Opcji można użyć, aby wygenerować plik symboli lub diff dla
+którejś z architektur, zakładając że jej pliki binarne są już dostępne.
+.TP 
+\fB\-d\fP
+Włącza tryb debugowania. Wyświetlanych jest wiele komunikatów tłumaczących
+działanie \fBdpkg\-gensymbols\fP.
+.TP 
+\fB\-V\fP
+Włącza tryb szczegółowy. Wygenerowany plik symboli zawiera przestarzałe
+symbole jako komentarze. Co więcej, w trybie szablonu po wzorcach symboli
+występują komentarze opisujące symbole rzeczywiste, które dopasowano do
+wzorca.
+.TP 
+\fB\-?\fP, \fB\-\-help\fP
+Wyświetla informację o użytkowaniu i kończy działanie.
+.TP 
+\fB\-\-version\fP
+Wyświetla informację o wersji i pomyślnie kończy działanie.
+.
+.SH "ZOBACZ TAKŻE"
+\fBhttps://people.redhat.com/drepper/symbol\-versioning\fP
+.br
+\fBhttps://people.redhat.com/drepper/goodpractice.pdf\fP
+.br
+\fBhttps://people.redhat.com/drepper/dsohowto.pdf\fP
+.br
+\fBdeb\-symbols\fP(5), \fBdpkg\-shlibdeps\fP(1).
+.SH TŁUMACZE
+Piotr Roszatycki <dexter@debian.org>, 1999
+.br
+Bartosz Feński <fenio@debian.org>, 2004-2005
+.br
+Robert Luberda <robert@debian.org>, 2006-2008
+.br
+Wiktor Wandachowicz <siryes@gmail.com>, 2008
+.br
+Michał Kułach <michal.kulach@gmail.com>, 2012

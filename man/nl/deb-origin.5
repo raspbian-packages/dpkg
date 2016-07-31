@@ -1,0 +1,68 @@
+.\" dpkg manual page - deb-origin(5)
+.\"
+.\" Copyright © 2011 Matt Kraai <kraai@ftbfs.org>
+.\" Copyright © 2011 Guillem Jover <guillem@debian.org>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH deb\-origin 5 10\-11\-2011 Debian\-project Debian
+.SH NAAM
+deb\-origin \- Bestanden met leveranciersspecifieke informatie
+.SH OVERZICHT
+\fB/etc/dpkg/origins/\fP\fIbestandsnaam\fP
+.SH BESCHRIJVING
+The files in \fB/etc/dpkg/origins\fP can provide information about various
+vendors who are providing Debian packages.
+
+They contain a number of fields, or comments when the line starts with
+\(oq\fB#\fP\(cq.  Each field begins with a tag, such as \fBVendor\fP or \fBParent\fP,
+followed by a colon and the body of the field. Fields are delimited only by
+field tags. In other words, field text may be multiple lines in length, but
+the tools will join lines when processing the body of the field.
+
+The file should be named according to the vendor name.  The usual convention
+is to name the vendor file using the vendor name in all lowercase, but some
+variation is permitted.  Namely, spaces are mapped to dashes (\(oq\fB\-\fP\(cq),
+and the file can have the same casing as the value in \fBVendor\fP field, or it
+can be capitalized.
+.SH VELDEN
+.TP 
+\fBVendor:\fP \fIleveranciersnaam\fP (verplicht)
+De waarde van dit veld bepaalt de naam van de leverancier.
+.TP 
+\fBVendor\-URL:\fP\fI leveranciers\-URL\fP
+De waarde van dit veld bepaalt de URL van de leverancier.
+.TP 
+\fBBugs:\fP\fI bug\-URL\fP
+De waarde van dit veld bepaalt het type en het adres van het
+bugopvolgingssysteem dat door deze leverancier gebruikt wordt. Het kan gaan
+om een URL van het type mailto of een URL van het type debbugs
+(bijv. debbugs://bugs.debian.org/).
+.TP 
+\fBParent:\fP\fI leveranciersnaam\fP
+De waarde van dit veld bepaalt de naam van de leverancier waarvan deze
+leverancier een derivaat maakt.
+.SH VOORBEELD
+.nf
+Vendor: Debian
+Vendor\-URL: https://www.debian.org/
+Bugs: debbugs://bugs.debian.org
+.fi
+.SH "ZIE OOK"
+\fBdpkg\-vendor\fP(1)

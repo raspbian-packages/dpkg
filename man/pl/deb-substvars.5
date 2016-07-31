@@ -1,0 +1,165 @@
+.\" dpkg manual page - deb-substvars(5)
+.\"
+.\" Copyright © 1995-1996 Ian Jackson <ijackson@chiark.greenend.org.uk>
+.\" Copyright © 2000 Wichert Akkerman <wakkerma@debian.org>
+.\" Copyright © 2006-2009,2012-2015 Guillem Jover <guillem@debian.org>
+.\" Copyright © 2009-2010 Raphaël Hertzog <hertzog@debian.org>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH deb\-substvars 5 2015\-01\-20 "Projekt Debian" "programy pomocnicze dpkg"
+.SH NAZWA
+deb\-substvars \- zmienne podstawiania źródłowych pakietów Debiana
+.
+.SH SKŁADNIA
+substvars
+.
+.SH OPIS
+Zanim \fBdpkg\-source\fP, \fBdpkg\-gencontrol\fP i \fBdpkg\-genchanges\fP zapiszą swoje
+informacje kontrolne (do źródłowego pliku \fB.dsc\fP w wypadku \fBdpkg\-source\fP i
+na standardowe wyjście w wypadku \fBdpkg\-gencontrol\fP i \fBdpkg\-genchanges\fP),
+wykonują podstawienia pewnych zmiennych na pliku wyjściowym.
+
+Podstawienie zmiennej ma postać \fB${\fP\fInazwa\-zmiennej\fP\fB}\fP. Nazwy zmiennych
+składają się ze znaków alfanumerycznych, myślników oraz dwukropków i
+zaczynają się od znaku alfanumerycznego. Podstawienia zmiennych są
+powtarzane dopóty, aż nie będzie nic do podstawienia; pełen tekst pola po
+podstawieniu jest ponownie skanowany w poszukiwaniu kolejnych podstawień.
+
+Po dokonaniu wszystkich podstawień, każde wystąpienie łańcucha \fB${}\fP (który
+nie jest poprawnym podstawieniem) jest zastępowane przez znak \fB$\fP.
+
+Podstawianie zmiennych jest wykonywane na wszystkich polach kontrolnych,
+jednak niektóre z tych pól są używane oraz wymagane podczas budowania, gdy
+podstawienie nie zostało jeszcze wykonane. Dlatego nie można używać
+zmiennych w polach \fBPackage\fP, \fBSource\fP oraz \fBArchitecture\fP.
+
+Podstawianie zmiennych ma miejsce na zawartości pól po ich przetworzeniu,
+tak więc aby rozwinąć zmienną w wiele wierszy nie należy umieszczać spacji
+po znaku nowego wiersza. Jest to wykonywane jawnie, gdy pole jest
+wynikiem. Na przykład, jeśli zmienna \fB${Description}\fP jest ustawiona na
+"foo is bar.${Newline}foo is great." i pole wygląda następująco:
+
+ Description: foo application
+  ${Description}
+  .
+  More text.
+
+To wynikiem będzie:
+
+ Description: foo application
+  foo is bar.
+  foo is great.
+  .
+  More text.
+
+Zmienne można ustawić za pomocą opcji \fB\-V\fP. Można je także podać w pliku
+\fBdebian/substvars\fP (lub jakimkolwiek innym pliku wskazanym opcją
+\fB\-T\fP). Plik ten składa się z linii w postaci
+\fInazwa\fP\fB=\fP\fIwartość\fP. Końcowe spacje w każdej linii, linie puste oraz
+linie zaczynające się od znaku \fB#\fP (czyli komentarze) są ignorowane.
+
+Dodatkowo dostępne są następujące standardowe zmienne:
+.TP 
+\fBArch\fP
+The current host architecture (i.e. the architecture the package is being
+built for, the equivalent of \fBDEB_HOST_ARCH\fP).
+.TP 
+\fBsource:Version\fP
+Wersja pakietu źródłowego
+.TP 
+\fBsource:Upstream\-Version\fP
+Oryginalna wersja autora pakietu źródłowego, włączając wersję epoki Debiana
+jeśli jest.
+.TP 
+\fBbinary:Version\fP
+Wersja pakietu binarnego (może się różnić od source:Version na przykład w
+przypadku binNMU).
+.TP 
+\fBSource\-Version\fP
+Wersja pakietu źródłowego (z dziennika zmian). Ta zmienna jest obecnie
+\fBprzestarzała\fP, jako że jej znaczenie jest inne niż jej
+funkcjonalność. Prosimy używać \fBsource:Version\fP lub \fBbinary:Version\fP, w
+zależności od wymagań.
+.TP 
+\fBInstalled\-Size\fP
+The approximate total size of the package's installed files. This value is
+copied into the corresponding control file field; setting it will modify the
+value of that field. If this variable is not set \fBdpkg\-gencontrol\fP will
+compute the default value by accumulating the size of each regular file and
+symlink rounded to 1 KiB used units, and a baseline of 1 KiB for any other
+filesystem object type.
+
+\fBNote:\fP Take into account that this can only ever be an approximation, as
+the actual size used on the installed system will depend greatly on the
+filesystem used and its parameters, which might end up using either more or
+less space than the specified in this field.
+.TP 
+\fBExtra\-Size\fP
+Dodatkowa przestrzeń dyskowa, używana podczas instalowania pakietu. Jeśli ta
+zmienna jest ustawiona, to jej wartość jest dodawana do wartości zmiennej
+\fBInstalled\-Size\fP (niezależnie od tego, czy została otwarcie ustawiona, czy
+ma wartość domyślną), zanim zostania skopiowana do pola \fBInstalled\-Size\fP
+pliku kontrolnego.
+.TP 
+\fBF:\fP\fInazwa\-pola\fP
+Wartość pola wyjściowego \fInazwa_pola\fP (które musi być podane z użyciem
+Notacji\-Wielbłądziej). Ustawienie takich zmiennych wpływa tylko na miejsca,
+gdzie są one jawnie rozwijane.
+.TP 
+\fBFormat\fP
+Wersja formatu pliku \fB.changes\fP wygenerowana przez tę wersję skryptów
+przygotowujących pakiety źródłowe. Ustawienie tej zmiennej zmienia również
+zawartość pola \fBFormat\fP w pliku \fB.changes\fP.
+.TP 
+\fBNewline\fP, \fBSpace\fP, \fBTab\fP
+Każda z tych zmiennych zawiera odpowiadający jej znak.
+.TP 
+\fBshlibs:\fP\fIpole\-zależności\fP
+Ustawienia zmiennych w tej postaci są generowane przez \fBdpkg\-shlibdeps\fP.
+.TP 
+\fBdpkg:Upstream\-Version\fP
+Oryginalna wersja dpkg, nadana przez autorów.
+.TP 
+\fBdpkg:Version\fP
+Pełna wersja programu dpkg.
+.LP
+Jeżeli jest odwołanie do niezdefiniowanej zmiennej, to generowane jest
+ostrzeżenie i przyjmowana jest pusta wartość zmiennej.
+.
+.SH PLIKI
+.TP 
+\fBdebian/substvars\fP
+Lista zmiennych podstawiania i ich wartości.
+.
+.SH "ZOBACZ TAKŻE"
+.ad l
+.nh
+\fBdpkg\fP(1), \fBdpkg\-genchanges\fP(1), \fBdpkg\-gencontrol\fP(1),
+\fBdpkg\-shlibdeps\fP(1), \fBdpkg\-source\fP(1).
+.SH TŁUMACZE
+Piotr Roszatycki <dexter@debian.org>, 1999
+.br
+Bartosz Feński <fenio@debian.org>, 2004-2005
+.br
+Robert Luberda <robert@debian.org>, 2006-2008
+.br
+Wiktor Wandachowicz <siryes@gmail.com>, 2008
+.br
+Michał Kułach <michal.kulach@gmail.com>, 2012

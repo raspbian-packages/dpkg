@@ -1,0 +1,69 @@
+.\" dpkg manual page - deb-shlibs(5)
+.\"
+.\" Copyright © 1996 Michael Shields <shields@crosslink.net>
+.\" Copyright © 2008 Zack Weinberg <zackw@panix.com>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH deb\-shlibs 5 2012\-02\-08 "Projekt Debian" "programy pomocnicze dpkg"
+.SH NAZWA
+deb\-shlibs \- plik z informacjami o bibliotekach współdzielonych w Debianie
+.
+.SH OPIS
+.PP
+Pliki \fBshlibs\fP odwzorowują nazwy i wersje (tzw. \fIsonames\fP) bibliotek
+współdzielonych na zależności odpowiednie dla pliku kontrolnego pakietu. W
+każdej linii może być umieszczony tylko jeden wpis. Puste linie \fInie\fP mogą
+występować. Linie zaczynające się od znaku \fB#\fP są uważane za komentarze i
+ignorowane. Wszystkie pozostałe linie muszą mieć następujący format:
+.IP
+[\fItyp\fP\fB:\fP] \fIbiblioteka\fP \fIwersja\fP \fIzależności\fP
+.PP
+Pola \fIbiblioteka\fP i \fIwersja\fP są oddzielone od siebie białymi znakami
+(spacjami), a pole \fIzależności\fP rozciąga się do końca linii. Pole \fItyp\fP
+jest opcjonalne i zazwyczaj nie jest potrzebne.
+.PP
+The \fIdependencies\fP field has the same syntax as the \fBDepends\fP field in a
+binary control file, see \fBdeb\-control\fP(5).
+.
+.SH PRZYKŁADY
+.PP
+Plik \fBshlibs\fP dla typowego pakietu z bibliotekami, nazwanego \fIlibcrunch1\fP,
+dostarczającego tylko jedną bibliotekę, której soname to \fIlibcrunch.so.1\fP,
+może wyglądać tak:
+.IP
+libcrunch 1 libcrunch1 (>= 1.2\-1)
+.PP
+The \fIdependencies\fP must mention the most recent version of the package that
+added new symbols to the library: in the above example, new symbols were
+added to version 1.2 of \fIlibcrunch\fP.  This is not the only reason the
+dependencies might need to be tightened.
+.
+.SH "ZOBACZ TAKŻE"
+\fBdeb\-control\fP(5), \fBdpkg\-shlibdeps\fP(1), \fBdeb\-symbols\fP(5).
+.SH TŁUMACZE
+Piotr Roszatycki <dexter@debian.org>, 1999
+.br
+Bartosz Feński <fenio@debian.org>, 2004-2005
+.br
+Robert Luberda <robert@debian.org>, 2006-2008
+.br
+Wiktor Wandachowicz <siryes@gmail.com>, 2008
+.br
+Michał Kułach <michal.kulach@gmail.com>, 2012

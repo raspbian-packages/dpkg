@@ -1,0 +1,115 @@
+.\" dpkg manual page - dpkg-trigger(1)
+.\"
+.\" Copyright © 2008-2015 Guillem Jover <guillem@debian.org>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH dpkg\-trigger 1 2011\-08\-14 "Projekt Debian" "użytki dpkg"
+.SH NAZWA
+dpkg\-trigger \- program pomocniczy wyzwalaczy dla pakietów
+.
+.SH SKŁADNIA
+\fBdpkg\-trigger\fP [\fIopcja\fP...] \fInazwa\-wyzwalacza\fP
+.br
+\fBdpkg\-trigger\fP [\fIopcja\fP...] \fIpolecenie\fP
+.
+.SH OPIS
+\fBdpkg\-trigger\fP jest narzędziem, które pozwala jawnie aktywować wyzwalacze
+oraz sprawdza wsparcie dla nich w uruchomionym \fBdpkg\fP.
+.PP
+Może być użyte przez skrypty opiekuna pakietu w sytuacjach złożonych i
+obłożonych warunkami, gdy wyzwalacze plikowe lub dyrektywy \fBactivate\fP z
+pliku kontrolnego triggers są niewystarczające. Może być również użyte do
+testowania oraz przez administratorów systemu (proszę zauważyć, że same
+wyzwalacze nie będą uruchamiane przez \fBdpkg\-trigger\fP).
+.PP
+Nierozpoznana składnia nazwy wyzwalacza stanowi błąd dla \fBdpkg\-trigger\fP.
+.
+.SH POLECENIA
+.TP 
+\fB\-\-check\-supported\fP
+Sprawdza czy uruchomione \fBdpkg\fP obsługuje wyzwalacze (zwykle wywoływane ze
+skryptu postinst). Program kończy się z kodem \fB0\fP, jeśli uruchamiane jest
+\fBdpkg\fP wspierające wyzwalacze, lub z kodem \fB1\fP i komunikatem błędu na
+stderr w przeciwnym wypadku. Jednak normalnie lepiej jest po prostu
+aktywować potrzebny wyzwalacz, używając \fBdpkg\-trigger\fP.
+.TP 
+\fB\-?\fP, \fB\-\-help\fP
+Wyświetla informację o użytkowaniu i kończy działanie.
+.TP 
+\fB\-\-version\fP
+Wyświetla informację o wersji i pomyślnie kończy działanie.
+.
+.SH OPCJE
+.TP 
+\fB\-\-admindir=\fP\fIkatalog\fP
+Zmienia położenie bazy danych \fBdpkg\fP. Domyślnie jest to \fI/var/lib/dpkg\fP.
+.TP 
+\fB\-\-by\-package=\fP\fIpakiet\fP
+Wymuszenie pakietu oczekującego na wyzwalacz. Normalnie ustawiane przez
+\fBdpkg\fP w zmiennej środowiskowej \fBDPKG_MAINTSCRIPT_PACKAGE\fP skryptu
+opiekuna pakietu, wskazując nazwę pakietu, do którego należy skrypt (jest to
+wartość używana domyślnie).
+.TP 
+\fB\-\-no\-await\fP
+Ta opcja zapewnia, że wywołujący pakiet T (jeśli jest) nie potrzebuje
+oczekiwać na przetworzenie tego wyzwalacza. Tzw. "zainteresowane" pakiet(y)
+I nie będą dodane do listy pakietów oczekujących na przetworzenie wyzwalacza
+dla T, a status T nie zostanie zmieniony. Można uważać T za zainstalowany,
+mimo że pakiet(y) I wyzwalacz mógł jeszcze nie zostać przetworzony.
+.TP 
+\fB\-\-await\fP
+This option does the inverse of \fB\-\-no\-await\fP (since dpkg 1.17.21).  It is
+currently the default behavior.
+.TP 
+\fB\-\-no\-act\fP
+Tylko test \- bez wykonywania żadnych zmian.
+.
+.SH "KOD WYJŚCIA"
+.TP 
+\fB0\fP
+The requested action was successfully performed.  Or a check or assertion
+command returned true.
+.TP 
+\fB1\fP
+A check or assertion command returned false.
+.TP 
+\fB2\fP
+Fatal or unrecoverable error due to invalid command\-line usage, or
+interactions with the system, such as accesses to the database, memory
+allocations, etc.
+.
+.SH ŚRODOWISKO
+.TP 
+\fBDPKG_ADMINDIR\fP
+If set and the \fB\-\-admindir\fP option has not been specified, it will be used
+as the \fBdpkg\fP data directory.
+.
+.SH "ZOBACZ TAKŻE"
+\fBdpkg\fP(1), \fBdeb\-triggers\fP(5), \fB/usr/share/doc/dpkg\-dev/triggers.txt.gz\fP.
+.SH TŁUMACZE
+Piotr Roszatycki <dexter@debian.org>, 1999
+.br
+Bartosz Feński <fenio@debian.org>, 2004-2005
+.br
+Robert Luberda <robert@debian.org>, 2006-2008
+.br
+Wiktor Wandachowicz <siryes@gmail.com>, 2008
+.br
+Michał Kułach <michal.kulach@gmail.com>, 2012

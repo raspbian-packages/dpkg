@@ -1,0 +1,120 @@
+.\" dpkg manual page - dpkg-scanpackages(1)
+.\"
+.\" Copyright © 1996 Michael Shields <shields@crosslink.net>
+.\" Copyright © 2006 Frank Lichtenheld <djpig@debian.org>
+.\" Copyright © 2007, 2009, 2011-2014 Guillem Jover <guillem@debian.org>
+.\" Copyright © 2009 Raphaël Hertzog <hertzog@debian.org>
+.\"
+.\" This is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
+.
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH dpkg\-scanpackages 1 2012\-05\-07 "Projekt Debian" "programy pomocnicze dpkg"
+.SH NAZWA
+dpkg\-scanpackages \- tworzy plik indeksowe Packages
+.
+.SH SKŁADNIA
+\fBdpkg\-scanpackages\fP [\fIopcja\fP...] \fIkatalog\-binarny\fP [\fIplik\-nadpisań\fP
+[\fIprefiks\-ścieżki\fP]] \fB>\fP \fIPackages\fP
+.
+.SH OPIS
+\fBdpkg\-scanpackages\fP przechodzi po drzewie binarnych pakietów Debiana i
+tworzy pliki Packages, używane przez \fBapt\fP(8), \fBdselect\fP(1) itp.,
+zawierające informacje o tym, jakie pakiety są dostępne do
+zainstalowania. Wygenerowane pliki Packages są takie same, jak te, które
+można znaleźć w mirrorach archiwum Debiana i na CD\-ROM\-ach. Programu
+\fBdpkg\-scanpackages\fP można użyć podczas tworzenia katalogu lokalnych
+pakietów do zainstalowania w grupie komputerów.
+.PP
+\fBNote:\fP If you want to access the generated Packages file with \fBapt\fP you
+will probably need to compress the file with \fBxz\fP(1)  (generating a
+Packages.xz file), \fBbzip2\fP(1)  (generating a Packages.bz2 file) or
+\fBgzip\fP(1)  (generating a Packages.gz file). apt ignores uncompressed
+Packages files except on local access (i.e.  \fBfile://\fP sources).
+.PP
+\fIkatalog\-binarny\fP jest nazwą drzewa pakietów binarnych do przetworzenia (na
+przykład \fBcontrib/binary\-i386\fP). Najlepiej, żeby był podany relatywnie w
+stosunku do korzenia drzewa archiwum Debiana, ponieważ  wartość każdego pola
+Filename w nowym pliku Packages będzie się zaczynać od tego łańcucha znaków.
+.PP
+\fIoverride\-file\fP is the name of a file to read which contains information
+about how the package fits into the distribution (the file can be compressed
+since dpkg 1.15.5); see \fBdeb\-override\fP(5).
+.PP
+\fIprefiks\-ścieżki\fP jest opcjonalnym łańcuchem znaków, który będzie
+poprzedzał nazwy plików w polu Filename.
+.PP
+Jeżeli będzie znaleziona więcej niż jedna wersja pakietu, to tylko najnowsza
+spośród nich będzie dołączona do wyjścia. Jeżeli obie wersje pakietu będą
+miały ten sam numer wersji, a będą się tylko różniły architekturą, to będzie
+użyta pierwsza znaleziona wersja.
+.
+.SH OPCJE
+.TP 
+\fB\-t\fP, \fB\-\-type\fP \fItyp\fP
+Szukanie plików *.\fItyp\fP zamiast *.deb.
+.TP 
+\fB\-e\fP, \fB\-\-extra\-override\fP \fIplik\fP
+Scan \fIfile\fP to find supplementary overrides (the file can be compressed
+since dpkg 1.15.5).  See \fBdeb\-extra\-override\fP(5)  for more information on
+its format.
+.TP 
+\fB\-a\fP, \fB\-\-arch\fP \fIarchitektura\fP
+Używa wzorca zawierającego \fI*_all.deb\fP i \fI*_arch.deb\fP zamiast poszukiwać
+wszystkich plików deb.
+.TP 
+\fB\-h\fP, \fB\-\-hash\fP \fIhash\-list\fP
+Only generate file hashes for the comma\-specified list specified (since dpkg
+1.17.14).  The default is to generate all currently supported hashes.
+Supported values: \fBmd5\fP, \fBsha1\fP, \fBsha256\fP.
+.TP 
+\fB\-m\fP, \fB\-\-multiversion\fP
+Wypisuje wszystkie znalezione pakiety.
+.TP 
+\fB\-M\fP, \fB\-\-medium\fP \fIidentyfikator\-łańcucha\fP
+Add an \fBX\-Medium\fP field containing the value \fIid\-string\fP (since dpkg
+1.15.5).  This field is required if you want to generate \fBPackages.cd\fP
+files for use by the multicd access method of dselect.
+.TP 
+\fB\-?\fP, \fB\-\-help\fP
+Wyświetla informację o użytkowaniu i kończy działanie.
+.TP 
+\fB\-\-version\fP
+Wyświetla informację o wersji i pomyślnie kończy działanie.
+.
+.SH DIAGNOSTYKA
+\fBdpkg\-scanpackages\fP wyświetla zwykłe, samowyjaśniające się komunikaty
+błędów. Wypisuje także ostrzeżenia o pakietach, które: są umiejscowione w
+niepoprawnych podkatalogach, zduplikowane, mają w swoim pliku kontrolnym
+pole Filename, nie są wymienione w pliku nadpisań lub mają zdefiniowane
+podstawienia opiekunów nie przynoszące efektu.
+.
+.SH "ZOBACZ TAKŻE"
+.ad l
+.nh
+\fBdpkg\fP(1), \fBdselect\fP(1), \fBdeb\-override\fP(5), \fBdeb\-extra\-override\fP(5),
+\fBdpkg\-scansources\fP(1).
+.SH TŁUMACZE
+Piotr Roszatycki <dexter@debian.org>, 1999
+.br
+Bartosz Feński <fenio@debian.org>, 2004-2005
+.br
+Robert Luberda <robert@debian.org>, 2006-2008
+.br
+Wiktor Wandachowicz <siryes@gmail.com>, 2008
+.br
+Michał Kułach <michal.kulach@gmail.com>, 2012
