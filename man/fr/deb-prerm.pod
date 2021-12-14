@@ -22,10 +22,7 @@ B<DEBIAN/prerm>
 
 =head1 DESCRIPTION
 
-Un paquet peut réaliser plusieurs actions de pré-retrait à l'aide de scripts
-du responsable, en incluant un fichier I<prerm> exécutable dans son archive
-de contrôle (c'est-à-dire I<DEBIAN/prerm> au moment de la création du
-paquet).
+Un paquet peut réaliser plusieurs actions de pré-retrait à l'aide de scripts du responsable, en incluant un fichier I<prerm> exécutable dans son archive de contrôle (c'est-à-dire I<DEBIAN/prerm> au moment de la création du paquet).
 
 Le script peut être appelé de diverses S<manières :>
 
@@ -43,12 +40,13 @@ Avant une mise à niveau.
 
 Si le B<upgrade> ci-dessus échoue.
 
+The I<new-version> is passed only since dpkg 1.18.5.
+
 =item I<prerm> B<deconfigure in-favour> I<nouveau-paquet nouvelle-version>
 
 =item S< >[ B<removing> I<old-package old-version> ]
 
-Avant qu'un paquet soit déconfiguré pendant qu'une dépendance est remplacée
-du fait d'un conflit.
+Avant qu'un paquet soit déconfiguré pendant qu'une dépendance est remplacée du fait d'un conflit.
 
 =item I<prerm> B<remove in-favour> I<nouveau-paquet nouvelle-version>
 

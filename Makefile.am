@@ -76,8 +76,11 @@ EXTRA_DIST = \
 	debian/dpkg.cfg \
 	debian/dpkg.cron.daily \
 	debian/dpkg.docs \
+	debian/dpkg.dpkg-db-backup.service \
+	debian/dpkg.dpkg-db-backup.timer \
 	debian/dpkg.install \
 	debian/dpkg.manpages \
+	debian/dpkg.postinst \
 	debian/dpkg.postrm \
 	debian/dpkg.logrotate \
 	debian/dpkg.lintian-overrides \
@@ -209,10 +212,16 @@ update-po:
 include $(top_srcdir)/cpan.am
 
 # If we create the dist tarball from the git repository, make sure
-# that we're not forgetting some files...
+# that we're not forgetting some files, and we are not storing any symlink
+# in the repository (except for the origins/default one) as those degrade
+# to regular files due to automake telling tar to dereference them.
 dist-hook: dist-cpan
 	echo $(VERSION) >$(distdir)/.dist-version
 	if [ -e .git ]; then \
+	  for file in `git ls-tree -r HEAD | grep ^12 | grep -v t/origins/default`; do \
+	    echo "$$file is a symlink packed as a file on the dist tar" >&2 ; \
+	    exit 1 ; \
+	  done ; \
 	  for file in `git ls-files | grep -v .gitignore`; do \
 	    if [ ! -e "$(distdir)/$$file" ]; then \
 	      echo "$$file is missing in $(distdir)" >&2 ; \

@@ -22,10 +22,7 @@ B<DEBIAN/postinst>
 
 =head1 DESCRIPTION
 
-Un paquet peut réaliser plusieurs actions post-installation à l'aide de
-scripts du responsable, en incluant un fichier I<postinst> exécutable dans
-son archive de contrôle (c'est-à-dire I<DEBIAN/postinst> au moment de la
-création du paquet).
+Un paquet peut réaliser plusieurs actions post-installation à l'aide de scripts du responsable, en incluant un fichier I<postinst> exécutable dans son archive de contrôle (c'est-à-dire I<DEBIAN/postinst> au moment de la création du paquet).
 
 Le script peut être appelé de diverses S<manières :>
 
@@ -37,13 +34,11 @@ Après l'installation paquet
 
 =item I<postinst> B<triggered> "I<trigger-name...>"
 
-After the package was triggered.  The list of space-separated
-I<trigger-name>s is passed as the second argument.
+After the package was triggered.  The list of space-separated I<trigger-name>s is passed as the second argument.
 
 =item I<ancien-postinst> B<abort-upgrade> I<nouvelle-version>
 
-Si I<prerm> échoue durant la mise à niveau ou échoue après l'échec de la
-mise à niveau.
+Si I<prerm> échoue durant la mise à niveau ou échoue après l'échec de la mise à niveau.
 
 =item I<ancien-postinst> B<abort-remove>
 

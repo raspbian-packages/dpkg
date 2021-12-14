@@ -22,9 +22,7 @@ B<DEBIAN/postinst>
 
 =head1 DESCRIÇÃO
 
-Um pacote pode executar várias acções de pós-instalação via scripts do
-maintainer, ao incluir um ficheiro executável I<postinst> no seu arquivo de
-controle (isto é, I<DEBIAN/postinst>( durante a criação do pacote.
+Um pacote pode executar várias acções de pós-instalação via scripts do maintainer, ao incluir um ficheiro executável I<postinst> no seu arquivo de controle (isto é, I<DEBIAN/postinst>( durante a criação do pacote.
 
 O script pode ser chamado nos seguintes modos:
 
@@ -36,8 +34,7 @@ Após o pacote ter sido instalado.
 
 =item I<postinst> B<triggered> "I<trigger-name...>"
 
-Após o pacote ser despoletado. A lista de I<trigger-name>s separados por
-espaços é passada como segundo argumento.
+Após o pacote ser despoletado. A lista de I<trigger-name>s separados por espaços é passada como segundo argumento.
 
 =item I<old-postinst> B<abort-upgrade> I<new-version>
 

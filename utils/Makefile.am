@@ -1,11 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
-localedir = $(datadir)/locale
 AM_CPPFLAGS = \
 	-DADMINDIR=\"$(admindir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(logdir)\" \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
+	-DRUNSTATEDIR=\"$(runstatedir)\" \
 	-idirafter $(top_srcdir)/lib/compat \
 	-I$(top_builddir) \
 	-I$(top_srcdir)/lib
@@ -64,6 +64,7 @@ start_stop_daemon_SOURCES = \
 
 start_stop_daemon_LDADD = \
 	../lib/compat/libcompat.la \
+	$(SOCKET_LIBS) \
 	$(PS_LIBS) \
 	$(KVM_LIBS) \
 	$(nil)
@@ -79,7 +80,12 @@ endif
 uninstall-local:
 	rm -f $(DESTDIR)$(sysconfdir)/alternatives/README
 
-TEST_ENV_VARS = DPKG_DATADIR=$(top_srcdir)/data
+TEST_ENV_VARS = \
+	DPKG_DATADIR=$(top_srcdir)/data \
+	UA_ROOTDIR_ENVVAR=DPKG_ROOT \
+	UA_ADMINDIR_ENVVAR=DPKG_ADMINDIR \
+	UA_ADMINDIR_DEFAULT=$(admindir) \
+	# EOL
 
 test_tmpdir = t.tmp
 test_scripts = \

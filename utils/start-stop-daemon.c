@@ -135,6 +135,11 @@
 #define SCHED_RR -1
 #endif
 
+/* At least macOS and AIX do not define this. */
+#ifndef SOCK_NONBLOCK
+#define SOCK_NONBLOCK 0
+#endif
+
 #if defined(OS_Linux)
 /* This comes from TASK_COMM_LEN defined in Linux' include/linux/sched.h. */
 #define PROCESS_NAME_SIZE 15
@@ -561,8 +566,8 @@ setup_socket_name(const char *suffix)
 {
 	const char *basedir;
 
-	if (getuid() == 0 && access("/run", F_OK) == 0) {
-		basedir = "/run";
+	if (getuid() == 0 && access(RUNSTATEDIR, F_OK) == 0) {
+		basedir = RUNSTATEDIR;
 	} else {
 		basedir = getenv("TMPDIR");
 		if (basedir == NULL)

@@ -22,24 +22,11 @@ B<%PKGCONFDIR%/origins/>I<bestandsnaam>
 
 =head1 BESCHRIJVING
 
-De bestanden in B<%PKGCONFDIR%/origins> kunnen informatie verschaffen over
-de verschillende leveranciers die Debian pakketten leveren.
+De bestanden in B<%PKGCONFDIR%/origins> kunnen informatie verschaffen over de verschillende leveranciers die Debian pakketten leveren.
 
-Ze bevatten een aantal velden, of commentaar in het geval de regel begint
-met een ‘B<#>’. Elk veld begint met een markering, zoals B<Vendor> of
-B<Parent>, gevolgd door een dubbele punt en het tekstgedeelte van het
-veld. Velden zijn enkel van elkaar gescheiden door de veldmarkeringen. Met
-andere woorden de tekst van een veld mag meerdere regels lang zijn, maar de
-gereedschappen zullen de regels samenvoegen bij het verwerken van het
-tekstgedeelte van het veld.
+Ze bevatten een aantal velden, of commentaar in het geval de regel begint met een ‘B<#>’. Elk veld begint met een markering, zoals B<Vendor> of B<Parent>, gevolgd door een dubbele punt en het tekstgedeelte van het veld. Velden zijn enkel van elkaar gescheiden door de veldmarkeringen. Met andere woorden de tekst van een veld mag meerdere regels lang zijn, maar de gereedschappen zullen de regels samenvoegen bij het verwerken van het tekstgedeelte van het veld.
 
-Het bestand zou een naam moeten krijgen die overeenstemt met de naam van de
-leverancier. Het is gebruikelijk om het leveranciersbestand de naam van de
-leverancier te geven in kleine letters, maar een zekere mate van variatie is
-toegestaan. Met name wordt een spatie omgezet naar een liggend streepje
-(‘B<->’) en kan de bestandsnaam op dezelfde manier gebruik maken van
-hoofdletters en kleine letters zoals dat het geval is voor de waarde van het
-veld B<Vendor> of hij kan volledig uit hoofdletters bestaan.
+Het bestand zou een naam moeten krijgen die overeenstemt met de naam van de leverancier. Het is gebruikelijk om het leveranciersbestand de naam van de leverancier te geven in kleine letters, maar een zekere mate van variatie is toegestaan. Met name wordt een spatie omgezet naar een liggend streepje (‘B<->’) en kan de bestandsnaam op dezelfde manier gebruik maken van hoofdletters en kleine letters zoals dat het geval is voor de waarde van het veld B<Vendor> of hij kan volledig uit hoofdletters bestaan.
 
 =head1 VELDEN
 
@@ -55,15 +42,11 @@ De waarde van dit veld bepaalt de URL van de leverancier.
 
 =item B<Bugs:> I<bug-URL>
 
-De waarde van dit veld bepaalt het type en het adres van het
-bugopvolgingssysteem dat door deze leverancier gebruikt wordt. Het kan gaan
-om een URL van het type mailto of een URL van het type debbugs
-(bijv. debbugs://bugs.debian.org/).
+De waarde van dit veld bepaalt het type en het adres van het bugopvolgingssysteem dat door deze leverancier gebruikt wordt. Het kan gaan om een URL van het type mailto of een URL van het type debbugs (bijv. debbugs://bugs.debian.org/).
 
 =item B<Parent:> I<leveranciersnaam>
 
-De waarde van dit veld bepaalt de naam van de leverancier waarvan deze
-leverancier een derivaat maakt.
+De waarde van dit veld bepaalt de naam van de leverancier waarvan deze leverancier een derivaat maakt.
 
 =back
 

@@ -26,6 +26,8 @@
 #include <dpkg/pkg-list.h>
 
 #include "force.h"
+#include "actions.h"
+#include "security-mac.h"
 
 /* These two are defined in <dpkg/fsys.h>. */
 struct fsys_namenode_list;
@@ -63,62 +65,6 @@ struct perpackagestate {
 
   /** Non-NULL iff in trigproc.c:deferred. */
   struct pkg_list *trigprocdeferred;
-};
-
-enum action {
-	act_unset,
-
-	act_unpack,
-	act_configure,
-	act_install,
-	act_triggers,
-	act_remove,
-	act_purge,
-	act_verify,
-	act_commandfd,
-
-	act_status,
-	act_listpackages,
-	act_listfiles,
-	act_searchfiles,
-	act_controlpath,
-	act_controllist,
-	act_controlshow,
-
-	act_cmpversions,
-
-	act_arch_add,
-	act_arch_remove,
-	act_printarch,
-	act_printforeignarches,
-
-	act_assertpredep,
-	act_assertepoch,
-	act_assertlongfilenames,
-	act_assertmulticonrep,
-	act_assertmultiarch,
-	act_assertverprovides,
-	act_assert_protected,
-
-	act_validate_pkgname,
-	act_validate_trigname,
-	act_validate_archname,
-	act_validate_version,
-
-	act_audit,
-	act_unpackchk,
-	act_predeppackage,
-
-	act_getselections,
-	act_setselections,
-	act_clearselections,
-
-	act_avail,
-	act_printavail,
-	act_avclear,
-	act_avreplace,
-	act_avmerge,
-	act_forgetold,
 };
 
 extern const char *const statusstrings[];
@@ -159,15 +105,11 @@ int updateavailable(const char *const *argv);
 
 /* from enquiry.c */
 
+extern const char *assert_feature_name;
+
 int audit(const char *const *argv);
 int unpackchk(const char *const *argv);
-int assertepoch(const char *const *argv);
-int assertpredep(const char *const *argv);
-int assertlongfilenames(const char *const *argv);
-int assertmulticonrep(const char *const *argv);
-int assertmultiarch(const char *const *argv);
-int assertverprovides(const char *const *argv);
-int assert_protected(const char *const *argv);
+int assert_feature(const char *const *argv);
 int validate_pkgname(const char *const *argv);
 int validate_trigname(const char *const *argv);
 int validate_archname(const char *const *argv);
@@ -275,7 +217,7 @@ bool skip_due_to_hold(struct pkginfo *pkg);
 
 struct stat;
 
-bool ignore_depends(struct pkginfo *pkg);
+bool ignore_depends(const struct pkginfo *pkg);
 bool force_breaks(struct deppossi *possi);
 bool force_depends(struct deppossi *possi);
 bool force_conflicts(struct deppossi *possi);
@@ -316,12 +258,6 @@ bool
 dir_has_conffiles(struct fsys_namenode *namenode, struct pkginfo *pkg);
 
 void log_action(const char *action, struct pkginfo *pkg, struct pkgbin *pkgbin);
-
-/* From selinux.c */
-
-void dpkg_selabel_load(void);
-void dpkg_selabel_set_context(const char *matchpath, const char *path, mode_t mode);
-void dpkg_selabel_close(void);
 
 /* from trigproc.c */
 

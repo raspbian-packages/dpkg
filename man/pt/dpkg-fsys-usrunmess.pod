@@ -22,11 +22,7 @@ B<dpkg-fsys-usrunmess> [B<option>...]
 
 =head1 DESCRIÇÃO
 
-B<dpkg-fsys-usrunmess> é uma ferramenta para corrigir sistemas de ficheiros
-que foram instalados de novo com instaladores recentes de predefinições
-infelizes ou migrados para um /usr danificado via directórios de disposição
-de nomes alternativos, o qual B<não> é suportado pelo dpkg. Veja a FAQ do
-dpkg.
+B<dpkg-fsys-usrunmess> é uma ferramenta para corrigir sistemas de ficheiros que foram instalados de novo com instaladores recentes de predefinições infelizes ou migrados para um /usr danificado via directórios de disposição de nomes alternativos, o qual B<não> é suportado pelo dpkg. Veja a FAQ do dpkg.
 
 Este programa irá executar as seguintes acções gerais:
 
@@ -42,13 +38,15 @@ Verifica a consistência da base de dados do dpkg e caso contrário aborta.
 
 =item *
 
+Generate and install a regression prevention package.
+
+=item *
+
 Obtém a lista de ficheiros e alternativas que precisam ser restaurados.
 
 =item *
 
-Cria uma hierarquia sombra sob F</.usrunmess>, ao criar os links simbólicos
-de directórios ou por ligações rijas ou copiando os ficheiros como
-necessário.
+Cria uma hierarquia sombra sob F</.usrunmess>, ao criar os links simbólicos de directórios ou por ligações rijas ou copiando os ficheiros como necessário.
 
 =item *
 
@@ -60,23 +58,15 @@ Tranca a base de dados do dpkg.
 
 =item *
 
-Marca todos os pacotes como meio instalados para forçar o correr dos scripts
-de maintainer que podem precisar de recriar ficheiros.
+Marca todos os pacotes como meio instalados para forçar o correr dos scripts de maintainer que podem precisar de recriar ficheiros.
 
 =item *
 
-Substitui os directórios de nomes alternativos pelos sombra, ao criar uma
-cópia de salvaguarda dos antigos directórios de links simbólicos e
-renomeando os sombra sobre os outros.
+Substitui os directórios de nomes alternativos pelos sombra, ao criar uma cópia de salvaguarda dos antigos directórios de links simbólicos e renomeando os sombra sobre os outros.
 
 =item *
 
-Re-etiqueta a informação MAC para directórios e links simbólicos se
-necessário.
-
-=item *
-
-Reconfigura todos os pacotes.
+Re-etiqueta a informação MAC para directórios e links simbólicos se necessário.
 
 =item *
 
@@ -94,18 +84,25 @@ Remove directórios adiados antigos que não estão referidos pelo dpkg-query.
 
 Remove o directório raiz sombra.
 
+=item *
+
+Register a B<policy-rc.d> to disallow service actions, which means that services might need to be restarted afterwards, ideally via a reboot.
+
+=item *
+
+Reconfigura todos os pacotes.
+
+=item *
+
+Unregister the B<policy-rc.d> and restore the alternatives state.
+
 =back
 
-B<Nota>: Quando se corre o programa a partir de alguma shells tais como
-L<bash(1)> ou L<zsh(1)>, após o executar, você pode precisar de requisitar à
-shell para esquecer todas as localizações de executáveis lembradas com por
-exemplo C<hash -r>.
+B<Nota>: Quando se corre o programa a partir de alguma shells tais como L<bash(1)> ou L<zsh(1)>, após o executar, você pode precisar de requisitar à shell para esquecer todas as localizações de executáveis lembradas com por exemplo C<hash -r>.
 
-B<Aviso>: Note que esta operação tem o potencial de tornar o sistema não
-utilizável ou quebrado em caso de uma pagarem súbita ou reinicio do
-sistema. estado inesperado do sistema, ou possíveis bugs no script. Esteja
-preparado com meio de recuperação e considere fazer cópias de salvaguarda
-antes.
+B<Note>: Some directories might linger after the migration in case they contain untracked files. A list is printed once the script has finished for further investigation.
+
+B<Aviso>: Note que esta operação tem o potencial de tornar o sistema não utilizável ou quebrado em caso de uma pagarem súbita ou reinicio do sistema. estado inesperado do sistema, ou possíveis bugs no script. Esteja preparado com meio de recuperação e considere fazer cópias de salvaguarda antes.
 
 =head1 OPÇÕES
 
@@ -113,15 +110,13 @@ antes.
 
 =item B<-p>, B<--prompt>
 
-Pergunta no ponto de não retorno, para que os resultados de depuração da
-hierarquia sombra possam ser avaliados antes de proceder.
+Pergunta no ponto de não retorno, para que os resultados de depuração da hierarquia sombra possam ser avaliados antes de proceder.
 
 =item B<-n>, B<--no-act>
 
 =item B<--dry-run>
 
-Esta opção activa o modo dry-run, onde não há acções destrutivas, apenas a
-parte de preparação.
+Esta opção activa o modo dry-run, onde não há acções destrutivas, apenas a parte de preparação.
 
 =item B<-?>, B<--help>
 

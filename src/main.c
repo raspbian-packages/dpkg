@@ -114,6 +114,7 @@ usage(const struct cmdinfo *ci, const char *value)
 "  --remove-architecture <arch>     Remove <arch> from the list of architectures.\n"
 "  --print-architecture             Print dpkg architecture.\n"
 "  --print-foreign-architectures    Print allowed foreign architectures.\n"
+"  --assert-help                    Show help on assertions.\n"
 "  --assert-<feature>               Assert support for the specified feature.\n"
 "  --validate-<thing> <string>      Validate a <thing>'s <string>.\n"
 "  --compare-versions <a> <op> <b>  Compare version numbers - see below.\n"
@@ -124,11 +125,6 @@ usage(const struct cmdinfo *ci, const char *value)
   printf(_(
 "  -?, --help                       Show this help message.\n"
 "      --version                    Show the version.\n"
-"\n"));
-
-  printf(_(
-"Assertable features: support-predepends, working-epoch, long-filenames,\n"
-"  multi-conrep, multi-arch, versioned-provides, protected-field.\n"
 "\n"));
 
   printf(_(
@@ -561,13 +557,7 @@ static const struct cmdinfo cmdinfos[]= {
   ACTION( "yet-to-unpack",                   0,  act_unpackchk,            unpackchk       ),
   ACTIONBACKEND( "list",                    'l', DPKGQUERY),
   ACTIONBACKEND( "search",                  'S', DPKGQUERY),
-  ACTION( "assert-support-predepends",       0,  act_assertpredep,         assertpredep    ),
-  ACTION( "assert-working-epoch",            0,  act_assertepoch,          assertepoch     ),
-  ACTION( "assert-long-filenames",           0,  act_assertlongfilenames,  assertlongfilenames ),
-  ACTION( "assert-multi-conrep",             0,  act_assertmulticonrep,    assertmulticonrep ),
-  ACTION( "assert-multi-arch",               0,  act_assertmultiarch,      assertmultiarch ),
-  ACTION( "assert-versioned-provides",       0,  act_assertverprovides,    assertverprovides ),
-  ACTION( "assert-protected-field",          0,  act_assert_protected,     assert_protected ),
+  ACTION_MUX( "assert",                      0,  act_assert_feature,       assert_feature, &assert_feature_name),
   ACTION( "add-architecture",                0,  act_arch_add,             arch_add        ),
   ACTION( "remove-architecture",             0,  act_arch_remove,          arch_remove     ),
   ACTION( "print-architecture",              0,  act_printarch,            printarch   ),
@@ -602,7 +592,7 @@ static const struct cmdinfo cmdinfos[]= {
   { "selected-only",     'O', 0, &f_alsoselect, NULL,      NULL,    0 },
   { "triggers",           0,  0, &f_triggers,   NULL,      NULL,    1 },
   { "no-triggers",        0,  0, &f_triggers,   NULL,      NULL,   -1 },
-  /* FIXME: Remove ('N') sometime. */
+  /* TODO: Remove ('N') sometime. */
   { "no-also-select",    'N', 0, &f_alsoselect, NULL,      NULL,    0 },
   { "skip-same-version", 'E', 0, &f_skipsame,   NULL,      NULL,    1 },
   { "auto-deconfigure",  'B', 0, &f_autodeconf, NULL,      NULL,    1 },

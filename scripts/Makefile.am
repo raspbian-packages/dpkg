@@ -2,6 +2,10 @@
 
 SUBDIRS = mk po
 
+pkglibexec_SCRIPTS = \
+	dpkg-db-backup \
+	# EOL
+
 sbin_SCRIPTS = \
 	dpkg-fsys-usrunmess
 
@@ -31,6 +35,7 @@ EXTRA_DIST = \
 	dpkg-buildflags.pl \
 	dpkg-buildpackage.pl \
 	dpkg-checkbuilddeps.pl \
+	dpkg-db-backup.sh \
 	dpkg-distaddfile.pl \
 	dpkg-fsys-usrunmess.pl \
 	dpkg-genbuildinfo.pl \
@@ -54,8 +59,13 @@ nobase_dist_pkgdata_DATA = \
 	sh/dpkg-error.sh \
 	# EOL
 
+dist_zshcompletions_DATA = \
+	zsh/_dpkg-parsechangelog \
+	# EOL
+
 CLEANFILES = \
 	$(test_data_objects) \
+	$(pkglibexec_SCRIPTS) \
 	$(sbin_SCRIPTS) \
 	$(bin_SCRIPTS)
 
@@ -145,7 +155,7 @@ man3_MANS =
 
 man_perl_section = 3perl
 
-do_perl_subst = $(AM_V_GEN) sed \
+do_perl_subst = $(AM_V_GEN) $(SED) \
 	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
 	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
 	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
@@ -156,7 +166,9 @@ do_perl_subst = $(AM_V_GEN) sed \
 	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
 	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:"
 
-do_shell_subst = $(AM_V_GEN) sed \
+do_shell_subst = $(AM_V_GEN) $(SED) \
+	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
+	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
 	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
 	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":"
 
@@ -179,7 +191,7 @@ if BUILD_POD_DOC
 # Remove empty manual pages (perl modules not documented)
 	$(MKDIR_P) $(DESTDIR)$(man3dir)
 	for module in $(nobase_dist_perllib_DATA); do \
-	  name=`echo $$module | sed -e 's|/|::|g' -e 's/\.pm$$//'`; \
+	  name=`echo $$module | $(SED) -e 's|/|::|g' -e 's/\.pm$$//'`; \
 	  $(POD2MAN) --utf8 --center=libdpkg-perl --release=$(VERSION) \
 	    --name="$$name" --section=$(man_perl_section) $(srcdir)/$$module \
 	    >$(DESTDIR)$(man3dir)/$$name.$(man_perl_section); \
@@ -188,7 +200,7 @@ if BUILD_POD_DOC
 	done
 endif
 
-# Ideally we'd use 'sed -i', but unfortunately that's not portable.
+# Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
 install-data-hook:
 	mv $(DESTDIR)$(perllibdir)/Dpkg.pm \
 	   $(DESTDIR)$(perllibdir)/Dpkg.pm.tmp
@@ -199,7 +211,7 @@ install-data-hook:
 uninstall-local:
 if BUILD_POD_DOC
 	for module in $(nobase_dist_perllib_DATA); do \
-	  rm -f $(DESTDIR)$(man3dir)/`echo $$module | sed -e 's|/|::|g' -e 's/\.pm$$/.$(man_perl_section)/'`; \
+	  rm -f $(DESTDIR)$(man3dir)/`echo $$module | $(SED) -e 's|/|::|g' -e 's/\.pm$$/.$(man_perl_section)/'`; \
 	done
 endif
 
@@ -371,6 +383,11 @@ test_data = \
 	t/merge_changelogs/ch-merged-basic \
 	t/merge_changelogs/ch-merged-pr \
 	t/merge_changelogs/ch-merged-pr-basic \
+	t/merge_changelogs/ch-unreleased-a \
+	t/merge_changelogs/ch-unreleased-b \
+	t/merge_changelogs/ch-unreleased-merged \
+	t/merge_changelogs/ch-unreleased-merged-basic \
+	t/merge_changelogs/ch-unreleased-old \
 	t/mk/debian/changelog \
 	t/mk/architecture.mk \
 	t/mk/buildflags.mk \

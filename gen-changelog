@@ -126,7 +126,7 @@ my %metafield = (
     'Prompted-by' => 'Prompted by',
     'Reported-by' => 'Reported by',
     'Required-by' => 'Required by',
-    'Analysis-by' => 'Anaylisis by',
+    'Analysis-by' => 'Analysis by',
     'Requested-by' => 'Requested by',
     'Suggested-by' => 'Suggested by',
     'Spotted-by' => 'Spotted by',
@@ -165,6 +165,7 @@ spawn(
 my $log = Dpkg::Index->new(
     get_key_func => sub { return $_[0]->{Commit} },
     item_opts => {
+        keep_duplicate => 1,
         allow_duplicate => 1,
     },
 );
@@ -195,7 +196,14 @@ foreach my $id (reverse $log->get_keys()) {
         # Include the entire commit body for verbose commits.
         if ($changelog =~ m/(?:verbose|full)/) {
             my $body = qx(git show -s --pretty=tformat:%b $id);
-            $commit->{title} .= "\n$body";
+            $commit->{Title} .= "\n$body";
+        }
+
+        if ($changelog =~ m{s/([^/]+)/([^/]+)/}) {
+            $commit->{Fixup} = {
+                old => $1,
+                new => $2,
+            };
         }
     }
 
@@ -262,11 +270,21 @@ foreach my $groupname (@groups, sort @groups_l10n) {
             foreach my $metafield (@metafields) {
                 next unless exists $commit->{$metafield};
 
-                $title .= "\n$metafield{$metafield} $commit->{$metafield}.";
+                my $values = $commit->{$metafield};
+                $values = [ $values ] if ref $values ne 'ARRAY';
+
+                foreach my $value (@{$values}) {
+                    $title .= "\n$metafield{$metafield} $value.";
+                }
             }
             # Handle the Closes metafield last.
             if (exists $commit->{Closes}) {
                 $title .= " Closes: $commit->{Closes}";
+            }
+
+            # Handle fixups from git notes.
+            if (exists $commit->{Fixup}) {
+                $title =~ s/\Q$commit->{Fixup}{old}\E/$commit->{Fixup}{new}/m;
             }
 
             # Handle mappings.

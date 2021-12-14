@@ -22,9 +22,7 @@ B<DEBIAN/prerm>
 
 =head1 DESCRIÇÃO
 
-Um pacote pode executar várias acções de pré-remoção via scripts de
-maintainer ao incluir um ficheiro executável I<prerm> no seu arquivo de
-controle (isto é, I<DEBIAN/prerm>) durante a criação do pacote.
+Um pacote pode executar várias acções de pré-remoção via scripts de maintainer ao incluir um ficheiro executável I<prerm> no seu arquivo de controle (isto é, I<DEBIAN/prerm>) durante a criação do pacote.
 
 O script pode ser chamado nos seguintes modos:
 
@@ -42,12 +40,13 @@ Antes de uma actualização.
 
 Se o B<upgrade> em cima falhar.
 
+The I<new-version> is passed only since dpkg 1.18.5.
+
 =item I<prerm> B<deconfigure in-favour> I<new-package new-version>
 
 =item S< >[ B<removing> I<old-package old-version> ]
 
-Antes do pacote ser desconfigurado enquanto a dependência é substituída
-devido a conflito.
+Antes do pacote ser desconfigurado enquanto a dependência é substituída devido a conflito.
 
 =item I<prerm> B<remove in-favour> I<new-package new-version>
 

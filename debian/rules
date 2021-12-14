@@ -61,6 +61,7 @@ build-tree/config.status:
 		--sysconfdir=/etc \
 		--sbindir=/sbin \
 		--localstatedir=/var \
+		--runstatedir=/run \
 		--libexecdir=\$${exec_prefix}/lib \
 		--with-devlibdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 		--without-libmd \
@@ -110,6 +111,7 @@ binary-arch: install
 	dh_testroot -a
 	dh_install -a
 	dh_installcron -a
+	dh_installsystemd -a --name=dpkg-db-backup
 	dh_installlogrotate -a
 	dh_installlogrotate -a --name=alternatives
 	dh_installchangelogs -a ChangeLog*
@@ -134,7 +136,6 @@ binary-indep: install
 	dh_testdir -i
 	dh_testroot -i
 	dh_install -i
-	dh_installcron -i
 	dh_installchangelogs -i ChangeLog*
 	dh_installdocs -i -Ndpkg-dev
 	dh_installdocs -pdpkg-dev --doc-main-package=dpkg

@@ -22,10 +22,7 @@ B<DEBIAN/postinst>
 
 =head1 BESCHRIJVING
 
-Een pakket kan verschillende post-installatieacties uitvoeren via scripts
-van de pakketonderhouder door in zijn control-archief een uitvoerbaar
-bestand I<postinst> op te nemen (d.w.z. I<DEBIAN/postinst> bij het creëren
-van het pakket).
+Een pakket kan verschillende post-installatieacties uitvoeren via scripts van de pakketonderhouder door in zijn control-archief een uitvoerbaar bestand I<postinst> op te nemen (d.w.z. I<DEBIAN/postinst> bij het creëren van het pakket).
 
 Het script kan op de volgende manieren geactiveerd worden:
 
@@ -37,13 +34,11 @@ Nadat het pakket geïnstalleerd werd.
 
 =item I<postinst> B<triggered> "I<triggernaam...>"
 
-Nadat het pakket getriggerd werd. De lijst van met spaties gescheiden
-I<trigger-namen> wordt als tweede argument meegegeven.
+Nadat het pakket getriggerd werd. De lijst van met spaties gescheiden I<trigger-namen> wordt als tweede argument meegegeven.
 
 =item I<old-postinst> B<abort-upgrade> I<nieuwe-versie>
 
-Indien I<prerm> mislukt tijdens het opwaarderen of mislukt bij een mislukte
-opwaardering.
+Indien I<prerm> mislukt tijdens het opwaarderen of mislukt bij een mislukte opwaardering.
 
 =item I<old-postinst> B<abort-remove>
 

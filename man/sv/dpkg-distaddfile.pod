@@ -22,15 +22,11 @@ B<dpkg-distaddfile> [I<flagga>...] I<filnamn sektion prioritet>
 
 =head1 BESKRIVNING
 
-B<dpkg-distaddfile> lägger till en post för en namngiven fil i
-B<debian/files>.
+B<dpkg-distaddfile> lägger till en post för en namngiven fil i B<debian/files>.
 
-Det tar tre argument som inte är flaggor - filnamn, sektion och prioritet
-för B<.changes>-filen.
+Det tar tre argument som inte är flaggor - filnamn, sektion och prioritet för B<.changes>-filen.
 
-Filnamnet anges relativt till katalogen där B<dpkg-genchanges> förväntas
-finna filerna, normalt B<..>, snarare än som en sökväg relativ till den
-aktuella katalogen när B<dpkg-distaddfile> körs.
+Filnamnet anges relativt till katalogen där B<dpkg-genchanges> förväntas finna filerna, normalt B<..>, snarare än som en sökväg relativ till den aktuella katalogen när B<dpkg-distaddfile> körs.
 
 =head1 FLAGGOR
 
@@ -38,8 +34,7 @@ aktuella katalogen när B<dpkg-distaddfile> körs.
 
 =item B<-f>I<fillistfil>
 
-Läs eller skriv listan över filer som skall sändas in här, istället för att
-använda B<debian/file>.
+Läs eller skriv listan över filer som skall sändas in här, istället för att använda B<debian/file>.
 
 =item B<-?>, B<--help>
 
@@ -57,14 +52,11 @@ Visar version och avslutar.
 
 =item B<DPKG_COLORS>
 
-Sets the color mode (since dpkg 1.18.5).  The currently accepted values are:
-B<auto> (default), B<always> and B<never>.
+Sets the color mode (since dpkg 1.18.5).  The currently accepted values are: B<auto> (default), B<always> and B<never>.
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language
-Support, also known as internationalization (or i18n) support (since dpkg
-1.19.0).  The accepted values are: B<0> and B<1> (default).
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.19.0).  The accepted values are: B<0> and B<1> (default).
 
 =back
 
@@ -74,9 +66,7 @@ Support, also known as internationalization (or i18n) support (since dpkg
 
 =item B<debian/files>
 
-Listan över genererade filer so ingår i insändningen som
-förbereds. B<dpkg-distaddfile> kan användas för att lägga till ytterligare
-filer.
+Listan över genererade filer so ingår i insändningen som förbereds. B<dpkg-distaddfile> kan användas för att lägga till ytterligare filer.
 
 =back
 

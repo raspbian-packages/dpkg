@@ -6,24 +6,25 @@ man_MANS = \
 	deb-changes.5 \
 	deb-conffiles.5 \
 	deb-control.5 \
-	deb-src-control.5 \
-	deb-src-files.5 \
-	deb-src-rules.5 \
-	deb-src-symbols.5 \
-	deb-version.7 \
-	deb-shlibs.5 \
-	deb-split.5 \
-	deb-substvars.5 \
-	deb-symbols.5 \
+	deb-extra-override.5 \
+	deb-md5sums.5 \
+	deb-old.5 \
+	deb-origin.5 \
+	deb-override.5 \
 	deb-postinst.5 \
 	deb-postrm.5 \
 	deb-preinst.5 \
 	deb-prerm.5 \
+	deb-shlibs.5 \
+	deb-split.5 \
+	deb-src-control.5 \
+	deb-src-files.5 \
+	deb-src-rules.5 \
+	deb-src-symbols.5 \
+	deb-substvars.5 \
+	deb-symbols.5 \
 	deb-triggers.5 \
-	deb-old.5 \
-	deb-origin.5 \
-	deb-override.5 \
-	deb-extra-override.5 \
+	deb-version.7 \
 	deb.5 \
 	deb822.5 \
 	dpkg-architecture.1 \
@@ -76,12 +77,21 @@ endif
 CLEANFILES = $(man_MANS)
 
 EXTRA_DIST = \
+	po/ChangeLog.old \
+	po/dpkg-man.pot \
+	po/po4a.cfg \
+	utf8toman.sed \
+	# EOL
+
+# Man page sources.
+EXTRA_DIST += \
 	deb-buildinfo.pod \
 	deb-changelog.pod \
 	deb-changes.pod \
 	deb-conffiles.pod \
 	deb-control.pod \
 	deb-extra-override.pod \
+	deb-md5sums.pod \
 	deb-old.pod \
 	deb-origin.pod \
 	deb-override.pod \
@@ -127,21 +137,18 @@ EXTRA_DIST = \
 	dpkg-statoverride.pod \
 	dpkg-trigger.pod \
 	dpkg-vendor.pod \
-	dpkg.pod \
 	dpkg.cfg.pod \
+	dpkg.pod \
 	dsc.pod \
-	dselect.pod \
 	dselect.cfg.pod \
+	dselect.pod \
 	start-stop-daemon.pod \
 	update-alternatives.pod \
-	utf8toman.sed \
-	po/ChangeLog.old \
-	po/po4a.cfg \
-	po/dpkg-man.pot
+	# EOL
 
 
 # Extract the list of languages from the po4a config file.
-LINGUAS_DIST = `sed -ne 's/^.*\[po4a_langs\] \(.*\)$$/\1/p' $(srcdir)/po/po4a.cfg`
+LINGUAS_DIST = `$(SED) -ne 's/^.*\[po4a_langs\] \(.*\)$$/\1/p' $(srcdir)/po/po4a.cfg`
 
 # If the user has not defined it let's use the default.
 LINGUAS ?= $(LINGUAS_DIST)
@@ -207,20 +214,22 @@ POD2MAN_V_0 = @echo "  POD2MAN $@";
 POD2MAN_OPTS = --utf8 --center='dpkg suite' --release=$(PACKAGE_VERSION) \
                --date='$(PACKAGE_RELEASE_DATE)'
 
-PODSUBST = sed \
+PODSUBST = $(SED) \
 	-e 's/%PACKAGE%/$(PACKAGE)/g' \
 	-e 's/%VERSION%/$(PACKAGE_VERSION)/g' \
 	-e 's/%RELEASE_DATE%/$(PACKAGE_RELEASE_DATE)/g' \
 	-e 's:%CONFDIR%:$(sysconfdir):g' \
+	-e 's:%RUNSTATEDIR%:$(runstatedir):g' \
 	-e 's:%LOGDIR%:$(logdir):g' \
 	-e 's:%ADMINDIR%:$(admindir):g' \
+	-e 's:%BACKUPSDIR%:$(backupsdir):g' \
 	-e 's:%PKGDOCDIR%:$(docdir):g' \
 	-e 's:%PKGCONFDIR%:$(pkgconfdir):g' \
 	-e 's:%PKGLIBDIR%:$(pkglibexecdir):g' \
 	-e 's:%PKGDATADIR%:$(pkgdatadir):g' \
 	$(nil)
 
-MANFIXUP = sed \
+MANFIXUP = $(SED) \
 	-f $(srcdir)/utf8toman.sed \
 	$(nil)
 

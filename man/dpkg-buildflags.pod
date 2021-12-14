@@ -240,6 +240,10 @@ Show the version and exit.
 
 =over
 
+=item B<ASFLAGS>
+
+Options for the assembler. Default value: empty. Since dpkg 1.21.0.
+
 =item B<CFLAGS>
 
 Options for the C compiler. The default value set by the vendor
@@ -351,6 +355,24 @@ The only currently supported flags are B<CPPFLAGS>, B<CFLAGS>,
 B<OBJCFLAGS>, B<CXXFLAGS> and B<OBJCXXFLAGS> with flags set
 to B<-D__DEB_CANARY_>I<flag>_I<random-id>B<__>, and
 B<LDFLAGS> set to B<-Wl,-z,deb-canary->I<random-id>.
+
+=back
+
+=head2 optimize
+
+Several compile-time options (detailed below) can be used to help optimize
+a resulting binary (since dpkg 1.21.0).
+B<Note>: enabling B<all> these options can result in unreproducible binary
+artifacts.
+
+=over
+
+=item lto
+
+This setting (since dpkg 1.21.0; disabled by default) enables
+Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to
+B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>,
+B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
 
 =back
 

@@ -48,7 +48,8 @@
 #include <dpkg/options.h>
 
 #include "force.h"
-#include "main.h"
+#include "actions.h"
+#include "security-mac.h"
 
 static const char printforhelp[] = N_(
 "Use --help for help about overriding file stat information.");
@@ -410,8 +411,8 @@ main(int argc, const char *const *argv)
 	set_force_default(FORCE_STATCMD_MASK);
 	dpkg_options_parse(&argv, cmdinfos, printforhelp);
 
-	admindir = dpkg_db_set_dir(admindir);
 	instdir = dpkg_fsys_set_dir(instdir);
+	admindir = dpkg_db_set_dir(admindir);
 
 	if (!cipaction)
 		badusage(_("need an action option"));

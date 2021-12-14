@@ -357,95 +357,113 @@ unpackchk(const char *const *argv)
   return 0;
 }
 
+static const struct assert_feature {
+  const char *name;
+  const char *desc;
+  const char *version;
+} assert_features[] = {
+  {
+    .name = "support-predepends",
+    .desc = N_("the Pre-Depends field"),
+    .version = "1.1.0",
+  }, {
+    .name = "working-epoch",
+    .desc = N_("epochs in versions"),
+    .version = "1.4.0.7",
+  }, {
+    .name = "long-filenames",
+    .desc = N_("long filenames in .deb archives"),
+    .version = "1.4.1.17",
+  }, {
+    .name = "multi-conrep",
+    .desc = N_("multiple Conflicts and Replaces"),
+    .version = "1.4.1.19",
+  }, {
+    .name = "multi-arch",
+    .desc = N_("multi-arch fields and semantics"),
+    .version = "1.16.2",
+  }, {
+    .name = "versioned-provides",
+    .desc = N_("versioned relationships in the Provides field"),
+    .version = "1.17.11",
+  }, {
+    .name = "protected-field",
+    .desc = N_("the Protected field"),
+    .version = "1.20.1",
+  }, {
+    .name = NULL,
+  }
+};
+
 static int
 assert_version_support(const char *const *argv,
-                       struct dpkg_version *version,
-                       const char *feature_name)
+                       const struct assert_feature *feature)
 {
-  struct pkginfo *pkg;
+  const char *running_version_str;
+  struct dpkg_version running_version = DPKG_VERSION_INIT;
+  struct dpkg_version version = { 0, feature->version, NULL };
+  struct dpkg_error err = DPKG_ERROR_INIT;
 
   if (*argv)
     badusage(_("--%s takes no arguments"), cipaction->olong);
 
-  modstatdb_open(msdbrw_readonly);
+  /*
+   * When using the feature asserts, we want to know whether the currently
+   * running dpkg, which we might be running under (say from within a
+   * maintainer script) and which might have a different version, supports
+   * the requested feature. As dpkg is an Essential package, it is expected
+   * to work even when just unpacked, and so its own version is enough.
+   */
+  running_version_str = getenv("DPKG_RUNNING_VERSION");
 
-  pkg = pkg_hash_find_singleton("dpkg");
-  switch (pkg->status) {
-  case PKG_STAT_INSTALLED:
-  case PKG_STAT_TRIGGERSPENDING:
+  /*
+   * If we are not running from within a maintainer script, then that means
+   * once we do, the executed dpkg will support the requested feature, if
+   * we know about it. Always return success in that case.
+   */
+  if (str_is_unset(running_version_str))
     return 0;
-  case PKG_STAT_UNPACKED:
-  case PKG_STAT_HALFCONFIGURED:
-  case PKG_STAT_HALFINSTALLED:
-  case PKG_STAT_TRIGGERSAWAITED:
-    if (dpkg_version_relate(&pkg->configversion, DPKG_RELATION_GE, version))
-      return 0;
-    printf(_("Version of dpkg with working %s support not yet configured.\n"
-             " Please use 'dpkg --configure dpkg', and then try again.\n"),
-           feature_name);
-    return 1;
-  default:
-    printf(_("dpkg not recorded as installed, cannot check for %s support!\n"),
-           feature_name);
-    return 1;
+
+  if (parseversion(&running_version, running_version_str, &err) < 0)
+    ohshit(_("cannot parse dpkg running version '%s': %s"),
+           running_version_str, err.str);
+
+  if (dpkg_version_relate(&running_version, DPKG_RELATION_GE, &version))
+    return 0;
+
+  printf(_("Running version of dpkg does not support %s.\n"
+           " Please upgrade to at least dpkg %s, and then try again.\n"),
+         feature->desc, versiondescribe(&version, vdew_nonambig));
+  return 1;
+}
+
+const char *assert_feature_name;
+
+int
+assert_feature(const char *const *argv)
+{
+  const struct assert_feature *feature;
+
+  if (strcmp(assert_feature_name, "help") == 0) {
+    printf(_("%s assert options - assert whether features are supported:\n"),
+           dpkg_get_progname());
+
+    for (feature = assert_features; feature->name; feature++) {
+      printf("  %-19s %-9s %s\n", feature->name, feature->version,
+             gettext(feature->desc));
+    }
+
+    exit(0);
   }
-}
 
-int
-assertpredep(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.1.0", NULL };
+  for (feature = assert_features; feature->name; feature++) {
+    if (strcmp(feature->name, assert_feature_name) != 0)
+      continue;
 
-  return assert_version_support(argv, &version, _("Pre-Depends field"));
-}
+    return assert_version_support(argv, feature);
+  }
 
-int
-assertepoch(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.4.0.7", NULL };
-
-  return assert_version_support(argv, &version, _("epoch"));
-}
-
-int
-assertlongfilenames(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.4.1.17", NULL };
-
-  return assert_version_support(argv, &version, _("long filenames"));
-}
-
-int
-assertmulticonrep(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.4.1.19", NULL };
-
-  return assert_version_support(argv, &version,
-                                _("multiple Conflicts and Replaces"));
-}
-
-int
-assertmultiarch(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.16.2", NULL };
-
-  return assert_version_support(argv, &version, _("multi-arch"));
-}
-
-int
-assertverprovides(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.17.11", NULL };
-
-  return assert_version_support(argv, &version, _("versioned Provides"));
-}
-
-int
-assert_protected(const char *const *argv)
-{
-  struct dpkg_version version = { 0, "1.20.1", NULL };
-
-  return assert_version_support(argv, &version, _("Protected field"));
+  badusage(_("unknown --%s-<feature>"), cipaction->olong);
 }
 
 /**
