@@ -88,7 +88,7 @@ Meerdere beperkingen kunnen aaneengeregen worden.
 
 =item B<allow-internal>
 
-dpkg-gensymbols hanteert een lijst van interne symbolen die niet zouden mogen voorkomen in symboolbestanden omdat ze gewoonlijk slechts een neveneffect zijn van details in de wijze waarop de gereedschapskist (toolchain) geïmplementeerd wordt. Indien u om een of andere reden echt wilt dat een van deze symbolen opgenomen wordt in het symboolbestand, moet u het symbool markeren met de tag B<allow-internal>. Dit kan nodig zijn voor sommige gereedschapskistbibliotheken van lagere orde zoals “libgcc”.
+dpkg-gensymbols hanteert een lijst van interne symbolen die niet zouden mogen voorkomen in symboolbestanden omdat ze gewoonlijk slechts een neveneffect zijn van details in de wijze waarop de gereedschapsketen (toolchain) geïmplementeerd wordt. Indien u om een of andere reden echt wilt dat een van deze symbolen opgenomen wordt in het symboolbestand, moet u het symbool markeren met de tag B<allow-internal>. Dit kan nodig zijn voor sommige gereedschapsketenbibliotheken van lagere orde zoals “libgcc”.
 
 =item B<ignore-blacklist>
 

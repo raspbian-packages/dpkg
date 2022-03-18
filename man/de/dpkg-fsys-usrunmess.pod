@@ -140,7 +140,7 @@ Diese Einstellung definiert, ob der Probelaufmodus aktiviert wird.
 
 =head1 SIEHE AUCH
 
-L<https://wiki.debian.org/Teams/Dpkg/FAQ#Q:_Does_dpkg_support_merged-.2Fusr-via-aliased-dirs.3F>.
+L<https://wiki.debian.org/Teams/Dpkg/FAQ#broken-usrmerge>.
 
 
 =head1 ÜBERSETZUNG

@@ -26,7 +26,7 @@ Vooraleer B<dpkg-source>, B<dpkg-gencontrol> en B<dpkg-genchanges> hun comtrole-
 
 Een variabelesubstitutie heeft als vorm B<${>I<variabelenaam>B<}>. Variabelenamen bestaan uit alfanumerieke tekens (a-zA-Z0-9), koppeltekens (-) en dubbele punten (:) en beginnen met een alfanumeriek teken. Ze zijn ook hoofdlettergevoelig, ook al kunnen ze verwijzen naar andere entiteiten die hoofdletterbehoudend zijn. Variabelesubstituties worden bij herhaling uitgevoerd tot er geen meer overblijven. Na een substitutie wordt de volledige tekst van het veld opnieuw doorzocht op nog meer uit te voeren substituties.
 
-After all the substitutions have been done each occurrence of the string B<${}> (which is not a legal substitution) is replaced with a B<$> sign. This can be used as an escape sequence such as B<${}{>I<VARIABLE>B<}> which will end up as B<${>I<VARIABLE>B<}> on the output.
+Nadat alle substituties uitgevoerd werden, wordt de tekenreeks B<${}> (hetgeen geen geldige substitutie is) overal waar die voorkomt, vervangen door het teken B<$>. Dit kan gebruikt worden als een escape-sequentie zoals B<${}{>I<VARIABLE>B<}>, wat in de uitvoer de vorm zal aannemen van B<${>I<VARIABLE>B<}>.
 
 Hoewel variabelesubstitutie uitgevoerd wordt op alle controlevelden, zijn sommige van die velden nodig tijdens het bouwen wanneer de substitutie nog niet heeft plaats gevonden. Dat is de reden waarom u geen variabelen kunt gebruiken in de velden B<Package>, B<Source> en B<Architecture>.
 

@@ -14,6 +14,12 @@
 
 @SET_MAKE@
 
+#
+# Build time variable substitution for generated files.
+#
+
+# Shell support.
+
 
 VPATH = @srcdir@
 am__is_gnu_make = { \
@@ -166,7 +172,8 @@ am__can_run_installinfo = \
   esac
 DATA = $(nobase_dist_methods_DATA) $(nobase_dist_perllib_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
-am__DIST_COMMON = $(srcdir)/Makefile.in
+am__DIST_COMMON = $(srcdir)/Makefile.in \
+	$(top_srcdir)/build-aux/subst.am
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -294,6 +301,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -362,7 +370,7 @@ nobase_dist_methods_DATA = \
 	ftp/desc.ftp \
 	multicd/names \
 	multicd/desc.multi_cd \
-	$(nil)
+	# EOL
 
 nobase_methods_SCRIPTS = \
 	disk/install \
@@ -374,10 +382,13 @@ nobase_methods_SCRIPTS = \
 	multicd/install \
 	multicd/setup \
 	multicd/update \
-	$(nil)
+	# EOL
 
 perllibdir = $(PERL_LIBDIR)
-nobase_dist_perllib_DATA = Dselect/Ftp.pm
+nobase_dist_perllib_DATA = \
+	Dselect/Ftp.pm \
+	# EOL
+
 EXTRA_DIST = \
 	disk/setup.sh \
 	disk/update.sh \
@@ -388,24 +399,46 @@ EXTRA_DIST = \
 	multicd/setup.sh \
 	multicd/update.sh \
 	multicd/install.sh \
-	multicd/README.multicd
+	multicd/README.multicd \
+	# EOL
 
 CLEANFILES = \
 	$(nobase_methods_SCRIPTS) \
-	$(nil)
+	# EOL
 
+SUFFIXES = .sh .pl
+do_shell_subst = $(AM_V_GEN) $(SED) \
+	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
+	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
+	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
+	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":" \
+	# EOL
+
+
+# Perl support.
 do_perl_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):"
+	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
+	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
+	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
+	-e "s:our \$$LIBDIR = .*;:our \$$LIBDIR = '$(pkglibexecdir)';:" \
+	-e "s:our \$$DATADIR = .*;:our \$$DATADIR = '$(pkgdatadir)';:" \
+	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
+	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
+	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
+	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:" \
+	# EOL
 
-SUFFIXES = .pl .sh
-do_shell_subst = $(AM_V_GEN) \
-	cat
+
+# Makefile support.
+do_make_subst = $(AM_V_GEN) $(SED) \
+	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):" \
+	# EOL
 
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .pl .sh
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+.SUFFIXES: .sh .pl
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -425,6 +458,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles);; \
 	esac;
+$(top_srcdir)/build-aux/subst.am $(am__empty):
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -698,14 +732,14 @@ uninstall-am: uninstall-nobase_dist_methodsDATA \
 .PRECIOUS: Makefile
 
 
-.pl:
-	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_perl_subst) <$< >$@
-	$(AM_V_at) chmod +x $@
-
 .sh: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(do_shell_subst) <$< >$@
+	$(AM_V_at) chmod +x $@
+
+.pl: Makefile
+	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
+	$(do_perl_subst) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 install-data-local:

@@ -50,19 +50,19 @@ Les fichiers de configuration peuvent contenir quatre types de S<directives :>
 
 =over 
 
-=item B<SET> I<drapeau valeur>
+=item B<SET> I<flag> I<value>
 
 Remplace le drapeau I<drapeau> par la valeur I<valeur>.
 
-=item B<STRIP> I<drapeau valeur>
+=item B<STRIP> I<flag> I<value>
 
 Retire du drapeau I<drapeau> tous les drapeaux de construction listés dans I<valeur>.
 
-=item B<APPEND> I<drapeau valeur>
+=item B<APPEND> I<flag> I<value>
 
 Étend le drapeau I<drapeau> avec les options indiquées dans I<valeur>. Une espace est ajoutée au début de ce qui est ajouté si la valeur actuelle du drapeau n'est pas vide.
 
-=item B<PREPEND> I<drapeau valeur>
+=item B<PREPEND> I<flag> I<value>
 
 Préfixe le drapeau I<drapeau> avec les options indiquées dans I<valeur>. Une espace est ajoutée au début de ce qui est ajouté si la valeur actuelle du drapeau n'est pas vide.
 

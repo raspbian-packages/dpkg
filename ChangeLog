@@ -1,3 +1,1961 @@
+commit a9580d3aec5f487a81664a462ec70ec1993f19f8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 13 20:23:03 2022 +0100
+
+    Release 1.21.2
+
+ debian/changelog | 163 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 160 insertions(+), 3 deletions(-)
+
+commit 95d42bd1fad23424437b5b9282c3924412ca4cbb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 13 20:17:34 2022 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   37 +-
+ dselect/po/ca.po        |   14 +-
+ dselect/po/cs.po        |   66 +-
+ dselect/po/da.po        |   70 +-
+ dselect/po/de.po        |    2 +-
+ dselect/po/dselect.pot  |   39 +-
+ dselect/po/el.po        |   66 +-
+ dselect/po/es.po        |   70 +-
+ dselect/po/et.po        |   70 +-
+ dselect/po/eu.po        |   70 +-
+ dselect/po/fr.po        |   70 +-
+ dselect/po/gl.po        |   70 +-
+ dselect/po/hu.po        |   47 +-
+ dselect/po/id.po        |   70 +-
+ dselect/po/it.po        |   70 +-
+ dselect/po/ja.po        |   66 +-
+ dselect/po/ko.po        |   70 +-
+ dselect/po/nb.po        |   70 +-
+ dselect/po/nl.po        |   77 +-
+ dselect/po/nn.po        |   66 +-
+ dselect/po/pl.po        |   74 +-
+ dselect/po/pt.po        |   70 +-
+ dselect/po/pt_BR.po     |   70 +-
+ dselect/po/ro.po        |   70 +-
+ dselect/po/ru.po        |   75 +-
+ dselect/po/sk.po        |   70 +-
+ dselect/po/sv.po        |    2 +-
+ dselect/po/tl.po        |   66 +-
+ dselect/po/vi.po        |   70 +-
+ dselect/po/zh_CN.po     |   70 +-
+ dselect/po/zh_TW.po     |   70 +-
+ man/po/de.po            |  365 ++-
+ man/po/dpkg-man.pot     |  198 +-
+ man/po/es.po            |  389 ++-
+ man/po/fr.po            |  483 ++-
+ man/po/hu.po            |  292 +-
+ man/po/it.po            |  382 ++-
+ man/po/ja.po            |  452 ++-
+ man/po/nl.po            |  569 +++-
+ man/po/pl.po            |  457 ++-
+ man/po/pt.po            |  545 +++-
+ man/po/pt_BR.po         |  308 +-
+ man/po/ru.po            |  341 ++-
+ man/po/zh_CN.po         |  302 +-
+ po/ast.po               | 7633 +++++++++++++++++++++++-----------------------
+ po/bs.po                | 4527 ++++++++++++++--------------
+ po/ca.po                |    7 +-
+ po/cs.po                | 7064 ++++++++++++++++++++++---------------------
+ po/da.po                | 7207 +++++++++++++++++++++----------------------
+ po/de.po                |    2 +-
+ po/dpkg.pot             | 4194 +++++++++++++-------------
+ po/dz.po                | 7160 +++++++++++++++++++++----------------------
+ po/el.po                | 7616 +++++++++++++++++++++++-----------------------
+ po/eo.po                | 7045 ++++++++++++++++++++++---------------------
+ po/es.po                | 7146 +++++++++++++++++++++----------------------
+ po/et.po                | 6200 ++++++++++++++++++-------------------
+ po/eu.po                | 7119 +++++++++++++++++++++----------------------
+ po/fr.po                | 7287 ++++++++++++++++++++++----------------------
+ po/gl.po                | 7524 ++++++++++++++++++++++-----------------------
+ po/hu.po                | 6876 +++++++++++++++++++++---------------------
+ po/id.po                | 7603 +++++++++++++++++++++++-----------------------
+ po/it.po                | 7176 +++++++++++++++++++++----------------------
+ po/ja.po                | 7096 +++++++++++++++++++++----------------------
+ po/km.po                | 7070 ++++++++++++++++++++++---------------------
+ po/ko.po                | 7463 ++++++++++++++++++++++-----------------------
+ po/ku.po                | 5194 +++++++++++++++----------------
+ po/lt.po                | 6651 ++++++++++++++++++++--------------------
+ po/mr.po                | 7004 +++++++++++++++++++++---------------------
+ po/nb.po                | 7605 +++++++++++++++++++++++-----------------------
+ po/ne.po                | 7172 +++++++++++++++++++++----------------------
+ po/nl.po                | 6722 +++++++++++++++++++++--------------------
+ po/nn.po                | 6702 ++++++++++++++++++++--------------------
+ po/oc.po                | 5073 +++++++++++++++----------------
+ po/pa.po                | 5772 +++++++++++++++++------------------
+ po/pl.po                | 7007 +++++++++++++++++++++---------------------
+ po/pt.po                | 7040 +++++++++++++++++++++---------------------
+ po/pt_BR.po             | 7528 ++++++++++++++++++++++-----------------------
+ po/ro.po                | 7711 ++++++++++++++++++++++++-----------------------
+ po/ru.po                | 7225 ++++++++++++++++++++++----------------------
+ po/sk.po                | 7449 ++++++++++++++++++++++-----------------------
+ po/sv.po                |    2 +-
+ po/th.po                | 6973 +++++++++++++++++++++---------------------
+ po/tl.po                | 7026 +++++++++++++++++++++---------------------
+ po/tr.po                | 7066 ++++++++++++++++++++++---------------------
+ po/vi.po                | 7069 ++++++++++++++++++++++---------------------
+ po/zh_CN.po             | 6750 +++++++++++++++++++++--------------------
+ po/zh_TW.po             | 6901 +++++++++++++++++++++---------------------
+ scripts/po/ca.po        |    2 +-
+ scripts/po/de.po        |    6 +-
+ scripts/po/dpkg-dev.pot |   27 +-
+ scripts/po/es.po        |   27 +-
+ scripts/po/fr.po        |   26 +-
+ scripts/po/pl.po        |   42 +-
+ scripts/po/ru.po        |   30 +-
+ scripts/po/sv.po        |    2 +-
+ 95 files changed, 142393 insertions(+), 139396 deletions(-)
+
+commit 7d9bf773c4f0d02ad8ae24488d5d5b3eaa962a1e
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Sun Mar 13 19:21:26 2022 +0100
+
+    po: Update German programs translation
+    
+    Update to 1177t.
+
+ po/de.po | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+commit 13c869d823440dfe30770a802afaa4056eb6a6da
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Sun Mar 13 19:13:58 2022 +0100
+
+    po: Update German dselect translation
+    
+    Update to 267t.
+
+ dselect/po/de.po | 74 +++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 36 insertions(+), 38 deletions(-)
+
+commit 175dba4eaa55d50df2b21b6f948569ef00ad7d12
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Wed Mar 2 00:40:39 2022 +0100
+
+    po: Update Swedish translations
+    
+    [guillem@debian.org: Fix typos in markup syntax. ]
+    
+    Closes: #1003799, #1007116
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/sv.po |   265 +-
+ man/po/sv.po     | 12979 +++++++++++++++++------------------------------------
+ po/sv.po         |  7640 +++++++++++++++----------------
+ scripts/po/sv.po |  1301 ++----
+ 4 files changed, 8405 insertions(+), 13780 deletions(-)
+
+commit 7564f4ab2fa417553b773d520c803182897bfb10
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 00:30:03 2022 +0100
+
+    po: Update Catalan translations
+
+ dselect/po/ca.po |  195 +-
+ po/ca.po         | 7248 ++++++++++++++++++++++++++----------------------------
+ scripts/po/ca.po |  337 +--
+ 3 files changed, 3691 insertions(+), 4089 deletions(-)
+
+commit 775c2029a6852d095b35becef5cabc452394fa6c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 12 21:16:38 2022 +0100
+
+    po: Remove previous msgid for non-fuzzy translations
+
+ man/po/nl.po | 29 +----------------------------
+ 1 file changed, 1 insertion(+), 28 deletions(-)
+
+commit 814651170dd2caa6ae001167f09414453021764e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 6 20:40:34 2022 +0100
+
+    man: Clarify --admindir and --instdir default values
+    
+    These depend on the DPKG_ADMINDIR and DPKG_ROOT environment variables
+    being set or not. Although this is mentioned in the ENVIRONMENT section
+    it is not obvious directly from the command-line options descriptions.
+    
+    Reported-by: Johannes Schauer Marin Rodrigues <josch@debian.org>
+
+ man/dpkg-divert.pod         | 8 +++++---
+ man/dpkg-realpath.pod       | 2 +-
+ man/dpkg-statoverride.pod   | 7 ++++---
+ man/dpkg-trigger.pod        | 4 ++--
+ man/dpkg.pod                | 2 +-
+ man/dselect.pod             | 3 +--
+ man/update-alternatives.pod | 7 ++++---
+ 7 files changed, 18 insertions(+), 15 deletions(-)
+
+commit 74632ce150b118f5eb64c850afbcb01066395aa9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 02:07:42 2022 +0100
+
+    man: Document that u-a honors DPKG_ROOT
+    
+    Add the information about the environment variable, via a substituted
+    variable indirection to avoid hardcoding the variable name.
+
+ man/Makefile.am             | 1 +
+ man/update-alternatives.pod | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+commit 0a346c7528221b5c06bee69161ab2a6298a557c4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 02:07:42 2022 +0100
+
+    man: Do not hardcode DPKG_ADMINDIR in u-a
+    
+    This program is used by other distributions that are not dpkg-based,
+    use an indirection through the build system, so that these integrators
+    do not need to patch the man page.
+
+ man/Makefile.am             | 1 +
+ man/update-alternatives.pod | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit 9a0337de82f432c9bb4c75e279afd8dfaae93a3e
+Author: Nicolas Boulenguez <nicolas.boulenguez@free.fr>
+Date:   Fri Mar 11 04:30:19 2022 +0100
+
+    scripts/mk: Indent code in Makefile fragments
+    
+    [guillem@debian.org:
+     - Fix indentation also in buildflags.mk.
+     - Keep exporting variables on per line. ]
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/mk/buildflags.mk |  6 +++---
+ scripts/mk/buildtools.mk | 40 ++++++++++++++++++++--------------------
+ 2 files changed, 23 insertions(+), 23 deletions(-)
+
+commit 39ec63cea5e62b920e7a62360bb2634abbe48add
+Author: Nicolas Boulenguez <nicolas@debian.org>
+Date:   Fri Mar 11 04:40:21 2022 +0100
+
+    scripts/mk: Remove unneeded conditionals
+    
+    The ?= had no effect when the previous test was succeeding. Make that
+    explicit with an 'else'.
+    
+    The 'ifdef' was always succeeding because previous stanza sets $1.
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/mk/buildtools.mk | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit bb508d489a62fa589b3d44e1f7a0c38cabebcc59
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 10 23:29:03 2022 +0100
+
+    scripts/mk: Fix typo in comment
+    
+    Changelog: silent
+
+ scripts/mk/buildtools.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit baa3a1ef59d1b0ffd262f75671ada9e91a3044c8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 01:42:56 2022 +0100
+
+    build: Do not put localization entries on their own changelog group
+    
+    The purpose of placing localization entries on their own changelog
+    groups was to try to reduce information overload, for something that
+    tends to be rather repetitive.
+    
+    This is, though, a departure from the convention of using the person
+    taking responsibility for that change as that group header (within
+    square brackets). And not really needed given that we have switched
+    to standardized section names where we can place this following a more
+    uniform format.
+
+ README.l10n             |  5 +++--
+ build-aux/gen-changelog | 54 ++++++++++---------------------------------------
+ 2 files changed, 14 insertions(+), 45 deletions(-)
+
+commit 4de809297ac41c929c10f74189c431c198e66d66
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 01:42:17 2022 +0100
+
+    build: Use sort flag instead of hardcoding the section in gen-changelog
+    
+    The l10n section needs to be sorted, given its uniformity and
+    repetition. Instead of hardcoding the name of the section, add a new
+    flag that generalizes it and can be used by other sections if desired.
+
+ build-aux/gen-changelog | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit f0dcce12d085fba2043d4ee01b71c4591f6f9866
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 01:34:32 2022 +0100
+
+    build: Do not hardcode «main» section for title check in gen-changelog
+    
+    What we want is to change the formatting depending on whether the
+    section contains a title or not. Switch to check for this instead of
+    the implicit assumption that the untitled section is «main».
+
+ build-aux/gen-changelog | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit c91199e2a818827a4d39a16dcf61c2abf2515061
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 01:29:49 2022 +0100
+
+    build: Use non-capturing groups in regex in gen-changelog
+
+ build-aux/gen-changelog | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 573be899535afa096a28f449a9973decfee90473
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 3 01:23:41 2022 +0100
+
+    build: Support specifying previous and next tags to gen-changelog
+    
+    This helps testing the script with different version ranges.
+
+ build-aux/gen-changelog | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+commit e8bfb3e588af8a19cc86582782b75e3dbe96b868
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 13 19:28:44 2022 +0100
+
+    build: Mark libcompat and libdpkg as internal components in changelog
+    
+    These components are internal components, and changes in them are in
+    most cases of internal nature.
+
+ build-aux/gen-changelog | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 921837ce166c2c887b52f5c667456f621ed5ca69
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Feb 11 20:18:24 2022 +0100
+
+    build: Add comment about «sed -i» not being portable
+    
+    Prompted-by: Nicolas Boulenguez <nicolas@debian.org>
+
+ scripts/mk/Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 79fc3db3e9992b2f548f8bfadd31307451f86339
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Feb 11 20:17:15 2022 +0100
+
+    build: Switch sed pseudo-in-place replace invocations with copy then move
+    
+    Instead of copying into a temporary, replacing, then removing the
+    leftover, do the more concise replace with copy then move back.
+
+ scripts/Makefile.am    |  9 ++++-----
+ scripts/mk/Makefile.am | 18 ++++++++----------
+ 2 files changed, 12 insertions(+), 15 deletions(-)
+
+commit 8e886ec9ffaacabdb4f062d6c4a4a92288c2052a
+Author: Nicolas Boulenguez <nicolas@debian.org>
+Date:   Fri Mar 11 04:11:51 2022 +0100
+
+    test: Use «each» instead of «keys» and value fetching
+    
+    Iterate on key/value pairs instead of iterating on keys then search
+    for each value.
+    
+    [guillem@debian.org: Rename variable names. ]
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/t/mk.t | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
+
+commit a0cc008c902b2b4cf812eb60235c7c4cbc329770
+Author: Nicolas Boulenguez <nicolas@debian.org>
+Date:   Thu Feb 11 15:36:15 2021 +0100
+
+    test: Add test case for SOURCE_DATE_EPOCH
+    
+    Set SOURCE_DATE_EPOCH either from the environment or the Debian changelog.
+    Check that the value is (re)exported.
+    
+    [guillem@debian.org: Hardcode the timestamp instead of forking date(1). ]
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/t/mk.t           | 10 +++++++++-
+ scripts/t/mk/pkg-info.mk |  2 ++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+commit c348c2468a2c5c470f7a511f01c54735de29ceff
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Feb 11 20:20:25 2022 +0100
+
+    test: Use a temporary file instead of unportable «sed -i»
+    
+    Use the same pattern we use in other places of the code base, so that
+    the test suite can run on systems with less featureful sed
+    implementations.
+    
+    Prompted-by: Nicolas Boulenguez <nicolas@debian.org>
+
+ src/at/local.at | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 7c6adad334747d3cd1b32a59634ca272a4be364c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 6 20:38:25 2022 +0100
+
+    dselect: Add support for --instdir
+
+ dselect/main.cc |  4 +++-
+ man/dselect.pod | 17 ++++++++++++-----
+ 2 files changed, 15 insertions(+), 6 deletions(-)
+
+commit 760f465b922b4afae9cfa32b2c07fe0649e94257
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 10 03:43:55 2022 +0100
+
+    dselect: Do not beep on key press errors in method and package list windows
+    
+    When we resize a window, ncurses will generate keycodes, which then will
+    be trapped by the key handling code and beep when they match no known
+    keybinding. This is in general annoying, so instead we silence these
+    beeps completely.
+    
+    Closes: #533639
+
+ dselect/methlist.cc | 3 ++-
+ dselect/pkglist.cc  | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit 03be1f9eaf2f99571d795969d66b099e49a352a6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 8 22:49:58 2022 +0100
+
+    dselect: Handle window resizes in help and menu screens
+    
+    Adapt the input loops for these two screens to handle window resizes,
+    as we are doing now in the other screen input loops.
+    
+    Closes: #382307
+
+ dselect/basecmds.cc | 13 +++++++++++--
+ dselect/main.cc     |  9 +++++++--
+ 2 files changed, 18 insertions(+), 4 deletions(-)
+
+commit 4d4e2e1186acae606de0b1f82ca888b6772ea89e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 8 22:45:33 2022 +0100
+
+    dselect: Rework windows resize to be signal safe
+    
+    Remove all current explicit signal handling code for window resizes
+    and instead rely on ncurses doing this for us, which is going to be
+    async-signal-safe, instead of the current code which was not.
+    
+    Changelog: internal
+
+ dselect/basecmds.cc      |  2 +-
+ dselect/baselist.cc      | 68 +++++-------------------------------------------
+ dselect/dselect.h        |  8 ++----
+ dselect/methlist.cc      | 15 +++++------
+ dselect/pkglist.cc       | 15 +++++------
+ t/cppcheck/cppcheck.supp |  3 ---
+ 6 files changed, 23 insertions(+), 88 deletions(-)
+
+commit 57e084a52e1ede33b7914c3e0357311ac370a186
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 18:18:03 2022 +0100
+
+    debian: Warn in postinst about merged-/usr-via-aliased-dirs breakage
+    
+    dpkg does not, and has never supported this filesystem layout even less
+    so the way it has been deployed as it bypasses dpkg entirely. It can
+    cause file loss, file overwrites, unexpected query results, among other
+    things, while being very insidious to detect if one is not aware. Adding
+    support for it would be rather infeasible and gets in the way of features
+    that have been on the works for some time now.
+
+ debian/dpkg.postinst | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+commit b2789db9a204dbe71046619a8ceb7bb7263d1434
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 18:17:07 2022 +0100
+
+    debian: Use dpkg-error.sh in postinst
+    
+    This makes it possible to use better diagnostic functions.
+
+ debian/dpkg.postinst | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+commit 131eef880f8d0b87cbb0918822d0c03294957d20
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 00:33:48 2022 +0100
+
+    u-a: Move filename generation outside alternative setup
+    
+    This is common to both symlinks being created, move it out of the code
+    block, so that we might be able to conditionalize the first block to
+    avoid doing redundant work if it does not need to change.
+    
+    Changelog: internal
+
+ utils/update-alternatives.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 272a5232b24a1ffc1363ec7119fd38e3f855b024
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 00:29:35 2022 +0100
+
+    u-a: Use the target timestamp when the symlink does not exist
+    
+    Some programs track the symlink timestamps in their databases (such as
+    man-db). To be able to create reproducible installations we have to use
+    timestamps that are reproducible, at least on the first installation.
+    
+    We also need to take into account that not using the current timestamp
+    when updating symlinks might cause backup systems to not work properly.
+    
+    To cover these two cases, we will copy the timestamp from the target, if
+    the symlink did not exist.
+    
+    Closes: #1004557
+
+ utils/update-alternatives.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+commit fe088a3e855fbf17c70d0ffd939eefe81a9685f7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 7 00:29:35 2022 +0100
+
+    u-a: Move symlink removal inside fsys_symlink()
+    
+    To be able to create the symlink, we need to first remove it. Do this
+    within the function, which reduces the amount of work, as then we only
+    need to compute the root pathname one time.
+    
+    Changelog: internal
+
+ utils/update-alternatives.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 9ec0b0594c591b0d403f35884b702d335edb2286
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 1 21:41:53 2022 +0100
+
+    u-a: Refactor alternative_has_broken_symlink()
+    
+    Changelog: internal
+
+ utils/update-alternatives.c | 47 +++++++++++++++++++++++++--------------------
+ 1 file changed, 26 insertions(+), 21 deletions(-)
+
+commit c0f8ed292fc2a2293ee2d449323783e0a406cefc
+Author: Sören Tempel <soeren+git@soeren-tempel.net>
+Date:   Thu Aug 27 21:43:40 2020 +0200
+
+    test: Fix test_command_exec program invocation
+    
+    From exec(3):
+    
+            The argument arg0 should point to a filename string that is
+            associated with the process being started by one of the exec
+            functions.
+    
+    Unfortunately, this test sets arg0 to the string "arg 0" this causes the
+    busybox multicall binary on Alpine Linux to assume that the applet "arg
+    0" (instead of true) should be executed. However, as such an applet does
+    not exist, the tests fails. This commit fixes the failing test by
+    setting arg0 correctly (as other parts of the dpkg codebase using the
+    command API do too).
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ lib/dpkg/t/t-command.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 09687d564ce40a4f56fe2a9eadb32d92b810f6e5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 30 02:05:37 2022 +0100
+
+    libdpkg: Do not allow argv with no arguments
+
+ lib/dpkg/options.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 560574b55a543d3d0a0f4e8abf0ae42f46d2a2f1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 29 20:29:33 2022 +0100
+
+    libdpkg: Do not restrict source:* virtual fields to installed packages
+    
+    Initially the code was not handling missing data properly. It got changed
+    in two ways, in commit 536a38582a2d92da84f82d850e22f581b00d2082 it was
+    first restricted to only operate on installed packages, which regressed
+    support for dpkg-deb show format, and then the code was made robust
+    against such missing data (which was really the only correct and necessary
+    part to the fix) in commit 9022f9e0ffc58425c6798ff62e797f4026a29fe9.
+    
+    Fixes: commit 536a38582a2d92da84f82d850e22f581b00d2082
+    Closes: #1004372
+    Stable-Candidate: 1.20.x
+
+ lib/dpkg/pkg-format.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+commit d9f603f110d79393174f287d041b5e7cea7dc4c9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 29 20:29:09 2022 +0100
+
+    test: Add new pkg-format unit tests
+
+ lib/dpkg/Makefile.am      |   1 +
+ lib/dpkg/t/.gitignore     |   1 +
+ lib/dpkg/t/t-pkg-format.c | 124 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 126 insertions(+)
+
+commit cee8e4b5a5c7cc0ccd4810c83796ec824f5ebb63
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 29 18:23:49 2022 +0100
+
+    libdpkg: Refactor pkg_format_print() out from pkg_format_show()
+    
+    This will allow testing the formatting code.
+
+ lib/dpkg/libdpkg.map  |  1 +
+ lib/dpkg/pkg-format.c | 27 ++++++++++++++++++---------
+ lib/dpkg/pkg-format.h |  2 ++
+ 3 files changed, 21 insertions(+), 9 deletions(-)
+
+commit 60d8baf664bd75aa235a727fd63c189d450bb4ce
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 29 23:32:45 2022 +0100
+
+    Dpkg::Source::Package: Use File::Spec instead of ad-hoc concatenation
+    
+    This takes care of adding the required pathname separators when needed.
+
+ scripts/Dpkg/Source/Package.pm    | 5 +++--
+ scripts/Dpkg/Source/Package/V2.pm | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 1befbd547c793da857949cd13775a75838293cec
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 27 01:42:48 2022 +0100
+
+    Dpkg::Source::Package: Only generate the patch header if needed
+    
+    When we are generating a patch we need to generate a header too, but
+    only if the patch is going to contain actual differences. Otherwise
+    we end up parsing the changelog unnecessarily.
+    
+    Prompted-by: Umut <ue16@gmx.de> (on IRC)
+
+ scripts/Dpkg/Source/Package/V2.pm | 18 ++++++++++--------
+ scripts/Dpkg/Source/Patch.pm      | 12 +++++++++++-
+ 2 files changed, 21 insertions(+), 9 deletions(-)
+
+commit c548669cc8547a78a5c57ae92b0c5d0a0873a77c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 27 01:24:24 2022 +0100
+
+    dpkg-source: Fix alternate changelog file usage with 2.0 and 3.0 formats
+    
+    When generating the patch header we parse the changelog, but were not
+    honoring the pathname passed to dpkg-source.
+    
+    Reported-by: Umut <ue16@gmx.de> (on IRC)
+
+ scripts/Dpkg/Source/Package/V2.pm | 2 +-
+ scripts/dpkg-source.pl            | 7 +++----
+ 2 files changed, 4 insertions(+), 5 deletions(-)
+
+commit b4ba0716f90d5882563d4fc53f93b03e629a6dd8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 17 22:38:55 2022 +0100
+
+    Dpkg::Index: Switch key function for control tests to be a stanza index
+    
+    These stanzas have two possible distinguishing keys, the Tests and
+    Test-Command fields, but these are not necessarily unique, as can be
+    repeated given different constraints specified via other fields in the
+    stanza.
+    
+    We switch to use the order tracking to index each stanza, so that we can
+    support duplicate test entries.
+    
+    Reported-by: Paul Gevers <elbrus@debian.org>
+
+ scripts/Dpkg/Index.pm                 | 11 ++++++++---
+ scripts/t/dpkg_source.t               | 16 +++++++++++++++-
+ scripts/t/dpkg_source/testsuite_2.dsc |  1 +
+ 3 files changed, 24 insertions(+), 4 deletions(-)
+
+commit f604378c7f86f4bd5d91ff8ccf69200f6e82d951
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 1 23:59:49 2022 +0100
+
+    build: Move zsh completion under a subdirectory
+    
+    Organize this to allow for other shell completion implementations, such
+    as bash.
+
+ scripts/Makefile.am                               | 2 +-
+ scripts/{ => completion}/zsh/_dpkg-parsechangelog | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+commit ad5dc46b6f1495dc9c3a49aa3b2c93e94da05a4e
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Sat Jan 22 19:13:18 2022 +0100
+
+    po: Update Dutch man pages translation
+    
+    Closes: #1003673
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/nl.po | 545 ++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 238 insertions(+), 307 deletions(-)
+
+commit 63b4789b801272c3552afe28b89a0bb79deaa2ce
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Sat Jan 22 19:12:26 2022 +0100
+
+    po: Update Dutch programs translation
+    
+    Closes: #1003672
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ po/nl.po | 330 +++++++++++++++++----------------------------------------------
+ 1 file changed, 87 insertions(+), 243 deletions(-)
+
+commit 83e3436efc75d3acc4221682532de729960b1a14
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Sat Jan 22 19:10:08 2022 +0100
+
+    po: Update Dutch dselect translation
+    
+    Closes: #1003671
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/nl.po | 75 +++-----------------------------------------------------
+ 1 file changed, 4 insertions(+), 71 deletions(-)
+
+commit 068090fc7248b1ad30c9a6871a9a2824a4bba578
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 22 19:00:02 2022 +0100
+
+    debian: Remove override_dh_perl
+    
+    This was removed in commit b6ec384e36614a53096ff29dbc26fae7a25e89ea,
+    but got accidentally reintroduced when switching to the dh sequencer,
+    due to a botched merge from an old commit.
+    
+    Fixes: commit b9afb861c35a6c76970aee0ad70a94f9fb6071b6
+    Reported-by: Sven Joachim <svenjoac@gmx.de>
+    Changelog: silent
+
+ debian/rules | 4 ----
+ 1 file changed, 4 deletions(-)
+
+commit 21642c272cdd11cf435813419568edca71c5ddf1
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Thu Jan 20 05:30:46 2022 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+commit d7a03b037af68648197f579137f0fdb7d0ca9484
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 20 05:12:20 2022 +0100
+
+    build: Distribute dselect.lintian-overrides file
+    
+    Changelog: silent
+    Fixes: commit 6a7bfcde4bd983274ee7b178d0f27be746429989
+
+ Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit eb4962aa352c92dda998fbef6ef48baec502232f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 20 04:54:32 2022 +0100
+
+    scripts: Unify deprecated command-line option warnings
+
+ scripts/dpkg-buildpackage.pl | 6 +++---
+ scripts/dpkg-genbuildinfo.pl | 4 ++--
+ scripts/dpkg-gencontrol.pl   | 4 ++--
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+commit 6a7bfcde4bd983274ee7b178d0f27be746429989
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 20 04:02:45 2022 +0100
+
+    debian: Update lintian overrides
+
+ debian/dpkg.lintian-overrides    | 6 ++++++
+ debian/dselect.lintian-overrides | 2 ++
+ 2 files changed, 8 insertions(+)
+
+commit ccf91bef46858f62be45e3417785e047e7ce85b1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 20 04:31:01 2022 +0100
+
+    build: Fix zlib implementation selection
+    
+    We need to select only one of the possibly available zlib
+    implementations. Turn the code to use a pre-processor "enum", by
+    defining the various values as different macros, that we will select
+    from a variable macro.
+    
+    Changelog: silent
+    Fixes: commit 863af2464d7bf20ad458ee51e2d187a9845214ca
+
+ lib/compat/compat-zlib.h |  8 +++-----
+ lib/dpkg/compress.c      |  6 +++---
+ m4/dpkg-libs.m4          | 12 ++++++++++++
+ 3 files changed, 18 insertions(+), 8 deletions(-)
+
+commit 17e6052303ec789614353dea1d051ef59325a146
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sun Jan 9 18:50:44 2022 +0100
+
+    po: Update German man pages translation
+    
+    Small fixes
+
+ man/po/de.po | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+commit 74d69f7e863e3167731d5d85743274a71f554924
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Jan 8 07:41:41 2022 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 197 ++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 106 insertions(+), 91 deletions(-)
+
+commit eded8c747c297baf1b8142d58afe0a6a2caf058d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 19 03:45:06 2021 +0200
+
+    libdpkg: Pass struct compress_params to decompressors
+    
+    This way we will be able to pass other parameters controlling the
+    decompression, which we will use with the upcoming multithreaded
+    xz decompressor support.
+
+ lib/dpkg/compress.c | 36 ++++++++++++++++++++++++------------
+ lib/dpkg/compress.h |  2 +-
+ src/deb/extract.c   | 18 ++++++++++--------
+ 3 files changed, 35 insertions(+), 21 deletions(-)
+
+commit 4f7e41335920b580eec9e9b4aa20c9cad6987a38
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 5 23:34:24 2022 +0100
+
+    libdpkg: Pass struct compress_params as the first argument
+    
+    This unifies the argument format with the rest of the de/compression
+    functions.
+
+ lib/dpkg/compress.c | 33 +++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
+
+commit 002a24fcfd72bda1ec1a916e427dca521ce475cd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 18 22:32:07 2021 +0200
+
+    libdpkg: Increase I/O memory buffers from 4 to 32 KiB
+    
+    The current buffers for de/compression I/O are 4 KiB, the one for file
+    descriptor I/O is 32 KiB. Use the same macro for both, set them to 32
+    KiB.
+
+ lib/dpkg/buffer.c | 2 +-
+ lib/dpkg/buffer.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 0e0759b3559bee6285bb31db0b93e334566d66c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 18 22:45:03 2021 +0200
+
+    libdpkg: Dynamically allocate the buffers for de/compression I/O
+    
+    This removes these static buffers, and makes it possible to increase
+    them to bigger ones more suited for current available memory and I/O
+    being handled.
+
+ lib/dpkg/compress.c | 53 ++++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 13 deletions(-)
+
+commit a49f5e3e18cd179330932bdddacb97ad89b9b723
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jun 19 22:41:33 2021 +0200
+
+    libdpkg: Refactor liblzma memlimit and cputhreads getters
+    
+    We will use these too for the upcoming multithreaded xz decompressor
+    support.
+
+ lib/dpkg/compress.c | 52 +++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 35 insertions(+), 17 deletions(-)
+
+commit f8d254943051e085040367d689048c00f31514c3
+Author: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+Date:   Sat Jan 30 23:26:40 2021 +0100
+
+    libdpkg: Use the amount of available memory instead phys_mem/2
+    
+    On Linux there is the field 'MemAvailable' in '/proc/meminfo' which
+    holds the amount of memory which is available as of now. It considers
+    the fact that the page cache can be purged, some memory (if not all)
+    can be reclaimed (for instance by writing back dirty inodes) and some
+    memory should remain free just in case. This amount of memory can be
+    used without the need to swap-out some memory. The complete definition
+    can be located at [0].
+    
+    The advantage over PHYS_MEM/2 is that it considers the current
+    status/usage of the system while assuming that half of what is
+    physically available is usable.
+    
+    [guillem@debian.org:
+     - Use fd_read() instead of read().
+     - Merge two chained if blocks to reduce nesting level.
+     - Add missing header.
+     - Use a size_t const for the string length. ]
+    
+    [0] https://www.kernel.org/doc/html/latest/filesystems/proc.html
+    Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ lib/dpkg/compress.c | 96 ++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 91 insertions(+), 5 deletions(-)
+
+commit cc80b8be4a35874aaaefad72ffe4e2c894ed65d4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jun 19 22:18:07 2021 +0200
+
+    build: Rename HAVE_LZMA_MT to HAVE_LZMA_MT_ENCODER
+    
+    This macro describes whether liblzma has support for multi-threaded
+    compression, but we'll want to check for the upcoming decompression
+    too, which is not going to be supported by the same versions.
+
+ lib/dpkg/compress.c | 4 ++--
+ m4/dpkg-libs.m4     | 3 ++-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+commit 863af2464d7bf20ad458ee51e2d187a9845214ca
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 22:52:17 2021 +0100
+
+    build: Add zlib-ng support
+    
+    The zlib-ng library is a fork of zlib with its code modernized and lots
+    of optimizations for various modern CPUs giving it a substantial
+    performance boost.
+    
+    This library provides either an API (and in theory ABI) compatible
+    interface, or a cleaned up API with namespaced and with better types.
+    
+    We add support for the latter, via a compatibility header mapping symbol
+    names.
+
+ configure.ac             |  2 +-
+ lib/compat/Makefile.am   |  1 +
+ lib/compat/compat-zlib.h | 43 +++++++++++++++++++++++++++++++++++++++++++
+ lib/dpkg/compress.c      | 10 ++++++----
+ m4/dpkg-libs.m4          | 17 +++++++++++++++--
+ 5 files changed, 66 insertions(+), 7 deletions(-)
+
+commit 53aa6bca8398c7615511f280bdf495e36e6bdb1e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 17:07:14 2021 +0100
+
+    build: Support compression library names with dashes
+    
+    We need to call AS_TR_SH for any variable name that might end up
+    containing the compression library name with a dash. We were doing this
+    for the CPP macros, but not for the shell ones.
+
+ m4/dpkg-libs.m4 | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+commit d5fdea66ca6e20ed2c28a96e782587244b7ec902
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 17:06:24 2021 +0100
+
+    build: Make AS_TR_* calls more clear
+    
+    Include the entire token within the AS_TR_* calls, instead of only the
+    variable to expand, which makes it more obvious what the resulting
+    token might look like.
+
+ m4/dpkg-build.m4 | 16 ++++++++--------
+ m4/dpkg-libs.m4  |  6 +++---
+ m4/dpkg-types.m4 |  2 +-
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+
+commit 46c54b3e689b5135562821eba08a3e26fc66e8e8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 5 17:38:51 2022 +0100
+
+    debian: Pass -jN to autotools autotest test suite via TESTSUITEFLAGS
+
+ debian/rules | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 1b9cabecf24bd9fb51da80e4bf3f917800a31e20
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 5 17:36:43 2022 +0100
+
+    debian: Make TESTSUITEFLAGS extensible
+    
+    Set TESTSUITEFLAGS values and then assign that into the same environment
+    variable in testflags. Move TEST_PARALLEL to testflags.
+    
+    This will allow to add multiple options to TESTSUITEFLAGS.
+
+ debian/rules | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit fef11dee98f31681cfee6d3476eda6c85b7c04b9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 5 16:04:00 2022 +0100
+
+    dpkg-buildpackage: Switch terse make from -s to --no-print-directory
+    
+    Passing «-s» to make is too much terseness, increase it back, but omit
+    printing directory entry and exit messages instead.
+    
+    Closes: #1003164
+
+ scripts/dpkg-buildpackage.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b9ab58c1699fb3a06aec0e06108dad8389f67897
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Wed Jan 5 17:49:03 2022 +0100
+
+    po: Update German programs translation
+    
+    Update to 1174t.
+
+ po/de.po | 6759 +++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 3389 insertions(+), 3370 deletions(-)
+
+commit b5d2d688a0b7272da04f4a6c967fba326f81e1b0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 5 04:20:11 2022 +0100
+
+    test: Update DPKG_DATADIR to point to src/
+    
+    This variable is used to point to the shell library directory.
+    
+    Fixes: commit 9c156327295c378201a47029dbbca2573c846abc
+    Changelog: silent
+
+ tests/Test.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9780169476262b067f5d8046a73a279a0cbadbc8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 3 02:47:58 2022 +0100
+
+    u-a: Clarify bad usage message by enclosing in angles and quoting arguments
+    
+    Enclose the argument names in angle brackets, and quote their values, so
+    that it is easier to parse what is the problem.
+
+ utils/update-alternatives.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 5bf749004bbb8cc58053c4b9daaa8da82c912ab8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 30 01:49:07 2021 +0100
+
+    u-a: Clarify option parse errors by printing the wrong values
+    
+    For options that can be passed multiple times or values that might not
+    be clear are wrong, always print the actual value to help the user track
+    the wrong usage more easily.
+
+ utils/update-alternatives.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+commit 3cf7dce794e139e70c89203bdf7fa6df9b492dd7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 30 01:47:35 2021 +0100
+
+    u-a: Use intermediate variables when parsing actions
+    
+    When we need to refer to the same argument multiple times while parsing
+    them, use an intermediate to give it meaning and make it obvious what it
+    is about.
+    
+    For arguments that are directly assigned to their final variable simply
+    use argv[].
+
+ utils/update-alternatives.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+commit f967e092f5d77038f4ae1acea84f6dc7c38a75fc
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 29 05:03:38 2021 +0100
+
+    u-a: Refactor alternative_install()
+    
+    This moves the last action into its own dedicated function, so that the
+    main() function is uncluttered from details.
+
+ utils/update-alternatives.c | 50 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 31 insertions(+), 19 deletions(-)
+
+commit 0df14c03e8a6916711d5fc737f6b6d26c661ad02
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 28 19:24:42 2021 +0100
+
+    u-a: Do not skip --config with a single entry
+    
+    Even with a single entry the user might want to switch it between auto
+    and manual, something which is possible via the --set option, so it
+    should have an interactive mode too.
+    
+    Reported-by: David Kalnischkies <donkult@debian.org>
+
+ utils/update-alternatives.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit f2b495f107bec91808f4f9e2df7698b339345a8a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:48:11 2021 +0100
+
+    Dpkg::Control::FieldsCore: Add field order for all control types
+
+ scripts/Dpkg/Control/FieldsCore.pm | 67 ++++++++++++++++++++++++++++++++++++
+ scripts/t/Dpkg_Control.t           |  8 ++---
+ scripts/t/Dpkg_Control_Fields.t    | 69 ++++++++++++++++++++------------------
+ 3 files changed, 107 insertions(+), 37 deletions(-)
+
+commit 33ca537f56286fb6f705a1a3056c033591aed91d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 22 00:53:12 2021 +0100
+
+    Dpkg::Control::FieldsCore: Add missing allowed fields for (In)Release files
+    
+    Allow Version, Acquire-By-Hash, NotAutomatic, ButAutomaticUpgrades and
+    No-Support-for-Architecture-all fields.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 23 ++++++++++++++++++++++-
+ scripts/t/Dpkg_Control_Fields.t    |  7 ++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+
+commit 735db4a3722aad0233f77928e9e053c97da29445
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:46:38 2021 +0100
+
+    Dpkg::Control::FieldsCore: Accept Architecture as a debian/tests/control field
+    
+    Support for this got added in autopkgtest 5.15.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 2 +-
+ scripts/t/Dpkg_Control_Fields.t    | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit 7cf28cefd92cae650b144bf840c5ec8cbb4e3424
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 01:41:24 2021 +0100
+
+    Dpkg::Control::FieldsCore: Refactor testsuite fields into a common variable
+
+ scripts/Dpkg/Control/FieldsCore.pm | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit 6e18caebc09e8c9007f129616864c3765301ff50
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:34:16 2021 +0100
+
+    Dpkg::Control::FieldsCore: Refactor Vcs fields into a common variable
+
+ scripts/Dpkg/Control/FieldsCore.pm | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+commit 25f1d74d6d7ec6413962a7adbae81fe8688f67d0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:22:39 2021 +0100
+
+    scripts: Expand long word list into one entry per line
+    
+    This makes extending these lists, which is a relatively common thing to
+    expect, easy to review on diffs. It also makes it easier to sort the
+    entries in alphabetical order if required.
+
+ scripts/Dpkg/Build/Info.pm         |  88 ++++++--
+ scripts/Dpkg/Changelog.pm          |   8 +-
+ scripts/Dpkg/Control/FieldsCore.pm | 339 ++++++++++++++++++++++++++-----
+ scripts/Dpkg/Shlibs/Symbol.pm      |   5 +-
+ scripts/t/Dpkg_Control_Fields.t    | 398 ++++++++++++++++++++++++++++++-------
+ 5 files changed, 700 insertions(+), 138 deletions(-)
+
+commit 805a3344125e6d7e7480d3be2ba1cafb03c6e3c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:59:41 2021 +0100
+
+    Dpkg::Control::FieldsCore: Sort control type entries in %FIELD_ORDER
+
+ scripts/Dpkg/Control/FieldsCore.pm | 60 +++++++++++++++++++-------------------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
+
+commit eb626af364392b64af7f473269dd1fe11b246a92
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 22 00:11:21 2021 +0100
+
+    test: Print field type name instead of id in test case description
+
+ scripts/t/Dpkg_Control_Fields.t | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 68789dd9d1993c2c5977107e5cda74846ddf4751
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Dec 19 23:09:43 2021 +0100
+
+    test: Remove now unused TAP tests support from src/
+    
+    We have rewritten these tests as autotests, so we no longer need that
+    infrastructure.
+
+ scripts/Test/Dpkg.pm |  2 +-
+ src/Makefile.am      | 13 ++-----------
+ 2 files changed, 3 insertions(+), 12 deletions(-)
+
+commit 9eae41411fb30c5e1d6d755c7b24162cc91bd927
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Dec 19 02:08:14 2021 +0100
+
+    test: Rewrite dpkg-divert test from TAP to autotest
+    
+    This is more naturally implemented via an autotest, instead of a TAP
+    test, as it needs to drive an external command and compare its output.
+
+ src/Makefile.am     |   2 +-
+ src/at/divert.at    | 639 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/at/local.at     |  90 ++++++++
+ src/at/testsuite.at |   4 +
+ src/t/dpkg_divert.t | 648 ----------------------------------------------------
+ 5 files changed, 734 insertions(+), 649 deletions(-)
+
+commit 12574b49f1211497aaf6ffd69fa2babd1ed3ca5c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 04:30:40 2021 +0100
+
+    test: Rewrite dpkg-realpath test from TAP to autotest
+    
+    This is more naturally implemented via an autotest, instead of a TAP
+    test, as it needs to drive an external command and compare its output.
+
+ src/Makefile.am       |   2 +-
+ src/at/atlocal.in     |   3 ++
+ src/at/local.at       |   2 +
+ src/at/realpath.at    |  86 ++++++++++++++++++++++++++++++++++
+ src/at/testsuite.at   |   4 ++
+ src/t/dpkg_realpath.t | 127 --------------------------------------------------
+ 6 files changed, 96 insertions(+), 128 deletions(-)
+
+commit 0120e7df28e71794c980e62b0560c5887514492d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 05:33:20 2021 +0100
+
+    test: Refactor control file template generation
+
+ src/at/local.at | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+commit 110af0c2f25abbaa5bb2b2fe9742cd0dffae665f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 05:29:22 2021 +0100
+
+    test: Rename DPKG_GEN_FILE to DPKG_GEN_CTRL_FILE
+    
+    This generates a control member file.
+
+ src/at/deb-content.at | 16 ++++++++--------
+ src/at/local.at       |  4 ++--
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+commit 9c156327295c378201a47029dbbca2573c846abc
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 04:27:41 2021 +0100
+
+    Move shell scripts into src/
+    
+    These are all program that are part of the core dpkg instead of the
+    build tools. Move them with the rest of the run-time programs to apply
+    the same constraints and infrastructure.
+
+ scripts/.gitignore                          |  3 ---
+ scripts/Makefile.am                         | 15 --------------
+ src/.gitignore                              |  3 +++
+ src/Makefile.am                             | 31 ++++++++++++++++++++++++++++-
+ {scripts => src}/dpkg-db-backup.sh          |  0
+ {scripts => src}/dpkg-maintscript-helper.sh |  4 ++--
+ {scripts => src}/dpkg-realpath.sh           |  4 ++--
+ {scripts => src}/sh/dpkg-error.sh           |  0
+ {scripts => src}/t/dpkg_realpath.t          |  0
+ t/shellcheck.t                              |  6 +++---
+ 10 files changed, 40 insertions(+), 26 deletions(-)
+
+commit 981d5acb840dc50a66fc1f00e42d1830c1916b00
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 04:46:32 2021 +0100
+
+    build: Factor out installation variable substitution into a new subst.am file
+    
+    This will help reduce duplication.
+
+ build-aux/subst.am          | 46 +++++++++++++++++++++++++++++++++++++++++++++
+ dselect/methods/Makefile.am | 19 ++-----------------
+ scripts/Makefile.am         | 31 ++----------------------------
+ scripts/mk/Makefile.am      |  6 +++---
+ 4 files changed, 53 insertions(+), 49 deletions(-)
+
+commit 1947fef853b3a1eac89fa0af3ce6eabd10a291ea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 17 04:57:12 2021 +0100
+
+    build: Rename do_path_subst to do_make_subst
+    
+    This macro deals specifically with Makefiles, as that is the syntax it
+    will understand and work with. Use a name matching that instead of what
+    it will be replacing.
+
+ scripts/mk/Makefile.am | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 798ff3a0bf4d783a32626c5c33378e11a67f92dd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 29 20:29:14 2021 +0100
+
+    Use anchor links for the dpkg FAQ URLs
+    
+    This adds a reference to the specific entry, otherwise it might not be
+    obvious which one we are talking about. And uses shorter links that fit
+    better on narrow outputs and are more easily recalled.
+
+ lib/dpkg/file.c             | 6 +++---
+ man/dpkg-fsys-usrunmess.pod | 2 +-
+ man/dpkg.pod                | 3 ++-
+ src/main/select.c           | 2 +-
+ 4 files changed, 7 insertions(+), 6 deletions(-)
+
+commit a3d5c3d4aaeccfaff0e4059fa32b842700c573ae
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 29 20:28:34 2021 +0100
+
+    man: Add a missing preposition to deb-preinst(5)
+
+ man/deb-preinst.pod | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 403e0882d49924b552dbb9912ad33cbe491200f2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 29 05:06:47 2021 +0100
+
+    man: Refer to the relevant maintscript actions explicitly
+    
+    Embolden and explicitly mention the actions these maintscripts are
+    reacting to or refer to, for extra clarify.
+
+ man/deb-postinst.pod | 8 ++++----
+ man/deb-postrm.pod   | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+commit 030f5a0ba04300d3e355b052496f53fc04947d1d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 29 05:04:56 2021 +0100
+
+    man: Markup each individual element independently
+    
+    For command-line arguments, or file format parts, each element should
+    be marked separately, otherwise these can be confused as being a single
+    element instead of multiple, either when reading the source or depending
+    on the POD formatter used which might use an underline running from the
+    first word to the next.
+
+ man/deb-postinst.pod        | 6 +++---
+ man/deb-postrm.pod          | 4 ++--
+ man/deb-preinst.pod         | 4 ++--
+ man/deb-prerm.pod           | 8 ++++----
+ man/deb-symbols.pod         | 2 +-
+ man/dpkg-buildflags.pod     | 8 ++++----
+ man/dpkg-deb.pod            | 6 +++---
+ man/dpkg-split.pod          | 2 +-
+ man/dpkg.pod                | 6 +++---
+ man/update-alternatives.pod | 4 ++--
+ 10 files changed, 25 insertions(+), 25 deletions(-)
+
+commit 6ff5c46fe112ab23ed93380f131062e1243e01ac
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 07:04:19 2021 +0100
+
+    man: Use «main» git branch in examples
+    
+    This is going to be the new default branch name in git upstream, and
+    most git hosting providers have switched to it. It also gets rid of
+    problematic nomenclature.
+
+ man/dpkg-source.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 498e8d2d6c34d66a6e745490e2f02fcdb3d56e78
+Author: наб <nabijaczleweli@nabijaczleweli.xyz>
+Date:   Wed Dec 15 17:16:43 2021 +0100
+
+    man: Clarify that dpkg-divert --list pattern is optional
+    
+    Closes: #1001761
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/dpkg-divert.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit ec86ddd107a6c18caceb6afa62409f1ac1f3c742
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 15 00:38:55 2021 +0100
+
+    man: Mention on what actions triggers get processed in dpkg(1)
+    
+    This is not a detailed explanation of how dpkg operates internally, as
+    is warned on at the top of the man page, but it makes sense to at least
+    mention that triggers are processed, so that the user knows whether
+    passing --no-triggers might be needed in those contexts.
+    
+    Closes: #1001010
+
+ man/dpkg.pod | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit b9afb861c35a6c76970aee0ad70a94f9fb6071b6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 3 01:28:45 2022 +0100
+
+    debian: Switch to use the dh sequencer
+    
+    While this might make dpkg harder to bootstrap, it simplifies the rules,
+    and lets debhelper improve things automatically as compat levels
+    increase and get adopted.
+
+ debian/.gitignore |   1 +
+ debian/rules      | 132 ++++++++++++------------------------------------------
+ 2 files changed, 30 insertions(+), 103 deletions(-)
+
+commit e6a3404c39b2a9940b657f7af47d19cc0606bc63
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 1 23:44:07 2022 +0100
+
+    debian: Add a new not-installed file
+    
+    This lists the *.la files that we are not installing.
+
+ Makefile.am          | 1 +
+ debian/not-installed | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 01e66a1a8f2d7d8023073d88b4d2b3135d7a4668
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 1 19:58:21 2022 +0100
+
+    debian: Install optional localized man pages with dh_installman
+    
+    We need to use a dh command so that debhelper can track which files got
+    installed.
+    
+    We use the double globs, so that when a localized man page does not get
+    generated, we do not get failures from debhelper, as at least the
+    non-localized man page will always match.
+    
+    We were doing this already some time ago, but dh_installman did not
+    handle localized man pages correctly and was overwriting them with the
+    last match. Now that this is fixed, we switch back to using the globs
+    within brace expansion to simplify the support and make use of a dh
+    command.
+    
+    This reverts commit 806dfa8237d9e1e3c80a8b096cb1496d930fd34d.
+
+ debian/dpkg-dev.manpages | 88 ++++++++++++++++++++++++------------------------
+ debian/dpkg.manpages     | 26 +++++++-------
+ debian/dselect.manpages  |  4 +--
+ debian/rules             | 11 ------
+ 4 files changed, 59 insertions(+), 70 deletions(-)
+
+commit 46f449537b4a6522893836477ef8ccc08407d3a2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 1 19:59:42 2022 +0100
+
+    debian: Install aclocal m4 files into libdpkg-dev
+    
+    These can be of use by other projects from the dpkg suite.
+
+ debian/libdpkg-dev.install | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6a8b06f42c609968194e1bf8a5677f8ad3da6c84
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 15 03:46:08 2021 +0100
+
+    debian: Update bug-script to clarify usrmerge systems are unsupported
+    
+    The merged-usr-via-aliased-dirs, have never been and are not supported
+    by dpkg, and should be considered broken systems. Make this clear on
+    the message, and add a pointer to the FAQ describing the issue.
+
+ debian/bug-script | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 940f86c37f9fc069079e16d3cfd2eda1be97ca27
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 14 23:30:16 2021 +0100
+
+    debian: Ignore directories for the alternatives state fixup
+    
+    We should only consider regular files for the fix ups. Ignore anything
+    else, and stop explicitly ignoring known directories.
+    
+    Closes: #1001695
+
+ debian/dpkg.postinst | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+commit 87ff5aad393180ffd17714bc331bae069d12edfc
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:38:09 2021 +0100
+
+    test: Run the tools with --version
+    
+    This helps when trying to diagnose whether the executed programs are the
+    ones from the build-tree or the ones from the system.
+
+ src/at/deb-format.at | 4 ++++
+ src/at/deb-split.at  | 3 +++
+ 2 files changed, 7 insertions(+)
+
+commit 664a2599b85f0409507e1bfc1b8bd3ced2a611a8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:47:36 2021 +0100
+
+    build: Fold autotest test suite machinery into src/ from src/at/
+    
+    This matches how we are driving the test suites in other parts of the
+    project, and reduces one level of directory recursion.
+
+ build-aux/autotest.am | 20 ++++++++++----------
+ configure.ac          |  1 -
+ src/Makefile.am       | 31 ++++++++++++++++++++++++-------
+ src/at/Makefile.am    | 26 --------------------------
+ 4 files changed, 34 insertions(+), 44 deletions(-)
+
+commit 527ebf510a93f96e7176250fee75094fc981316a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:46:33 2021 +0100
+
+    build: Refactor autotest machinery into an automake include file
+
+ src/at/Makefile.am => build-aux/autotest.am | 23 +++--------------
+ src/at/Makefile.am                          | 38 +++++++----------------------
+ 2 files changed, 13 insertions(+), 48 deletions(-)
+
+commit f000080a3cc0bad464ae5d8ca775f481142f1448
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:49:39 2021 +0100
+
+    build: Refactor autotest dependencies into a new variable
+
+ src/at/Makefile.am | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 70734a72e9806b4598e43e1d689b16d55cc3ccbd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:40:38 2021 +0100
+
+    build: Move EXTRA_DIST close to the files it is acting on
+    
+    This makes it easier to reason about what's happening in the file.
+
+ src/Makefile.am | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+commit 0a4931080d7826ff91b933af1a5ec82a7636f9b5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:21:31 2021 +0100
+
+    build: Rework TAP check hooking into the autotools machinery
+    
+    Rename the TAP automake support file to tap.am to make it explicit this
+    is just one of the possible test suites we are running. Move from
+    implicitly hooking into the autotools check machinery to explicitly
+    hooking into it, so that we can run different test suites from the same
+    directory.
+
+ Makefile.am                    | 6 ++++--
+ build-aux/{check.am => tap.am} | 4 ++--
+ lib/dpkg/Makefile.am           | 6 ++++--
+ scripts/Makefile.am            | 6 ++++--
+ src/Makefile.am                | 6 ++++--
+ utils/Makefile.am              | 6 ++++--
+ 6 files changed, 22 insertions(+), 12 deletions(-)
+
+commit 5c189378f25acc8479656c885eef01daa213a32a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 15:16:00 2021 +0100
+
+    build: Remove unused TESTDATA variable from autotest suite
+
+ src/at/atlocal.in | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit 74354a592ad1d88c1b56c245b34bddbacd56d573
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 10 06:44:10 2021 +0100
+
+    build: Link all programs against libcompat
+    
+    The libcompat library gets linked into libdpkg, and that works fine as
+    long as it is built only as a static library, because then any of the
+    libdpkg users in the project will pull in any required object from
+    there. But when libdpkg is built as a shared library, then libtool
+    does not even include it as a dependency in its .la tracking files.
+    And the visibility rules in the shared library will not expose any of
+    the libcompat symbols, so we need to link against it explicitly.
+    
+    Prompted-by: Jörg Sonnenberger <joerg@NetBSD.org>
+
+ dselect/Makefile.am  | 1 +
+ lib/dpkg/Makefile.am | 1 +
+ src/Makefile.am      | 1 +
+ 3 files changed, 3 insertions(+)
+
+commit 87260bc8618d06b3aca1b39d922021bda749d32e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 9 20:55:13 2021 +0100
+
+    build: Add gitlab CI test for shared library building
+    
+    This will make sure the shared library is kept in a working state, even
+    though it's definitely not ready yet for general use.
+
+ .gitlab-ci.yml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 17b87a402c352d0bce13aba706ad1eae63876184
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 9 20:54:05 2021 +0100
+
+    libdpkg: Add missing symbols to the version map
+    
+    Changelog: internal
+
+ lib/dpkg/libdpkg.map | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 70d0eee545e2c380887a6796c732bfe7ead2d03e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 9 01:02:24 2021 +0100
+
+    test: Move AT_TESTED to testsuite.at
+    
+    We call it at the beginning of each group, instead from within each file
+    affecting the same group
+
+ src/at/deb-content.at | 2 --
+ src/at/deb-fields.at  | 2 --
+ src/at/deb-format.at  | 2 --
+ src/at/deb-split.at   | 2 --
+ src/at/testsuite.at   | 2 ++
+ 5 files changed, 2 insertions(+), 8 deletions(-)
+
+commit d3b01fff0045ef24cbe78f3df7b8cedbfb392495
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 9 15:07:01 2021 +0100
+
+    build: Namespace Config variable usage
+    
+    We are only requiring the module, so need to access it under its
+    namespace.
+    
+    Reported-by: Павловец Сергей Николаевич <s.pavlovets@ivcmf.by>
+
+ scripts/Build.PL.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3e1dcb9b713bb59092b2f25a5197d182afccf937
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 8 05:34:19 2021 +0100
+
+    build: Fix gitignore for build-aux/ directory
+    
+    This got lost during the move, as the .gitignore from the index overrode
+    the on-disk contents.
+
+ .gitignore           | 1 -
+ build-aux/.gitignore | 6 ++++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+commit 0b3b13a724fafea31a5e3ff498efef7c33a28a96
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 8 03:38:45 2021 +0100
+
+    build: Fix relocated autotest test suite runner
+    
+    - We need to build the current directory first with the tools.
+    - Remove unused entry in PATH for utils/.
+    - Use absolute path relative to the current source directory instead
+      of the top one.
+    
+    Fixes: commit 1e61d9416719b628ec0e93ced10fe4c1f38ef105
+
+ src/Makefile.am   | 1 +
+ src/at/atlocal.in | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit e14540db0d71d67f3eb4a07fae8570c29d1f053a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 8 03:25:29 2021 +0100
+
+    build: Move C test suite machinery into lib/dpkg/
+    
+    This matches how we are driving the test suite in other parts of the
+    project, and reduces one level of directory recursion.
+
+ configure.ac                |  1 -
+ lib/dpkg/.gitignore         |  1 +
+ lib/dpkg/Makefile.am        | 84 +++++++++++++++++++++++++++++++++++++++++---
+ lib/dpkg/t/.gitignore       |  1 -
+ lib/dpkg/t/Makefile.am      | 85 ---------------------------------------------
+ lib/dpkg/t/t-tarextract.t   |  2 +-
+ lib/dpkg/t/t-treewalk.t     |  2 +-
+ lib/dpkg/t/t-trigdeferred.t |  2 +-
+ 8 files changed, 83 insertions(+), 95 deletions(-)
+
+commit 1e61d9416719b628ec0e93ced10fe4c1f38ef105
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 7 02:11:43 2021 +0100
+
+    build: Move autotest suite under src/
+    
+    These are all functional tests for the now unified contents under src/.
+
+ Makefile.am                       | 1 -
+ configure.ac                      | 6 +++---
+ src/Makefile.am                   | 4 ++++
+ {t-func => src/at}/.gitignore     | 0
+ {t-func => src/at}/Makefile.am    | 0
+ {t-func => src/at}/atlocal.in     | 2 +-
+ {t-func => src/at}/deb-content.at | 0
+ {t-func => src/at}/deb-fields.at  | 0
+ {t-func => src/at}/deb-format.at  | 0
+ {t-func => src/at}/deb-split.at   | 0
+ {t-func => src/at}/local.at       | 0
+ {t-func => src/at}/testsuite.at   | 0
+ tests/README                      | 2 +-
+ 13 files changed, 9 insertions(+), 6 deletions(-)
+
+commit affb86e43bdf72ed2b4deaa8b9fe13f313c58363
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 4 05:10:33 2021 +0100
+
+    build: Reorganize dpkg programs source code under src/
+    
+    - Move dpkg-deb and dpkg-split under src/ as these are part of the dpkg
+      toolset.
+    - Move common source files under src/common/.
+    - Move program specific source files under subdirectories in src/.
+    - Rename the various *cmd.c into <tool>/main.c.
+    - Set automake option subdir-objects.
+
+ .gitignore                             |  1 +
+ Makefile.am                            |  2 -
+ README.l10n                            |  4 +-
+ configure.ac                           |  3 +-
+ dpkg-deb/.gitignore                    |  1 -
+ dpkg-deb/Makefile.am                   | 27 ----------
+ dpkg-split/.gitignore                  |  1 -
+ dpkg-split/Makefile.am                 | 29 ----------
+ po/POTFILES.in                         | 73 +++++++++++++------------
+ src/.gitignore                         |  2 +
+ src/Makefile.am                        | 98 +++++++++++++++++++++++-----------
+ src/{ => common}/actions.h             |  0
+ src/{ => common}/force.c               |  0
+ src/{ => common}/force.h               |  0
+ src/{ => common}/security-mac.h        |  0
+ src/{ => common}/selinux.c             |  0
+ {dpkg-deb => src/deb}/build.c          |  0
+ {dpkg-deb => src/deb}/dpkg-deb.h       |  0
+ {dpkg-deb => src/deb}/extract.c        |  0
+ {dpkg-deb => src/deb}/info.c           |  0
+ {dpkg-deb => src/deb}/main.c           |  0
+ src/{divertcmd.c => divert/main.c}     |  0
+ src/{ => main}/archives.c              |  0
+ src/{ => main}/archives.h              |  0
+ src/{ => main}/cleanup.c               |  0
+ src/{ => main}/configure.c             |  0
+ src/{ => main}/depcon.c                |  0
+ src/{ => main}/enquiry.c               |  0
+ src/{ => main}/errors.c                |  0
+ src/{ => main}/file-match.c            |  0
+ src/{ => main}/file-match.h            |  0
+ src/{ => main}/filters.c               |  0
+ src/{ => main}/filters.h               |  0
+ src/{ => main}/help.c                  |  0
+ src/{ => main}/main.c                  |  0
+ src/{ => main}/main.h                  |  0
+ src/{ => main}/packages.c              |  0
+ src/{ => main}/perpkgstate.c           |  0
+ src/{ => main}/remove.c                |  0
+ src/{ => main}/script.c                |  0
+ src/{ => main}/select.c                |  0
+ src/{ => main}/trigproc.c              |  0
+ src/{ => main}/unpack.c                |  0
+ src/{ => main}/update.c                |  0
+ src/{ => main}/verify.c                |  0
+ src/{querycmd.c => query/main.c}       |  0
+ {dpkg-split => src/split}/dpkg-split.h |  0
+ {dpkg-split => src/split}/info.c       |  0
+ {dpkg-split => src/split}/join.c       |  0
+ {dpkg-split => src/split}/main.c       |  0
+ {dpkg-split => src/split}/queue.c      |  0
+ {dpkg-split => src/split}/split.c      |  0
+ src/{statcmd.c => statoverride/main.c} |  0
+ src/{trigcmd.c => trigger/main.c}      |  0
+ t-func/atlocal.in                      |  2 +-
+ t/cppcheck/cppcheck.supp               |  8 +--
+ tests/Test.mk                          |  2 +-
+ 57 files changed, 117 insertions(+), 136 deletions(-)
+
+commit 3ab64fae1f5cd8613a8ec62d066bd02f9b4ed295
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 4 05:24:45 2021 +0100
+
+    build: Move build helper tools into build-aux/
+    
+    This unclutters the source tree, and moves the files where they belong
+    in normal autotools build systems.
+
+ Makefile.am                                 | 14 +++++++-------
+ check.am => build-aux/check.am              |  0
+ cpan.am => build-aux/cpan.am                |  0
+ gen-changelog => build-aux/gen-changelog    |  0
+ get-version => build-aux/get-version        |  0
+ doc/lcov-inject.pl => build-aux/lcov-inject |  2 +-
+ run-script => build-aux/run-script          |  2 +-
+ configure.ac                                |  5 +++--
+ debian/rules                                |  2 +-
+ lib/dpkg/t/Makefile.am                      |  2 +-
+ m4/dpkg-arch.m4                             |  2 +-
+ m4/dpkg-build.m4                            |  2 +-
+ scripts/Makefile.am                         |  2 +-
+ src/Makefile.am                             |  2 +-
+ t/shellcheck.t                              |  4 ++--
+ utils/Makefile.am                           |  2 +-
+ 16 files changed, 21 insertions(+), 20 deletions(-)
+
+commit f28cbcc4ed9e1406584962403f45016b403044c3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 7 14:18:21 2021 +0100
+
+    build: Terminate lists in variables with «# EOL»
+    
+    This means we can add a trailing «\» to every element, so that they
+    can be removed without requiring modification of other lines, and can
+    be easily sorted.
+    
+    Replace the old usage of $(nil) which could possibly end up with junk
+    added if such variable is ever defined, in the environment.
+
+ Makefile.am                 | 20 +++++++++++---------
+ debian/rules                |  2 +-
+ dpkg-deb/Makefile.am        |  9 ++++++---
+ dpkg-split/Makefile.am      |  9 ++++++---
+ dselect/Makefile.am         | 14 +++++++++-----
+ dselect/methods/Makefile.am | 16 ++++++++++------
+ lib/Makefile.am             |  3 ++-
+ lib/compat/Makefile.am      | 19 ++++++++++++++-----
+ lib/dpkg/Makefile.am        | 29 ++++++++++++++++++++---------
+ lib/dpkg/t/Makefile.am      | 20 ++++++++++++--------
+ man/Makefile.am             | 40 +++++++++++++++++++++++++++-------------
+ scripts/Makefile.am         | 33 +++++++++++++++++++++------------
+ scripts/mk/Makefile.am      |  6 ++++--
+ src/Makefile.am             | 34 ++++++++++++++++++++++------------
+ utils/Makefile.am           | 25 +++++++++++++++----------
+ 15 files changed, 180 insertions(+), 99 deletions(-)
+
+commit d9679e94cb384ecf97c0f3850e5fe062d17d8875
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 8 00:08:38 2021 +0100
+
+    dpkg-deb: Fix unexpected end of file conditions on .deb extract
+    
+    When the read_line() function finds an unexpected end of file, it
+    returns 0, but the call site was not catching that, which let further
+    processing of the buffer, containing garbage.
+    
+    Warned-by: coverity
+    Stable-Candidate: 1.20.x
+
+ dpkg-deb/extract.c   |  4 ++--
+ t-func/deb-format.at | 15 +++++++++++++++
+ 2 files changed, 17 insertions(+), 2 deletions(-)
+
+commit 40de82bf20b083eb1ce17a084a1b77e53b0af977
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 7 22:41:39 2021 +0100
+
+    libdpkg: Check that cip is not NULL before dereferencing it
+    
+    While no current caller passes a NULL cip argument, this still trips
+    over code analyzers, and it is safer to check in case of future uses.
+    
+    Warned-by: coverity
+    Changelog: internal
+
+ lib/dpkg/options.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 29f3a8dafd07191bb132c471e4a44379553384d4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 7 22:37:59 2021 +0100
+
+    dpkg: Fix memory leak in remove-on-upgrade handling
+    
+    Fixes: commit 20e181fc2030385488e3db2d4cc3ce4114f0a498
+    Warned-by: coverity
+    Stable-Candidate: 1.20.x
+
+ src/unpack.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 44dd034ce3364b889da41f109f6a472e7ca34553
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 7 22:14:04 2021 +0100
+
+    Bump version to 1.21.2
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 9b52f8fa74571049d868cb2af0643ee7f89a6151
 Author: Guillem Jover <guillem@debian.org>
 Date:   Mon Dec 6 21:04:33 2021 +0100

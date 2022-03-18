@@ -140,7 +140,7 @@ Esta definição define se se deve activar o modo dry-run.
 
 =head1 VEJA TAMBÉM
 
-L<https://wiki.debian.org/Teams/Dpkg/FAQ#Q:_Does_dpkg_support_merged-.2Fusr-via-aliased-dirs.3F>.
+L<https://wiki.debian.org/Teams/Dpkg/FAQ#broken-usrmerge>.
 
 
 =head1 TRADUÇÃO

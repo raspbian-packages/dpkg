@@ -58,7 +58,7 @@ I<prefix> が指定されていない場合は、I<complete-archive> ファイ�
 
 パートのファイルに関する情報を人が読みやすい形式で表示する。バイナリパッケージのパート以外のファイルが引数で指定された場合は、それを指摘するメッセージを (標準出力に) 代わりに表示する。
 
-=item B<-a>, B<--auto -o> I<complete-output part>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 自動的にパートをキューイングして、可能であればパッケージを再統合する。
 

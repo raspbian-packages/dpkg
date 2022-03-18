@@ -404,7 +404,7 @@ B<Extracting>
 
 O bolo é clonado como um repositório git para o directório alvo. Se existir um ficheiro gitshallow, é instalado como I<.git/shallow> dentro do repositório git clonado.
 
-Note que por predefinição o novo repositório irá ter o mesmo ramo "checked out" como era "checked out" na fonte original. (Tipicamente “master”, mas pode ser qualquer coisa.) Quaisquer outros ramos irão estar disponíveis sob I<remotes/origin/>.
+Note that by default the new repository will have the same branch checked out that was checked out in the original source.  (Typically “main”, but it could be anything.)  Any other branches will be available under I<remotes/origin/>.
 
 B<Building>
 
@@ -418,7 +418,7 @@ B<Opções de compilação>
 
 =item B<--git-ref=>I<ref>
 
-Permite especificar um ref de git para incluir no bolo do git. O uso desactiva o comportamento predefinido de incluir todos os ramos e etiquetas. Pode ser especificado várias vezes. O I<ref> pode ser o nome de um ramo ou etiqueta a incluir. Também pode ser qualquer parâmetro que possa ser passado ao B<git-rev-list>(1). Por exemplo, para incluir apenas o ramo master, use B<--git-ref=>master. Para incluir todos as etiquetas e ramos, excepto para o ramo privado, use B<--git-ref=>--all B<--git-ref=>^private
+Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to B<git-rev-list>(1). For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
 
 =item B<--git-depth=>I<number>
 

@@ -58,7 +58,7 @@ Par défaut, le fichier produit s'appelle I<paquet>B<_>I<version>B<_>I<arch>B<.d
 
 Affiche les renseignements concernant telle partie dans un format lisible par tous. Les arguments ne représentant pas la partie d'un fichier binaire le disent aussi sur la sortie standard.
 
-=item B<-a>, B<--auto -o> I<fichier-complet partie>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 Met en file automatiquement les parties en vue de la recomposition d'un paquet.
 

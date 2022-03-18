@@ -58,7 +58,7 @@ Por predefinição, o ficheiro resultante é chamado I<pacote>B<_>I<versão>B<_>
 
 Escreve informação, num formato humanamente legível, acerca dos ficheiro(s) parte especificados. Argumentos que não sejam partes de pacote binário, em vez disso, produzem uma mensagem a dizê-lo (mas mesmo assim na saída standard).
 
-=item B<-a>, B<--auto -o> I<complete-output part>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 Põe em lista de espera partes e remonta um pacote automaticamente se possível.
 

@@ -27,12 +27,12 @@ De symboolbestanden worden meegeleverd met Debian binaire pakketten en de indeli
 In deze bestanden is de indeling van een item met informatie over een afhankelijkheid van de uitgebreide gedeelde bibliotheek als volgt:
 
 Z<>
- I<bibliotheek-soname hoofd-afhankelijkheidssjabloon>
- [| I<alternatief-afhankelijkheidssjabloon>]
+ I<library-soname> I<main-dependency-template>
+ [| I<alternative-dependency-template>]
  [...]
- [* I<veld-name>: I<veld-waarde>]
+ [* I<field-name>: I<field-value>]
  [...]
-  I<symbool> I<minimale-versie> [I<id-van-vereiste-sjabloon>]
+  I<symbol> I<minimal-version> [I<id-of-dependency-template>]
 
 De I<bibliotheeksoname> is exact de waarde van het veld SONAME zoals die door B<objdump>(1) geëxporteerd wordt. Een I<afhankelijkheidssjabloon> is een afhankelijkheid waarbij I<#MINVER#> dynamisch vervangen wordt door ofwel een versietoets zoals “(E<gt>= I<minimale-versie>)” ofwel door niets (indien een versieloze afhankelijkheid voldoende geacht wordt).
 
@@ -52,7 +52,7 @@ Hetzelfde als B<Build-Depends-Package>, maar aanvaardt een door komma's gescheid
 
 =item B<Allow-Internal-Symbol-Groups>
 
-Dit vermeldt in een lijst met witruimte als scheidingsteken welke interne symbolengroepen genegeerd moeten worden, zodat de symbolen uit deze groepen mee opgenomen worden in het uitvoerbestand (sinds dpkg 1.20.1). Dit zou enkel noodzakelijk moeten zijn voor pakketten uit de gereedschapskist die deze interne symbolen ter beschikking stellen. De beschikbare groepen zijn systeemafhankelijk en voor op ELF en op GNU gebaseerde systemen zijn dat B<aeabi> en B<gomp>.
+Dit vermeldt in een lijst met witruimte als scheidingsteken welke interne symbolengroepen genegeerd moeten worden, zodat de symbolen uit deze groepen mee opgenomen worden in het uitvoerbestand (sinds dpkg 1.20.1). Dit zou enkel noodzakelijk moeten zijn voor pakketten uit de gereedschapsketen die deze interne symbolen ter beschikking stellen. De beschikbare groepen zijn systeemafhankelijk en voor op ELF en op GNU gebaseerde systemen zijn dat B<aeabi> en B<gomp>.
 
 =item B<Ignore-Blacklist-Groups>
 

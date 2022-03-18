@@ -140,6 +140,8 @@ B<6.> Configura o pacote. Veja B<--configure> para informação detalhada sobre 
 
 Desempacota o pacote, mas não o configura. Se a opção B<--recursive> ou B<-R> for especificada, I<package-file> deverá então referir-se a um directório.
 
+Will process triggers for B<Pre-Depends> unless B<--no-triggers> has been specified.
+
 =item B<--configure> I<package>...|B<-a>|B<--pending>
 
 Configura um pacote que foi desempacotado mas ainda não configurado. Se for fornecido B<-a> ou B<--pending> em vez de I<package>, todos os pacotes desempacotados mas não configurados são configurados.
@@ -151,6 +153,8 @@ A configuração consiste dos seguintes passos:
 B<1.> Desempacota os conffiles, e ao mesmo tempo faz salvaguardas dos conffiles antigos, para que possam ser restaurados se algo correr mal.
 
 B<2.> Corre o script I<postinst>, se fornecido pelo pacote.
+
+Will process triggers unless B<--no-triggers> has been specified.
 
 =item B<--triggers-only> I<package>...|B<-a>|B<--pending>
 
@@ -168,6 +172,8 @@ B<2.> Remove os ficheiros instalados
 
 B<3.> Corre o script I<postrm>
 
+Will process triggers unless B<--no-triggers> has been specified.
+
 =item B<-P>, B<--purge> I<package>...|B<-a>|B<--pending>
 
 Purga um pacote instalado ou já removido.Isto remove tudo, incluindo conffiles, e tudo o resto limpo a partir do I<postrm>.  Se for fornecido B<-a> ou  B<--pending> em vez do nome de pacote, então todos os pacotes desempacotados ou removidos, mas marcados para serem purgados no ficheiro I<%ADMINDIR%/status>, serão purgados.
@@ -179,6 +185,8 @@ Purgar um pacote consiste nos seguintes passos:
 B<1.> Remover o pacote, se não estiver já removido. Veja B<--remove> para informação detalhada acerca de como isto é feito.
 
 B<2.> Correr o script I<postrm>.
+
+Will process triggers unless B<--no-triggers> has been specified.
 
 =item B<-V>, B<--verify> [I<package-name>...]
 
@@ -298,7 +306,7 @@ Suporta o campo B<Protected> (desde dpkg 1.20.1).
 
 =back
 
-=item B<--validate->I<thing string>
+=item B<--validate->I<thing> I<string>
 
 Valida que a I<thing> I<string> tem a sintaxe correcta (desde dpkg 1.18.16). Retorna 0 se a I<string> for válida, 1 se a I<string> é inválida mas pode ser aceite em contextos lax, e 2 se a I<string> é inválida. A lista actual de I<thing> validáveis é:
 
@@ -372,11 +380,11 @@ Lista o conteúdo de um pacote deb.
 
 Extrai informação-controle de um pacote. 
 
-=item B<-x>, B<--extract> I<archive directory>
+=item B<-x>, B<--extract> I<archive> I<directory>
 
 Extrai os ficheiros contidos por um pacote.
 
-=item B<-X>, B<--vextract> I<archive directory>
+=item B<-X>, B<--vextract> I<archive> I<directory>
 
 Extrai e mostra os nomes de ficheiros contidos por um pacote.
 
@@ -555,7 +563,7 @@ Não instala um pacote se uma versão mais recente do mesmo pacote já estiver i
 
 =item B<--admindir=>I<dir>
 
-Define o directório administrativo para I<directory>. Este directório contem muitos ficheiros que fornecem informação acerca do estado de pacotes instalados ou desinstalados, etc. A predefinição é «I<%ADMINDIR%>».
+Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir=>I<dir>
 
@@ -961,7 +969,7 @@ Para fazer uma cópia local do estado de selecção de pacotes:
 
 =back
 
-Você poderá transferir este ficheiro para outro computador, e depois de ter actualizado lá o ficheiro I<available> com o seu frontend elegido de gestão de pacotes (veja L<https://wiki.debian.org/Teams/Dpkg/FAQ> para mais detalhes), por exemplo:
+You might transfer this file to another computer, and after having updated the I<available> file there with your package manager frontend of choice (see L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> for more details), for example:
 
 =over 
 

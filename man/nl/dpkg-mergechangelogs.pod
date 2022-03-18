@@ -32,9 +32,9 @@ Elk item wordt aan de hand van zijn versienummer geïdentificeerd en er wordt va
 
 =item B<--merge-unreleased>
 
-Ignore the version number when the entries are marked as B<UNRELEASED> (since dpkg 1.21.0).
+Het versienummer negeren wanneer de items gemarkeerd zijn als B<UNRELEASED> (sinds dpkg 1.21.0).
 
-This is useful when you have diverging development for versions that have not yet been released. For instance 2.1-1 is released, then development happens for the new 2.2-1 and then for 2.3-1, where it makes sense to just end with a coalesced entry for 2.3-1 including all the development done in 2.2-1.
+Dit is nuttig wanneer u uiteenlopende ontwikkelingen heeft voor versies die nog niet zijn uitgebracht. Bijvoorbeeld, 2.1-1 wordt uitgebracht, waarna er ontwikkeling plaats vindt voor een nieuwe versie 2.2-1 en vervolgens voor 2.3-1, terwijl het logisch is om gewoon te eindigen met een samengevoegd item voor 2.3-1 waarin alle ontwikkeling die in 2.2-1 gerealiseerd werd, opgenomen is.
 
 =item B<-m>, B<--merge-prereleases>
 

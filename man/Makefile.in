@@ -89,13 +89,16 @@ build_triplet = @build@
 host_triplet = @host@
 @BUILD_DSELECT_TRUE@am__append_1 = \
 @BUILD_DSELECT_TRUE@	dselect.1 \
-@BUILD_DSELECT_TRUE@	dselect.cfg.5
+@BUILD_DSELECT_TRUE@	dselect.cfg.5 \
+@BUILD_DSELECT_TRUE@	# EOL
 
 @BUILD_START_STOP_DAEMON_TRUE@am__append_2 = \
-@BUILD_START_STOP_DAEMON_TRUE@	start-stop-daemon.8
+@BUILD_START_STOP_DAEMON_TRUE@	start-stop-daemon.8 \
+@BUILD_START_STOP_DAEMON_TRUE@	# EOL
 
 @BUILD_UPDATE_ALTERNATIVES_TRUE@am__append_3 = \
-@BUILD_UPDATE_ALTERNATIVES_TRUE@	update-alternatives.1
+@BUILD_UPDATE_ALTERNATIVES_TRUE@	update-alternatives.1 \
+@BUILD_UPDATE_ALTERNATIVES_TRUE@	# EOL
 
 subdir = man
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -305,6 +308,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -380,7 +384,7 @@ man_MANS = deb-buildinfo.5 deb-changelog.5 deb-changes.5 \
 	dpkg-parsechangelog.1 dpkg-query.1 dpkg-realpath.1 \
 	dpkg-scanpackages.1 dpkg-scansources.1 dpkg-shlibdeps.1 \
 	dpkg-source.1 dpkg-split.1 dpkg-statoverride.1 dpkg-trigger.1 \
-	dpkg-vendor.1 dpkg.1 dpkg.cfg.5 dsc.5 $(nil) $(am__append_1) \
+	dpkg-vendor.1 dpkg.1 dpkg.cfg.5 dsc.5 $(am__append_1) \
 	$(am__append_2) $(am__append_3)
 CLEANFILES = $(man_MANS)
 
@@ -412,18 +416,29 @@ LINGUAS_DIST = `$(SED) -ne 's/^.*\[po4a_langs\] \(.*\)$$/\1/p' $(srcdir)/po/po4a
 PO4A_V = $(PO4A_V_@AM_V@)
 PO4A_V_ = $(PO4A_V_@AM_DEFAULT_V@)
 PO4A_V_0 = @echo "  PO4A   $@";
-PO4A_OPTS = --previous --srcdir $(srcdir) --destdir $(builddir) --no-backups \
-            --porefs file --msgmerge-opt=--add-location=file \
-            --package-name dpkg-man --package-version $(PACKAGE_VERSION) \
-            --copyright-holder "$(PACKAGE_COPYRIGHT_HOLDER)" \
-            --msgid-bugs-address $(PACKAGE_BUGREPORT)
+PO4A_OPTS = \
+	--previous \
+	--srcdir $(srcdir) \
+	--destdir $(builddir) \
+	--no-backups \
+	--porefs file \
+	--msgmerge-opt=--add-location=file \
+	--package-name dpkg-man \
+	--package-version $(PACKAGE_VERSION) \
+	--copyright-holder "$(PACKAGE_COPYRIGHT_HOLDER)" \
+	--msgid-bugs-address $(PACKAGE_BUGREPORT) \
+	# EOL
 
 SUFFIXES = .pod .1 .5 .7 .8
 POD2MAN_V = $(POD2MAN_V_@AM_V@)
 POD2MAN_V_ = $(POD2MAN_V_@AM_DEFAULT_V@)
 POD2MAN_V_0 = @echo "  POD2MAN $@";
-POD2MAN_OPTS = --utf8 --center='dpkg suite' --release=$(PACKAGE_VERSION) \
-               --date='$(PACKAGE_RELEASE_DATE)'
+POD2MAN_OPTS = \
+	--utf8 \
+	--center='dpkg suite' \
+	--release=$(PACKAGE_VERSION) \
+	--date='$(PACKAGE_RELEASE_DATE)' \
+	# EOL
 
 PODSUBST = $(SED) \
 	-e 's/%PACKAGE%/$(PACKAGE)/g' \
@@ -438,11 +453,13 @@ PODSUBST = $(SED) \
 	-e 's:%PKGCONFDIR%:$(pkgconfdir):g' \
 	-e 's:%PKGLIBDIR%:$(pkglibexecdir):g' \
 	-e 's:%PKGDATADIR%:$(pkgdatadir):g' \
-	$(nil)
+	-e 's:%INSTDIR_ENVVAR%:DPKG_ROOT:g' \
+	-e 's:%ADMINDIR_ENVVAR%:DPKG_ADMINDIR:g' \
+	# EOL
 
 MANFIXUP = $(SED) \
 	-f $(srcdir)/utf8toman.sed \
-	$(nil)
+	# EOL
 
 @BUILD_POD_DOC_TRUE@MANGEN = $(POD2MAN_V) filename='$@'; \
 @BUILD_POD_DOC_TRUE@	  $(PODSUBST) $< | \

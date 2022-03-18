@@ -104,11 +104,11 @@ Adiciona um grupo de alternativas ao sistema. I<link> é o nome genérico para o
 
 Se o nome alternativo especificado já existir nos registos do sistema de alternativas, a informação fornecida será adicionada como um novo conjunto de alternativas para o grupo. Caso contrário, será adicionado um novo grupo, definido para modo automático, com esta informação. Se o grupo estiver em modo automático, e as prioridade das alternativas recentes adicionadas é mais alta que as outras alternativas instaladas para este grupo, os links simbólicos serão actualizados para apontarem às novas alternativas adicionadas.
 
-=item B<--set> I<name path>
+=item B<--set> I<name> I<path>
 
 Define o programa I<path> como alternativa para I<name>. Isto é equivalente a B<--config> mas não é interactivo e assim apropriado para usar em scripts.
 
-=item B<--remove> I<name path>
+=item B<--remove> I<name> I<path>
 
 Remove uma alternativa e todos os seus links slave associados. I<name> é um nome no directório de alternativas, e I<path> é um nome de ficheiro absoluto para o qual I<name> poderá estar vinculado. Se I<name> está de facto vinculado a I<path>, I<name> será actualizado para apontar para outra alternativa apropriada (e o grupo é colocado de novo em modo automático), ou removido se não existir mais nenhuma alternativa. Os links slave associados serão actualizados ou removidos, correspondentemente. Se o link não está actualmente a apontar para I<path>, nenhum link é alterado, apenas é removida a informação sobre a alternativa.
 
@@ -168,15 +168,15 @@ Especifica o directório alternativo, quando é suposto este ser diferente do pr
 
 =item B<--admindir> I<directory>
 
-Especifica o directório administrativo, quando este deve ser diferente do predefinido. A predefinição é «I<%ADMINDIR%/alternatives>»
+Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
 
 =item B<--instdir> I<directory>
 
-Especifica o directório de instalação onde os links alternativos serão criados (desde versão 1.20.1). A predefinição é «».
+Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--root> I<directory>
 
-Especifica o directório raiz (desde 1.20.1). Isto também define alternativas, directórios de instalação e administração para corresponder. A predefinição é «».
+Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--log> I<file>
 
@@ -222,7 +222,11 @@ Foram encontrados problemas ao analisar a linha de comandos ou ao executar a ac�
 
 =over 
 
-=item B<DPKG_ADMINDIR>
+=item B<%INSTDIR_ENVVAR%>
+
+Se definido e as opções B<--instdir> ou B<--root> não foram especificadas, será usado como o directório raiz do sistema de ficheiros.
+
+=item B<%ADMINDIR_ENVVAR%>
 
 Se definido e se a opção B<--admindir> não foi especificada, será usado como o directório administrativo base.
 

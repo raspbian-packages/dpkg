@@ -130,7 +130,7 @@ De machine waarvoor het pakket gebouwd wordt.
 
 =item doelmachine
 
-The machine the compiler is building for, or the emulator will run code for.  This is only needed when building a cross-toolchain (or emulator), one that will be built on the build architecture, to be run on the host architecture, and to build (or run emulated) code for the target architecture.
+De machine waarvoor de compiler bouwt of waar de emulator code voor zal uitvoeren. Dit is enkel nodig bij het bouwen van een kruisgereedschapsketen (cross-toolchain) (of emulator), een die gebouwd zal worden op de bouwarchitectuur om uitgevoerd te worden op de hostarchitectuur en code moet bouwen (of geëmuleerd moet uitvoeren) voor de doelarchitectuur.
 
 =item Debian-architectuur
 

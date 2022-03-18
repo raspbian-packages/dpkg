@@ -38,9 +38,9 @@ Ajoute un détournement pour I<fichier>. Le fichier n'est pas renommé actuellem
 
 Supprime un détournement pour I<fichier>. Le fichier n'est pas renommé actuellement, voir B<--rename>.
 
-=item B<--list> I<motif-global>
+=item B<--list> [I<motif-global>]
 
-Liste les détournements qui correspondent à I<motif-global>.
+List all diversions, or ones matching I<glob-pattern>.
 
 =item B<--listpackage> I<fichier>
 
@@ -58,15 +58,15 @@ Affiche le vrai nom d'un fichier détourné.
 
 =item B<--admindir> I<répertoire>
 
-Définit le répertoire d'administration comme I<répertoire>. Par défaut c'est S<« I<%ADMINDIR%> ».>
+Set the administrative directory to I<directory>.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<répertoire>
 
-Définit le répertoire d'installation qui désigne le répertoire où les paquets sont installés (depuis S<dpkg 1.19.2).> Par défaut c'est S<« I</> ».>
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<répertoire>
 
-Définit le répertoire root à B<directory>, ce qui définit le répertoire d'installation à S<« I<répertoire> »> et le répertoire d'administration à S<« I<répertoire>B<%ADMINDIR%> »> (depuis S<dpkg 1.19.2).>
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--divert> I<détourner-dans>
 

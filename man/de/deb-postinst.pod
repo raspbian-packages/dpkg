@@ -38,21 +38,21 @@ Nachdem das Paket getriggert wurde. Die Liste der durch Leerzeichen getrennten I
 
 =item I<old-postinst> B<abort-upgrade> I<neue_Version>
 
-Falls I<prerm> während eines Upgrades oder eines fehlgeschlagenen Upgrades fehlschlägt.
+Falls I<prerm> während B<upgrade> oder B<failed-upgrade> fehlschlägt.
 
 =item I<old-postinst> B<abort-remove>
 
-Falls I<prerm> während des Entfernens fehlschlägt.
+Falls I<prerm> während B<remove> fehlschlägt.
 
-=item I<postinst> B<abort-deconfigure in-favour> I<neues_Paket neue_Version>
+=item I<postinst> B<abort-deconfigure> B<in-favour> I<neues_Paket> I<neue_Version>
 
-=item S< >[ B<removing> I<altes_Paket alte_Version> ]
+=item S< >[ B<removing> I<altes_Paket> I<alte_Version> ]
 
-Falls I<prerm> während der Dekonfiguration eines Paketes fehlschlägt.
+Falls I<prerm> während B<deconfigure in-favour> eines Paketes fehlschlägt.
 
-=item I<postinst> B<abort-remove in-favour> I<neues_Paket neue_Version>
+=item I<postinst> B<abort-remove> B<in-favour> I<neues_Paket> I<neue_Version>
 
-Falls I<prerm> während einer Ersetzung aufgrund eines Konflikts fehlschlägt.
+Falls I<prerm> während B<remove in-favour> für eine Ersetzung aufgrund eines Konflikts fehlschlägt.
 
 =back
 

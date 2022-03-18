@@ -94,24 +94,24 @@ De indeling van de uitvoer van deze optie kan niet geconfigureerd worden, maar v
 
 =item B<-W>, B<--show> [I<pakketnaampatroon>...]
 
-Just like the B<--list> option this will list all packages matching the given patterns. However the output can be customized using the B<--showformat> option.  The default output format gives one line per matching package, each line having the name (extended with the architecture qualifier for B<Multi-Arch> B<same> packages) and installed version of the package, separated by a tab.
+Net zoals de optie B<--list> zal dit alle pakketten vermelden die met het opgegeven patroon overeenkomen. De uitvoer kan evenwel aangepast worden met behulp van de optie B<--showformat>. De standaardindeling van de uitvoer gebruikt één regel per pakket dat gevonden werd, waarbij elke regel de naam (uitgebreid met de architectuurkwalificatie voor pakketten van het type B<Multi-Arch> B<same>) en de geïnstalleerde versie van het pakket bevat, onderling gescheiden door een tab.
 
 =item B<-s>, B<--status> [I<pakketnaam>...]
 
-Report status of specified packages. This just displays the entry in the installed package status database.  If no I<package-name> is specified it will display all package entries in the status database (since dpkg 1.19.1).  When multiple I<package-name> entries are listed, the requested status entries are separated by an empty line, with the same order as specified on the argument list.
+Rapporteert over de status van opgegeven pakketten. Dit geeft gewoon het item weer uit de databank met de toestand van de geïnstalleerde bestanden. Indien geen I<pakketnaam> vermeld werd, worden alle items uit de databank met toestandsinformatie weergegeven (sinds dpkg 1.19.1). Als meerdere I<pakketnamen> vermeld werden, worden de opgevraagde items met toestandsinformatie van elkaar gescheiden door een lege regel en weergegeven in dezelfde volgorde als die van de argumentenlijst.
 
 =item B<-L>, B<--listfiles> I<pakketnaam>...
 
-List files installed to your system from I<package-name>. When multiple I<package-name>s are listed, the requested lists of files are separated by an empty line, with the same order as specified on the argument list.
+De bestanden vermelden die uit I<pakketnaam> op uw systeem geïnstalleerd werden. Als meerdere I<pakketnamen> opgegeven werden, zullen de gevraagde vermeldingen van bestanden van elkaar gescheiden worden door een lege regel en in dezelfde volgorde weergegeven worden als ze in de lijst met argumenten opgegeven werden.
 
-Each file diversion is printed on its own line after its diverted file, prefixed with one of the following localized strings:
+Elke bestandsomleiding wordt afgedrukt op zijn eigen regel na het omgeleide bestand, voorafgegaan door een van de volgende gelokaliseerde tekenreeksen:
 
 Z<>
-  locally diverted to: I<diverted-to>
-  package diverts others to: I<diverted-to>
-  diverted by I<pkg> to: I<diverted-to>
+  lokaal omgeleid naar: I<omgeleid-naar>
+  pakket leidt andere om naar: I<omgeleid-naar>
+  omgeleid door I<pkkt> naar: I<omgeleid-naar>
 
-Hint: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+Hint: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen.
 
 Dit commando geeft geen extra bestanden weer die door scripts van de pakketonderhouder aangemaakt werden en ook geen alternatieven.
 
@@ -131,30 +131,30 @@ B<Waarschuwing>: dit commando wordt uitgefaseerd, omdat het rechtstreekse toegan
 
 =item B<-S>, B<--search> I<zoekpatroon-bestandsnaam>...
 
-Search for packages that own files corresponding to the given patterns. Standard shell wildcard characters can be used in the pattern, where asterisk (B<*>) and question mark (B<?>) will match a slash, and backslash (B<\>) will be used as an escape character.
+Pakketten zoeken die bestanden hebben die overeenkomen met het opgegeven patroon. Standaard shell-jokertekens kunnen in het patroon gebruikt worden, waarbij sterretje (B<*>) en vraagteken (B<?>) met een slash overeenkomen en backslash (B<\>) als een maskeerteken (escape-teken) gebruikt wordt.
 
 Wanneer het eerste teken in het I<zoekpatroon-bestandsnaam> niet een van de tekens ‘B<*[?/>’ is, dan zal het beschouwd worden als deeltekenreeksvergelijking en zal het impliciet geplaatst worden tussen ‘B<*>’ (zoals in B<*>I<zoekpatroon-bestandsnaam>B<*>). Indien de daaropvolgende tekenreeks een van de tekens ‘B<*[?\>’ bevat, dan zal ze behandeld worden als een glob-patroon, anders zal een eventuele afsluitende ‘B</>’ of ‘B</.>’ verwijderd worden en zal er een letterlijke padopzoeking uitgevoerd worden.
 
 Dit commando geeft geen extra bestanden weer die door scripts van de pakketonderhouder aangemaakt werden en ook geen alternatieven.
 
-The output format consists of one line per matching pattern, with a list of packages owning the pathname separated by a comma (U+002C ‘B<,>’) and a space (U+0020 ‘B< >’), followed by a colon (U+003A ‘B<:>’) and a space, followed by the pathname. As in:
+De opmaak van de uitvoer bestaat uit één regel per overeenkomend patroon, met een lijst van pakketten waarin de padnaam voorkomt, gescheiden door een komma (U+002C 'B<,>') en een spatie (U+0020 'B< >'), gevolgd door een dubbele punt (U+003A 'B<:>') en een spatie, gevolgd door de padnaam. Als in:
 
-  pkgname1, pkgname2: pathname1
-  pkgname3: pathname2
+  pkktnaam1, pkktnaam2: padnaam1
+  pkktnaam3: padnaam2
 
-File diversions are printed with the following localized strings:
-
-Z<>
-  diversion by I<pkgname> from: I<diverted-from>
-  diversion by I<pkgname> to: I<diverted-to>
-
-or for local diversions:
+Bestandsomleidingen worden afgedrukt met de volgende gelokaliseerde tekenreeksen:
 
 Z<>
-  local diversion from: I<diverted-from>
-  local diversion to: I<diverted-to>
+  omleiding door I<pkktnaam> van: I<omgeleid-van>
+  omleiding door I<pkktnaam> naar: I<omgeleid-naar>
 
-Hint: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+of voor lokale omleidingen:
+
+Z<>
+  lokale omleiding van: I<omgeleid-van>
+  lokale omleiding naar: I<omgeleid-naar>
+
+Hint: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen.
 
 =item B<-p>, B<--print-avail> [I<pakketnaam>...]
 
@@ -180,9 +180,9 @@ De versie tonen en afsluiten.
 
 De locatie van de database van B<dpkg> wijzigen. De standaardlocatie is I<%ADMINDIR%>.
 
-=item B<--root=>I<directory>
+=item B<--root=>I<map>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+De hoofdmap instellen op I<map>, hetgeen de administratieve map instelt op «I<map>%ADMINDIR%» (sinds dpkg 1.21.0).
 
 =item B<--load-avail>
 
@@ -385,7 +385,7 @@ Stelt het te gebruiken pagineringscommando in (sinds dpkg 1.19.1), hetwelk uitge
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Indien dit ingesteld is en de optie B<--root> niet opgegeven werd, zal dit gebruikt worden als de hoofdmap voor het bestandssysteem (sinds dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 

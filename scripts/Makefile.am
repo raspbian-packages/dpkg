@@ -2,12 +2,9 @@
 
 SUBDIRS = mk po
 
-pkglibexec_SCRIPTS = \
-	dpkg-db-backup \
-	# EOL
-
 sbin_SCRIPTS = \
-	dpkg-fsys-usrunmess
+	dpkg-fsys-usrunmess \
+	# EOL
 
 bin_SCRIPTS = \
 	dpkg-architecture \
@@ -19,55 +16,48 @@ bin_SCRIPTS = \
 	dpkg-genchanges \
 	dpkg-gencontrol \
 	dpkg-gensymbols \
-	dpkg-maintscript-helper \
 	dpkg-mergechangelogs \
 	dpkg-name \
 	dpkg-parsechangelog \
-	dpkg-realpath \
 	dpkg-scanpackages \
 	dpkg-scansources \
 	dpkg-shlibdeps \
 	dpkg-source \
-	dpkg-vendor
+	dpkg-vendor \
+	# EOL
 
 EXTRA_DIST = \
 	dpkg-architecture.pl \
 	dpkg-buildflags.pl \
 	dpkg-buildpackage.pl \
 	dpkg-checkbuilddeps.pl \
-	dpkg-db-backup.sh \
 	dpkg-distaddfile.pl \
 	dpkg-fsys-usrunmess.pl \
 	dpkg-genbuildinfo.pl \
 	dpkg-genchanges.pl \
 	dpkg-gencontrol.pl \
 	dpkg-gensymbols.pl \
-	dpkg-maintscript-helper.sh \
 	dpkg-mergechangelogs.pl \
 	dpkg-name.pl \
 	dpkg-parsechangelog.pl \
-	dpkg-realpath.sh \
 	dpkg-scanpackages.pl \
 	dpkg-scansources.pl \
 	dpkg-shlibdeps.pl \
 	dpkg-source.pl \
 	dpkg-vendor.pl \
 	$(test_scripts) \
-	$(test_data)
-
-nobase_dist_pkgdata_DATA = \
-	sh/dpkg-error.sh \
+	$(test_data) \
 	# EOL
 
 dist_zshcompletions_DATA = \
-	zsh/_dpkg-parsechangelog \
+	completion/zsh/_dpkg-parsechangelog \
 	# EOL
 
 CLEANFILES = \
 	$(test_data_objects) \
-	$(pkglibexec_SCRIPTS) \
 	$(sbin_SCRIPTS) \
-	$(bin_SCRIPTS)
+	$(bin_SCRIPTS) \
+	# EOL
 
 perllibdir = $(PERL_LIBDIR)
 nobase_dist_perllib_DATA = \
@@ -144,45 +134,21 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Vendor/Default.pm \
 	Dpkg/Vendor/Ubuntu.pm \
 	Dpkg/Version.pm \
-	Dpkg.pm
+	Dpkg.pm \
+	# EOL
 
 EXTRA_DIST += \
 	Test/Dpkg.pm \
-	$(nil)
+	# EOL
 
 # Keep it even if empty to have man3dir correctly set
 man3_MANS =
 
 man_perl_section = 3perl
 
-do_perl_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
-	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
-	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
-	-e "s:our \$$LIBDIR = .*;:our \$$LIBDIR = '$(pkglibexecdir)';:" \
-	-e "s:our \$$DATADIR = .*;:our \$$DATADIR = '$(pkgdatadir)';:" \
-	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
-	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
-	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
-	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:"
+SUFFIXES =
 
-do_shell_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
-	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
-	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
-	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":"
-
-SUFFIXES = .pl .sh
-
-.pl:
-	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_perl_subst) <$< >$@
-	$(AM_V_at) chmod +x $@
-
-.sh:
-	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_shell_subst) <$< >$@
-	$(AM_V_at) chmod +x $@
+include $(top_srcdir)/build-aux/subst.am
 
 install-data-local:
 if BUILD_POD_DOC
@@ -202,11 +168,10 @@ endif
 
 # Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
 install-data-hook:
-	mv $(DESTDIR)$(perllibdir)/Dpkg.pm \
-	   $(DESTDIR)$(perllibdir)/Dpkg.pm.tmp
-	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm.tmp \
-	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm
-	rm -f $(DESTDIR)$(perllibdir)/Dpkg.pm.tmp
+	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm \
+	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm.new
+	mv $(DESTDIR)$(perllibdir)/Dpkg.pm.new \
+	   $(DESTDIR)$(perllibdir)/Dpkg.pm
 
 uninstall-local:
 if BUILD_POD_DOC
@@ -231,7 +196,8 @@ TEST_ENV_VARS = \
 	DPKG_PROGPATCH=$(PATCH) \
 	DPKG_PROGMAKE=$(MAKE) \
 	DPKG_DATADIR=$(top_srcdir)/data \
-	DPKG_ORIGINS_DIR=$(srcdir)/t/origins
+	DPKG_ORIGINS_DIR=$(srcdir)/t/origins \
+	# EOL
 TEST_COVERAGE = $(PERL_COVERAGE)
 
 test_tmpdir = t.tmp
@@ -279,12 +245,11 @@ test_scripts = \
 	t/Dpkg_Source_Archive.t \
 	t/Dpkg_Source_Package.t \
 	t/Dpkg_Dist_Files.t \
-	t/dpkg_realpath.t \
 	t/dpkg_source.t \
 	t/dpkg_buildpackage.t \
 	t/merge_changelogs.t \
 	t/mk.t \
-	$(nil)
+	# EOL
 
 test_data = \
 	t/Dpkg_OpenPGP/package_1.0.orig.tar \
@@ -402,7 +367,8 @@ test_data = \
 	t/origins/debian \
 	t/origins/default \
 	t/origins/gnewsense \
-	t/origins/ubuntu
+	t/origins/ubuntu \
+	# EOL
 
 test_data_objects = \
 	t/Dpkg_Shlibs/libobjdump.basictags-amd64.so \
@@ -410,7 +376,7 @@ test_data_objects = \
 	t/Dpkg_Shlibs/libobjdump.basictags-mips.so \
 	t/Dpkg_Shlibs/libobjdump.patterns.so \
 	t/Dpkg_Shlibs/libobjdump.spacesyms.so \
-	$(nil)
+	# EOL
 
 $(srcdir)/t/Dpkg_Shlibs/libobjdump.basictags-amd64.so: $(srcdir)/t/Dpkg_Shlibs/basictags.c
 	$(CC) $(CFLAGS) -shared -fPIC -Wl,-soname -Wl,libbasictags.so.1 $< \
@@ -457,7 +423,9 @@ refresh-test-data: $(test_data_objects)
 	  >$(srcdir)/t/Dpkg_Shlibs/objdump.spacesyms
 	$(OBJDUMP) `which ls` >$(srcdir)/t/Dpkg_Shlibs/objdump.ls
 
-include $(top_srcdir)/check.am
+include $(top_srcdir)/build-aux/tap.am
 
-clean-local: check-clean coverage-clean
+check-local: tap-check
+
+clean-local: tap-clean coverage-clean
 	rm -fr man

@@ -405,7 +405,7 @@ B<Extraction>
 
 Cet ensemble est cloné sous forme d'un dépôt git dans le répertoire cible. S'il existe un fichier I<.gitshallow>, il est installé en tant que I<.git/shallow> dans le dépôt git cloné.
 
-Veuillez noter que, par défaut, le nouveau dépôt aura la même branche récupérée que celle qui était récupérée dans les sources d'origine (souvent S<« master »> mais cela peut être tout à fait autre chose). Toutes les autres branches seront disponibles sous I<remotes/origin>.
+Note that by default the new repository will have the same branch checked out that was checked out in the original source.  (Typically “main”, but it could be anything.)  Any other branches will be available under I<remotes/origin/>.
 
 B<Construction>
 
@@ -419,7 +419,7 @@ B<Options de construction>
 
 =item B<--git-ref=>I<réf>
 
-Permet d'indiquer une référence git à inclure dans l'ensemble git. L'utilisation de cette option désactive le comportement par défaut qui est d'inclure toutes les branches et étiquettes. Cette option peut être utilisée plusieurs fois. Le paramètre I<réf> peut être le nom d'une branche ou une étiquette à inclure. Il peut également être tout paramètre que l'on peut passer à B<git-rev-list>(1). Par exemple, pour n'inclure que la branche S<« master »,> on peut utiliser B<--git-ref=>master. Pour inclure toutes les étiquettes et toutes les branches, sauf la branche privée, on peut utiliser -B<git-ref=>--all B<-- git-ref=>^private.
+Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to B<git-rev-list>(1). For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
 
 =item B<--git-depth=>I<nombre>
 

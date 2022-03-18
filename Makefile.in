@@ -126,7 +126,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = doc/Doxyfile
+CONFIG_CLEAN_FILES = doc/Doxyfile src/at/atlocal
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -211,19 +211,19 @@ am__define_uniq_tagged_files = \
   unique=`for i in $$list; do \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
-DIST_SUBDIRS = lib dpkg-deb dpkg-split src utils dselect scripts \
-	t-func po man
+DIST_SUBDIRS = lib src utils dselect scripts po man
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/build-aux/ar-lib $(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
 	$(top_srcdir)/build-aux/config.rpath \
 	$(top_srcdir)/build-aux/config.sub \
+	$(top_srcdir)/build-aux/cpan.am \
 	$(top_srcdir)/build-aux/install-sh \
 	$(top_srcdir)/build-aux/ltmain.sh \
-	$(top_srcdir)/build-aux/missing $(top_srcdir)/check.am \
-	$(top_srcdir)/cpan.am $(top_srcdir)/doc/Doxyfile.in ABOUT-NLS \
-	AUTHORS COPYING NEWS README THANKS TODO build-aux/ar-lib \
-	build-aux/compile build-aux/config.guess \
+	$(top_srcdir)/build-aux/missing $(top_srcdir)/build-aux/tap.am \
+	$(top_srcdir)/doc/Doxyfile.in $(top_srcdir)/src/at/atlocal.in \
+	ABOUT-NLS AUTHORS COPYING NEWS README THANKS TODO \
+	build-aux/ar-lib build-aux/compile build-aux/config.guess \
 	build-aux/config.rpath build-aux/config.sub \
 	build-aux/install-sh build-aux/ltmain.sh build-aux/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -395,6 +395,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -458,15 +459,13 @@ zshcompletionsdir = @zshcompletionsdir@
 @BUILD_DSELECT_TRUE@MAYBE_DSELECT = dselect
 SUBDIRS = \
 	lib \
-	dpkg-deb \
-	dpkg-split \
 	src \
 	utils \
 	$(MAYBE_DSELECT) \
 	scripts \
-	t-func \
 	po \
-	man
+	man \
+	# EOL
 
 ACLOCAL_AMFLAGS = -I m4
 aclocaldir = $(datadir)/aclocal
@@ -481,7 +480,7 @@ dist_aclocal_DATA = \
 	m4/dpkg-progs.m4 \
 	m4/dpkg-types.m4 \
 	m4/dpkg-unicode.m4 \
-	$(nil)
+	# EOL
 
 dist_pkgdata_DATA = \
 	data/pie-compile.specs \
@@ -492,7 +491,7 @@ dist_pkgdata_DATA = \
 	data/ostable \
 	data/abitable \
 	data/tupletable \
-	$(nil)
+	# EOL
 
 dist_doc_DATA = \
 	doc/README.api \
@@ -501,7 +500,7 @@ dist_doc_DATA = \
 	doc/protected-field.txt \
 	doc/rootless-builds.txt \
 	doc/triggers.txt \
-	$(nil)
+	# EOL
 
 EXTRA_DIST = \
 	.gitlab-ci.yml \
@@ -509,11 +508,11 @@ EXTRA_DIST = \
 	ChangeLog.old \
 	README.l10n \
 	autogen \
-	gen-changelog \
-	get-version \
-	run-script \
+	build-aux/gen-changelog \
+	build-aux/get-version \
+	build-aux/lcov-inject \
+	build-aux/run-script \
 	doc/coding-style.txt \
-	doc/lcov-inject.pl \
 	debian/README.bug-usertags \
 	debian/bug-script \
 	debian/changelog \
@@ -538,11 +537,13 @@ EXTRA_DIST = \
 	debian/dselect.cfg \
 	debian/dselect.docs \
 	debian/dselect.install \
+	debian/dselect.lintian-overrides \
 	debian/dselect.manpages \
 	debian/dselect.postrm \
 	debian/libdpkg-dev.install \
 	debian/libdpkg-perl.install \
 	debian/source/format \
+	debian/not-installed \
 	debian/rules \
 	debian/shlibs.default \
 	debian/shlibs.override \
@@ -556,15 +557,16 @@ EXTRA_DIST = \
 	tests \
 	$(test_scripts) \
 	$(test_data) \
-	$(nil)
+	# EOL
 
 @COVERAGE_ENABLED_TRUE@LCOV_OPTS = -q --rc geninfo_checksum=1 --rc lcov_branch_coverage=1
 @COVERAGE_ENABLED_TRUE@LCOV_CAPTURE_OPTS = $(LCOV_OPTS) --no-recursion \
 @COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/lib/dpkg \
 @COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/src \
-@COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/utils
+@COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/utils \
+@COVERAGE_ENABLED_TRUE@	# EOL
 
-@COVERAGE_ENABLED_TRUE@LCOV_INJECT = $(PERL) -i $(top_srcdir)/doc/lcov-inject.pl
+@COVERAGE_ENABLED_TRUE@LCOV_INJECT = $(PERL) -i $(top_srcdir)/build-aux/lcov-inject
 test_scripts = \
 	t/po.t \
 	t/pod.t \
@@ -579,20 +581,20 @@ test_scripts = \
 	t/codespell.t \
 	t/shellcheck.t \
 	t/cppcheck.t \
-	$(nil)
+	# EOL
 
 test_data = \
 	t/critic/perlcriticrc \
 	t/codespell/stopwords \
 	t/cppcheck/cppcheck.supp \
-	$(nil)
+	# EOL
 
 
 # We need to use absolute paths here due to strict.t invoking a sub-perl,
 # while changing dir to source dir on out-of-tree builds.
 TEST_ENV_VARS = \
 	DPKG_DATADIR=$(abs_top_srcdir)/data \
-	$(nil)
+	# EOL
 
 TEST_RUNNER = '\
 	my $$harness = TAP::Harness->new({ \
@@ -624,7 +626,7 @@ all: config.h
 .SUFFIXES:
 am--refresh: Makefile
 	@:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/check.am $(top_srcdir)/cpan.am $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/tap.am $(top_srcdir)/build-aux/cpan.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -646,7 +648,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $@ $(am__maybe_remake_depfiles)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $@ $(am__maybe_remake_depfiles);; \
 	esac;
-$(top_srcdir)/check.am $(top_srcdir)/cpan.am $(am__empty):
+$(top_srcdir)/build-aux/tap.am $(top_srcdir)/build-aux/cpan.am $(am__empty):
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck
@@ -672,6 +674,8 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 distclean-hdr:
 	-rm -f config.h stamp-h1
 doc/Doxyfile: $(top_builddir)/config.status $(top_srcdir)/doc/Doxyfile.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+src/at/atlocal: $(top_builddir)/config.status $(top_srcdir)/src/at/atlocal.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:
@@ -1242,10 +1246,10 @@ doc-clean:
 TEST_VERBOSE ?= 0
 TEST_PARALLEL ?= 1
 
-check-clean:
+tap-clean:
 	[ -z "$(test_tmpdir)" ] || rm -fr $(test_tmpdir)
 
-check-local: $(test_data) $(test_programs) $(test_scripts)
+tap-check: $(test_data) $(test_programs) $(test_scripts)
 	[ -z "$(test_tmpdir)" ] || $(MKDIR_P) $(test_tmpdir)
 	PATH="$(abs_top_builddir)/src:$(abs_top_builddir)/scripts:$(abs_top_builddir)/utils:$(PATH)" \
 	  LC_ALL=C \
@@ -1261,6 +1265,8 @@ check-local: $(test_data) $(test_programs) $(test_scripts)
 	  $(PERL) -MTAP::Harness -e $(TEST_RUNNER) \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))
+
+check-local: tap-check
 
 .PHONY: update-po
 
@@ -1330,7 +1336,7 @@ dist-hook: dist-cpan
 	  git log -C --stat 1.15.0.. >$(distdir)/ChangeLog; \
 	fi
 
-clean-local: doc-clean coverage-clean check-clean
+clean-local: doc-clean coverage-clean tap-clean
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -104,11 +104,11 @@ Fügt eine Gruppe von Alternativen zum System hinzu. I<Link> ist der generische 
 
 Falls der angegebene Alternativ-Name bereits in den Aufzeichnungen des Alternativ-Systems existiert, werden die angegebenen Informationen als neuer Satz von Alternativen für die Gruppe hinzugefügt. Andernfalls wird eine neue Gruppe, eingestellt im automatischen Modus, mit dieser Information hinzugefügt. Falls die Gruppe sich im automatischen Modus befindet und die Priorität der neu hinzugefügten Alternative höher ist als die jeder anderen installierten Alternative für diese Gruppe, werden die Symlinks aktualisiert, so dass sie auf die neu hinzugefügte Alternative zeigen.
 
-=item B<--set> I<Name Pfad>
+=item B<--set> I<Name> I<Pfad>
 
 Setzt das Programm I<Pfad> als Alternative für I<Name>. Dies ist äquivalent zu B<--config>, ist aber nicht interaktiv und kann somit geskriptet werden.
 
-=item B<--remove> I<Name Pfad>
+=item B<--remove> I<Name> I<Pfad>
 
 Entfernt eine Alternative und alle zugehörigen Slave-Links. I<Name> ist ein Name im Alternativ-Verzeichnis, und I<Pfad> ist ein absoluter Dateiname, zu dem I<Name> gelinkt werden könnte. Falls I<Name> tatsächlich nach I<Pfad> gelinkt ist, dann wird I<Name> aktualisiert, um auf eine andere geeignete Alternative zu zeigen (und die Gruppe wird wieder in den automatischen Modus versetzt) oder entfernt, falls keine solche Alternative übrig bleibt. Zugehörige Slave-Links werden entsprechend aktualisiert oder entfernt. Falls der Link derzeit nicht auf I<Pfad> zeigt, werden keine Links geändert; nur die Information über die Alternative wird entfernt.
 
@@ -168,15 +168,15 @@ Spezifiziert das Alternativ-Verzeichnis, wenn sich dieses von der Standardeinste
 
 =item B<--admindir> I<Verzeichnis>
 
-Spezifiziert das administrative Verzeichnis, wenn sich dieses von der Standardeinstellung unterscheiden soll. Vorgabe ist „I<%ADMINDIR%/alternatives>“.
+Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
 
 =item B<--instdir> I<Verzeichnis>
 
-Spezifiziert das Installationsverzeichnis, in dem Alternatives-Links erstellt werden (seit Dpkg 1.20.1). Standardmäßig „“.
+Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--root> I<Verzeichnis>
 
-Spezifiziert das Wurzelverzeichnis (seit Version 1.201.). Dies setzt auch passend die Alternatives-, Installations- und administrativen Verzeichnisse. Standardmäßig „“.
+Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--log> I<Datei>
 
@@ -222,7 +222,11 @@ Beim Lesen der Befehlszeile oder beim Ausführen der Aktion traten Probleme auf.
 
 =over 
 
-=item B<DPKG_ADMINDIR>
+=item B<%INSTDIR_ENVVAR%>
+
+Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt.
+
+=item B<%ADMINDIR_ENVVAR%>
 
 Falls gesetzt und die Option B<--admindir> nicht angegeben wurde, wird dies als Basis-Administrationsverzeichnis verwandt.
 

@@ -72,7 +72,7 @@ Não são reportados erros para campos requisitados mas não encontrados.
 
 Lista o conteúdo da porção de arquivo da árvore do sistema de ficheiros do arquivo pacote. É presentemente produzido no formato gerado pela listagem detalhada do B<tar>.
 
-=item B<-x>, B<--extract> I<archive directory>
+=item B<-x>, B<--extract> I<archive> I<directory>
 
 Extrai a árvore do sistema de ficheiros a partir do arquivo de pacote para o directório especificado.
 
@@ -80,11 +80,11 @@ Note que extrair um pacote para o directório raiz I<não> irá resultar numa in
 
 I<directory> (mas não os seus parentes) será criada se necessário, e as suas permissões modificadas para corresponder ao conteúdo do pacote.
 
-=item B<-X>, B<--vextract> I<archive directory>
+=item B<-X>, B<--vextract> I<archive> I<directory>
 
 É como B<--extract> (B<-x>)  com B<--verbose> (B<-v>)  o que escreve uma listagem dos ficheiros extraídos ao avançar.
 
-=item B<-R>, B<--raw-extract> I<archive directory>
+=item B<-R>, B<--raw-extract> I<archive> I<directory>
 
 Extrai a árvore do sistema de ficheiros de um arquivo pacote para um directório especificado, e os ficheiros de informação de controlo para um sub-directório B<DEBIAN> do directório especificado (desde dpkg 1.16.1).
 

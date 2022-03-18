@@ -44,7 +44,7 @@ Nadat het pakket opgewaardeerd was.
 
 Indien de bovenvermelde B<upgrade>-opdracht mislukt.
 
-The I<new-version> is passed only since dpkg 1.18.5.
+De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
 =item I<postrm> B<disappear> I<overschrijvend-pakket> I<overschrijvende-versie>
 
@@ -52,19 +52,19 @@ Nadat alle bestanden van het pakket vervangen werden.
 
 =item I<new-postrm> B<abort-install>
 
-Idien I<preinst> mislukt tijdens het installeren.
+If I<preinst> fails during B<install>.
 
-=item I<new-postrm> B<abort-install> I<oude-versie nieuwe-versie>
+=item I<new-postrm> B<abort-install> I<old-version> I<new-version>
 
-Indien I<preinst> mislukt tijdens de upgrade van een verwijderd pakket.
+If I<preinst> fails during B<install> for an upgrade of a removed package.
 
-The I<new-version> is passed only since dpkg 1.18.5.
+De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
-=item I<new-postrm> B<abort-upgrade> I<oude-versie nieuwe-versie>
+=item I<new-postrm> B<abort-upgrade> I<old-version> I<new-version>
 
-Indien I<preinst> mislukt tijdens de upgrade.
+If I<preinst> fails during B<upgrade>.
 
-The I<new-version> is passed only since dpkg 1.18.5.
+De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
 =back
 

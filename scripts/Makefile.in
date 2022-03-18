@@ -14,6 +14,12 @@
 
 @SET_MAKE@
 
+#
+# Build time variable substitution for generated files.
+#
+
+# Shell support.
+
 # Variables to be defined:
 #
 #  TEST_VERBOSE - set to 0 (default) or 1 to control test suite verbosity
@@ -121,8 +127,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(dist_zshcompletions_DATA) \
-	$(nobase_dist_perllib_DATA) $(nobase_dist_pkgdata_DATA) \
-	$(am__DIST_COMMON)
+	$(nobase_dist_perllib_DATA) $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = Build.PL README.cpan
@@ -154,11 +159,10 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibexecdir)" \
-	"$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man3dir)" \
-	"$(DESTDIR)$(zshcompletionsdir)" "$(DESTDIR)$(perllibdir)" \
-	"$(DESTDIR)$(pkgdatadir)"
-SCRIPTS = $(bin_SCRIPTS) $(pkglibexec_SCRIPTS) $(sbin_SCRIPTS)
+am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(sbindir)" \
+	"$(DESTDIR)$(man3dir)" "$(DESTDIR)$(zshcompletionsdir)" \
+	"$(DESTDIR)$(perllibdir)"
+SCRIPTS = $(bin_SCRIPTS) $(sbin_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -189,8 +193,7 @@ am__can_run_installinfo = \
 man3dir = $(mandir)/man3
 NROFF = nroff
 MANS = $(man3_MANS)
-DATA = $(dist_zshcompletions_DATA) $(nobase_dist_perllib_DATA) \
-	$(nobase_dist_pkgdata_DATA)
+DATA = $(dist_zshcompletions_DATA) $(nobase_dist_perllib_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 am__recursive_targets = \
@@ -218,7 +221,8 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Build.PL.in $(srcdir)/Makefile.in \
-	$(srcdir)/README.cpan.in $(top_srcdir)/check.am
+	$(srcdir)/README.cpan.in $(top_srcdir)/build-aux/subst.am \
+	$(top_srcdir)/build-aux/tap.am
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -371,6 +375,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -432,12 +437,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 zshcompletionsdir = @zshcompletionsdir@
 SUBDIRS = mk po
-pkglibexec_SCRIPTS = \
-	dpkg-db-backup \
-	# EOL
-
 sbin_SCRIPTS = \
-	dpkg-fsys-usrunmess
+	dpkg-fsys-usrunmess \
+	# EOL
 
 bin_SCRIPTS = \
 	dpkg-architecture \
@@ -449,39 +451,33 @@ bin_SCRIPTS = \
 	dpkg-genchanges \
 	dpkg-gencontrol \
 	dpkg-gensymbols \
-	dpkg-maintscript-helper \
 	dpkg-mergechangelogs \
 	dpkg-name \
 	dpkg-parsechangelog \
-	dpkg-realpath \
 	dpkg-scanpackages \
 	dpkg-scansources \
 	dpkg-shlibdeps \
 	dpkg-source \
-	dpkg-vendor
-
-EXTRA_DIST = dpkg-architecture.pl dpkg-buildflags.pl \
-	dpkg-buildpackage.pl dpkg-checkbuilddeps.pl dpkg-db-backup.sh \
-	dpkg-distaddfile.pl dpkg-fsys-usrunmess.pl \
-	dpkg-genbuildinfo.pl dpkg-genchanges.pl dpkg-gencontrol.pl \
-	dpkg-gensymbols.pl dpkg-maintscript-helper.sh \
-	dpkg-mergechangelogs.pl dpkg-name.pl dpkg-parsechangelog.pl \
-	dpkg-realpath.sh dpkg-scanpackages.pl dpkg-scansources.pl \
-	dpkg-shlibdeps.pl dpkg-source.pl dpkg-vendor.pl \
-	$(test_scripts) $(test_data) Test/Dpkg.pm $(nil)
-nobase_dist_pkgdata_DATA = \
-	sh/dpkg-error.sh \
+	dpkg-vendor \
 	# EOL
 
+EXTRA_DIST = dpkg-architecture.pl dpkg-buildflags.pl \
+	dpkg-buildpackage.pl dpkg-checkbuilddeps.pl \
+	dpkg-distaddfile.pl dpkg-fsys-usrunmess.pl \
+	dpkg-genbuildinfo.pl dpkg-genchanges.pl dpkg-gencontrol.pl \
+	dpkg-gensymbols.pl dpkg-mergechangelogs.pl dpkg-name.pl \
+	dpkg-parsechangelog.pl dpkg-scanpackages.pl \
+	dpkg-scansources.pl dpkg-shlibdeps.pl dpkg-source.pl \
+	dpkg-vendor.pl $(test_scripts) $(test_data) Test/Dpkg.pm # EOL
 dist_zshcompletions_DATA = \
-	zsh/_dpkg-parsechangelog \
+	completion/zsh/_dpkg-parsechangelog \
 	# EOL
 
 CLEANFILES = \
 	$(test_data_objects) \
-	$(pkglibexec_SCRIPTS) \
 	$(sbin_SCRIPTS) \
-	$(bin_SCRIPTS)
+	$(bin_SCRIPTS) \
+	# EOL
 
 perllibdir = $(PERL_LIBDIR)
 nobase_dist_perllib_DATA = \
@@ -558,12 +554,23 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Vendor/Default.pm \
 	Dpkg/Vendor/Ubuntu.pm \
 	Dpkg/Version.pm \
-	Dpkg.pm
+	Dpkg.pm \
+	# EOL
 
 
 # Keep it even if empty to have man3dir correctly set
 man3_MANS = 
 man_perl_section = 3perl
+SUFFIXES = .sh .pl
+do_shell_subst = $(AM_V_GEN) $(SED) \
+	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
+	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
+	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
+	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":" \
+	# EOL
+
+
+# Perl support.
 do_perl_subst = $(AM_V_GEN) $(SED) \
 	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
 	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
@@ -573,21 +580,22 @@ do_perl_subst = $(AM_V_GEN) $(SED) \
 	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
 	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
 	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
-	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:"
+	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:" \
+	# EOL
 
-do_shell_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
-	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
-	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
-	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":"
 
-SUFFIXES = .pl .sh
+# Makefile support.
+do_make_subst = $(AM_V_GEN) $(SED) \
+	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):" \
+	# EOL
+
 TEST_ENV_VARS = \
 	DPKG_PROGTAR=$(TAR) \
 	DPKG_PROGPATCH=$(PATCH) \
 	DPKG_PROGMAKE=$(MAKE) \
 	DPKG_DATADIR=$(top_srcdir)/data \
-	DPKG_ORIGINS_DIR=$(srcdir)/t/origins
+	DPKG_ORIGINS_DIR=$(srcdir)/t/origins \
+	# EOL
 
 TEST_COVERAGE = $(PERL_COVERAGE)
 test_tmpdir = t.tmp
@@ -634,12 +642,11 @@ test_scripts = \
 	t/Dpkg_Source_Archive.t \
 	t/Dpkg_Source_Package.t \
 	t/Dpkg_Dist_Files.t \
-	t/dpkg_realpath.t \
 	t/dpkg_source.t \
 	t/dpkg_buildpackage.t \
 	t/merge_changelogs.t \
 	t/mk.t \
-	$(nil)
+	# EOL
 
 test_data = \
 	t/Dpkg_OpenPGP/package_1.0.orig.tar \
@@ -757,7 +764,8 @@ test_data = \
 	t/origins/debian \
 	t/origins/default \
 	t/origins/gnewsense \
-	t/origins/ubuntu
+	t/origins/ubuntu \
+	# EOL
 
 test_data_objects = \
 	t/Dpkg_Shlibs/libobjdump.basictags-amd64.so \
@@ -765,7 +773,7 @@ test_data_objects = \
 	t/Dpkg_Shlibs/libobjdump.basictags-mips.so \
 	t/Dpkg_Shlibs/libobjdump.patterns.so \
 	t/Dpkg_Shlibs/libobjdump.spacesyms.so \
-	$(nil)
+	# EOL
 
 TEST_RUNNER = '\
 	my $$harness = TAP::Harness->new({ \
@@ -784,8 +792,8 @@ TEST_RUNNER = '\
 all: all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .pl .sh
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/check.am $(am__configure_deps)
+.SUFFIXES: .sh .pl
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(top_srcdir)/build-aux/tap.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -805,7 +813,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles);; \
 	esac;
-$(top_srcdir)/check.am $(am__empty):
+$(top_srcdir)/build-aux/subst.am $(top_srcdir)/build-aux/tap.am $(am__empty):
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -854,41 +862,6 @@ uninstall-binSCRIPTS:
 	files=`for p in $$list; do echo "$$p"; done | \
 	       sed -e 's,.*/,,;$(transform)'`; \
 	dir='$(DESTDIR)$(bindir)'; $(am__uninstall_files_from_dir)
-install-pkglibexecSCRIPTS: $(pkglibexec_SCRIPTS)
-	@$(NORMAL_INSTALL)
-	@list='$(pkglibexec_SCRIPTS)'; test -n "$(pkglibexecdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(pkglibexecdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(pkglibexecdir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  if test -f "$$d$$p"; then echo "$$d$$p"; echo "$$p"; else :; fi; \
-	done | \
-	sed -e 'p;s,.*/,,;n' \
-	    -e 'h;s|.*|.|' \
-	    -e 'p;x;s,.*/,,;$(transform)' | sed 'N;N;N;s,\n, ,g' | \
-	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1; } \
-	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
-	    if ($$2 == $$4) { files[d] = files[d] " " $$1; \
-	      if (++n[d] == $(am__install_max)) { \
-		print "f", d, files[d]; n[d] = 0; files[d] = "" } } \
-	    else { print "f", d "/" $$4, $$1 } } \
-	  END { for (d in files) print "f", d, files[d] }' | \
-	while read type dir files; do \
-	     if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
-	     test -z "$$files" || { \
-	       echo " $(INSTALL_SCRIPT) $$files '$(DESTDIR)$(pkglibexecdir)$$dir'"; \
-	       $(INSTALL_SCRIPT) $$files "$(DESTDIR)$(pkglibexecdir)$$dir" || exit $$?; \
-	     } \
-	; done
-
-uninstall-pkglibexecSCRIPTS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(pkglibexec_SCRIPTS)'; test -n "$(pkglibexecdir)" || exit 0; \
-	files=`for p in $$list; do echo "$$p"; done | \
-	       sed -e 's,.*/,,;$(transform)'`; \
-	dir='$(DESTDIR)$(pkglibexecdir)'; $(am__uninstall_files_from_dir)
 install-sbinSCRIPTS: $(sbin_SCRIPTS)
 	@$(NORMAL_INSTALL)
 	@list='$(sbin_SCRIPTS)'; test -n "$(sbindir)" || list=; \
@@ -1016,30 +989,6 @@ uninstall-nobase_dist_perllibDATA:
 	@list='$(nobase_dist_perllib_DATA)'; test -n "$(perllibdir)" || list=; \
 	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
 	dir='$(DESTDIR)$(perllibdir)'; $(am__uninstall_files_from_dir)
-install-nobase_dist_pkgdataDATA: $(nobase_dist_pkgdata_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(nobase_dist_pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(pkgdatadir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)" || exit 1; \
-	fi; \
-	$(am__nobase_list) | while read dir files; do \
-	  xfiles=; for file in $$files; do \
-	    if test -f "$$file"; then xfiles="$$xfiles $$file"; \
-	    else xfiles="$$xfiles $(srcdir)/$$file"; fi; done; \
-	  test -z "$$xfiles" || { \
-	    test "x$$dir" = x. || { \
-	      echo " $(MKDIR_P) '$(DESTDIR)$(pkgdatadir)/$$dir'"; \
-	      $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)/$$dir"; }; \
-	    echo " $(INSTALL_DATA) $$xfiles '$(DESTDIR)$(pkgdatadir)/$$dir'"; \
-	    $(INSTALL_DATA) $$xfiles "$(DESTDIR)$(pkgdatadir)/$$dir" || exit $$?; }; \
-	done
-
-uninstall-nobase_dist_pkgdataDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(nobase_dist_pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
-	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
-	dir='$(DESTDIR)$(pkgdatadir)'; $(am__uninstall_files_from_dir)
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.
@@ -1203,7 +1152,7 @@ check: check-recursive
 all-am: Makefile $(SCRIPTS) $(MANS) $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibexecdir)" "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man3dir)" "$(DESTDIR)$(zshcompletionsdir)" "$(DESTDIR)$(perllibdir)" "$(DESTDIR)$(pkgdatadir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man3dir)" "$(DESTDIR)$(zshcompletionsdir)" "$(DESTDIR)$(perllibdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -1258,16 +1207,14 @@ info: info-recursive
 info-am:
 
 install-data-am: install-data-local install-dist_zshcompletionsDATA \
-	install-man install-nobase_dist_perllibDATA \
-	install-nobase_dist_pkgdataDATA
+	install-man install-nobase_dist_perllibDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-binSCRIPTS install-pkglibexecSCRIPTS \
-	install-sbinSCRIPTS
+install-exec-am: install-binSCRIPTS install-sbinSCRIPTS
 
 install-html: install-html-recursive
 
@@ -1307,9 +1254,7 @@ ps-am:
 
 uninstall-am: uninstall-binSCRIPTS uninstall-dist_zshcompletionsDATA \
 	uninstall-local uninstall-man \
-	uninstall-nobase_dist_perllibDATA \
-	uninstall-nobase_dist_pkgdataDATA uninstall-pkglibexecSCRIPTS \
-	uninstall-sbinSCRIPTS
+	uninstall-nobase_dist_perllibDATA uninstall-sbinSCRIPTS
 
 uninstall-man: uninstall-man3
 
@@ -1326,30 +1271,27 @@ uninstall-man: uninstall-man3
 	install-dist_zshcompletionsDATA install-dvi install-dvi-am \
 	install-exec install-exec-am install-html install-html-am \
 	install-info install-info-am install-man install-man3 \
-	install-nobase_dist_perllibDATA \
-	install-nobase_dist_pkgdataDATA install-pdf install-pdf-am \
-	install-pkglibexecSCRIPTS install-ps install-ps-am \
-	install-sbinSCRIPTS install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-binSCRIPTS \
+	install-nobase_dist_perllibDATA install-pdf install-pdf-am \
+	install-ps install-ps-am install-sbinSCRIPTS install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am uninstall-binSCRIPTS \
 	uninstall-dist_zshcompletionsDATA uninstall-local \
 	uninstall-man uninstall-man3 uninstall-nobase_dist_perllibDATA \
-	uninstall-nobase_dist_pkgdataDATA uninstall-pkglibexecSCRIPTS \
 	uninstall-sbinSCRIPTS
 
 .PRECIOUS: Makefile
 
 
-.pl:
-	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_perl_subst) <$< >$@
-	$(AM_V_at) chmod +x $@
-
-.sh:
+.sh: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(do_shell_subst) <$< >$@
+	$(AM_V_at) chmod +x $@
+
+.pl: Makefile
+	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
+	$(do_perl_subst) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 install-data-local:
@@ -1368,11 +1310,10 @@ install-data-local:
 
 # Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
 install-data-hook:
-	mv $(DESTDIR)$(perllibdir)/Dpkg.pm \
-	   $(DESTDIR)$(perllibdir)/Dpkg.pm.tmp
-	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm.tmp \
-	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm
-	rm -f $(DESTDIR)$(perllibdir)/Dpkg.pm.tmp
+	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm \
+	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm.new
+	mv $(DESTDIR)$(perllibdir)/Dpkg.pm.new \
+	   $(DESTDIR)$(perllibdir)/Dpkg.pm
 
 uninstall-local:
 @BUILD_POD_DOC_TRUE@	for module in $(nobase_dist_perllib_DATA); do \
@@ -1436,10 +1377,10 @@ refresh-test-data: $(test_data_objects)
 TEST_VERBOSE ?= 0
 TEST_PARALLEL ?= 1
 
-check-clean:
+tap-clean:
 	[ -z "$(test_tmpdir)" ] || rm -fr $(test_tmpdir)
 
-check-local: $(test_data) $(test_programs) $(test_scripts)
+tap-check: $(test_data) $(test_programs) $(test_scripts)
 	[ -z "$(test_tmpdir)" ] || $(MKDIR_P) $(test_tmpdir)
 	PATH="$(abs_top_builddir)/src:$(abs_top_builddir)/scripts:$(abs_top_builddir)/utils:$(PATH)" \
 	  LC_ALL=C \
@@ -1456,7 +1397,9 @@ check-local: $(test_data) $(test_programs) $(test_scripts)
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))
 
-clean-local: check-clean coverage-clean
+check-local: tap-check
+
+clean-local: tap-clean coverage-clean
 	rm -fr man
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

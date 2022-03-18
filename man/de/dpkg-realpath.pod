@@ -38,7 +38,7 @@ Verwendet ein NUL-Byte statt eines Zeilenumbruchzeichens, um Ausgabezeilen abzus
 
 =item B<--root> I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, das das Basisverzeichnis ist, gegen das Pfadnamen kanonisiert werden. Standardmäßig „B</>“.
+Set the root directory to I<directory>, which is the base directory that pathnames get canonicalized against.  Defaults to «B</>» if B<DPKG_ROOT> has not been set.
 
 =item B<-?>, B<--help>
 

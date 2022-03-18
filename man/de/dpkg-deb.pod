@@ -72,7 +72,7 @@ Falls angeforderte Felder nicht gefunden werden, wird kein Fehler gemeldet.
 
 Listet den Inhalt des Dateisystem-Archivanteils des Paketarchivs auf. Die Ausgabe erfolgt derzeit in dem Format, das von B<tar> in der ausführlichen Auflistung erstellt wird.
 
-=item B<-x>, B<--extract> I<Archiv-Verzeichnis>
+=item B<-x>, B<--extract> I<Archiv> I<Verzeichnis>
 
 Entpackt den Dateisystembaum aus einem Paketarchiv in das angegebene Verzeichnis.
 
@@ -80,11 +80,11 @@ Beachten Sie, dass das Entpacken eines Pakets in das Wurzelverzeichnis I<nicht> 
 
 I<Verzeichnis> (aber nicht die übergeordneten) wird, falls notwendig, angelegt. Seine Rechte werden angepasst, um mit dem Inhalt des Pakets übereinzustimmen.
 
-=item B<-X>, B<--vextract> I<Archiv-Verzeichnis>
+=item B<-X>, B<--vextract> I<Archiv> I<Verzeichnis>
 
 Ist wie B<--extract> (B<-x>) mit B<--verbose> (B<-v>), das beim Arbeiten eine Liste von entpackten Dateien ausgibt.
 
-=item B<-R>, B<--raw-extract> I<Archiv-Verzeichnis>
+=item B<-R>, B<--raw-extract> I<Archiv> I<Verzeichnis>
 
 Entpackt den Dateisystembaum aus einem Paketarchiv in ein angegebenes Verzeichnis und die Steuerinformationsdateien in das B<DEBIAN>-Unterverzeichnis des angegebenen Verzeichnisses (seit Dpkg 1.16.1).
 

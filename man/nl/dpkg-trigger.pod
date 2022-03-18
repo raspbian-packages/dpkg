@@ -54,11 +54,11 @@ De versie tonen en afsluiten.
 
 =item B<--admindir=>I<map>
 
-De locatie van de database van B<dpkg> wijzigen. De standaardlocatie is I<%ADMINDIR%>.
+Change the location of the B<dpkg> database.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
 
-=item B<--root=>I<directory>
+=item B<--root=>I<map>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+De hoofdmap instellen op I<map>, hetgeen de administratieve map instelt op «I<map>%ADMINDIR%» (sinds dpkg 1.21.0).
 
 =item B<--by-package=>I<pakket>
 
@@ -102,7 +102,7 @@ Fatale of onherstelbare fout die te wijten is aan ongeldig gebruik van de comman
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Indien dit ingesteld is en de optie B<--root> niet opgegeven werd, zal dit gebruikt worden als de hoofdmap voor het bestandssysteem (sinds dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 

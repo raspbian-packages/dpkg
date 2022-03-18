@@ -64,15 +64,15 @@ Mostra a versão e termina.
 
 =item B<--admindir> I<directory>
 
-Define o directório de administração para I<directory>. Isto é onde o ficheiro I<statoverride> é guardado. A predefinição é «I<%ADMINDIR%>».
+Set the administrative directory to I<directory>.  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<directory>
 
-Define o directório de instalação, o que se refere ao directório onde os pacotes são instalados (desde dpkg 1.19.2). A predefinição é «I</>».
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<directory>
 
-Define o directório raiz para B<directory>, o que define o directório de instalação para «I<directory>» e o directório administrativo apara «I<directory>B<%ADMINDIR%>» (desde dpkg 1.19.2).
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--force->I<things>
 

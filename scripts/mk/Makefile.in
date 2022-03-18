@@ -14,6 +14,12 @@
 
 @SET_MAKE@
 
+#
+# Build time variable substitution for generated files.
+#
+
+# Shell support.
+
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -163,7 +169,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(pkgdatadir)"
 DATA = $(dist_pkgdata_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
-am__DIST_COMMON = $(srcdir)/Makefile.in
+am__DIST_COMMON = $(srcdir)/Makefile.in \
+	$(top_srcdir)/build-aux/subst.am
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -291,6 +298,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -358,15 +366,42 @@ dist_pkgdata_DATA = \
 	buildtools.mk \
 	default.mk \
 	pkg-info.mk \
-	vendor.mk
+	vendor.mk \
+	# EOL
 
-do_path_subst = $(AM_V_GEN) $(SED) \
-	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):"
+SUFFIXES = .sh .pl
+do_shell_subst = $(AM_V_GEN) $(SED) \
+	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
+	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
+	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
+	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":" \
+	# EOL
+
+
+# Perl support.
+do_perl_subst = $(AM_V_GEN) $(SED) \
+	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
+	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
+	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
+	-e "s:our \$$LIBDIR = .*;:our \$$LIBDIR = '$(pkglibexecdir)';:" \
+	-e "s:our \$$DATADIR = .*;:our \$$DATADIR = '$(pkgdatadir)';:" \
+	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
+	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
+	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
+	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:" \
+	# EOL
+
+
+# Makefile support.
+do_make_subst = $(AM_V_GEN) $(SED) \
+	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):" \
+	# EOL
 
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+.SUFFIXES: .sh .pl
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -386,6 +421,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__maybe_remake_depfiles);; \
 	esac;
+$(top_srcdir)/build-aux/subst.am $(am__empty):
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -583,18 +619,27 @@ uninstall-am: uninstall-dist_pkgdataDATA
 .PRECIOUS: Makefile
 
 
-install-data-hook:
-	mv $(DESTDIR)$(pkgdatadir)/default.mk \
-	   $(DESTDIR)$(pkgdatadir)/default.mk.tmp
-	$(do_path_subst) <$(DESTDIR)$(pkgdatadir)/default.mk.tmp \
-	                 >$(DESTDIR)$(pkgdatadir)/default.mk
-	rm -f $(DESTDIR)$(pkgdatadir)/default.mk.tmp
+.sh: Makefile
+	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
+	$(do_shell_subst) <$< >$@
+	$(AM_V_at) chmod +x $@
 
-	mv $(DESTDIR)$(pkgdatadir)/buildtools.mk \
-	   $(DESTDIR)$(pkgdatadir)/buildtools.mk.tmp
-	$(do_path_subst) <$(DESTDIR)$(pkgdatadir)/buildtools.mk.tmp \
-	                 >$(DESTDIR)$(pkgdatadir)/buildtools.mk
-	rm -f $(DESTDIR)$(pkgdatadir)/buildtools.mk.tmp
+.pl: Makefile
+	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
+	$(do_perl_subst) <$< >$@
+	$(AM_V_at) chmod +x $@
+
+# Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
+install-data-hook:
+	$(do_make_subst) <$(DESTDIR)$(pkgdatadir)/default.mk \
+	                 >$(DESTDIR)$(pkgdatadir)/default.mk.new
+	mv $(DESTDIR)$(pkgdatadir)/default.mk.new \
+	   $(DESTDIR)$(pkgdatadir)/default.mk
+
+	$(do_make_subst) <$(DESTDIR)$(pkgdatadir)/buildtools.mk \
+	                 >$(DESTDIR)$(pkgdatadir)/buildtools.mk.new
+	mv $(DESTDIR)$(pkgdatadir)/buildtools.mk.new \
+	   $(DESTDIR)$(pkgdatadir)/buildtools.mk
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

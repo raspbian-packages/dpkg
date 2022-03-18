@@ -50,19 +50,19 @@ Die Konfigurationsdateien können vier Arten von Direktiven enthalten:
 
 =over 
 
-=item B<SET> I<Schalter Wert>
+=item B<SET> I<Schalter> I<Wert>
 
 Überschreibt den Schalter namens I<Schalter>, um den Wert I<Wert> zu erhalten.
 
-=item B<STRIP> I<Schalter Wert>
+=item B<STRIP> I<Schalter> I<Wert>
 
 Aus dem Schalter namens I<Schalter> alle in I<Wert> aufgeführten Bauschalter entfernen
 
-=item B<APPEND> I<Schalter Wert>
+=item B<APPEND> I<Schalter> I<Wert>
 
 Erweitert den Schalter namens I<Schalter> durch Anhängen der in I<Wert> angegebenen Optionen. Ein Leerzeichen wird dem angehängten Wert vorangestellt, falls der derzeitige Wert nicht leer ist.
 
-=item B<PREPEND> I<Schalter Wert>
+=item B<PREPEND> I<Schalter> I<Wert>
 
 Erweitert den Schalter namens I<Schalter> durch Voranstellen der in I<Wert> angegebenen Optionen. Ein Leerzeichen wird dem vorangestellten Wert angehängt, falls der derzeitige Wert nicht leer ist.
 

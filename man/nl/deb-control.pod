@@ -68,13 +68,13 @@ De velden B<Section> en B<Priority> hebben gewoonlijk een welbepaalde set mogeli
 
 =item B<Installed-Size:> I<grootte>
 
-The approximate total size of the package's installed files, in KiB units. The algorithm to compute the size is described in L<deb-substvars(5)>.
+Bij benadering de totale grootte van de door het pakket geïnstalleerde bestanden, uitgedrukt in KiB. Het algoritme voor het berekenen van de grootte wordt beschreven in L<deb-substvars(5)>.
 
 =item B<Protected:> B<yes>|B<no>
 
 Meestal is dit veld enkel nodig als het antwoord B<yes> is. Het duidt een pakket aan dat vereist is voor het correct opstarten van het systeem. L<dpkg(1)> of om het even welk ander installatiegereedschap zal niet toestaan dat een pakket van het type B<Protected> verwijderd wordt (tenminste niet zonder dat één van de forceeropties gebruikt wordt).
 
-Supported since dpkg 1.20.1.
+Ondersteund sinds dpkg 1.20.1.
 
 =item B<Essential:> B<yes>|B<no>
 
@@ -84,7 +84,7 @@ Meestal is dit veld enkel nodig als het antwoord B<yes> is. Het duidt een pakket
 
 Meestal is dit veld enkel nodig als het antwoord B<yes> is en het wordt gewoonlijk ingevoegd door de archiefsoftware. Het duidt een pakket aan dat vereist is voor het bouwen van andere pakketten.
 
-=item B<Architecture:> I<arch>|B<all> (required)
+=item B<Architecture:> I<arch>|B<all> (verplicht)
 
 De architectuur geeft aan voor welk type hardware dit pakket gecompileerd werd. Gebruikelijke architecturen zijn B<amd64>, B<armel>, B<i386>, B<powerpc>, enz. Merk op dat de waarde B<all> bedoeld is voor pakketten die architectuuronafhankelijk zijn. Enkele voorbeelden hiervan zijn shell- en Perl-scripts en documentatie.
 

@@ -58,7 +58,7 @@ Domyślnie, plik wynikowy ma nazwę I<pakiet>B<_>I<wersja>B<_>I<architektura>B<.
 
 Wyświetlanie informacji, podanych w formacie czytelnym dla człowieka, o częściach pakietu. Argumenty, które nie są częścią pakietu, powodują wyświetlenie informacji o tym fakcie na standardowym wyjściu.
 
-=item B<-a>, B<--auto -o> I<pełne-archiwum część>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 Automatyczne kolejkowanie części i odtworzenie pakietu, gdy to jest możliwe.
 

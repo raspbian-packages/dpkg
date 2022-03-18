@@ -3,8 +3,9 @@
 m4_pattern_forbid([^_?DPKG_])
 
 AC_PREREQ(2.60)
-AC_INIT([dpkg], m4_esyscmd([./get-version]), [debian-dpkg@lists.debian.org],
-        [dpkg], [https://wiki.debian.org/Teams/Dpkg])
+AC_INIT([dpkg], m4_esyscmd([build-aux/get-version]),
+        [debian-dpkg@lists.debian.org], [dpkg],
+        [https://wiki.debian.org/Teams/Dpkg])
 DPKG_DIST_IS_RELEASE
 AC_SUBST([PACKAGE_COPYRIGHT_HOLDER], ['Dpkg Developers'])
 AC_SUBST([PACKAGE_VCS_TYPE], [git])
@@ -23,6 +24,7 @@ AM_INIT_AUTOMAKE(
   [-Wall]
   [foreign]
   [nostdinc]
+  [subdir-objects]
   [tar-ustar no-dist-gzip dist-xz]
 )
 AM_SILENT_RULES([yes])
@@ -222,15 +224,11 @@ DPKG_ARCHITECTURE
 AC_DEFINE([PACKAGE_RELEASE], [PACKAGE_VERSION " (" ARCHITECTURE ")"],
   [Define the project release information, version and architecture])
 
-AC_CONFIG_TESTDIR([t-func])
+AC_CONFIG_TESTDIR([src/at])
 AM_MISSING_PROG([AUTOM4TE], [autom4te])
 
 AC_CONFIG_FILES([
   Makefile
-  t-func/Makefile
-  t-func/atlocal
-  dpkg-deb/Makefile
-  dpkg-split/Makefile
   dselect/Makefile
   dselect/methods/Makefile
   dselect/po/Makefile.in
@@ -238,7 +236,6 @@ AC_CONFIG_FILES([
   lib/compat/Makefile
   lib/dpkg/Makefile
   lib/dpkg/libdpkg.pc
-  lib/dpkg/t/Makefile
   doc/Doxyfile
   man/Makefile
   po/Makefile.in
@@ -248,6 +245,7 @@ AC_CONFIG_FILES([
   scripts/mk/Makefile
   scripts/po/Makefile.in
   src/Makefile
+  src/at/atlocal
   utils/Makefile
 ])
 AC_CONFIG_HEADERS([config.h])
@@ -287,7 +285,7 @@ Configuration:
     libkvm  . . . . . . . . . . . : ${have_libkvm:-no}
     libselinux  . . . . . . . . . : $have_libselinux
     libmd . . . . . . . . . . . . : $have_libmd
-    libz  . . . . . . . . . . . . : $have_libz
+    libz  . . . . . . . . . . . . : $have_libz_impl
     liblzma . . . . . . . . . . . : $have_liblzma
     libbz2  . . . . . . . . . . . : $have_libbz2
     libcurses . . . . . . . . . . : ${have_libcurses:-no}

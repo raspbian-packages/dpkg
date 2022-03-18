@@ -318,6 +318,7 @@ XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 Z_LIBS = @Z_LIBS@
+Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -380,7 +381,8 @@ top_srcdir = @top_srcdir@
 zshcompletionsdir = @zshcompletionsdir@
 SUBDIRS = \
 	compat \
-	dpkg
+	dpkg \
+	# EOL
 
 all: all-recursive
 

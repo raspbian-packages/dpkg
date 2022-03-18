@@ -64,15 +64,15 @@ De versie tonen en afsluiten.
 
 =item B<--admindir> I<map>
 
-De administratieve map instellen op I<map>. Dit is waar het I<statusmodificatie>-bestand opgeslagen is. Standaard is dat «I<%ADMINDIR%>».
+Set the administrative directory to I<directory>.  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<map>
 
-Instellen van de installatiemap, welke verwijst naar de map waar pakketten geïnstalleerd worden (sinds dpkg 1.19.2). Standaard is dat «I</>».
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<map>
 
-De hoofdmap instellen op B<map>, hetgeen de installatiemap instelt op «I<map>» en de administratieve map op «I<map>B<%ADMINDIR%>» (sinds dpkg 1.19.2).
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--force->I<dingen>
 

@@ -161,7 +161,7 @@ De genormaliseerde bouwprofiel-restrictieformule uit het veld B<Build-Profile> v
 
 Indien het binaire pakket beschermd (protected) is, zal dit trefwoord de waarde hebben van het veld B<Protected>, wat een waarde B<yes> is.
 
-Supported since dpkg 1.20.1.
+Ondersteund sinds dpkg 1.20.1.
 
 =item B<essential>
 

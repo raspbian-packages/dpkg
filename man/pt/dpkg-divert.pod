@@ -38,9 +38,9 @@ Adiciona um desvio para I<file>. Este ficheiro é actualmente não renomeado, ve
 
 Remove um desvio para I<file>. Este ficheiro é actualmente não renomeado, veja B<--rename>.
 
-=item B<--list> I<glob-pattern>
+=item B<--list> [I<glob-pattern>]
 
-Lista desvios que correspondem a I<glob-pattern>.
+List all diversions, or ones matching I<glob-pattern>.
 
 =item B<--listpackage> I<file>
 
@@ -58,15 +58,15 @@ Escreve o nome real para um ficheiro desviado.
 
 =item B<--admindir> I<directory>
 
-Define o directório administrativo para I<directory>. A predefinição é «I<%ADMINDIR%>».
+Set the administrative directory to I<directory>.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<directory>
 
-Define o directório de instalação, o qual se refere ao directório onde os pacotes são instalados (desde dpkg 1.19.2). A predefinição é «I</>».
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<directory>
 
-Define o directório raiz para B<directory>, o que define o directório de instalação para «I<directory>» e o directório administrativo apara «I<directory>B<%ADMINDIR%>» (desde dpkg 1.19.2).
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--divert> I<divert-to>
 

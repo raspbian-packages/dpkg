@@ -56,11 +56,15 @@ Todas as opções podem ser especificadas tanto na linha de comandos como no fic
 
 =item B<--admindir> I<directory>
 
-Muda o directório onde os ficheiros ‘I<status>’, ‘I<available>’ e semelhantes do dpkg estão localizados. Isto usa por predefinição I<%ADMINDIR%> e normalmente não deverá haver necessidade de o alterar.
+Changes the directory where the dpkg ‘I<status>’, ‘I<available>’ and similar files are located.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+
+=item B<--instdir> I<directory>
+
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.21.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<directory>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
 
 =item B<-D>I<file>, B<--debug> I<file>
 
@@ -438,11 +442,11 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+If set and the B<--instdir> or B<--root> options have not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 
-If set and the B<--admindir> option has not been specified, it will be used as the B<dpkg> database directory (since dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory (since dpkg 1.21.0).
 
 =item B<HOME>
 

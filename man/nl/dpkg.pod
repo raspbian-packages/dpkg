@@ -28,7 +28,7 @@ Zij zou I<niet> gebruikt moeten worden door pakketonderhouders die willen begrij
 
 =head1 BESCHRIJVING
 
-B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8> and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
+B<dpkg> is gereedschap op een tussenniveau voor het installeren, bouwen, verwijderen en beheren van Debian pakketten. Het belangrijkste en meer gebruikersvriendelijke frontend voor B<dpkg> als commandoregelinterface (CLI - command-line interface) is B<apt>(8) en als terminalgebruikersinterface (TUI - terminal user interface) is B<aptitude>(8). B<dpkg> zelf wordt volledig gestuurd via commandoregelparameters, die bestaan uit exact één actie en nul of meer opties. De actieparameter zegt B<dpkg> wat het moet doen en de opties sturen in zekere zin het gedrag van de actie.
 
 B<dpkg> kan ook gebruikt worden als een frontend voor B<dpkg-deb>(1) en B<dpkg-query>(1). De lijst van ondersteunde acties kunt u verderop in het onderdeel B<ACTIES> vinden. Indien B<dpkg> een dergelijke actie tegenkomt, voert het gewoon B<dpkg-deb> of B<dpkg-query> uit met de parameters die het meekreeg. Maar momenteel worden aan hen geen specifieke opties doorgegeven. Indien u een dergelijke optie wenst te gebruiken moet u deze programma's rechtstreeks gebruiken.
 
@@ -120,7 +120,7 @@ Een pakket dat als B<reinstreq> gemarkeerd werd, is defect en moet opnieuw geïn
 
 =item B<-i>, B<--install> I<pakketbestand>...
 
-Installeer het pakket. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel naar een map verwijzen.
+Het pakket installeren. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel naar een map verwijzen.
 
 Een installatie bestaat uit de volgende stappen:
 
@@ -138,11 +138,13 @@ B<6.> Het configureren van het pakket. Zie B<--configure> voor gedetailleerde in
 
 =item B<--unpack> I<pakketbestand>...
 
-Pak het pakket uit, maar configureer het niet. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel naar een map verwijzen.
+Het pakket uitpakken, maar het niet configureren. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel naar een map verwijzen.
+
+Will process triggers for B<Pre-Depends> unless B<--no-triggers> has been specified.
 
 =item B<--configure> I<pakket>...|B<-a>|B<--pending>
 
-Configureer een pakket dat uitgepakt, maar nog niet geconfigureerd werd. Indien echter B<-a> of B<--pending> opgegeven wordt in plaats van I<pakket>, worden alle uitgepakte maar niet-geconfigureerde pakketten geconfigureerd.
+Een pakket configureren dat uitgepakt, maar nog niet geconfigureerd werd. Indien echter B<-a> of B<--pending> opgegeven wordt in plaats van I<pakket>, worden alle uitgepakte maar niet-geconfigureerde pakketten geconfigureerd.
 
 Om een pakket dat reeds geconfigureerd werd opnieuw te configureren, moet u echter het commando B<dpkg-reconfigure>(8) gebruiken.
 
@@ -151,6 +153,8 @@ Het configureren bestaat uit de volgende stappen:
 B<1.> Het uitpakken van de configuratiebestanden en tegelijk een reservekopie maken van de oude configuratiebestanden, zodat ze hersteld kunnen worden mocht er iets fout lopen.
 
 B<2.> Indien het pakket een I<postinst>-script meelevert, dat uitvoeren.
+
+Will process triggers unless B<--no-triggers> has been specified.
 
 =item B<--triggers-only> I<pakket>...|B<-a>|B<--pending>
 
@@ -168,6 +172,8 @@ B<2.> Het verwijderen van de geïnstalleerde bestanden
 
 B<3.> Het uitvoeren van het I<postrm>-script
 
+Will process triggers unless B<--no-triggers> has been specified.
+
 =item B<-P>, B<--purge> I<pakket>...|B<-a>|B<--pending>
 
 Een geïnstalleerd of een reeds verwijderd pakket wissen. Dit verwijdert alles, inclusief configuratiebestanden en alles wat anders opgeruimd wordt vanuit I<postrm>. Indien B<-a> of B<--pending> opgegeven werd in plaats van een pakketnaam, dan zullen alle uitgepakte of verwijderde pakketten die echter in het bestand I<%ADMINDIR%/status> gemarkeerd zijn om gewist te worden, gewist worden.
@@ -179,6 +185,8 @@ Het wissen van een pakket bestaat uit de volgende stappen:
 B<1.> Het verwijderen van het pakket als het nog niet verwijderd was. Zie B<--remove> voor gedetailleerde informatie over hoe dit gebeurt.
 
 B<2.> Het uitvoeren van het I<postrm>-script
+
+Will process triggers unless B<--no-triggers> has been specified.
 
 =item B<-V>, B<--verify> [I<pakketnaam>...]
 
@@ -196,13 +204,13 @@ Voert op de database correctheids- en consistentietoetsen uit met betrekking tot
 
 =item B<--merge-avail> [I<Packages-bestand>]
 
-Werk de kennis bij van B<dpkg> en B<dselect> over welke pakketten beschikbaar zijn. Bij de actie B<--merge-avail> wordt oude informatie gecombineerd met informatie uit het I<Packages-bestand>. Bij de actie B<--update-avail> wordt de oude informatie vervangen door de informatie uit het I<Packages-bestand>. Het I<Packages-bestand> dat door Debian verdeeld wordt, heeft gewoon «I<Packages>» als naam. Indien het argument I<Packages-bestand> ontbreekt of «B<->» als naam heeft, zal het gelezen worden van de standaardinvoer (sinds dpkg 1.17.7). B<dpkg> houdt zijn overzicht van beschikbare pakketten bij in I<%ADMINDIR%/available>.
+De kennis van B<dpkg> en B<dselect> over welke pakketten beschikbaar zijn bijwerken. Bij de actie B<--merge-avail> wordt oude informatie gecombineerd met informatie uit het I<Packages-bestand>. Bij de actie B<--update-avail> wordt de oude informatie vervangen door de informatie uit het I<Packages-bestand>. Het I<Packages-bestand> dat door Debian verdeeld wordt, heeft gewoon «I<Packages>» als naam. Indien het argument I<Packages-bestand> ontbreekt of «B<->» als naam heeft, zal het gelezen worden van de standaardinvoer (sinds dpkg 1.17.7). B<dpkg> houdt zijn overzicht van beschikbare pakketten bij in I<%ADMINDIR%/available>.
 
 Een eenvoudiger commando om in één keer het bestand I<available> op te halen en bij te werken is B<dselect update>. Merk op dat dit bestand grotendeels nutteloos is als u niet B<dselect> gebruikt, maar een op APT gebaseerd frontend: APT heeft zijn eigen systeem om zicht te houden op de beschikbare pakketten.
 
 =item B<-A>, B<--record-avail> I<pakketbestand>...
 
-Werk de kennis van B<dpkg> en B<dselect> over welke pakketten beschikbaar zijn, bij met informatie uit het pakket I<pakketbestand>. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel verwijzen naar een map.
+De kennis van B<dpkg> en B<dselect> over welke pakketten beschikbaar zijn bijwerken met informatie uit het pakket I<pakketbestand>. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel verwijzen naar een map.
 
 =item B<--forget-old-unavail>
 
@@ -210,21 +218,21 @@ Nu B<verouderd> en een bewerkingsloze opdracht aangezien B<dpkg> automatisch gee
 
 =item B<--clear-avail>
 
-Wis de huidige informatie over de beschikbaarheid van pakketten.
+De huidige informatie over de beschikbaarheid van pakketten wissen.
 
 =item B<--get-selections> [I<pakketnaampatroon>...]
 
-Haal de lijst van pakketselecties op en schrijf die naar de standaarduitvoer. Als geen patroon opgegeven wordt, zullen niet-geïnstalleerde pakketten (d.w.z. die welke voordien gewist werden) niet getoond worden.
+De lijst van pakketselecties ophalen en weergeven op de standaarduitvoer. Als geen patroon opgegeven wordt, zullen niet-geïnstalleerde pakketten (d.w.z. die welke voordien gewist werden) niet getoond worden.
 
 =item B<--set-selections>
 
-Stel pakketselecties in met behulp van het bestand dat van de standaardinvoer gelezen wordt. Dit bestand moet als indeling “I<pakket> I<status>” hebben, waarbij status B<install> (installeren), B<hold> (te handhaven), B<deinstall> (de-installeren) of B<purge> (wissen) kan zijn. Lege regels en commentaarregels die met ‘B<#>’ beginnen, zijn ook toegelaten.
+Pakketselecties instellen met behulp van het bestand dat van de standaardinvoer gelezen wordt. Dit bestand moet als indeling “I<pakket> I<status>” hebben, waarbij status B<install> (installeren), B<hold> (te handhaven), B<deinstall> (de-installeren) of B<purge> (wissen) kan zijn. Lege regels en commentaarregels die met ‘B<#>’ beginnen, zijn ook toegelaten.
 
 Het bestand I<available> moet up-to-date zijn opdat dit commando dienstig zou zijn, anders zullen niet-gekende pakketten genegeerd worden en zal er in dat verband een waarschuwing gegeven worden. Zie de commando's B<--update-avail> en B<--merge-avail> voor meer informatie.
 
 =item B<--clear-selections>
 
-Stel de aangevraagde status voor elk niet-essentieel pakket in op deinstall (de-installeren) (sinds dpkg 1.13.18). Dit is bedoeld om gebruikt te worden onmiddellijk voor B<--set-selections> om eventuele pakketten te de-installeren die niet in de lijst staan die doorgegeven wordt aan B<--set-selections>.
+De gevraagde status voor elk niet-essentieel pakket instellen op deinstall (de-installeren) (sinds dpkg 1.13.18). Dit is bedoeld om gebruikt te worden onmiddellijk voor B<--set-selections> om eventuele pakketten te de-installeren die niet in de lijst staan die doorgegeven wordt aan B<--set-selections>.
 
 =item B<--yet-to-unpack>
 
@@ -234,7 +242,7 @@ B<Merk op:> dit commando maakt zowel gebruik van het bestand available als van d
 
 =item B<--predep-package>
 
-Toon één enkel pakket dat het doel is van een of meer relevante voorafgaande vereisten en dat zelf geen niet-voldane voorafgaande vereisten heeft.
+Eén enkel pakket tonen dat het doel is van een of meer relevante voorafgaande vereisten en dat zelf geen niet-voldane voorafgaande vereisten heeft.
 
 Indien er een dergelijk pakket is, geef het dan weer in de vorm van een item voor het bestand Packages dat passend verder bewerkt kan worden.
 
@@ -244,23 +252,23 @@ Geeft 0 terug als een pakket weergegeven werd, 1 als geen geschikt pakket te vin
 
 =item B<--add-architecture> I<architectuur>
 
-Voeg I<architectuur> toe aan de lijst van architecturen waarvoor pakketten geïnstalleerd kunnen worden zonder B<--force-architecture> te gebruiken (sinds dpkg 1.16.2). De architectuur waarvoor B<dpkg> gebouwd werd (d.w.z. de uitvoer van B<--print-architecture>), maakt steeds deel uit van die lijst.
+I<Architectuur> toevoegen aan de lijst van architecturen waarvoor pakketten geïnstalleerd kunnen worden zonder B<--force-architecture> te gebruiken (sinds dpkg 1.16.2). De architectuur waarvoor B<dpkg> gebouwd werd (d.w.z. de uitvoer van B<--print-architecture>), maakt steeds deel uit van die lijst.
 
 =item B<--remove-architecture> I<architectuur>
 
-Verwijder I<architectuur> uit de lijst van architecturen waarvoor pakketten geïnstalleerd kunnen worden zonder B<--force-architecture> te gebruiken (sinds dpkg 1.16.2). Indien de architectuur momenteel in de database in gebruik is, dan zal deze operatie geweigerd worden, behalve wanneer B<--force-architecture> opgegeven wordt. De architectuur waarvoor B<dpkg> gebouwd werd (d.w.z. de uitvoer van B<--print-architecture>), kan nooit uit die lijst verwijderd worden.
+I<Architectuur> verwijderen uit de lijst van architecturen waarvoor pakketten geïnstalleerd kunnen worden zonder B<--force-architecture> te gebruiken (sinds dpkg 1.16.2). Indien de architectuur momenteel in de database in gebruik is, dan zal deze operatie geweigerd worden, behalve wanneer B<--force-architecture> opgegeven wordt. De architectuur waarvoor B<dpkg> gebouwd werd (d.w.z. de uitvoer van B<--print-architecture>), kan nooit uit die lijst verwijderd worden.
 
 =item B<--print-architecture>
 
-Toon de architectuur van de pakketten die B<dpkg> installeert (bijvoorbeeld “i386”).
+De architectuur tonen van de pakketten die B<dpkg> installeert (bijvoorbeeld “i386”).
 
 =item B<--print-foreign-architectures>
 
-Toon een lijst, met regeleindes als scheidingsteken, van de bijkomende architecturen waarvoor pakketten mogen geïnstalleerd worden volgens de configuratie van B<dpkg> (sinds dpkg 1.16.2).
+Een lijst tonen, met regeleindes als scheidingsteken, van de bijkomende architecturen waarvoor pakketten mogen geïnstalleerd worden volgens de configuratie van B<dpkg> (sinds dpkg 1.16.2).
 
 =item B<--assert-help>
 
-Give help about the B<--assert->I<feature> options (since dpkg 1.21.0).
+Hulp bieden over de opties B<--assert->I<iets> (sinds dpkg 1.21.0).
 
 =item B<--assert->I<functionaliteit>
 
@@ -298,7 +306,7 @@ Biedt ondersteuning voor het veld B<Protected> (sinds dpkg 1.20.1).
 
 =back
 
-=item B<--validate->I<ding tekenreeks>
+=item B<--validate->I<thing> I<string>
 
 De juistheid van de syntaxis van I<ding> I<tekenreeks> valideren (sinds dpkg 1.18.16). Geeft waarde 0 terug als de I<tekenreeks> geldig is, waarde 1 als de I<tekenreeks> ongeldig is, maar in een lakse context aanvaard kan worden en waarde 2 als de I<tekenreeks> ongeldig is. De huidige lijst van I<dingen> die gevalideerd kunnen worden, omvat:
 
@@ -372,11 +380,11 @@ De inhoud van een deb-pakket opsommen.
 
 Control-informatie extraheren uit een pakket.
 
-=item B<-x>, B<--extract> I<archiefmap>
+=item B<-x>, B<--extract> I<archive> I<directory>
 
 De bestanden uit een pakket extraheren.
 
-=item B<-X>, B<--vextract> I<archiefmap>
+=item B<-X>, B<--vextract> I<archive> I<directory>
 
 De bestandsnamen welke een pakket bevat, extraheren en weergeven.
 
@@ -555,7 +563,7 @@ Een pakket niet installeren als reeds een nieuwere versie van dat pakket geïnst
 
 =item B<--admindir=>I<map>
 
-De administratieve map instellen op I<directory>. In deze map zitten veel bestanden met informatie over de status van geïnstalleerde of gede-installeerde pakketten, enz. Standaard is dat «I<%ADMINDIR%>».
+Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir=>I<map>
 
@@ -589,7 +597,7 @@ Het I<glob-patroon> bij het installeren instellen als een filter voor paden, ofw
 
 I<Waarschuwing: Houd er rekening mee dat u, afhankelijk van de paden die uitgesloten worden, uw systeem volledig defect kunt maken. Gebruik dit behoedzaam.>
 
-The glob patterns use the same wildcards used in the shell, were ‘*’ matches any sequence of characters, including the empty string and also ‘/’.  For example, «I</usr/*/READ*>» matches «I</usr/share/doc/package/README>».  As usual, ‘?’ matches any single character (again, including ‘/’).  And ‘[’ starts a character class, which can contain a list of characters, ranges and complementations. See B<glob>(7) for detailed information about globbing. B<Note:> The current implementation might re-include more directories and symlinks than needed, in particular when there is a more specific re-inclusion, to be on the safe side and avoid possible unpack failures; future work might fix this.
+In de glob-patronen kunnen dezelfde jokertekens gebruikt worden als in de shell, waarbij ‘*’ overeenkomt met om het even welke reeks tekens, met inbegrip van de lege tekenreeks evenals van ‘/’. Bijvoorbeeld, «I</usr/*/READ*>» komt overeen met «I</usr/share/doc/package/README>». Zoals gebruikelijk komt ‘?’ overeen met één willekeurig teken (opnieuw met inbegrip van ‘/’). En ‘[’ geeft het begin aan van een klasse van tekens, die een lijst van tekens, bereiken of complementaties kan bevatten. Zie B<glob>(7) voor gedetailleerde informatie over het gebruik van glob-patronen. B<Opmerking:> Het is mogelijk dat de huidige implementatie meer mappen en symbolische koppelingen opnieuw opneemt dan nodig is, in het bijzonder wanneer er een meer specifieke heropname is. Dit is om op veilig te spelen en mogelijke mislukkingen bij het uitpakken te vermijden. In de toekomst kan eraan gewerkt worden om dit te verbeteren.
 
 Dit kan gebruikt worden om alle paden te verwijderen op enkele specifieke paden na. Een typische casus is:
 
@@ -608,63 +616,63 @@ Suggestie: zorg ervoor dat de glob-patronen niet weggewerkt worden door uw shell
 
 Stelt de indeling in van de uitvoer van het commando B<--verify> (sinds dpkg 1.17.2).
 
-The only currently supported output format is B<rpm>, which consists of a line for every path that failed any check.  These lines have the following format:
+De enige momenteel ondersteunde indeling van de uitvoer is B<rpm>, die bestaat uit een regel voor elk pad dat een controle niet doorstaan heeft. Deze regels hebben de volgende indeling:
 
 Z<>
- B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
- B<??5??????> [B<c>] I<pathname>
+ B<missing  > [B<c>] I<padnaam> [B<(>I<foutmelding>B<)>]
+ B<??5??????> [B<c>] I<padnaam>
 
-The first 9 characters are used to report the checks result, either a literal B<missing> when the file is not present or its metadata cannot be fetched, or one of the following special characters that report the result for each check:
+De eerste 9 tekens worden gebruikt om het resultaat van de controle te rapporteren, ofwel een letterlijke B<missing> wanneer het bestand niet aanwezig is of de metagegevens ervan niet kunnen worden opgehaald, ofwel een van de volgende speciale tekens die het resultaat voor elke controle aangeven:
 
 =over 
 
 =item ‘B<?>’
 
-Implies the check could not be done (lack of support, file permissions, etc).
+Dit houdt in dat de controle niet kon worden uitgevoerd (gebrek aan ondersteuning, bestandsrechten, enz.).
 
 =item ‘B<.>’
 
-Implies the check passed.
+Dit houdt in dat de controle geslaagd is.
 
 =item ‘I<A-Za-z0-9>’
 
-Implies a specific check failed.  The following positions and alphanumeric characters are currently supported:
+Dit houdt in dat een specifieke controle mislukte. De volgende posities en alfanumerieke tekens worden momenteel ondersteund:
 
 =over 
 
 =item 1 ‘B<?>’
 
-These checks are currently not supported, will always be ‘B<?>’.
+Deze controles worden momenteel niet ondersteund, en zullen altijd 'B<?>' zijn.
 
 =item 2 ‘B<M>’
 
-The file mode check failed (since dpkg 1.21.0).  Because pathname metadata is currently not tracked, this check can only be partially emulated via a very simple heuristic for pathnames that have a known digest, which implies they should be regular files, where the check will fail if the pathname is not a regular file on the filesystem.  This check will currently never succeed as it does not have enough information available.
+De controle van de bestandsmodus is mislukt (sinds dpkg 1.21.0). Omdat metagegevens van padnamen momenteel niet worden bijgehouden, kan deze controle slechts gedeeltelijk worden geëmuleerd via een zeer eenvoudige heuristiek voor padnamen die een bekende frommel hebben, wat inhoudt dat het normale bestanden moeten zijn, waarbij de controle zal mislukken als de padnaam geen gewoon bestand is op het bestandssysteem. Deze controle zal momenteel nooit slagen omdat er onvoldoende informatie beschikbaar is. 
 
 =item 3 ‘B<5>’
 
-The digest check failed, which means the file contents have changed.
+De controle van de frommel is mislukt, wat betekent dat de inhoud van het bestand is gewijzigd.
 
 =item 4-9 ‘B<?>’
 
-These checks are currently not supported, will always be ‘B<?>’.
+Deze controles worden momenteel niet ondersteund, en zullen altijd 'B<?>' zijn.
 
 =back
 
 =back
 
-The line is followed by a space and an attribute character.  The following attribute character is supported:
+De regel wordt gevolgd door een spatie en een attribuutteken. Het volgende attribuutteken wordt ondersteund:
 
 =over 
 
 =item ‘B<c>’
 
-The pathname is a conffile.
+De padnaam is een conffile configuratiebestand.
 
 =back
 
-Finally followed by another space and the pathname.
+Tenslotte gevolgd door nog een spatie en de padnaam.
 
-In case the entry was of the B<missing> type, and the file was not actually present on the filesystem, then the line is followed by a space and the error message enclosed within parenthesis.
+In het geval dat de invoer van het type B<missing> was en het bestand niet echt aanwezig was op het bestandssysteem, dan wordt de regel gevolgd door een spatie en de foutmelding tussen haakjes.
 
 =item B<--status-fd> I<n>
 
@@ -900,7 +908,7 @@ Lijst van beschikbare pakketten.
 
 Status van de beschikbare pakketten. Dit bestand bevat informatie over het feit of een pakket al dan niet gemarkeerd werd om verwijderd te worden, of het al dan niet geïnstalleerd is, enz. Zie het onderdeel B<INFORMATIE OVER PAKKETTEN> voor meer informatie.
 
-The status file is backed up daily in I<%BACKUPSDIR%>. It can be useful if it's lost or corrupted due to filesystems troubles.
+Dagelijks wordt een reservekopie van het statusbestand gemaakt in I<%BACKUPSDIR%>. Dit kan nuttig zijn mocht het bestand verloren gegaan zijn of beschadigd ten gevolge van problemen met het bestandssysteem.
 
 =back
 
@@ -961,7 +969,7 @@ Om een lokale kopie te maken van de pakketselectietoestand:
 
 =back
 
-U zou dit bestand kunnen overbrengen naar een andere computer en nadat u daar het bestand I<available> bijgewerkt hebt met het frontend voor pakketbeheer van uw voorkeur (zie L<https://wiki.debian.org/Teams/Dpkg/FAQ> voor meer details), bijvoorbeeld:
+You might transfer this file to another computer, and after having updated the I<available> file there with your package manager frontend of choice (see L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> for more details), for example:
 
 =over 
 

@@ -404,7 +404,7 @@ B<Extracting>
 
 De bundel wordt gekloond in de doelmap als een git-depot. Als er een bestand gitshallow bestaat, wordt het als I<.git/shallow> geïnstalleerd binnenin het gekloonde git-depot.
 
-Merk op dat standaard het nieuwe depot dezelfde tak zal binnengehaald hebben die binnengehaald was in de originele broncode. (Meestal is dat “master”, maar dat kan om het even wat zijn). Eventuele andere takken zullen beschikbaar zijn onder I<remotes/origin/>.
+Note that by default the new repository will have the same branch checked out that was checked out in the original source.  (Typically “main”, but it could be anything.)  Any other branches will be available under I<remotes/origin/>.
 
 B<Bouwen>
 
@@ -418,7 +418,7 @@ B<Bouwopties>
 
 =item B<--git-ref=>I<ref>
 
-Laat toe om een git-referentie op te geven die in de bundel opgenomen moet worden. Daar gebruik van maken schakelt het standaardgedrag om alle takken en tags op te nemen uit. Kan meermaals vermeld worden. De I<referentie> kan de naam van een tak of een tag zijn die opgenomen moet worden. Het kan ook een parameter zijn die doorgegeven kan worden aan B<git-rev-list>(1). Gebruik bijvoorbeeld B<--git-ref=>master om enkel de master-tak op te nemen. Om alle takken en tags, behalve de tak persoonlijk op te nemen, gebruikt u B<--git-ref=>--all B<--git-ref=>^persoonlijk
+Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to B<git-rev-list>(1). For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
 
 =item B<--git-depth=>I<aantal>
 

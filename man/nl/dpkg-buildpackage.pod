@@ -292,9 +292,9 @@ Het bovenstroomse versienummer (toeleveraarsversie).
 
 =back
 
-=item B<--buildinfo-file=>I<filename>
+=item B<--buildinfo-file=>I<bestandsnaam>
 
-Set the I<filename> for the generated B<.buildinfo> file (since dpkg 1.21.0).
+De I<bestandsnaam> instellen voor het gegenereerde B<.buildinfo>-bestand (sinds dpkg 1.21.0).
 
 =item B<--buildinfo-option=>I<optie>
 
@@ -360,9 +360,9 @@ Wordt ongewijzigd doorgegeven aan B<dpkg-source>. Zie de man-pagina ervan.
 
 Optie I<optie> doorgeven aan B<dpkg-source> (sinds dpkg 1.15.6). Kan meermaals gebruikt worden.
 
-=item B<--changes-file=>I<filename>
+=item B<--changes-file=>I<bestandsnaam>
 
-Set the I<filename> for the generated B<.changes> file (since dpkg 1.21.0).
+De I<bestandsnaam> instellen voor het gegenereerde B<.changes>-bestand (sinds dpkg 1.21.0).
 
 =item B<--changes-option=>I<optie>
 

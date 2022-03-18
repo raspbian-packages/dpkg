@@ -38,9 +38,9 @@ Fügt eine Umleitung für I<Datei> hinzu. Die Datei wird derzeit nicht umbenannt
 
 Entfernt eine Umleitung für I<Datei>. Die Datei wird derzeit nicht umbenannt, siehe B<--rename>.
 
-=item B<--list> I<Glob-Muster>
+=item B<--list> [I<Glob-Muster>]
 
-Listet Umleitungen auf, die auf I<Glob-Muster> passen.
+Listet Umleitungen auf, oder die, die auf I<Glob-Muster> passen.
 
 =item B<--listpackage> I<Datei>
 
@@ -58,15 +58,15 @@ Zeigt den echten Namen für eine umgeleitete Datei an.
 
 =item B<--admindir> I<Verzeichnis>
 
-Setzt das administrative Verzeichnis auf I<Verzeichnis> (Standard: „I<%ADMINDIR%>“).
+Set the administrative directory to I<directory>.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<Verzeichnis>
 
-Setzt das Installationsverzeichnis, das sich auf das Verzeichnis bezieht, in dem Pakete installiert werden (seit Dpkg 1.19.2). Standardmäßig „I</>“.
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeichnis auf „I<Verzeichnis>“ und das administrative Verzeichnis auf „I<Verzeichnis>B<%ADMINDIR%>“ gesetzt wird (seit Dpkg 1.19.2).
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--divert> I<Umleitziel>
 

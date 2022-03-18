@@ -32,13 +32,13 @@ Das Skript kann in den folgenden Weisen aufgerufen werden:
 
 Bevor das Paket installiert wird.
 
-=item I<new-preinst> B<install> I<alte_Version neue_Version>
+=item I<new-preinst> B<install> I<alte_Version> I<neue_Version>
 
-Bevor ein Upgrade des entfernten Pakets durchgeführt wird.
+Bevor ein Upgrade eines entfernten Pakets durchgeführt wird.
 
 Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
 
-=item I<new-preinst> B<upgrade> I<alte_Version neue_Version>
+=item I<new-preinst> B<upgrade> I<alte_Version> I<neue_Version>
 
 Bevor das Upgrade des Pakets durchgeführt wird.
 

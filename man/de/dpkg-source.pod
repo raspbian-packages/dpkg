@@ -222,7 +222,7 @@ Gibt an, dass nicht nach Originalquellen geschaut und kein Diff erstellt werden 
 
 =item B<-sa> oder B<-sA>
 
-Gibt an, dass nach dem Original-Quellarchiv als Tar-Datei oder als Verzeichnis gesucht werden soll - das zweite Argument, falls vorhanden, kann eines von beiden sein, oder die leere Zeichenkette (dies ist äquivalent zur Verwendung von B<-sn>). Falls eine Tar-Datei gefunden wird, wird diese zur Erstellung eines Diffs entpackt und danach entfernt (dies ist äquivalent zu B<-sp>); falls ein Verzeichnis gefunden wird, wird dieses gepackt, um die Originalquellen zu erstellen und danach entfernt (dies ist äquivalent zu B<-sr>); falls keines von beiden gefunden wird, wird angenommen, dass das Paket keinen Debianisierungs-Diff ist, sondern nur ein direktes Quellarchiv hat (dies ist äquivalent zu B<-sn>). Falls sowohl ein Verzeichnis als auch eine Tar-Datei gefunden werden, dann ignoriert B<dpkg-source> das Verzeichnis, und überschreibt es, falls B<-sA> angegeben wurde (dies ist äquivalent zu B<-sP>) oder löst einen Fehler aus, falls B<-sa> angegeben wurde. B<-sa> ist die Voreinstellung.
+Gibt an, dass nach dem Original-Quellarchiv als Tar-Datei oder als Verzeichnis gesucht werden soll - das zweite Argument, falls vorhanden, kann eines von beiden sein, oder die leere Zeichenkette (dies ist äquivalent zur Verwendung von B<-sn>). Falls eine Tar-Datei gefunden wird, wird diese zur Erstellung eines Diffs entpackt und danach entfernt (dies ist äquivalent zu B<-sp>); falls ein Verzeichnis gefunden wird, wird dieses gepackt, um die Originalquellen zu erstellen und danach entfernt (dies ist äquivalent zu B<-sr>); falls keines von beiden gefunden wird, wird angenommen, dass das Paket keinen Debianisierungs-Diff hat, sondern nur ein direktes Quellarchiv ist (dies ist äquivalent zu B<-sn>). Falls sowohl ein Verzeichnis als auch eine Tar-Datei gefunden werden, dann ignoriert B<dpkg-source> das Verzeichnis, und überschreibt es, falls B<-sA> angegeben wurde (dies ist äquivalent zu B<-sP>) oder löst einen Fehler aus, falls B<-sa> angegeben wurde. B<-sa> ist die Voreinstellung.
 
 =item B<--abort-on-upstream-changes>
 
@@ -404,7 +404,7 @@ B<Entpacken>
 
 Das Bündel wird als Git-Depot in das Zielverzeichnis geklont. Falls es eine gitshallow-Datei gibt, wird diese als I<.git/shallow> innerhalb des geklonten Git-Depots installiert.
 
-Beachten Sie, dass standardmäßig im neuen Depot der gleiche Zweig ausgecheckt ist, der auch in der ursprünglichen Quelle ausgecheckt war (typischerweise „master“, es könnte aber auch was beliebig anderes sein). Alle anderen Zweige sind unter I<remotes/origin/> verfügbar.
+Beachten Sie, dass standardmäßig im neuen Depot der gleiche Zweig ausgecheckt ist, der auch in der ursprünglichen Quelle ausgecheckt war (typischerweise „main“, es könnte aber auch was beliebig anderes sein). Alle anderen Zweige sind unter I<remotes/origin/> verfügbar.
 
 B<Bauen>
 
@@ -418,7 +418,7 @@ B<Bau-Optionen>
 
 =item B<--git-ref=>I<Referenz>
 
-Erlaubt die Angabe einer Git-Referenz zur Aufnahme in dem Git-Bündel. Die Verwendung deaktiviert das standardmäßige Verhalten, alle Zweige und Markierungen aufzunehmen. Kann mehrfach angegeben werden. I<Referenz> kann der Name eines Zweiges oder einer Markierung, der/die aufgenommen werden soll, sein. Es kann auch ein Parameter sein, der an B<git-rev-list>(1) übergeben werden kann. Verwenden Sie beispielsweise B<--git-ref=>master, um nur den Master-Zweig aufzunehmen. Um alle Markierungen und Zweige außer dem Zweig „private“ aufzunehmen, verwenden Sie B<--git-ref=>--all B<--git-ref=>^private.
+Erlaubt die Angabe einer Git-Referenz zur Aufnahme in dem Git-Bündel. Die Verwendung deaktiviert das standardmäßige Verhalten, alle Zweige und Markierungen aufzunehmen. Kann mehrfach angegeben werden. I<Referenz> kann der Name eines Zweiges oder einer Markierung, der/die aufgenommen werden soll, sein. Es kann auch ein Parameter sein, der an B<git-rev-list>(1) übergeben werden kann. Verwenden Sie beispielsweise B<--git-ref=>main, um nur den Main-Zweig aufzunehmen. Um alle Markierungen und Zweige außer dem Zweig „private“ aufzunehmen, verwenden Sie B<--git-ref=>--all B<--git-ref=>^private.
 
 =item B<--git-depth=>I<Zahl>
 

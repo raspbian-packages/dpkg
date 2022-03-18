@@ -54,7 +54,7 @@ Affiche le numéro de version puis quitte.
 
 =item B<--admindir>=I<répertoire>
 
-Change l'endroit où se trouve la base de données de B<dpkg>. Par défaut, c'est I<%ADMINDIR%>.
+Change the location of the B<dpkg> database.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--root=>I<directory>
 

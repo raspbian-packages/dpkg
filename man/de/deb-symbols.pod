@@ -27,7 +27,7 @@ Die Symboldateien werden in Debian-Binärpaketen ausgeliefert. Deren Format ist 
 Das Format eines Eintrags für eine erweiterte Abhängigkeitsinformation einer Laufzeitbibliothek („shared library“) lautet:
 
 Z<>
- I<Bibliothek-Soname Hauptabhängigkeitsvorlage>
+ I<Bibliothek-Soname> I<Hauptabhängigkeitsvorlage>
  [| I<alternative-Abhängigkeitsvorlage>]
  [...]
  [* I<Feldname>: I<Feldwert>]

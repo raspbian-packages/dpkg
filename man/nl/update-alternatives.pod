@@ -105,11 +105,11 @@ Een groep alternatieven toevoegen aan het systeem. I<koppeling> is de algemene n
 
 Indien de opgegeven alternatief-naam reeds bestaat in de registers van het alternatievensysteem, dan zal de verstrekte informatie toegevoegd worden als een nieuwe reeks van alternatieven voor de groep. Anders zal een nieuwe groep in automatische modus toegevoegd worden met die informatie. Indien de groep zich in automatische modus bevindt en de pas toegevoegde alternatieven een grotere prioriteit hebben dan om het even welke andere geïnstalleerde alternatieven voor die groep, dan zullen de symbolische koppelingen bijgewerkt worden zodat ze verwijzen naar de pas toegevoegde alternatieven.
 
-=item B<--set> I<naam pad>
+=item B<--set> I<name> I<path>
 
 Het programma I<pad> instellen als alternatief voor I<naam>. Dit is het equivalent voor B<--config>, maar het is non-interactief en dus bruikbaar in scripts.
 
-=item B<--remove> I<naam pad>
+=item B<--remove> I<name> I<path>
 
 Een alternatief en alle eraan gekoppelde secundaire (of slaaf-)koppelingen verwijderen. I<naam> is een naam in de alternatievenmap en I<pad> is een absolute bestandsnaam waaraan I<naam> gekoppeld zou kunnen zijn. Indien I<naam> inderdaad gekoppeld is aan I<pad>, dan wordt I<naam> bijgewerkt, zodat die verwijst naar een ander geschikt alternatief (en wordt de groep opnieuw in automatische modus geplaatst), of verwijderd als er geen dergelijk alternatief meer voorhanden is. Gelieerde slaafkoppelingen zullen navenant bijgewerkt of verwijderd worden. Indien de koppeling momenteel niet naar I<pad> verwijst, worden geen koppelingen gewijzigd. Enkel de informatie over het alternatief wordt dan verwijderd.
 
@@ -169,15 +169,15 @@ Duidt de alternatievenmap aan als die anders dan de standaard moet zijn. Standaa
 
 =item B<--admindir> I<map>
 
-Specificeert de administratieve map als die anders dan de standaard moet zijn. Standaard is deze «I<%ADMINDIR%/alternatives>»
+Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
 
 =item B<--instdir> I<map>
 
-Specificeert de installatiemap waar alternatievenkoppelingen gecreëerd zullen worden (sinds versie 1.20.1). Standaard is dat «».
+Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--root> I<map>
 
-Specificeert de basismap (sinds versie 1.20.1). Hiermee worden ook de alternatieven, installatie- en administratieve mappen aangepast. Standaard is deze «».
+Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
 
 =item B<--log> I<bestand>
 
@@ -223,7 +223,11 @@ Er deden zich problemen voor tijdens het ontleden van de commandoregel of het ui
 
 =over 
 
-=item B<DPKG_ADMINDIR>
+=item B<%INSTDIR_ENVVAR%>
+
+Indien dit ingesteld is en de opties B<--instdir> of B<--root> niet opgegeven werden, zal dit gebruikt worden als de hoofdmap voor het bestandssysteem.
+
+=item B<%ADMINDIR_ENVVAR%>
 
 Indien dit ingesteld is en de optie B<--admindir> niet opgegeven werd, zal dit gebruikt worden als de administratieve basismap.
 

@@ -140,6 +140,8 @@ B<6.> Das Paket wird konfiguriert. Lesen Sie B<--configure> für detaillierte In
 
 Entpackt das Paket, konfiguriert es aber nicht. Falls die Option B<--recursive> oder B<-R> angegeben ist, muss sich I<Paketdatei> stattdessen auf ein Verzeichnis beziehen.
 
+Verarbeitet Trigger für B<Pre-Depends>, außer B<--no-triggers> wurde angegeben.
+
 =item B<--configure> I<Paket> …|B<-a>|B<--pending>
 
 Konfiguriert ein entpacktes, aber noch nicht konfiguriertes Paket. Falls B<-a> oder B<--pending> anstelle von I<Paket> angegeben ist, werden alle entpackten, aber nicht konfigurierten Pakete konfiguriert.
@@ -151,6 +153,8 @@ Die Konfiguration besteht aus folgenden Schritten:
 B<1.> Die Conffiles werden entpackt und gleichzeitig die alten Conffiles gesichert, so dass diese, falls etwas schief geht, wiederhergestellt werden können.
 
 B<2.> Das I<postinst>-Skript wird ausgeführt, falls dies vom Paket bereitgestellt wird.
+
+Verarbeitet Trigger, außer B<--no-triggers> wurde angegeben.
 
 =item B<--triggers-only> I<Paket> …|B<-a>|B<--pending>
 
@@ -168,6 +172,8 @@ B<2.> Die installierten Dateien werden entfernt
 
 B<3.> Das I<postrm>-Skript wird ausgeführt
 
+Verarbeitet Trigger, außer B<--no-triggers> wurde angegeben.
+
 =item B<-P>, B<--purge> I<Paket>…|B<-a>|B<--pending>
 
 Löscht ein installiertes oder bereits entferntes Paket vollständig. Damit wird alles entfernt, auch Conffiles und alles, was im Skript I<postrm> bereinigt wird. Falls statt des Paketnamens B<-a> oder B<--pending> angegeben wird, werden alle Pakete, die entpackt oder entfernt, aber in der Datei I<%ADMINDIR%/status> zum vollständigen Löschen vorgemerkt sind, vollständig gelöscht.
@@ -179,6 +185,8 @@ Endgültiges Löschen eines Paketes besteht aus den folgenden Schritten:
 B<1.> Das Paket wird entfernt, falls es noch nicht entfernt ist. Lesen Sie B<--remove> für detaillierte Informationen, wie dies erfolgt.
 
 B<2.> Das I<postrm>-Skript wird ausgeführt.
+
+Verarbeitet Trigger, außer B<--no-triggers> wurde angegeben.
 
 =item B<-V>, B<--verify> [I<Paketname> …]
 
@@ -298,7 +306,7 @@ Unterstützt das Feld B<Protected> (seit Dpkg 1.20.1).
 
 =back
 
-=item B<--validate->I<Sachenzeichenkette>
+=item B<--validate->I<Sache> I<Zeichenkette>
 
 Bestätigt, dass die I<Sachenzeichenkette> eine korrekte Syntax hat (seit Dpkg 1.18.16). Liefert 0 zurück, falls die I<Zeichenkette> gültig ist, 1 falls die I<Zeichenkette> ungültig ist, aber in lockeren Umgebungen akzeptiert werden könnte und 2, falls die I<Zeichenkette> ungültig ist. Die aktuelle Liste der überprüfbaren I<Sachen> ist:
 
@@ -372,11 +380,11 @@ Listet den Inhalt eines deb-Pakets auf.
 
 Entpackt die Steuer-Informationen aus einem Paket.
 
-=item B<-x>, B<--extract> I<Archiv-Verzeichnis>
+=item B<-x>, B<--extract> I<Archiv> I<Verzeichnis>
 
 Entpackt die in einem Paket enthaltenen Dateien.
 
-=item B<-X>, B<--vextract> I<Archiv-Verzeichnis>
+=item B<-X>, B<--vextract> I<Archiv> I<Verzeichnis>
 
 Entpackt die in einem Paket enthaltenen Dateinamen und zeigt sie an.
 
@@ -555,7 +563,7 @@ Installiert ein Paket nicht, falls bereits eine neuere Version des gleichen Pake
 
 =item B<--admindir=>I<Verz>
 
-Setzt das Standardadministrationsverzeichnis auf I<Verzeichnis>. Dieses Verzeichnis enthält viele Dateien, die Informationen über den Status von installierten und deinstallierten Paketen usw. enthalten. Standardmäßig „I<%ADMINDIR%>“.
+Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir=>I<Verz>
 
@@ -961,7 +969,7 @@ Um eine lokale Kopie der Paketauswahl-Zustände zu erstellen:
 
 =back
 
-Sie könnten diese Datei auf einen anderen Rechner übertragen und dann die Datei I<available> dort mit dem Paketverwalter Ihrer Wahl (siehe L<https://wiki.debian.org/Teams/Dpkg/FAQ> für weitere Details) aktualisieren, zum Beispiel:
+Sie könnten diese Datei auf einen anderen Rechner übertragen und dann die Datei I<available> dort mit dem Paketverwalter Ihrer Wahl (siehe L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> für weitere Details) aktualisieren, zum Beispiel:
 
 =over 
 

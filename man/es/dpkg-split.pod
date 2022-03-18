@@ -58,7 +58,7 @@ Por omisión el fichero resultante se llama I<paquete>B<_>I<versión>B<_>I<arch>
 
 Muestra información, en un formato legible por el usuario, acerca de la parte o partes del fichero especificadas. Los argumentos que no son parte de un paquete binario producen un mensaje avisando del problema (por la salida estándar).
 
-=item B<-a>, B<--auto -o> I<salida-completa parte>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 Posiciona las partes en la cola automáticamente, y une nuevamente el paquete, si es posible.
 

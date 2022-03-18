@@ -50,19 +50,19 @@ De configuratiebestanden kunnen vier types opdrachten bevatten:
 
 =over 
 
-=item B<SET> I<vlag waarde>
+=item B<SET> I<flag> I<value>
 
 De vlag met I<vlag> als naam overschrijven om ze de waarde I<waarde> te geven.
 
-=item B<STRIP> I<vlag waarde>
+=item B<STRIP> I<flag> I<value>
 
 Van de vlag met I<vlag> als naam alle bouwvlaggen verwijderen die in I<waarde> opgesomd worden.
 
-=item B<APPEND> I<vlag waarde>
+=item B<APPEND> I<flag> I<value>
 
 De vlag met I<vlag> als naam uitbreiden door er de opties aan toe te voegen die in I<waarde> opgegeven worden. Er wordt een spatie geplaatst voor de waarde die toegevoegd wordt, indien de huidige waarde van de vlag niet leeg is.
 
-=item B<PREPEND> I<vlag waarde>
+=item B<PREPEND> I<flag> I<value>
 
 De vlag met I<vlag> als naam uitbreiden door er vooraan de opties aan toe te voegen die in I<waarde> opgegeven worden. Er wordt een spatie geplaatst achter de waarde die toegevoegd wordt, indien de huidige waarde van de vlag niet leeg is.
 
@@ -195,7 +195,7 @@ De versie tonen en afsluiten.
 
 =item B<ASFLAGS>
 
-Options for the assembler. Default value: empty. Since dpkg 1.21.0.
+Opties voor de assembler. Standaardwaarde: leeg. Sinds dpkg 1.21.0.
 
 =item B<CFLAGS>
 
@@ -263,7 +263,7 @@ Deze instelling (standaard uitgezet) activeert ondersteuning voor grote bestande
 
 =back
 
-=head2 qa (kwaliteitsbevordering)
+=head2 kwaliteitsbevordering
 
 Er kunnen verschillende compilatieopties (die hierna beschreven worden) gebruikt worden om problemen in de broncode of het bouwsysteem te helpen detecteren.
 
@@ -279,19 +279,19 @@ Deze instelling (die standaard uitgeschakeld is) voegt loze kanarievogelopties t
 
 =back
 
-=head2 optimize
+=head2 optimalisering
 
-Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: enabling B<all> these options can result in unreproducible binary artifacts.
+Er kunnen verschillende compilatieopties (die hierna beschreven worden) gebruikt worden om een resulterend binair bestand te optimaliseren (sinds dpkg 1.21.0). B<Opmerking>: het inschakelen van B<al> deze opties kan resulteren in niet-reproduceerbare ongewenste bijverschijnselen in het binair bestand.
 
 =over 
 
 =item lto
 
-This setting (since dpkg 1.21.0; disabled by default) enables Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
+Deze instelling (sinds dpkg 1.21.0; standaard uitgeschakeld) zet Link Time Optimization aan door B<-flto=auto -ffat-lto-objects> toe te voegen aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> of B<LDFLAGS>.
 
 =back
 
-=head2 sanitize (saneren)
+=head2 sanering
 
 Er kunnen verschillende compilatie-opties (die hierna beschreven worden) gebruikt worden om te helpen bij het gezond houden van een resulterend binair pakket op het vlak van geheugenvervuiling, geheugenlekkage, geheugengebruik na vrijgave, dataraces bij threads en bugs door ongedefinieerd gedrag. B<Noot>: deze opties zouden B<niet> gebruikt mogen worden voor een bouw voor productiedoeleinden, aangezien ze een verminderde betrouwbaarheid bieden inzake codeconformiteit en de beveiliging en zelfs de functionaliteit reduceren.
 
@@ -315,7 +315,7 @@ Deze instelling (standaard uitgeschakeld) voegt B<-fsanitize=undefined> toe aan 
 
 =back
 
-=head2 hardening (kwetsbaarheidsreductie)
+=head2 kwetsbaarheidsreductie
 
 Er kunnen verschillende compilatie-opties (die hierna beschreven worden) gebruikt worden om te helpen bij het versterken van een resulterend binair pakket tegen geheugenvervuilingsaanvallen of om bijkomende waarschuwingsberichten te geven tijdens het compileren. Behalve wanneer hierna anders aangegeven is, worden deze opties standaard geactiveerd voor architecturen die ze ondersteunen.
 
@@ -385,7 +385,7 @@ Aangezien PIE via een algemeen register geïmplementeerd wordt, kunnen bovendien
 
 =back
 
-=head2 reproducible (reproduceerbaar)
+=head2 reproduceerbaarheid
 
 De hierna behandelde compilatieopties kunnen gebruikt worden om de bouwreproduceerbaarheid te helpen verbeteren of om bijkomende waarschuwingsberichten af te leveren tijdens het compileren. Behalve wanneer het hierna aangegeven wordt, worden deze opties standaard geactiveerd voor architecturen die ze ondersteunen.
 

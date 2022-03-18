@@ -146,7 +146,7 @@
 #undef HAVE_LUTIMES
 
 /* xz multithreaded compression support */
-#undef HAVE_LZMA_MT
+#undef HAVE_LZMA_MT_ENCODER
 
 /* Define to 1 if 'makedev' is declared in <sys/types.h> */
 #undef HAVE_MAKEDEV
@@ -354,6 +354,18 @@
 /* Use disk size pre-allocation */
 #undef USE_DISK_PREALLOCATE
 
+/* Define to the zlib implementation to use */
+#undef USE_LIBZ_IMPL
+
+/* Define none as 0 for the zlib implementation enum */
+#undef USE_LIBZ_IMPL_NONE
+
+/* Define zlib as 1 for the zlib implementation enum */
+#undef USE_LIBZ_IMPL_ZLIB
+
+/* Define zlib-ng as 2 for the zlib implementation enum */
+#undef USE_LIBZ_IMPL_ZLIB_NG
+
 /* Use unreliable mmap support */
 #undef USE_MMAP
 
@@ -448,6 +460,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* Define to yes to use zlib-ng gzFile IO support */
+#undef WITH_GZFILEOP
+
 /* Define to 1 to use bz2 library rather than console tool */
 #undef WITH_LIBBZ2
 
@@ -459,6 +474,9 @@
 
 /* Define to 1 to use z library rather than console tool */
 #undef WITH_LIBZ
+
+/* Define to 1 to use z-ng library rather than console tool */
+#undef WITH_LIBZ_NG
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */

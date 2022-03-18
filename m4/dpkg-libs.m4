@@ -36,31 +36,31 @@ AC_DEFUN([DPKG_LIB_MD], [
 # -------------------------------------------------
 # Check for availability of a compression library.
 AC_DEFUN([DPKG_WITH_COMPRESS_LIB], [
-  AC_ARG_VAR(AS_TR_CPP($1)[_LIBS], [linker flags for $1 library])
+  AC_ARG_VAR(AS_TR_CPP([$1_LIBS]), [linker flags for $1 library])
   AC_ARG_WITH([lib$1],
     [AS_HELP_STRING([--with-lib$1],
       [use $1 library for compression and decompression])],
-    [], [with_lib$1=check])
-  have_lib$1="no"
-  AS_IF([test "x$with_lib$1" != "xno"], [
+    [], [AS_TR_SH([with_lib$1])=check])
+  AS_TR_SH([have_lib$1])="no"
+  AS_IF([test "x$AS_TR_SH([with_lib$1])" != "xno"], [
     AC_CHECK_LIB([$1], [$3], [
       AC_CHECK_HEADER([$2], [
-        have_lib$1="yes"
+        AS_TR_SH([have_lib$1])="yes"
       ])
     ])
 
-    AS_IF([test "x$with_lib$1" != "xno"], [
-      AS_IF([test "x$have_lib$1" = "xyes"], [
-        AC_DEFINE([WITH_LIB]AS_TR_CPP($1), 1,
+    AS_IF([test "x$AS_TR_SH([with_lib$1])" != "xno"], [
+      AS_IF([test "x$AS_TR_SH([have_lib$1])" = "xyes"], [
+        AC_DEFINE(AS_TR_CPP([WITH_LIB$1]), 1,
           [Define to 1 to use $1 library rather than console tool])
-        AS_IF([test "x$with_lib$1" = "xstatic"], [
-          dpkg_$1_libs="-Wl,-Bstatic -l$1 -Wl,-Bdynamic"
+        AS_IF([test "x$AS_TR_SH([with_lib$1])" = "xstatic"], [
+          AS_TR_SH([dpkg_$1_libs])="-Wl,-Bstatic -l$1 -Wl,-Bdynamic"
         ], [
-          dpkg_$1_libs="-l$1"
+          AS_TR_SH([dpkg_$1_libs])="-l$1"
         ])
-        AS_TR_CPP($1)_LIBS="${AS_TR_CPP($1)_LIBS:+$AS_TR_CPP($1)_LIBS }$dpkg_$1_libs"
+        AS_TR_CPP([$1_LIBS])="${AS_TR_CPP([$1_LIBS]):+$AS_TR_CPP([$1_LIBS]) }$AS_TR_SH([dpkg_$1_libs])"
       ], [
-        AS_IF([test "x$with_lib$1" != "xcheck"], [
+        AS_IF([test "x$AS_TR_SH([with_lib$1])" != "xcheck"], [
           AC_MSG_FAILURE([lib$1 library or header not found])
         ])
       ])
@@ -69,10 +69,35 @@ AC_DEFUN([DPKG_WITH_COMPRESS_LIB], [
 ])# DPKG_WITH_COMPRESS_LIB
 
 # DPKG_LIB_Z
-# -------------
-# Check for z library.
+# ----------
+# Check for z-ng and z libraries.
 AC_DEFUN([DPKG_LIB_Z], [
   DPKG_WITH_COMPRESS_LIB([z], [zlib.h], [gzdopen])
+  DPKG_WITH_COMPRESS_LIB([z-ng], [zlib-ng.h], [zng_gzdopen])
+
+  AC_DEFINE([USE_LIBZ_IMPL_NONE], [0],
+            [Define none as 0 for the zlib implementation enum])
+  AC_DEFINE([USE_LIBZ_IMPL_ZLIB], [1],
+            [Define zlib as 1 for the zlib implementation enum])
+  AC_DEFINE([USE_LIBZ_IMPL_ZLIB_NG], [2],
+            [Define zlib-ng as 2 for the zlib implementation enum])
+
+  # If we have been requested the stock zlib, override the auto-detection.
+  AS_IF([test "x$with_libz" != "xyes" && test "x$have_libz_ng" = "xyes"], [
+    AC_DEFINE([WITH_GZFILEOP], [yes],
+      [Define to yes to use zlib-ng gzFile IO support])
+    Z_LIBS=$Z_NG_LIBS
+    use_libz_impl="USE_LIBZ_IMPL_ZLIB_NG"
+    have_libz_impl="yes (zlib-ng)"
+  ], [test "x$have_libz" = "xyes"], [
+    use_libz_impl="USE_LIBZ_IMPL_ZLIB"
+    have_libz_impl="yes (zlib)"
+  ], [
+    use_libz_impl="USE_LIBZ_IMPL_NONE"
+    have_libz_impl="no"
+  ])
+  AC_DEFINE_UNQUOTED([USE_LIBZ_IMPL], [$use_libz_impl],
+                     [Define to the zlib implementation to use])
 ])# DPKG_LIB_Z
 
 # DPKG_LIB_LZMA
@@ -81,7 +106,8 @@ AC_DEFUN([DPKG_LIB_Z], [
 AC_DEFUN([DPKG_LIB_LZMA], [
   DPKG_WITH_COMPRESS_LIB([lzma], [lzma.h], [lzma_alone_decoder])
   AC_CHECK_LIB([lzma], [lzma_stream_encoder_mt], [
-    AC_DEFINE([HAVE_LZMA_MT], [1], [xz multithreaded compression support])
+    AC_DEFINE([HAVE_LZMA_MT_ENCODER], [1],
+              [xz multithreaded compression support])
   ])
 ])# DPKG_LIB_LZMA
 

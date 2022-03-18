@@ -58,7 +58,7 @@ Standardmäßig wird die Ausgabedatei I<Paket>B<->I<Version>B<_>I<Arch>B<.deb> g
 
 Gibt Informationen über die angegebene(n) Teildatei(en) in menschenlesbarem Format aus. Argumente, die keine Binärpaketdateien sind, führen zu einer entsprechenden Meldung (allerdings auch in der Standardausgabe).
 
-=item B<-a>, B<--auto -o>  I<Komplettausgabe Teil>
+=item B<-a>, B<--auto -o>  I<Komplettausgabe> I<Teil>
 
 Reiht Teile automatisch in die Warteschlange und setzt, falls möglich, ein Paket wieder zusammen.
 

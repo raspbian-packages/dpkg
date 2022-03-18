@@ -72,7 +72,7 @@ L'absence des champs demandés ne provoque pas de message d'erreur.
 
 Liste la partie arborescence des fichiers d'une archive de paquet. Elle est actuellement produite dans le format généré par un listing verbeux de B<tar>.
 
-=item B<-x>, B<--extract> I<archive répertoire>
+=item B<-x>, B<--extract> I<archive> I<directory>
 
 Extrait l'arborescence des fichiers d'un paquet archive dans le répertoire spécifié.
 
@@ -80,11 +80,11 @@ Il faut remarquer que l'extraction d'un paquet dans le répertoire root I<ne pro
 
 I<répertoire> est créé si nécessaire (mais pas ses répertoires parents) et ses permissions sont modifiées pour correspondre au contenu du paquet.
 
-=item B<-X>, B<--vextract> I<archive répertoire>
+=item B<-X>, B<--vextract> I<archive> I<directory>
 
 Comme B<--extract> (B<-x>) avec B<--verbose> (B<-v>), ce qui affiche la liste des fichiers au fur et à mesure qu'ils sont extraits.
 
-=item B<-R>, B<--raw-extract> I<archive répertoire>
+=item B<-R>, B<--raw-extract> I<archive> I<directory>
 
 Extrait l'arborescence des fichiers d'un paquet archive dans le répertoire spécifié et les fichiers d'information de contrôle dans un sous-répertoire nommé B<DEBIAN> de ce répertoire (depuis S<dpkg 1.16.1).>
 

@@ -36,19 +36,19 @@ Bevor das Paket entfernt wird.
 
 Vor einem Upgrade.
 
-=item I<new-prerm> B<failed-upgrade> I<alte_Version neue_Version>
+=item I<new-prerm> B<failed-upgrade> I<alte_Version> I<neue_Version>
 
 Falls das obige B<upgrade> fehlschlägt.
 
 Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
 
-=item I<prerm> B<deconfigure in-favour> I<neues_Paket neue_Version>
+=item I<prerm> B<deconfigure> B<in-favour> I<neues_Paket> I<neue_Version>
 
-=item S< >[ B<removing> I<altes_Paket alte_Version> ]
+=item S< >[ B<removing> I<altes_Paket> I<alte_Version> ]
 
 Bevor ein Paket dekonfiguriert wurde, während eine Abhängigkeit aufgrund eines Konflikts ersetzt wird.
 
-=item I<prerm> B<remove in-favour> I<neues_Paket neue_Version>
+=item I<prerm> B<remove> B<in-favour> I<neues_Paket> I<neue_Version>
 
 Bevor das Paket aufgrund eines Konflikts ersetzt wird.
 

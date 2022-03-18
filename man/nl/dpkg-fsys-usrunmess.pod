@@ -38,7 +38,7 @@ De consistentie van de dpkg-database controleren en anders afbreken.
 
 =item *
 
-Generate and install a regression prevention package.
+Een regressiepreventiepakket genereren en installeren.
 
 =item *
 
@@ -86,7 +86,7 @@ De basisschaduwmap verwijderen.
 
 =item *
 
-Register a B<policy-rc.d> to disallow service actions, which means that services might need to be restarted afterwards, ideally via a reboot.
+Een B<policy-rc.d> registreren om niet toe te staan dat serviceacties uitgevoerd worden, wat betekent dat diensten daarna mogelijk opnieuw moeten worden gestart, idealiter via een herstart.
 
 =item *
 
@@ -94,13 +94,13 @@ Alle pakketten opnieuw configureren.
 
 =item *
 
-Unregister the B<policy-rc.d> and restore the alternatives state.
+De registratie van B<policy-rc.d> ongedaan maken en de toestand van alternatives herstellen.
 
 =back
 
 B<Opmerking>: Als je het programma uitvoert vanuit bepaalde shells, zoals L <bash (1)> of L <zsh (1)>, moet u na het uitvoeren van het programma mogelijk de shell vragen om alle herinnerde uitvoerbare locaties te vergeten met bijvoorbeeld C<hash -r>.
 
-B<Note>: Some directories might linger after the migration in case they contain untracked files. A list is printed once the script has finished for further investigation.
+B<Opmerking>: Sommige mappen kunnen na de migratie achterblijven omdat ze niet-gevolgde bestanden bevatten. Zodra het script klaar is wordt een lijst afgedrukt voor verder onderzoek.
 
 B<Waarschuwing>: Merk op dat er een kans bestaat dat deze bewerking het systeem onbruikbaar of kapot maakt in geval van een plotselinge crash of een herstart, een onverwachte toestand van het systeem of mogelijke bugs in het script. Wees voorbereid met herstelmedia en overweeg om van tevoren back-ups te maken.
 
@@ -140,5 +140,5 @@ Deze instelling bepaalt of de droogloopmodus moet worden geactiveerd.
 
 =head1 ZIE OOK
 
-L<https://wiki.debian.org/Teams/Dpkg/FAQ#Q:_Does_dpkg_support_merged-.2Fusr-via-aliased-dirs.3F>.
+L<https://wiki.debian.org/Teams/Dpkg/FAQ#broken-usrmerge>.
 

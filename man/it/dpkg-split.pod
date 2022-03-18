@@ -58,7 +58,7 @@ In modo predefinito il file di output si chiama I<pacchetto>B<_>I<versione>B<_>I
 
 Stampa informazioni, in un formato intelligibile, riguardo ai file delle parti specificati. Gli argomenti che non sono parti di un pacchetto binario producono invece un messaggio che informa della cosa (ma sempre sullo standard output).
 
-=item B<-a>, B<--auto -o> I<output-completo parte>
+=item B<-a>, B<--auto -o> I<complete-output> I<part>
 
 Accoda automaticamente le parti e riassembla un pacchetto se ciò è possibile.
 

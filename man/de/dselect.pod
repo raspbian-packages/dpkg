@@ -56,11 +56,15 @@ Alle Optionen können sowohl auf der Befehlszeile als auch in der Konfigurations
 
 =item B<--admindir> I<Verzeichnis>
 
-Ändert das Verzeichnis, in dem die Dateien ‚I<status>’, ‚I<available>’ und ähnliche Dateien von Dpkg liegen. Standardmäßig ist dies I<%ADMINDIR%> und normalerweise sollte es keinen Grund geben, dieses zu ändern.
+Changes the directory where the dpkg ‘I<status>’, ‘I<available>’ and similar files are located.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+
+=item B<--instdir> I<Verzeichnis>
+
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.21.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Administrationsverzeichnis auf „I<Verzeichnis>%ADMINDIR%“ gesetzt wird (seit Dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
 
 =item B<-D>I<Datei>, B<--debug> I<Datei>
 
@@ -439,11 +443,11 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_ROOT>
 
-Falls gesetzt und die Option B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt (seit Dpkg 1.21.0).
+If set and the B<--instdir> or B<--root> options have not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 
-Falls gesetzt und die Option B<--admindir> nicht verwandt wurde, wird dies als Datenbankverzeichnis von B<dpkg> verwandt (seit Dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory (since dpkg 1.21.0).
 
 =item B<HOME>
 

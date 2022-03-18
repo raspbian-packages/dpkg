@@ -38,7 +38,7 @@ Een NULL-byte gebruiken om uitvoerregels te beëindigen in plaats van een regele
 
 =item B<--root> I<map>
 
-De hoofdmap instellen op I<map>, welke de hoofdmap is waartegen padnamen conform gemaakt worden. Staat standaard ingesteld op «B</>».
+Set the root directory to I<directory>, which is the base directory that pathnames get canonicalized against.  Defaults to «B</>» if B<DPKG_ROOT> has not been set.
 
 =item B<-?>, B<--help>
 

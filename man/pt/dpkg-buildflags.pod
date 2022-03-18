@@ -50,19 +50,19 @@ Os ficheiros de configuração podem conter quatro tipos de directivas:
 
 =over 
 
-=item B<SET> I<flag value>
+=item B<SET> I<flag> I<value>
 
 Sobrescreve a flag chamada I<flag> para ter o valor I<valor>.
 
-=item B<STRIP> I<flag value>
+=item B<STRIP> I<flag> I<value>
 
 Despoja da flag chamada I<flag> todas as flags de compilação listadas em I<valor>.
 
-=item B<APPEND> I<flag value>
+=item B<APPEND> I<flag> I<value>
 
 Estende a flag chamada I<flag> ao acrescentar as opções dadas em I<valor>. É usado um espaço a preceder o valor acrescentado se o valor da flag actual não estiver vazio.
 
-=item B<PREPEND> I<flag value>
+=item B<PREPEND> I<flag> I<value>
 
 Estende a flag chamada I<flag> ao precedê-la com as opções dadas em I<valor>. É acrescentado um espaço ao valor precedido se o valor da flag actual não estiver vazio.
 

@@ -32,17 +32,17 @@ Het script kan op de volgende manieren geactiveerd worden:
 
 Vooraleer het pakket geïnstalleerd wordt.
 
-=item I<new-preinst> B<install> I<oude-versie nieuwe-versie>
+=item I<new-preinst> B<install> I<old-version> I<new-version>
 
-Vooraleer een verwijderd pakket opgewaardeerd wordt.
+Before a removed package is upgraded.
 
-The I<new-version> is passed only since dpkg 1.18.5.
+De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
-=item I<new-preinst> B<upgrade> I<oude-versie nieuwe-versie>
+=item I<new-preinst> B<upgrade> I<old-version> I<new-version>
 
 Vooraleer het pakket opgewaardeerd wordt.
 
-The I<new-version> is passed only since dpkg 1.18.5.
+De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
 =item I<old-preinst> B<abort-upgrade> I<nieuwe-versie>
 

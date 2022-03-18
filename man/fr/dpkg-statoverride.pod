@@ -64,15 +64,15 @@ Affiche le numéro de version puis quitte.
 
 =item B<--admindir> I<répertoire>
 
-Fixe le répertoire d'administration à I<répertoire>, où se trouve aussi le fichier I<statoverride>. La valeur par défaut est I<%ADMINDIR%>.
+Set the administrative directory to I<directory>.  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
 
 =item B<--instdir> I<répertoire>
 
-Définit le répertoire d'installation qui désigne le répertoire où les paquets sont installés (depuis S<dpkg 1.19.2).> Par défaut c'est S<« I</> ».>
+Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
 
 =item B<--root> I<répertoire>
 
-Définit le répertoire root à B<directory>, ce qui définit le répertoire d'installation à S<« I<répertoire> »> et le répertoire d'administration à S<« I<répertoire>B<%ADMINDIR%> »> (depuis S<dpkg 1.19.2).>
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
 
 =item B<--force->I<quelque-chose>
 

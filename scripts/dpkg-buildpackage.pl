@@ -272,9 +272,9 @@ while (@ARGV) {
 	usageerr(g_('missing hook %s command'), $hook_name)
 	    if not defined $hook_cmd;
 	$hook{$hook_name} = $hook_cmd;
-    } elsif (/^--buildinfo-id=.*$/) {
+    } elsif (/^(--buildinfo-id)=.*$/) {
 	# Deprecated option
-	warning('--buildinfo-id is deprecated, it is without effect');
+	warning(g_('%s is deprecated; it is without effect'), $1);
     } elsif (/^(?:-p|--sign-command=)(.*)$/) {
 	$signcommand = $1;
     } elsif (/^(?:-k|--sign-key=)(.*)$/) {
@@ -376,7 +376,7 @@ while (@ARGV) {
 	$desc = $1;
     } elsif (m/^-[EW]$/) {
 	# Deprecated option
-	warning(g_('-E and -W are deprecated, they are without effect'));
+	warning(g_('%s is deprecated; it is without effect'), $_);
     } elsif (/^-R(.*)$/ or /^--rules-file=(.*)$/) {
 	my $arg = $1;
 	@debian_rules = split ' ', $arg;
@@ -454,7 +454,7 @@ if (defined $parallel) {
 
 if ($build_opts->has('terse')) {
     $ENV{MAKEFLAGS} //= '';
-    $ENV{MAKEFLAGS} .= ' -s';
+    $ENV{MAKEFLAGS} .= ' --no-print-directory';
 }
 
 set_build_profiles(@build_profiles) if @build_profiles;

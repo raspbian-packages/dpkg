@@ -52,17 +52,17 @@ Nachdem alle Paketdateien ersetzt wurden.
 
 =item I<new-postrm> B<abort-install>
 
-Falls I<preinst> während der Installation fehlschlägt.
+Falls I<preinst> während B<install> fehlschlägt.
 
-=item I<new-postrm> B<abort-install> I<alte_Version neue_Version>
+=item I<new-postrm> B<abort-install> I<alte_Version> I<neue_Version>
 
-Falls I<preinst> während des Upgrades eines entfernten Paketes fehlschlägt.
+Falls I<preinst> während B<install> für ein Upgrade eines entfernten Paketes fehlschlägt.
 
 Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
 
-=item I<new-postrm> B<abort-upgrade> I<alte_Version neue_Version>
+=item I<new-postrm> B<abort-upgrade> I<alte_Version> I<neue_Version>
 
-Falls I<preinst> während des Upgrades fehlschlägt.
+Falls I<preinst> während B<upgrade> fehlschlägt.
 
 Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
 

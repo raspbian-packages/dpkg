@@ -72,7 +72,7 @@ Er worden geen foutmeldingen gegeven voor aangevraagde velden die niet gevonden 
 
 Geeft de inhoud weer van het archiefonderdeel van het pakketarchief dat de bestandssysteemboom bevat. Hij wordt momenteel weergegeven volgens de manier waarop B<tar> een breedsprakige lijst genereert.
 
-=item B<-x>, B<--extract> I<archiefmap>
+=item B<-x>, B<--extract> I<archive> I<directory>
 
 Extraheert de boom met het bestandssysteem uit een pakketarchief en plaatst die in de opgegeven map.
 
@@ -80,11 +80,11 @@ Merk op dat een pakket naar de hoofdmap extraheren I<niet> in een correcte insta
 
 I<map> (maar niet de bovenliggende mappen) zal indien nodig aangemaakt worden en de toegangsrechten ervan zullen aangepast worden om overeen te komen met de inhoud van het pakket.
 
-=item B<-X>, B<--vextract> I<archiefmap>
+=item B<-X>, B<--vextract> I<archive> I<directory>
 
 Is zoals B<--extract> (B<-x>) met B<--verbose> (B<-v>), hetgeen een lijst van de geëxtraheerde bestanden toont terwijl de opdracht uitgevoerd wordt.
 
-=item B<-R>, B<--raw-extract> I<archief map>
+=item B<-R>, B<--raw-extract> I<archive> I<directory>
 
 Extraheert de boom met het bestandssysteem uit een pakketarchief en plaatst die in de opgegeven map en de bestanden met de controle-informatie in een daaronder liggende map B<DEBIAN> (sinds dpkg 1.16.1).
 
