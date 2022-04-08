@@ -18,7 +18,7 @@ vardir="$1"
 method=$2
 option=$3
 
-cd "$vardir/methods/disk"
+cd "$vardir/methods/file"
 tp="$(mktemp --tmpdir $method.XXXXXXXXXX)"
 
 iarch=$(dpkg --admindir $vardir --print-architecture)
@@ -26,9 +26,6 @@ iarch=$(dpkg --admindir $vardir --print-architecture)
 xit=1
 trap '
   rm -f $tp.?
-  if [ -n "$umount" ]; then
-    umount "$umount" >/dev/null 2>&1
-  fi
   exit $xit
 ' 0
 
@@ -76,23 +73,18 @@ If you make a mistake, use the interrupt key ($intrkey) to abort.
 #   The mountpoint for the filesystem containing the stuff
 #   empty or unset if we don't know yet, or if we haven't mounted anything;
 #   may also be empty if ‘directory’ was set.
-#  blockdevice
-#   The actual block device to mount.
 #  fstype
 #   The filesystem type to use.
-#  defaultdevice
-#   The default block device to mount.
 
 if [ -f shvar.$option ]; then
   . ./shvar.$option
-  defaultdevice="$p_blockdev"
 fi
 
 if [ -n "$mountpoint" ]; then
   # We must have $mountpoint
   echo \
 "All directory names should be entered relative to the root of the
-$fstype filesystem on $blockdevice.
+$fstype filesystem.
 "
 fi
 
@@ -141,7 +133,7 @@ since '$p_hierbase/main/binary-$iarch' doesn't seem to exist."
     hierbase=""
     break
   elif [ -d "$mountpoint/$response/main/binary-$iarch" ]; then
-    hierbase="$(echo \"$response\" | sed -e 's:/*$::; s:^/*:/:')"
+    hierbase="$(echo "$response" | sed -e 's:/*$::; s:^/*:/:')"
     break
   fi
   echo \
@@ -218,7 +210,7 @@ Say 'none' if this area is not available."
       continue
       ;;
     esac
-    check_binary $1 "$(echo \"$response\" | sed -e 's:/$::; s:^/*:/:')"
+    check_binary $1 "$(echo "$response" | sed -e 's:/$::; s:^/*:/:')"
   done
   if [ -n "$this_binary" ]; then
     for f in Packages.gz packages.gz Packages packages; do
@@ -285,7 +277,6 @@ read response
 
 exec 3>shvar.$option.new
 
-outputparam p_blockdev "$blockdevice"
 outputparam p_fstype "$fstype"
 outputparam p_mountpoint "$mountpoint"
 outputparam p_hierbase "$hierbase"

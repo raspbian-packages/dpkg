@@ -28,7 +28,7 @@ I<Não> deverá ser usado por maintainers de pacotes que desejem compreender com
 
 =head1 DESCRIÇÃO
 
-B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8> and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
+B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8) and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
 
 O B<dpkg> pode também ser usado como front-end para B<dpkg-deb>(1) e B<dpkg-query>(1). A lista de acções suportadas pode ser encontrada mais tarde na secção B<ACÇÕES>. Se qualquer tal acção for encontrada, o B<dpkg> apenas corre B<dpkg-deb> ou B<dpkg-query> com os parâmetros dados a ele, mas nenhuma opção especifica é presentemente passada para eles, para se qualquer tal opção, os back-ends precisam de ser chamados directamente.
 
@@ -268,7 +268,7 @@ Escreve uma lista, com separação por novas linhas, de arquitecturas extra que 
 
 =item B<--assert-help>
 
-Give help about the B<--assert->I<feature> options (since dpkg 1.21.0).
+Oferece ajuda acerca das opções B<--assert->I<feature> (desde dpkg 1.21.0).
 
 =item B<--assert->I<feature>
 
@@ -597,7 +597,7 @@ Define I<glob-pattern> como um filtro de caminho, seja por excluir ou re-incluir
 
 I<Aviso: Tenha em conta que ao depender de caminhos excluídos você pode danificar completamente o seu sistema, use com cuidado.>
 
-The glob patterns use the same wildcards used in the shell, were ‘*’ matches any sequence of characters, including the empty string and also ‘/’.  For example, «I</usr/*/READ*>» matches «I</usr/share/doc/package/README>».  As usual, ‘?’ matches any single character (again, including ‘/’).  And ‘[’ starts a character class, which can contain a list of characters, ranges and complementations. See B<glob>(7) for detailed information about globbing. B<Note:> The current implementation might re-include more directories and symlinks than needed, in particular when there is a more specific re-inclusion, to be on the safe side and avoid possible unpack failures; future work might fix this.
+Os padrões glob usam as mesmas wildcards usadas na shell, onde ‘*’ corresponde a qualquer sequência de caracteres, incluindo a string vazia e também ‘/’. Por exemplo, «I</usr/*/READ*>» corresponde a «I</usr/share/doc/package/README>».  Como normal, ‘?’ corresponde a qualquer caractere único (mais uma vez, incluindo ‘/’). E ‘[’ começa uma classe de caractere, o qual pode conter uma lista de caracteres, gamas e complementações. Veja B<glob>(7) para informação detalhada acerca de globbing. B<Nota:> A implementação actual pode re-incluir mais directivas e links simbólicos do que necessário, em particular quando existe uma re-inclusão mais específica. para estar no lado seguro e evitar possíveis falhas de desempacotamento, trabalho futuro poderá corrigir isto.
 
 Isto pode ser usado para remover todos os caminhos excepto alguns particulares; um caso típico é:
 
@@ -616,63 +616,63 @@ Dica: certifique-se que os globs não são expandidos pela sua shell.
 
 Define o formato dos resultados para o comando B<--verify> (desde dpkg 1.17.2).
 
-The only currently supported output format is B<rpm>, which consists of a line for every path that failed any check.  These lines have the following format:
+O único formato de saída actualmente suportado é B<rpm>, o qual consiste de uma linha para cada caminho que falhou qualquer verificação. Estas linhas têm o seguinte formato:
 
 Z<>
  B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
  B<??5??????> [B<c>] I<pathname>
 
-The first 9 characters are used to report the checks result, either a literal B<missing> when the file is not present or its metadata cannot be fetched, or one of the following special characters that report the result for each check:
+Os primeiros 9 caracteres são usados para reportar o resultado das verificações, seja um B<missing> literal quando o ficheiro não está presente ou os seus meta-dados não puderam ser obtidos, ou um dos seguintes caracteres especiais que reportam o resultado para cada verificação:
 
 =over 
 
 =item ‘B<?>’
 
-Implies the check could not be done (lack of support, file permissions, etc).
+Implica que a verificação não pôde ser feita (falta de suporte, permissões do ficheiro, etc).
 
 =item ‘B<.>’
 
-Implies the check passed.
+Implica que a verificação passou.
 
 =item ‘I<A-Za-z0-9>’
 
-Implies a specific check failed.  The following positions and alphanumeric characters are currently supported:
+Implica que uma verificação especifica falhou. As seguinte posições e caracteres alfanuméricos são actualmente suportados:
 
 =over 
 
 =item 1 ‘B<?>’
 
-These checks are currently not supported, will always be ‘B<?>’.
+Estas verificações actualmente não são suportadas, serão sempre ‘B<?>’.
 
 =item 2 ‘B<M>’
 
-The file mode check failed (since dpkg 1.21.0).  Because pathname metadata is currently not tracked, this check can only be partially emulated via a very simple heuristic for pathnames that have a known digest, which implies they should be regular files, where the check will fail if the pathname is not a regular file on the filesystem.  This check will currently never succeed as it does not have enough information available.
+A verificação de modo de ficheiro falhou (desde dpkg 1.21.0). Porque os meta-dados do nome de caminho não estão actualmente seguidos, esta verificação só pode ser parcialmente emulada via heurística muito simples para nomes de caminho que têm um resumo conhecido, o que implica que devem ser ficheiros regulares, onde a verificação irá falhar se o nome de caminho não for um ficheiro regular no sistema de ficheiros. Esta verificação nunca irá actualmente ter sucesso pois não tem informação suficiente disponível.
 
 =item 3 ‘B<5>’
 
-The digest check failed, which means the file contents have changed.
+A verificação de resumo falhou, o que significa que o conteúdo do ficheiro alterou.
 
 =item 4-9 ‘B<?>’
 
-These checks are currently not supported, will always be ‘B<?>’.
+Estas verificações actualmente não são suportadas, serão sempre ‘B<?>’.
 
 =back
 
 =back
 
-The line is followed by a space and an attribute character.  The following attribute character is supported:
+A linha é seguida por um espaço e um caractere de atributo. O seguinte caractere de atributo é suportado:
 
 =over 
 
 =item ‘B<c>’
 
-The pathname is a conffile.
+O nome-de-caminho é um conffile.
 
 =back
 
-Finally followed by another space and the pathname.
+Finalmente seguido por outro espaço e o nome de caminho.
 
-In case the entry was of the B<missing> type, and the file was not actually present on the filesystem, then the line is followed by a space and the error message enclosed within parenthesis.
+No caso da entrada ser do tipo B<missing>, e o ficheiro não estava realmente presente no sistema de ficheiros, então a linha é seguida por um espaço e a mensagem de erro entre parêntesis.
 
 =item B<--status-fd> I<n>
 
@@ -908,7 +908,7 @@ Lista dos pacotes disponíveis.
 
 Estados dos pacotes disponíveis. Este ficheiro contem informação acerca de se um pacote está marcado para remoção ou não, se está instalado ou não, etc. Veja a secção B<INFORMAÇÃO ACERCA DE PACOTES> para mais informação.
 
-The status file is backed up daily in I<%BACKUPSDIR%>. It can be useful if it's lost or corrupted due to filesystems troubles.
+O ficheiro status é salvaguardado diariamente em I<%BACKUPSDIR%>. Pode ser útil se for perdido ou corrompido devido a problemas com o sistema de ficheiros.
 
 =back
 

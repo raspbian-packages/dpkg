@@ -60,7 +60,7 @@ Ta med alla paket som hittas i utdata.
 
 =item B<-M>, B<--medium> I<idsträng>
 
-Lägg till ett B<X-Medium>-fält som innehåller värdet I<idsträng> (sedan dpkg 1.15.5). Fältet är nödvändigt om du vill generera B<Packages.cd>-filer som kan användas med dselect:s multicd-åtkomstmetod.
+Lägg till ett B<X-Medium>-fält som innehåller värdet I<idsträng> (sedan dpkg 1.15.5). Fältet är nödvändigt om du vill generera B<Packages.cd>-filer som kan användas med B<dselect>:s B<media>-åtkomstmetod.
 
 =item B<-?>, B<--help>
 

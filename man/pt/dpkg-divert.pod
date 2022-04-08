@@ -164,7 +164,7 @@ Deve tomar-se cuidado ao desviar bibliotecas partilhadas, B<ldconfig>(8) cria um
 
 =head1 EXEMPLOS
 
-Para desviar todas as cópias de um I</usr/bin/example> para I</usr/bin/example.foo>, isto é, direcciona todos os pacotes que fornecem I</usr/bin/example> para o instalar como I</usr/bin/example.foo>, executando a mudança de nome caso necessário:
+Para desviar todas as cópias de um I</usr/bin/example> para I</usr/bin/example.foo>, isto é, direciona todos os pacotes que fornecem I</usr/bin/example> para o instalar como I</usr/bin/example.foo>, executando a mudança de nome caso necessário:
 
  dpkg-divert --divert /usr/bin/example.foo --rename /usr/bin/example
 

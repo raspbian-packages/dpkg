@@ -228,6 +228,8 @@ Ces champs sont décrits dans la page de manuel de B<deb-control>(5), car ils so
 
 =item B<Built-Using:> I<liste-de-paquets>
 
+=item B<Static-Built-Using:> I<package-list>
+
 Ces champs déclarent les relations entre les paquets. Ils sont discutés dans la page de manuel de B<deb-control>(5). Quand ces champs se trouvent dans I<debian/control>, ils peuvent aussi se terminer par une virgule (depuis S<dpkg 1.10.14) ;> ils comprennent des spécifications d'architecture et des formules de restriction qui seront réduites lors de la génération des champs pour B<deb-control>(5).
 
 =item B<Subarchitecture:> I<valeur>

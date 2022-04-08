@@ -228,6 +228,8 @@ Deze velden worden beschreven in de man-pagina B<deb-control>(5), vermits zij le
 
 =item B<Built-Using:> I<pakketlijst>
 
+=item B<Static-Built-Using:> I<package-list>
+
 Deze velden benoemen relaties tussen pakketten. Ze worden besproken in de man-pagina B<deb-control>(5). Wanneer deze velden in I<debian/control> voorkomen, kunnen ze ook eindigen met een afsluitende komma (sinds dpkg 1.10.14), kunnen ze architectuurspecificaties bevatten en restrictieformules bevatten, wat bij het genereren van de velden voor B<deb-control>(5) allemaal teruggebracht zal worden.
 
 =item B<Subarchitecture:> I<waarde>

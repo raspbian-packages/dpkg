@@ -1,3 +1,1550 @@
+commit e61f582015a9c67bbb3791cb93a864cfeb9c7151
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Apr 1 02:34:21 2022 +0200
+
+    Release 1.21.7
+
+ debian/changelog | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+commit 5ad1ec187c20ac20cbc59cbabd0305c6070c37e9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Apr 1 02:27:32 2022 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   2 +-
+ dselect/po/ca.po        |   2 +-
+ dselect/po/cs.po        |   2 +-
+ dselect/po/da.po        |   2 +-
+ dselect/po/de.po        |   2 +-
+ dselect/po/dselect.pot  |   4 +-
+ dselect/po/el.po        |   2 +-
+ dselect/po/es.po        |   2 +-
+ dselect/po/et.po        |   2 +-
+ dselect/po/eu.po        |   2 +-
+ dselect/po/fr.po        |   2 +-
+ dselect/po/gl.po        |   2 +-
+ dselect/po/hu.po        |   2 +-
+ dselect/po/id.po        |   2 +-
+ dselect/po/it.po        |   2 +-
+ dselect/po/ja.po        |   2 +-
+ dselect/po/ko.po        |   2 +-
+ dselect/po/nb.po        |   2 +-
+ dselect/po/nl.po        |   2 +-
+ dselect/po/nn.po        |   2 +-
+ dselect/po/pl.po        |   2 +-
+ dselect/po/pt.po        |   2 +-
+ dselect/po/pt_BR.po     |   2 +-
+ dselect/po/ro.po        |   2 +-
+ dselect/po/ru.po        |   2 +-
+ dselect/po/sk.po        |   2 +-
+ dselect/po/sv.po        |   6 +-
+ dselect/po/tl.po        |   2 +-
+ dselect/po/vi.po        |   2 +-
+ dselect/po/zh_CN.po     |   2 +-
+ dselect/po/zh_TW.po     |   2 +-
+ man/po/dpkg-man.pot     |   6 +-
+ man/po/es.po            |   4 +-
+ man/po/fr.po            |   4 +-
+ man/po/hu.po            |   4 +-
+ man/po/it.po            |   4 +-
+ man/po/ja.po            |   4 +-
+ man/po/nl.po            |  13 +++-
+ man/po/pl.po            |   4 +-
+ man/po/pt.po            |  13 +++-
+ man/po/pt_BR.po         |   4 +-
+ man/po/ru.po            |   4 +-
+ man/po/sv.po            | 173 ++++++++++++++++++++++++------------------------
+ man/po/zh_CN.po         |   4 +-
+ po/ast.po               |   2 +-
+ po/bs.po                |   2 +-
+ po/ca.po                |   2 +-
+ po/cs.po                |   2 +-
+ po/da.po                |   2 +-
+ po/de.po                |   2 +-
+ po/dpkg.pot             |   4 +-
+ po/dz.po                |   2 +-
+ po/el.po                |   2 +-
+ po/eo.po                |   2 +-
+ po/es.po                |   2 +-
+ po/et.po                |   2 +-
+ po/eu.po                |   2 +-
+ po/fr.po                |   2 +-
+ po/gl.po                |   2 +-
+ po/hu.po                |   2 +-
+ po/id.po                |   2 +-
+ po/it.po                |   2 +-
+ po/ja.po                |   2 +-
+ po/km.po                |   2 +-
+ po/ko.po                |   2 +-
+ po/ku.po                |   2 +-
+ po/lt.po                |   2 +-
+ po/mr.po                |   2 +-
+ po/nb.po                |   2 +-
+ po/ne.po                |   2 +-
+ po/nl.po                |   2 +-
+ po/nn.po                |   2 +-
+ po/oc.po                |   2 +-
+ po/pa.po                |   2 +-
+ po/pl.po                |   2 +-
+ po/pt.po                |   2 +-
+ po/pt_BR.po             |   2 +-
+ po/ro.po                |   2 +-
+ po/ru.po                |   2 +-
+ po/sk.po                |   2 +-
+ po/sv.po                |  24 ++++---
+ po/th.po                |   2 +-
+ po/tl.po                |   2 +-
+ po/tr.po                |   2 +-
+ po/vi.po                |   2 +-
+ po/zh_CN.po             |   2 +-
+ po/zh_TW.po             |   2 +-
+ scripts/po/ca.po        |   2 +-
+ scripts/po/de.po        |   2 +-
+ scripts/po/dpkg-dev.pot |   4 +-
+ scripts/po/es.po        |   2 +-
+ scripts/po/fr.po        |   2 +-
+ scripts/po/pl.po        |   2 +-
+ scripts/po/ru.po        |   2 +-
+ scripts/po/sv.po        |   6 +-
+ 95 files changed, 231 insertions(+), 210 deletions(-)
+
+commit f9bf9b372ec76b8de8496b75edf123798f4ff35d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Apr 1 01:39:42 2022 +0200
+
+    dpkg-fsys-usrunmess: Handle /lib/modules itself also being untracked
+    
+    For setups with completely untracked kernel and modules, we need to add
+    also /lib/modules to the list of pathnames that need to be copied over,
+    otherwise its contents will not find a directory to copy to.
+    
+    Closes: #1008764
+
+ scripts/dpkg-fsys-usrunmess.pl | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 75fe33f1e2f2790c75850db51b80a82bb8b2926f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 31 11:07:42 2022 +0200
+
+    debian: Silence warning about merged-usr-via-aliased-dirs on Debian
+    
+    On Debian some people seem so offended by a (factual) warning, that the
+    obvious recourse has been for them to bully and abuse. Life's too short
+    for that.
+    
+    If you might have wanted to be able to know about the status of dpkg
+    on *your* system, and decide for *yourself* what to do with it, sorry,
+    you will need to get aware some other way.
+
+ debian/dpkg.postinst | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+commit aa69e04c0656fc5efa51e0534a853eb255a8b404
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Thu Mar 31 17:40:16 2022 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 167 ++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 84 insertions(+), 83 deletions(-)
+
+commit af663b753247680ba997ab0de7efee5f3b6a8284
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Wed Mar 30 23:48:40 2022 +0200
+
+    po: Update Swedish translations
+    
+    Closes: #1008706
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/sv.po |  24 +-
+ man/po/sv.po     | 977 +++++++++++++++++++++----------------------------------
+ po/sv.po         | 337 ++++++-------------
+ scripts/po/sv.po | 163 ++--------
+ 4 files changed, 507 insertions(+), 994 deletions(-)
+
+commit ffe80f6c5f8984782cf9800b0b14b5cc20abf505
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Wed Mar 30 23:46:22 2022 +0200
+
+    man: Fix typo
+    
+    Ref: #1008706
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/dpkg.pod | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 4d4e85e4bfd7045313827dc6b2e0b72b33710545
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 30 23:42:55 2022 +0200
+
+    po: Fix gettext parameter reordering syntax for German translation
+    
+    The strings were using «%1s» instead of «%1$s», so the positional
+    arguments in the strings were not being reordered.
+    
+    Closes: #1008671
+
+ po/de.po | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit b28323e7c258f6c7cfee03938e93be5b96cfbe9e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 12:11:53 2022 +0200
+
+    Bump version to 1.21.7
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit c67731c38deac0e13255e93c049a2e334141a964
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 12:02:02 2022 +0200
+
+    Release 1.21.6
+
+ debian/changelog | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+commit a20f615c783b83b380ea571834d4936a9efac7ea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 11:56:57 2022 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 19 ++++++++++++-------
+ man/po/dpkg-man.pot     |  9 +++++++--
+ man/po/es.po            |  7 ++++++-
+ man/po/fr.po            |  7 ++++++-
+ man/po/hu.po            |  7 ++++++-
+ man/po/it.po            |  7 ++++++-
+ man/po/ja.po            |  7 ++++++-
+ man/po/nl.po            |  7 ++++++-
+ man/po/pl.po            |  7 ++++++-
+ man/po/pt.po            |  7 ++++++-
+ man/po/pt_BR.po         |  7 ++++++-
+ man/po/ru.po            |  7 ++++++-
+ man/po/sv.po            |  7 ++++++-
+ man/po/zh_CN.po         |  7 ++++++-
+ po/ast.po               |  2 +-
+ po/bs.po                |  2 +-
+ po/ca.po                |  2 +-
+ po/cs.po                |  2 +-
+ po/da.po                |  2 +-
+ po/de.po                |  2 +-
+ po/dpkg.pot             |  4 ++--
+ po/dz.po                |  2 +-
+ po/el.po                |  2 +-
+ po/eo.po                |  2 +-
+ po/es.po                |  2 +-
+ po/et.po                |  2 +-
+ po/eu.po                |  2 +-
+ po/fr.po                |  2 +-
+ po/gl.po                |  2 +-
+ po/hu.po                |  2 +-
+ po/id.po                |  2 +-
+ po/it.po                |  2 +-
+ po/ja.po                |  2 +-
+ po/km.po                |  2 +-
+ po/ko.po                |  2 +-
+ po/ku.po                |  2 +-
+ po/lt.po                |  2 +-
+ po/mr.po                |  2 +-
+ po/nb.po                |  2 +-
+ po/ne.po                |  2 +-
+ po/nl.po                |  2 +-
+ po/nn.po                |  2 +-
+ po/oc.po                |  2 +-
+ po/pa.po                |  2 +-
+ po/pl.po                |  2 +-
+ po/pt.po                |  2 +-
+ po/pt_BR.po             |  2 +-
+ po/ro.po                |  2 +-
+ po/ru.po                |  2 +-
+ po/sk.po                |  2 +-
+ po/sv.po                |  2 +-
+ po/th.po                |  2 +-
+ po/tl.po                |  2 +-
+ po/tr.po                |  2 +-
+ po/vi.po                |  2 +-
+ po/zh_CN.po             |  2 +-
+ po/zh_TW.po             |  2 +-
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 96 files changed, 176 insertions(+), 106 deletions(-)
+
+commit 86f13a77a2fb7da27a84404dc62a6dc2c3e5a065
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 11:54:39 2022 +0200
+
+    man: Document untracked kernel module files handling in dpkg-fsys-usrunmess(8)
+
+ man/dpkg-fsys-usrunmess.pod | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit a81dc0541bbddbc0a315879753a39be91f8165f0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 03:04:12 2022 +0200
+
+    Bump version to 1.21.6
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 369a633cd3b36e6e4af0ebbda0ce023c99a3577f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 02:52:44 2022 +0200
+
+    Release 1.21.5
+
+ debian/changelog | 32 +++++++++++++++++++++++++++++---
+ 1 file changed, 29 insertions(+), 3 deletions(-)
+
+commit 65644f4c5239ea3f2e650c4a2efea7615e4388b6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 02:52:13 2022 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/dpkg-man.pot     |  4 ++--
+ po/ast.po               | 14 +++++++-------
+ po/bs.po                | 12 ++++++------
+ po/ca.po                | 12 ++++++------
+ po/cs.po                | 14 +++++++-------
+ po/da.po                | 14 +++++++-------
+ po/de.po                | 12 ++++++------
+ po/dpkg.pot             | 14 +++++++-------
+ po/dz.po                | 14 +++++++-------
+ po/el.po                | 14 +++++++-------
+ po/eo.po                | 14 +++++++-------
+ po/es.po                | 14 +++++++-------
+ po/et.po                | 12 ++++++------
+ po/eu.po                | 14 +++++++-------
+ po/fr.po                | 14 +++++++-------
+ po/gl.po                | 14 +++++++-------
+ po/hu.po                | 14 +++++++-------
+ po/id.po                | 14 +++++++-------
+ po/it.po                | 14 +++++++-------
+ po/ja.po                | 14 +++++++-------
+ po/km.po                | 14 +++++++-------
+ po/ko.po                | 16 ++++++++--------
+ po/ku.po                | 12 ++++++------
+ po/lt.po                | 14 +++++++-------
+ po/mr.po                | 14 +++++++-------
+ po/nb.po                | 14 +++++++-------
+ po/ne.po                | 14 +++++++-------
+ po/nl.po                | 12 ++++++------
+ po/nn.po                | 14 +++++++-------
+ po/oc.po                | 12 ++++++------
+ po/pa.po                | 12 ++++++------
+ po/pl.po                | 12 ++++++------
+ po/pt.po                | 12 ++++++------
+ po/pt_BR.po             | 14 +++++++-------
+ po/ro.po                | 14 +++++++-------
+ po/ru.po                | 14 +++++++-------
+ po/sk.po                | 14 +++++++-------
+ po/sv.po                | 12 ++++++------
+ po/th.po                | 14 +++++++-------
+ po/tl.po                | 14 +++++++-------
+ po/tr.po                | 14 +++++++-------
+ po/vi.po                | 14 +++++++-------
+ po/zh_CN.po             | 12 ++++++------
+ po/zh_TW.po             | 14 +++++++-------
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 83 files changed, 333 insertions(+), 333 deletions(-)
+
+commit b1898b812b71f64082107d4e2f98ccf020d18b70
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 02:46:53 2022 +0200
+
+    dpkg-fsys-usrunmess: Do not interpolate string
+    
+    Fixes: commit 48e33c40691596b3bf91b86b50a8aa164b585639
+    Changelog: silent
+
+ scripts/dpkg-fsys-usrunmess.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 48e33c40691596b3bf91b86b50a8aa164b585639
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Mar 29 01:41:34 2022 +0200
+
+    dpkg-fsys-usrunmess: Special case untracked kernel module files
+    
+    Kernel module files are required as part of the system boot, so we need
+    to make sure any such files gets moved or the system might end up not
+    being able to boot, once the initramfs images get regenerated.
+    
+    In particular, kernel module files are easily found on systems as
+    untracked pathnames in the filesystem, either from custom built kernels,
+    or as part of modules built via machinery such as DKMS.
+    
+    One complication is that there appears to be some documentation
+    referencing /usr/lib/modules/ pathnames for at least apache, python and
+    ruby module locations. Which we do not want to be moving.
+    
+    To limit these unknowns, and as we are dealing with untracked pathnames,
+    we will restrict moving subdirectories that start with a digit, which
+    matches Linux and kFreeBSD module locations, in addition to the
+    modprobe.conf filename.
+    
+    Closes: #1008316
+
+ scripts/dpkg-fsys-usrunmess.pl | 37 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
+
+commit 35170aa10923e330da84b613b5f9932bfc16f3e7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 23:31:02 2022 +0200
+
+    test: Add test cases for obsolete fields
+    
+    We should check that these both emit warnings and their values get
+    properly remapped to their modern counterparts.
+
+ src/at/deb-fields.at | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+commit 4ddb46ac28df4b290b9055e20268b850a019385e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 20:22:59 2022 +0200
+
+    libdpkg: Update code comment for obsolete fields
+    
+    The comment was still referencing the old nicknames structure.
+    
+    Fixes: commit 3a017177110da9f54668b614f78aeb98bf73796d
+
+ lib/dpkg/parse.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit a20967f80608665baf15ba5ef25233a1571c31aa
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 20:19:40 2022 +0200
+
+    libdpkg: Add missing dependency type to obsolete dependency fields
+    
+    When converting from the old nicknames remapping handling to the normal
+    fieldsinfo structures, the dependency fields did not get assigned their
+    respective «enum deptype» value. These were defaulting to the 0 value
+    which happens to be dep_suggests, so only the «Recommended» field was
+    being mapped incorrectly.
+    
+    Fixes: commit 3a017177110da9f54668b614f78aeb98bf73796d
+
+ lib/dpkg/parse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit f79182cef7728ffc03fb6cf5d0eb55e1505e4106
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 20:10:13 2022 +0200
+
+    libdpkg: Warn when parsing obsolete Recommended/Optional/Class fields
+    
+    These were automatically remapped to their modern forms, but were not
+    emitting any obsolescence warning. Add parse function wrappers that emit
+    such warnings and then forward the calls to their modern field
+    counter-parts.
+    
+    Prompted-by: David Kalnischkies <donkult@debian.org>
+
+ lib/dpkg/fields.c    | 18 ++++++++++++++++++
+ lib/dpkg/parse.c     |  6 +++---
+ lib/dpkg/parsedump.h |  2 ++
+ 3 files changed, 23 insertions(+), 3 deletions(-)
+
+commit 13a71507c19914950fec3cdd3573440b5cde9991
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 20:09:03 2022 +0200
+
+    libdpkg: Rename f_revision() to f_obs_revision()
+    
+    The purpose of this function is to parse an obsolete field. Make it
+    a bit more clear by stating so in the function name itself.
+
+ lib/dpkg/fields.c    | 6 +++---
+ lib/dpkg/parse.c     | 6 +++---
+ lib/dpkg/parsedump.h | 6 +++++-
+ 3 files changed, 11 insertions(+), 7 deletions(-)
+
+commit b29c959c5b9f271b8eb1873c49cf7f5dbf2bfda0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 27 13:09:35 2022 +0200
+
+    dpkg-fsys-usrunmess: Set a known umask before starting
+    
+    Even though we should already be explicitly setting user/group and mode
+    for created directories, we should in addition set a known umask we can
+    rely on, at least for defensive purposes.
+    
+    Ref: #1008478
+
+ scripts/dpkg-fsys-usrunmess.pl | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 77756084e9e50d7a8578259ee56e64dcf4f6f9a0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 28 00:33:17 2022 +0200
+
+    dpkg-fsys-usrunmess: Explicitly set user/group and mode for created dirs
+    
+    We should explicitly set the user/group and mode for the newly created
+    directories, to make sure they end up with the expected values, instead
+    of assuming a good environment (umask and user/group). We will still be
+    setting a known umask in a subsequent commit as a defensive measure.
+    
+    Closes: #1008478
+
+ scripts/dpkg-fsys-usrunmess.pl | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 88bdf882913e97c512f0c6a3ac4915214475984d
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sun Mar 27 06:57:34 2022 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
+
+commit d1f9a8d99f2ac853a9a6e36f2d584e70695fb906
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 06:22:47 2021 +0100
+
+    Dpkg::Control::Fields: Document and clarify return types and values in POD
+    
+    These functions did not have their return type explicitly documented,
+    some neither their possible return values.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
+
+commit 692c7f593cbe04089a05b4ac007ad067df570330
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 06:21:05 2021 +0100
+
+    Dpkg::Control::Fields: Fix POD to add missing spaces and blank lines
+
+ scripts/Dpkg/Control/FieldsCore.pm | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+commit a6b8f422ae19bf95c133111f2cb93103e1cec48a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 06:21:05 2021 +0100
+
+    Dpkg::Control::Fields: Fix POD to end sentences with a dot
+
+ scripts/Dpkg/Control/FieldsCore.pm | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 4b770fdefdfc4db911ab5842c6fc5dfe4ef06ed5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 06:19:25 2021 +0100
+
+    Dpkg::Control::Fields: Refactor manifest types into new ALL_FILE_MANIFEST
+    
+    Avoid the repetition for what should apply to all file manifest control
+    types.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+commit dbc5a22d66b3ef17f4f4a81ff74c79b0eb2920bd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 23 06:23:51 2021 +0100
+
+    Dpkg::Control::Fields: Fix field_register() to return nothing
+    
+    We should not leak the internal field representation.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 1500411815da470fff40bcb34072e37824b84567
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 21 23:49:55 2021 +0100
+
+    Dpkg::Control::Types: Use bit shifts instead of literals in enum
+    
+    This makes it easier to check the values and add new ones, at a
+    marginal performance cost.
+    
+    While we could also use literal binary numbers, those would be also not
+    as clear as bit shifts.
+
+ scripts/Dpkg/Control/Types.pm | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+commit 4fe55bcc6d1466145cee03577a1d6aa0a11ef423
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 26 13:53:31 2022 +0100
+
+    Bump version to 1.21.5
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 5563bdb608b3413639b69f1c76567cb66ff1a961
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 26 13:39:19 2022 +0100
+
+    Release 1.21.4
+
+ debian/changelog | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+commit d4d69d832ea3c482901f80fedeaf74a978cdac14
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 26 13:38:43 2022 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 60 +++++++++++++++++++++++++++++--------------------
+ man/po/dpkg-man.pot     | 17 ++++++++------
+ man/po/es.po            | 15 ++++++++-----
+ man/po/fr.po            | 15 ++++++++-----
+ man/po/hu.po            | 15 ++++++++-----
+ man/po/it.po            | 15 ++++++++-----
+ man/po/ja.po            | 15 ++++++++-----
+ man/po/nl.po            | 15 ++++++++-----
+ man/po/pl.po            | 15 ++++++++-----
+ man/po/pt.po            | 15 ++++++++-----
+ man/po/pt_BR.po         | 15 ++++++++-----
+ man/po/ru.po            | 15 ++++++++-----
+ man/po/sv.po            | 15 ++++++++-----
+ man/po/zh_CN.po         | 15 ++++++++-----
+ po/ast.po               |  2 +-
+ po/bs.po                |  2 +-
+ po/ca.po                |  2 +-
+ po/cs.po                |  2 +-
+ po/da.po                |  2 +-
+ po/de.po                |  2 +-
+ po/dpkg.pot             |  4 ++--
+ po/dz.po                |  2 +-
+ po/el.po                |  2 +-
+ po/eo.po                |  2 +-
+ po/es.po                |  2 +-
+ po/et.po                |  2 +-
+ po/eu.po                |  2 +-
+ po/fr.po                |  2 +-
+ po/gl.po                |  2 +-
+ po/hu.po                |  2 +-
+ po/id.po                |  2 +-
+ po/it.po                |  2 +-
+ po/ja.po                |  2 +-
+ po/km.po                |  2 +-
+ po/ko.po                |  2 +-
+ po/ku.po                |  2 +-
+ po/lt.po                |  2 +-
+ po/mr.po                |  2 +-
+ po/nb.po                |  2 +-
+ po/ne.po                |  2 +-
+ po/nl.po                |  2 +-
+ po/nn.po                |  2 +-
+ po/oc.po                |  2 +-
+ po/pa.po                |  2 +-
+ po/pl.po                |  2 +-
+ po/pt.po                |  2 +-
+ po/pt_BR.po             |  2 +-
+ po/ro.po                |  2 +-
+ po/ru.po                |  2 +-
+ po/sk.po                |  2 +-
+ po/sv.po                |  2 +-
+ po/th.po                |  2 +-
+ po/tl.po                |  2 +-
+ po/tr.po                |  2 +-
+ po/vi.po                |  2 +-
+ po/zh_CN.po             |  2 +-
+ po/zh_TW.po             |  2 +-
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 96 files changed, 239 insertions(+), 188 deletions(-)
+
+commit 83ceb3f325ff208f0ed86ccad39ea256d2ff0194
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 26 11:58:38 2022 +0100
+
+    Dpkg::Control::Fields: Remove duplicate *Built-Using from field order lists
+    
+    These fields got refactored into a common dependency fields list, but
+    the Built-Using field did not get removed from the original order lists,
+    and ended up being duplicated. The Static-Built-Using field got added
+    next to each previous Built-Using instance, which ended up being
+    duplicated too.
+    
+    Fixes: commit f0fa8190fe02bb9db8168ae6a67f592f135b06c2
+    Reported-by: David Kalnischkies <donkult@debian.org>
+
+ scripts/Dpkg/Control/FieldsCore.pm | 4 ----
+ scripts/t/Dpkg_Control_Fields.t    | 4 ----
+ 2 files changed, 8 deletions(-)
+
+commit 808ff61d6e2b457513b8de278a4736b1ee9fd310
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 26 11:31:49 2022 +0100
+
+    test: Do not use non-POSIX shell syntax for arithmetic expressions
+    
+    Use «$(( ))», instead of the non-POSIX syntax «(( ))», as in other parts
+    of the codebase. This fixes a test failure on Alpine Linux which uses
+    Busybox ash to execute the generated test script. Unfortunately this is
+    not being detected on systems with a dash POSIX shell, as it currently
+    disables its LINENO support so that GNU autotools configure does not end
+    up using it, and breaking due to bashisms (such as this one).
+    
+    Based-on-patch-by: Sören Tempel <soeren@soeren-tempel.net>
+
+ src/at/deb-split.at | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 7c2eb2043a889e07f7d76d842048077f7539fd15
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 25 22:11:54 2022 +0100
+
+    man: Clarify uses cases for Static-Built-Using
+    
+    Mention explicitly some of the use cases this field was thought for,
+    instead of letting it be the vague "static building", which can give
+    room to think it only applies to static linking. Where the intention
+    was for any type of static building, including also source-centered
+    language builds (like with Go or Rust), inclusion of header-only
+    libraries from C/C++, data blobs injection into code, etc.
+    
+    Prompted-by: Shengjing Zhu <zhsj@debian.org>
+
+ man/deb-control.pod | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit 6d2452b7882fbf1a15323cdcf4c2761cd5a2c893
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Fri Mar 25 20:33:21 2022 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 53 ++++++++++++++---------------------------------------
+ 1 file changed, 14 insertions(+), 39 deletions(-)
+
+commit 43391b6f541ff4f637571a24dad7f4792d784720
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 25 11:09:58 2022 +0100
+
+    test: Use actual octal numbers for chmod() calls
+    
+    This was making the test suite fail on GNU/kFreeBSD.
+
+ lib/dpkg/t/t-file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 4733f046d41a0aabba4dc0f7bc98908de18da81c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 22:41:17 2022 +0100
+
+    dpkg-shlibdeps: Require non-empty name and version in SONAME formats
+    
+    We should require at least one character for the name and one for the
+    version when parsing SONAMEs.
+
+ scripts/dpkg-shlibdeps.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 7465a0a3edc038f9b7098dc72fc59a530c814370
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 21:13:22 2022 +0100
+
+    Bump version to 1.21.4
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 404d4dec5202a0f93f5789fedda94e818f388cd4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 21:02:24 2022 +0100
+
+    Release 1.21.3
+
+ debian/changelog | 52 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 49 insertions(+), 3 deletions(-)
+
+commit 947b83e935ce468bee30d863040996c5c932f918
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 21:00:23 2022 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   2 +-
+ dselect/po/ca.po        |   2 +-
+ dselect/po/cs.po        |   2 +-
+ dselect/po/da.po        |   2 +-
+ dselect/po/de.po        |   2 +-
+ dselect/po/dselect.pot  |   4 +-
+ dselect/po/el.po        |   2 +-
+ dselect/po/es.po        |   2 +-
+ dselect/po/et.po        |   2 +-
+ dselect/po/eu.po        |   2 +-
+ dselect/po/fr.po        |   2 +-
+ dselect/po/gl.po        |   2 +-
+ dselect/po/hu.po        |   2 +-
+ dselect/po/id.po        |   2 +-
+ dselect/po/it.po        |   2 +-
+ dselect/po/ja.po        |   2 +-
+ dselect/po/ko.po        |   2 +-
+ dselect/po/nb.po        |   2 +-
+ dselect/po/nl.po        |   2 +-
+ dselect/po/nn.po        |   2 +-
+ dselect/po/pl.po        |   2 +-
+ dselect/po/pt.po        |   2 +-
+ dselect/po/pt_BR.po     |   2 +-
+ dselect/po/ro.po        |   2 +-
+ dselect/po/ru.po        |   2 +-
+ dselect/po/sk.po        |   2 +-
+ dselect/po/sv.po        |   2 +-
+ dselect/po/tl.po        |   2 +-
+ dselect/po/vi.po        |   2 +-
+ dselect/po/zh_CN.po     |   2 +-
+ dselect/po/zh_TW.po     |   2 +-
+ man/po/de.po            | 234 ++++++++++++++++++++++++++++++------------------
+ man/po/dpkg-man.pot     |  71 ++++++++++++---
+ man/po/es.po            |  95 +++++++++++++++++---
+ man/po/fr.po            | 112 ++++++++++++++++++++---
+ man/po/hu.po            |  75 +++++++++++++---
+ man/po/it.po            |  96 +++++++++++++++++---
+ man/po/ja.po            |  95 +++++++++++++++++---
+ man/po/nl.po            | 114 ++++++++++++++++++++---
+ man/po/pl.po            |  94 ++++++++++++++++---
+ man/po/pt.po            | 114 ++++++++++++++++++++---
+ man/po/pt_BR.po         |  73 ++++++++++++---
+ man/po/ru.po            |  74 ++++++++++++---
+ man/po/sv.po            | 111 ++++++++++++++++++++---
+ man/po/zh_CN.po         |  75 +++++++++++++---
+ po/ast.po               |  14 +--
+ po/bs.po                |   6 +-
+ po/ca.po                |  12 +--
+ po/cs.po                |  10 +--
+ po/da.po                |  10 +--
+ po/de.po                |  10 +--
+ po/dpkg.pot             |   8 +-
+ po/dz.po                |  14 +--
+ po/el.po                |  14 +--
+ po/eo.po                |  12 +--
+ po/es.po                |  12 +--
+ po/et.po                |   6 +-
+ po/eu.po                |  12 +--
+ po/fr.po                |  12 +--
+ po/gl.po                |  14 +--
+ po/hu.po                |  14 +--
+ po/id.po                |  14 +--
+ po/it.po                |  10 +--
+ po/ja.po                |  12 +--
+ po/km.po                |  14 +--
+ po/ko.po                |  14 +--
+ po/ku.po                |   6 +-
+ po/lt.po                |   6 +-
+ po/mr.po                |  14 +--
+ po/nb.po                |  14 +--
+ po/ne.po                |  14 +--
+ po/nl.po                |  12 +--
+ po/nn.po                |  14 +--
+ po/oc.po                |   6 +-
+ po/pa.po                |   6 +-
+ po/pl.po                |  12 +--
+ po/pt.po                |  12 +--
+ po/pt_BR.po             |  14 +--
+ po/ro.po                |  14 +--
+ po/ru.po                |  12 +--
+ po/sk.po                |  12 +--
+ po/sv.po                |  10 +--
+ po/th.po                |  10 +--
+ po/tl.po                |  16 ++--
+ po/tr.po                |  12 +--
+ po/vi.po                |  12 +--
+ po/zh_CN.po             |  10 +--
+ po/zh_TW.po             |  12 +--
+ scripts/po/ca.po        |  27 +++++-
+ scripts/po/de.po        |   6 +-
+ scripts/po/dpkg-dev.pot |  11 ++-
+ scripts/po/es.po        |  10 ++-
+ scripts/po/fr.po        |  27 +++++-
+ scripts/po/pl.po        |  27 +++++-
+ scripts/po/ru.po        |  27 +++++-
+ scripts/po/sv.po        |  27 +++++-
+ 96 files changed, 1627 insertions(+), 526 deletions(-)
+
+commit c32dbb8fd5b9eabdb7008d67a9580b1617a60f9d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 19:34:03 2022 +0100
+
+    debian: Sync original bug-script merged-usr warning with postinst updates
+    
+    This was the original notice/warning emitted for bugs filed by
+    reportbug against dpkg. Which was subsequently modified and taken
+    as is for the dpkg postinst one. Sync it back so both match.
+
+ debian/bug-script | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 4890f5ef0749214484bf7288ed16e589ebf13dab
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 19:29:17 2022 +0100
+
+    debian: Reword merged-usr-via-aliased-dirs to be less vague
+    
+    Try to very succinctly summarize the problem with the affected
+    systems, and the reason why dpkg does _not_ and has _never_
+    supported that filesystem layout and the way it has been deployed
+    in Debian.
+    
+    Changelog: silent
+
+ debian/dpkg.postinst | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit cbdff7a455fae5c695fff9738f9c4eb3e7071d32
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 19:12:15 2022 +0100
+
+    Dpkg::Shlibs::Objdump: Fix typo in comment
+    
+    Changelog: silent
+
+ scripts/Dpkg/Shlibs/Objdump.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 16c412439c5eac5f32930946df9006dfc13efc02
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 23 17:56:57 2022 +0100
+
+    Dpkg::Control::Fields: Add Static-Built-Using field support
+    
+    This field mimics the previous Built-Using field semantics, but is
+    specifically intended for shadow dependencies stemming from static
+    builds.
+    
+    In Debian, the Rust and Go teams agreed to use this language agnostic
+    field, instead of one for each of the languages. This means it can be
+    easily supported by dpkg, and can be used by other languages and
+    run-times.
+
+ man/deb-control.pod                | 12 ++++++++++++
+ man/deb-src-control.pod            |  2 ++
+ scripts/Dpkg/Control/FieldsCore.pm | 13 ++++++++++++-
+ scripts/t/Dpkg_Control_Fields.t    |  6 +++++-
+ 4 files changed, 31 insertions(+), 2 deletions(-)
+
+commit 7140e91632822d6e62f4d6b940e4421877787b63
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 24 20:31:07 2022 +0100
+
+    man: Clarify Built-Using field purpose and format
+    
+    Mention that this is intended for license compliance purposes, and
+    clarify its syntax.
+
+ man/deb-control.pod | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit 6806da227bbf9a2480eec9b8dccc81e7d0150530
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 21 23:10:09 2022 +0100
+
+    dpkg: Rename r variable to remainder
+    
+    The variable name r is not very descriptive, and it has been used as a
+    short hand for return value. Use a better name instead.
+    
+    Changelog: internal
+
+ src/main/archives.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit b5d87e21bb852ee7b5149d8bc821b502638e6416
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 21 22:31:25 2022 +0100
+
+    scripts: Use backport-version-regex vendor hook instead of hardcoding the marker
+    
+    The backport version markers are vendor specific, so we should not
+    hardcode them in the generic part of the programs.
+
+ scripts/dpkg-genchanges.pl      | 9 ++++++---
+ scripts/dpkg-mergechangelogs.pl | 9 +++++++--
+ 2 files changed, 13 insertions(+), 5 deletions(-)
+
+commit 23689cce4be6eeef0c14847ed34803dd957df06e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 21 22:27:36 2022 +0100
+
+    Dpkg::Vendor: Add a new backport-version-regex hook
+    
+    This new hook will return a regex matching the version part that denotes
+    that this is a backport, with a capture group for the backport delimiter
+    string.
+
+ scripts/Dpkg/Vendor/Debian.pm  |  2 ++
+ scripts/Dpkg/Vendor/Default.pm | 11 +++++++++++
+ t/pod-spell.t                  |  3 +++
+ 3 files changed, 16 insertions(+)
+
+commit 6469313ae89e1da3974d2a6e2f6dbf6d5d60dd0f
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Mon Mar 21 21:00:19 2022 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit be726fdf7f9b9ef0ce0f898ff4599fb4a2d5bd98
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Mon Mar 21 20:56:45 2022 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 43c95774959d7a20f564eb8fcd4a2ebde01d68ab
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 20 20:18:02 2022 +0100
+
+    dselect: Rename disk method to file
+    
+    The disk name while somewhat appropriate might, does not map to a URL
+    style nomenclature, which we should be moving to, so that different
+    protocols are clearly recognizable by the users.
+
+ debian/dselect.preinst                    |  1 +
+ debian/dselect.prerm                      |  1 +
+ dselect/methods/Makefile.am               | 18 +++++++++---------
+ dselect/methods/disk/desc.mounted         | 12 ------------
+ dselect/methods/disk/names                |  1 -
+ dselect/methods/{disk => file}/.gitignore |  0
+ dselect/methods/file/desc.file            |  8 ++++++++
+ dselect/methods/{disk => file}/install.sh |  2 +-
+ dselect/methods/file/names                |  1 +
+ dselect/methods/{disk => file}/setup.sh   |  2 +-
+ dselect/methods/{disk => file}/update.sh  |  2 +-
+ 11 files changed, 23 insertions(+), 25 deletions(-)
+
+commit 567884d8d86eb3b7bbdea294e537e807e48bdbf1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 20 09:12:24 2022 +0100
+
+    dselect: Remove bogus quote escaping from method setup scripts
+    
+    These end up as literal quotes, which make these calls ineffective.
+    
+    Fixes: commit 598e1b3e9c9b665829ea7c1b3ee157038708e14f
+
+ dselect/methods/disk/setup.sh  | 4 ++--
+ dselect/methods/media/setup.sh | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+commit 54c2d95396c6a3d39fbc8c5360773fa80db6ae61
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 20 08:50:14 2022 +0100
+
+    dselect: Remove left overs for mount support from disk method
+    
+    The remaining method option is the “mounted” one, so the assumption is
+    that any filesystem in use will have already been mounted. We can remove
+    the leftovers for the mount support which did not get removed earlier.
+
+ dselect/methods/disk/install.sh |  8 --------
+ dselect/methods/disk/setup.sh   | 11 +----------
+ dselect/methods/disk/update.sh  |  8 --------
+ 3 files changed, 1 insertion(+), 26 deletions(-)
+
+commit 403a2d627c1ec6ee4be3744e783cbc09d9653bff
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 20 08:42:57 2022 +0100
+
+    dselect: Rename multicd method to media
+    
+    The multicd name does not properly describe what this method is supposed
+    to be able to handle, as we now have many other media types where
+    distributions can ship their packages and updates on.
+
+ Makefile.am                                        |  2 +
+ debian/dselect.docs                                |  2 +-
+ debian/dselect.postrm                              |  2 +-
+ debian/dselect.preinst                             | 49 ++++++++++++++++++
+ debian/dselect.prerm                               | 50 ++++++++++++++++++
+ dselect/methods/Makefile.am                        | 20 ++++----
+ dselect/methods/{multicd => media}/.gitignore      |  0
+ .../{multicd/README.multicd => media/README.media} | 59 +++++++++++-----------
+ dselect/methods/media/desc.media                   |  3 ++
+ dselect/methods/{multicd => media}/install.sh      |  4 +-
+ dselect/methods/media/names                        |  1 +
+ dselect/methods/{multicd => media}/setup.sh        | 28 +++++-----
+ dselect/methods/{multicd => media}/update.sh       |  0
+ dselect/methods/multicd/desc.multi_cd              |  3 --
+ dselect/methods/multicd/names                      |  1 -
+ man/dpkg-scanpackages.pod                          |  2 +-
+ scripts/dpkg-scanpackages.pl                       |  2 +-
+ t/shellcheck.t                                     |  6 +--
+ 18 files changed, 168 insertions(+), 66 deletions(-)
+
+commit 1e64ca2a36be6add3f36f0dc2613201c0705fe85
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 20 08:07:05 2022 +0100
+
+    dselect: Remove non-multi-cd code from multi_cd method
+    
+    This method no longer supports other options, so there is no point in
+    having the code around anymore.
+
+ dselect/methods/multicd/setup.sh | 114 ++++++++++++++++-----------------------
+ 1 file changed, 46 insertions(+), 68 deletions(-)
+
+commit 5eb93ea54884d92b2324eeb94439b3a483972e3b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 20:36:17 2022 +0100
+
+    test: Fix check output to assume zlib instead of zlib-ng
+    
+    This is a quick workaround to get the builds back to nominal. We will
+    need to parametrize every size in outputs that depends on the compressor
+    used, as those are not under our control and could change between
+    different implementations (as happened here) or even same
+    implementations but different versions, if the compressors improve.
+    
+    Fixes: commit 57d951260539d67da0230a83135ab805f89fa1af
+    Changelog: silent
+
+ src/at/deb-format.at | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 57d951260539d67da0230a83135ab805f89fa1af
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 19:44:25 2022 +0100
+
+    test: Check all currently supported deb-old formats
+    
+    This adds basic checks for the 0.939, 0.933, 0.932 and 0.931 deb-old
+    formats, and their ctrl and fsys contents.
+
+ src/at/deb-format.at | 136 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 136 insertions(+)
+
+commit 3d1b7ca2b340668d9639d5157f6d7729b598edf3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 19:44:25 2022 +0100
+
+    test: Place deb-old and deb checks on their own test groups
+    
+    This will guarantee no accidental collisions in test artifacts happen,
+    and allow to select these tests on their own keywords.
+
+ src/at/deb-format.at | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+commit 1eb7343dd4c2dd527b181ad8841897003ad32752
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 18:00:53 2022 +0100
+
+    test: Add further deb-split format checks
+
+ src/at/deb-split.at | 113 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 113 insertions(+)
+
+commit 70bbd83b05b2d0f9b6442935d03ae3993de108b0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 14:02:27 2022 +0100
+
+    test: Check deb format with duplicate debian-binary and control.tar members
+
+ src/at/deb-format.at | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+commit 8836d34908602aef8e468c596fd81f838feff794
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 19:47:37 2022 +0100
+
+    dpkg-deb: Fix movecontrol() to take a directory argument
+    
+    Since the chdir(2) got moved into the child, the global cwd is not the
+    target directory, so we were trying to move files from the wrong
+    directory.
+    
+    Fixes: commit 87809163331a320f9562d75591fcc6c954b9f80c
+
+ src/deb/extract.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+commit 298e8338826cd7cf7c2fb49f5bb78b014ca9e4e0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 19:46:02 2022 +0100
+
+    dpkg-deb: Move duped control member check inside the detection conditional
+    
+    This move the check closer to where the control member is being handled,
+    and will make possible to perform further refactoring.
+
+ src/deb/extract.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+commit 2f1068e044071fe692f3984e002df22af2c9ac06
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Mar 19 14:41:59 2022 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 207 ++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 120 insertions(+), 87 deletions(-)
+
+commit 0c743389506a4cd44eeb48458c19722774c38103
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 10:03:45 2022 +0100
+
+    dpkg-fsys-usrunmess: Add options and prompt about regression prevention package
+    
+    By default this will be prompted about. Otherwise the action can be
+    controlled, by using one of the new options to select what to do, either
+    with --prevention or --no-prevention.
+    
+    Prompted-by: Paul Wise <pabs@debian.org>
+
+ man/dpkg-fsys-usrunmess.pod    | 14 +++++++++++-
+ scripts/dpkg-fsys-usrunmess.pl | 51 +++++++++++++++++++++++++-----------------
+ 2 files changed, 44 insertions(+), 21 deletions(-)
+
+commit efb0847b36ea68874939aeedb4c9a8de250fdf14
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 09:49:58 2022 +0100
+
+    dpkg-fsys-usrunmess: Refactor prompting into a new function
+    
+    We will be using it for another prompt.
+    
+    Changelog: internal
+
+ scripts/dpkg-fsys-usrunmess.pl | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+commit 9c68bd1d8123ad28d68665da3bf704a6df6155cc
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 19 09:27:02 2022 +0100
+
+    Dpkg::Compression: Use gzip --rsyncable on Solaris too
+    
+    Latest Solaris releases have a new enough GNU gzip version, so it can
+    also be used there.
+    
+    Changelog: silent
+
+ scripts/Dpkg/Compression.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 08682beab043eb12595883c1c54bb344090d6a05
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Fri Mar 18 00:14:50 2022 +0100
+
+    po: Update Portuguese man pages translation
+    
+    Closes: #1001915
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/pt.po | 510 +++++++++++++++++++++++++----------------------------------
+ 1 file changed, 218 insertions(+), 292 deletions(-)
+
+commit 742a8177a581f973fb7f249d94949662ab23b455
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 18 00:00:20 2022 +0100
+
+    Dpkg::Compression: Use gzip -n instead of --no-name
+    
+    The gzip implementation in OpenBSD does not support long options. Use
+    the short form, which seems to be consistently supported on all
+    implementation around.
+    
+    In addition this makes this invocation match the one in libdpkg.
+
+ scripts/Dpkg/Compression.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0124692643c6bf25034dbb16e74205d911aa23e3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 17 23:58:22 2022 +0100
+
+    Dpkg::Compression: Conditionally use the gzip --rsyncable option
+    
+    The gzip --rsyncable option is not universally supported, so we need to
+    conditionally use it. Ideally we would invoke «gzip --help» and check
+    whether the option is supported, but that would imply forking and
+    executing that process for any module that ends up loading this one,
+    which is not acceptable performance-wise. Instead we will approximate it
+    by Perl's osname, which is not ideal, but better than nothing.
+    
+    Requires GNU gzip >= 1.7 for the --rsyncable option. On AIX GNU gzip
+    is too old. On the BSDs they use their own implementation based on zlib,
+    which does not currently support the --rsyncable option.
+    
+    Fixes: commit 3a7db14e4a881d28fb73b29c126ea6f3ac4d0831
+    Fixes: https://rt.cpan.org/Ticket/Display.html?id=141805
+
+ scripts/Dpkg/Compression.pm | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+commit ad2a3e1ea5c5c1077935d23ee73a5233e37af2d1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 17 19:43:09 2022 +0100
+
+    dpkg: Allow absolute pathnames for configurable external run-time tools
+    
+    When checking whether a command exists, we were trying to find it in
+    the PATH, so that we could specify relative command names. But in case
+    the configurable external run-time tools have been specified with
+    absolute pathnames we can short-circuit the search and do the check
+    directly.
+    
+    Closes: #1007816
+    Based-on-patch-by: Adrian Ho <the.gromgit@gmail.com>
+
+ src/main/help.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 53e4c9bf2cd57dc2232090bae0062fc39e5ade30
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 17 23:05:45 2022 +0100
+
+    libdpkg: Check that executables are regular files
+    
+    Otherwise we might try to execute other kinds of files, such as
+    directories.
+
+ lib/dpkg/file.c     | 3 +++
+ lib/dpkg/t/t-file.c | 5 +++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 6df548cb19e2d775ac08521f0d72a7e681b9706a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 17 19:36:33 2022 +0100
+
+    libdpkg: Refactor file_is_exec()
+    
+    Move the function from dpkg into libdpkg, as we will use it in another
+    call site.
+
+ lib/dpkg/file.c      | 16 ++++++++++++++++
+ lib/dpkg/file.h      |  2 ++
+ lib/dpkg/libdpkg.map |  1 +
+ lib/dpkg/t/t-file.c  |  9 ++++++++-
+ src/main/help.c      |  4 ++--
+ 5 files changed, 29 insertions(+), 3 deletions(-)
+
+commit 2a0bb88b546b36a35dc56cc65dee51f18afaf5bd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 17 19:29:06 2022 +0100
+
+    dpkg-db-backup: Check for required commands before starting
+    
+    We need several commands not provided by dpkg, which might not be
+    available on the system, at least on non-Debian systems, such as
+    «savelog». We might eventually provide a replacement for that one,
+    but until then, it is best to check explicitly to avoid silent
+    breakage.
+
+ src/dpkg-db-backup.sh | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+commit e7bafa8d18eb63a77328a09236252ca13befe5a8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 16 19:32:39 2022 +0100
+
+    Dpkg::Path: Resolve /dev/null before comparing canonicalized pathnames
+    
+    On Solaris /dev/null points to something like «/devices/pseudo/mm@0:null»,
+    as seen on the CPAN test systems. Resolving /dev/null, before comparing
+    the pathname on directory traversal attempts should make this work.
+
+ scripts/Dpkg/Path.pm | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit bcbc7d922dcf194f337ace8e7cc1ece5186cd9ee
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed Mar 16 17:26:58 2022 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+commit 2ee0797647878748aa9d1340b6b5f4a3cdfceb68
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 16 02:16:52 2022 +0100
+
+    debian: Clarify the merged-usr-via-aliased-dirs warning
+    
+    It seems it was not obvious what the warning is about, even though the
+    FAQ entry seems rather clear (?). Mention that dpkg does not support it
+    (it has never), and the potential implications, so that the users are
+    aware of the problems, and not left in the dark of what they have been
+    set for. And can freely decide for themselves what to do, or not.
+    
+    Prompted-by: Paul Wise <pabs@debian.org>
+
+ debian/dpkg.postinst | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit a1dbea102e25d30337b75669896273232818a897
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 16 01:19:43 2022 +0100
+
+    Dpkg::Source::Package::V3::Git: Set origin remote to Vcs-Git if present
+    
+    If the packaging contains a Vcs-Git field, set it as the origin remote,
+    to make the source easier to handle.
+
+ scripts/Dpkg/Source/Package/V3/Git.pm | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+commit 572df6b70d31edf3f28cfaacf5d936e213782ea5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 16 01:17:18 2022 +0100
+
+    Dpkg::Source::Package::V3::Git: Name bundle remote as bundle
+    
+    This makes it clear what this remote is about, and leaves room to add a
+    proper origin remote.
+
+ scripts/Dpkg/Source/Package/V3/Git.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 43f66c5375532942e16eb26ca55b15ab922c1745
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Mon Mar 14 13:28:05 2022 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.add |   2 +-
+ man/po/de.po  | 117 ++++++++++++++--------------------------------------------
+ 2 files changed, 28 insertions(+), 91 deletions(-)
+
+commit 6d725325e47fdf3d440866d0c8ad6d508c34c4d3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 13 20:58:57 2022 +0100
+
+    Bump version to 1.21.3
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit a9580d3aec5f487a81664a462ec70ec1993f19f8
 Author: Guillem Jover <guillem@debian.org>
 Date:   Sun Mar 13 20:23:03 2022 +0100

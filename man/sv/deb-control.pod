@@ -68,13 +68,13 @@ Gälten B<Section> och B<Priority> har vanligtvis en definierad uppsättning acc
 
 =item B<Installed-Size:> I<storlek>
 
-The approximate total size of the package's installed files, in KiB units. The algorithm to compute the size is described in L<deb-substvars(5)>.
+Ungefärlig total storlek för paketets installerade filer, i KiB-enheter. Algoritmen för att beräkna storleken beskrivs i L<deb-substvars(5)>.
 
 =item B<Protected:> B<yes>|B<no>
 
 Fältet krävs normalt sett endast om svaret är B<yes> (ja), och betecknar att paketet krävs för en korrekt installation av systemet. L<dpkg(1)> eller andra installationsverktyg tillåter inte att ett paket märkt B<Protected> tas bort (åtminstone inte utan att använda en av de tvingande flaggorna).
 
-Supported since dpkg 1.20.1.
+Stöds sedan dpkg 1.20.1.
 
 =item B<Essential:> B<yes>|B<no>
 
@@ -84,7 +84,7 @@ Fältet krävs normalt sett endast om svaret är B<yes> (ja), och betecknar att 
 
 Fältet krävs normalt sett endast om svaret är B<yes> (ja), och sätts vanligtvis in av arkivprogramvaran. Det betecknar ett paket som krävs för att bygga andra paket.
 
-=item B<Architecture:> I<arch>|B<all> (required)
+=item B<Architecture:> I<ark>|B<all>> (krävs)
 
 Arkitekturen anger vilken sorts maskinvara paketet kompilerades för. Vanliga arkitekturer är B<amd64>, B<armel>, B<i386>, B<powerpc>, osv. Observera att värdet B<all> är avsett för paket som är oberoende av arkitektur. Exempel på detta är skal- eller Perlskript och dokumentation.
 
@@ -200,7 +200,13 @@ Syntaxen för B<Provides> är en lista över paketnamn avdelade med komman (och 
 
 =item B<Built-Using:> I<paketlista>
 
-Fältet visar ytterligare källkodspaket som användes när binärpaketet byggdes. Detta anger för hanteringsprogramvaran för arkivet att dessa ytterligare källkodspaket måste behållas så länge binärpaketet finns i arkivet. Fältet måste innehålla en lista med källkodspaket med strikta ”B<=>” versionsberoenden. Observera att hanteringsprogramvaran för arkivet troligen kommer att avvisa en insändning som deklarerar en B<Built-Using>-relation som inte kan uppfyllas inom arkivet.
+Beroendefältet visar ytterligare källkodspaket som användes när binärpaketet byggdes för att uppfylla licensvillkor. Detta anger för hanteringsprogramvaran för arkivet att dessa ytterligare källkodspaket måste behållas så länge binärpaketet finns i arkivet. Fältet måste innehålla en kommaavdelad lista med källkodspaket med strikta ”B<=>” versionsberoenden inom parentes. Observera att hanteringsprogramvaran för arkivet troligen kommer att avvisa en insändning som deklarerar en B<Built-Using>-relation som inte kan uppfyllas inom arkivet.
+
+=item B<Static-Built-Using:> I<paketlista>
+
+Beroendefältet visar ytterligare källkodspaket som användes när binärpaketet byggdes för att bygga statiskt (till exempel länkning mot statiska bibliotek, byggen för källkodscentrerade spårk såsom Go eller Rust, användning av C/C++-bibliotek som enbart består av filhuvuden, injicering av data-blobbar i kod, osv.). Detta är användbart för att spåra huruvida paketet kan behöva byggas om när källkodspaket som listas här uppdateras, till exempel vid säkerhetsuppdateringar. Fältet måste innehålla en kommaavdelad lista med källkodspaket med strikta ”B<=>” versionsberoenden inom perentes.
+
+Stöds sedan dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profillista> (föråldrat)
 

@@ -168,15 +168,15 @@ Spezifiziert das Alternativ-Verzeichnis, wenn sich dieses von der Standardeinste
 
 =item B<--admindir> I<Verzeichnis>
 
-Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
+Spezifiziert das administrative Verzeichnis, wenn sich dieses von der Standardeinstellung unterscheiden soll. Vorgabe ist „I<%ADMINDIR%/alternatives>“, falls B<%ADMINDIR_ENVVAR%> nicht gesetzt wurde.
 
 =item B<--instdir> I<Verzeichnis>
 
-Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Spezifiziert das Installationsverzeichnis, in dem Alternatives-Links erstellt werden (seit Dpkg 1.20.1). Standardmäßig „I</>“, falls B<%INSTDIR_ENVVAR%> nicht gesetzt wurde.
 
 =item B<--root> I<Verzeichnis>
 
-Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Spezifiziert das Wurzelverzeichnis (seit Version 1.201.). Dies setzt auch passend die Alternatives-, Installations- und administrativen Verzeichnisse. Standardmäßig „I</>“, falls B<%INSTDIR_ENVVAR%> nicht gesetzt wurde.
 
 =item B<--log> I<Datei>
 
@@ -364,7 +364,7 @@ B<ln>(1), FHS (der Dateisystem-Hierarchie-Standard, Filesystem Hierarchy Standar
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

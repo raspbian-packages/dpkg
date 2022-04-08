@@ -58,7 +58,7 @@ Förvalt namn på utdatafilen är I<paket>B<_>I<version>B<_>I<ark>B<.deb>.
 
 Skriver ut information, i människoläsbar form, om delfilerna som anges. Argument som inte är delar av binärpaket resulterar i ett meddelande som talar om detta (men fortfarande på standard ut).
 
-=item B<-a>, B<--auto -o> I<complete-output> I<part>
+=item B<-a>, B<--auto -o> I<fullständig-utdata> I<del>
 
 Köa automatiskt delarna och återskapa paketet om möjligt.
 

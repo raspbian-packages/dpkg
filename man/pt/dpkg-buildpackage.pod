@@ -294,7 +294,7 @@ A versão do autor.
 
 =item B<--buildinfo-file=>I<filename>
 
-Set the I<filename> for the generated B<.buildinfo> file (since dpkg 1.21.0).
+Define o I<nome-ficheiro> para o ficheiro B<.buildinfo> gerado (desde dpkg 1.21.0).
 
 =item B<--buildinfo-option=>I<opt>
 
@@ -362,7 +362,7 @@ Passa a opção I<opção> ao B<dpkg-source> (desde dpkg 1.15.6. Pode ser usado 
 
 =item B<--changes-file=>I<filename>
 
-Set the I<filename> for the generated B<.changes> file (since dpkg 1.21.0).
+Define o I<nome-ficheiro> para o ficheiro B<.changes> gerado (desde dpkg 1.21.0).
 
 =item B<--changes-option=>I<opt>
 

@@ -54,11 +54,11 @@ Visar version och avslutar.
 
 =item B<--admindir=>I<kat>
 
-Change the location of the B<dpkg> database.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+Ändra platsen för B<dpkg>-databasen. Förval är I<%ADMINDIR%> om B<DPKG_ADMINDIR> inte har satts..
 
-=item B<--root=>I<directory>
+=item B<--root>=I<katalog>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+Sätt rotkatalogen till I<katalog>, vilket sätter den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.21.0).
 
 =item B<--by-package=>I<paket>
 
@@ -102,7 +102,7 @@ Ett test eller ett påstående returnerade falskt.
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Om satt och flaggan B<--root> inte har angivits används det som filsystemets rotkatalog (sedan dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 

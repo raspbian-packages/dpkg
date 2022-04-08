@@ -130,7 +130,7 @@ A máquina para onde o pacote é compilado.
 
 =item máquina destino (alvo)
 
-The machine the compiler is building for, or the emulator will run code for.  This is only needed when building a cross-toolchain (or emulator), one that will be built on the build architecture, to be run on the host architecture, and to build (or run emulated) code for the target architecture.
+A maquina para a qual o compilador foi construído, ou o que emulador que irá correr código para. Isto é apenas necessário quando se compila ferramenta-corrente-cruzada (ou emulador), uma que será compilada sobre a arquitectura de compilação, para ser corrida na arquitectura anfitriã, e para compilar código (ou correr emulado) para a arquitectura alvo.
 
 =item Arquitectura Debian
 

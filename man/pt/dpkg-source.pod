@@ -230,7 +230,7 @@ O processo falha se o diff gerado conter diferenças de ficheiros fora do sub-di
 
 =back
 
-B<Opções de extracção (com --extract):>
+B<Opções de extração (com --extract):>
 
 Em todos os casos qualquer árvore de fonte original existente será removida.
 
@@ -290,7 +290,7 @@ Contrariamente ao comportamento predefinido de B<quilt>, espera-se que as patche
 
 Semelhante ao comportamento predefinido de B<quilt>. as patches também podem remover ficheiros.
 
-O ficheiro B<.pc/applied-patches> é criado se algumas patches foram aplicadas durante a extracção.
+O ficheiro B<.pc/applied-patches> é criado se algumas patches foram aplicadas durante a extração.
 
 B<Building>
 
@@ -364,7 +364,7 @@ O processo não falha se foi gerada uma patch automática, em vez disso, é imed
 
 =back
 
-B<Opções de Extracção>
+B<Opções de extração>
 
 =over 
 
@@ -374,7 +374,7 @@ Salta a extração do tarball debian por cima da fonte do autor (desde dpkg 1.15
 
 =item B<--skip-patches>
 
-Não aplica as patches no final da extracção (desde dpkg 1.14.18).
+Não aplica as patches no final da extração (desde dpkg 1.14.18).
 
 =back
 

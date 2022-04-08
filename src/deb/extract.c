@@ -50,11 +50,13 @@
 
 #include "dpkg-deb.h"
 
-static void movecontrolfiles(const char *thing) {
+static void
+movecontrolfiles(const char *dir, const char *thing)
+{
   char buf[200];
   pid_t pid;
 
-  sprintf(buf, "mv %s/* . && rmdir %s", thing, thing);
+  sprintf(buf, "mv %s/%s/* %s/ && rmdir %s/%s", dir, thing, dir, dir, thing);
   pid = subproc_fork();
   if (pid == 0) {
     command_shell(buf, _("shell command to move files"));
@@ -185,6 +187,11 @@ extracthalf(const char *debar, const char *dir,
             ohshit(_("archive '%s' uses unknown compression for member '%.*s', "
                      "giving up"),
                    debar, (int)sizeof(arh.ar_name), arh.ar_name);
+
+          if (ctrllennum != 0)
+            ohshit(_("archive '%.250s' contains two control members, giving up"),
+                   debar);
+          ctrllennum = memberlen;
         } else {
           if (adminmember != 1)
             ohshit(_("archive '%s' has premature member '%.*s' before '%s', "
@@ -205,12 +212,6 @@ extracthalf(const char *debar, const char *dir,
                      "giving up"),
                    debar, (int)sizeof(arh.ar_name), arh.ar_name, DATAMEMBER);
           }
-        }
-        if (adminmember == 1) {
-          if (ctrllennum != 0)
-            ohshit(_("archive '%.250s' contains two control members, giving up"),
-                   debar);
-          ctrllennum= memberlen;
         }
         if (!adminmember != !admininfo) {
           if (fd_skip(ar->fd, memberlen + (memberlen & 1), &err) < 0)
@@ -369,9 +370,9 @@ extracthalf(const char *debar, const char *dir,
       version.minor /= 10;
 
     if (version.minor ==  931)
-      movecontrolfiles(OLDOLDDEBDIR);
+      movecontrolfiles(dir, OLDOLDDEBDIR);
     else if (version.minor == 932 || version.minor == 933)
-      movecontrolfiles(OLDDEBDIR);
+      movecontrolfiles(dir, OLDDEBDIR);
   }
 }
 

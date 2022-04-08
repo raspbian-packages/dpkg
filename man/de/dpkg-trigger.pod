@@ -54,7 +54,7 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<--admindir=>I<Verz>
 
-Change the location of the B<dpkg> database.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+Ändert den Ablageort der B<dpkg>-Datenbank. Standardmäßig I<%ADMINDIR%>, falls B<DPKG_ADMINDIR> nicht gesetzt wurde.
 
 =item B<--root=>I<Verzeichnis>
 
@@ -121,7 +121,7 @@ B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/triggers.txt.gz>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

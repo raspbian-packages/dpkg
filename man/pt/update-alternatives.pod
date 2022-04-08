@@ -48,7 +48,7 @@ Pacotes diferentes que forneçam o mesmo ficheiro precisam de fazê-lo B<coopera
 
 =head1 TERMINOLOGIA
 
-Como as actividades de B<update-alternatives> estão bastante envolvidas, alguns termos específicos irão ajudar a explicar a sua operação.
+Como as atividades de B<update-alternatives> estão bastante envolvidas, alguns termos específicos irão ajudar a explicar a sua operação.
 
 =over 
 
@@ -274,7 +274,7 @@ O caminho da melhor alternativa para este grupo de links. Não presente se não 
 
 =item B<Value:> I<currently-selected-alternative>
 
-O caminho da alternativa selecciona actualmente. Também pode tirar o valor mágico B<none>. É usado quando o link não existe.
+O caminho da alternativa seleciona actualmente. Também pode tirar o valor mágico B<none>. É usado quando o link não existe.
 
 =back
 
@@ -327,7 +327,7 @@ Quando este campo está presente, as B<próximas> linhas contêm todas as altern
 
 =head1 DIAGNÓSTICO
 
-Com B<--verbose> o B<update-alternatives> fala incessantemente acerca das sua actividades no seu canal de saída standard. Se ocorrerem problemas, o B<update-alternatives> envia mensagens de erro no seu canal de erros standard e retorna um estado de saída de 2. Estes diagnósticos deverão ser suficientemente explicativos, se você acha que não o são, por favor reporte isso como um bug.
+Com B<--verbose> o B<update-alternatives> fala incessantemente acerca das suas atividades no seu canal de saída standard. Se ocorrerem problemas, o B<update-alternatives> envia mensagens de erro no seu canal de erros standard e retorna um estado de saída de 2. Estes diagnósticos deverão ser suficientemente explicativos, se você acha que não o são, por favor reporte isso como um bug.
 
 =head1 EXEMPLOS
 
@@ -341,7 +341,7 @@ Para mostrar os pacotes disponíveis que fornecem o B<vi> e a configuração act
 
 =back
 
-Para escolher uma implementação particular do B<vi>, use este comando como root e depois seleccione um número da lista.
+Para escolher uma implementação particular do B<vi>, use este comando como root e depois selecione um número da lista.
 
 =over 
 

@@ -68,13 +68,13 @@ Os campos B<Section> e B<Priority> têm geralmente um conjunto definido de valor
 
 =item B<Installed-Size:> I<size>
 
-The approximate total size of the package's installed files, in KiB units. The algorithm to compute the size is described in L<deb-substvars(5)>.
+O tamanho total aproximado dos ficheiros instalados pelo pacote, em unidades KiB. O algoritmo para computar o tamanho está descrito em L<deb-substvars(5)>.
 
 =item B<Protected:> B<yes>|B<no>
 
 Este campo normalmente não é necessário quando a resposta é B<yes>. Ele indica um pacote que é necessário para o arranque correcto do sistema. O L<dpkg(1)> ou qualquer outra ferramenta de instalação não irá permitir que um pacote B<Protected> seja removido (pelo menos não sem usar uma das opções de forçar).
 
-Supported since dpkg 1.20.1.
+Suportado desde dpkg 1.20.1.
 
 =item B<Essential:> B<yes>|B<no>
 
@@ -82,9 +82,9 @@ Este campo normalmente não é necessário quando a resposta é B<sim>. Ele indi
 
 =item B<Build-Essential:> B<yes>|B<no>
 
-Este campo geralmente não é necessário quando a resposta é B<sim>, e é injectado de modo comum pelo software do arquivo. Denota um pacote que é requerido quando se compila outros pacotes.
+Este campo geralmente não é necessário quando a resposta é B<sim>, e é injetado de modo comum pelo software do arquivo. Denota um pacote que é requerido quando se compila outros pacotes.
 
-=item B<Architecture:> I<arch>|B<all> (required)
+=item B<Architecture:> I<arch>|B<all> (necessário)
 
 A arquitectura especifica para que tipo de hardware este pacote foi compilado. Arquitecturas comuns são B<amd64>, B<armel>, B<i386>, B<powerpc>, etc. Note que o valor B<all> é destinada a pacotes que são independentes da arquitectura. Alguns exemplos disto são scripts de shell e Perl, e documentação.
 
@@ -162,7 +162,7 @@ A sintaxe dos campos B<Depends>, B<Pre-Depends>, B<Recommends> e B<Suggests> é 
 
 Um nome qualificador de arquitectura pode ser um nome de arquitectura Debian real (desde dpkg 1.16.5) ou B<any> (desde dpkg 1.16.2). Se omitido, a predefinição é a arquitectura do pacote binário actual. Um nome de arquitectura Debian real irá corresponder exactamente à arquitectura para o nome do pacote. B<any> irá corresponder a qualquer arquitectura para esse nome de pacote. se o pacote foi marcado como B<Multi-Arch: allowed>.
 
-Um número de versão pode começar com um ‘B<E<gt>E<gt>>’, nesse caso qualquer versão posterior irá corresponder, ie pode especificar ou omitir a revisão de empacotamento Debian (separada por um hífen). Relacionamentos de versão aceites são ‘B<E<gt>E<gt>>’ para maior que, ‘B<E<lt>E<lt>>’ para menor que, ‘B<E<gt>=>’ para maior ou igual a, ‘B<E<lt>=>’ para menor ou igual a, e ‘B<=>’ para igual a.
+Um número de versão pode começar com um ‘B<E<gt>E<gt>>’, nesse caso qualquer versão posterior irá corresponder, e pode especificar ou omitir a revisão de empacotamento Debian (separada por um hífen). Relacionamentos de versão aceites são ‘B<E<gt>E<gt>>’ para maior que, ‘B<E<lt>E<lt>>’ para menor que, ‘B<E<gt>=>’ para maior ou igual a, ‘B<E<lt>=>’ para menor ou igual a, e ‘B<=>’ para igual a.
 
 =over 
 
@@ -200,7 +200,13 @@ A sintaxe de B<Provides> é uma lista de nomes de pacotes, separados por vírgul
 
 =item B<Built-Using:> I<package-list>
 
-Este campo lista pacotes fonte extra que foram usados durante a compilação deste pacote binário. Isto é uma indicação para o software de manutenção do arquivo que estes pacotes fonte extra têm de ser mantidos enquanto este pacote biblioteca for mantido. Este campo tem de ser uma lista de nomes de pacotes fonte com relacionamentos de versão estritos ‘B<=>’. Note que é provável que o software de manutenção do arquivo se recuse a aceitar um envio que declare uma relação B<Built-Using> que não possa ser satisfeita dentro do arquivo.
+This dependency field lists extra source packages that were used during the build of this binary package, for license compliance purposes.  This is an indication to the archive maintenance software that these extra source packages must be kept whilst this binary package is maintained.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.  Note that the archive maintenance software is likely to refuse to accept an upload which declares a B<Built-Using> relationship which cannot be satisfied within the archive.
+
+=item B<Static-Built-Using:> I<package-list>
+
+This dependency field lists extra source packages that were used during the build of this binary package, for static building purposes (for example linking against static libraries, builds for source-centered languages such as Go or Rust, usage of header-only C/C++ libraries, injecting data blobs into code, etc.).  This is useful to track whether this package might need to be rebuilt when source packages listed here have been updated, for example due to security updates.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.
+
+Supported since dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profile-list> (obsoleto)
 

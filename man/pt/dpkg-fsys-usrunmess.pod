@@ -38,11 +38,15 @@ Verifica a consistência da base de dados do dpkg e caso contrário aborta.
 
 =item *
 
-Generate and install a regression prevention package.
+Generate and install a regression prevention package, if requested on the command-line or otherwise on the prompt.
 
 =item *
 
 Obtém a lista de ficheiros e alternativas que precisam ser restaurados.
+
+=item *
+
+Look for untracked kernel modules files that need to be moved too.
 
 =item *
 
@@ -86,7 +90,7 @@ Remove o directório raiz sombra.
 
 =item *
 
-Register a B<policy-rc.d> to disallow service actions, which means that services might need to be restarted afterwards, ideally via a reboot.
+Regista um B<policy-rc.d> para proibir acções de serviço, o que significa que os serviços podem precisar de serem reiniciados após isto, idealmente com um reiniciar da máquina.
 
 =item *
 
@@ -94,13 +98,13 @@ Reconfigura todos os pacotes.
 
 =item *
 
-Unregister the B<policy-rc.d> and restore the alternatives state.
+Retira o registo de B<policy-rc.d> e restaura o estado das alternativas.
 
 =back
 
 B<Nota>: Quando se corre o programa a partir de alguma shells tais como L<bash(1)> ou L<zsh(1)>, após o executar, você pode precisar de requisitar à shell para esquecer todas as localizações de executáveis lembradas com por exemplo C<hash -r>.
 
-B<Note>: Some directories might linger after the migration in case they contain untracked files. A list is printed once the script has finished for further investigation.
+B<Nota>: Alguns directórios podem demorar após a migração no caso de conterem ficheiros não acompanhados. É escrita uma lista assim que o script terminar para investigação posterior.
 
 B<Aviso>: Note que esta operação tem o potencial de tornar o sistema não utilizável ou quebrado em caso de uma pagarem súbita ou reinicio do sistema. estado inesperado do sistema, ou possíveis bugs no script. Esteja preparado com meio de recuperação e considere fazer cópias de salvaguarda antes.
 
@@ -111,6 +115,14 @@ B<Aviso>: Note que esta operação tem o potencial de tornar o sistema não util
 =item B<-p>, B<--prompt>
 
 Pergunta no ponto de não retorno, para que os resultados de depuração da hierarquia sombra possam ser avaliados antes de proceder.
+
+=item B<--prevention>
+
+=item B<--no-prevention>
+
+Enables or disables generating and installing a regression prevention package into the system.  If no option has been specified, the action to take will be prompted.
+
+The generated package contains the B<Protected> field set to B<yes> to protect against accidental removal of the package.
 
 =item B<-n>, B<--no-act>
 

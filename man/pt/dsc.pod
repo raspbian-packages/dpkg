@@ -160,7 +160,7 @@ A fórmula de restrição do perfil-de-compilação normalizada a partir do camp
 
 Se o pacote binário for protegido, esta chave irá conter o valor do campo B<Protected>, que é um valor B<yes>.
 
-Supported since dpkg 1.20.1.
+Suportado desde dpkg 1.20.1.
 
 =item B<essential>
 

@@ -58,7 +58,7 @@ Change the location of the B<dpkg> database.  Defaults to I<%ADMINDIR%> if B<DPK
 
 =item B<--root=>I<directory>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+Define o directório raiz para I<directory>, o que define o directório administrativo para «I<directory>%ADMINDIR%» (desde dpkg 1.21.0).
 
 =item B<--by-package=>I<package>
 
@@ -102,7 +102,7 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Se definido e a opção B<--root> não foi especificada, será usado como o directório raiz do sistema de ficheiros (desde dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 

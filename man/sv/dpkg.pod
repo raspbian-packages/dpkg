@@ -28,7 +28,7 @@ Den bör I<inte> användas av paketansvariga som vill lära sig hur B<dpkg> komm
 
 =head1 BESKRIVNING
 
-B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8> and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
+B<dpkg> är ett mellannivåverktyg för att installera, bygga, ta bort och hantera Debianpaket. Det primära och mer användarvänliga skalet runt B<dpkg> som ett CLI (kommandoradsgränssnitt) är B<apt>(8) och som ett TUI (terminalanvändargränssnitt) är B<aptitude>(8). B<dpkg> kontrolleras helt och hållet via kommandoradsparametrar, vilka består av exakt en åtgärd och noll eller fler flaggor. Åtgärdsparametern talar om för dpkg vad som ska göras, och flaggorna styr på vilket sätt åtgärden ska utföras.
 
 B<dpkg> kan också användas som ett skal runt B<dpkg-deb>(1) och B<dpkg-query>(1). En förteckning över tillgängliga åtgärder beskrivs nedan i stycket B<ÅTGÄRDER>. Om B<dpkg> upptäcker en sådan åtgärd anropas bara B<dpkg-dpkg> eller B<dpkg-query> med de givna flaggorna, men inga specifika flaggor sänds direkt till dem, för att använda sådana flaggor måste bakgrundsprogrammen anropas direkt.
 
@@ -140,7 +140,7 @@ B<6.> Konfigurera paketet. Se B<--configure> för detaljerad information om hur 
 
 Packa upp paketet, men konfigurera det inte. Om flaggan B<--recursive> eller B<-R> anges måste I<paketfil> istället vara en katalog.
 
-Will process triggers for B<Pre-Depends> unless B<--no-triggers> has been specified.
+Hanterar utlösare för B<Pre-Depends> såvida inte B<--no-triigers> har angivits.
 
 =item B<--configure> I<paket>...|B<-a>|B<--pending>
 
@@ -154,7 +154,7 @@ B<1.> Packa upp konfigurationsfilerna och säkerhetskopiera samtidigt de gamla k
 
 B<2.> Kör I<postinst>-skriptet, om ett sådant finns i paketet.
 
-Will process triggers unless B<--no-triggers> has been specified.
+Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
 =item B<--triggers-only> I<paket>...|B<-a>|B<--pending>
 
@@ -172,7 +172,7 @@ B<2.> Ta bort de installerade filerna
 
 B<3.> Kör I<postrm>-skriptet
 
-Will process triggers unless B<--no-triggers> has been specified.
+Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
 =item B<-P>, B<--purge> I<paket>...|B<-a>|B<--pending>
 
@@ -186,7 +186,7 @@ B<1.> Ta bort paketet, om det inte redan är borttaget. Se B<--remove> för deta
 
 B<2.> Kör I<postrm>-skriptet
 
-Will process triggers unless B<--no-triggers> has been specified.
+Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
 =item B<-V>, B<--verify> I<paketnamn> ...
 
@@ -268,9 +268,9 @@ Visa en lista, avdelad med nyradstecken, över extraarkitekturer B<dpkg> har kon
 
 =item B<--assert-help>
 
-Give help about the B<--assert->I<feature> options (since dpkg 1.21.0).
+Ge hjälp om B<--assert->I<funktion>-flaggorna (sedan dpkg 1.21.0).
 
-=item B<--assert->I<function>
+=item B<--assert->I<funktion>
 
 Påstå att B<dpkg> stöder den önskade funktionen. Returnerar 0 om funktionen stöds i sin helhet, 1 om funktionen är känd men B<dpkg> inte kan stöda den ännu, och 2 om funktionen är okänd. Aktuell lista över funktioner som kan hävdas är:
 
@@ -306,9 +306,9 @@ Stöder fältet B<Protected> (sedan dpkg 1.20.1).
 
 =back
 
-=item B<--validate->I<thing> I<string>
+=item B<--validate->I<saker> I<sträng>
 
-Bekräftar att I<saker-sträng> har korrekt syntax (sedan dpkg 1.18.16). Returnerar 0 om I<sträng> är giltig, 1 om I<sträng> är ogiltig men kan tänkas godtas i slapp kontext och 2 om I<sträng> är ogiltig. Aktuell lista över I<saker> som kan bekräftas är:
+Bekräftar att I<saker>-I<sträng> har korrekt syntax (sedan dpkg 1.18.16). Returnerar 0 om I<sträng> är giltig, 1 om I<sträng> är ogiltig men kan tänkas godtas i slapp kontext och 2 om I<sträng> är ogiltig. Aktuell lista över I<saker> som kan bekräftas är:
 
 =over 
 
@@ -380,11 +380,11 @@ Lista innehållet i ett deb-paket.
 
 Extraherar styrfilsinformation från ett paket.
 
-=item B<-x>, B<--extract> I<archive> I<directory>
+=item B<-x>|B<--extract> I<arkiv> I<katalog>
 
 Extrahera filerna som finns i paketet.
 
-=item B<-X>, B<--vextract> I<archive> I<directory>
+=item B<-C>|B<--vextract> I<arkiv> I<katalog>
 
 Extrahera och visa filnamnen som finns i paketet.
 
@@ -563,7 +563,7 @@ Installera inte paketet om en nyare version av samma paket redan är installerat
 
 =item B<--admindir=>I<kat>
 
-Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Ställ in administrationskatalogen till I<katalog>. Katalogen innehåller flera filer som beskriver status för installerade eller avinstallerade paket, osv. Standardvärde är ”I<%ADMINDIR%>” om B<DPKG_ADMINDIR> inte har satts.
 
 =item B<--instdir=>I<katalog>
 
@@ -597,7 +597,7 @@ Sätt I<filnamnsmönster> som ett sökvägsfilter, antingen genom att exkludera 
 
 I<Varning: Tänk på att du kan totalt ödelägga ditt system, beroende på vilka sökvägar du exkluderar, så använd med tillförsikt.>
 
-The glob patterns use the same wildcards used in the shell, were ‘*’ matches any sequence of characters, including the empty string and also ‘/’.  For example, «I</usr/*/READ*>» matches «I</usr/share/doc/package/README>».  As usual, ‘?’ matches any single character (again, including ‘/’).  And ‘[’ starts a character class, which can contain a list of characters, ranges and complementations. See B<glob>(7) for detailed information about globbing. B<Note:> The current implementation might re-include more directories and symlinks than needed, in particular when there is a more specific re-inclusion, to be on the safe side and avoid possible unpack failures; future work might fix this.
+Filnamnsmönstrena använder samma sorts jokertecken som skalet, där ”*” motsvarar en sekvens av valfritt antal tecken, inklusive den tomma strängen och även ”/”. Till exempel på motsvarar I<”/usr/*/READ*”> I<”/usr/share/doc/paket/README”>. ”?” motsvarar som vanligt ett ensamt tecken (även här ingår ”/”). Och ”[” inleder en teckenklass, som kan innehålla en lista över tecken, intervall och komplement. Se B<glob>(7) för detaljerad information om filnamnsmönster. B<Observera:> den nuvarande implementationen kan återinkludera fler kataloger och symboliska länkar än nödvändigt, speciellt nänär det finns en mer specifik återinkludering, för att vara på den säkra sidan och undvika möjliga uppackningsfel, framtida ändringar kan komma att rätta detta.
 
 Detta kan användas för att ta bort alla sökvägar förutom några specifika; ett typiskt användningsområde är:
 
@@ -616,63 +616,63 @@ Tips: se till att mönstren inte expanderas av ditt skal.
 
 Väljer utdataformat för kommandot B<--verify> (sedan dpkg 1.17.2).
 
-The only currently supported output format is B<rpm>, which consists of a line for every path that failed any check.  These lines have the following format:
+Det enda utdataformatet som stöds är för närvarande B<rpm>, som består av en rad för varje sökväg där ett test misslyckas. Dessa rader har följande format:
 
 Z<>
- B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
- B<??5??????> [B<c>] I<pathname>
+ B<missing  > [B<c>] I<sökvägsnamn> [B<(>I<felmeddelande>B<)>]
+ B<??5??????> [B<c>] I<sökvägsnamn>
 
-The first 9 characters are used to report the checks result, either a literal B<missing> when the file is not present or its metadata cannot be fetched, or one of the following special characters that report the result for each check:
-
-=over 
-
-=item ‘B<?>’
-
-Implies the check could not be done (lack of support, file permissions, etc).
-
-=item ‘B<.>’
-
-Implies the check passed.
-
-=item ‘I<A-Za-z0-9>’
-
-Implies a specific check failed.  The following positions and alphanumeric characters are currently supported:
+De första 9 tecknen används för att rapportera resultaten från testerna, antingen ett bokstavligt B<missing> (saknas) om filen inte finns eller dess metadata inte kan hämtas, eller ett av följande specialtecken som rapporterar resultatet från varje enskilt test:
 
 =over 
 
-=item 1 ‘B<?>’
+=item ”B<?>”
 
-These checks are currently not supported, will always be ‘B<?>’.
+Anger at testet inte kunde utföras (stöd saknas, filbehörigheter, osv).
 
-=item 2 ‘B<M>’
+=item ”B<.>”
 
-The file mode check failed (since dpkg 1.21.0).  Because pathname metadata is currently not tracked, this check can only be partially emulated via a very simple heuristic for pathnames that have a known digest, which implies they should be regular files, where the check will fail if the pathname is not a regular file on the filesystem.  This check will currently never succeed as it does not have enough information available.
+Antyder att testet lyckades.
 
-=item 3 ‘B<5>’
+=item ”I<A-Za-z0-9>”
 
-The digest check failed, which means the file contents have changed.
+Antyder att testet misslyckades. Följande positioner och alfanumeriska tecken stöds för närvarande:
 
-=item 4-9 ‘B<?>’
+=over 
 
-These checks are currently not supported, will always be ‘B<?>’.
+=item 1 ”B<?>”
+
+Dessa test stöds för närvarande inte och är alltid ”B<?>”.
+
+=item 2 ”B<M>”
+
+Testet för filens läge misslyckades (sedan dpkg 1.21.0). Eftersom metadata för sökvägsnamn för närvarande inte spåras kan testet endast delvis emuleras genom en väldigt enkel heuristik för sökvägsnamn som har ett känt kondensat, vilket antyder att de bör vara vanliga filer, där testet misslyckas om sökvägsnamnet inte är en vanlig fil i filsystemet. Testet kan för närvarande aldrig lyckas eftersom tillräcklig information inte är tillgänglig.
+
+=item 3 ”B<5>”
+
+Kontrollen av kondensatet misslyckades, vilket betyder att filens innehåll kan ha ändrats.
+
+=item 4-9 ”B<?>”
+
+Dessa test stöds för närvarande inte och är alltid ”B<?>”.
 
 =back
 
 =back
 
-The line is followed by a space and an attribute character.  The following attribute character is supported:
+Raden följs av ett blanksteg och ett attributtecken. Följande attributtecken stöds:
 
 =over 
 
-=item ‘B<c>’
+=item ”B<c>”
 
-The pathname is a conffile.
+Sökvägsnamnet är en konffil
 
 =back
 
-Finally followed by another space and the pathname.
+Slutligen följs det av ytterligare ett blanksteg och sökvägsnamnet.
 
-In case the entry was of the B<missing> type, and the file was not actually present on the filesystem, then the line is followed by a space and the error message enclosed within parenthesis.
+Om posten var av typen B<missing> och filen faktiskt inte finns i filsystemet komemrr aden följas av ett blanksteg och felmeddelandet inom parenteser.
 
 =item B<--status-fd> I<n>
 
@@ -808,7 +808,7 @@ Ställer in de tvingande flaggorna (sedan dpkg 1.19.5). När variabeln är satt 
 
 =item B<DPKG_ADMINDIR>
 
-Om satt, och flaggorna B<--admindir> och B<-root> inte har angivits, används värdet som datakatalog för B<dpkg> (sedan dpkg 1.20.0).
+Om satt, och flaggorna B<--admindir> och B<-root> inte har angivits, används värdet som administrativ katalog för B<dpkg> (sedan dpkg 1.20.0).
 
 =item B<DPKG_FRONTEND_LOCKED>
 
@@ -908,7 +908,7 @@ Lista över tillgängliga paket.
 
 Status för tillgängliga paket. Filen innehåller information om huruvida ett paket är markerat för borttagning eller ej, om det är installerat eller ej, osv. Se sektionen B<INFORMATION OM PAKET> för ytterligare information.
 
-The status file is backed up daily in I<%BACKUPSDIR%>. It can be useful if it's lost or corrupted due to filesystems troubles.
+Statusfilen säkerhetskopieras dagligen i I<%BACKUPSDIR%>. Det kan vara nyttigt om den går förlorad eller skrivs sönder på grund av problem med filsystemet.
 
 =back
 
@@ -970,7 +970,7 @@ För att göra en lokal kopia av paketmarkeringarna:
 
 =back
 
-You might transfer this file to another computer, and after having updated the I<available> file there with your package manager frontend of choice (see L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> for more details), for example:
+Du kan överföra filen till en annan dator, och efter att du har uppdaterat I<available>-filen där med ditt önskade pakethanterarskal (se L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> för mer information), till exempel:
 
 =over 
 

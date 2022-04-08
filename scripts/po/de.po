@@ -1,13 +1,13 @@
 # German translation of the scripts in the dpkg package
 # This file is distributed under the same license as the dpkg package.
-# (C) Helge Kreutzmann <debian@helgefjell.de>, 2007-2021.
+# (C) Helge Kreutzmann <debian@helgefjell.de>, 2007-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dpkg-dev 1.20.7.1\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2022-03-13 20:17+0100\n"
-"PO-Revision-Date: 2022-01-20 05:29+0100\n"
+"POT-Creation-Date: 2022-04-01 02:27+0200\n"
+"PO-Revision-Date: 2022-03-21 20:55+0100\n"
 "Last-Translator: Helge Kreutzmann <debian@helgefjell.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -1497,7 +1497,7 @@ msgid ""
 "  -m, --multiversion       allow multiple versions of a single package.\n"
 "  -e, --extra-override <file>\n"
 "                           use extra override file.\n"
-"  -M, --medium <medium>    add X-Medium field for dselect multicd access "
+"  -M, --medium <medium>    add X-Medium field for dselect media access "
 "method\n"
 "  -?, --help               show this help message.\n"
 "      --version            show the version.\n"
@@ -1513,7 +1513,7 @@ msgstr ""
 "erlauben\n"
 "  -e, --extra-override <Datei>\n"
 "                           zusätzliche Override-Datei verwenden\n"
-"  -M, --medium <Medium>    Feld X-Medium für Dselects Multicd-"
+"  -M, --medium <Medium>    Feld X-Medium für Dselects Medien-"
 "Zugriffsmethode\n"
 "                           hinzufügen\n"
 "  -?, --help               diese Hilfemeldung anzeigen\n"
@@ -3717,6 +3717,11 @@ msgstr "%s wird geklont"
 #: scripts/Dpkg/Source/Package/V3/Git.pm
 msgid "setting up shallow clone"
 msgstr "ein seichter (shallow) Klon wird eingerichtet"
+
+#: scripts/Dpkg/Source/Package/V3/Git.pm
+#, perl-format
+msgid "setting remote %s to %s"
+msgstr "ferner %s wird auf %s gesetzt"
 
 #: scripts/Dpkg/Source/Package/V3/Native.pm
 msgid "multiple tarfiles in native source package"

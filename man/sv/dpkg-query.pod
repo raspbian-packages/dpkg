@@ -94,24 +94,24 @@ Utdataformatet för den här flaggan kan inte justeras, men varieras automatiskt
 
 =item B<-W>, B<--show> [I<paketnamnsmönster> ...]
 
-Just like the B<--list> option this will list all packages matching the given patterns. However the output can be customized using the B<--showformat> option.  The default output format gives one line per matching package, each line having the name (extended with the architecture qualifier for B<Multi-Arch> B<same> packages) and installed version of the package, separated by a tab.
+Precis som flaggan B<--list> kommer paket som matchar de givna mönstren att visas. Utdatat kan dock skräddarsys med flaggan B<--showformat>. Standardutdataformatet är en rad per paket som träffas, där varje rad innehåller namn (utökat med arkitektursbeskrivning för B<Multi-Arch> B<same>-paket) och installerad version av paketet, avdelat med ett tabulatortecken.
 
 =item B<-s>, B<--status> [I<paketnamn>...]
 
-Report status of specified packages. This just displays the entry in the installed package status database.  If no I<package-name> is specified it will display all package entries in the status database (since dpkg 1.19.1).  When multiple I<package-name> entries are listed, the requested status entries are separated by an empty line, with the same order as specified on the argument list.
+Rapportera status om angivna paket. Detta alternativ visar helt enkelt posten i statusdatabasen för installerade paket. Om inget I<paketnamn> anges kommer det visa alla paketposter i statusdatabasen (sedan dpkg 1.19.1). Om flera I<paketnamn> anges avdelas de efterfrågade statusposterna med en tomrad, i samma ordningsföljd som i parameterlistan.
 
 =item B<-L>, B<--listfiles> I<paketnamn> ...
 
-List files installed to your system from I<package-name>. When multiple I<package-name>s are listed, the requested lists of files are separated by an empty line, with the same order as specified on the argument list.
+Listar filer som installerats på ditt system från I<paketnamn>. Om flera I<paketnamn> anges avdelas den efterfrågade fillistan med en tomrad, i samma ordningsföljd som anges i parameterlistan.
 
-Each file diversion is printed on its own line after its diverted file, prefixed with one of the following localized strings:
+Varje filomdirigering skrivs på en egen rad efter sin omdirigerade fil, föregånget av en av följande lokalanpassade strängar:
 
 Z<>
-  locally diverted to: I<diverted-to>
-  package diverts others to: I<diverted-to>
-  diverted by I<pkg> to: I<diverted-to>
+  lokalt omdirigerad till: I<omdirigerat-till>
+  paketet omdirigerar andra till: I<omdirigerat-till>
+  omdirigerat av I<paket> till: I<omdirigerat-till>
 
-Hint: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+TIps: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat.
 
 Kommandot kommer inte att visa extrafiler som skapas av paketskript, ej heller kommer det att visa alternativ.
 
@@ -131,30 +131,29 @@ B<Varning>: kommandot är föråldrat eftersom det ger direkt tillgång till den
 
 =item B<-S>, B<--search> I<filnamnssökmönster> ...
 
-Search for packages that own files corresponding to the given patterns. Standard shell wildcard characters can be used in the pattern, where asterisk (B<*>) and question mark (B<?>) will match a slash, and backslash (B<\>) will be used as an escape character.
+Sök efter paket som äger filer som motsvarar det angivna mönstret. Alla skalets vanliga jokertecken kan användas i mönstret, där asterisk (B<*>) och frågetecken (B<?>) kommer motsvara ett snedstreck, och omvänt snedstreck (B<\>) kommer användsa som ett ersättningstecken.
 
 Om det första tecknet i I<filnamnssökmönster> inte är ett av ”B<*[?/>” kommer det att tolkas som en delsträng och implicit omgärdas av ”B<*>” (som i B<*>I<filnamnssökmönster>B<*>). Om strängen som följer innehåller något av ”B<*[?\>” så kommer det hanteras som ett jokermönster, annars kommer alla avslutande ”B</>” eller ”b</.>” tas bort och en bokstavskorrekt sökvägsuppslagning kommer utföras.
 
 Kommandot kommer inte att visa extrafiler som skapas av paketskript, ej heller kommer det att visa alternativ.
 
-The output format consists of one line per matching pattern, with a list of packages owning the pathname separated by a comma (U+002C ‘B<,>’) and a space (U+0020 ‘B< >’), followed by a colon (U+003A ‘B<:>’) and a space, followed by the pathname. As in:
+Utdataformatet består av en rad per motsvarande mönster, med en lista med paket som äger sökvägsnamnet avdelad med ett komma (U+002C ”B<,>”) och ett blanksteg (U+0020 ”B< >”) följt av ett kolon (U+003A ”B<:>”) och ett blanksteg, följt av sökvägsnamnet. Till exempel:
 
-  pkgname1, pkgname2: pathname1
-  pkgname3: pathname2
+  paketnamn1, paketnamn2: sökvägsnamn1
+  paketnamn3: sökvägsnamn2
 
-File diversions are printed with the following localized strings:
-
-Z<>
-  diversion by I<pkgname> from: I<diverted-from>
-  diversion by I<pkgname> to: I<diverted-to>
-
-or for local diversions:
+Omdirigerade filer skrivs ut med följande lokalanpassade strängar:
 
 Z<>
-  local diversion from: I<diverted-from>
-  local diversion to: I<diverted-to>
+  omdirigering av I<paketnamn> från: I<omdirigerad-från>
+  omdirigering av I<paketnamn> till: I<omdirigerad-till>
 
-Hint: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+eller för lokala omdirigeringar:
+
+Z<>
+  lokal omdirigering från: I<omdirigerad-från>
+  lokal omdirigering till: I<omdirigerad-till>
+TIps: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat.
 
 =item B<-p>, B<--print-avail> [I<paketnamn>...]
 
@@ -180,9 +179,9 @@ Visar version och avslutar.
 
 Ändra platsen för B<dpkg>-databasen. Förval är I<%ADMINDIR%>.
 
-=item B<--root=>I<directory>
+=item B<--root>=I<katalog>
 
-Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+Sätt rotkatalogen till I<katalog>, vilket sätter den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.21.0).
 
 =item B<--load-avail>
 
@@ -385,7 +384,7 @@ Väljer bläddrarprogram att använda (sedan dpkg 1.19.1),  vilket kommer starta
 
 =item B<DPKG_ROOT>
 
-If set and the B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Om satt och flaggan B<--root> inte har angivits används det som filsystemets rotkatalog (sedan dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 

@@ -56,15 +56,15 @@ Alle Optionen können sowohl auf der Befehlszeile als auch in der Konfigurations
 
 =item B<--admindir> I<Verzeichnis>
 
-Changes the directory where the dpkg ‘I<status>’, ‘I<available>’ and similar files are located.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+Ändert das Verzeichnis, in dem die Dateien ‚I<status>’, ‚I<available>’ und ähnliche Dateien von Dpkg liegen. Standardmäßig I<%ADMINDIR%>, falls B<DPKG_ADMINDIR> nicht gesetzt wurde.
 
 =item B<--instdir> I<Verzeichnis>
 
-Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.21.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+Setzt das Installationsverzeichnis, das sich auf das Verzeichnis bezieht, in dem Pakete installiert werden (seit Dpkg 1.21.1). Standardmäßig „I</>“, falls B<DPKG_ROOT> nicht gesetzt wurde.
 
 =item B<--root> I<Verzeichnis>
 
-Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeichnis auf „I<Verzeichnis>“ und das administrative Verzeichnis auf „I<Verzeichnis>%ADMINDIR%“ gesetzt wird (seit Dpkg 1.21.0).
 
 =item B<-D>I<Datei>, B<--debug> I<Datei>
 
@@ -443,11 +443,11 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_ROOT>
 
-If set and the B<--instdir> or B<--root> options have not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt (seit Dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 
-If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory (since dpkg 1.21.0).
+Falls gesetzt und die Option B<--admindir> oder B<--root> nicht verwandt wurde, wird dies als Datenbank-Verzeichnis von B<dpkg> verwandt (seit Dpkg 1.21.0).
 
 =item B<HOME>
 
@@ -474,7 +474,7 @@ B<dpkg>(1), B<apt>(8), B<sources.list>(5), B<deb>(5).
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

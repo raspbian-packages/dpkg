@@ -228,6 +228,8 @@ Dessa fält beskrivs i manualsidan B<deb-control>(5), eftersom de kopieras ordag
 
 =item B<Built-Using:> I<paketlista>
 
+=item B<Static-Built-Using:> I<paketlista>
+
 Det här fältet anger beroenden mellan paket. De diskuteras i manualsidan B<deb-control>(5). När fälten förekommer i I<debian/control> kan de också avslutas med ett släpande kommatecken (sedan dpkg 1.10.14), ha arkitekturangivelser och begränsningsformler som alla reduceras när fälten för B<deb-control>(5) genereras.
 
 =item B<Subarchitecture:> I<värde>

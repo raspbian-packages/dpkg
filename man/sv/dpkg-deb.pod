@@ -72,7 +72,7 @@ Inga felmeddelande rapporteras för fält som efterfrågas men inte hittas.
 
 Visar innehåller i filsystemsträdsarkivsdelen av paketarkivet. Det visas för närvarande i det format som genereras av B<tar>s pratsamma visning.
 
-=item B<-x>, B<--extract> I<archive> I<directory>
+=item B<-x>|B<--extract> I<arkiv> I<katalog>
 
 Extraherar filsystemsträdet från ett paketarkiv till den angivna katalogen.
 
@@ -80,11 +80,11 @@ Observera att en extrahering av ett paket till rotkatalogen I<inte> resulterar i
 
 I<katalog> (men inte dess föräldrar) kommer skapas om nödvändigt, och dess behörighet kommer att ändras till att motsvara innehållet i paketet.
 
-=item B<-X>, B<--vextract> I<archive> I<directory>
+=item B<-C>|B<--vextract> I<arkiv> I<katalog>
 
 Är som B<--extract> (B<-x>) med B<--verbose> (B<-v>) som visar en lista över filer som extraheras under tiden.
 
-=item B<-R>, B<--raw-extract> I<archive> I<directory>
+=item B<-R>, B<--raw-extract> I<arkiv> I<katalog>
 
 Extraherar filsystemsträdet från ett paketarkiv till den angivna katalogen och styrinformationsfilerna till underkatalogen B<DEBIAN> i den angivna katalogen (sedan dpkg 1.16.1).
 

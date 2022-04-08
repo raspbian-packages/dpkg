@@ -160,7 +160,7 @@ Den normaliserade byggprofil-begränsningsformeln från binärpaketets fält B<B
 
 Om binärpaketet är skyddat kommer den här nyckeln innehålla värdet på fältet B<Protected>, det vill säga värdet B<yes>.
 
-Supported since dpkg 1.20.1.
+Stöds sedan dpkg 1.20.1.
 
 =item B<essential>
 

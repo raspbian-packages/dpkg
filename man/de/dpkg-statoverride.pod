@@ -64,15 +64,15 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<--admindir> I<Verzeichnis>
 
-Set the administrative directory to I<directory>.  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Setzt das administrative Verzeichnis auf I<Verzeichnis>. Hier wird auch die Datei I<statoverride> gelagert. Standardmäßig „I<%ADMINDIR%>“, falls B<DPKG_ADMINDIR> nicht gesetzt wurde.
 
 =item B<--instdir> I<Verzeichnis>
 
-Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+Setzt das Installationsverzeichnis, das sich auf das Verzeichnis bezieht, in dem Pakete installiert werden (seit Dpkg 1.19.2). Standardmäßig „I</>“, falls B<DPKG_ROOT> nicht gesetzt wurde.
 
 =item B<--root> I<Verzeichnis>
 
-Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
+Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeichnis auf „I<Verzeichnis>“ und das administrative Verzeichnis auf „I<Verzeichnis>B<%ADMINDIR%>“ gesetzt wird (seit Dpkg 1.19.2), falls B<DPKG_ROOT> nicht gesetzt wurde.
 
 =item B<--force->I<Sachen>
 
@@ -163,7 +163,7 @@ B<dpkg>(1).
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

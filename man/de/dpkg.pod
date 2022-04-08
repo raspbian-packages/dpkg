@@ -28,7 +28,7 @@ Es sollte I<nicht> von Paketbetreuern verwendet werden, die verstehen wollen, wi
 
 =head1 BESCHREIBUNG
 
-B<dpkg> ist ein Werkzeug mittlerer Stufe, um Debian-Pakete zu installieren, zu bauen, zu entfernen und zu verwalten. Die primäre und benutzerfreundlichere Oberfläche für B<dpkg> als CLI (Befehlszeilenwerkzeug) ist B<apt>(8> und als TUI (Terminal-Benutzeroberfläche) ist B<aptitude>(8). B<dpkg> selbst wird komplett über Befehlszeilenoptionen gesteuert, die aus genau einer Aktion und Null oder mehreren Optionen bestehen. Der Aktionsparameter teilt B<dpkg> mit, was zu tun ist, und die Optionen steuern die Aktionen in irgendeiner Weise.
+B<dpkg> ist ein Werkzeug mittlerer Stufe, um Debian-Pakete zu installieren, zu bauen, zu entfernen und zu verwalten. Die primäre und benutzerfreundlichere Oberfläche für B<dpkg> als CLI (Befehlszeilenwerkzeug) ist B<apt>(8) und als TUI (Terminal-Benutzeroberfläche) ist B<aptitude>(8). B<dpkg> selbst wird komplett über Befehlszeilenoptionen gesteuert, die aus genau einer Aktion und Null oder mehreren Optionen bestehen. Der Aktionsparameter teilt B<dpkg> mit, was zu tun ist, und die Optionen steuern die Aktionen in irgendeiner Weise.
 
 B<dpkg> kann auch als Oberfläche für B<dpkg-deb>(1) und B<dpkg-query>(1) verwendet werden. Die Liste der unterstützten Aktionen kann im Abschnitt B<AKTIONEN> gefunden werden. Falls so eine Aktion angetroffen wird, führt B<dpkg> einfach B<dpkg-deb> oder B<dpkg-query> mit den übergebenen Parametern aus, allerdings werden derzeit keine spezifischen Optionen an diese übergeben. Um solche Optionen zu verwenden, müssen die Backends direkt aufgerufen werden.
 
@@ -563,7 +563,7 @@ Installiert ein Paket nicht, falls bereits eine neuere Version des gleichen Pake
 
 =item B<--admindir=>I<Verz>
 
-Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Setzt das Standardadministrationsverzeichnis auf I<Verzeichnis>. Dieses Verzeichnis enthält viele Dateien, die Informationen über den Status von installierten und deinstallierten Paketen usw. enthalten. Standardmäßig „I<%ADMINDIR%>“, falls B<DPKG_ADMINDIR> nicht gesetzt wurde.
 
 =item B<--instdir=>I<Verz>
 
@@ -1016,7 +1016,7 @@ Lesen Sie I<%PKGDOCDIR%/THANKS> für die Liste der Leute, die zu B<dpkg> beigetr
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

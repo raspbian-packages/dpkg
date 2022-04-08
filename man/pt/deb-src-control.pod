@@ -160,7 +160,7 @@ A sintaxe dos campos B<Build-Conflicts>, B<Build-Conflicts-Arch> e B<Build-Confl
 
 Um nome qualificador de arquitectura pode ser um nome de arquitectura real Debian (desde dpkg 1.16.5), B<any> (desde dpkg 1.16.2) ou B<native> (desde dpkg 1.16.5). Se omitido, a predefinição para campos B<Build-Depends> é a arquitectura da máquina actual, a predefinição para campos B<Build-Conflicts> é B<any>.  Um nome de arquitectura real Debian irá corresponder exactamente essa arquitectura para esse nome de pacote,  B<any> irá corresponder a qualquer arquitectura para esse nome de pacote se o pacote estiver marcado com B<Multi-Arch: allowed>, e B<native> irá corresponder à arquitectura de compilação actual se o pacote não estiver marcado com B<Multi-Arch: foreign>.
 
-Um número de versão pode começar com um ‘B<E<gt>E<gt>>’, nesse caso qualquer versão posterior irá corresponder, ie pode especificar ou omitir a revisão de empacotamento Debian (separada por um hífen). Relacionamentos de versão aceites são ‘B<E<gt>E<gt>>’ para maior que, ‘B<E<lt>E<lt>>’ para menor que, ‘B<E<gt>=>’ para maior ou igual a, ‘B<E<lt>=>’ para menor ou igual a, e ‘B<=>’ para igual a.
+Um número de versão pode começar com um ‘B<E<gt>E<gt>>’, nesse caso qualquer versão posterior irá corresponder, e pode especificar ou omitir a revisão de empacotamento Debian (separada por um hífen). Relacionamentos de versão aceites são ‘B<E<gt>E<gt>>’ para maior que, ‘B<E<lt>E<lt>>’ para menor que, ‘B<E<gt>=>’ para maior ou igual a, ‘B<E<lt>=>’ para menor ou igual a, e ‘B<=>’ para igual a.
 
 Uma especificação de arquitectura consiste em um ou mais nomes de arquitectura, separados por espaços em branco. Pode ser adicionado no inicio de cada nome um ponto de exclamação, o que significa "NÃO".
 
@@ -227,6 +227,8 @@ Estes campos estão descritos no manual do B<deb-control>(5), pois eles são lit
 =item B<Provides:> I<package-list>
 
 =item B<Built-Using:> I<package-list>
+
+=item B<Static-Built-Using:> I<package-list>
 
 Estes campos declaram relacionamentos entre pacotes. Eles são discutidos no manual B<deb-control>(5). Quando estes campos são encontrados em I<debian/control> eles podem também terminar com uma vírgula final (desde dpkg 1.10.14), têm especificações de arquitectura, e fórmulas de restrição que serão todas reduzidas quando se gera os campos para B<deb-control>(5).
 

@@ -22,7 +22,7 @@ B<debian/shlibs>, B<debian/>I<binary-name>B<.shlibs>, B<DEBIAN/shlibs>
 
 =head1 BESKRIVNING
 
-B<shlibs> files map shared library names and versions (I<SONAMEs>)  to dependencies suitable for a package control file.  There is one entry per line. Blank lines are B<not> allowed.  Lines beginning with a B<#> character are considered commentary, and are ignored.  All other lines must have the format:
+B<shlibs>-filer skapar en koppling mellan biblioteksnamn och versioner (I<SONAME>s) till beroenden som är lämpliga för en paketstyrfil. Den har en post per rad. Blanka rader är B<inte> tillåtna. Rader som inleds med ett B<#>-tecken anses vara kommentarer, och ignoreras. Alla andra rader måste vara på formatet
 
 =over 
 

@@ -200,7 +200,13 @@ Die Syntax von B<Provides> ist eine Liste von Paketnamen, getrennt durch Kommata
 
 =item B<Built-Using:>  I<Paketliste>
 
-Dieses Feld führt zusätzliche Quellpakete auf, die während des Baus des Binärpakets verwandt wurden. Dies dient als Hinweis für die Archivverwaltungssoftware, dass zusätzliche Quellpakete vorhanden bleiben müssen, während dieses Binärpaket betreut wird. Dieses Feld muss eine Liste von Quellpaketnamen enthalten, bei denen eine strenge Versionsbeziehung ‚B<=>’ angegeben ist. Beachten Sie, dass die Archivverwaltungssoftware wahrscheinlich einen Upload ablehnen wird, bei dem eine B<Built-Using>-Beziehung angegeben wurde, die innerhalb des Archivs nicht erfüllt werden kann.
+Dieses Abhängigkeitsfeld führt zu Zwecken der Lizenzerfüllung zusätzliche Quellpakete auf, die während des Baus des Binärpakets verwandt wurden. Dies dient als Hinweis für die Archivverwaltungssoftware, dass zusätzliche Quellpakete vorhanden bleiben müssen, während dieses Binärpaket betreut wird. Dieses Feld muss eine durch Kommata getrennte Liste von Quellpaketnamen enthalten, bei denen in Klammern eingeschlossen eine strenge Versionsbeziehung ‚B<=>’ angegeben ist. Beachten Sie, dass die Archivverwaltungssoftware wahrscheinlich einen Upload ablehnen wird, bei dem eine B<Built-Using>-Beziehung angegeben wurde, die innerhalb des Archivs nicht erfüllt werden kann.
+
+=item B<Static-Built-Using:> I<Paketliste>
+
+Dieses Abhängigkeitsfeld führt zu Zwecken des statischen Bauens zusätzliche Quellpakete auf, die während des Baus des Binärpakets verwandt wurden (zum Beispiel Linken gegen statische Bibliotheken, Bauen für quellbasierte Sprachen wie Go oder Rust, Verwendung von reinen Header-C/C++-Bibliotheken, Einschieben von Datenblöcken in Code usw.). Dies ist zur Nachverfolgung nützlich, ob dieses Paket neu gebaut werden muss, wenn hier aufgeführte Quellpakete aktualisiert wurden, beispielsweise aufgrund von Sicherheitsaktualisierungen. Dieses Feld muss eine durch Kommata-getrenne Liste von Quellpaketnamen enthalten, bei denen in Klammern eingeschlossen eine strenge Versionsbeziehung ‚B<=>’ angegeben ist.
+
+Unterstützt seit Dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<Profilliste> (veraltet)
 
@@ -252,7 +258,7 @@ L<deb822(5)>, B<deb-src-control>(5), B<deb>(5), B<deb-version>(7), B<debtags>(1)
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

@@ -38,7 +38,7 @@ Verwendet ein NUL-Byte statt eines Zeilenumbruchzeichens, um Ausgabezeilen abzus
 
 =item B<--root> I<Verzeichnis>
 
-Set the root directory to I<directory>, which is the base directory that pathnames get canonicalized against.  Defaults to «B</>» if B<DPKG_ROOT> has not been set.
+Setzt das Wurzelverzeichnis auf I<Verzeichnis>, das das Basisverzeichnis ist, gegen das Pfadnamen kanonisiert werden. Standardmäßig „B</>“, falls B<DPKG_ROOT> nicht gesetzt wurde.
 
 =item B<-?>, B<--help>
 
@@ -71,7 +71,7 @@ L<realpath(1)>, L<readlink(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

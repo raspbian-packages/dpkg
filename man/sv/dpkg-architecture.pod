@@ -130,7 +130,7 @@ Maskinen paketet byggs för.
 
 =item målmaskin
 
-The machine the compiler is building for, or the emulator will run code for.  This is only needed when building a cross-toolchain (or emulator), one that will be built on the build architecture, to be run on the host architecture, and to build (or run emulated) code for the target architecture.
+Maskinen kompilatorn bygger för, eller emulatorn kör kod för. Endast nödvändigt för att bygga en korsverktygskedja (eller emulator), en som byggs på byggarkitekturen och körs på målarkitekturen, och för att bygga (eller köra under emulering) kod för målarkitekturen.
 
 =item Debianarkitektur
 

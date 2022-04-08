@@ -40,7 +40,7 @@ Ta bort en omdirigering för I<fil>. Filen blir för närvarande inte namnändra
 
 =item B<--list> [I<filnamnsmönster>]
 
-List all diversions, or ones matching I<glob-pattern>.
+Visa alla omdirigeringar, eller de som matchar I<filnamnsmönster>.
 
 =item B<--listpackage> I<fil>
 
@@ -58,15 +58,15 @@ Visa det riktiga namnet på en omdirigerad fil.
 
 =item B<--admindir> I<katalog>
 
-Set the administrative directory to I<directory>.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Ställ den administrativa katalogen till I<katalog>. Förval är ”I<%ADMINDIR%>” om B<DPKG_ADMINDIR> inte har valts.
 
 =item B<--instdir> I<katalog>
 
-Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+Sätt installationskatalogen, som anger katalogen där paket installeras (sedan dpkg 1.19.2). Förval är ”I</>” om B<DPKG_ROOT> inte har satts.
 
 =item B<--root> I<katalog>
 
-Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
+Sätt rotkatalogen till B<katalog>, vilket sätter installationskatalogen till ”I<katalog>” och den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.19.2) om B<DPKG_ROOT> inte har satts.
 
 =item B<--divert> I<omdirigera-till>
 

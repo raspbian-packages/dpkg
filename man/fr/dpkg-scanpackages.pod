@@ -60,7 +60,7 @@ Affiche tous les paquets trouvés en sortie.
 
 =item B<-M>, B<--medium> I<chaîne-id>
 
-Ajoute un champ B<X-Medium> qui contient la valeur I<chaîne-id> (depuis S<dpkg 1.15.5).> Ce champ est obligatoire si vous voulez créer des fichiers B<Packages.cd> destinés à être utilisés avec la méthode multicd de dselect.
+Add an B<X-Medium> field containing the value I<id-string> (since dpkg 1.15.5).  This field is required if you want to generate B<Packages.cd> files for use by the B<media> access method of B<dselect>.
 
 =item B<-?>, B<--help>
 

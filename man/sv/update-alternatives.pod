@@ -105,11 +105,11 @@ Lägg till en grupp med alternativ till systemet. I<länk> är det generiska nam
 
 Om det angivna alternativnamnet redan finns i alternativsystemets databas kommer informationen som anges att läggas in som en ny uppsättning av alternativ för gruppen. Om inte kommer en ny grupp, inställd på automatiskt läge, att läggas till med given information. Om gruppen är i automatiskt läge och det alternativ som läggs in har högre prioritet än alla andra installerade alternativ för gruppen kommer de symboliska länkarna att uppdateras så att de pekar på de nyligen tillagda alternativen.
 
-=item B<--set> I<name> I<path>
+=item B<--set> I<namn> I<sökväg>
 
 Sätt programmet I<sökväg> som ett alternativ till I<namn>. Detta motsvarar B<--config> men är icke-interaktivt och kan därmed användas i ett skript.
 
-=item B<--remove> I<name> I<path>
+=item B<--remove> I<namn> <sökväg>
 
 Ta bort ett alternativ och alla dess anknutna slavlänkar. I<namn> är ett namn i alternativkatalogen och I<sökväg> är ett absolut filnamn till vilket I<namn> kunde länkas. Om I<namn> faktiskt är länkat till I<sökväg> kommer I<namn> att uppdateras till att peka på ett annat lämpligt alternativ (och gruppen ställs tillbaka till automatiskt läge), eller att tas bort om det inte finns något alternativ kvar. Anknutna slavlänkar kommer uppdateras eller tas bort på motsvarande vis. Om länken inte för tillfället pekar på I<sökväg> kommer inga länkar att uppdateras, endast informationen om alternativet tas bort.
 
@@ -169,15 +169,15 @@ Anger alternativkatalogen om detta inte ska vara förvalet. Förval är ”I<%CO
 
 =item B<--admindir> I<katalog>
 
-Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
+Anger den administrativa katalogen om detta inte ska vara förvalet. Förval är ”I<%ADMINDIR%/alternatives>” om B<%ADMINDIR_ENVVAR%> inte har satts.
 
 =item B<--instdir> I<katalog>
 
-Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Anger installationskatalogen där alternativlänkar kommer skapas (sedan version 1.20.1). Förval är ”I</>” om B<%INSTDIR_ENVVAR%> inte har satts.
 
 =item B<--root> I<katalog>
 
-Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Anger rotkatalogen (sedan version 1.20.1). Detta sätter också alternativkatalog, installationskatalog och administrativ katalog motsvarande. Förval är ”I</>” om B<%INSTDIR_ENVVAR%> inte har satts.
 
 =item B<--log> I<fil>
 

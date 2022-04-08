@@ -1,10 +1,151 @@
-dpkg (1.21.2+rpi1) bookworm-staging; urgency=medium
+dpkg (1.21.7+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 1.20.5+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Sun, 02 Aug 2020 12:08:02 +0000]
   * Hack up Vendor.pm so it doesn't fail
     (see https://lists.debian.org/debian-dpkg/2020/08/msg00004.html )
 
- -- Raspbian forward porter <root@raspbian.org>  Fri, 18 Mar 2022 08:24:11 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Fri, 08 Apr 2022 08:55:18 +0000
+
+dpkg (1.21.7) unstable; urgency=medium
+
+  - The “Social Contract §3: We will not hide problems”
+    and “Persuasion through bullying and abuse” release. -
+
+  [ Guillem Jover ]
+  * dpkg-fsys-usrunmess: Handle /lib/modules itself also being untracked.
+    Closes: #1008764
+  * Documentation:
+    - man: Fix typo. Thanks to Peter Krefting <peter@softwolves.pp.se>.
+      See #1008706.
+  * Packaging:
+    - Silence warning about merged-usr-via-aliased-dirs on Debian.
+  * Localization:
+    - Fix gettext parameter reordering syntax for German translation.
+      Closes: #1008671
+    - Update Swedish translations.
+      Thanks to Peter Krefting <peter@softwolves.pp.se>. Closes: #1008706
+
+  [ Helge Kreutzmann ]
+  * Localization:
+    - Update German man pages translation.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 Apr 2022 02:27:33 +0200
+
+dpkg (1.21.6) unstable; urgency=medium
+
+  - This also clears a bullying NMU. -
+
+  [ Guillem Jover ]
+  * Documentation:
+    - man: Document untracked kernel module files handling in
+      dpkg-fsys-usrunmess(8).
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 29 Mar 2022 11:56:58 +0200
+
+dpkg (1.21.5) unstable; urgency=medium
+
+  [ Guillem Jover ]
+  * dpkg-fsys-usrunmess: Explicitly set user/group and mode for created dirs.
+    Closes: #1008478
+  * dpkg-fsys-usrunmess: Set a known umask before starting. See #1008478.
+  * dpkg-fsys-usrunmess: Special case untracked kernel module files.
+    Closes: #1008316
+  * Perl modules:
+    - Dpkg::Control::Types: Use bit shifts instead of literals in enum.
+    - Dpkg::Control::Fields: Fix field_register() to return nothing.
+    - Dpkg::Control::Fields: Refactor manifest types into new
+      ALL_FILE_MANIFEST.
+    - Dpkg::Control::Fields: Fix POD to end sentences with a dot.
+    - Dpkg::Control::Fields: Fix POD to add missing spaces and blank lines.
+    - Dpkg::Control::Fields: Document and clarify return types and values in
+      POD.
+  * Code internals:
+    - libdpkg: Rename f_revision() to f_obs_revision().
+    - libdpkg: Warn when parsing obsolete Recommended/Optional/Class fields.
+      Prompted by David Kalnischkies <donkult@debian.org>.
+    - libdpkg: Add missing dependency type to obsolete dependency fields.
+    - libdpkg: Update code comment for obsolete fields.
+  * Test suite:
+    - Add test cases for obsolete fields.
+
+  [ Helge Kreutzmann ]
+  * Localization:
+    - Update German man pages translation.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 29 Mar 2022 02:52:14 +0200
+
+dpkg (1.21.4) unstable; urgency=medium
+
+  [ Guillem Jover ]
+  * dpkg-shlibdeps: Require non-empty name and version in SONAME formats.
+  * Perl modules:
+    - Dpkg::Control::Fields: Remove duplicate *Built-Using from field order
+      lists. Reported by David Kalnischkies <donkult@debian.org>.
+  * Documentation:
+    - man: Clarify uses cases for Static-Built-Using.
+      Prompted by Shengjing Zhu <zhsj@debian.org>.
+  * Test suite:
+    - Use actual octal numbers for chmod() calls.
+    - Do not use non-POSIX shell syntax for arithmetic expressions.
+      Based on a patch by Sören Tempel <soeren@soeren-tempel.net>.
+
+  [ Helge Kreutzmann ]
+  * Localization:
+    - Update German man pages translation.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 26 Mar 2022 13:38:44 +0100
+
+dpkg (1.21.3) unstable; urgency=medium
+
+  [ Helge Kreutzmann ]
+  * Localization:
+    - Update German man pages translation.
+    - Update German scripts translation.
+
+  [ Guillem Jover ]
+  * dpkg-db-backup: Check for required commands before starting.
+  * dpkg: Allow absolute pathnames for configurable external run-time tools.
+    Based on a patch by Adrian Ho <the.gromgit@gmail.com>. Closes: #1007816
+  * dpkg-fsys-usrunmess: Add options and prompt about regression prevention
+    package. Prompted by Paul Wise <pabs@debian.org>.
+  * dpkg-deb: Move duped control member check inside the detection conditional.
+  * dpkg-deb: Fix movecontrol() to take a directory argument.
+  * dselect: Remove non-multi-cd code from multi_cd method.
+  * dselect: Rename multicd method to media.
+  * dselect: Remove left overs for mount support from disk method.
+  * dselect: Remove bogus quote escaping from method setup scripts.
+  * dselect: Rename disk method to file.
+  * scripts: Use backport-version-regex vendor hook instead of hardcoding the
+    marker.
+  * Perl modules:
+    - Dpkg::Source::Package::V3::Git: Name bundle remote as bundle.
+    - Dpkg::Source::Package::V3::Git: Set origin remote to Vcs-Git if present.
+    - Dpkg::Path: Resolve /dev/null before comparing canonicalized pathnames.
+    - Dpkg::Compression: Conditionally use the gzip --rsyncable option.
+    - Dpkg::Compression: Use gzip -n instead of --no-name.
+    - Dpkg::Vendor: Add a new backport-version-regex hook.
+    - Dpkg::Control::Fields: Add Static-Built-Using field support.
+  * Documentation:
+    - man: Clarify Built-Using field purpose and format.
+  * Code internals:
+    - libdpkg: Refactor file_is_exec().
+    - libdpkg: Check that executables are regular files.
+    - dpkg-fsys-usrunmess: Refactor prompting into a new function.
+    - dpkg: Rename r variable to remainder.
+  * Packaging:
+    - Clarify the merged-usr-via-aliased-dirs warning.
+      Prompted by Paul Wise <pabs@debian.org>.
+    - Sync original bug-script merged-usr warning with postinst updates.
+  * Test suite:
+    - Check deb format with duplicate debian-binary and control.tar members.
+    - Add further deb-split format checks.
+    - Place deb-old and deb checks on their own test groups.
+    - Check all currently supported deb-old formats.
+  * Localization:
+    - Update Portuguese man pages translation.
+      Thanks to Américo Monteiro <a_monteiro@gmx.com>. Closes: #1001915
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 24 Mar 2022 21:00:24 +0100
 
 dpkg (1.21.2) unstable; urgency=medium
 

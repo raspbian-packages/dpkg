@@ -122,7 +122,7 @@ Usado para mostrar informações do pacote tal como a descrição do pacote.
 
 =item B<infofoot>
 
-A última linha do ecrã quando selecciona pacotes.
+A última linha do ecrã quando seleciona pacotes.
 
 =item B<query>
 
@@ -180,7 +180,7 @@ O uso do ecrã de gestão de selecção de pacotes interactiva está explicado c
 
 =head2 install
 
-Instala os pacotes seleccionados.
+Instala os pacotes selecionados.
 
 O método de acesso configurado irá obter pacotes instaláveis ou actualizáveis a partir dos repositórios relevantes e instalar estes usando o B<dpkg>. Dependendo da implementação do método de acesso, todos os pacotes podem ser pré-obtidos antes da instalação, ou obtidos quando necessários. Alguns métodos de acesso podem também remover pacotes que foram marcados para remoção.
 

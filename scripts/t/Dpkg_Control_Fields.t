@@ -20,7 +20,7 @@ use Test::More;
 use Test::Dpkg qw(:paths);
 
 BEGIN {
-    plan tests => 2581;
+    plan tests => 2603;
 
     use_ok('Dpkg::Control::Types');
     use_ok('Dpkg::Control::FieldsCore');
@@ -50,6 +50,7 @@ my @bin_dep_union_fields = qw(
     Replaces
     Provides
     Built-Using
+    Static-Built-Using
 );
 my @bin_dep_fields = (
     @bin_dep_normal_fields,
@@ -181,7 +182,6 @@ my %fields = (
                 Package-Type
                 Source
                 Version
-                Built-Using
                 Kernel-Version
                 Built-For-Profiles
                 Auto-Built-Package
@@ -244,7 +244,6 @@ my %fields = (
                 Package-Type
                 Source
                 Version
-                Built-Using
                 Kernel-Version
                 Built-For-Profiles
                 Auto-Built-Package
@@ -456,6 +455,7 @@ my %fields = (
                 Build-Essential
                 Built-For-Profiles
                 Built-Using
+                Static-Built-Using
                 Homepage
                 Installer-Menu-Item
                 Kernel-Version

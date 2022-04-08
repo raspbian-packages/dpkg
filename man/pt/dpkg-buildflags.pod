@@ -195,7 +195,7 @@ Mostra a versão e termina.
 
 =item B<ASFLAGS>
 
-Options for the assembler. Default value: empty. Since dpkg 1.21.0.
+Opções para o assemblador. Valor predefinido: vazio. Desde dpkg 1.21.0.
 
 =item B<CFLAGS>
 
@@ -281,13 +281,13 @@ Esta definição (desactivada por predefinição) adiciona opções canary fanto
 
 =head2 optimize
 
-Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: enabling B<all> these options can result in unreproducible binary artifacts.
+Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas para ajudar a optimizar um binário resultante (desde dpkg 1.21.0). B<Nota>: ativador B<todas> estas opções pode resultar em artefactos binários não reproduzíveis.
 
 =over 
 
 =item lto
 
-This setting (since dpkg 1.21.0; disabled by default) enables Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
+Esta definição (desde dpkg 1.21.0; desactivada por predefinição) activa Link Time Optimization ao adicionar B<-flto=auto -ffat-lto-objects> a B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> e B<LDFLAGS>.
 
 =back
 
@@ -339,7 +339,7 @@ Esta funcionalidade requer ligação (link) a glibc (ou outro fornecedor de B<__
 
 =item B<stackprotectorstrong>
 
-Esta definição (activada por predefinição) adiciona B<-fstack-protector-strong> a B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> e B<FCFLAGS>. Esta á uma variante mais forte de B<stackprotector>, mas sem penalidades de performance significativas.
+Esta definição (activada por predefinição) adiciona B<-fstack-protector-strong> a B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> e B<FCFLAGS>. Esta é uma variante mais forte de B<stackprotector>, mas sem penalidades de performance significativas.
 
 Desactivar B<stackprotector> irá também desactivar esta definição.
 
@@ -359,7 +359,7 @@ Esta definição (sem uma predefinição global desde dpkg 1.18.23, pois é agor
 
 Position Independent Executable é necessário para tirar vantagem de Address Space Layout Randomization, suportado por algumas versões de kernel. Enquanto ASLR já pode ser aplicada para áreas de dados na stack e heap (brk e mmap), as áreas de código têm de ser compiladas como independente-de-posição. As bibliotecas partilhadas já fazem isto (B<-fPIC>), assim elas ganham ASLR automaticamente, mas as regiões de texto binários precisam de ser compiladas com PIE para ganhar ASLR. Quando isto acontece, os ataques ROP (Return Oriented Programming) são mais difíceis pois não são localizações estáticas para ressaltar durante um ataque de corrupção de memória.
 
-PIE não é compatível com B<-fPIC>, assim em geral é preciso cuidado qo compilar objectos partilhados. Mas porque as bandeiras PIE emitidas são injetadas via ficheiros specs de gcc, deverá ser sempre seguro defini-las incondicionalmente independentemente do tipo de objecto a ser compilado ou ligado em link.
+PIE não é compatível com B<-fPIC>, assim em geral é preciso cuidado ao compilar objectos partilhados. Mas porque as bandeiras PIE emitidas são injetadas via ficheiros specs de gcc, deverá ser sempre seguro defini-las incondicionalmente independentemente do tipo de objecto a ser compilado ou ligado em link.
 
 Bibliotecas estáticas pode ser usadas por programas ou outras bibliotecas partilhadas. Dependendo das bandeiras usadas para compilar todos os objectos dentro de uma biblioteca estática, estas bibliotecas serão utilizáveis por conjuntos diferentes de objectos:
 

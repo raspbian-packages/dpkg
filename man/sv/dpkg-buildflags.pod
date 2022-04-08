@@ -50,19 +50,19 @@ Konfigurationsfilerna kan innehålla fyra sorters direktiv:
 
 =over 
 
-=item B<SET> I<flag> I<value>
+=item B<SET> I<flagga> I<värde>
 
 Överstyr flaggan I<flagga> till att ha värdet I<värde>.
 
-=item B<STRIP> I<flag> I<value>
+=item B<STRIP> I<flagga> I<värde>
 
 Ta bort alla flaggor som listas i I<värde> från flaggan som anges i I<flagga>.
 
-=item B<APPEND> I<flag> I<value>
+=item B<APPEND> I<flagga> I<värde>
 
 Utöka flaggan I<flagga> genom att lägga till alternativen som anges i I<värde>. Ett blanksteg läggs till före värdet om flaggans nuvarande värde inte är tomt.
 
-=item B<PREPEND> I<flag> I<value>
+=item B<PREPEND> I<flagga> I<värde>
 
 Utöka flaggan I<flagga> genom att lägga till alternativen som anges i I<värde> först. Ett blanksteg läggs till efter värdet om flaggans nuvarande värde inte är tomt.
 
@@ -195,7 +195,7 @@ Visar version och avslutar.
 
 =item B<ASFLAGS>
 
-Options for the assembler. Default value: empty. Since dpkg 1.21.0.
+Flaggor för assemblern. Förvalt värde: tomt. Sedan dpkg 1.21.0.
 
 =item B<CFLAGS>
 
@@ -281,13 +281,13 @@ Den här inställningen (inaktiverad som förval) lägger till overksamma tjalla
 
 =head2 optimize
 
-Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: enabling B<all> these options can result in unreproducible binary artifacts.
+Flera kommandoradsflaggor (beskrivna nedan) kan användas för att hjälpa till att optimera den skapade binären (sedan dpkg 1.21.0). B<Observera>: om B<all> aktiveras kan dessa flaggor leda till binärartifakter som inte kan reproduceras.
 
 =over 
 
 =item lto
 
-This setting (since dpkg 1.21.0; disabled by default) enables Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
+Inställningen (sedan dpkg 1.2.0; inaktiverad som förval) aktiverar Link Time Optimization (optimering vid länkning) genom att lägga till B<-flto=auto -ffat-lto-objects> till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> och B<LDFLAGS>.
 
 =back
 

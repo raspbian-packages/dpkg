@@ -292,9 +292,9 @@ Uppströmsversionen.
 
 =back
 
-=item B<--buildinfo-file=>I<filename>
+=item B<--buildinfo-file=>I<filnamn>
 
-Set the I<filename> for the generated B<.buildinfo> file (since dpkg 1.21.0).
+Ange I<filnamn> att använda för den skapade B<.buildinfo>-filen (sedam dpkg 1.21.0).
 
 =item B<--buildinfo-option=>I<val>
 
@@ -360,9 +360,9 @@ Sänds vidare utan ändringar till B<dpkg-source>. Se dess manualsida.
 
 Sänd flaggan I<val> till B<dpkg-source> (sedan dpkg 1.15.6). Kan användas flera gånger.
 
-=item B<--changes-file=>I<filename>
+=item B<--changes-file=>I<filnamn>
 
-Set the I<filename> for the generated B<.changes> file (since dpkg 1.21.0).
+Använd I<filnamn> för den genererade B<.changes>-filen (sedan dpkg 1.21.0).
 
 =item B<--changes-option=>I<val>
 

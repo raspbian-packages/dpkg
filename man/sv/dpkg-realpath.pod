@@ -38,7 +38,7 @@ Använd en NUL-byte för att avsluta utdatarader istället för nyradstecknet (s
 
 =item B<--root> I<katalog>
 
-Set the root directory to I<directory>, which is the base directory that pathnames get canonicalized against.  Defaults to «B</>» if B<DPKG_ROOT> has not been set.
+Ändra rotkatalogen till I<katalog>, vilket är baskatalogen som sökvägsnamn görs om till normalform mot. Förval är ”B</>” om B<DPKG_ROOT> inte har satts.
 
 =item B<-?>, B<--help>
 

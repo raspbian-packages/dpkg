@@ -26,7 +26,7 @@ Innan B<dpkg-source>, B<dpkg-gencontrol> och B<dpkg-genchanges> skriver sin styr
 
 En variabelsubstitution har formen B<${>I<variabelnamn>B<}>. Variabelnamn består av alfanumeriska tecken (a-zA-Z0-9), bindestreck (-) och kolon (:) och börjar med ett alfanumeriskt tecken, och är skiftlägeskänsliga. Variabelsubstitueringar utförs upprepade gånger tills det inte kvarstår några - det resulterande innehållet i fältet läses av på nytt efter substitueringen för att se om det behövs fler substitueringar.
 
-After all the substitutions have been done each occurrence of the string B<${}> (which is not a legal substitution) is replaced with a B<$> sign. This can be used as an escape sequence such as B<${}{>I<VARIABLE>B<}> which will end up as B<${>I<VARIABLE>B<}> on the output.
+När alla substitueringar har utförts ersätts varje förekomst av strängen B<${}> (som inte är en giltig substituering) med ett B<$>-tecken. Detta kan användas som en ersättningssekvens såsom B<${}{>I<VARIABEL>B<}> vilket kommer bli till B<${>I<VARIABLE>B<}> i utdata.
 
 Medan variabelsubstituering görs på alla fält i styrfilen är det några av fälten som används och behövs vid byggning innan substitueringen ännu har utförts. Därför går det inte att använda variabler i fälten B<Package>, B<Source> och B<Architecture>.
 

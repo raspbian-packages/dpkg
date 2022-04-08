@@ -404,7 +404,7 @@ B<Uppackning>
 
 Bunten klonas som ett git-arkiv till målkatalogen. Om filen gitshallow finns installeras den som I<.git/shallow> i det klonade git-arkivet.
 
-Note that by default the new repository will have the same branch checked out that was checked out in the original source.  (Typically “main”, but it could be anything.)  Any other branches will be available under I<remotes/origin/>.
+Observera att det nya arkivet som standard kommer att ha samma gren utcheckad som den som var utcheckad i det ursprungliga källkodsträdet. (Typiskt ”main”, men kan vara vad som helst.) Eventuella andra grenar kommer också att vara tillgängliga, under I<remotes/origin/>.
 
 B<Bygga>
 
@@ -418,7 +418,7 @@ B<Byggflaggor>
 
 =item B<--git-ref=>I<ref>
 
-Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to B<git-rev-list>(1). For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
+Gör det möjligt att ange en git-referens som ska tas med i bunten. Om den anges överstyr den standardbeteendet som är att ta med alla grenar och taggar. Kan anges flera gånger. I<ref> kan vara namnet på en gren eller tagg som ska tas med. Den kan även vara vilken som helst annan parameter som kan sändas med till B<git-rev-list>(1). För att, till exempel, endast ta med grenen ”main”, använd B<--git-ref=>main. För att ta med alla taggar och grenar, förutom grenen ”private”, använd B<--git-ref=>--all B<--git-ref=>^private
 
 =item B<--git-depth=>I<antal>
 

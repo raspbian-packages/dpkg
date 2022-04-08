@@ -200,7 +200,13 @@ La syntaxe du champ B<Provides> est une liste de noms de paquets, séparés par 
 
 =item B<Built-Using:> I<liste-de-paquets>
 
-Ce champ affiche les paquets source supplémentaires utilisés lors de la construction du paquet binaire. Il permet d'indiquer au logiciel de gestion de l'archive que des paquets source supplémentaires doivent être conservés tant que le paquet binaire est maintenu. Ce champ doit être une liste de paquets source avec des références strictes de version S<« B<=> ».> Veuillez noter que le logiciel de gestion de l'archive risque de ne pas accepter un envoi qui déclare une relation B<Built-Using> qui ne peut pas être satisfaite dans l'archive.
+This dependency field lists extra source packages that were used during the build of this binary package, for license compliance purposes.  This is an indication to the archive maintenance software that these extra source packages must be kept whilst this binary package is maintained.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.  Note that the archive maintenance software is likely to refuse to accept an upload which declares a B<Built-Using> relationship which cannot be satisfied within the archive.
+
+=item B<Static-Built-Using:> I<package-list>
+
+This dependency field lists extra source packages that were used during the build of this binary package, for static building purposes (for example linking against static libraries, builds for source-centered languages such as Go or Rust, usage of header-only C/C++ libraries, injecting data blobs into code, etc.).  This is useful to track whether this package might need to be rebuilt when source packages listed here have been updated, for example due to security updates.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.
+
+Supported since dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profile-list> (obsolete)
 

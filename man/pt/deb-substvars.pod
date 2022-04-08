@@ -26,7 +26,7 @@ Antes de B<dpkg-source>, B<dpkg-gencontrol> e B<dpkg-genchanges> escreverem a su
 
 A substituição de variável tem o formato B<${>I<variable-name>B<}>.  Nomes de varáveis consistem de alfanuméricos (a-zA-Z0-9), hífens (-) dois pontos (:) e começam com um alfanumérico, e são sensíveis a maiúsculas/minúsculas, apesar de poderem referir a outras entidades, que são preservadoras de maiúsculas/minúsculas. Substituições de variáveis são executadas repetidamente até que não sobre nenhuma, o texto completo do campo após a substituição é re-sondado para se procurar por mais substituições.
 
-After all the substitutions have been done each occurrence of the string B<${}> (which is not a legal substitution) is replaced with a B<$> sign. This can be used as an escape sequence such as B<${}{>I<VARIABLE>B<}> which will end up as B<${>I<VARIABLE>B<}> on the output.
+Após todas as substituições terem sido feitas, cada ocorrência da string B<${}> (a qual não é uma substituição legal) é substituída por um sinal B<$>. Isto pode ser usado como sequência de escape tal como B<${}{>I<VARIABLE>B<}> o que irá acabar como B<${>I<VARIABLE>B<}> na saída.
 
 Enquanto uma substituição de variável é feita em todos os campos de controle, alguns desse campos são usados e necessários durante a compilação quando a substituição ainda não aconteceu. É por isso que não pode usar vaiáveis nos campos B<Package>, B<Source> e B<Architecture>.
 

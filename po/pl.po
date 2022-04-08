@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.20.7\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2022-03-13 20:17+0100\n"
+"POT-Creation-Date: 2022-04-01 02:27+0200\n"
 "PO-Revision-Date: 2021-04-24 19:50+0200\n"
 "Last-Translator: Łukasz Dulny <bartekchom@poczta.onet.pl>\n"
 "Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
@@ -822,6 +822,11 @@ msgstr "słowo w polu \"%s\": %s"
 
 #: lib/dpkg/fields.c
 #, c-format
+msgid "obsolete '%s' field used"
+msgstr "użyto niewykorzystywanego już pola \"%s\""
+
+#: lib/dpkg/fields.c
+#, c-format
 msgid "value for '%s' field not allowed in this context"
 msgstr "niedozwolona wartość w tym kontekście dla pola \"%s\""
 
@@ -844,11 +849,6 @@ msgstr "trzecie (status) słowo w polu \"%s\": %s"
 #, c-format
 msgid "'%s' field value '%.250s'"
 msgstr "wartość pola \"%s\" \"%.250s\""
-
-#: lib/dpkg/fields.c
-#, c-format
-msgid "obsolete '%s' field used"
-msgstr "użyto niewykorzystywanego już pola \"%s\""
 
 #: lib/dpkg/fields.c
 #, c-format
@@ -2376,14 +2376,14 @@ msgstr ""
 
 #: src/deb/extract.c
 #, c-format
-msgid "archive '%s' has premature member '%.*s' before '%s', giving up"
-msgstr ""
-"archiwum \"%s\" zawiera przedwczesny człon \"%.*s\" przed \"%s\", przerywanie"
+msgid "archive '%.250s' contains two control members, giving up"
+msgstr "archiwum \"%.250s\" zawiera dwa archiwa kontrolne, przerywanie"
 
 #: src/deb/extract.c
 #, c-format
-msgid "archive '%.250s' contains two control members, giving up"
-msgstr "archiwum \"%.250s\" zawiera dwa archiwa kontrolne, przerywanie"
+msgid "archive '%s' has premature member '%.*s' before '%s', giving up"
+msgstr ""
+"archiwum \"%s\" zawiera przedwczesny człon \"%.*s\" przed \"%s\", przerywanie"
 
 #: src/deb/extract.c
 #, c-format

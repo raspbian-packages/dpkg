@@ -27,12 +27,12 @@ Symbolfiler medföljer Debianbinärpaket och dess format är en undermängd av s
 Formatet för posterna med utökad beroendeinformation för delade bibliotek i dessa filer är:
 
 Z<>
- I<library-soname> I<main-dependency-template>
- [| I<alternative-dependency-template>]
+ I<biblioteks-soname> I<huvud-beroendemall>
+ [| I<alternativ-beroende-mall>]
  [...]
- [* I<field-name>: I<field-value>]
+ [* I<fälrnamn>: I<fältvärde>]
  [...]
-  I<symbol> I<minimal-version> [I<id-of-dependency-template>]
+  I<symbol> I<minsta-version> [I<id-för-beroendemall>]
 
 I<biblioteks-sonamn> är det exakta värdet från SONAME-fältet, som det exporteras från B<objdump>(1). En I<beroendemall> är ett beroende där I<#MINVER#> dynamiskt ersätts av en versionskontrollrad ”(E<gt>= I<minsta-version>)” eller av ingenting (om ett ej versionsstyrt beroende anses tillräckligt).
 

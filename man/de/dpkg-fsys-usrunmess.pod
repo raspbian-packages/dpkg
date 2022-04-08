@@ -38,11 +38,15 @@ Prüft auf die Konsistenz der Dpkg-Datenbank und bricht andernfalls ab.
 
 =item *
 
-Erstellt und installiert ein Paket zur Vermeidung von Regressionen.
+Erstellt und installiert ein Paket zur Vermeidung von Regressionen, falls dies auf der Befehlszeile oder anderweitig an der Eingabeauforderung erbeten wurde.
 
 =item *
 
 Ermittelt die Liste der Dateien und Alternativen, die wiederhergestellt werden müssen.
+
+=item *
+
+Sucht nach nicht nachverfolgten Kernelmoduldateien, die auch verschoben werden müssen.
 
 =item *
 
@@ -112,6 +116,14 @@ B<Warnung>: Beachten Sie, dass diese Aktion die Möglichkeit eröffnet, dass Ihr
 
 Bittet am Punkt, ab dem die Änderungen nicht mehr rückgängig gemacht werden können, um Bestätigung, so dass die Fehlersuchausgabe oder die Schatten-Hierarchie untersucht werden können, bevor fortgefahren wird.
 
+=item B<--prevention>
+
+=item B<--no-prevention>
+
+Aktiviert oder deaktivert die Erstellung und Installation eines Regressionsverhinderungspakets in das System. Falls keine Option angegeben wurde, wird gefragt, welche Aktion durchgeführt werden soll.
+
+Beim erstellten Paket ist das Feld B<Protected> auf B<yes> gesetzt, um gegen versehentliches Entfernen des Pakets zu schützen.
+
 =item B<-n>, B<--no-act>
 
 =item B<--dry-run>
@@ -145,7 +157,7 @@ L<https://wiki.debian.org/Teams/Dpkg/FAQ#broken-usrmerge>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2021 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die
