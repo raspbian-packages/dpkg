@@ -57,7 +57,7 @@ Der Hauptzweck dieser Dateien besteht darin, die minimale Version
 bereitzustellen, die mit jedem von der Bibliothek bereitgestellten Symbol
 verknüpft ist. Normalerweise entspricht dies der ersten Version des Pakets,
 die dieses Symbol bereitgestellt hat, kann aber vom Betreuer erhöht werden,
-falls die ABI des Symbols ohne Brechen der Rückwärtskompatibilität erweitert
+falls die ABI des Symbols ohne brechen der Rückwärtskompatibilität erweitert
 wurde. Es liegt in der Verantwortung des Betreuers, diese Dateien aktuell zu
 halten, aber B<dpkg-gensymbols> hilft dabei.
 

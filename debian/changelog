@@ -1,11 +1,26 @@
-dpkg (1.20.9+rpi1) bullseye-staging; urgency=medium
+dpkg (1.20.10+rpi1) bullseye-staging; urgency=medium
 
   [changes brought forward from 1.20.5+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Sun, 02 Aug 2020 12:08:02 +0000]
   * Hack up Vendor.pm so it doesn't fail
     (see https://lists.debian.org/debian-dpkg/2020/08/msg00004.html )
   * disable testsuite.
 
- -- Raspbian forward porter <root@raspbian.org>  Fri, 30 Apr 2021 01:17:06 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Fri, 27 May 2022 08:49:17 +0000
+
+dpkg (1.20.10) bullseye-security; urgency=medium
+
+  [ Guillem Jover ]
+  * Perl modules:
+    - Dpkg::Source::Archive: Prevent directory traversal for in-place extracts.
+      Reported by Max Justicz <max@justi.cz>. Fixes CVE-2022-1664.
+  * Localization:
+    - Update Swedish translations.
+      Thanks to Peter Krefting <peter@softwolves.pp.se>. Closes: #1007116
+
+  [ Update man pages translations ]
+  * German (Helge Kreutzmann).
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 24 May 2022 13:18:43 +0200
 
 dpkg (1.20.9) unstable; urgency=medium
 
