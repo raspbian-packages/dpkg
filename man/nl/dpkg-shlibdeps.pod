@@ -243,5 +243,5 @@ Het inroepen van B<dpkg-shlibdeps> in de breedsprakige modus (B<-v>) zal veel me
 
 =head1 ZIE OOK
 
-B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
+B<deb-substvars>(5), B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
 

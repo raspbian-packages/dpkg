@@ -64,15 +64,15 @@ De versie tonen en afsluiten.
 
 =item B<--admindir> I<map>
 
-Set the administrative directory to I<directory>.  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+De administratieve map instellen op I<map>. Dit is waar het I<statusmodificatie>-bestand opgeslagen is. Standaard is dat «I<%ADMINDIR%>» indien B<DPKG_ADMINDIR> niet werd ingesteld.
 
 =item B<--instdir> I<map>
 
-Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.19.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+Instellen van de installatiemap, welke verwijst naar de map waar pakketten geïnstalleerd worden (sinds dpkg 1.19.2). Standaard is dat «I</>» indien B<DPKG_ROOT> niet ingesteld werd.
 
 =item B<--root> I<map>
 
-Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» (since dpkg 1.19.2)  if B<DPKG_ROOT> has not been set.
+De hoofdmap instellen op B<map>, hetgeen de installatiemap instelt op «I<map>» en de administratieve map op «I<map>B<%ADMINDIR%>» (sinds dpkg 1.19.2) indien B<DPKG_ROOT> niet werd ingesteld.
 
 =item B<--force->I<dingen>
 
@@ -89,6 +89,8 @@ B<statoverride-add>: Bij het toevoegen ervan een bestaande statusmodificatie ove
 B<statoverride-remove>: Bij het verwijderen ervan een ontbrekende statusmodificatie negeren (sinds dpkg 1.19.5).
 
 B<security-mac>(*): Bij het installeren van bestanden op het bestandssysteem gebruik maken van platformspecifieke beveiliging, gebaseerd op Mandatory Access Controls (MAC) (since dpkg 1.19.5). Op Linux-systemen gebruikt de implementatie SELinux.
+
+B<not-root>: Try to (de)install things even when not root (since dpkg 1.21.8).
 
 =item B<--force>
 

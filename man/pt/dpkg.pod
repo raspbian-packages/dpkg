@@ -28,7 +28,7 @@ I<Não> deverá ser usado por maintainers de pacotes que desejem compreender com
 
 =head1 DESCRIÇÃO
 
-B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8) and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
+B<dpkg> é uma ferramenta de nível médio para instalar, compilar, remover e gerir pacotes Debian. O front-end principal e mais amigo-do-utilizador para o B<dpkg> como CLI é o (interface de linha de comandos) é o B<apt>(8) e como TUI (interface de terminal de utilizador) é o B<aptitude>(8). O próprio B<dpkg> é controlado inteiramente via parâmetros de linha de comandos, o que consiste de exactamente uma acção e zero ou mais opções. O parâmetro-acção diz ao B<dpkg> o que fazer e as opções controlam o comportamento da acção em algum modo.
 
 O B<dpkg> pode também ser usado como front-end para B<dpkg-deb>(1) e B<dpkg-query>(1). A lista de acções suportadas pode ser encontrada mais tarde na secção B<ACÇÕES>. Se qualquer tal acção for encontrada, o B<dpkg> apenas corre B<dpkg-deb> ou B<dpkg-query> com os parâmetros dados a ele, mas nenhuma opção especifica é presentemente passada para eles, para se qualquer tal opção, os back-ends precisam de ser chamados directamente.
 
@@ -140,7 +140,7 @@ B<6.> Configura o pacote. Veja B<--configure> para informação detalhada sobre 
 
 Desempacota o pacote, mas não o configura. Se a opção B<--recursive> ou B<-R> for especificada, I<package-file> deverá então referir-se a um directório.
 
-Will process triggers for B<Pre-Depends> unless B<--no-triggers> has been specified.
+Irá processar os gatilhos para B<Pre-Depends> a menos que B<--no-triggers> esteja especificado.
 
 =item B<--configure> I<package>...|B<-a>|B<--pending>
 
@@ -154,7 +154,7 @@ B<1.> Desempacota os conffiles, e ao mesmo tempo faz salvaguardas dos conffiles 
 
 B<2.> Corre o script I<postinst>, se fornecido pelo pacote.
 
-Will process triggers unless B<--no-triggers> has been specified.
+Irá processar os gatilhos a menos que B<--no-triggers> esteja especificado.
 
 =item B<--triggers-only> I<package>...|B<-a>|B<--pending>
 
@@ -172,7 +172,7 @@ B<2.> Remove os ficheiros instalados
 
 B<3.> Corre o script I<postrm>
 
-Will process triggers unless B<--no-triggers> has been specified.
+Irá processar os gatilhos a menos que B<--no-triggers> esteja especificado.
 
 =item B<-P>, B<--purge> I<package>...|B<-a>|B<--pending>
 
@@ -186,7 +186,7 @@ B<1.> Remover o pacote, se não estiver já removido. Veja B<--remove> para info
 
 B<2.> Correr o script I<postrm>.
 
-Will process triggers unless B<--no-triggers> has been specified.
+Irá processar os gatilhos a menos que B<--no-triggers> esteja especificado.
 
 =item B<-V>, B<--verify> [I<package-name>...]
 
@@ -563,7 +563,7 @@ Não instala um pacote se uma versão mais recente do mesmo pacote já estiver i
 
 =item B<--admindir=>I<dir>
 
-Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Define o directório administrativo para I<directory>. Este directório contem muitos ficheiros que fornecem informação acerca do estado de pacotes instalados ou desinstalados, etc. A predefinição é «I<%ADMINDIR%>» se B<DPKG_ADMINDIR> não estiver definido.
 
 =item B<--instdir=>I<dir>
 
@@ -969,7 +969,7 @@ Para fazer uma cópia local do estado de selecção de pacotes:
 
 =back
 
-You might transfer this file to another computer, and after having updated the I<available> file there with your package manager frontend of choice (see L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> for more details), for example:
+Você poderá transferir este ficheiro para outro computador, e depois de ter actualizado lá o ficheiro I<available> com o seu frontend elegido de gestão de pacotes (veja L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> para mais detalhes), por exemplo:
 
 =over 
 

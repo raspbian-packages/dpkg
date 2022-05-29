@@ -404,7 +404,7 @@ B<Extracting>
 
 De bundel wordt gekloond in de doelmap als een git-depot. Als er een bestand gitshallow bestaat, wordt het als I<.git/shallow> geïnstalleerd binnenin het gekloonde git-depot.
 
-Note that by default the new repository will have the same branch checked out that was checked out in the original source.  (Typically “main”, but it could be anything.)  Any other branches will be available under I<remotes/origin/>.
+Merk op dat standaard het nieuwe depot dezelfde tak zal binnengehaald hebben die binnengehaald was in de originele broncode. (Meestal is dat “main”, maar dat kan om het even wat zijn). Eventuele andere takken zullen beschikbaar zijn onder I<remotes/origin/>.
 
 B<Bouwen>
 
@@ -418,7 +418,7 @@ B<Bouwopties>
 
 =item B<--git-ref=>I<ref>
 
-Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to B<git-rev-list>(1). For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
+Laat toe om een git-referentie op te geven die in de git-bundel opgenomen moet worden. Daar gebruik van maken schakelt het standaardgedrag om alle takken en tags op te nemen, uit. Kan meermaals vermeld worden. De I<referentie> kan de naam van een tak of een tag zijn die opgenomen moet worden. Het kan ook een parameter zijn die doorgegeven kan worden aan B<git-rev-list>(1). Gebruik bijvoorbeeld B<--git-ref=>main om enkel de hoofdtak op te nemen. Om alle takken en tags, behalve de tak persoonlijk op te nemen, gebruikt u B<--git-ref=>--all B<--git-ref=>^persoonlijk
 
 =item B<--git-depth=>I<aantal>
 
@@ -461,13 +461,13 @@ de diff
 
 Lege bestanden kunnen niet met behulp van patch-bestanden aangemaakt worden. Deze wijziging wordt dus niet geregistreerd in het broncodepakket en u wordt daarover ingelicht.
 
-=head2 I<toegangsrechten> uitvoerbare modus van I<bestand> zullen niet
-gerepresenteerd worden in de diff
+=head2 uitvoerbare modus I<toegangsrechten> van I<bestand> zal niet weergegeven
+worden in de diff
 
 Patch-bestanden registreren geen toegangsrechten van bestanden en dus wordt het feit dat een bestand uitvoerbaar is, niet in het broncodepakket opgeslagen. Deze waarschuwing brengt dit feit in herinnering.
 
-=head2 I<toegangsrechten> bijzondere modus van I<bestand> zullen niet
-gerepresenteerd worden in de diff
+=head2 bijzondere modus I<toegangsrechten> van I<bestand> zal niet weergegeven
+worden in de diff
 
 Patch-bestanden registreren geen toegangsrechten van bestanden en dus worden wijzigingen aan toegangsrechten niet opgeslagen in het broncodepakket. Deze waarschuwing brengt dit feit in herinnering.
 
@@ -555,5 +555,5 @@ Het punt waarop de vervanging van velden plaats vindt, vergeleken met bepaalde s
 
 =head1 ZIE OOK
 
-B<deb-src-control>(5), B<deb-changelog>(5), B<dsc>(5).
+B<deb-src-control>(5), B<deb-changelog>(5), B<deb-substvars>(5), B<dsc>(5).
 

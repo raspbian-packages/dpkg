@@ -38,7 +38,7 @@ Verifica a consistência da base de dados do dpkg e caso contrário aborta.
 
 =item *
 
-Generate and install a regression prevention package, if requested on the command-line or otherwise on the prompt.
+Gera e instala um pacote de prevenção de regressão, se pedido na linha de comandos ou caso contrário na solicitação.
 
 =item *
 
@@ -46,7 +46,7 @@ Obtém a lista de ficheiros e alternativas que precisam ser restaurados.
 
 =item *
 
-Look for untracked kernel modules files that need to be moved too.
+Procura ficheiros de módulos de kernel não vigiados que possam precisar se ser movidos também.
 
 =item *
 
@@ -120,9 +120,9 @@ Pergunta no ponto de não retorno, para que os resultados de depuração da hier
 
 =item B<--no-prevention>
 
-Enables or disables generating and installing a regression prevention package into the system.  If no option has been specified, the action to take will be prompted.
+Activa ou desactiva a a geração e instalação de um pacote de prevenção de regressão no sistema. Se nenhuma opção for fornecida, será solicitada qual a acção a tomar.
 
-The generated package contains the B<Protected> field set to B<yes> to protect against accidental removal of the package.
+O pacote gerado contém o campo B<Protected> definido para B<yes> para proteção contra remoção acidental do pacote.
 
 =item B<-n>, B<--no-act>
 

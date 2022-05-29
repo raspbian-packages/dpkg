@@ -50,19 +50,19 @@ De configuratiebestanden kunnen vier types opdrachten bevatten:
 
 =over 
 
-=item B<SET> I<flag> I<value>
+=item B<SET> I<vlag> I<waarde>
 
 De vlag met I<vlag> als naam overschrijven om ze de waarde I<waarde> te geven.
 
-=item B<STRIP> I<flag> I<value>
+=item B<STRIP> I<vlag> I<waarde>
 
 Van de vlag met I<vlag> als naam alle bouwvlaggen verwijderen die in I<waarde> opgesomd worden.
 
-=item B<APPEND> I<flag> I<value>
+=item B<APPEND> I<vlag> I<waarde>
 
 De vlag met I<vlag> als naam uitbreiden door er de opties aan toe te voegen die in I<waarde> opgegeven worden. Er wordt een spatie geplaatst voor de waarde die toegevoegd wordt, indien de huidige waarde van de vlag niet leeg is.
 
-=item B<PREPEND> I<flag> I<value>
+=item B<PREPEND> I<vlag> I<waarde>
 
 De vlag met I<vlag> als naam uitbreiden door er vooraan de opties aan toe te voegen die in I<waarde> opgegeven worden. Er wordt een spatie geplaatst achter de waarde die toegevoegd wordt, indien de huidige waarde van de vlag niet leeg is.
 

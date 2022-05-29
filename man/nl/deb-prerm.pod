@@ -36,19 +36,19 @@ Voor het pakket verwijderd wordt.
 
 Voor een opwaardering.
 
-=item I<new-prerm> B<failed-upgrade> I<old-version> I<new-version>
+=item I<new-prerm> B<failed-upgrade> I<oude-versie> I<nieuwe-versie>
 
 Indien de hiervoor vermelde B<upgrade> mislukt.
 
 De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
-=item I<prerm> B<deconfigure> B<in-favour> I<new-package> I<new-version>
+=item I<prerm> B<deconfigure> B<in-favour> I<nieuw-pakket> I<nieuwe-versie>
 
-=item S< >[ B<removing> I<old-package> I<old-version> ]
+=item S< >[ B<removing> I<oud-pakket> I<oude-versie> ]
 
 Vooraleer het pakket gedeconfigureerd wordt terwijl een vereiste wegens een conflict vervangen wordt.
 
-=item I<prerm> B<remove> B<in-favour> I<new-package> I<new-version>
+=item I<prerm> B<remove> B<in-favour> I<nieuw-pakket> I<nieuwe-versie>
 
 Vooraleer het pakket vervangen word ten gevolge van een conflict.
 

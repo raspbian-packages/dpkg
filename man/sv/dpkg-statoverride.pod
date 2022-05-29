@@ -90,6 +90,8 @@ B<statoverride-remove>: Ignorera en saknad stat-överstyrning när den tas bort 
 
 B<security-mac>(*): Använd platformsspecifik säkerhet baserad på obligatorisk åtkomststyrning (Mandatory Access Controls, MAC) när filer installeras i filsystemet (sedan dpkg 1.19.5). På Linuxsystem använder implementationen SELinux.
 
+B<not-root>: Try to (de)install things even when not root (since dpkg 1.21.8).
+
 =item B<--force>
 
 Tvinga ett kommando, även om en säkerhetskontroll annars skulle förhindra det. Detta behövs för att överstyra en befintlig överstyrning. Flaggan avråds från (sedan dpkg 1.19.5), den har ersatts av B<--force-all>.

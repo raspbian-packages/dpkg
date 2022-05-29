@@ -243,7 +243,7 @@ Viele weitere Informationen darüber, wo nach Abhängigkeitsinformationen gesuch
 
 =head1 SIEHE AUCH
 
-B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
+B<deb-substvars>(5), B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
 
 
 =head1 ÜBERSETZUNG

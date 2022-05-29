@@ -18,15 +18,27 @@ deb-substvars - Ersetzungsvariablen in Debian-Quellen
 
 =head1 ÜBERSICHT
 
-B<debian/substvars>, B<debian/>I<Binärpaket>B<.substvars>
+B<debian/substvars>, B<debian/>I<binary-package>B<.substvars>, variables
 
 =head1 BESCHREIBUNG
 
 Bevor B<dpkg-source>, B<dpkg-gencontrol> und B<dpkg-genchanges> ihre Steuerinformationen (zu der Quell-B<control>-Datei B<.dsc> für B<dpkg-source> und in die Standardausgabe für B<dpkg-gencontrol> und B<dpkg-genchanges>) schreiben, führen sie einige Variablenersetzungen in der Ausgabedatei durch.
 
+=head2 Variable Syntax
+
 Eine Variablenersetzung hat die Form B<${>I<Variablenname>B<}>. Variablennamen bestehen aus alphanumerischen Zeichen (a-zA-Z0-9, womit sie auch beginnen), Bindestrichen (-) und Doppelpunkten (:). Bei Variablennamen ist die Klein-/Großschreibung relevant, auch wenn sie sich auf Gebilde beziehen, die die Klein-/Großschreibung erhalten. Variablenersetzungen werden wiederholt durchgeführt, bis keine übrig geblieben sind; der komplette Text des Feldes nach der Ersetzung wird erneut auf weitere Ersetzungen geprüft.
 
-Nachdem alle Ersetzungen erfolgt sind, wird jedes Auftreten der Zeichenkette B<${}> (die keine erlaubte Ersetzung ist) durch das B<$>-Zeichen ersetzt. Dies kann als Maskiersequenz wie in B<${}{>I<VARIABLE>B<}> verwandt werden, was dann zu B<${>I<VARIABLE>B<}> in der Ausgabe wird.
+=head2 File Syntax
+
+Substitution variables can be specified in a file.  These files consist of lines of the form I<name>B<=>I<value> or I<name>B<?=>I<value>.  The B<=> operator assigns a normal substitution variable, while the B<?=> operator (since dpkg 1.21.8) assigns an optional substitution variable which will emit no warnings even if unused.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+
+=head2 Substitution
+
+Variables can be set using the B<-V> common option.  They can be also specified in the file B<debian/substvars> (or whatever other file is specified using the B<-T> common option).
+
+After all the substitutions have been done each occurrence of the string B<${}> (which is not an actual substitution variable) is replaced with a B<$> sign.  This can be used as an escape sequence such as B<${}{>I<VARIABLE>B<}> which will end up as B<${>I<VARIABLE>B<}> on the output.
+
+Falls auf eine Variable Bezug genommen wird, diese aber nicht definiert ist, wird es eine Warnung erstellen und ein leerer Wert wird angenommen.
 
 Obwohl die Variablenersetzung bei allen Feldern der B<control>-Datei vorgenommen wird, werden einige dieser Felder während des Bauens benötigt und verwendet, wenn die Ersetzung noch nicht erfolgt ist. Daher können Sie Variablen nicht in den Feldern B<Package>, B<Source> und B<Architecture> verwenden.
 
@@ -45,9 +57,9 @@ Dann wird dies zu Folgenden führen:
   .
   Weiterer Text.
 
-Variablen können über die allgemeine Option B<-V> gesetzt werden. Sie können auch in der B<debian/substvars> (bzw. in der über die Option B<-T> gesetzten Datei) angegeben werden. Diese Datei besteht aus Zeilen der Form I<Name>B<=>I<Wert>. Leerraumzeichen am Zeilenende, leere Zeilen und Zeilen, die mit dem B<#>-Symbol starten (Kommentare) werden ignoriert.
+=head2 Built-in Variable
 
-Zusätzlich sind die folgenden Standardvariablen verfügbar:
+Additionally, the following standard variables are always available:
 
 =over 
 
@@ -126,8 +138,6 @@ Die Original- (Upstream-)Version von Dpkg (seit Dpkg 1.13.19).
 Die komplette Version von Dpkg (seit Dpkg 1.13.19).
 
 =back
-
-Falls auf eine Variable Bezug genommen wird, diese aber nicht definiert ist, wird es eine Warnung erstellen und ein leerer Wert wird angenommen.
 
 =head1 DATEIEN
 

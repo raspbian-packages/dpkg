@@ -34,7 +34,7 @@ Antes do pacote ser instalado.
 
 =item I<new-preinst> B<install> I<old-version> I<new-version>
 
-Before a removed package is upgraded.
+Antes de um pacote removido ser actualizado.
 
 A I<new-version> é passada apenas desde o dpkg 1.18.5.
 

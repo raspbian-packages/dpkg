@@ -551,7 +551,7 @@ Tidpunkten på fältöverstyrning inträffar jämfört med inställning av vissa
 
 =head1 SE ÄVEN
 
-B<deb-src-control>(5), B<deb-changelog>(5), B<dsc>(5).
+B<deb-src-control>(5), B<deb-changelog>(5), B<deb-substvars>(5), B<dsc>(5).
 
 
 =head1 ÖVERSÄTTNING

@@ -90,6 +90,8 @@ B<statoverride-remove>: Ignoriert eine fehlende Status-Hinwegsetzung beim Entfer
 
 B<security-mac>(*): Verwendet plattformspezifische „Mandatory Access Control (MAC)“-basierende Sicherheit bei der Installation von Dateien in das Dateisystem (seit Dpkg 1.19.5). Auf Linux-Systemen verwendet die Implementierung SELinux.
 
+B<not-root>: Versucht Sachen zu (de)installieren, selbst falls nicht root (seit Dpkg 1.21.8).
+
 =item B<--force>
 
 Erzwingt eine Aktion, selbst wenn eine Plausibilitätsüberprüfung diese normalerweise verböte. Dies ist notwendig, um sich über eine existierende Hinwegsetzung hinwegzusetzen. Diese Option ist (seit Dpkg 1.19.5) veraltet. Sie wurde durch B<--force-all> ersetzt.

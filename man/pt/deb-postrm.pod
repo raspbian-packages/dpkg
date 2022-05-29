@@ -52,17 +52,17 @@ Após todos os ficheiros pacotes terem sido substituídos.
 
 =item I<new-postrm> B<abort-install>
 
-If I<preinst> fails during B<install>.
+Se I<preinst> falhar durante B<install>.
 
 =item I<new-postrm> B<abort-install> I<old-version> I<new-version>
 
-If I<preinst> fails during B<install> for an upgrade of a removed package.
+Se I<preinst> falhar durante B<install> para a actualização de um pacote removido.
 
 A I<new-version> é passada apenas desde o dpkg 1.18.5.
 
 =item I<new-postrm> B<abort-upgrade> I<old-version> I<new-version>
 
-If I<preinst> fails during B<upgrade>.
+Se I<preinst> falhar durante B<upgrade>.
 
 A I<new-version> é passada apenas desde o dpkg 1.18.5.
 

@@ -18,15 +18,27 @@ deb-substvars - Debians källkods-substitueringsvariabler
 
 =head1 SYNOPS
 
-B<debian/substvars>, B<debian/>I<binärpaket>B<.substvars>
+B<debian/substvars>, B<debian/>I<binary-package>B<.substvars>, variables
 
 =head1 BESKRIVNING
 
 Innan B<dpkg-source>, B<dpkg-gencontrol> och B<dpkg-genchanges> skriver sin styrinformation (till control-filen i källkodspaketet B<.dsc> för B<dpkg-source> och till standard ut för B<dpkg-gencontrol> och B<dpkg-genchanges>) kommer de utföra viss variabelsubstituering på utdatafilen.
 
+=head2 Variable Syntax
+
 En variabelsubstitution har formen B<${>I<variabelnamn>B<}>. Variabelnamn består av alfanumeriska tecken (a-zA-Z0-9), bindestreck (-) och kolon (:) och börjar med ett alfanumeriskt tecken, och är skiftlägeskänsliga. Variabelsubstitueringar utförs upprepade gånger tills det inte kvarstår några - det resulterande innehållet i fältet läses av på nytt efter substitueringen för att se om det behövs fler substitueringar.
 
-När alla substitueringar har utförts ersätts varje förekomst av strängen B<${}> (som inte är en giltig substituering) med ett B<$>-tecken. Detta kan användas som en ersättningssekvens såsom B<${}{>I<VARIABEL>B<}> vilket kommer bli till B<${>I<VARIABLE>B<}> i utdata.
+=head2 File Syntax
+
+Substitution variables can be specified in a file.  These files consist of lines of the form I<name>B<=>I<value> or I<name>B<?=>I<value>.  The B<=> operator assigns a normal substitution variable, while the B<?=> operator (since dpkg 1.21.8) assigns an optional substitution variable which will emit no warnings even if unused.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+
+=head2 Substitution
+
+Variables can be set using the B<-V> common option.  They can be also specified in the file B<debian/substvars> (or whatever other file is specified using the B<-T> common option).
+
+After all the substitutions have been done each occurrence of the string B<${}> (which is not an actual substitution variable) is replaced with a B<$> sign.  This can be used as an escape sequence such as B<${}{>I<VARIABLE>B<}> which will end up as B<${>I<VARIABLE>B<}> on the output.
+
+Om en variabel refereras till men inte definieras kommer en varning att genereras och ett tomt värde används.
 
 Medan variabelsubstituering görs på alla fält i styrfilen är det några av fälten som används och behövs vid byggning innan substitueringen ännu har utförts. Därför går det inte att använda variabler i fälten B<Package>, B<Source> och B<Architecture>.
 
@@ -45,9 +57,9 @@ Så blir resultatet:
   .
   Mer text.
 
-Variabler kan sättas genom att använda kommandoradsflaggan B<-V>. De kan även anges i filen B<debian/substvars> (eller vilken som helst annan fil som anges med flaggan B<-T>). Filen består av rader på formen I<namn>B<=>I<värde>. Avslutande blanksteg på en rad, blanka rader och rader som börjar med en B<#>-symbol (kommentarer) ignoreras.
+=head2 Built-in Variable
 
-I tillägg är följande standardvariabler tillgängliga:
+Additionally, the following standard variables are always available:
 
 =over 
 
@@ -126,8 +138,6 @@ Uppströmsversionen av dpkg (sedan dpkg 1.13.19).
 Fullständig version av dpkg (sedan dpkg 1.13.19).
 
 =back
-
-Om en variabel refereras till men inte definieras kommer en varning att genereras och ett tomt värde används.
 
 =head1 FILER
 

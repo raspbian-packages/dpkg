@@ -200,13 +200,13 @@ A sintaxe de B<Provides> é uma lista de nomes de pacotes, separados por vírgul
 
 =item B<Built-Using:> I<package-list>
 
-This dependency field lists extra source packages that were used during the build of this binary package, for license compliance purposes.  This is an indication to the archive maintenance software that these extra source packages must be kept whilst this binary package is maintained.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.  Note that the archive maintenance software is likely to refuse to accept an upload which declares a B<Built-Using> relationship which cannot be satisfied within the archive.
+Este campo de dependência lista pacotes fonte extra que foram usados durante a compilação deste pacote binário, com o objectivo de respeitar licenças. Isto é uma indicação para o software de manutenção do arquivo que estes pacotes fonte extra têm de ser mantidos enquanto este pacote biblioteca for mantido. Este campo tem de ser uma lista de nomes de pacotes fonte separados por vírgulas com relacionamentos de versão estritos ‘B<=>’ fechados dentro de parênteses. Note que é provável que o software de manutenção do arquivo se recuse a aceitar um envio que declare uma relação B<Built-Using> que não possa ser satisfeita dentro do arquivo.
 
 =item B<Static-Built-Using:> I<package-list>
 
-This dependency field lists extra source packages that were used during the build of this binary package, for static building purposes (for example linking against static libraries, builds for source-centered languages such as Go or Rust, usage of header-only C/C++ libraries, injecting data blobs into code, etc.).  This is useful to track whether this package might need to be rebuilt when source packages listed here have been updated, for example due to security updates.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.
+Este campo de dependência lista pacotes fonte extra que foram usados durante a compilação deste pacote binário, para objectivos de compilação estática (por exemplo vincular contra bibliotecas estáticas. compilações para linguagens centradas-na-fonte tais como Go ou Rust, utilização de bibliotecas C/C++ apenas-cabeçalho, injectar bolhas de dados em código, etc.).  Isto é útil para seguir se este pacote pode precisar de ser recompilado quando os pacotes fonte listados aqui forem actualizados, por exemplo devido a actualizações de segurança. Este campo tem de ser uma lista separada por vírgulas de nomes de pacotes fonte com relacionamentos estritos de versão ‘B<=>’ fechados dentro de parênteses.
 
-Supported since dpkg 1.21.3.
+Suportado desde dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profile-list> (obsoleto)
 

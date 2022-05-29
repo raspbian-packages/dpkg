@@ -52,17 +52,17 @@ Nadat alle bestanden van het pakket vervangen werden.
 
 =item I<new-postrm> B<abort-install>
 
-If I<preinst> fails during B<install>.
+Indien I<preinst> mislukt tijdens B<install>.
 
-=item I<new-postrm> B<abort-install> I<old-version> I<new-version>
+=item I<new-postrm> B<abort-install> I<oude-versie> I<nieuwe-versie>
 
-If I<preinst> fails during B<install> for an upgrade of a removed package.
+Indien I<preinst> mislukt tijdens B<install> voor een upgrade van een verwijderd pakket.
 
 De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
-=item I<new-postrm> B<abort-upgrade> I<old-version> I<new-version>
+=item I<new-postrm> B<abort-upgrade> I<oude-versie> I<nieuwe-versie>
 
-If I<preinst> fails during B<upgrade>.
+Indien I<preinst> mislukt tijdens B<upgrade>.
 
 De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 

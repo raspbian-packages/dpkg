@@ -38,7 +38,7 @@ Usa um byte NUL para terminar as linhas de resultados em vez do caractere de nov
 
 =item B<--root> I<directory>
 
-Set the root directory to I<directory>, which is the base directory that pathnames get canonicalized against.  Defaults to «B</>» if B<DPKG_ROOT> has not been set.
+Define o directório raiz para I<directory>, o qual é o directório base com que os nomes de caminho são canonizados. A predefinição é «B</>» se B<DPKG_ROOT> não estiver definido.
 
 =item B<-?>, B<--help>
 

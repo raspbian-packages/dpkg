@@ -168,15 +168,15 @@ Especifica o directório alternativo, quando é suposto este ser diferente do pr
 
 =item B<--admindir> I<directory>
 
-Specifies the administrative directory, when this is to be different from the default.  Defaults to «I<%ADMINDIR%/alternatives>» if B<%ADMINDIR_ENVVAR%> has not been set.
+Especifica o directório administrativo, quando este deve ser diferente do predefinido. A predefinição é «I<%ADMINDIR%/alternatives>» se B<%ADMINDIR_ENVVAR%> não estiver definido.
 
 =item B<--instdir> I<directory>
 
-Specifies the installation directory where alternatives links will be created (since version 1.20.1).  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Especifica o directório de instalação onde os links alternativos serão criados (desde versão 1.20.1). A predefinição é «I</>» se B<%INSTDIR_ENVVAR%> não estiver definido.
 
 =item B<--root> I<directory>
 
-Specifies the root directory (since version 1.20.1).  This also sets the alternatives, installation and administrative directories to match. Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+Especifica o directório raiz (desde 1.20.1). Isto também define alternativas, directórios de instalação e administração para corresponder. A predefinição é «I</>» se B<%INSTDIR_ENVVAR%> não estiver definido.
 
 =item B<--log> I<file>
 

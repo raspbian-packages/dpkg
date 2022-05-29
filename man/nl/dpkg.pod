@@ -28,7 +28,7 @@ Zij zou I<niet> gebruikt moeten worden door pakketonderhouders die willen begrij
 
 =head1 BESCHRIJVING
 
-B<dpkg> is a medium-level tool to install, build, remove and manage Debian packages.  The primary and more user-friendly front-end for B<dpkg> as a CLI (command-line interface) is B<apt>(8) and as a TUI (terminal user interface) is B<aptitude>(8).  B<dpkg> itself is controlled entirely via command line parameters, which consist of exactly one action and zero or more options. The action-parameter tells B<dpkg> what to do and options control the behavior of the action in some way.
+B<dpkg> is gereedschap op een tussenniveau voor het installeren, bouwen, verwijderen en beheren van Debian pakketten. Het belangrijkste en meer gebruikersvriendelijke frontend voor B<dpkg> als commandoregelinterface (CLI - command-line interface) is B<apt>(8) en is B<aptitude>(8) als terminalgebruikersinterface (TUI - terminal user interface). B<dpkg> zelf wordt volledig gestuurd via commandoregelparameters, die bestaan uit exact één actie en nul of meer opties. De actieparameter zegt B<dpkg> wat het moet doen en de opties sturen in zekere zin het gedrag van de actie.
 
 B<dpkg> kan ook gebruikt worden als een frontend voor B<dpkg-deb>(1) en B<dpkg-query>(1). De lijst van ondersteunde acties kunt u verderop in het onderdeel B<ACTIES> vinden. Indien B<dpkg> een dergelijke actie tegenkomt, voert het gewoon B<dpkg-deb> of B<dpkg-query> uit met de parameters die het meekreeg. Maar momenteel worden aan hen geen specifieke opties doorgegeven. Indien u een dergelijke optie wenst te gebruiken moet u deze programma's rechtstreeks gebruiken.
 
@@ -140,7 +140,7 @@ B<6.> Het configureren van het pakket. Zie B<--configure> voor gedetailleerde in
 
 Het pakket uitpakken, maar het niet configureren. Indien de optie B<--recursive> of B<-R> opgegeven werd, moet I<pakketbestand> evenwel naar een map verwijzen.
 
-Will process triggers for B<Pre-Depends> unless B<--no-triggers> has been specified.
+Zal triggers voor B<Pre-Depends> verwerken, tenzij B<--no-triggers> opgegeven werd.
 
 =item B<--configure> I<pakket>...|B<-a>|B<--pending>
 
@@ -154,7 +154,7 @@ B<1.> Het uitpakken van de configuratiebestanden en tegelijk een reservekopie ma
 
 B<2.> Indien het pakket een I<postinst>-script meelevert, dat uitvoeren.
 
-Will process triggers unless B<--no-triggers> has been specified.
+Zal triggers verwerken, tenzij B<--no-triggers> werd opgegeven.
 
 =item B<--triggers-only> I<pakket>...|B<-a>|B<--pending>
 
@@ -172,7 +172,7 @@ B<2.> Het verwijderen van de geïnstalleerde bestanden
 
 B<3.> Het uitvoeren van het I<postrm>-script
 
-Will process triggers unless B<--no-triggers> has been specified.
+Zal triggers verwerken, tenzij B<--no-triggers> werd opgegeven.
 
 =item B<-P>, B<--purge> I<pakket>...|B<-a>|B<--pending>
 
@@ -184,9 +184,9 @@ Het wissen van een pakket bestaat uit de volgende stappen:
 
 B<1.> Het verwijderen van het pakket als het nog niet verwijderd was. Zie B<--remove> voor gedetailleerde informatie over hoe dit gebeurt.
 
-B<2.> Het uitvoeren van het I<postrm>-script
+B<2.> Het script I<postrm> uitvoeren.
 
-Will process triggers unless B<--no-triggers> has been specified.
+Zal triggers verwerken, tenzij B<--no-triggers> werd opgegeven.
 
 =item B<-V>, B<--verify> [I<pakketnaam>...]
 
@@ -306,7 +306,7 @@ Biedt ondersteuning voor het veld B<Protected> (sinds dpkg 1.20.1).
 
 =back
 
-=item B<--validate->I<thing> I<string>
+=item B<--validate->I<ding> I<tekenreeks>
 
 De juistheid van de syntaxis van I<ding> I<tekenreeks> valideren (sinds dpkg 1.18.16). Geeft waarde 0 terug als de I<tekenreeks> geldig is, waarde 1 als de I<tekenreeks> ongeldig is, maar in een lakse context aanvaard kan worden en waarde 2 als de I<tekenreeks> ongeldig is. De huidige lijst van I<dingen> die gevalideerd kunnen worden, omvat:
 
@@ -380,11 +380,11 @@ De inhoud van een deb-pakket opsommen.
 
 Control-informatie extraheren uit een pakket.
 
-=item B<-x>, B<--extract> I<archive> I<directory>
+=item B<-x>, B<--extract> I<archief> I<map>
 
 De bestanden uit een pakket extraheren.
 
-=item B<-X>, B<--vextract> I<archive> I<directory>
+=item B<-X>, B<--vextract> I<archief> I<map>
 
 De bestandsnamen welke een pakket bevat, extraheren en weergeven.
 
@@ -563,7 +563,7 @@ Een pakket niet installeren als reeds een nieuwere versie van dat pakket geïnst
 
 =item B<--admindir=>I<map>
 
-Set the administrative directory to I<directory>.  This directory contains many files that give information about status of installed or uninstalled packages, etc.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+De administratieve map instellen op I<directory>. In deze map zitten veel bestanden met informatie over de status van geïnstalleerde of gede-installeerde pakketten, enz. Standaard is dat «I<%ADMINDIR%>» indien B<DPKG_ADMINDIR> niet werd ingesteld.
 
 =item B<--instdir=>I<map>
 
@@ -646,7 +646,7 @@ Deze controles worden momenteel niet ondersteund, en zullen altijd 'B<?>' zijn.
 
 =item 2 ‘B<M>’
 
-De controle van de bestandsmodus is mislukt (sinds dpkg 1.21.0). Omdat metagegevens van padnamen momenteel niet worden bijgehouden, kan deze controle slechts gedeeltelijk worden geëmuleerd via een zeer eenvoudige heuristiek voor padnamen die een bekende frommel hebben, wat inhoudt dat het normale bestanden moeten zijn, waarbij de controle zal mislukken als de padnaam geen gewoon bestand is op het bestandssysteem. Deze controle zal momenteel nooit slagen omdat er onvoldoende informatie beschikbaar is. 
+De controle van de bestandsmodus is mislukt (sinds dpkg 1.21.0). Omdat metagegevens van padnamen momenteel niet worden bijgehouden, kan deze controle slechts gedeeltelijk worden geëmuleerd via een zeer eenvoudige heuristiek voor padnamen die een bekende frommel hebben, wat inhoudt dat het normale bestanden moeten zijn, waarbij de controle zal mislukken als de padnaam geen gewoon bestand is op het bestandssysteem. Deze controle zal momenteel nooit slagen omdat er onvoldoende informatie beschikbaar is.
 
 =item 3 ‘B<5>’
 
@@ -969,7 +969,7 @@ Om een lokale kopie te maken van de pakketselectietoestand:
 
 =back
 
-You might transfer this file to another computer, and after having updated the I<available> file there with your package manager frontend of choice (see L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> for more details), for example:
+U zou dit bestand kunnen overbrengen naar een andere computer en nadat u daar het bestand I<available> bijgewerkt hebt met het frontend voor pakketbeheer van uw voorkeur (zie L<https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections> voor meer details), bijvoorbeeld:
 
 =over 
 

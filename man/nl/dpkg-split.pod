@@ -58,7 +58,7 @@ Standaard wordt het uitvoerbestand I<pakket>B<_>I<versie>B<_>I<arch>B<.deb> geno
 
 Geeft in een voor mensen leesbare vorm informatie weer over de/het opgegeven deelbestand(en). Argumenten die niet een stuk van een binair pakket zijn, lokken een mededeling uit die dat stelt (maar wel nog steeds op de standaarduitvoer).
 
-=item B<-a>, B<--auto -o> I<complete-output> I<part>
+=item B<-a>, B<--auto -o> I<afgewerkte-uitvoer> I<onderdeel>
 
 Onderdelen automatisch in de wachtrij plaatsen en het pakket indien mogelijk opnieuw samenstellen.
 

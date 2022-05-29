@@ -60,7 +60,7 @@ Inclui todos os pacotes encontrados no resultado.
 
 =item B<-M>, B<--medium> I<id-string>
 
-Add an B<X-Medium> field containing the value I<id-string> (since dpkg 1.15.5).  This field is required if you want to generate B<Packages.cd> files for use by the B<media> access method of B<dselect>.
+Adiciona um campo B<X-Medium> que contém o valor I<string-id> (desde dpkg 1.15.5). Este campo é necessário se desejar gerar ficheiros B<Packages.cd> para serem usados pelo método de acesso B<media> do B<dselect>.
 
 =item B<-?>, B<--help>
 

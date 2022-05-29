@@ -242,7 +242,7 @@ L'appel de B<dpkg-shlibdeps> en mode bavard (B<-v>) fournira beaucoup plus d'inf
 
 =head1 VOIR AUSSI
 
-B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
+B<deb-substvars>(5), B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
 
 
 =head1 TRADUCTION

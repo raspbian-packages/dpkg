@@ -90,6 +90,8 @@ S<B<statoverride-remove> :> ignorer l'absence de dérogation d'état lors de sa 
 
 S<B<security-mac>(*) :> utiliser une sécurité basée sur le contrôle d'accès obligatoire (Mandatory Access Controls S<– MAC)> spécifique à la plateforme lors de l'installation de fichiers dans le systèmes de fichiers (depuis S<dpkg 1.19.5).> Sur les systèmes Linux, la mise en œuvre utilise SELinux.
 
+B<not-root>: Try to (de)install things even when not root (since dpkg 1.21.8).
+
 =item B<--force>
 
 Force une opération, même si un test de validité l'interdirait. C'est nécessaire pour annuler une précédente dérogation. Cette option est obsolète (depuis S<dpkg 1.19.5),> elle est remplacée par B<--force-all>.

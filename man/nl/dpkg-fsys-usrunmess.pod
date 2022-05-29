@@ -38,7 +38,7 @@ De consistentie van de dpkg-database controleren en anders afbreken.
 
 =item *
 
-Generate and install a regression prevention package, if requested on the command-line or otherwise on the prompt.
+Een regressiepreventiepakket genereren en installeren indien erom gevraagd wordt aan de commandoregel of anders aan de prompt.
 
 =item *
 
@@ -46,7 +46,7 @@ De lijst met bestanden en alternatieven die moeten worden hersteld, ophalen.
 
 =item *
 
-Look for untracked kernel modules files that need to be moved too.
+Zoeken naar niet-bijgehouden kernelmodulebestanden die ook moeten worden verplaatst.
 
 =item *
 
@@ -120,9 +120,9 @@ Om bevestiging vragen op het punt waarop geen terugkeer meer mogelijk is, zodat 
 
 =item B<--no-prevention>
 
-Enables or disables generating and installing a regression prevention package into the system.  If no option has been specified, the action to take will be prompted.
+Schakelt het genereren en installeren op het systeem van een regressiepreventiepakket in of uit. Als er geen optie is opgegeven, wordt de vraag gesteld welke actie er moet worden ondernomen.
 
-The generated package contains the B<Protected> field set to B<yes> to protect against accidental removal of the package.
+Het gegenereerde pakket bevat het veld B<Protected> dat is ingesteld op B<yes> om te voorkomen dat het pakket per ongeluk wordt verwijderd.
 
 =item B<-n>, B<--no-act>
 

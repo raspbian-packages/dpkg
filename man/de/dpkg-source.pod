@@ -555,7 +555,7 @@ Die Stelle, an der das Überschreiben von Feldern passiert, verglichen mit besti
 
 =head1 SIEHE AUCH
 
-B<deb-src-control>(5), B<deb-changelog>(5), B<dsc>(5).
+B<deb-src-control>(5), B<deb-changelog>(5), B<deb-substvars>(5), B<dsc>(5).
 
 
 =head1 ÜBERSETZUNG

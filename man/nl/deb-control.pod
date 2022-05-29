@@ -200,13 +200,13 @@ De syntaxis van B<Provides> is een lijst van pakketnamen door komma's (en facult
 
 =item B<Built-Using:> I<pakketlijst>
 
-This dependency field lists extra source packages that were used during the build of this binary package, for license compliance purposes.  This is an indication to the archive maintenance software that these extra source packages must be kept whilst this binary package is maintained.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.  Note that the archive maintenance software is likely to refuse to accept an upload which declares a B<Built-Using> relationship which cannot be satisfied within the archive.
+Dit veld van vereisten vermeldt extra broncodepakketten die gebruikt werden bij het bouwen van dit binaire pakket, om te beantwoorden aan de licentievoorwaarden. Dit is een indicatie voor de software voor archiefonderhoud dat deze extra broncodepakketten behouden moeten blijven zolang dit binaire pakket gehandhaafd wordt. Dit veld moet bestaan uit een met komma's gescheiden lijst van namen van broncodepakketten met een strikte ‘B<=>’ versierelatie tussen haakjes. Merk op dat de software voor archiefonderhoud niet geneigd zal zijn om een upload te aanvaarden van een pakket dat verklaart een B<Built-Using>-relatie te hebben waaraan in het archief niet voldaan kan worden.
 
-=item B<Static-Built-Using:> I<package-list>
+=item B<Static-Built-Using:> I<pakketlijst>
 
-This dependency field lists extra source packages that were used during the build of this binary package, for static building purposes (for example linking against static libraries, builds for source-centered languages such as Go or Rust, usage of header-only C/C++ libraries, injecting data blobs into code, etc.).  This is useful to track whether this package might need to be rebuilt when source packages listed here have been updated, for example due to security updates.  This field must be a comma-separated list of source package names with strict ‘B<=>’ version relationships enclosed within parenthesis.
+Dit veld van vereisten vermeldt extra broncodepakketten die gebruikt werden bij het bouwen van dit binaire pakket, voor statische bouwdoeleinden (bijvoorbeeld linken naar statische bibliotheken, compilaties voor brongecentreerde talen zoals Go of Rust, gebruik van C/C++ bibliotheken met enkel headers, injecteren van datablobs in code, enz.) Dit is nuttig om bij te houden of dit pakket eventueel opnieuw moet worden gebouwd wanneer bronpakketten die hier worden vermeld, zijn bijgewerkt, bijvoorbeeld vanwege beveiligingsupdates. Dit veld moet bestaan uit een met komma's gescheiden lijst van namen van broncodepakketten met een strikte ‘B<=>’ versierelatie tussen haakjes.
 
-Supported since dpkg 1.21.3.
+Ondersteund sinds dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profiel-lijst> (verouderd)
 

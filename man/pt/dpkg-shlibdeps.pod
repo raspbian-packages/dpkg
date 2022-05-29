@@ -240,7 +240,7 @@ Chamar o B<dpkg-shlibdeps> em modo detalhado (B<-v>) irá providenciar muito mai
 
 =head1 VEJA TAMBÉM
 
-B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
+B<deb-substvars>(5), B<deb-shlibs>(5), B<deb-symbols>(5), B<dpkg-gensymbols>(1).
 
 
 =head1 TRADUÇÃO

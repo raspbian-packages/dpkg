@@ -556,7 +556,7 @@ Le moment où se déroule le remplacement d'un champ par rapport à certaines d�
 
 =head1 VOIR AUSSI
 
-B<deb-src-control>(5), B<deb-changelog>(5), B<dsc>(5).
+B<deb-src-control>(5), B<deb-changelog>(5), B<deb-substvars>(5), B<dsc>(5).
 
 
 =head1 TRADUCTION

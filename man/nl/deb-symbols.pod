@@ -27,12 +27,12 @@ De symboolbestanden worden meegeleverd met Debian binaire pakketten en de indeli
 In deze bestanden is de indeling van een item met informatie over een afhankelijkheid van de uitgebreide gedeelde bibliotheek als volgt:
 
 Z<>
- I<library-soname> I<main-dependency-template>
- [| I<alternative-dependency-template>]
+ I<bibliotheek-soname> I<hoofd-afhankelijkheidssjabloon>
+ [| I<alternatief-afhankelijkheidssjabloon>]
  [...]
- [* I<field-name>: I<field-value>]
+ [* I<veld-name>: I<veld-waarde>]
  [...]
-  I<symbol> I<minimal-version> [I<id-of-dependency-template>]
+  I<symbool> I<minimale-versie> [I<id-van-vereiste-sjabloon>]
 
 De I<bibliotheeksoname> is exact de waarde van het veld SONAME zoals die door B<objdump>(1) geëxporteerd wordt. Een I<afhankelijkheidssjabloon> is een afhankelijkheid waarbij I<#MINVER#> dynamisch vervangen wordt door ofwel een versietoets zoals “(E<gt>= I<minimale-versie>)” ofwel door niets (indien een versieloze afhankelijkheid voldoende geacht wordt).
 

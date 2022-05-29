@@ -56,15 +56,15 @@ Alle opties kunnen zowel opgegeven worden aan de commandoregel als in het config
 
 =item B<--admindir> I<map>
 
-Changes the directory where the dpkg ‘I<status>’, ‘I<available>’ and similar files are located.  Defaults to I<%ADMINDIR%> if B<DPKG_ADMINDIR> has not been set.
+Wijzigt de map waarin de bestanden ‘I<status>’ en ‘I<available>’ van dpkg en gelijkaardige bestanden te vinden zijn. De standaard ervoor is I<%ADMINDIR%> indien B<DPKG_ADMINDIR> niet werd ingesteld.
 
 =item B<--instdir> I<map>
 
-Set the installation directory, which refers to the directory where packages get installed (since dpkg 1.21.2).  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+Instellen van de installatiemap, welke verwijst naar de map waar pakketten geïnstalleerd worden (sinds dpkg 1.19.2). Standaard is dat «I</>» indien B<DPKG_ROOT> niet werd ingesteld.
 
 =item B<--root> I<map>
 
-Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%» (since dpkg 1.21.0).
+De hoofdmap instellen op B<map>, hetgeen de installatiemap instelt op «I<map>» en de administratieve map op «I<map>%ADMINDIR%» (sinds dpkg 1.21.0).
 
 =item B<-D>I<bestand>, B<--debug> I<bestand>
 
@@ -443,11 +443,11 @@ Fatale of onherstelbare fout die te wijten is aan ongeldig gebruik van de comman
 
 =item B<DPKG_ROOT>
 
-If set and the B<--instdir> or B<--root> options have not been specified, it will be used as the filesystem root directory (since dpkg 1.21.0).
+Indien dit ingesteld is en de opties B<--instdir> of B<--root> niet opgegeven werden, zal dit gebruikt worden als de hoofdmap voor het bestandssysteem (sinds dpkg 1.21.0).
 
 =item B<DPKG_ADMINDIR>
 
-If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory (since dpkg 1.21.0).
+Indien dit ingesteld is en de opties B<--admindir> of B<--root> niet opgegeven werden, zal dit gebruikt worden als de databasemap van B<dpkg> (sinds dpkg 1.21.0).
 
 =item B<HOME>
 
