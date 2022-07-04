@@ -72,13 +72,13 @@ Ungefärlig total storlek för paketets installerade filer, i KiB-enheter. Algor
 
 =item B<Protected:> B<yes>|B<no>
 
-Fältet krävs normalt sett endast om svaret är B<yes> (ja), och betecknar att paketet krävs för en korrekt installation av systemet. L<dpkg(1)> eller andra installationsverktyg tillåter inte att ett paket märkt B<Protected> tas bort (åtminstone inte utan att använda en av de tvingande flaggorna).
+This field is usually only needed when the answer is B<yes>.  It denotes a package that is required mostly for proper booting of the system or used for custom system-local meta-packages.  L<dpkg(1)> or any other installation tool will not allow a B<Protected> package to be removed (at least not without using one of the force options).
 
 Stöds sedan dpkg 1.20.1.
 
 =item B<Essential:> B<yes>|B<no>
 
-Fältet krävs normalt sett endast om svaret är B<yes> (ja), och betecknar att paketet krävs för en korrekt installation av systemet. L<dpkg(1)> eller andra installationsverktyg tillåter inte att ett paket märkt B<Essential> tas bort (åtminstone inte utan att använda en av de tvingande flaggorna).
+This field is usually only needed when the answer is B<yes>.  It denotes a package that is required for the packaging system, for proper operation of the system in general or during boot (although the latter should be converted to B<Protected> field instead).  L<dpkg(1)> or any other installation tool will not allow an B<Essential> package to be removed (at least not without using one of the force options).
 
 =item B<Build-Essential:> B<yes>|B<no>
 

@@ -146,6 +146,10 @@ Ange vilken komprimeringstyp som ska användas när ett paket byggs. Tillåtna v
 
 Ange att samma komprimeringsparametrar ska användas för alla arkivmedlemmar (dvs. B<control.tar> och B<data.tar>; sedan dpkg 1.17.6). I annat fall kommer endast medlemmen B<data.tar> att använda parametrarna. De enda komprimeringstyper som kan användas enhetligt är B<none>, B<gzip> och B<xz>. Flaggan B<--no-uniform-compression> inaktiverar enhetlig komprimering (sedan dpkg 1.19.0). Enhetlig komprimering är förval (sedan dpkg 1.19.0).
 
+=item B<--threads-max=>I<threads>
+
+Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+
 =item B<--root-owner-group>
 
 Sätt ägare och grupp för alla posterna i filsystemsträdet till root med ID 0 (sedan dpkg 1.19.0).
@@ -190,6 +194,12 @@ Den önskade funktionen utfördes utan fel.
 
 =over 
 
+=item B<DPKG_DEB_THREADS_MAX>
+
+Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+
+The B<--threads-max> option overrides this value.
+
 =item B<DPKG_COLORS>
 
 Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
@@ -216,7 +226,7 @@ Det finns inte någon autentisering av B<.deb>-filer. Faktiskt finns det inte en
 
 =head1 SE ÄVEN
 
-B<deb>(5), B<deb-control>(5), B<dpkg>(1), B<dselect>(1).
+F<%PKGDOCDIR%/spec/rootless-builds.txt>, B<deb>(5), B<deb-control>(5), B<dpkg>(1), B<dselect>(1).
 
 
 =head1 ÖVERSÄTTNING

@@ -116,7 +116,7 @@ Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement ac
 
 =head1 VOIR AUSSI
 
-B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/triggers.txt.gz>.
+B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/spec/triggers.txt.gz>.
 
 
 =head1 TRADUCTION

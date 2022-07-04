@@ -116,5 +116,5 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =head1 ZIE OOK
 
-B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/triggers.txt.gz>.
+B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/spec/triggers.txt.gz>.
 

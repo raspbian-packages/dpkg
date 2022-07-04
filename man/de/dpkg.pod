@@ -489,9 +489,9 @@ B<hold>: Erlaubt automatische Installationen, Upgrades und Entfernungen von Pake
 
 B<remove-reinstreq>: Entfernt ein Paket, selbst falls es defekt ist und zur Neuinstallation markiert ist. Dies kann beispielsweise dazu führen, dass Teile des Pakets auf dem System bleiben und von B<dpkg> vergessen werden.
 
-B<remove-protected>: Entfernt, selbst falls das Paket als geschützt betrachtet wird (seit Dpkg 1.20.1). Geschützte Pakete enthalten hauptsächlich wichtige Teile der Systemstartinfrastruktur. Diese zu entfernen kann dazu führen, dass das gesamte System nicht mehr starten kann - verwenden Sie diese Option daher mit Vorsicht.
+B<remove-protected>: Remove, even if the package is considered protected (since dpkg 1.20.1).  Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages. Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
 
-B<remove-essential>: Entfernt, selbst falls das Paket als essenziell betrachtet wird. Essenzielle Pakete enthalten hauptsächlich sehr grundlegende Unix-Befehle. Diese zu entfernen kann dazu führen, dass das gesamte System nicht mehr arbeitet - verwenden Sie diese Option daher mit Vorsicht.
+B<remove-essential>: Remove, even if the package is considered essential. Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead). Removing them might cause the whole system to stop working, so use with caution.
 
 B<depends>: Verwandelt alle Abhängigkeitsprobleme in Warnungen. Dies betrifft die Felder B<Pre-Depends> und B<Depends>.
 

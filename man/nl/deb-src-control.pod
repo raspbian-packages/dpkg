@@ -303,5 +303,5 @@ Houd er rekening mee dat deze door de gebruiker gedefinieerde velden gebruik mak
 
 =head1 ZIE OOK
 
-L<deb822(5)>, B<deb-control>(5), B<deb-version>(7), B<dpkg-source>(1)
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, B<deb-control>(5), B<deb-version>(7), B<dpkg-source>(1)
 

@@ -72,13 +72,13 @@ Bij benadering de totale grootte van de door het pakket geïnstalleerde bestande
 
 =item B<Protected:> B<yes>|B<no>
 
-Meestal is dit veld enkel nodig als het antwoord B<yes> is. Het duidt een pakket aan dat vereist is voor het correct opstarten van het systeem. L<dpkg(1)> of om het even welk ander installatiegereedschap zal niet toestaan dat een pakket van het type B<Protected> verwijderd wordt (tenminste niet zonder dat één van de forceeropties gebruikt wordt).
+This field is usually only needed when the answer is B<yes>.  It denotes a package that is required mostly for proper booting of the system or used for custom system-local meta-packages.  L<dpkg(1)> or any other installation tool will not allow a B<Protected> package to be removed (at least not without using one of the force options).
 
 Ondersteund sinds dpkg 1.20.1.
 
 =item B<Essential:> B<yes>|B<no>
 
-Meestal is dit veld enkel nodig als het antwoord B<yes> is. Het duidt een pakket aan dat vereist is opdat het systeem behoorlijk zou functioneren. L<dpkg(1)> of om het even welk ander installatiegereedschap zal niet toestaan dat een pakket van het type B<Essential> verwijderd wordt (tenminste niet zonder dat één van de forceeropties gebruikt wordt).
+This field is usually only needed when the answer is B<yes>.  It denotes a package that is required for the packaging system, for proper operation of the system in general or during boot (although the latter should be converted to B<Protected> field instead).  L<dpkg(1)> or any other installation tool will not allow an B<Essential> package to be removed (at least not without using one of the force options).
 
 =item B<Build-Essential:> B<yes>|B<no>
 

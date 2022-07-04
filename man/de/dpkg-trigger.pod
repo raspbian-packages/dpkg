@@ -116,7 +116,7 @@ Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B
 
 =head1 SIEHE AUCH
 
-B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/triggers.txt.gz>.
+B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/spec/triggers.txt.gz>.
 
 
 =head1 ÜBERSETZUNG

@@ -32,7 +32,7 @@ B<dpkg-statoverride> är ett verktyg för att hantera listan över stat-översty
 
 =item B<--add> I<användare grupp läge sökväg>
 
-Lägg till en överstyrning för I<sökväg>. I<sökväg> behöver inte existera när kommandot körs; överstyrningen kommer lagras och användas senare. Användare och grupper kan anges med namn (till exempel B<root> eller B<nobody>), eller med deras nummer med ett ”B<#>” (till exempel B<#0> eller B<#65534>). I<läge> måste anges oktalt.
+Add an override for I<path>. I<path> does not need to exist nor be known to B<dpkg> when this command is used; the override will be stored and used later.  Users and groups can be specified by their name (for example B<root> or B<nobody>), or by their number by prepending the number with a ‘B<#>’ (for example B<#0> or B<#65534>).  The I<mode> needs to be specified in octal.
 
 Om B<--update> anges och I<sökväg> existerar kommer den omedelbart att sättas till den nya användaren och läget.
 

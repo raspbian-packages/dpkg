@@ -478,5 +478,5 @@ Het zou mogelijk moeten zijn om spaties en shell-metatekens en initiële argumen
 
 =head1 ZIE OOK
 
-B<dpkg-source>(1), B<dpkg-architecture>(1), B<dpkg-buildflags>(1), B<dpkg-genbuildinfo>(1), B<dpkg-genchanges>(1), B<fakeroot>(1), B<lintian>(1), B<gpg>(1).
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, B<dpkg-source>(1), B<dpkg-architecture>(1), B<dpkg-buildflags>(1), B<dpkg-genbuildinfo>(1), B<dpkg-genchanges>(1), B<fakeroot>(1), B<lintian>(1), B<gpg>(1).
 

@@ -56,12 +56,9 @@
     !defined(WITH_LIBBZ2)
 #include <dpkg/subproc.h>
 
-static void DPKG_ATTR_SENTINEL
-fd_fd_filter(int fd_in, int fd_out, const char *desc, const char *delenv[],
-             const char *file, ...)
+static void
+fd_fd_filter(struct command *cmd, int fd_in, int fd_out, const char *delenv[])
 {
-	va_list args;
-	struct command cmd;
 	pid_t pid;
 	int i;
 
@@ -79,15 +76,30 @@ fd_fd_filter(int fd_in, int fd_out, const char *desc, const char *delenv[],
 		for (i = 0; delenv[i]; i++)
 			unsetenv(delenv[i]);
 
-		command_init(&cmd, file, desc);
-		command_add_arg(&cmd, file);
-		va_start(args, file);
-		command_add_argv(&cmd, args);
-		va_end(args);
-
-		command_exec(&cmd);
+		command_exec(cmd);
 	}
-	subproc_reap(pid, desc, 0);
+	subproc_reap(pid, cmd->name, 0);
+}
+
+static void
+command_compress_init(struct command *cmd, const char *name, const char *desc,
+                      int level)
+{
+	static char combuf[6];
+
+	command_init(cmd, name, desc);
+	command_add_arg(cmd, name);
+
+	snprintf(combuf, sizeof(combuf), "-c%d", level);
+	command_add_arg(cmd, combuf);
+}
+
+static void
+command_decompress_init(struct command *cmd, const char *name, const char *desc)
+{
+	command_init(cmd, name, desc);
+	command_add_arg(cmd, name);
+	command_add_arg(cmd, "-dc");
 }
 #endif
 
@@ -275,17 +287,27 @@ static void
 decompress_gzip(struct compress_params *params, int fd_in, int fd_out,
                 const char *desc)
 {
-	fd_fd_filter(fd_in, fd_out, desc, env_gzip, GZIP, "-dc", NULL);
+	struct command cmd;
+
+	command_decompress_init(&cmd, GZIP, desc);
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_gzip);
+
+	command_destroy(&cmd);
 }
 
 static void
 compress_gzip(struct compress_params *params, int fd_in, int fd_out,
               const char *desc)
 {
-	char combuf[6];
+	struct command cmd;
 
-	snprintf(combuf, sizeof(combuf), "-c%d", params->level);
-	fd_fd_filter(fd_in, fd_out, desc, env_gzip, GZIP, "-n", combuf, NULL);
+	command_compress_init(&cmd, GZIP, desc, params->level);
+	command_add_arg(&cmd, "-n");
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_gzip);
+
+	command_destroy(&cmd);
 }
 #endif
 
@@ -417,17 +439,26 @@ static void
 decompress_bzip2(struct compress_params *params, int fd_in, int fd_out,
                  const char *desc)
 {
-	fd_fd_filter(fd_in, fd_out, desc, env_bzip2, BZIP2, "-dc", NULL);
+	struct command cmd;
+
+	command_decompress_init(&cmd, BZIP2, desc);
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_bzip2);
+
+	command_destroy(&cmd);
 }
 
 static void
 compress_bzip2(struct compress_params *params, int fd_in, int fd_out,
                const char *desc)
 {
-	char combuf[6];
+	struct command cmd;
 
-	snprintf(combuf, sizeof(combuf), "-c%d", params->level);
-	fd_fd_filter(fd_in, fd_out, desc, env_bzip2, BZIP2, combuf, NULL);
+	command_compress_init(&cmd, BZIP2, desc, params->level);
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_bzip2);
+
+	command_destroy(&cmd);
 }
 #endif
 
@@ -666,14 +697,36 @@ filter_xz_get_memlimit(void)
 	return mt_memlimit;
 }
 
-static uint32_t
-filter_xz_get_cputhreads(void)
+static long
+parse_threads_max(const char *str)
 {
-	uint32_t threads_max;
+	long value;
+	char *end;
+
+	errno = 0;
+	value = strtol(str, &end, 10);
+	if (str == end || *end != '\0' || errno != 0)
+		return 0;
+
+	return value;
+}
+
+static uint32_t
+filter_xz_get_cputhreads(struct compress_params *params)
+{
+	long threads_max;
+	const char *env;
 
 	threads_max = lzma_cputhreads();
 	if (threads_max == 0)
 		threads_max = 1;
+
+	if (params->threads_max >= 0)
+		return clamp(params->threads_max, 1, threads_max);
+
+	env = getenv("DPKG_DEB_THREADS_MAX");
+	if (str_is_set(env))
+		return clamp(parse_threads_max(env), 1, threads_max);
 
 	return threads_max;
 }
@@ -718,7 +771,7 @@ filter_xz_init(struct io_lzma *io, lzma_stream *s)
 #ifdef HAVE_LZMA_MT_ENCODER
 	mt_options.preset = preset;
 	mt_memlimit = filter_xz_get_memlimit();
-	mt_options.threads = filter_xz_get_cputhreads();
+	mt_options.threads = filter_xz_get_cputhreads(io->params);
 
 	/* Guess whether we have enough RAM to use the multi-threaded encoder,
 	 * and decrease them up to single-threaded to reduce memory usage. */
@@ -793,23 +846,36 @@ static void
 decompress_xz(struct compress_params *params, int fd_in, int fd_out,
               const char *desc)
 {
-	fd_fd_filter(fd_in, fd_out, desc, env_xz, XZ, "-dc", NULL);
+	struct command cmd;
+
+	command_decompress_init(&cmd, XZ, desc);
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_xz);
+
+	command_destroy(&cmd);
 }
 
 static void
 compress_xz(struct compress_params *params, int fd_in, int fd_out,
             const char *desc)
 {
-	char combuf[6];
-	const char *strategy;
+	struct command cmd;
+	char *threads_opt = NULL;
+
+	command_compress_init(&cmd, XZ, desc, params->level);
 
 	if (params->strategy == COMPRESSOR_STRATEGY_EXTREME)
-		strategy = "-e";
-	else
-		strategy = NULL;
+		command_add_arg(&cmd, "-e");
 
-	snprintf(combuf, sizeof(combuf), "-c%d", params->level);
-	fd_fd_filter(fd_in, fd_out, desc, env_xz, XZ, combuf, strategy, NULL);
+	if (params->threads_max > 0) {
+		threads_opt = str_fmt("-T%d", params->threads_max);
+		command_add_arg(&cmd, threads_opt);
+	}
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_xz);
+
+	command_destroy(&cmd);
+	free(threads_opt);
 }
 #endif
 
@@ -894,17 +960,28 @@ static void
 decompress_lzma(struct compress_params *params, int fd_in, int fd_out,
                 const char *desc)
 {
-	fd_fd_filter(fd_in, fd_out, desc, env_xz, XZ, "-dc", "--format=lzma", NULL);
+	struct command cmd;
+
+	command_decompress_init(&cmd, XZ, desc);
+	command_add_arg(&cmd, "--format=lzma");
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_xz);
+
+	command_destroy(&cmd);
 }
 
 static void
 compress_lzma(struct compress_params *params, int fd_in, int fd_out,
               const char *desc)
 {
-	char combuf[6];
+	struct command cmd;
 
-	snprintf(combuf, sizeof(combuf), "-c%d", params->level);
-	fd_fd_filter(fd_in, fd_out, desc, env_xz, XZ, combuf, "--format=lzma", NULL);
+	command_compress_init(&cmd, XZ, desc, params->level);
+	command_add_arg(&cmd, "--format=lzma");
+
+	fd_fd_filter(&cmd, fd_in, fd_out, env_xz);
+
+	command_destroy(&cmd);
 }
 #endif
 

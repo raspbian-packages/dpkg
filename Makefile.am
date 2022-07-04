@@ -45,10 +45,15 @@ dist_pkgdata_DATA = \
 dist_doc_DATA = \
 	doc/README.api \
 	doc/README.feature-removal-schedule \
-	doc/frontend.txt \
-	doc/protected-field.txt \
-	doc/rootless-builds.txt \
-	doc/triggers.txt \
+	# EOL
+
+docspecdir = $(docdir)/spec
+
+dist_docspec_DATA = \
+	doc/spec/frontend-api.txt \
+	doc/spec/protected-field.txt \
+	doc/spec/rootless-builds.txt \
+	doc/spec/triggers.txt \
 	# EOL
 
 EXTRA_DIST = \
@@ -61,6 +66,7 @@ EXTRA_DIST = \
 	build-aux/get-version \
 	build-aux/lcov-inject \
 	build-aux/run-script \
+	build-aux/test-runner \
 	doc/coding-style.txt \
 	debian/README.bug-usertags \
 	debian/bug-script \

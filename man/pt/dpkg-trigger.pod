@@ -116,7 +116,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 =head1 VEJA TAMBÉM
 
-B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/triggers.txt.gz>.
+B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/spec/triggers.txt.gz>.
 
 
 =head1 TRADUÇÃO

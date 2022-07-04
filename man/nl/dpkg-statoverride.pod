@@ -32,7 +32,7 @@ B<dpkg-statoverride> is een hulpmiddel voor het beheren van de lijst met statusm
 
 =item B<--add> I<gebruiker groep modus pad>
 
-Een statusmodificatie toevoegen voor I<pad>. Het is niet nodig dat I<pad> reeds bestaat op het ogenblik dat dit commando gebruikt wordt. De modificatie zal opgeslagen worden en later gebruikt worden. Gebruikers en groepen kunnen bij hun naam opgegeven worden (bijvoorbeeld B<root> of B<nobody>), of met hun nummer door voor dat nummer een ‘B<#>’ te plaatsen (bijvoorbeeld B<#0> of B<#65534>). De I<modus> moet als octaal getal opgegeven worden.
+Add an override for I<path>. I<path> does not need to exist nor be known to B<dpkg> when this command is used; the override will be stored and used later.  Users and groups can be specified by their name (for example B<root> or B<nobody>), or by their number by prepending the number with a ‘B<#>’ (for example B<#0> or B<#65534>).  The I<mode> needs to be specified in octal.
 
 Indien B<--update> opgegeven wordt en I<pad> bestaat, dan wordt dat onmiddellijk op de nieuwe eigenaar en modus ingesteld.
 

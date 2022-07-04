@@ -146,6 +146,10 @@ Especifica qual tipo de compressão usar quando compila um pacote. Valores permi
 
 Especifica que os mesmos parâmetros de compressão devem ser usados para todos os membros do arquivo (isto é, B<control.tar> e B<data.tar>; desde dpkg 1.17.6). Caso contrário apenas o membro B<data.tar> irá usar estes parâmetros. Os únicos tipos de compressão suportados e permitidos para uso uniformizado são B<none>, B<gzip> e B<xz>.  A opção B<--no-uniform-compression> desactiva a compressão uniforme (desde dpkg 1.19.0). Compressão uniforme é a predefinição (desde dpkg 1.19.0).
 
+=item B<--threads-max=>I<threads>
+
+Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+
 =item B<--root-owner-group>
 
 Define os dados de dono e grupo para cada entrada na árvore do sistema de ficheiros para root com id 0 (desde dpkg 1.19.0).
@@ -190,6 +194,12 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =over 
 
+=item B<DPKG_DEB_THREADS_MAX>
+
+Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+
+The B<--threads-max> option overrides this value.
+
 =item B<DPKG_COLORS>
 
 Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
@@ -216,7 +226,7 @@ Não há autenticação nos ficheiros B<.deb>; de facto, nem sequer há um sumá
 
 =head1 VEJA TAMBÉM
 
-B<deb>(5), B<deb-control>(5), B<dpkg>(1), B<dselect>(1).
+F<%PKGDOCDIR%/spec/rootless-builds.txt>, B<deb>(5), B<deb-control>(5), B<dpkg>(1), B<dselect>(1).
 
 
 =head1 TRADUÇÃO

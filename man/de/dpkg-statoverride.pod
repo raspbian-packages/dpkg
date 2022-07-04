@@ -32,7 +32,7 @@ B<dpkg-statoverride> ist ein Hilfswerkzeug, um die Liste der Status-Hinwegsetzun
 
 =item B<--add> I<Benutzer Gruppe Modus Pfad>
 
-Fügt eine Hinwegsetzung für I<Pfad> hinzu. I<Pfad> muss noch nicht existieren, wenn dieser Befehl verwendet wird; die Hinwegsetzung wird aufbewahrt und später verwendet. Benutzer und Gruppen können über ihren Namen (beispielsweise B<root> oder B<nobody>) spezifiziert werden, oder über ihre Nummer mit vorangestelltem ‚B<#>’ (beispielsweise B<#0> oder B<#65534>). Der I<Modus> muss oktal angegeben werden.
+Add an override for I<path>. I<path> does not need to exist nor be known to B<dpkg> when this command is used; the override will be stored and used later.  Users and groups can be specified by their name (for example B<root> or B<nobody>), or by their number by prepending the number with a ‘B<#>’ (for example B<#0> or B<#65534>).  The I<mode> needs to be specified in octal.
 
 Falls B<--update> angegeben ist und I<Pfad> existiert, dann wird dieser sofort auf den neuen Eigentümer und Modus eingestellt.
 

@@ -303,7 +303,7 @@ Tenha em conta que estes campos definidos pelo utilizador irão usar o espaço d
 
 =head1 VEJA TAMBÉM
 
-L<deb822(5)>, B<deb-control>(5), B<deb-version>(7), B<dpkg-source>(1)
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, B<deb-control>(5), B<deb-version>(7), B<dpkg-source>(1)
 
 
 =head1 TRADUÇÃO

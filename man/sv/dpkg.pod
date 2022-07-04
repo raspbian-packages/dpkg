@@ -489,9 +489,9 @@ B<hold>: Tillåt automatiska installationer, uppgraderingar eller borttagningar 
 
 B<remove-reinstreq>: Ta bort ett paket även om det är trasigt och markerat att vara i behov av ominstallation. Detta kan, till exempel, göra så att delar av paketet blir kvar på systemet, men glöms bort av B<dpkg>.
 
-B<remove-protected>: Ta bort paketet även om det anses som skyddat (protected, sedan dpkg 1.20.1). Skyddade paket är huvudsakligen viktig infrastruktur för systemstart. Om du tar bort dem kan det göra så att hela systemet inte klarar att starta, så använd med tillförsikt.
+B<remove-protected>: Remove, even if the package is considered protected (since dpkg 1.20.1).  Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages. Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
 
-B<remove-essential>: Ta bort paketet även om det anses som viktigt (essential). Viktiga paket är huvudsakligen de mest grundläggande Unixkommandona. Om du tar bort dem kan det göra så att hela systemet slutar fungera, så använd med tillförsikt.
+B<remove-essential>: Remove, even if the package is considered essential. Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead). Removing them might cause the whole system to stop working, so use with caution.
 
 B<depends>: Gör alla beroendeproblem till varningar. Detta påverkar fälten B<Pre-Depends> och B<Depends>.
 

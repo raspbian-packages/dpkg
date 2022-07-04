@@ -489,9 +489,9 @@ B<hold>: Automatische installaties, opwaarderingen en verwijderingen van pakkett
 
 B<remove-reinstreq>: Een pakket verwijderen, zelfs als het defect is en er aangegeven staat dat een herinstallatie nodig is. Dit kan bijvoorbeeld tot gevolg hebben dat delen van het pakket op het systeem achterblijven, maar B<dpkg> zal er dan niet meer van op de hoogte zijn.
 
-B<remove-protected>: Het pakket verwijderen, zelfs al wordt het als beschermd beschouwd (sinds dpkg 1.20.1). Beschermde pakketten bevatten meestal belangrijke infrastructuur voor de systeemopstart. Ze verwijderen kan tot gevolg hebben dat het hele systeem niet langer kan opstarten. Gebruik dit dus met voorzichtigheid.
+B<remove-protected>: Remove, even if the package is considered protected (since dpkg 1.20.1).  Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages. Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
 
-B<remove-essential>: Het pakket verwijderen, zelfs al wordt het als essentieel beschouwd. Essentiële pakketten bevatten meestal hele basale Unix commando's. Ze verwijderen kan tot gevolg hebben dat het hele systeem stopt met werken. Gebruik dit dus met voorzichtigheid.
+B<remove-essential>: Remove, even if the package is considered essential. Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead). Removing them might cause the whole system to stop working, so use with caution.
 
 B<depends>: Alle vereistenproblemen omzetten in waarschuwingen. Dit heeft invloed op de velden B<Pre-Depends> en B<Depends>.
 

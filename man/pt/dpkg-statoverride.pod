@@ -32,7 +32,7 @@ B<dpkg-statoverride> é um utilitário para gerir sobreposições de estatístic
 
 =item B<--add> I<user group mode path>
 
-Adiciona uma sobreposição para I<path>. I<path> não precisa existir quando este comando é usado; a sobreposição será guardada e usada mais tarde. Os utilizadores e grupos podem ser especificados pelo seu nome (por exemplo, B<root> ou B<nobody>), ou pelo seu número ao anexar o número com um ‘B<#>’ (por exemplo B<#0> ou B<#65534>).  O I<mode> precisa de ser especificado em octal.
+Add an override for I<path>. I<path> does not need to exist nor be known to B<dpkg> when this command is used; the override will be stored and used later.  Users and groups can be specified by their name (for example B<root> or B<nobody>), or by their number by prepending the number with a ‘B<#>’ (for example B<#0> or B<#65534>).  The I<mode> needs to be specified in octal.
 
 Se for especificado B<--update> e I<caminho> existir, é imediatamente definido para o proprietário e modo novos.
 
