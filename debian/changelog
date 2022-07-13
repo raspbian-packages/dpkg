@@ -1,11 +1,25 @@
-dpkg (1.20.10+rpi1) bullseye-staging; urgency=medium
+dpkg (1.20.11+rpi1) bullseye-staging; urgency=medium
 
   [changes brought forward from 1.20.5+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Sun, 02 Aug 2020 12:08:02 +0000]
   * Hack up Vendor.pm so it doesn't fail
     (see https://lists.debian.org/debian-dpkg/2020/08/msg00004.html )
   * disable testsuite.
 
- -- Raspbian forward porter <root@raspbian.org>  Fri, 27 May 2022 08:49:17 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Wed, 13 Jul 2022 16:23:21 +0000
+
+dpkg (1.20.11) bullseye; urgency=medium
+
+  [ Guillem Jover ]
+  * dpkg-deb: Fix unexpected end of file conditions on .deb extract.
+  * libdpkg: Do not restrict source:* virtual fields to installed packages.
+    Closes: #1004372
+  * Perl modules:
+    - Dpkg::Source::Package::V2: Always fix the permissions for upstream
+      tarballs. Closes: #1012195
+  * Build system:
+    - Build gitlab CI images for bullseye instead of sid.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 02 Jul 2022 05:08:46 +0200
 
 dpkg (1.20.10) bullseye-security; urgency=medium
 
