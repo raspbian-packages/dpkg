@@ -4,6 +4,9 @@ dpkg (1.21.17+rpi1) bookworm-staging; urgency=medium
   * Hack up Vendor.pm so it doesn't fail
     (see https://lists.debian.org/debian-dpkg/2020/08/msg00004.html )
 
+  [changes introduce in 1.21.17+rpi1 by Peter Michael Green]
+  * disable testsuite.
+
  -- Peter Michael Green <plugwash@raspbian.org>  Sun, 15 Jan 2023 18:39:18 +0000
 
 dpkg (1.21.17) unstable; urgency=medium
