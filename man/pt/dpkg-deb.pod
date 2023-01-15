@@ -148,7 +148,7 @@ Especifica que os mesmos parâmetros de compressão devem ser usados para todos 
 
 =item B<--threads-max=>I<threads>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Define o número máximo de tópicos permitidos para compressores que suportam operações multi-tópico (desde dpkg 1.21.9).
 
 =item B<--root-owner-group>
 
@@ -196,9 +196,21 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =item B<DPKG_DEB_THREADS_MAX>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Define o número máximo de tópicos permitidos para compressores que suportam operações multi-tópico (desde dpkg 1.21.9).
 
-The B<--threads-max> option overrides this value.
+A opção B<--threads-max> sobrepõe este valor.
+
+=item B<DPKG_DEB_COMPRESSOR_TYPE>
+
+Sets the compressor type to use (since dpkg 1.21.10).
+
+The B<-Z> option overrides this value.
+
+=item B<DPKG_DEB_COMPRESSOR_LEVEL>
+
+Sets the compressor level to use (since dpkg 1.21.10).
+
+The B<-z> option overrides this value.
 
 =item B<DPKG_COLORS>
 

@@ -200,6 +200,18 @@ Sets the maximum number of threads allowed for compressors that support multi-th
 
 The B<--threads-max> option overrides this value.
 
+=item B<DPKG_DEB_COMPRESSOR_TYPE>
+
+Sets the compressor type to use (since dpkg 1.21.10).
+
+The B<-Z> option overrides this value.
+
+=item B<DPKG_DEB_COMPRESSOR_LEVEL>
+
+Sets the compressor level to use (since dpkg 1.21.10).
+
+The B<-z> option overrides this value.
+
 =item B<DPKG_COLORS>
 
 Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.

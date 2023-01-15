@@ -32,7 +32,7 @@ B<dpkg-statoverride> é um utilitário para gerir sobreposições de estatístic
 
 =item B<--add> I<user group mode path>
 
-Add an override for I<path>. I<path> does not need to exist nor be known to B<dpkg> when this command is used; the override will be stored and used later.  Users and groups can be specified by their name (for example B<root> or B<nobody>), or by their number by prepending the number with a ‘B<#>’ (for example B<#0> or B<#65534>).  The I<mode> needs to be specified in octal.
+Adiciona uma sobreposição para I<path>. I<path> não precisa existir nem ser conhecida pelo B<dpkg> quando este comando é usado; a sobreposição será guardada e usada mais tarde. Os utilizadores e grupos podem ser especificados pelo seu nome (por exemplo, B<root> ou B<nobody>), ou pelo seu número ao anexar o número com um ‘B<#>’ (por exemplo B<#0> ou B<#65534>). O I<mode> precisa de ser especificado em octal.
 
 Se for especificado B<--update> e I<caminho> existir, é imediatamente definido para o proprietário e modo novos.
 
@@ -90,7 +90,7 @@ B<statoverride-remove>: Ignora uma sobreposição de estatística em falta quand
 
 B<security-mac>(*): Usa segurança baseada em Mandatory Access Controls (MAC) específica da plataforma quando instala ficheiros no sistema de ficheiros (desde dpkg 1.19.5). Em sistemas Linux a implementação usa SELinux.
 
-B<not-root>: Try to (de)install things even when not root (since dpkg 1.21.8).
+B<not-root>: Tenta (des)instalar coisas mesmo não sendo root (desde dpkg 1.21.8).
 
 =item B<--force>
 
@@ -135,6 +135,10 @@ Se definido e as opções B<--instdir> ou B<--root> não foram especificadas, se
 =item B<DPKG_ADMINDIR>
 
 Se definido e as opções B<--admindir> ou B<--root> não foram especificadas, será usado como o directório de dados do B<dpkg>.
+
+=item B<DPKG_DEBUG>
+
+Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
 
 =item B<DPKG_FORCE>
 

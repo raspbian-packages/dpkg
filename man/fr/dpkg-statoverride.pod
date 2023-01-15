@@ -136,6 +136,10 @@ Si cette variable est positionnée et que les options B<--admindir> ou B<--root>
 
 Si cette variable est positionnée et que les options B<--admindir> ou B<--root> ne sont pas précisées, ce répertoire sera utilisé comme répertoire de données pour B<dpkg>.
 
+=item B<DPKG_DEBUG>
+
+Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
 =item B<DPKG_FORCE>
 
 Si cette variable est positionnée et qu'aucune des options B<--force->I<...> n'est précisée, elle sera considérée comme l'option de forçage à utiliser (depuis S<dpkg 1.19.5).>

@@ -113,6 +113,8 @@ Implementação actual: o B<preinst> verifica se o conffile foi modificado. Se s
 
 Ao actualiza um pacote, o B<dpkg> não irá mudar automaticamente de um link simbólico para um directório ou vice-versa. Downgrades (descidas de versão) não são suportados e o caminho irá ser deixado como está.
 
+Note: The symlinks and directories created during these switches need to be shipped in the new packages, or B<dpkg> will not be able to remove them on purge.
+
 =head2 Alternar um link simbólico para directório
 
 Se um link simbólico for mudado para um directório real, você precisa de certificar que o link simbólico é removido antes de desempacotar. Isto pode parecer uma mudança simples para o script B<preinst> no inicio, no entanto isso irá resultar em alguns problemas no caso de personalização local administrativa do link simbólico ou quando se retrocede na versão do pacote (downgrade).

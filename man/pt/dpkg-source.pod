@@ -124,7 +124,7 @@ Você pode especificar uma expressão regular perl para coincidir aos ficheiros 
 
 A opção B<-i> por si só activa esta definição com uma regex predefinida (preservando qualquer modificação ao regex predefinido feito por uma utilização anterior de B<--extend-diff-ignore>) que irá filtrar fora ficheiros de controle e directórios dos sistemas de controlo de revisão mais comuns, salvaguardas e ficheiros swap, e directórios de resultados de compilação de Libtool. Só pode existir um regex activo, das várias opções B<-i> apenas a última irá ter efeito.
 
-Isto é uma grande ajuda para cortar ficheiros alheios que foram incluídos no diff, ex, se você mantêm a sua fonte num sistema de controle de revisão e deseja usar um checkout para compilar um pacote fonte sem incluir os ficheiros adicionais e os directórios que geralmente contém (ex. CVS/, .cvsignore, .svn/). O regex predefinido já é bastante exaustivo, mas se precisar de o substituir, por favor note que por predefinição ele consegue corresponder a qualquer parte de um caminho, portanto se você quer corresponder ao inicio de um nome de ficheiro, ou apenas nomes completos de ficheiros, precisa ser você próprio a fornecer as âncoras necessárias (ex, ‘(^|/)’, ‘($|/)’).
+This is very helpful in cutting out extraneous files that get included in the diff, for example if you maintain your source in a revision control system and want to use a checkout to build a source package without including the additional files and directories that it will usually contain (e.g. CVS/, .cvsignore, .svn/). The default regex is already very exhaustive, but if you need to replace it, please note that by default it can match any part of a path, so if you want to match the begin of a filename or only full filenames, you will need to provide the necessary anchors (e.g. ‘(^|/)’, ‘($|/)’) yourself.
 
 =item B<--extend-diff-ignore>=I<regex>
 
@@ -169,6 +169,20 @@ Recusa-se a desempacotar p pacote fonte se este não conter nenhuns checksums fo
 =item B<--ignore-bad-version>
 
 Torna a verificação de versão má de pacote fonte num aviso não-fatal (desde dpkg 1.17.7). Esta opção só deve ser necessária quando se extrai pacotes fonte anciãos com versões quebradas, apenas para compatibilidade com versões antigas.
+
+=back
+
+=head2 Generic general options
+
+=over 
+
+=item B<--threads-max=>I<threads>
+
+Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.14).
+
+=item B<-q>
+
+Sets quiet mode to suppress warnings.
 
 =back
 

@@ -454,20 +454,20 @@ Quando um pacote é removido, existe a possibilidade que outro pacote instalado 
 
 Liga a depuração. I<octal> é formado por valores bitwise-ORing desejados juntos da lista em baixo (note que estes valores podem mudar em lançamentos futuros). B<-Dh> ou B<--debug=help> mostram estes valores de depuração.
 
-    Número   Descrição
-         1   Informação de progresso geralmente útil
-         2   Invocação e estado dos scripts do maintainer
-        10   Resultado de cada ficheiro processado
-       100   Montes de resultados de cada ficheiro processado
-        20   Resultado para cada ficheiro de configuração
-       200   Montes de resultados de cada ficheiro de configuração
-        40   Dependências e conflitos
-       400   Montes de resultados de dependências/conflitos
-     10000   Activação de gatilhos e processamento
-     20000   Montes de resultados relativos a gatilhos
-     40000   Quantidades tolas de resultados relativos a gatilhos
-      1000   Lotes acerca de drivel ex. o directório dpkg/info
-      2000   Lotes tolos de drivel
+    Number   Description
+         1   Generally helpful progress information
+         2   Invocation and status of maintainer scripts
+        10   Output for each file processed
+       100   Lots of output for each file processed
+        20   Output for each configuration file
+       200   Lots of output for each configuration file
+        40   Dependencies and conflicts
+       400   Lots of dependencies/conflicts output
+     10000   Trigger activation and processing
+     20000   Lots of output regarding triggers
+     40000   Silly amounts of output regarding triggers
+      1000   Lots of drivel about for example the dpkg/info dir
+      2000   Insane amounts of drivel
 
 =item B<--force->I<things>
 
@@ -485,13 +485,13 @@ I<Aviso: Presentemente o> B<dpkg> I<não efetua nenhuma verificação de depend�
 
 B<configure-any>: Configura também quaisquer pacotes desempacotados mas não configurados nos quais o pacote actual depende.
 
-B<hold>: Permite instalações, actualizações e remoções automáticas mesmo quando marcado para estar em “hold”.  B<Nota:> Isto não previne estas acções quando requisitadas explicitamente.
+B<hold>: Allow automatic installs, upgrades or removals of packages even when marked to be on “hold”.  B<Note:> When these actions are requested explicitly, the “hold” package selection state always gets ignored.
 
 B<remove-reinstreq>: Remove um pacote, mesmo se estiver quebrado e marcado a requerer reinstalação. Isto pode, por exemplo, causar que partes do pacote fiquem no sistema, que serão depois esquecidos pelo B<dpkg>.
 
-B<remove-protected>: Remove, even if the package is considered protected (since dpkg 1.20.1).  Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages. Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
+B<remove-protected>: Remove, mesmo se o pacote for considerado protegido (desde dpkg 1.20.1).  Os pacotes protegidos contêm maioritariamente a importante infraestrutura de arranque do sistema ou são usados por meta-pacotes personalizados locais-do-sistema. Removê-los pode causar que todo o sistema seja incapaz de arrancar ou perca funcionalidades requeridas para operar, portanto use com muito cuidado.
 
-B<remove-essential>: Remove, even if the package is considered essential. Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead). Removing them might cause the whole system to stop working, so use with caution.
+B<remove-essential>: Remove, mesmo se o pacote for considerado essencial Os pacotes essenciais contêm maioritariamente comandos Unix mais básicos, requeridos par ao sistema de empacotamento, para a operação do sistema em geral ou durante o arranque (apesar do último dever ser alterado para pacotes protegidos em vez disto). Removê-los pode causar que todo o sistema pare de funcionar, por isso use com cuidado.
 
 B<depends>: Torna todos os problemas de dependências em avisos. Isto afecta os campos B<Pre-Depends> and B<Depends>.
 
@@ -579,7 +579,9 @@ Apenas processa os pacotes que estão selecionados para instalação. A marcaç�
 
 =item B<-E>, B<--skip-same-version>
 
-Não instala o pacote se a mesma versão do pacote já estiver instalada.
+Don't install the package if the same version and architecture of the package is already installed.
+
+Since dpkg 1.21.10, the architecture is also taken into account, which makes it possible to cross-grade packages or install additional co-installable instances with the same version, but different architecture.
 
 =item B<--pre-invoke=>I<command>
 
@@ -689,7 +691,7 @@ Status do pacote alterado; I<status> está como no ficheiro de status.
 Ocorreu um erro. Quaisquer possíveis novas linhas em I<extended-error-message> irão ser convertidas para espaços antes do resultado.
 
 =item B<status:> I<file> B<: conffile-prompt : '>I<real-old>B<' '>I<real-new>B<'>
-I<useredited>B<> I<distedited>
+I<useredited> I<distedited>
 
 Está a ser perguntado ao utilizador uma questão de ficheiro de configuração.
 
@@ -801,6 +803,10 @@ O programa que o B<dpkg> irá executar quando correr um paginador, o qual será 
 =item B<DPKG_COLORS>
 
 Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+=item B<DPKG_DEBUG>
+
+Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<--debug> option.
 
 =item B<DPKG_FORCE>
 

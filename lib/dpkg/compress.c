@@ -23,12 +23,8 @@
 #include <config.h>
 #include <compat.h>
 
-#include <sys/stat.h>
-
 #include <errno.h>
-#include <inttypes.h>
 #include <string.h>
-#include <fcntl.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -49,6 +45,7 @@
 #include <dpkg/varbuf.h>
 #include <dpkg/fdio.h>
 #include <dpkg/buffer.h>
+#include <dpkg/meminfo.h>
 #include <dpkg/command.h>
 #include <dpkg/compress.h>
 #if USE_LIBZ_IMPL == USE_LIBZ_IMPL_NONE || \
@@ -599,83 +596,6 @@ filter_lzma_error(struct io_lzma *io, lzma_ret ret)
 }
 
 #ifdef HAVE_LZMA_MT_ENCODER
-# ifdef __linux__
-/*
- * An estimate of how much memory is available. Swap will not be used, the
- * page cache may be purged, not everything will be reclaimed that might be
- * reclaimed, watermarks are considered.
- */
-static const char str_MemAvailable[] = "MemAvailable";
-static const size_t len_MemAvailable = sizeof(str_MemAvailable) - 1;
-
-static int
-get_avail_mem(uint64_t *val)
-{
-	char buf[4096];
-	char *str;
-	ssize_t bytes;
-	int fd;
-
-	*val = 0;
-
-	fd = open("/proc/meminfo", O_RDONLY);
-	if (fd < 0)
-		return -1;
-
-	bytes = fd_read(fd, buf, sizeof(buf));
-	close(fd);
-
-	if (bytes <= 0)
-		return -1;
-
-	buf[bytes] = '\0';
-
-	str = buf;
-	while (1) {
-		char *end;
-
-		end = strchr(str, ':');
-		if (end == 0)
-			break;
-
-		if ((end - str) == len_MemAvailable &&
-		    strncmp(str, str_MemAvailable, len_MemAvailable) == 0) {
-			intmax_t num;
-
-			str = end + 1;
-			errno = 0;
-			num = strtoimax(str, &end, 10);
-			if (num <= 0)
-				return -1;
-			if ((num == INTMAX_MAX) && errno == ERANGE)
-				return -1;
-			/* It should end with ' kB\n'. */
-			if (*end != ' ' || *(end + 1) != 'k' ||
-			    *(end + 2) != 'B')
-				return -1;
-
-			/* This should not overflow, but just in case. */
-			if (num < (INTMAX_MAX / 1024))
-				num *= 1024;
-			*val = num;
-			return 0;
-		}
-
-		end = strchr(end + 1, '\n');
-		if (end == 0)
-			break;
-		str = end + 1;
-	}
-	return -1;
-}
-# else
-static int
-get_avail_mem(uint64_t *val)
-{
-	return -1;
-}
-# endif
-
 static uint64_t
 filter_xz_get_memlimit(void)
 {
@@ -684,7 +604,7 @@ filter_xz_get_memlimit(void)
 	/* Ask the kernel what is currently available for us. If this fails
 	 * initialize the memory limit to half the physical RAM, or to 128 MiB
 	 * if we cannot infer the number. */
-	if (get_avail_mem(&mt_memlimit) < 0) {
+	if (meminfo_get_available(&mt_memlimit) < 0) {
 		mt_memlimit = lzma_physmem() / 2;
 		if (mt_memlimit == 0)
 			mt_memlimit = 128 * 1024 * 1024;
@@ -697,25 +617,10 @@ filter_xz_get_memlimit(void)
 	return mt_memlimit;
 }
 
-static long
-parse_threads_max(const char *str)
-{
-	long value;
-	char *end;
-
-	errno = 0;
-	value = strtol(str, &end, 10);
-	if (str == end || *end != '\0' || errno != 0)
-		return 0;
-
-	return value;
-}
-
 static uint32_t
 filter_xz_get_cputhreads(struct compress_params *params)
 {
 	long threads_max;
-	const char *env;
 
 	threads_max = lzma_cputhreads();
 	if (threads_max == 0)
@@ -724,10 +629,6 @@ filter_xz_get_cputhreads(struct compress_params *params)
 	if (params->threads_max >= 0)
 		return clamp(params->threads_max, 1, threads_max);
 
-	env = getenv("DPKG_DEB_THREADS_MAX");
-	if (str_is_set(env))
-		return clamp(parse_threads_max(env), 1, threads_max);
-
 	return threads_max;
 }
 #endif
@@ -735,12 +636,29 @@ filter_xz_get_cputhreads(struct compress_params *params)
 static void
 filter_unxz_init(struct io_lzma *io, lzma_stream *s)
 {
+#ifdef HAVE_LZMA_MT_DECODER
+	lzma_mt mt_options = {
+		.flags = 0,
+		.block_size = 0,
+		.timeout = 0,
+		.filters = NULL,
+	};
+#else
 	uint64_t memlimit = UINT64_MAX;
+#endif
 	lzma_ret ret;
 
 	io->status |= DPKG_STREAM_DECOMPRESS;
 
+#ifdef HAVE_LZMA_MT_DECODER
+	mt_options.memlimit_stop = UINT64_MAX;
+	mt_options.memlimit_threading = filter_xz_get_memlimit();
+	mt_options.threads = filter_xz_get_cputhreads(io->params);
+
+	ret = lzma_stream_decoder_mt(s, &mt_options);
+#else
 	ret = lzma_stream_decoder(s, memlimit, 0);
+#endif
 	if (ret != LZMA_OK)
 		filter_lzma_error(io, ret);
 }
@@ -847,12 +765,19 @@ decompress_xz(struct compress_params *params, int fd_in, int fd_out,
               const char *desc)
 {
 	struct command cmd;
+	char *threads_opt = NULL;
 
 	command_decompress_init(&cmd, XZ, desc);
+
+	if (params->threads_max > 0) {
+		threads_opt = str_fmt("-T%d", params->threads_max);
+		command_add_arg(&cmd, threads_opt);
+	}
 
 	fd_fd_filter(&cmd, fd_in, fd_out, env_xz);
 
 	command_destroy(&cmd);
+	free(threads_opt);
 }
 
 static void
@@ -868,7 +793,24 @@ compress_xz(struct compress_params *params, int fd_in, int fd_out,
 		command_add_arg(&cmd, "-e");
 
 	if (params->threads_max > 0) {
-		threads_opt = str_fmt("-T%d", params->threads_max);
+		/* Do not generate warnings when adjusting memory usage, nor
+		 * exit with non-zero due to those not emitted warnings. */
+		command_add_arg(&cmd, "--quiet");
+		command_add_arg(&cmd, "--no-warn");
+
+		/* Do not let xz fallback to single-threaded mode, to avoid
+		 * non-reproducible output. */
+		command_add_arg(&cmd, "--no-adjust");
+
+		/* The xz -T1 option selects a single-threaded mode which
+		 * generates different output than in multi-threaded mode.
+		 * To avoid the non-reproducible output we pass -T+1
+		 * (supported with xz >= 5.4.0) to request multi-threaded
+		 * mode with a single thread. */
+		if (params->threads_max == 1)
+			threads_opt = m_strdup("-T+1");
+		else
+			threads_opt = str_fmt("-T%d", params->threads_max);
 		command_add_arg(&cmd, threads_opt);
 	}
 

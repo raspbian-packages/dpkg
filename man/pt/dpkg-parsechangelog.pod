@@ -56,13 +56,13 @@ Mostra a versão e termina.
 
 =head2 Opções de Analisador
 
-As seguintes opções podem ser usadas para influenciar o resultado do analisador de changelog, ex, o alcance das entradas ou o formato dos resultados.
+The following options can be used to influence the output of the changelog parser, for example the range of entries or the format of the output.
 
 =over 
 
 =item B<--format> I<output-format>
 
-Define o formato de resultado. Actualmente os valores suportados são B<dpkg> e B<rfc822>. B<dpkg> é o formato de saída clássico (já vem de antes esta opção existir) e o predefinido. Consistem em um parágrafo em formato de controlo Debian  (veja B<deb-control>(5)). Se for requerida mais do que uma entrada, então a maioria dos campos são obtidos a partir da primeira entrada (geralmente a entrada mais recente), excepto caso contrário declarado:
+Set the output format. Currently supported values are B<dpkg> and B<rfc822>.  B<dpkg> is the classic output format (from before this option existed) and the default. It consists of one stanza in Debian control format (see B<deb-control>(5)). If more than one entry is requested, then most fields are taken from the first entry (usually the most recent entry), except otherwise stated:
 
 =over 
 
@@ -100,7 +100,7 @@ Os campos B<Version>, B<Distribution>, B<Urgency>, B<Maintainer>e B<Changes> sã
 
 Podem estar presentes campos adicionais definidos pelo utilizador.
 
-O formato B<rfc822> usa os mesmos campos mas escreve um parágrafo separado para cada entrada no changelog para que todos os meta-dados de cada entrada sejam preservados.
+The B<rfc822> format uses the same fields but outputs a separate stanza for each changelog entry so that all metadata for each entry is preserved.
 
 =item B<--reverse>
 

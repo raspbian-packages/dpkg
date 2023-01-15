@@ -552,6 +552,7 @@ EXTRA_DIST = \
 	debian/libdpkg-dev.install \
 	debian/libdpkg-perl.install \
 	debian/source/format \
+	debian/source/lintian-overrides \
 	debian/not-installed \
 	debian/rules \
 	debian/shlibs.default \
@@ -568,11 +569,18 @@ EXTRA_DIST = \
 	$(test_data) \
 	# EOL
 
-@COVERAGE_ENABLED_TRUE@LCOV_OPTS = -q --rc geninfo_checksum=1 --rc lcov_branch_coverage=1
+@COVERAGE_ENABLED_TRUE@LCOV_OPTS = --quiet --rc geninfo_checksum=1 --rc lcov_branch_coverage=1
 @COVERAGE_ENABLED_TRUE@LCOV_CAPTURE_OPTS = $(LCOV_OPTS) --no-recursion \
-@COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/lib/dpkg \
-@COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/src \
-@COVERAGE_ENABLED_TRUE@	-d $(top_builddir)/utils \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/lib/dpkg \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/common \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/deb \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/split \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/divert \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/query \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/trigger \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/statoverride \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/src/main \
+@COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/utils \
 @COVERAGE_ENABLED_TRUE@	# EOL
 
 @COVERAGE_ENABLED_TRUE@LCOV_INJECT = $(PERL) -i $(top_srcdir)/build-aux/lcov-inject
@@ -593,9 +601,9 @@ test_scripts = \
 	# EOL
 
 test_data = \
-	t/critic/perlcriticrc \
 	t/codespell/stopwords \
 	t/cppcheck/cppcheck.supp \
+	t/critic/perlcriticrc \
 	# EOL
 
 
@@ -1225,21 +1233,26 @@ doc-clean:
 @COVERAGE_ENABLED_TRUE@	find -name '*.gcda' -o -name '*.gcov' | xargs rm -f
 
 @COVERAGE_ENABLED_TRUE@	: # Initialize data
-@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_CAPTURE_OPTS) -c -o dpkg_base.lcov -i
+@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_CAPTURE_OPTS) --capture --initial \
+@COVERAGE_ENABLED_TRUE@	  --output-file dpkg_base.lcov
 @COVERAGE_ENABLED_TRUE@	: # Run test cases
 @COVERAGE_ENABLED_TRUE@	$(MAKE) -C lib/dpkg check
 @COVERAGE_ENABLED_TRUE@	$(MAKE) -C src check
 @COVERAGE_ENABLED_TRUE@	$(MAKE) -C utils check
 @COVERAGE_ENABLED_TRUE@	: # Merge test coverage data
-@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_CAPTURE_OPTS) -c -o dpkg_test.lcov
-@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) -a dpkg_base.lcov -a dpkg_test.lcov \
-@COVERAGE_ENABLED_TRUE@	  -o dpkg_merge.lcov
-@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) -r dpkg_merge.lcov '/usr/include/*' -o dpkg.lcov
+@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_CAPTURE_OPTS) --capture \
+@COVERAGE_ENABLED_TRUE@	  --output-file dpkg_test.lcov
+@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) \
+@COVERAGE_ENABLED_TRUE@	  --add-tracefile dpkg_base.lcov \
+@COVERAGE_ENABLED_TRUE@	  --add-tracefile dpkg_test.lcov \
+@COVERAGE_ENABLED_TRUE@	  --output-file dpkg_merge.lcov
+@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) --remove dpkg_merge.lcov '/usr/include/*' \
+@COVERAGE_ENABLED_TRUE@	  --output-file dpkg.lcov
 @COVERAGE_ENABLED_TRUE@	: # Generate reports
-@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) -l dpkg.lcov
+@COVERAGE_ENABLED_TRUE@	$(LCOV) $(LCOV_OPTS) --list dpkg.lcov
 @COVERAGE_ENABLED_TRUE@	$(LCOV_GENHTML) $(LCOV_OPTS) \
 @COVERAGE_ENABLED_TRUE@	  --legend --title "dpkg $(VERSION) C code coverage" \
-@COVERAGE_ENABLED_TRUE@	  -o doc/coverage dpkg.lcov
+@COVERAGE_ENABLED_TRUE@	  --output-directory doc/coverage dpkg.lcov
 
 @COVERAGE_ENABLED_TRUE@	$(MAKE) -C scripts $@
 
@@ -1280,6 +1293,9 @@ tap-check: $(test_data) $(test_programs) $(test_scripts)
 	  $(PERL) $(top_srcdir)/build-aux/test-runner \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))
+
+authorcheck:
+	AUTHOR_TESTING=1 $(MAKE) check
 
 check-local: tap-check
 

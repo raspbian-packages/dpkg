@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.13\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2022-07-01 09:25+0000\n"
+"POT-Creation-Date: 2023-01-05 11:33+0000\n"
 "PO-Revision-Date: 2018-04-15 07:06+0800\n"
 "Last-Translator: 林博仁 <Buo.Ren.Lin@gmail.com>\n"
 "Language-Team: Chinese (traditional) <debian-l10n-chinese@lists.debian.org>\n"
@@ -662,6 +662,11 @@ msgstr "版本格式中缺次版本"
 msgid "format version followed by junk"
 msgstr "版本格式結尾是亂碼"
 
+#: lib/dpkg/debug.c
+#, c-format
+msgid "cannot parse debug mask from environment variable %s"
+msgstr ""
+
 #: lib/dpkg/dir.c
 #, c-format
 msgid "unable to get file descriptor for directory '%s'"
@@ -699,8 +704,9 @@ msgid "unable to set buffering on %s database file"
 msgstr "無法在%s資料庫檔案上設緩衝區"
 
 #: lib/dpkg/dump.c
-#, c-format
-msgid "failed to write %s database record about '%.50s' to '%.250s'"
+#, fuzzy, c-format
+#| msgid "failed to write %s database record about '%.50s' to '%.250s'"
+msgid "failed to write %s database stanza about '%s' to '%s'"
 msgstr "無法寫入關於 '%2$.50s' 到 '%3$.250s' 的%1$s資料庫記錄"
 
 #: lib/dpkg/ehandle.c utils/update-alternatives.c
@@ -3093,15 +3099,26 @@ msgstr ""
 "\n"
 
 #: src/split/main.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Options:\n"
+#| "  --depotdir <directory>           Use <directory> instead of %s/%s.\n"
+#| "  -S|--partsize <size>             In KiB, for -s (default is 450).\n"
+#| "  -o|--output <file>               Filename, for -j (default is\n"
+#| "                                     <package>_<version>_<arch>.deb).\n"
+#| "  -Q|--npquiet                     Be quiet when -a is not a part.\n"
+#| "  --msdos                          Generate 8.3 filenames.\n"
+#| "\n"
 msgid ""
 "Options:\n"
-"  --depotdir <directory>           Use <directory> instead of %s/%s.\n"
-"  -S|--partsize <size>             In KiB, for -s (default is 450).\n"
-"  -o|--output <file>               Filename, for -j (default is\n"
+"      --depotdir <directory>       Use <directory> instead of %s/%s.\n"
+"      --admindir <directory>       Use <directory> instead of %s.\n"
+"      --root <directory>           Use <directory> instead of %s.\n"
+"  -S, --partsize <size>            In KiB, for -s (default is 450).\n"
+"  -o, --output <file>              Filename, for -j (default is\n"
 "                                     <package>_<version>_<arch>.deb).\n"
-"  -Q|--npquiet                     Be quiet when -a is not a part.\n"
-"  --msdos                          Generate 8.3 filenames.\n"
+"  -Q, --npquiet                    Be quiet when -a is not a part.\n"
+"      --msdos                      Generate 8.3 filenames.\n"
 "\n"
 msgstr ""
 "選項：\n"
@@ -3775,14 +3792,6 @@ msgid "must be called from a maintainer script (or with a --by-package option)"
 msgstr "須由維護者程式（或以 --by-package 選項）呼叫"
 
 #: src/trigger/main.c
-msgid "triggers data directory not yet created"
-msgstr "還沒建立觸發資料目錄"
-
-#: src/trigger/main.c
-msgid "trigger records not yet in existence"
-msgstr "還沒有觸發記錄"
-
-#: src/trigger/main.c
 msgid "takes one argument, the trigger name"
 msgstr "需要一個參數：觸發程式名稱"
 
@@ -3795,6 +3804,14 @@ msgstr "不合法的等待套件名稱 '%.250s'：%.250s"
 #, c-format
 msgid "invalid trigger name '%.250s': %.250s"
 msgstr "不正確的觸發程式名稱 `%.250s'：%.250s"
+
+#: src/trigger/main.c
+msgid "triggers data directory not yet created"
+msgstr "還沒建立觸發資料目錄"
+
+#: src/trigger/main.c
+msgid "trigger records not yet in existence"
+msgstr "還沒有觸發記錄"
 
 #: src/query/main.c src/main/select.c
 #, c-format
@@ -5470,7 +5487,8 @@ msgid ""
 "exclusion.\n"
 "  -O|--selected-only         Skip packages not selected for install/"
 "upgrade.\n"
-"  -E|--skip-same-version     Skip packages whose same version is installed.\n"
+"  -E|--skip-same-version     Skip packages with same installed version/"
+"arch.\n"
 "  -G|--refuse-downgrade      Skip packages with earlier version than "
 "installed.\n"
 "  -B|--auto-deconfigure      Install even if it would break some other "

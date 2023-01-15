@@ -146,9 +146,9 @@ Ange vilken komprimeringstyp som ska användas när ett paket byggs. Tillåtna v
 
 Ange att samma komprimeringsparametrar ska användas för alla arkivmedlemmar (dvs. B<control.tar> och B<data.tar>; sedan dpkg 1.17.6). I annat fall kommer endast medlemmen B<data.tar> att använda parametrarna. De enda komprimeringstyper som kan användas enhetligt är B<none>, B<gzip> och B<xz>. Flaggan B<--no-uniform-compression> inaktiverar enhetlig komprimering (sedan dpkg 1.19.0). Enhetlig komprimering är förval (sedan dpkg 1.19.0).
 
-=item B<--threads-max=>I<threads>
+=item B<--threads-max=>I<trådar>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Anger det maximala antalet trådar som tillåts för komprimerare som stöder flertrådad körning (sedan dpkg 1.21.9).
 
 =item B<--root-owner-group>
 
@@ -196,9 +196,21 @@ Den önskade funktionen utfördes utan fel.
 
 =item B<DPKG_DEB_THREADS_MAX>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Anger det maximala antalet trådar som tillåts för komprimerare som stöder flertrådad körning (sedan dpkg 1.21.9).
 
-The B<--threads-max> option overrides this value.
+Flaggan B<--threads-max> överstyr denna variabel.
+
+=item B<DPKG_DEB_COMPRESSOR_TYPE>
+
+Sets the compressor type to use (since dpkg 1.21.10).
+
+The B<-Z> option overrides this value.
+
+=item B<DPKG_DEB_COMPRESSOR_LEVEL>
+
+Sets the compressor level to use (since dpkg 1.21.10).
+
+The B<-z> option overrides this value.
 
 =item B<DPKG_COLORS>
 

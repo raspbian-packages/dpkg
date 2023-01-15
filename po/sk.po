@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.17.0\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2022-07-01 09:25+0000\n"
+"POT-Creation-Date: 2023-01-05 11:33+0000\n"
 "PO-Revision-Date: 2015-04-07 10:01+0200\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <debian-l10n-slovak@lists.debian.org>\n"
@@ -679,6 +679,11 @@ msgstr "verzia formátu s prázdnou zložkou „minor“"
 msgid "format version followed by junk"
 msgstr "po verzii formátu nasledujú nezmyselné znaky"
 
+#: lib/dpkg/debug.c
+#, c-format
+msgid "cannot parse debug mask from environment variable %s"
+msgstr ""
+
 #: lib/dpkg/dir.c
 #, c-format
 msgid "unable to get file descriptor for directory '%s'"
@@ -716,8 +721,9 @@ msgid "unable to set buffering on %s database file"
 msgstr "nie je možné nastaviť buffering databázového súboru %s"
 
 #: lib/dpkg/dump.c
-#, c-format
-msgid "failed to write %s database record about '%.50s' to '%.250s'"
+#, fuzzy, c-format
+#| msgid "failed to write %s database record about '%.50s' to '%.250s'"
+msgid "failed to write %s database stanza about '%s' to '%s'"
 msgstr "zlyhal zápis záznamu datanázy %s o „%.50s“ do „%.250s“"
 
 #: lib/dpkg/ehandle.c utils/update-alternatives.c
@@ -3209,15 +3215,26 @@ msgstr ""
 "\n"
 
 #: src/split/main.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Options:\n"
+#| "  --depotdir <directory>           Use <directory> instead of %s/%s.\n"
+#| "  -S|--partsize <size>             In KiB, for -s (default is 450).\n"
+#| "  -o|--output <file>               Filename, for -j (default is\n"
+#| "                                     <package>_<version>_<arch>.deb).\n"
+#| "  -Q|--npquiet                     Be quiet when -a is not a part.\n"
+#| "  --msdos                          Generate 8.3 filenames.\n"
+#| "\n"
 msgid ""
 "Options:\n"
-"  --depotdir <directory>           Use <directory> instead of %s/%s.\n"
-"  -S|--partsize <size>             In KiB, for -s (default is 450).\n"
-"  -o|--output <file>               Filename, for -j (default is\n"
+"      --depotdir <directory>       Use <directory> instead of %s/%s.\n"
+"      --admindir <directory>       Use <directory> instead of %s.\n"
+"      --root <directory>           Use <directory> instead of %s.\n"
+"  -S, --partsize <size>            In KiB, for -s (default is 450).\n"
+"  -o, --output <file>              Filename, for -j (default is\n"
 "                                     <package>_<version>_<arch>.deb).\n"
-"  -Q|--npquiet                     Be quiet when -a is not a part.\n"
-"  --msdos                          Generate 8.3 filenames.\n"
+"  -Q, --npquiet                    Be quiet when -a is not a part.\n"
+"      --msdos                      Generate 8.3 filenames.\n"
 "\n"
 msgstr ""
 "Voľby:\n"
@@ -3908,14 +3925,6 @@ msgid "must be called from a maintainer script (or with a --by-package option)"
 msgstr "musí sa volať z údržbového skriptu (alebo voľbou --by-package)"
 
 #: src/trigger/main.c
-msgid "triggers data directory not yet created"
-msgstr "dátový adresár spúšťača zatiaľ nebol vytvorený"
-
-#: src/trigger/main.c
-msgid "trigger records not yet in existence"
-msgstr "záznamy spúšťača zatiaľ neexistujú"
-
-#: src/trigger/main.c
 msgid "takes one argument, the trigger name"
 msgstr "potrebuje jeden parameter, názov spúšťača"
 
@@ -3928,6 +3937,14 @@ msgstr "neplatný názov očakávaného balíka „%.250s“: %.250s"
 #, c-format
 msgid "invalid trigger name '%.250s': %.250s"
 msgstr "neplatný názov spúšťača „%.250s“: %.250s"
+
+#: src/trigger/main.c
+msgid "triggers data directory not yet created"
+msgstr "dátový adresár spúšťača zatiaľ nebol vytvorený"
+
+#: src/trigger/main.c
+msgid "trigger records not yet in existence"
+msgstr "záznamy spúšťača zatiaľ neexistujú"
 
 #: src/query/main.c src/main/select.c
 #, c-format
@@ -5691,7 +5708,8 @@ msgid ""
 "exclusion.\n"
 "  -O|--selected-only         Skip packages not selected for install/"
 "upgrade.\n"
-"  -E|--skip-same-version     Skip packages whose same version is installed.\n"
+"  -E|--skip-same-version     Skip packages with same installed version/"
+"arch.\n"
 "  -G|--refuse-downgrade      Skip packages with earlier version than "
 "installed.\n"
 "  -B|--auto-deconfigure      Install even if it would break some other "

@@ -146,9 +146,9 @@ Gibt die Art der Komprimierung beim Bau eines Pakets an. Erlaubte Werte sind B<g
 
 Gibt an, dass die gleichen Komprimierungsparameter für alle Archivteile (d.h. B<control.tar> und B<data.tar>; seit Dpkg 1.17.6) verwandt werden sollen. Andernfalls wird nur der Teil B<data.tar> diese Parameter verwenden. Die einzigen unterstützten Kompressionstypen, die übergreifend benutzt werden dürfen, sind B<none>, B<gzip> und B<xz>. Die Option B<--no-uniform-compression> deaktiviert die übergreifende Komprimierung (seit Dpkg 1.19.0). Übergreifende Komprimierung ist die Vorgabe (seit Dpkg 1.19.0).
 
-=item B<--threads-max=>I<threads>
+=item B<--threads-max=>I<Threads>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Setzt die maximale Anzahl an Threads, die für Komprimierer erlaubt sind, die multi-threaded Aktionen erlauben (seit Dpkg 1.21.9).
 
 =item B<--root-owner-group>
 
@@ -196,9 +196,21 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_DEB_THREADS_MAX>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.9).
+Setzt die maximale Anzahl an Threads, die für Komprimierer erlaubt sind, die multi-threaded Aktionen erlauben (seit Dpkg 1.21.9).
 
-The B<--threads-max> option overrides this value.
+Die Option B<--threads-max> erlaubt das Hinwegsetzen über diesen Wert.
+
+=item B<DPKG_DEB_COMPRESSOR_TYPE>
+
+Setzt den zu verwendenden Komprimiertyp (seit Dpkg 1.21.10).
+
+Die Option B<-Z> erlaubt das Hinwegsetzen über diesen Wert.
+
+=item B<DPKG_DEB_COMPRESSOR_LEVEL>
+
+Setzt die zu verwendende Komprimierstufe (seit Dpkg 1.21.10).
+
+Die Option B<-z> erlaubt das Hinwegsetzen über diesen Wert.
 
 =item B<DPKG_COLORS>
 
@@ -231,7 +243,7 @@ F<%PKGDOCDIR%/spec/rootless-builds.txt>, B<deb>(5), B<deb-control>(5), B<dpkg>(1
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2022 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

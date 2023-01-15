@@ -190,9 +190,13 @@ Isto altera a prioridade do processo antes de o iniciar.
 
 Isto altera a política de agendamento de processos e a prioridade dos processos antes de os iniciar (desde versão 1.15.0). A prioridade pode ser opcionalmente especificada ao anexar um B<:> seguido de um valor. A predefinição de I<priority> é 0. Os valores de política actualmente suportados são B<other>, B<fifo> e B<rr>.
 
+This option might do nothing on some systems, where POSIX process scheduling is not supported.
+
 =item B<-I>, B<--iosched> I<class>B<:>I<priority>
 
 Isto altera a classe de agendamento IO e a prioridade dos processos antes de os iniciar (desde versão 1.15.0). A prioridade pode ser opcionalmente especificada ao anexar um B<:> seguido de um valor. A predefinição de I<priority> é 4, a menos que I<class> seja B<idle>, então I<priority> será sempre 7. Os valores actualmente suportados para I<class> são B<idle>, B<best-effort> e B<real-time>.
+
+This option might do nothing on some systems, where Linux IO scheduling is not supported.
 
 =item B<-k>, B<--umask> I<mask>
 
@@ -265,8 +269,8 @@ Inicia o daemon B<food>, a menos que um já esteja a correr (um processo chamado
 =over 
 
  start-stop-daemon --start --oknodo --user food --name food \
- 	--pidfile %RUNSTATEDIR%/food.pid --startas /usr/sbin/food \
- 	--chuid food -- --daemon
+   --pidfile %RUNSTATEDIR%/food.pid --startas /usr/sbin/food \
+   --chuid food -- --daemon
 
 =back
 
@@ -275,7 +279,7 @@ Envia B<SIGTERM> para B<food> e espera até 5 segundos para que pare:
 =over 
 
  start-stop-daemon --stop --oknodo --user food --name food \
- 	--pidfile %RUNSTATEDIR%/food.pid --retry 5
+   --pidfile %RUNSTATEDIR%/food.pid --retry 5
 
 =back
 
@@ -284,7 +288,7 @@ Demonstração dum agendamento personalizado para parar o B<food>:
 =over 
 
  start-stop-daemon --stop --oknodo --user food --name food \
- 	--pidfile %RUNSTATEDIR%/food.pid --retry=TERM/30/KILL/5
+   --pidfile %RUNSTATEDIR%/food.pid --retry=TERM/30/KILL/5
 
 =back
 

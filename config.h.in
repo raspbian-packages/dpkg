@@ -145,7 +145,10 @@
 /* Define to 1 if you have the `lutimes' function. */
 #undef HAVE_LUTIMES
 
-/* xz multithreaded compression support */
+/* xz multi-threaded decompression support */
+#undef HAVE_LZMA_MT_DECODER
+
+/* xz multi-threaded compression support */
 #undef HAVE_LZMA_MT_ENCODER
 
 /* Define to 1 if 'makedev' is declared in <sys/types.h> */
