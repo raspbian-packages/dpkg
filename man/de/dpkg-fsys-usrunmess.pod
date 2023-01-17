@@ -24,6 +24,8 @@ B<dpkg-fsys-usrunmess> [B<Option> …]
 
 B<dpkg-fsys-usrunmess> ist ein Werkzeug, das Dateisysteme repariert, die mit neueren Installationsprogrammen mit unglücklichen Vorgaben neu installiert wurden oder die auf defekte vereinigte /usr mittels des Alias-Verzeichnis-Layouts migriert wurden, welches von Dpkg B<nicht> unterstützt wird. Siehe die FAQ von Dpkg.
 
+B<Note>: In Debian its tech-ctte has decreed that on the release after bookworm the non-usrmerged layout is not going to be supported, and thus some of its maintainers might not fix issues or intentionally remove non-usrmerged support, so you will need decide and pick your poison.
+
 Das Programm wird folgende grobe Aktionen durchführen:
 
 =over 

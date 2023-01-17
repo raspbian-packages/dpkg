@@ -109,6 +109,7 @@ host_triplet = @host@
 @BUILD_SHARED_TRUE@	$(LIBINTL) \
 @BUILD_SHARED_TRUE@	$(Z_LIBS) \
 @BUILD_SHARED_TRUE@	$(LZMA_LIBS) \
+@BUILD_SHARED_TRUE@	$(ZSTD_LIBS) \
 @BUILD_SHARED_TRUE@	$(BZ2_LIBS) \
 @BUILD_SHARED_TRUE@	# EOL
 
@@ -188,7 +189,7 @@ LTLIBRARIES = $(devlib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 @BUILD_SHARED_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1) \
 @BUILD_SHARED_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@BUILD_SHARED_TRUE@	$(am__DEPENDENCIES_1)
+@BUILD_SHARED_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 libdpkg_la_DEPENDENCIES = ../compat/libcompat.la $(am__DEPENDENCIES_2)
 am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	c-ctype.lo cleanup.lo color.lo command.lo compress.lo dbdir.lo \
@@ -685,6 +686,7 @@ VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
+ZSTD_LIBS = @ZSTD_LIBS@
 Z_LIBS = @Z_LIBS@
 Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@

@@ -153,7 +153,8 @@ am_dpkg_deb_OBJECTS = deb/build.$(OBJEXT) deb/extract.$(OBJEXT) \
 	deb/info.$(OBJEXT) deb/main.$(OBJEXT)
 dpkg_deb_OBJECTS = $(am_dpkg_deb_OBJECTS)
 dpkg_deb_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
 am_dpkg_divert_OBJECTS = divert/main.$(OBJEXT)
 dpkg_divert_OBJECTS = $(am_dpkg_divert_OBJECTS)
 dpkg_divert_LDADD = $(LDADD)
@@ -422,6 +423,7 @@ VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
+ZSTD_LIBS = @ZSTD_LIBS@
 Z_LIBS = @Z_LIBS@
 Z_NG_LIBS = @Z_NG_LIBS@
 abs_builddir = @abs_builddir@
@@ -566,6 +568,7 @@ dpkg_deb_LDADD = \
 	$(LDADD) \
 	$(Z_LIBS) \
 	$(LZMA_LIBS) \
+	$(ZSTD_LIBS) \
 	$(BZ2_LIBS) \
 	# EOL
 
