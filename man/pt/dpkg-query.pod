@@ -94,9 +94,9 @@ O formato de saída desta opção não é configurável, mas varia automaticamen
 
 =item B<-W>, B<--show> [I<package-name-pattern>...]
 
-Just like the B<--list> option this will list all packages matching the given patterns. However the output can be customized using the B<--showformat> option.
+Tal como a opção B<--list> isto irá listar todos os pacotes que correspondem aos padrões dados. No entanto o resultado pode ser personalizado usando a opção B<--showformat>.
 
-The default output format gives one line per matching package, each line consisting of the package name and its installed version, separated by a tab.  The package name will be architecture qualified for packages with a B<Multi-Arch> field with the value B<same> or with a foreign architecture, which is an architecture that is neither the native one nor B<all>.
+O formato de resultados predefinido dá uma linha por pacote correspondente, cada linha consistindo do nome do pacote e a sua versão instalada, separados por um tab. O nome de pacote será qualificado de arquitectura para pacotes com um campo B<Multi-Arch> com o valor B<same> ou com uma arquitectura alienígena, a qual é uma arquitectura que não é a nativa nem B<all>.
 
 =item B<-s>, B<--status> [I<package-name>...]
 
@@ -292,7 +292,7 @@ Os seguintes são campos virtuais,m gerados pelo B<dpkg-query> a partir de valor
 
 =item B<binary:Package>
 
-It contains the binary package name with a possible architecture qualifier like “libc6:amd64” (since dpkg 1.16.2).  An architecture qualifier will be present to make the package name unambiguous, for packages with a B<Multi-Arch> field with the value B<same> or with a foreign architecture, which is an architecture that is neither the native one nor B<all>.
+Contém o nome do pacote binário com um possível qualificador de arquitectura como “libc6:amd64” (desde dpkg 1.16.2). Um qualificador de arquitectura irá estar presente para tornar o nome do pacote não-ambiguo, para pacotes com um campo B<Multi-Arch> com o valor de B<same> ou com uma arquitectura alienígena, a qual é uma arquitectura que não é a nativa nem B<all>.
 
 =item B<binary:Synopsis>
 
@@ -395,7 +395,7 @@ Se definido e a opção B<--admindir> não for especificada, será usado como o 
 
 =item B<DPKG_DEBUG>
 
-Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. As bandeiras presentemente aceites estão descritas na opção B<dpkg --debug>, mas nem todas estas bandeiras podem ter um efeito neste programa.
 
 =item B<DPKG_COLORS>
 

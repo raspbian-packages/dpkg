@@ -248,7 +248,7 @@ O directório de administração predefinido. Pode ser sobreposto pela opção B
 
 =head1 FORMATO DE CONSULTA
 
-The B<--query> format is using an RFC822-like flat format. It's made of I<n> + 1 stanzas where I<n> is the number of alternatives available in the queried link group. The first stanza contains the following fields:
+O formato B<--query> está a usar um formato liso tipo RFC822. É composto de I<n> estrofes + 1 onde I<n> é o número e alternativas disponíveis no grupo de link questionado. A primeira estrofe contem os seguintes campos:
 
 =over 
 
@@ -278,13 +278,13 @@ O caminho da alternativa seleciona actualmente. Também pode tirar o valor mági
 
 =back
 
-The other stanzas describe the available alternatives in the queried link group:
+As outras estrofes descrevem as alternativas disponíveis no grupo de links questionado.
 
 =over 
 
 =item B<Alternative:> I<path-of-this-alternative>
 
-Path to this stanza's alternative.
+Caminho para a alternativa desta estrofe.
 
 =item B<Priority:> I<priority-value>
 

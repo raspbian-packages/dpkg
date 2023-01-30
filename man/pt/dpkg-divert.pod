@@ -134,11 +134,11 @@ Se definido e as opções B<--admindir> ou B<--root> não foram especificadas, s
 
 =item B<DPKG_MAINTSCRIPT_PACKAGE>
 
-Se definido e as opções B<--local> e B<--package> não foram especificadas, B<dpkg-divert> irá usá-lo como o nome do pacote.
+Se definido e as opções B<--local> e B<--package> não foram especificadas, B<dpkg-divert> irá usa-lo como o nome do pacote.
 
 =item B<DPKG_DEBUG>
 
-Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. As bandeiras presentemente aceites estão descritas na opção B<dpkg --debug>, mas nem todas estas bandeiras podem ter um efeito neste programa.
 
 =item B<DPKG_COLORS>
 
@@ -164,7 +164,7 @@ Quando adiciona, a predefinição é B<--local> e B<--divert> I<original>B<.dist
 
 Os directórios não podem ser desviados com B<dpkg-divert>.
 
-Care should be taken when diverting shared libraries, B<ldconfig>(8) creates a symbolic link based on the DT_SONAME field embedded in the library.  Because B<ldconfig> does not honor diverts (only B<dpkg> does), the symlink may end up pointing at the diverted library, if a diverted library has the same SONAME as the undiverted one.
+Deve tomar-se cuidado ao desviar bibliotecas partilhadas, B<ldconfig>(8) cria um link simbólico baseado no campo DT_SONAME embebido na biblioteca. Devido a B<ldconfig> não honrar desvios (apenas B<dpkg> o faz), o link simbólico pode acabar a apontar para a biblioteca desviada, se uma biblioteca desviada tiver o mesmo SONAME que a não desviada.
 
 =head1 EXEMPLOS
 

@@ -80,7 +80,7 @@ Define o directório raiz para B<directory>, o que define o directório de insta
 
 Força ou recusa (B<no-force> e B<refuse> significam o mesmo) a fazer algumas coisas (desde dpkg 1.19.5).  I<things> é uma lista separada por vírgulas de coisas especificadas em baixo. B<--force-help> mostra uma mensagem a descreve-las. A coisas marcadas com (*) já são forçadas por predefinição.
 
-I<Aviso: Estas opções são maioritariamente destinadas a serem usadas apenas por experts. Usá-las sem total conhecimento dos seus efeitos pode danificar todo o seu sistema.>
+I<Aviso: Estas opções são maioritariamente destinadas a serem usadas apenas por experts. Usa-las sem total conhecimento dos seus efeitos pode danificar todo o seu sistema.>
 
 B<all>: Liga (ou desliga) todas as opções de forçar.
 
@@ -138,7 +138,7 @@ Se definido e as opções B<--admindir> ou B<--root> não foram especificadas, s
 
 =item B<DPKG_DEBUG>
 
-Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. As bandeiras presentemente aceites estão descritas na opção B<dpkg --debug>, mas nem todas estas bandeiras podem ter um efeito neste programa.
 
 =item B<DPKG_FORCE>
 

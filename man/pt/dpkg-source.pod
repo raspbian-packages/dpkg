@@ -124,7 +124,7 @@ Você pode especificar uma expressão regular perl para coincidir aos ficheiros 
 
 A opção B<-i> por si só activa esta definição com uma regex predefinida (preservando qualquer modificação ao regex predefinido feito por uma utilização anterior de B<--extend-diff-ignore>) que irá filtrar fora ficheiros de controle e directórios dos sistemas de controlo de revisão mais comuns, salvaguardas e ficheiros swap, e directórios de resultados de compilação de Libtool. Só pode existir um regex activo, das várias opções B<-i> apenas a última irá ter efeito.
 
-This is very helpful in cutting out extraneous files that get included in the diff, for example if you maintain your source in a revision control system and want to use a checkout to build a source package without including the additional files and directories that it will usually contain (e.g. CVS/, .cvsignore, .svn/). The default regex is already very exhaustive, but if you need to replace it, please note that by default it can match any part of a path, so if you want to match the begin of a filename or only full filenames, you will need to provide the necessary anchors (e.g. ‘(^|/)’, ‘($|/)’) yourself.
+Isto é uma grande ajuda para cortar ficheiros alheios que foram incluídos no diff, por exemplo se você mantêm a sua fonte num sistema de controle de revisão e deseja usar um checkout para compilar um pacote fonte sem incluir os ficheiros adicionais e os directórios que geralmente contém (ex. CVS/, .cvsignore, .svn/). O regex predefinido já é bastante exaustivo, mas se precisar de o substituir, por favor note que por predefinição ele consegue corresponder a qualquer parte de um caminho, portanto se você quer corresponder ao inicio de um nome de ficheiro, ou apenas nomes completos de ficheiros, precisa ser você próprio a fornecer as âncoras necessárias (ex, ‘(^|/)’, ‘($|/)’).
 
 =item B<--extend-diff-ignore>=I<regex>
 
@@ -172,17 +172,17 @@ Torna a verificação de versão má de pacote fonte num aviso não-fatal (desde
 
 =back
 
-=head2 Generic general options
+=head2 Opções gerais genéricas
 
 =over 
 
 =item B<--threads-max=>I<threads>
 
-Sets the maximum number of threads allowed for compressors that support multi-threaded operations (since dpkg 1.21.14).
+Define o número máximo de tópicos permitidos para compressores que suportam operações multi-tópico (desde dpkg 1.21.14).
 
 =item B<-q>
 
-Sets quiet mode to suppress warnings.
+Define o modo silencioso para suprimir avisos.
 
 =back
 
@@ -232,7 +232,7 @@ Especifica que a fonte original está disponível tanto como directório e como 
 
 =item B<-sn>
 
-Especifica para não procurar por nenhuma fonte original, e não gerar um diff. O segundo argumento, se fornecido, deve ser a string vazia. Isto é usado para pacotes específicos-Debian que não têm uma fonte de autor separada e por isso não têm diffs de debianizaçao.
+Especifica para não procurar por nenhuma fonte original, e não gerar um diff. O segundo argumento, se fornecido, deve ser a string vazia. Isto é usado para pacotes específicos-Debian que não têm uma fonte de autor separada e por isso não têm diffs de debianização.
 
 =item B<-sa> ou B<-sA>
 
@@ -300,7 +300,7 @@ Note que B<lintian>(1) irá emitir avisos incondicionais quando usa séries de f
 
 O carimbo temporal de todos os ficheiros com patch é reposto para a hora da extração do pacote fonte (isto evita inclinações do carimbo temporal que levam a problemas quando aplica patch a ficheiros auto-gerados).
 
-Contrariamente ao comportamento predefinido de B<quilt>, espera-se que as patches sejam aplicadas sem confusões. Quando esse não é o caso, você deve refrescar tais patches com B<quilt>, ou B<dpkg-source> irá terminar em erro ao tentar aplicá-las.
+Contrariamente ao comportamento predefinido de B<quilt>, espera-se que as patches sejam aplicadas sem confusões. Quando esse não é o caso, você deve refrescar tais patches com B<quilt>, ou B<dpkg-source> irá terminar em erro ao tentar aplica-las.
 
 Semelhante ao comportamento predefinido de B<quilt>. as patches também podem remover ficheiros.
 
@@ -366,7 +366,7 @@ Cria automaticamente o principal tarball original como vazio se está em falta e
 
 =item B<--no-unapply-patches, --unapply-patches>
 
-Por predefinição, B<dpkg-source> irá automaticamente desfazer a aplicação das patches no hook B<--after-build> se ele as aplicou durante B<--before-build> (B<--unapply-patches> desde dpkg 1.15.8, B<--no-unapply-patches> desde dpkg 1.16.5). Essas opções permitem-lhe desactivar ou activar à força o processo de des-aplicação da patch. Essas opções são apenas permitidas em B<debian/source/local-options> para que todos os pacotes fonte gerados tenham o mesmo comportamento por predefinição.
+Por predefinição, B<dpkg-source> irá automaticamente desfazer a aplicação das patches no hook B<--after-build> se ele as aplicou durante B<--before-build> (B<--unapply-patches> desde dpkg 1.15.8, B<--no-unapply-patches> desde dpkg 1.16.5). Essas opções permitem-lhe desactivar ou activar à força o processo de desaplicação da patch. Essas opções são apenas permitidas em B<debian/source/local-options> para que todos os pacotes fonte gerados tenham o mesmo comportamento por predefinição.
 
 =item B<--abort-on-upstream-changes>
 

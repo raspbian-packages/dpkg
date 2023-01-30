@@ -111,11 +111,11 @@ Espaço de disco usado adicional quando o pacote é instalado. Se esta variável
 
 =item B<S:>I<fieldname>
 
-The value of the source stanza field I<fieldname> (which must be given in the canonical capitalization; since dpkg 1.18.11).  Setting these variables has no effect other than on places where they are expanded explicitly. These variables are only available when generating binary control files.
+O valor do campo I<fieldname> da estrofe fonte (o qual deve ser dado em na capitalização canonical, desde dpkg 1.18.11). Definir estas variáveis não tem efeito para além de em lugares onde elas são explicitamente expandidas. Estas variáveis estão apenas disponíveis quando se geram ficheiros de controle binários.
 
 =item B<F:>I<fieldname>
 
-The value of the output field I<fieldname> (which must be given in the canonical capitalization). Setting these variables has no effect other than on places where they are expanded explicitly.
+O valor do campo I<fieldname> resultante (o qual deve ser dado em na capitalização canonical ) Definir estas variáveis não tem efeito para além de em lugares onde elas são explicitamente expandidas.
 
 =item B<Format>
 

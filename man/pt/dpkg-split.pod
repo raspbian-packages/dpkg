@@ -56,7 +56,7 @@ Por predefinição, o ficheiro resultante é chamado I<pacote>B<_>I<versão>B<_>
 
 =item B<-I>, B<--info> I<part>...
 
-Escreve informação, num formato humanamente legível, acerca dos ficheiro(s) parte especificados. Argumentos que não sejam partes de pacote binário, em vez disso, produzem uma mensagem a dizê-lo (mas mesmo assim na saída standard).
+Escreve informação, num formato humanamente legível, acerca dos ficheiro(s) parte especificados. Argumentos que não sejam partes de pacote binário, em vez disso, produzem uma mensagem a dizer-lo (mas mesmo assim na saída standard).
 
 =item B<-a>, B<--auto -o> I<complete-output> I<part>
 
@@ -100,15 +100,15 @@ Mostra a versão e termina.
 
 =item B<--depotdir> I<directory>
 
-Specifies an alternative directory for the queue of parts awaiting automatic reassembly. The default is B<%ADMINDIR%/parts>.
+Especifica um directório alternativo para a lista de espera das partes que espera a remontagem automática. A predefinição é B<%ADMINDIR%/parts>.
 
 =item B<--admindir> I<directory>
 
-Set the administrative directory to I<directory> (since dpkg 1.21.10).  This is where the I<statoverride> file is stored.  Defaults to «I<%ADMINDIR%>» if B<DPKG_ADMINDIR> has not been set.
+Define o directório de administração para I<directory> (desde dpkg 1.21.10). Isto é onde o ficheiro I<statoverride> é guardado. A predefinição é «I<%ADMINDIR%>» se B<DPKG_ADMINDIR> não estiver definido.
 
 =item B<--root> I<directory>
 
-Set the root directory to B<directory> (since dpkg 1.21.10), which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» if B<DPKG_ROOT> has not been set.
+Define o directório raiz para B<directory> (desde dpkg 1.21.10), o que define o directório de instalação para «I<directory>» e o directório administrativo para «I<directory>B<%ADMINDIR%>» se B<DPKG_ROOT> não estiver definido.
 
 =item B<-S>, B<--partsize> I<kibibytes>
 
@@ -158,15 +158,15 @@ Erro fatal ou irrecuperável devido a utilização inválida de linha de comando
 
 =item B<DPKG_ROOT>
 
-If set and B<--root> option has not been specified, it will be used as the filesystem root directory (since dpkg 1.21.10).
+Se definido e a opção B<--root> não foi especificada, será usado como o directório raiz do sistema de ficheiros (desde dpkg 1.21.10).
 
 =item B<DPKG_ADMINDIR>
 
-If set and the B<--admindir> or B<--root> options have not been specified, it will be used as the B<dpkg> data directory (since dpkg 1.21.10).
+Se definido e as opções B<--admindir> ou B<--root> forem especificadas, será usado como o directório de dados do B<dpkg> (desde dpkg 1.21.10).
 
 =item B<DPKG_DEBUG>
 
-Sets the debug mask (since dpkg 1.21.10) from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. As bandeiras presentemente aceites estão descritas na opção B<dpkg --debug>, mas nem todas estas bandeiras podem ter um efeito neste programa.
 
 =item B<DPKG_COLORS>
 

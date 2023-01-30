@@ -138,7 +138,7 @@ O nome do pacote fonte de onde este pacote binário veio, se for diferente do no
 
 =item B<Installer-Menu-Item:> I<value>
 
-These fields are used by the debian-installer and are usually not needed. For more details about them, see L<https://salsa.debian.org/installer-team/debian-installer/-/raw/master/doc/devel/modules.txt>.
+Estes campos são usados pelo instalador de debian e geralmente não são necessários. Para mais detalhes acerca deles, veja L<https://salsa.debian.org/installer-team/debian-installer/-/raw/master/doc/devel/modules.txt>.
 
 =item B<Depends:> I<package-list>
 

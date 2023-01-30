@@ -22,7 +22,7 @@ B<DEBIAN/symbols>
 
 =head1 DESCRIÇÃO
 
-The symbol files are shipped in Debian binary packages, and its format is a subset of the template symbol files used by B<dpkg-gensymbols>(1)  in Debian source packages, see L<deb-src-symbols(5)>.
+Os ficheiros symbol são enviados em pacotes binários Debian, e o seu formato é um sub-conjunto dos ficheiros symbol modelo usados por B<dpkg-gensymbols>(1)  em pacotes fonte Debian, veja L<deb-src-symbols(5)>.
 
 O formato para uma entrada de informação de dependência de biblioteca partilhada extensiva nestes ficheiros é:
 
