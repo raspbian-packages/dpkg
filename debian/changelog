@@ -1,4 +1,4 @@
-dpkg (1.21.20+rpi1) bookworm-staging; urgency=medium
+dpkg (1.21.21+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 1.20.5+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Sun, 02 Aug 2020 12:08:02 +0000]
   * Hack up Vendor.pm so it doesn't fail
@@ -7,7 +7,18 @@ dpkg (1.21.20+rpi1) bookworm-staging; urgency=medium
   [changes introduce in 1.21.17+rpi1 by Peter Michael Green]
   * disable testsuite.
 
- -- Raspbian forward porter <root@raspbian.org>  Wed, 15 Feb 2023 04:55:46 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Mon, 13 Mar 2023 11:46:22 +0000
+
+dpkg (1.21.21) unstable; urgency=medium
+
+  * Architecture support:
+    - Restore "arch: Add support for loong64 CPU". Closes: #1028654
+  * Localization:
+    - Update Dutch header boilerplate with an actual copyright line.
+    - Update French scripts translation.
+      Thanks to Sébastien Poher <sebastien@volted.net>.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 25 Feb 2023 04:39:29 +0100
 
 dpkg (1.21.20) unstable; urgency=medium
 
