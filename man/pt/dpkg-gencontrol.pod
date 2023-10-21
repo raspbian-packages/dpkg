@@ -80,7 +80,7 @@ Assume que o nome do ficheiro do pacote será I<filename> em vez do nome de fich
 
 =item B<-is>, B<-ip>, B<-isp>
 
-Estas opções são ignoradas para compatibilidade com versões mais antigas dos scripts de compilação do dpkg, mas estão agora descontinuadas. Anteriormente eram usadas para dizer ao B<dpkg-gencontrol> para incluir os campos Section e Priority no ficheiro de controle. Este agora é o comportamento predefinido. Se você deseja obter o comportamento antigo, você pode usar a opção B<-U> para apagar os campos do ficheiro de controle.
+These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell B<dpkg-gencontrol> to include the Section and Priority fields in the control file. This is now the default behavior. If you want to get the old behavior you can use the B<-U> option to delete the fields from the control file.
 
 =item B<-P>I<package-build-dir>
 

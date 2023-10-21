@@ -26,6 +26,8 @@ Este programa irá usar as 3 versões fornecidas do changelog Debian para gerar 
 
 Cada entrada é identificada pelo seu número de versão e são assumidas como não em conflito, elas são simplesmente fundidas na ordem correcta (ao diminuir o número de versão). Quando B<--merge-prereleases> é usado, a parte do número de versão após o último til é largada de modo que 1.0-1~exp1 e 1.0-1~exp5 são consideradas a mesma entrada. Quando a mesma versão está disponível em ambas I<new-a> e I<new-b>, é tentada uma fusão standard de 3- vias baseada em linhas (desde que o módulo Algorithm::Merge esteja disponível — faz parte do pacote libalgorithm-merge-perl — caso contrário você vai obter um conflito global no conteúdo da entrada.).
 
+This program was introduced in dpkg 1.15.7.
+
 =head1 OPÇÕES
 
 =over 

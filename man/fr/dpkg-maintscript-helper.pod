@@ -44,7 +44,9 @@ I<nouveau-fichier-de-configuration> [I<dernière-version> [I<paquet>]]
 
 Ce programme est prévu pour être exécuté dans les scripts du responsable afin de réaliser certaines tâches que B<dpkg> ne peut pas (encore) prendre en charge directement à cause de limites de conception ou de limitations actuelles.
 
-La plupart de ces tâches nécessitent la coordination de plusieurs scripts du responsable (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Pour éviter des erreurs, le même appel a simplement besoin d'être placé dans tous les scripts. Le programme adaptera alors son comportement en fonction de la variable d'environnement B<DPKG_MAINTSCRIPT_NAME> et des paramètres des scripts du responsable qui doivent être passés avec un double tiret.
+Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). To avoid mistakes the same call simply needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 PARAMÈTRES COMMUNS
 
@@ -76,7 +78,7 @@ Cela signifie que si un paquet a besoin de renommer ou supprimer un fichier de c
 
 =head2 Supprimer un fichier de configuration
 
-S<Note :> cela peut être remplacé dans la majorité des cas par le drapeau C<remove-on-upgrade> dans F<DEBIAN/conffiles> (depuis S<dpkg 1.20.6),> voir L<deb-conffiles(5)>.
+B<Note>: This can be replaced in most cases by the C<remove-on-upgrade> flag in F<DEBIAN/conffiles> (since dpkg 1.20.6), see L<deb-conffiles(5)>.
 
 Si un fichier de configuration est complètement supprimé, il doit être effacé du disque sauf si l'administrateur local l'a modifié. Les éventuelles modifications locales doivent être conservées. Si la mise à jour du paquet est interrompue, le fichier de configuration rendu obsolète ne doit pas avoir disparu.
 
@@ -117,7 +119,7 @@ Détails de la mise en œuvre S<actuelle :> dans le script B<preinst>, il est v�
 
 Lors de la mise à niveau d'un paquet, B<dpkg> ne substitue pas automatiquement un lien symbolique à un répertoire ou le contraire. Les retours à une version inférieure ne sont pas pris en charge et le chemin sera laissé comme il est.
 
-S<Note :> Les liens symboliques et les répertoires créés pendant cette substitution doivent être fournis dans les nouveau paquets, sinon B<dpkg> sera incapable de les supprimer lors de la purge.
+B<Note>: The symlinks and directories created during these switches need to be shipped in the new packages, or B<dpkg> will not be able to remove them on purge.
 
 =head2 Substituer un lien symbolique à un répertoire
 

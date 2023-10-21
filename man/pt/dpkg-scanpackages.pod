@@ -24,7 +24,7 @@ B<dpkg-scanpackages> [I<option>...] I<binary-path> [I<override-file> [I<path-pre
 
 B<dpkg-scanpackages> ordena entre uma árvore de pacotes binários Debian e caria um ficheiro Packages, usado por B<apt>(8), B<dselect>(1), etc, para dizer ao utilizador que pacotes estão disponíveis para instalação. Estes ficheiros Packages são os mesmo que aqueles encontrados em sites de arquivos Debian e CD-ROMs. Você próprio pode usar B<dpkg-scanpackages> se pretender criar um directório local de pacotes para instalar num grupo de máquinas.
 
-B<Nota:> Se você pretende aceder ao ficheiro Packages gerado com o B<apt>(8) vai provavelmente precisar de comprimir o ficheiro com B<xz>(1)  (gerando um ficheiro Packages.xz), B<bzip2>(1)  (gerando um ficheiro Packages.bz2) ou B<gzip>(1)  (gerando um ficheiro Packages.gz ). O B<apt>(8) ignora ficheiros Packages não comprimidos excepto em acesso local (isto é, fontes B<file://>).
+B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<binary-path> é o nome da árvore dos pacotes binários a processar (por exemplo, B<contrib/binary-i386>).  É melhor tornar isto relativo à raiz do arquivo Debian, porque cada campo Filename no novo ficheiro Packages irá começar com esta string.
 

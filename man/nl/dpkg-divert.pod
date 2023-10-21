@@ -154,7 +154,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 Bestand dat de huidige lijst van omleggingen op het systeem bevat. Zijn plaats is in de beheersmap van B<dpkg> samen met andere bestanden die belangrijk zijn voor B<dpkg>, zoals I<status> en I<available>.
 
-B<Opmerking:> B<dpkg-divert> bewaart de oorspronkelijke kopie van dit bestand met de extensie I<-old>, vooraleer het te vervangen door het nieuwe exemplaar.
+B<Note>: B<dpkg-divert> preserves the old copy of this file, with extension I<-old>, before replacing it with the new one.
 
 =back
 

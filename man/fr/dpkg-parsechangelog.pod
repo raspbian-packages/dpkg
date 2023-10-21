@@ -106,11 +106,11 @@ Le format B<rfc822> utilise les mêmes champs mais le résultat est un paragraph
 
 Inclut toutes les modifications en ordre inverse (depuis S<dpkg 1.19.1).>
 
-S<B<Note> :> pour le format de B<dpkg>, la première entrée sera l'entrée la plus ancienne.
+B<Note>: For the B<dpkg> format the first entry will be the most ancient entry.
 
 =item B<--all>
 
-Inclut toutes les modifications. S<B<Note> :> d'autres options deviennent sans effet lorsque celle-ci est utilisée.
+Include all changes.  B<Note>: Other options have no effect when this is in use.
 
 =item B<-s>, B<--since> I<version>
 

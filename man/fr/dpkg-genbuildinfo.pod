@@ -24,7 +24,7 @@ B<dpkg-genbuildinfo> [I<option>...]
 
 B<dpkg-genbuildinfo> lit les informations à la fois dans une arborescence debian dépaquetée et déjà construite et sur les fichiers qui ont été créés ; puis il crée un fichier de contrôle décrivant l'environnement et les objets de construction (c'est le fichier B<.buildinfo>).
 
-Cette commande a été introduite dans dpkg 1.18.11.
+This program was introduced in dpkg 1.18.11.
 
 =head1 OPTIONS
 

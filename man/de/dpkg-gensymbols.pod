@@ -50,6 +50,8 @@ Der Hauptzweck dieser Dateien besteht darin, die minimale Version bereitzustelle
 
 Wenn die erstellten Symboldateien sich von denen, die der Betreuer bereitgestellt hat, unterscheiden, wird B<dpkg-gensymbols> einen Diff zwischen den zwei Versionen anzeigen. Falls die Unterschiede desweiteren zu gravierend sind, wird es sogar fehlschlagen (Sie können einstellen, wie große Unterschiede Sie tolerieren können, sehen Sie hierzu die Option B<-c>).
 
+This program was introduced in dpkg 1.14.8.
+
 =head1 SYMBOLDATEIEN PFLEGEN
 
 Das grundlegende Austauschformat der Symboldatei wird in B<deb-symbols>(5) beschrieben. Dies wird von den in Binärpaketen enthaltenen Symboldateien verwandt. Diese werden aus Vorlage-Symboldateien erstellt, deren Format auf Ersterem basiert, in B<deb-src-symbols>(5) beschrieben und in Quellpaketen enthalten ist.

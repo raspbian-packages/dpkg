@@ -24,7 +24,7 @@ B<dpkg-scanpackages> [I<option>...] I<chemin-de-binaires> [I<fichier-override> [
 
 B<dpkg-scanpackages> trie une arborescence contenant des paquets binaires Debian et crée un fichier S<« Packages »> qui permettra à B<apt>(8), B<dselect>(1), ou à un autre programme, de savoir quels sont les paquets installables. Ces fichiers S<« Packages »> sont semblables à ceux qu'on peut trouver sur les sites d'archives Debian ou sur des CD. Quand on crée un répertoire contenant des paquets qu'on veut installer sur un ensemble de machines, on peut se servir soi-même de B<dpkg-scanpackages>.
 
-S<B<Note> :> Pour pouvoir accéder avec B<apt>(8) au fichier S<« Packages »> créé, il faudra sans doute le compresser avec B<xz>(1) (qui crée un fichier Packages.xz), B<bzip2>(1) (qui crée un fichier Packages.bz2) ou B<gzip>(1) (qui crée un fichier Packages.gz). B<apt>(8) ignore les fichiers S<« Packages »> non compressés, sauf pour des sources locales (c'est-à-dire les sources B<file://>).
+B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<chemin-de-binaires> est le nom de l'arborescence des paquets binaires (par exemple B<contrib/binary-i386)> que l'on veut traiter. Il vaut mieux qu'il soit relatif à la racine de l'archive Debian ; ainsi chaque champ S<« Filename »> dans le nouveau fichier S<« Packages »> commencera par cette chaîne.
 

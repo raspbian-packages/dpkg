@@ -113,7 +113,7 @@ Z<>
   pakket leidt andere om naar: I<omgeleid-naar>
   omgeleid door I<pkkt> naar: I<omgeleid-naar>
 
-Hint: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
 
 Dit commando geeft geen extra bestanden weer die door scripts van de pakketonderhouder aangemaakt werden en ook geen alternatieven.
 
@@ -156,7 +156,7 @@ Z<>
   lokale omleiding van: I<omgeleid-van>
   lokale omleiding naar: I<omgeleid-naar>
 
-Hint: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
 
 =item B<-p>, B<--print-avail> [I<pakketnaam>...]
 
@@ -412,6 +412,10 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 Indien niet reeds ingesteld, wordt het als “B<-FRSXMQ>” gedefinieerd door B<dpkg-query> bij het voortbrengen van een pagineringsprogramma (sinds dpkg 1.19.2). Om het standaardgedrag te wijzigen, kan deze variabele vooraf ingesteld worden op een andere waarde, inclusief op een lege tekenreeks, ofwel kunnen de variabelen B<PAGER> of B<DPKG_PAGER> ingesteld worden om specifieke opties uit te schakelen met «B<-+>», bijvoorbeeld B<DPKG_PAGER="less -+F">.
 
 =back
+
+=head1 SECURITY
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
 
 =head1 ZIE OOK
 

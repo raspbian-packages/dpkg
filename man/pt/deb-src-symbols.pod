@@ -52,7 +52,7 @@ Como as etiquetas de símbolos são uma extensão do formato B<deb-symbols>(5), 
 
 =item B<optional>
 
-Um símbolo marcado como opcional pode desaparecer da biblioteca a qualquer altura e isso nunca fará o B<dpkg-gensymbols> falhar. No entanto, símbolos opcionais desaparecidos irão continuamente aparecer como MISSING no diff em cada nova revisão do pacote. Este comportamento serve como lembrete para o maintainer que tal símbolo precisa de ser removido do ficheiro de símbolos ou re-adicionado à biblioteca. Quando o símbolo opcional, que foi anteriormente declarado como MISSING, subitamente reaparece na próxima revisão, será actualizado de volta para o estado de "existente" com a sua versão mínima inalterada.
+A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
 
 Esta etiqueta é útil para símbolos que são privados e para o seu desaparecimento não causar a rutura da ABI. Por exemplo, a maioria das instalações de modelos C++ caiem nesta categoria. Como qualquer outra etiqueta, esta também pode ter uma valor arbitrário: isso podia ser usado para indicar porquê o símbolo é considerado opcional.
 
@@ -147,7 +147,7 @@ Este padrão é denotado pela etiqueta I<symver>. Bibliotecas bem mantidas têm 
 
 Todos os símbolos associados com versões GLIBC_2.0 e GLIBC_2.7 irão para versões mínimas de 2.0 e 2.7 respetivamente com a excepção do símbolo access@GLIBC_2.0. O último irá tornar-se uma dependência mínima em libc6 versão 2.2 apenas de estar no escopo do padrão "(symver)GLIBC_2.0" porque símbolos específicos tomam precedência sobre padrões.
 
-Por favor note que apesar de os padrões de wildcard ao estilo antigo (denotados por "*@version" no campo do nome do símbolo) ainda serem suportados, estes foram descontinuados pela nova sintaxe "(symver|optional)version". Por exemplo, "*@GLIBC_2.0 2.0" deve ser escrito como "(symver|optional)GLIBC_2.0 2.0" se for necessário o mesmo comportamento.
+Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 

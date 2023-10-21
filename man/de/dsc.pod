@@ -116,7 +116,7 @@ Dieses Feld gibt an, dass das Quellpaket die angegebene Testsammlung enthält. D
 
 Dieses Feld gibt die Vereinigung aller Testabhängigkeiten (Felder B<Depends> in der Datei I<debian/tests/control>) an, wobei alle Einschränkungen entfernt und ODER-Abhängigkeiten verflacht (d.h. in separate UND-Beziehungen umgewandelt) sind. Das betrifft keine Programme, die vom Quellpaket und dessen Meta-Abhängigkeiten wie B<@> oder B<@builddeps@> erstellt wurden.
 
-Hintergrund: Dieses Feld wird benötigt, da andernfalls jedes Quellpaket entpackt werden müsste, um die Testabhängigkeiten zu ermitteln.
+B<Hintergrund>: Dieses Feld wird benötigt, da andernfalls jedes Quellpaket entpackt werden müsste, um die Testabhängigkeiten zu ermitteln.
 
 =item B<Build-Depends:> I<Paketliste>
 

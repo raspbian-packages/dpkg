@@ -80,17 +80,31 @@ Définit le répertoire root à B<directory>, ce qui définit le répertoire d'i
 
 Force ou refuse (B<no-force> et B<refuse> signifient la même chose) de faire quelque chose (depuis S<dpkg 1.19.5).> I<quelque-chose> est une liste d'actions séparées par des virgules, décrites ci-après. B<--force-help> affiche un message qui les décrit. Les actions marquées d'un (*) sont forcées par défaut.
 
-S<I<Avertissement> :> I<ces options sont principalement destinées aux experts. Un usage auquel manque la pleine compréhension de leurs effets peut casser le système entier.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-S<B<all> :> Met en œuvre (ou pas) toutes les options de forçage.
+=over 4
 
-S<B<statoverride-add> :> remplacer une dérogation d'état existante lors de son ajout (depuis S<dpkg 1.19.5)>
+=item B<all>:
 
-S<B<statoverride-remove> :> ignorer l'absence de dérogation d'état lors de sa suppression (depuis S<dpkg 1.19.5).>
+Turns on (or off) all force options.
 
-S<B<security-mac>(*) :> utiliser une sécurité basée sur le contrôle d'accès obligatoire (Mandatory Access Controls – MAC) spécifique à la plateforme lors de l'installation de fichiers dans le systèmes de fichiers (depuis dpkg 1.19.5). Sur les systèmes Linux, la mise en œuvre utilise SELinux.
+=item B<statoverride-add>:
 
-S<B<not-root> :> tenter de (dés)installer même sans être root (depuis S<dpkg 1.21.8).>
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root (since dpkg 1.21.8).
+
+=back
 
 =item B<--force>
 
@@ -158,7 +172,7 @@ Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement ac
 
 Ce fichier contient la liste actuelle des dérogations concernant le système. Il se trouve dans le répertoire d'administration de B<dpkg>, avec les autres fichiers importants comme I<status> ou I<available>.
 
-S<B<Note> :> B<dpkg-statoverride> garde une copie de ce fichier, avec une extension S<« -old »,> avant de le remplacer par un nouveau.
+B<Note>: B<dpkg-statoverride> preserves the old copy of this file, with extension “-old”, before replacing it with the new one.
 
 =back
 

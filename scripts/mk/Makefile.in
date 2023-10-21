@@ -283,6 +283,7 @@ POD2MAN = @POD2MAN@
 POSUB = @POSUB@
 PS_LIBS = @PS_LIBS@
 RANLIB = @RANLIB@
+RT_LIBS = @RT_LIBS@
 SED = @SED@
 SELINUX_CFLAGS = @SELINUX_CFLAGS@
 SELINUX_LIBS = @SELINUX_LIBS@
@@ -363,6 +364,7 @@ top_srcdir = @top_srcdir@
 zshcompletionsdir = @zshcompletionsdir@
 dist_pkgdata_DATA = \
 	architecture.mk \
+	buildapi.mk \
 	buildflags.mk \
 	buildopts.mk \
 	buildtools.mk \
@@ -642,6 +644,11 @@ install-data-hook:
 	                 >$(DESTDIR)$(pkgdatadir)/buildtools.mk.new
 	mv $(DESTDIR)$(pkgdatadir)/buildtools.mk.new \
 	   $(DESTDIR)$(pkgdatadir)/buildtools.mk
+
+	$(do_make_subst) <$(DESTDIR)$(pkgdatadir)/vendor.mk \
+			 >$(DESTDIR)$(pkgdatadir)/vendor.mk.new
+	mv $(DESTDIR)$(pkgdatadir)/vendor.mk.new \
+	   $(DESTDIR)$(pkgdatadir)/vendor.mk
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

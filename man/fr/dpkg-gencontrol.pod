@@ -80,7 +80,7 @@ Le nom du paquet est I<nom-de-fichier> au lieu de S<l'habituel :> paquet_version
 
 =item B<-is>, B<-ip>, B<-isp>
 
-Ces options, conservées pour compatibilité avec les anciennes versions des scripts de construction de dpkg, sont maintenant déconseillées. Elles servaient à dire à B<dpkg-gencontrol> d'inclure les champs S<« Section »> et S<« Priority »> dans le fichier S<« control ».> C'est maintenant le comportement par défaut. Si vous voulez l'ancien comportement, vous pouvez utiliser l'option B<-U> pour supprimer ces champs du fichier S<« control ».>
+These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell B<dpkg-gencontrol> to include the Section and Priority fields in the control file. This is now the default behavior. If you want to get the old behavior you can use the B<-U> option to delete the fields from the control file.
 
 =item B<-P>I<répertoire-construction-paquet>
 

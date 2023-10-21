@@ -124,17 +124,33 @@ Installe le paquet. Si l'option B<--recursive> ou B<-R> est utilisée, I<fichier
 
 L'installation comporte les étapes S<suivantes :>
 
-B<1.> Extraction des fichiers de contrôle du nouveau paquet.
+=over 4
 
-B<2.> Quand une ancienne version du même paquet est déjà installée, exécution du script I<prerm> de l'ancien paquet.
+=item B<1.>
 
-B<3.> Lancement du script I<preinst>, s'il est fourni par le paquet.
+Extract the control files of the new package.
 
-B<4.> Dépaquetage des nouveaux fichiers et, en même temps, sauvegarde des anciens de manière à pouvoir les restaurer si quelque chose tourne mal.
+=item B<2.>
 
-B<5.> Quand une ancienne version du même paquet est déjà installée, exécution du script I<postrm> de l'ancien paquet. Il faut remarquer que ce script est exécuté après le script I<preinst> du nouveau paquet, parce que les nouveaux fichiers sont écrits dans le même temps que les anciens sont supprimés.
+If another version of the same package was installed before the new installation, execute I<prerm> script of the old package.
 
-B<6.> Configuration du paquet. Voyez l'action B<--configure> pour savoir comment cela se passe.
+=item B<3.>
+
+Run I<preinst> script, if provided by the package.
+
+=item B<4.>
+
+Unpack the new files, and at the same time back up the old files, so that if something goes wrong, they can be restored.
+
+=item B<5.>
+
+If another version of the same package was installed before the new installation, execute the I<postrm> script of the old package. Note that this script is executed after the I<preinst> script of the new package, because new files are written at the same time old files are removed.
+
+=item B<6.>
+
+Configure the package. See B<--configure> for detailed information about how this is done.
+
+=back
 
 =item B<--unpack> I<fichier-paquet>...
 
@@ -146,13 +162,21 @@ Cela traitera une action différée pour B<Pre-Depends> à moins que B<--no-trig
 
 Configuration d'un paquet dépaqueté mais non encore configuré. Si l'option B<-a> ou B<--pending> est utilisée au lieu de I<paquet>, tous les paquets dépaquetés mais non configurés sont configurés.
 
-Pour reconfigurer un paquet qui l'a déjà été, vous devriez plutôt utiliser la commande B<dpkg-reconfigure>(8).
+To reconfigure a package which has already been configured, try the B<dpkg-reconfigure>(8) command instead (which is part of the B<debconf> project).
 
 La configuration comporte les étapes S<suivantes :>
 
-B<1.> Dépaquetage des fichiers de configuration, et dans le même temps sauvegarde des anciens fichiers de configuration, de manière à pouvoir les restaurer si quelque chose se passe mal.
+=over 4
 
-B<2.> Exécution du script B<postinst>, s'il est fourni par le paquet.
+=item B<1.>
+
+Unpack the conffiles, and at the same time back up the old conffiles, so that they can be restored if something goes wrong.
+
+=item B<2.>
+
+Run I<postinst> script, if provided by the package.
+
+=back
 
 Cela traitera une action différée à moins que B<--no-triggers> a été spécifié.
 
@@ -166,11 +190,21 @@ Supprimer un paquet installé. Cela supprime tout à l'exception des fichiers de
 
 La suppression d'un paquet comporte les étapes S<suivantes :>
 
-B<1.> Lancement du script I<prerm>
+=over 4
 
-B<2.> Suppression des fichiers installés
+=item B<1.>
 
-B<3.> Lancement du script I<postrm>
+Run I<prerm> script.
+
+=item B<2.>
+
+Remove the installed files.
+
+=item B<3.>
+
+Run I<postrm> script.
+
+=back
 
 Cela traitera une action différée à moins que B<--no-triggers> a été spécifié.
 
@@ -178,13 +212,21 @@ Cela traitera une action différée à moins que B<--no-triggers> a été spéci
 
 Purger un paquet installé ou déjà supprimé. L'action supprime tout, y compris les fichiers de configuration et tout le reste nettoyé de I<postrm>. Si B<-a> ou B<--pending> est indiqué à la place d'un nom de paquet, tous les paquets dépaquetés ou supprimés mais marqués dans le fichier I<%ADMINDIR%/status> comme devant être purgés seront purgés.
 
-S<B<Note> :> certains fichiers de configuration peuvent être inconnus de B<dpkg>, car ils sont créés et gérés séparément par le biais de scripts de configuration. En ce cas, B<dpkg> ne les supprimera pas lui-même et le script I<postrm> du paquet devra s'en charger durant l'opération de purge. Cela ne s'applique bien entendu qu'aux fichiers situés dans les répertoires systèmes et non aux fichiers de configuration créés dans les répertoires S<« home »> des utilisateurs.
+B<Note>: Some configuration files might be unknown to B<dpkg> because they are created and handled separately through the configuration scripts. In that case, B<dpkg> won't remove them by itself, but the package's I<postrm> script (which is called by B<dpkg>), has to take care of their removal during purge. Of course, this only applies to files in system directories, not configuration files written to individual users' home directories.
 
 La suppression d'un paquet comporte les étapes S<suivantes :>
 
-B<1.> Supprime le paquet s'il n'est pas déjà supprimé. Voir B<--remove> pour plus de détails sur la façon dont cela est fait.
+=over 4
 
-B<2.> Exécuter le script I<postrm>.
+=item B<1.>
+
+Remove the package, if not already removed. See B<--remove> for detailed information about how this is done.
+
+=item B<2.>
+
+Run I<postrm> script.
+
+=back
 
 Cela traitera une action différée à moins que B<--no-triggers> a été spécifié.
 
@@ -192,7 +234,7 @@ Cela traitera une action différée à moins que B<--no-triggers> a été spéci
 
 Vérifie l'intégrité du I<nom-du-paquet> ou de tous les paquets, si omis, en comparant l'information des fichiers installés par un paquet avec l'information des métadonnées des fichiers stockée dans la base de données de B<dpkg> (depuis S<dpkg 1.17.2).> L'origine de l'information des métadonnées des fichiers dans la base de données, ce sont les paquets binaires eux-mêmes. Ces métadonnées sont collectées au moment du dépaquetage des paquets durant le processus d'installation.
 
-Actuellement la seule vérification fonctionnelle effectuée est une comparaison des sommes de contrôle MD5 du contenu des fichier par rapport aux valeurs stockées dans la base de données des fichiers. La vérification n'a lieu que si la base de données contient les informations nécessaires. Pour vérifier si des métadonnées manquent dans la base de données, la commande B<--audit> peut être employée.
+Currently the only functional check performed is an md5sum verification of the file contents against the stored value in the files database.  It will only get checked if the database contains the file md5sum. To check for any missing metadata in the database, the B<--audit> command can be used.  This is only an integrity check and should not be considered as any kind of security verification.
 
 On peut choisir le format de sortie avec l'option B<--verify-format>, par défaut c'est le format B<rpm>, mais cela pourrait changer dans le futur, et selon le format que les programmes analysant cette sortie de commande pourraient explicitement attendre.
 
@@ -238,7 +280,7 @@ Met l'état de chaque paquet non essentiel à S<« deinstall »> (depuis dpkg 1.
 
 Recherche les paquets qui ont été sélectionnés pour l'installation, mais qui, pour une raison quelconque, ne sont pas encore installés.
 
-S<B<Note> :> cette commande utilise à la fois le fichier disponible et les sélections de paquets.
+B<Note>: This command makes use of both the available file and the package selections.
 
 =item B<--predep-package>
 
@@ -246,7 +288,7 @@ Affiche un fichier unique qui est la cible d'une ou plusieurs pré-dépendances 
 
 Si un tel paquet est présent, l'affiche comme entrée du fichier Packages, et il peut être manipulé comme il se doit.
 
-S<B<Note> :> cette commande utilise à la fois le fichier disponible et les sélections de paquets.
+B<Note>: This command makes use of both the available file and the package selections.
 
 Renvoie B<0> si un paquet est affiché, B<1> quand il n'y a pas de paquet adéquat disponible et B<2> en cas d'erreur.
 
@@ -340,7 +382,7 @@ Compare des numéros de version, où I<op> est un opérateur binaire. B<dpkg> re
 
 Accepte une série de commandes sur le descripteur de fichier d'entrée I<n>.
 
-S<B<Note :>> les options supplémentaires définies en ligne de commande, et au moyen de ce descripteur de fichier, ne sont pas remises à zéro pour les commandes suivantes exécutées durant la même exécution.
+B<Note>: Additional options set on the command line, and through this file descriptor, are not reset for subsequent commands executed during the same run.
 
 =end désactivé
 
@@ -480,73 +522,135 @@ Demande de débogage. I<octal> est formé en faisant un S<« OU »> logique entr
 
 Forcer ou refuser (B<no-force> et B<refuse> signifient la même chose) de faire quelque chose. I<quelque-chose> est une liste d'actions séparées par des virgules, décrites ci-après. B<--force-help> affiche un message qui les décrit. Les actions marquées d'un (*) sont forcées par défaut.
 
-S<I<Avertissement> :> I<ces options sont principalement destinées aux experts. Un usage auquel manque la pleine compréhension de leurs effets peut casser le système entier.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-S<B<all> :> Met en œuvre (ou pas) toutes les options de forçage.
+=over 2
 
-S<B<downgrade>(*) :> installer un paquet, même si une version plus récente du paquet est déjà installée.
+=item B<all>:
 
-S<I<Avertissement> :> I<pour l'instant,> B<dpkg> I<ne recherche pas les dépendances lors d'un retour à une version inférieure d'un paquet ; il ne vous préviendra pas si la version choisie casse les dépendances d'un autre paquet. Cela peut avoir de sérieuses conséquences ; et si l'on revient à des versions antérieures des programmes essentiels du système, cela peut rendre votre système inutilisable. N'utiliser qu'avec précaution.>
+Turns on (or off) all force options.
 
-S<B<configure-any> :> configurer aussi les paquets dépaquetés mais non configurés dont dépend le paquet en question.
+=item B<downgrade>(*):
 
-S<B<hold> :> Permettre les installations automatiques, les mises à niveau ou les retraits de paquets même s'ils sont marqués S<« à> S<garder »> S<(« hold »).> S<B<Note :>> quand ces actions sont requises de façon explicite, le statut de sélection du paquet S<« hold »> reste toujours ignoré.
+Install a package, even if newer version of it is already installed.
 
-S<B<remove-reinstreq> :> supprimer un paquet, même défectueux et marqué comme demandant une réinstallation. Il se peut, dès lors, que des éléments du paquet restent dans le système et soient oubliés par B<dpkg>.
+B<Warning>: At present B<dpkg> does not do any dependency checking on downgrades and therefore will not warn you if the downgrade breaks the dependency of some other package. This can have serious side effects, downgrading essential system components can even make your whole system unusable. Use with care.
 
-S<B<remove-protected> :> supprimer un paquet même s'il est considéré comme protégé (depuis S<dpkg 1.20.1).> Les paquets B<protected> comportent essentiellement l'infrastructure importante d'amorçage du système ou sont utilisés pour des méta-paquets personnalisés personnalisés du système local. Les enlever peut rendre le système entièrement incapable de démarrer ou entraîner la perte de fonctions requises pour son fonctionnement. Il faut donc utiliser cette option avec prudence.
+=item B<configure-any>:
 
-S<B<remove-essential> :> supprimer un paquet même s'il est considéré comme indispensable. Les paquets S<« Essential »> comportent les commandes Unix les plus fondamentales nécessaires pour le système d'empaquetage, pour le fonctionnement du système en général ou pendant l'amorçage (même si ces dernières devraient être plutôt converties en paquets protégés). Enlever ces paquets peut casser le système entier, il faut donc utiliser cette option avec prudence.
+Configure also any unpacked but unconfigured packages on which the current package depends.
 
-S<B<depends> :> changer tous les problèmes de dépendance en avertissements. Cela affecte les champs B<Pre-Depends> et B<Depends>.
+=item B<hold>:
 
-S<B<depends-version> :> ignorer les versions dans les questions de dépendance.Cela affecte les champs B<Pre-Depends> et B<Depends>.
+Allow automatic installs, upgrades or removals of packages even when marked to be on “hold”.  B<Note>: When these actions are requested explicitly, the “hold” package selection state always gets ignored.
 
-S<B<breaks> :> forcer l'installation, même si cela risque de casser un autre paquet (depuis S<dpkg 1.14.6).> Cela affecte le champ B<Breaks>.
+=item B<remove-reinstreq>:
 
-S<B<conflicts> :> installer un paquet, même s'il est en conflit avec un autre paquet. C'est dangereux, car habituellement cela produit le remplacement de certains fichiers. Cela affecte le champ B<Conflicts>.
+Remove a package, even if it's broken and marked to require reinstallation. This may, for example, cause parts of the package to remain on the system, which will then be forgotten by B<dpkg>.
 
-S<B<confmiss> :> toujours installer le fichier de configuration manquant sans rien demander. Cette opération est dangereuse, puisque les changements apportés au fichier ne seront pas préservés (suppression).
+=item B<remove-protected>:
 
-S<B<confnew> :> quand un fichier de configuration a été modifié et que la version dans le paquet a changé, toujours installer la nouvelle version sans rien demander, sauf si l'option B<--force-confdef> est aussi présente, auquel cas l'action par défaut est choisie.
+Remove, even if the package is considered protected (since dpkg 1.20.1). Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages.  Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
 
-S<B<confold> :> quand un fichier de configuration a été modifié et que la version du paquet a changé, garder l'ancienne version sans rien demander, sauf si l'option B<--force-confdef> est aussi présente, auquel cas l'action par défaut est choisie.
+=item B<remove-essential>:
 
-S<B<confdef> :> quand un fichier de configuration a été modifié et que la version du paquet a changé, utilise toujours l'action par défaut, de manière non interactive. Quand il n'y a pas d'action par défaut, la commande s'arrête et interroge l'utilisateur, à moins que l'option B<--force-confnew> ou l'option B<--force-confold> n'ait été donnée, auquel cas elle se sert de ces options pour déterminer ce qu'il faut faire.
+Remove, even if the package is considered essential.  Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead).  Removing them might cause the whole system to stop working, so use with caution.
 
-S<B<confask> :> si un fichier de configuration a été modifié, propose de le remplacer avec la version du paquet, même si celle-ci n'a pas changé (depuis dpkg 1.15.8). Si l'une des options B<--force-confmiss>, B<--force-confnew>, B<--force-confold>, ou B<--force-confdef> est également mentionnée, elle déterminera l'action finalement utilisée.
+=item B<depends>:
 
-S<B<overwrite> :> remplacer un fichier par un fichier d'un autre paquet.
+Turn all dependency problems into warnings.  This affects the B<Pre-Depends> and B<Depends> fields.
 
-S<B<overwrite-dir> :> remplacer un répertoire d'un paquet par le fichier d'un autre paquet.
+=item B<depends-version>:
 
-S<B<overwrite-diverted> :> remplacer un fichier détourné avec une version non détournée.
+Don't care about versions when checking dependencies.  This affects the B<Pre-Depends> and B<Depends> fields.
 
-S<B<statoverride-add> :> remplacer une dérogation d'état existante lors de son ajout (depuis S<dpkg 1.19.5)>
+=item B<breaks>:
 
-S<B<statoverride-remove> :> ignorer l'absence de dérogation d'état lors de sa suppression (depuis S<dpkg 1.19.5).>
+Install, even if this would break another package (since dpkg 1.14.6).  This affects the B<Breaks> field.
 
-S<B<security-mac>(*) :> utiliser une sécurité basée sur le contrôle d'accès obligatoire (Mandatory Access Controls – MAC) spécifique à la plateforme lors de l'installation de fichiers dans le systèmes de fichiers (depuis dpkg 1.19.5). Sur les systèmes Linux, la mise en œuvre utilise SELinux.
+=item B<conflicts>:
 
-S<B<unsafe-io> :> ne pas effectuer d'action d'entrée/sortie non sûre lors de la décompression (depuis S<dpkg 1.15.8.6).> Cela implique actuellement de ne pas synchroniser le système de fichiers avant le renommage de fichiers, ce qui est une cause connue de dégradation des performances sur certains systèmes, en général ceux qui, peu fiables, ont besoin d'actions sûres pour éviter de terminer avec des fichiers de taille vide en cas d'interruption inopinée.
+Install, even if it conflicts with another package. This is dangerous, for it will usually cause overwriting of some files.  This affects the B<Conflicts> field.
+
+=item B<confmiss>:
+
+Always install the missing conffile without prompting. This is dangerous, since it means not preserving a change (removing) made to the file.
+
+=item B<confnew>:
+
+If a conffile has been modified and the version in the package did change, always install the new version without prompting, unless the B<--force-confdef> is also specified, in which case the default action is preferred.
+
+=item B<confold>:
+
+If a conffile has been modified and the version in the package did change, always keep the old version without prompting, unless the B<--force-confdef> is also specified, in which case the default action is preferred.
+
+=item B<confdef>:
+
+If a conffile has been modified and the version in the package did change, always choose the default action without prompting. If there is no default action it will stop to ask the user unless B<--force-confnew> or B<--force-confold> is also been given, in which case it will use that to decide the final action.
+
+=item B<confask>:
+
+If a conffile has been modified always offer to replace it with the version in the package, even if the version in the package did not change (since dpkg 1.15.8).  If any of B<--force-confnew>, B<--force-confold>, or B<--force-confdef> is also given, it will be used to decide the final action.
+
+=item B<overwrite>:
+
+Overwrite one package's file with another's file.
+
+=item B<overwrite-dir>:
+
+Overwrite one package's directory with another's file.
+
+=item B<overwrite-diverted>:
+
+Overwrite a diverted file with an undiverted version.
+
+=item B<statoverride-add>:
+
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<unsafe-io>:
+
+Do not perform safe I/O operations when unpacking (since dpkg 1.15.8.6). Currently this implies not performing file system syncs before file renames, which is known to cause substantial performance degradation on some file systems, unfortunately the ones that require the safe I/O on the first place due to their unreliable behaviour causing zero-length files on abrupt system crashes.
 
 S<I<Note> :> pour ext4, le principal concerné, il est suggéré de plutôt utiliser l'option de montage B<nodelalloc>, qui corrigera à la fois la dégradation des performances et les problèmes de sécurité des données. Elle permet notamment d'éviter de terminer avec des fichiers vides lors des arrêts brutaux pour tout logiciel qui ne synchronise pas le système de fichiers avant chaque renommage.
 
-S<I<Avertissement> :> I<l'utilisation de cette option peut améliorer la performance mais augmente le risque de perte de données. Elle est donc à utiliser avec précautions.>
+B<Warning>: Using this option might improve performance at the cost of losing data, use with care.
 
-S<B<script-chrootless> :> exécuter les scripts du responsable sans créer de B<chroot>(2) dans B<instdir> même si le paquet ne prend pas en charge ce mode d'opération (depuis S<dpkg 1.18.5).>
+=item B<script-chrootless>:
 
-S<I<Avertissement> :> I<cela peut détruire le système hôte, utilisez avec des précautions extrêmes.>
+Run maintainer scripts without B<chroot>(2)ing into B<instdir> even if the package does not support this mode of operation (since dpkg 1.18.5).
 
-S<B<architecture> :> traiter même les paquets sans architecture ou avec une architecture incorrecte.
+B<Warning>: This can destroy your host system, use with extreme care.
 
-S<B<bad-version> :> traiter même les paquets dont la version est incorrecte (depuis S<dpkg 1.16.1).>
+=item B<architecture>:
 
-S<B<bad-path> :> programmes importants non visibles par la variable B<PATH>, ce qui va poser des problèmes.
+Process even packages with wrong or no architecture.
 
-S<B<not-root> :> tenter de (dés)installer même sans être root.
+=item B<bad-version>:
 
-S<B<bad-verify> :> installer un paquet même si la vérification de son authenticité a échoué.
+Process even packages with wrong versions (since dpkg 1.16.1).
+
+=item B<bad-path>:
+
+B<PATH> is missing important programs, so problems are likely.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root.
+
+=item B<bad-verify>:
+
+Install a package even if it fails authenticity check.
+
+=back
 
 =item B<--ignore-depends>=I<paquet>,...
 
@@ -594,7 +698,7 @@ Depuis S<dpkg 1.21.10,> l'architecture est aussi prise en compte, ce qui rend po
 
 Programme l'exécution de I<commande> à l'aide S<« sh> S<-c »> avant ou après l'exécution de B<dpkg> pour les actions I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, I<purge>, I<add-architecture> et I<remove-architecture> (depuis S<dpkg 1.15.4> ; les actions I<add-architecture> et I<remove-architecture> depuis S<dpkg 1.17.19).> Cette option peut être utilisée plusieurs fois. L'ordre dans lequel les options multiples sont indiquées sera préservé et celles indiquées dans le fichier de configuration auront la priorité. La variable d'environnement B<DPKG_HOOK_ACTION> est utilisée pour indiquer aux scripts utilisés quelle est l'action actuelle de B<dpkg>.
 
-S<B<Note> :> les interfaces de B<dpkg> peuvent l'appeler plusieurs fois à chaque invocation, ce qui peut provoquer l'exécution des S<« hooks »> plus souvent que prévu.
+B<Note>: Front-ends might call B<dpkg> several times per invocation, which might run the hooks more times than expected.
 
 =item B<--path-exclude=>I<motif-global>
 
@@ -602,9 +706,9 @@ S<B<Note> :> les interfaces de B<dpkg> peuvent l'appeler plusieurs fois à chaqu
 
 Utilise I<motif-global> comme filtre de chemins, soit en excluant, soit en ré-incluant des chemins précédemment exclus, correspondant au motif indiqué, pendant l'installation (depuis S<dpkg 1.15.8).>
 
-S<I<Attention> :> I<dépendre des chemins exclus peut entièrement casser le système. Ce réglage doit donc être utilisé avec précautions.>
+B<Warning>: Take into account that depending on the excluded paths you might completely break your system, use with caution.
 
-Les motifs globaux utilisent les mêmes caractères joker que le shell où S<« * »> correspond à une séquence quelconque de caractères, y compris une chaîne vide ou le caractère S<« / ».> Ainsi, S<« I</usr/*/READ*> »> comportera S<« I</usr/share/doc/package/README> ».> Comme toujours, le caractère S<« ? »> correspond à un caractère quelconque (y compris S<« / »).> Le caractère S<« [ »> marque le début d'une classe de caractères, qui contient une liste de caractères, séries de caractères ou compléments de séries. Veuillez consulter B<glob>(7) pour plus d'informations à propos des correspondances globales. S<Note :> l'implémentation actuelle pourrait ré-inclure plus de répertoires et liens symboliques que nécessaire, en particulier s'il y a une ré-inclusion plus spécifique, par souci de sécurité et pour éviter des échecs possibles de décompression. Des modifications à venir pourraient corriger cela.
+The glob patterns use the same wildcards used in the shell, were ‘*’ matches any sequence of characters, including the empty string and also ‘/’.  For example, «I</usr/*/READ*>» matches «I</usr/share/doc/package/README>».  As usual, ‘?’ matches any single character (again, including ‘/’).  And ‘[’ starts a character class, which can contain a list of characters, ranges and complementations. See B<glob>(7) for detailed information about globbing. B<Note>: The current implementation might re-include more directories and symlinks than needed, in particular when there is a more specific re-inclusion, to be on the safe side and avoid possible unpack failures; future work might fix this.
 
 Cela peut servir à exclure tous les chemins sauf certains spécifiques. Un cas classique d'utilisation S<est :>
 
@@ -617,7 +721,7 @@ Ces deux options peuvent être utilisées plusieurs fois et éventuellement êtr
 
 Les filtres sont appliqués lors du dépaquetage des paquets binaires et, en tant que tel, ont seulement connaissance du type des objets qui sont en cours de filtrage (par exemple un fichier ordinaire ou un répertoire) et n'ont pas de visibilité des objets à venir. Comme ces filtres ont des effets secondaires (à la différence des filtres de B<find>(1)), l'exclusion d'un chemin précis qui se trouve être un objet répertoire, comme I</usr/share/doc>, n'aura pas le résultat désiré, et seul ce chemin sera exclu (et qui pourrait être réintégré automatiquement si le code en voit la nécessité).Le dépaquetage de tous les fichiers suivants renfermés par ce répertoire échouera.
 
-S<Astuce :> Assurez-vous que les S<« globs »> ne sont pas développés par le shell.
+B<Hint>: make sure the globs are not expanded by your shell.
 
 =item B<--verify-format> I<nom-de-format>
 
@@ -657,7 +761,7 @@ La vérification du mode du fichier a échoué (depuis S<dpkg 1.21.0).> Parce qu
 
 =item 3 S<« B<5> »>
 
-La vérification de la somme de contrôle a échoué, ce qui signifie que le contenu du fichier a été modifié.
+The digest check failed, which means the file contents have changed.  This is only an integrity check and should not be considered as any kind of security verification.
 
 =item 4-9 S<« B<?> »>
 
@@ -925,6 +1029,16 @@ Le fichier d'état est sauvegardé quotidiennement dans I<%BACKUPSDIR%>. Cela pe
 
 Le format et le contenu d'un paquet binaire sont décrits dans B<deb>(5).
 
+=head1 SECURITY
+
+Any operation that needs write access to the database or the filesystem is considered a privileged operation that might allow root escalation.  These operations must never be delegated to an untrusted user or be done on untrusted packages, as that might allow root access to the system.
+
+Some operations (such as package verification) might need root privileges to be able to access files on the filesystem that would otherwise be inaccessible due to restricted permissions, but should otherwise work normally and produce appropriate messages in those cases.
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
+
+See also the B<SECURITY> section of the L<dpkg-deb(1)> and L<dpkg-split(1)> manual pages.
+
 =head1 BOGUES
 
 L'option B<--no-act> ne donne pas assez d'informations utiles.
@@ -976,7 +1090,7 @@ Pour faire une copie locale des états de sélection des S<paquets :>
 
 =over 
 
- dpkg --get-selections> mes-sélections
+ dpkg --get-selections >myselections
 
 =back
 
@@ -993,7 +1107,7 @@ ou avec dpkg 1.17.6 et les versions S<antérieures :>
 =over 
 
  avail=$(mktemp)
- apt-cache dumpavail> "$avail"
+ apt-cache dumpavail >"$avail"
  dpkg --merge-avail "$avail"
  rm "$avail"
 

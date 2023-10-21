@@ -54,6 +54,8 @@ I<naam>-I<versie>.so
 
 waarbij I<naam> gewoonlijk voorafgegaan wordt door B<lib>.
 
+The former tends to be used by shared libraries with stable interfaces.  The latter by shared libraries with unstable interfaces, where the whole version becomes part of the SONAME and needs to be specified in full when linking against those libraries.
+
 =head1 VOORBEELDEN
 
 Het B<shlibs>-bestand voor een typisch bibliotheekpakket met als naam I<libcrunch1> dat één bibliotheek levert met als SONAME I<libcrunch.so.1>, kan er als volgt uitzien

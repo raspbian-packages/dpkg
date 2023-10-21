@@ -230,6 +230,12 @@ Om satt kommer det användas som tidsstämpel (som sekunder sedan epoken) i B<de
 
 Försök inte använda bara B<dpkg-deb> för att installera programvara! Du måste använda normala B<dpkg> för att se till att alla filer läggs på korrekt plats och att paketets skript körs och dess status och innehåll sparas.
 
+=head1 SECURITY
+
+Examining untrusted package archives or extracting them into staging directories should be considered a security boundary, and any breakage of that boundary stemming from these operations should be considered a security vulnerability.  But handling untrusted package archives should not be done lightly, as the surface area includes any compression library supported, in addition to the archive formats and control files themselves.  Performing these operations over untrusted data as root is strongly discouraged.
+
+Building package archives should only be performed over trusted data.
+
 =head1 PROGRAMFEL
 
 B<dpkg-deb -I> I<paket1>B<.deb> I<paket2>B<.deb> gör fel.

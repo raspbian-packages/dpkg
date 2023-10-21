@@ -106,7 +106,7 @@ Das B<rfc822>-Format verwendet die gleichen Felder, gibt aber einzelne Absätze 
 
 nimmt alle Änderungen in umgekehrter Reihenfolge auf (seit Dpkg 1.19.1).
 
-Beachten Sie: Für das B<dpkg>-Format ist der erste Eintrag der älteste Eintrag.
+B<Hinweis>: Für das B<dpkg>-Format ist der erste Eintrag der älteste Eintrag.
 
 =item B<--all>
 

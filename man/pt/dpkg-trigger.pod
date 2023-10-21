@@ -30,6 +30,8 @@ Isto pode ser usado pelos scripts do maintainer em situações complexas e condi
 
 Sintaxes de nome de trigger não reconhecidas são um erro para o B<dpkg-trigger>.
 
+This program was introduced in dpkg 1.14.17.
+
 =head1 COMANDOS
 
 =over 

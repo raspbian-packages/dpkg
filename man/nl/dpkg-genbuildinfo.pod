@@ -24,7 +24,7 @@ B<dpkg-genbuildinfo> [I<optie>...]
 
 B<dpkg-genbuildinfo> leest informatie uit een uitgepakte en gebouwde Debian broncodeboom en uit de bestanden die het gegenereerd heeft en maakt een Debian controlebestand aan dat de bouwomgeving en de bouwvoorwerpen (een bestand B<.buildinfo>).
 
-Dit commando werd geïntroduceerd in dpkg 1.18.11.
+This program was introduced in dpkg 1.18.11.
 
 =head1 OPTIES
 

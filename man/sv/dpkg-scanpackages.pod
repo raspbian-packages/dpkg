@@ -24,7 +24,7 @@ B<dpkg-scanpackages> [I<flagga>...] I<binärsökväg> [I<överstyrningsfil> [I<s
 
 B<dpkg-scanpackages> går genom ett träd av Debianbinärpaket och skapar en Packages-fil, som B<apt>(8), B<dselect>(8) osv. använder för att berätta för användaren vilka paket som kan installeras. Dessa Packages-filer är desamma som de som finns på Debianarkivspeglar och cd-rom:ar. Du kan använda B<dpkg-scanpackages> själv för att skapa en katalog med lokala paket att installera på en klase maskiner.
 
-B<Observera:> Om du vill läsa den skapade Packages-filen med B<apt>(8) måste du antagligen komprimera filen med B<xz>(1) (vilket skapar filen Packages.xz), B<bzip2>(1) (vilket skapar filen Packages.bz2) eller B<gzip>(1) (vilket skapar filen Packages.gz). B<apt>(8) ignorerar okomprimerade Packages-filer, förutom vid lokal åtkomst (dvs. B<file://>-källor).
+B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<binärsökväg> är namnet på trädet med binärpaketen som ska hanteras (till exempel B<contrib/binary-i386>). Det är bäst att skapa den relativt till roten på Debianarkivet eftersom alla Filename-fält i den skapade Packages-filen kommer inledas med strängen.
 

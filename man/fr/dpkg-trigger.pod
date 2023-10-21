@@ -30,6 +30,8 @@ Utilisable par les scripts du responsable dans certaines situations complexes o�
 
 Les syntaxes non reconnues pour le nom des actions différées constituent une erreur pour B<dpkg-trigger>.
 
+This program was introduced in dpkg 1.14.17.
+
 =head1 COMMANDES
 
 =over 

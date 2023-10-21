@@ -116,7 +116,7 @@ Fältet anger att källkodspaketet innehåller de angivna testsviterna. Värdet 
 
 Fältet anger den kommaavdelade unionen av alla testberoenden (fältet B<Depends> i filen I<debian/tests/control>), med alla begränsningar borttagna, och ELLER-beroenden tillplattade (det vill säga, konverterade till separata OCH-relationer), med undantag för binärar som skapas av detta källkodspaket och dess metaberoende-motsvarighet B<@>.
 
-Grund: fältet behövs eftersom man annars för att kunna hämta testbeorenden måste packa upp alla källkodspaketen.
+B<Rationale>: this field is needed because otherwise to be able to get the test dependencies, each source package would need to be unpacked.
 
 =item B<Build-Depends:> I<paketlista>
 

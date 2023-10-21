@@ -50,6 +50,8 @@ Dessa filer är i huvudsak intressanta för att kunna tillhandahålla den minima
 
 När den genererade symbolfilen skiljer sig mot den version som tillhandahållits av de paketansvariga kommer B<dpkg-gensymbols> att skriva ut en differens mellan de två versionerna. Om ändringarna är för stora kommer programmet dessutom att misslyckas (du kan justera hur stora ändringar du kan tolerera, se flaggan B<-c>).
 
+This program was introduced in dpkg 1.14.8.
+
 =head1 UNDERHÅLLA SYMBOLFILER
 
 Det grundläggande utväxlingsformatet för symbolfilen beskrivs i B<deb-symbols>(5), vilket används av symbolfilerna som inkluderas i bärpaket. Dessa genereras från mallsymbolfiler med ett format som baseras på det tidigare nämnda, beskrivet i B<deb-src-symbols>(5) och inkluderas i källkodspaket.
@@ -112,7 +114,7 @@ Analyserar endast bibliotek som listats explicit istället för att hitta alla p
 
 Lägg till I<katalog> till först i listan över kataloger som ska eftersökas efter privata delade bibliotek (sedan dpkg 1.19.1). Flaggan kan användas flera gånger.
 
-B<Observera>: Använd den här flaggan istället för att sätta B<LD_LIBRARY_PATH>, eftersom miljövariabeln används för att styra körtidslänkaren, och genom att utnyttja det för att ange sökvägen till delade bibliotek vid kompilering kan det uppstå problem, till exempel vid korskompilering.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-I>I<filnamn>
 

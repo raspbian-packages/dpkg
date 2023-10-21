@@ -26,11 +26,11 @@ B<dpkg-scansources> zoekt in de opgegeven I<map-binair-pakket> naar I<.dsc>-best
 
 Als dit opgegeven werd, zal het I<override-bestand> gebruikt worden om de prioriteit in te stellen in de resulterende indexonderdelen en om de inhoud van het maintainer-veld dat in het I<.dsc>-bestand opgegeven wordt, te vervangen. Het bestand mag gecomprimeerd zijn (sinds dpkg 1.15.5). Zie B<deb-override>(5) voor de indeling van dit bestand.
 
-B<Opmerking:> vermits het bestand override volgens binaire pakketten geïndexeerd wordt en niet volgens broncodepakketten, stelt zich hier een zeker probleem. De huidige implementatie gebruikt de hoogste prioriteit van alle binaire pakketten die door een I<.dsc>-bestand geproduceerd worden, voor de prioriteit van het broncodepakket en het override-item voor het binaire pakket dat het eerst vermeld wordt in het I<.dsc>-bestand om de informatie over de pakketonderhouder aan te passen. Dit kan veranderen.
+B<Note>: Since the override file is indexed by binary, not source packages, there's a bit of a problem here. The current implementation uses the highest priority of all the binary packages produced by a I<.dsc> file for the priority of the source package, and the override entry for the first binary package listed in the I<.dsc> file to modify maintainer information. This might change.
 
 Indien het I<padprefix> opgegeven werd, wordt het voorgevoegd bij het veld directory in het gegenereerde broncode-indexbestand. In het algemeen wordt dit gebruikt om er voor te zorgen dat het veld directory het pad bevat vanaf de basis van de hiërarchische structuur van het Debian pakketarchief.
 
-B<Opmerking:> indien u het gegenereerde Sources-bestand wilt gebruiken met B<apt>(8), zult u het wellicht moeten comprimeren met B<gzip>(1) (wat een bestand Sources.gz genereert). B<apt>(8) negeert niet-gecomprimeerde Sources-bestanden tenzij in geval van lokale toegang (d.w.z. pakketbronnen in de vorm van B<file://>).
+B<Note>: If you want to access the generated Sources file with B<apt>(8) you will probably need to compress the file with B<gzip>(1)  (generating a Sources.gz file).  B<apt>(8)  ignores uncompressed Sources files except on local access (i.e.  B<file://> sources).
 
 =head1 OPTIES
 

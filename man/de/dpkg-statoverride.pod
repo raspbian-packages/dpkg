@@ -80,17 +80,31 @@ Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeic
 
 Erzwingt oder verweigert (B<no-force> und B<refuse> bedeuten das gleiche) bestimmte Sachen (seit Dpkg 1.19.5). I<Sachen> ist eine Kommata-getrennte Liste von Dingen, die im Folgenden beschrieben sind. B<--force-help> zeigt eine Meldung an, die diese beschreibt. Mit (*) markierte Dinge werden standardmäßig erzwungen.
 
-I<Warnung: Diese Optionen sind hauptsächlich für den Einsatz durch Experten gedacht. Der Einsatz ohne komplettes Verständnis der Auswirkungen kann Ihr gesamtes System zerstören.>
+B<Warnung>: Diese Optionen sind hauptsächlich für den Einsatz durch Experten gedacht. Der Einsatz ohne komplettes Verständnis der Auswirkungen kann Ihr gesamtes System zerstören.
 
-B<all>: Schaltet alle „force“-Optionen ein (oder aus).
+=over 4
 
-B<statoverride-add>: Überschreibt eine existierende Status-Hinwegsetzung beim Hinzufügen (seit Dpkg 1.19.5).
+=item B<all>:
 
-B<statoverride-remove>: Ignoriert eine fehlende Status-Hinwegsetzung beim Entfernen (seit Dpkg 1.19.5).
+Schaltet alle „force“-Optionen ein (oder aus).
 
-B<security-mac>(*): Verwendet plattformspezifische „Mandatory Access Control (MAC)“-basierende Sicherheit bei der Installation von Dateien in das Dateisystem (seit Dpkg 1.19.5). Auf Linux-Systemen verwendet die Implementierung SELinux.
+=item B<statoverride-add>:
 
-B<not-root>: Versucht Sachen zu (de)installieren, selbst falls nicht root (seit Dpkg 1.21.8).
+Überschreibt eine existierende Status-Hinwegsetzung beim Hinzufügen (seit Dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignoriert eine fehlende Status-Hinwegsetzung beim Entfernen (seit Dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Verwendet plattformspezifische „Mandatory Access Control (MAC)“-basierende Sicherheit bei der Installation von Dateien in das Dateisystem (seit Dpkg 1.19.5). Auf Linux-Systemen verwendet die Implementierung SELinux.
+
+=item B<not-root>:
+
+Versucht Sachen zu (de)installieren, selbst falls nicht root (seit Dpkg 1.21.8).
+
+=back
 
 =item B<--force>
 

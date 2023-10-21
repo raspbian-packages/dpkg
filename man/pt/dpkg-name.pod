@@ -44,13 +44,13 @@ Os ficheiros existentes serão sobrescritos se tiverem o mesmo nome que o nome d
 
 Os ficheiros serão movidos para um sub-directório. Se o directório dado como argumento existir, os ficheiros serão movidos para esse directório, caso contrário, o nome do directório alvo é extraído do campo section na parte de controlo do pacote. O directório alvo irá ser «unstable/binary-I<architecture>/I<section>».  Se a section não for encontrada no controlo, então é assumido B<no-section>, e neste caso, assim como para secções B<non-free> e B<contrib> o directório alvo é «I<section>/binary-I<architecture>».  O campo section não é necessário, assim muitos pacotes irão encontrar o seu caminho até à área B<no-section>.
 
-B<Warning:> I<Use esta opção com cuidado, ela faz porcaria.>
+B<Warning>: Use this option with care, it is messy.
 
 =item B<-c>, B<--create-dir>
 
 Esta opção pode ser usada em conjunto com a opção B<-s>. Se um directório meta não for encontrado será criado automaticamente.
 
-B<Aviso> I<Use esta opção com cuidado.>
+B<Warning>: Use this option with care.
 
 =item B<-?>, B<--help>
 

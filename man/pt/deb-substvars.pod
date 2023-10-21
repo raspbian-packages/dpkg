@@ -103,7 +103,7 @@ A descrição extensa do pacote fonte, extraída do campo B<Description> da estr
 
 O tamanho total aproximado dos ficheiros instalados pelo pacote. Este valor é copiado para o campo do ficheiro de controle correspondente, defini-lo irá modificar o valor desse campo. Se esta variável não for definida, B<dpkg-gencontrol> irá computar o valor predefinido ao acumular o tamanho de cada ficheiro regular e link simbólico arredondando as unidades usadas para egular file and 1 KiB, e uma base de 1 KiB para qualquer outro tipo de objecto de sistema de ficheiros. Com os hardlinks a serem contados apenas uma vez como um ficheiro regular.
 
-B<Nota:> Tenha em conta que isto só pode ser uma aproximação, pois o tamanho real usado no sistema instalado irá depender grandemente do sistema de ficheiros usado e dos seu parâmetros, o que pode acabar a usar mais ou menos espaço que aquele especificado neste campo.
+B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
 
 =item B<Extra-Size>
 

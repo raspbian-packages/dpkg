@@ -30,6 +30,8 @@ Det kan användas av utvecklarskript i komplexa och villkorliga situationer där
 
 Okända utlösarnamnsyntaxer är ett fel för B<dpkg-trigger>.
 
+This program was introduced in dpkg 1.14.17.
+
 =head1 KOMMANDON
 
 =over 

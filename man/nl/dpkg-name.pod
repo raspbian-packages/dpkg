@@ -44,13 +44,13 @@ Bestaande bestanden zullen overschreven worden als ze dezelfde naam hebben als d
 
 Bestanden zullen naar een onderliggende map verplaatst worden. Indien de als argument opgegeven map bestaat, zullen de bestanden naar die map verplaatst worden, anders wordt de naam van de doelmap geëxtraheerd uit het sectieveld uit het controlegedeelte van het pakket. De doelmap zal «unstable/binary-I<architectuur>/I<sectie>» zijn. Indien de sectie niet gevonden wordt in het controlebestand, dan wordt uitgegaan van B<no-section>. In dat geval en ook voor de secties B<non-free> en B<contrib> is de doelmap «I<sectie>/binary-I<architectuur>». Het veld sectie is niet verplicht, zodat veel pakketten terechtkomen in het gebied B<no-section>.
 
-B<Warschuwing:> I<Gebruik deze optie met zorg, ze werkt rommelig.>
+B<Warning>: Use this option with care, it is messy.
 
 =item B<-c>, B<--create-dir>
 
 Deze optie kan samen met de optie B<-s> gebruikt worden. Als een doelmap niet aangetroffen wordt, zal ze automatisch aangemaakt worden.
 
-B<Warning:> I<Gebruik deze optie met zorg.>
+B<Warning>: Use this option with care.
 
 =item B<-?>, B<--help>
 

@@ -52,9 +52,11 @@ design decisions or due to current limitations.
 Many of those tasks require coordinated actions from several maintainer
 scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). To
 avoid mistakes the same call simply needs to be put in all scripts and the
-program will automatically adapt its behaviour based on the environment
+program will automatically adapt its behavior based on the environment
 variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments
 that you have to forward after a double hyphen.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 COMMON PARAMETERS
 
@@ -122,7 +124,7 @@ scripts.
 
 =head2 Removing a conffile
 
-Note: This can be replaced in most cases by the C<remove-on-upgrade>
+B<Note>: This can be replaced in most cases by the C<remove-on-upgrade>
 flag in F<DEBIAN/conffiles> (since dpkg 1.20.6), see L<deb-conffiles(5)>.
 
 If a conffile is completely removed, it should be removed from disk,
@@ -189,7 +191,7 @@ When upgrading a package, B<dpkg> will not automatically switch a symlink
 to a directory or vice-versa. Downgrades are not supported and the path
 will be left as is.
 
-Note: The symlinks and directories created during these switches need to
+B<Note>: The symlinks and directories created during these switches need to
 be shipped in the new packages, or B<dpkg> will not be able to remove them
 on purge.
 

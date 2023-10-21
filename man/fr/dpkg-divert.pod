@@ -154,7 +154,7 @@ Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement ac
 
 Ce fichier contient la liste des détournements en œuvre sur le système. Il se trouve dans le répertoire d'administration de B<dpkg>, avec d'autres fichiers importants comme I<status> ou I<available>.
 
-S<B<Note :>> B<dpkg-divert> préserve l'ancienne copie de ce fichier, avec l'extension I<-old>, avant de la remplacer par la nouvelle.
+B<Note>: B<dpkg-divert> preserves the old copy of this file, with extension I<-old>, before replacing it with the new one.
 
 =back
 

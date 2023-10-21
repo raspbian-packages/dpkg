@@ -103,7 +103,7 @@ De uitgebreide beschrijving van het bronpakket, gehaald uit het veld B<Descripti
 
 De geschatte totale grootte van de uit het pakket geïnstalleerde bestanden. Deze waarde wordt gekopieerd naar het overeenkomstige veld in het bestand control. Dit instellen wijzigt de waarde van dat veld. Indien deze variabele niet ingesteld werd, zal B<dpkg-gencontrol> de standaardwaarde berekenen door de grootte van alle gewone bestanden en alle symbolische koppelingen samen te nemen, afgerond tot op een eenheid van 1 KiB, en met een richtlijn van 1 KiB voor elk ander type object van het bestandssysteem. Daarbij worden harde koppelingen slechts éénmaal geteld als een gewoon bestand.
 
-B<Opmerking:> Houd er rekening mee dat dit steeds slechts een schatting kan zijn, aangezien de werkelijke grootte die op het geïnstalleerde systeem gebruikt zal worden, in grote mate afhankelijk is van het gebruikte bestandssysteem en de parameters ervan, waardoor het eindresultaat kan zijn dat ofwel meer ofwel minder ruimte in beslag genomen wordt dan in dit veld opgegeven werd.
+B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
 
 =item B<Extra-Size>
 

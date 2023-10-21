@@ -408,6 +408,7 @@ POD2MAN = @POD2MAN@
 POSUB = @POSUB@
 PS_LIBS = @PS_LIBS@
 RANLIB = @RANLIB@
+RT_LIBS = @RT_LIBS@
 SED = @SED@
 SELINUX_CFLAGS = @SELINUX_CFLAGS@
 SELINUX_LIBS = @SELINUX_LIBS@
@@ -501,10 +502,10 @@ LDADD = \
 	../lib/compat/libcompat.la \
 	# EOL
 
-EXTRA_DIST = dpkg-db-backup.sh dpkg-maintscript-helper.sh \
-	dpkg-realpath.sh $(srcdir)/at/atlocal.in \
-	$(srcdir)/at/package.m4 $(TESTSUITE_AT) $(TESTSUITE) \
-	$(srcdir)/at/package.m4
+EXTRA_DIST = dpkg-db-backup.sh dpkg-db-keeper.sh \
+	dpkg-maintscript-helper.sh dpkg-realpath.sh \
+	$(srcdir)/at/atlocal.in $(srcdir)/at/package.m4 \
+	$(TESTSUITE_AT) $(TESTSUITE) $(srcdir)/at/package.m4
 CLEANFILES = $(bin_SCRIPTS) $(pkglibexec_SCRIPTS) # EOL
 DISTCLEANFILES = at/atconfig at/atconfig
 nobase_dist_pkgdata_DATA = \
@@ -518,6 +519,7 @@ bin_SCRIPTS = \
 
 pkglibexec_SCRIPTS = \
 	dpkg-db-backup \
+	dpkg-db-keeper \
 	# EOL
 
 dpkg_SOURCES = \

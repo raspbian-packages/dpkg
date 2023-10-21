@@ -28,6 +28,8 @@ man_MANS = \
 	deb.5 \
 	deb822.5 \
 	dpkg-architecture.1 \
+	dpkg-build-api.7 \
+	dpkg-buildapi.1 \
 	dpkg-buildflags.1 \
 	dpkg-buildpackage.1 \
 	dpkg-checkbuilddeps.1 \
@@ -115,6 +117,8 @@ EXTRA_DIST += \
 	deb.pod \
 	deb822.pod \
 	dpkg-architecture.pod \
+	dpkg-build-api.pod \
+	dpkg-buildapi.pod \
 	dpkg-buildflags.pod \
 	dpkg-buildpackage.pod \
 	dpkg-checkbuilddeps.pod \

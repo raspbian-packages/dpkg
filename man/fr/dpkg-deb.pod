@@ -230,6 +230,12 @@ Si cette option est utilisée, elle sera utilisée comme horodatage (en seconde 
 
 N'essayez pas d'installer un logiciel avec B<dpkg-deb> ! Vous devez utiliser B<dpkg> pour être sûr que tous ses fichiers sont correctement mis en place, que les scripts du paquet sont exécutés et que son contenu et son état sont enregistrés.
 
+=head1 SECURITY
+
+Examining untrusted package archives or extracting them into staging directories should be considered a security boundary, and any breakage of that boundary stemming from these operations should be considered a security vulnerability.  But handling untrusted package archives should not be done lightly, as the surface area includes any compression library supported, in addition to the archive formats and control files themselves.  Performing these operations over untrusted data as root is strongly discouraged.
+
+Building package archives should only be performed over trusted data.
+
 =head1 BOGUES
 
 B<dpkg-deb -I> I<paquet1>B<.deb> I<paquet2>B<.deb> se trompe.

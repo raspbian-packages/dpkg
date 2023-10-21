@@ -41,7 +41,9 @@ B<dpkg-maintscript-helper> I<kommando> [I<flagga>...] B<--> I<maint-script-flagg
 
 Programmet skrevs för att köras i paketskript för att utföra en del åtgärder som B<dpkg> (ännu) inte själv kan hantera, antingen på grund av designval eller på grund av nuvarande begränsningar.
 
-Många av dessa åtgärder kräver samordnade åtgärder från flera paketskript (B<preint>, B<postinst>, B<prerm>, B<postrm>). För att undvika misstag räcker det att lägga in ett och samma anrop i alla skript, varpå programmet anpassar sitt beteende beroende på miljövariabeln B<DPKG_MAINTSCRIPT_NAME> och på paketskriptets parametrar, vilka du måste vidaresända efter dubbla bindestreck.
+Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). To avoid mistakes the same call simply needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 DELADE PARAMETRAR
 
@@ -73,7 +75,7 @@ Det innebär att, om paketet menar att byta namn eller ta bort en konfigurations
 
 =head2 Ta bort en konffil
 
-Observera: Det här kan i de flesta fall ersättas av flaggan C<remove-on-upgrade> i F<DEBIAN/conffiles> (sedan dpkg 1.20.6), se L<deb-conffiles(5)>.
+B<Note>: This can be replaced in most cases by the C<remove-on-upgrade> flag in F<DEBIAN/conffiles> (since dpkg 1.20.6), see L<deb-conffiles(5)>.
 
 Om en konffil helt tas bort bör den tas bort från disk, såvida inte användaren har modifierat den. Om det finns lokala ändringar bör de bibehållas. Om paketuppgraderingen avbryts bör inte konffilen som just blev föråldrad försvinna.
 
@@ -113,7 +115,7 @@ Aktuell implementation: I B<preinst> kontrolleras om konffilen har ändrats, om 
 
 Vid uppgradering av ett paket kommer B<dpkg> inte att automatiskt byta ut en symbolisk länk mot en katalog, eller omvänt. Nedgraderingar stöds inte och sökvägen kommer lämnas som den var.
 
-Observera: De symboliska länkar och kataloger som skapas vid dessa växlingar måste sändas med i de nya paketen, om inte kommer B<dpkg> inte att kunna ta bort dem vid en rensning.
+B<Note>: The symlinks and directories created during these switches need to be shipped in the new packages, or B<dpkg> will not be able to remove them on purge.
 
 =head2 Byta en symbolisk länk mot en katalog
 

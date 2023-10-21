@@ -9,6 +9,7 @@ sbin_SCRIPTS = \
 bin_SCRIPTS = \
 	dpkg-architecture \
 	dpkg-buildflags \
+	dpkg-buildapi \
 	dpkg-buildpackage \
 	dpkg-checkbuilddeps \
 	dpkg-distaddfile \
@@ -28,6 +29,7 @@ bin_SCRIPTS = \
 
 EXTRA_DIST = \
 	dpkg-architecture.pl \
+	dpkg-buildapi.pl \
 	dpkg-buildflags.pl \
 	dpkg-buildpackage.pl \
 	dpkg-checkbuilddeps.pl \
@@ -62,6 +64,7 @@ CLEANFILES = \
 perllibdir = $(PERL_LIBDIR)
 nobase_dist_perllib_DATA = \
 	Dpkg/Arch.pm \
+	Dpkg/BuildAPI.pm \
 	Dpkg/BuildEnv.pm \
 	Dpkg/BuildFlags.pm \
 	Dpkg/BuildInfo.pm \
@@ -85,6 +88,7 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Control/Fields.pm \
 	Dpkg/Control/Info.pm \
 	Dpkg/Control/HashCore.pm \
+	Dpkg/Control/HashCore/Tie.pm \
 	Dpkg/Control/Hash.pm \
 	Dpkg/Control/Tests.pm \
 	Dpkg/Control/Tests/Entry.pm \
@@ -117,6 +121,7 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Path.pm \
 	Dpkg/Shlibs.pm \
 	Dpkg/Shlibs/Objdump.pm \
+	Dpkg/Shlibs/Objdump/Object.pm \
 	Dpkg/Shlibs/Symbol.pm \
 	Dpkg/Shlibs/SymbolFile.pm \
 	Dpkg/Shlibs/Cppfilt.pm \
@@ -135,7 +140,6 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Source/Patch.pm \
 	Dpkg/Source/Quilt.pm \
 	Dpkg/Substvars.pm \
-	Dpkg/Vars.pm \
 	Dpkg/Vendor.pm \
 	Dpkg/Vendor/Debian.pm \
 	Dpkg/Vendor/Default.pm \
@@ -158,6 +162,12 @@ SUFFIXES =
 
 include $(top_srcdir)/build-aux/subst.am
 
+POD2MAN_OPTS = \
+	--utf8 \
+	--release=$(PACKAGE_VERSION) \
+	--date='$(PACKAGE_RELEASE_DATE)' \
+	# EOL
+
 install-data-local:
 if BUILD_POD_DOC
 # Install manual pages for perl modules manually as make can't deal
@@ -166,11 +176,13 @@ if BUILD_POD_DOC
 	$(MKDIR_P) $(DESTDIR)$(man3dir)
 	for module in $(nobase_dist_perllib_DATA); do \
 	  name=`echo $$module | $(SED) -e 's|/|::|g' -e 's/\.pm$$//'`; \
-	  $(POD2MAN) --utf8 --center=libdpkg-perl --release=$(VERSION) \
+	  $(POD2MAN) $(POD2MAN_OPTS) --center=libdpkg-perl \
 	    --name="$$name" --section=$(man_perl_section) $(srcdir)/$$module \
 	    >$(DESTDIR)$(man3dir)/$$name.$(man_perl_section); \
-	  test -s $(DESTDIR)$(man3dir)/$$name.$(man_perl_section) || \
-	  rm -f $(DESTDIR)$(man3dir)/$$name.$(man_perl_section); \
+	  if ! [ -s "$(DESTDIR)$(man3dir)/$$name.$(man_perl_section)" ]; then \
+	    echo "error: empty $(man3dir)/$$name.$(man_perl_section)" 2>&1; \
+	    exit 1; \
+	  fi; \
 	done
 endif
 
@@ -216,6 +228,7 @@ test_scripts = \
 	t/Dpkg_Package.t \
 	t/Dpkg_Shlibs_Cppfilt.t \
 	t/Dpkg_Shlibs.t \
+	t/Dpkg_BuildAPI.t \
 	t/Dpkg_BuildEnv.t \
 	t/Dpkg_BuildFlags.t \
 	t/Dpkg_BuildFlags_Ubuntu.t \
@@ -233,7 +246,6 @@ test_scripts = \
 	t/Dpkg_Conf.t \
 	t/Dpkg_Deps.t \
 	t/Dpkg_Path.t \
-	t/Dpkg_Vars.t \
 	t/Dpkg_Interface_Storable.t \
 	t/Dpkg_OpenPGP_KeyHandle.t \
 	t/Dpkg_OpenPGP.t \
@@ -256,11 +268,18 @@ test_scripts = \
 	t/Dpkg_Dist_Files.t \
 	t/dpkg_source.t \
 	t/dpkg_buildpackage.t \
-	t/merge_changelogs.t \
+	t/dpkg_mergechangelogs.t \
 	t/mk.t \
 	# EOL
 
 test_data = \
+	t/Dpkg_BuildAPI/ctrl-api-default \
+	t/Dpkg_BuildAPI/ctrl-api-desync \
+	t/Dpkg_BuildAPI/ctrl-api-explicit \
+	t/Dpkg_BuildAPI/ctrl-api-gt-max \
+	t/Dpkg_BuildAPI/ctrl-api-no-int \
+	t/Dpkg_BuildAPI/ctrl-api-no-ver \
+	t/Dpkg_BuildAPI/ctrl-api-rel-noeq \
 	t/Dpkg_Changelog/countme \
 	t/Dpkg_Changelog/date-format \
 	t/Dpkg_Changelog/fields \
@@ -347,37 +366,45 @@ test_data = \
 	t/Dpkg_Substvars/substvars1 \
 	t/Dpkg_Substvars/substvars2 \
 	t/dpkg_buildpackage/dpkgdb/status \
+	t/dpkg_buildpackage/hook \
 	t/dpkg_buildpackage/test-source_0.dsc \
 	t/dpkg_buildpackage/test-source_0_all.changes \
+	t/dpkg_buildpackage/test-source_0_all.hook \
 	t/dpkg_buildpackage/test-source_0_any.changes \
+	t/dpkg_buildpackage/test-source_0_any.hook \
 	t/dpkg_buildpackage/test-source_0_binary.changes \
+	t/dpkg_buildpackage/test-source_0_binary.hook \
 	t/dpkg_buildpackage/test-source_0_full.changes \
+	t/dpkg_buildpackage/test-source_0_full.hook \
 	t/dpkg_buildpackage/test-source_0_source.changes \
+	t/dpkg_buildpackage/test-source_0_source.hook \
+	t/dpkg_mergechangelogs/ch-a \
+	t/dpkg_mergechangelogs/ch-b \
+	t/dpkg_mergechangelogs/ch-badver-a \
+	t/dpkg_mergechangelogs/ch-badver-b \
+	t/dpkg_mergechangelogs/ch-badver-merged \
+	t/dpkg_mergechangelogs/ch-badver-old \
+	t/dpkg_mergechangelogs/ch-merged \
+	t/dpkg_mergechangelogs/ch-merged-basic \
+	t/dpkg_mergechangelogs/ch-merged-pr \
+	t/dpkg_mergechangelogs/ch-merged-pr-basic \
+	t/dpkg_mergechangelogs/ch-old \
+	t/dpkg_mergechangelogs/ch-unreleased-a \
+	t/dpkg_mergechangelogs/ch-unreleased-b \
+	t/dpkg_mergechangelogs/ch-unreleased-merged \
+	t/dpkg_mergechangelogs/ch-unreleased-merged-basic \
+	t/dpkg_mergechangelogs/ch-unreleased-old \
 	t/dpkg_source/testsuite_0.dsc \
 	t/dpkg_source/testsuite_1.dsc \
 	t/dpkg_source/testsuite_2.dsc \
 	t/dpkg_source/testsuite_3.dsc \
-	t/merge_changelogs/ch-a \
-	t/merge_changelogs/ch-b \
-	t/merge_changelogs/ch-badver-a \
-	t/merge_changelogs/ch-badver-b \
-	t/merge_changelogs/ch-badver-merged \
-	t/merge_changelogs/ch-badver-old \
-	t/merge_changelogs/ch-merged \
-	t/merge_changelogs/ch-merged-basic \
-	t/merge_changelogs/ch-merged-pr \
-	t/merge_changelogs/ch-merged-pr-basic \
-	t/merge_changelogs/ch-old \
-	t/merge_changelogs/ch-unreleased-a \
-	t/merge_changelogs/ch-unreleased-b \
-	t/merge_changelogs/ch-unreleased-merged \
-	t/merge_changelogs/ch-unreleased-merged-basic \
-	t/merge_changelogs/ch-unreleased-old \
 	t/mk/architecture.mk \
+	t/mk/buildapi.mk \
 	t/mk/buildflags.mk \
 	t/mk/buildopts.mk \
 	t/mk/buildtools.mk \
 	t/mk/debian/changelog \
+	t/mk/debian/control \
 	t/mk/pkg-info.mk \
 	t/mk/vendor-v0.mk \
 	t/mk/vendor-v1.mk \

@@ -17,6 +17,7 @@ LDADD = \
 	../compat/libcompat.la \
 	# EOL
 
+DISTCLEANFILES =
 
 EXTRA_DIST = \
 	$(test_scripts) \
@@ -30,10 +31,23 @@ pkgconfig_DATA = libdpkg.pc
 
 devlib_LTLIBRARIES = libdpkg.la
 
-libdpkg_la_LDFLAGS =
+EXTRA_libdpkg_la_DEPENDENCIES = \
+	libdpkg.map \
+	# EOL
+
+libdpkg_la_LDFLAGS = \
+	-no-undefined \
+	# EOL
 if HAVE_LINKER_VERSION_SCRIPT
 libdpkg_la_LDFLAGS += \
 	-Wl,--version-script=$(srcdir)/libdpkg.map \
+	# EOL
+else
+libdpkg_la_LDFLAGS += \
+	-export-symbols libdpkg.sym \
+	# EOL
+EXTRA_libdpkg_la_DEPENDENCIES += \
+	libdpkg.sym \
 	# EOL
 endif
 libdpkg_la_LDFLAGS += $(MD_LIBS)
@@ -49,9 +63,6 @@ libdpkg_la_LIBADD += \
 	$(BZ2_LIBS) \
 	# EOL
 endif
-EXTRA_libdpkg_la_DEPENDENCIES = \
-	libdpkg.map \
-	# EOL
 libdpkg_la_SOURCES = \
 	dlist.h \
 	ar.c \
@@ -89,7 +100,7 @@ libdpkg_la_SOURCES = \
 	i18n.c i18n.h \
 	log.c \
 	meminfo.c \
-	mlib.c \
+	mustlib.c \
 	namevalue.c \
 	nfmalloc.c \
 	options.c \
@@ -182,6 +193,19 @@ pkginclude_HEADERS = \
 	version.h \
 	# EOL
 
+DISTCLEANFILES += \
+	libdpkg.sym \
+	# EOL
+
+# Generate a simple libtool symbol export list to be used as a fallback if
+# there is no version script support.
+libdpkg.sym: libdpkg.map
+	$(AM_V_GEN) $(SED) -n \
+	  -e 's/#.*$$//g' \
+	  -e 's/^[[:space:]]\{1,\}\([A-Za-z0-9_]\{1,\}\);/\1/p' \
+	  $(srcdir)/libdpkg.map \
+	  >$@
+
 t_t_headers_cpp_SOURCES = \
 	t/t-headers-cpp.cc \
 	# EOL
@@ -230,6 +254,12 @@ test_scripts = \
 	# EOL
 
 test_data = \
+	t/data/command/path-a/cmd \
+	t/data/command/path-a/cmd-a \
+	t/data/command/path-b/cmd \
+	t/data/command/path-b/cmd-b \
+	t/data/command/path-noexec/cmd \
+	t/data/command/path-noexec/cmd-noexec \
 	t/data/meminfo-no-data \
 	t/data/meminfo-no-info \
 	t/data/meminfo-no-unit \
@@ -237,7 +267,7 @@ test_data = \
 	# EOL
 
 BENCHMARK_LDADD_FLAGS = \
-	-lrt \
+	$(RT_LIBS) \
 	$(LDADD) \
 	# EOL
 

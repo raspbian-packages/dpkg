@@ -50,6 +50,8 @@ O principal interesse desse ficheiros é disponibilizar a versão mínima associ
 
 Quando os ficheiros de símbolos gerados diferem daqueles fornecidos pelo maintainer, B<dpkg-gensymbols> irá escrever um diff entre as duas versões. Mais ainda, se a diferença for muito significante, irá mesmo falhar (você pode personalizar quanta diferença pode ser tolerada, veja a opção B<-c>).
 
+This program was introduced in dpkg 1.14.8.
+
 =head1 MANTENDO FICHEIROS DE SÍMBOLOS
 
 O formato de intercâmbio base do ficheiro de símbolos é descrito em B<deb-symbols>(5), o qual é usado pelos ficheiros symbols incluídos em pacotes binários. Estes são gerados a partir de ficheiros se símbolos modelo com um formato baseado no anterior, descrito em B<deb-src-symbols>(5) e incluído  em pacotes fonte.
@@ -112,7 +114,7 @@ Apenas analisa bibliotecas explicitas em vez de procurar todas as bibliotecas p�
 
 Precede I<directory> à lista de directórios a pesquisar por bibliotecas partilhadas privadas (desde dpkg 1.19.1). Esta opção pode ser usada várias vezes.
 
-B<Nota:> Use esta opção em vez de definir B<LD_LIBRARY_PATH>, pois essa variável de ambiente é usado para controlar o vinculador de tempo-de-execução e abusar dela para definir caminhos de bibliotecas partilhadas durante a compilação pode ser problemático quando, por exemplo, se faz compilações cruzadas.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-I>I<filename>
 

@@ -80,17 +80,31 @@ De hoofdmap instellen op B<map>, hetgeen de installatiemap instelt op «I<map>»
 
 Het uitvoeren van sommige dingen opleggen of weigeren (B<no-force> en B<refuse> betekenen hetzelfde) (sinds dpkg 1.19.5). I<dingen> is een door komma's gescheiden lijst van hierna gespecificeerde zaken. B<--force-help> geeft er een beschrijving van weer. Zaken die met een (*) gemarkeerd zijn, worden standaard opgelegd.
 
-I<Waarschuwing: Deze opties zijn vooral bedoeld om enkel door experts gebruikt te worden. Er gebruik van maken zonder een volkomen begrip van hun effecten kan uw volledig systeem defect maken.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-B<all>: Schakelt alle forceer-opties aan (of uit).
+=over 4
 
-B<statoverride-add>: Bij het toevoegen ervan een bestaande statusmodificatie overschrijven (sinds dpkg 1.19.5).
+=item B<all>:
 
-B<statoverride-remove>: Bij het verwijderen ervan een ontbrekende statusmodificatie negeren (sinds dpkg 1.19.5).
+Turns on (or off) all force options.
 
-B<security-mac>(*): Bij het installeren van bestanden op het bestandssysteem gebruik maken van platformspecifieke beveiliging, gebaseerd op Mandatory Access Controls (MAC) (since dpkg 1.19.5). Op Linux-systemen gebruikt de implementatie SELinux.
+=item B<statoverride-add>:
 
-B<not-root>: Proberen om zaken te (de-)installeren, zelfs als niet-systeembeheerder (sinds dpkg 1.21.8).
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root (since dpkg 1.21.8).
+
+=back
 
 =item B<--force>
 
@@ -158,7 +172,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 Bestand dat de huidige lijst van statusmodificaties van het systeem bevat. Het bevindt zich in de administratieve map van B<dpkg> samen met andere bestanden die van belang zijn voor B<dpkg>, zoals I<status> en I<available>.
 
-B<Opmerking:> B<dpkg-statoverride> bewaart de oude kopie van dit bestand met de extensie “-old” vooraleer het dit door het nieuwe bestand vervangt.
+B<Note>: B<dpkg-statoverride> preserves the old copy of this file, with extension “-old”, before replacing it with the new one.
 
 =back
 

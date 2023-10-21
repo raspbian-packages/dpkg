@@ -124,17 +124,33 @@ Installera paketet.  Om flaggan B<--recursive> eller B<-R> anges måste I<paketf
 
 Installationen består av följande steg:
 
-B<1.> Extrahera styrfilerna ur det nya paketet.
+=over 4
 
-B<2.> Om en annan version av samma paket redan fanns installerat vid nyinstallationen exekveras I<prerm>-skriptet för det gamla paketet.
+=item B<1.>
 
-B<3.> Kör I<preinst>-skriptet, om ett sådant medföljer paketet.
+Extract the control files of the new package.
 
-B<4.> Packa upp de nya filerna och säkerhetskopiera samtidigt de gamla filerna så att de kan återställas om någonting går fel.
+=item B<2.>
 
-B<5.> Om en annan version av samma paket redan fanns installerat vid nyinstallationen exekveras I<postrm>-skriptet för det gamla paketet. Observera att skriptet exekveras efter I<preinst> för det nya paketet eftersom de nya filerna skrivs samtidigt som de gamla tas bort.
+If another version of the same package was installed before the new installation, execute I<prerm> script of the old package.
 
-B<6.> Konfigurera paketet. Se B<--configure> för detaljerad information om hur man gör det.
+=item B<3.>
+
+Run I<preinst> script, if provided by the package.
+
+=item B<4.>
+
+Unpack the new files, and at the same time back up the old files, so that if something goes wrong, they can be restored.
+
+=item B<5.>
+
+If another version of the same package was installed before the new installation, execute the I<postrm> script of the old package. Note that this script is executed after the I<preinst> script of the new package, because new files are written at the same time old files are removed.
+
+=item B<6.>
+
+Configure the package. See B<--configure> for detailed information about how this is done.
+
+=back
 
 =item B<--unpack> I<paketfil> ...
 
@@ -146,13 +162,21 @@ Hanterar utlösare för B<Pre-Depends> såvida inte B<--no-triigers> har angivit
 
 Konfigurera ett paket som har packats upp men ännu inte konfigurerats. Om B<-a> eller B<--pending> anges istället för I<paket> konfigureras alla paket som har packats upp men ännu inte konfigurerats.
 
-För att omkonfigurera ett paket som redan har konfigurerats kan du istället använda kommandot B<dpkg-reconfigure(8)>.
+To reconfigure a package which has already been configured, try the B<dpkg-reconfigure>(8) command instead (which is part of the B<debconf> project).
 
 Konfigurering består av följande steg:
 
-B<1.> Packa upp konfigurationsfilerna och säkerhetskopiera samtidigt de gamla konfigurationsfilerna så att de kan återställas om någonting går fel.
+=over 4
 
-B<2.> Kör I<postinst>-skriptet, om ett sådant finns i paketet.
+=item B<1.>
+
+Unpack the conffiles, and at the same time back up the old conffiles, so that they can be restored if something goes wrong.
+
+=item B<2.>
+
+Run I<postinst> script, if provided by the package.
+
+=back
 
 Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
@@ -166,11 +190,21 @@ Ta bort ett installerat paket. Detta tar bort allt utom konffiler och annan data
 
 Borttagning av ett paket består av följande steg:
 
-B<1.> Kör I<prerm>-skriptet
+=over 4
 
-B<2.> Ta bort de installerade filerna
+=item B<1.>
 
-B<3.> Kör I<postrm>-skriptet
+Run I<prerm> script.
+
+=item B<2.>
+
+Remove the installed files.
+
+=item B<3.>
+
+Run I<postrm> script.
+
+=back
 
 Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
@@ -178,13 +212,21 @@ Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
 Rensa ett installerat eller redan borttaget paket. Detta tar bort allting, inklusive konffiler, och allt annat som städas upp från I<postrm>. Om B<-a> eller B<--pending> anges instället för ett paketnamn kommer alla paket som packats upp eller tagits bort, men som är markerade för rensning i filen I<%ADMINDIR%/status>, att rensas.
 
-B<Observera:> det är möjligt att B<dpkg> inte känner till vissa konfigurationsfiler på grund av att de skapas och hanteras separat via konfigurationsskript. I så fall kommer inte B<dpkg> självt ta bort dem, utan paketets I<postrm>-skript (som anropas av B<dpkg>) måste ta hand om att de tas bort när paketet tas bort med B<--purge>. Detta gäller naturligtvis endast för filer i systemkatalogerna, inte konfigurationsfiler som skrivs i enstaka användares hemkataloger.
+B<Note>: Some configuration files might be unknown to B<dpkg> because they are created and handled separately through the configuration scripts. In that case, B<dpkg> won't remove them by itself, but the package's I<postrm> script (which is called by B<dpkg>), has to take care of their removal during purge. Of course, this only applies to files in system directories, not configuration files written to individual users' home directories.
 
 Rensning av ett paket består av följande steg:
 
-B<1.> Ta bort paketet, om det inte redan är borttaget. Se B<--remove> för detaljerad information om hur det görs.
+=over 4
 
-B<2.> Kör I<postrm>-skriptet
+=item B<1.>
+
+Remove the package, if not already removed. See B<--remove> for detailed information about how this is done.
+
+=item B<2.>
+
+Run I<postrm> script.
+
+=back
 
 Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
@@ -192,7 +234,7 @@ Hanterar utlösare såvida inte B<--no-triggers> har angivits.
 
 Bekräftar integriteten för I<paketnamn> eller, om det inte anges, alla paket, genom att jämföra informationen från de filer paketet installerar med metadatainformationen som lagras i B<dpkg>-databasen (sedan dpkg 1.17.2). Ursprunget till filernas metadatainformation i databasen är binärpaketen själva. Metadata samlas in från paketen när de packas upp under installationsprocessen.
 
-Det enda funktionstest som utförs är för närvarande en md5sum-verifiering av filinnehållet mot det värde som lagrats i fildatabasen. Det kontrolleras bara om databasen innehåller filens md5-summa. Kommandot B<--audit> kan användas för att söka efter saknad metadata i databasen.
+Currently the only functional check performed is an md5sum verification of the file contents against the stored value in the files database.  It will only get checked if the database contains the file md5sum. To check for any missing metadata in the database, the B<--audit> command can be used.  This is only an integrity check and should not be considered as any kind of security verification.
 
 Utdataformatet kan väljas med flaggan B<--verify-format>, vilket som standard använder formatet B<rpm>, men detta kan komma att ändras i framtiden, varför program som tolkar kommandots utdata bör välja vilket format de förväntar sig explicit.
 
@@ -238,7 +280,7 @@ Sätt det önskade tillståndet för varje icke-grundläggande paket till avinst
 
 Söker efter paket som markerats för installation men som av någon anledning ännu inte har installerats.
 
-B<Observera:> Kommandot använder både available-filen och paketvalen.
+B<Note>: This command makes use of both the available file and the package selections.
 
 =item B<--predep-package>
 
@@ -246,7 +288,7 @@ Skriv ut ett enda paket som är målet för en eller flera relevanta förhandsbe
 
 Om ett sådant paket finns är utdatan en post från Packages-filen, som Kan hanteras som nödvändigt.
 
-B<Observera:> Kommandot använder både available-filen och paketvalen.
+B<Note>: This command makes use of both the available file and the package selections.
 
 Returnerar 0 om ett paket skrivs ut, 1 om inget lämpligt paket finns och 2 vid fel.
 
@@ -340,7 +382,7 @@ Jämför versionsnummer, där I<op> är en binär operator. B<dpkg> returnerar s
 
 Läser en följd av kommandon från indatafilhandtag I<n>.
 
-B<Observera:> Ytterligare flaggor som sätts på kommandoraden, och genom filhandtaget, återställs inte för kommandon som körs i en följd under samma körning.
+B<Note>: Additional options set on the command line, and through this file descriptor, are not reset for subsequent commands executed during the same run.
 
 =end inaktiverad
 
@@ -475,73 +517,135 @@ Aktiverar felsökning. I<oktalvärde>t skapas genom att utföra bitvis logisk �
 
 Tvinga eller vägra (B<no-force> och B<refuse> betyder detsamma) att göra vissa saker. I<saker> är en kommaavdelad lista med saker som anges nedan. B<--force-help> visar en lista med beskrivningar. Saker som markeras med (*) är tvingade som förval.
 
-I<Varning: Dessa flaggor är huvudsakligen avsedda att endast användas av experter. Om du använder dem utan att fullt ut förstå vad de går ut på kan du förstöra din systeminstallation.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-B<all>: Slår på (eller av) alla tvingande flaggor.
+=over 2
 
-B<downgrade>(*): Installera ett paket även om en nyare version redan är installerad.
+=item B<all>:
 
-I<Varning: För närvarande undersöker inte> B<dpkg> I<beroenden vid nedgradering och kommer därför inte att varna dig om nedgraderingen bryter ett beroende för något paket. Detta kan ha allvarliga sidoeffekter, genom att nedgradera grundläggande systemkomponenter kan du riskera att göra hela systemet instabilt. Använd med tillförsikt.>
+Turns on (or off) all force options.
 
-B<configure-any>: Konfigurera även alla uppackade men ej konfigurerade paket på vilka det aktuella paketet beror.
+=item B<downgrade>(*):
 
-B<hold>: Tillåt automatiska installationer, uppgraderingar eller borttagningar av paket även när de är märkts som ”håll”. B<Obervera:> När dessa åtgärder anges explicit ignoreras alltid paketvalstatusen ”håll”.
+Install a package, even if newer version of it is already installed.
 
-B<remove-reinstreq>: Ta bort ett paket även om det är trasigt och markerat att vara i behov av ominstallation. Detta kan, till exempel, göra så att delar av paketet blir kvar på systemet, men glöms bort av B<dpkg>.
+B<Warning>: At present B<dpkg> does not do any dependency checking on downgrades and therefore will not warn you if the downgrade breaks the dependency of some other package. This can have serious side effects, downgrading essential system components can even make your whole system unusable. Use with care.
 
-B<remove-protected>: Ta bort paketet även om det anses som skyddat (protected, sedan dpkg 1.20.1). Skyddade paket är huvudsakligen viktig infrastruktur för systemstart eller används för skräddarsydda systemlokala metapaket. Om du tar bort dem kan det göra så att hela systemet inte klarar att starta eller förlora krävd funktionalitet, så använd med tillförsikt.
+=item B<configure-any>:
 
-B<remove-essential>: Ta bort paketet även om det anses som viktigt (essential). Viktiga paket är huvudsakligen de mest grundläggande Unixkommandona, vilka krävs för pakethanteringssystemet, för att systemet generellt ska fungera korrekt eller under start (även om det sistnämnda bör skrivas om till skyddade (protected) paket). Om du tar bort dem kan det göra så att hela systemet slutar fungera, så använd med tillförsikt.
+Configure also any unpacked but unconfigured packages on which the current package depends.
 
-B<depends>: Gör alla beroendeproblem till varningar. Detta påverkar fälten B<Pre-Depends> och B<Depends>.
+=item B<hold>:
 
-B<depends-version>: Ignorera versionsnummer när beroenden kontrolleras. Detta påverkar fälten B<Pre-Depends> och B<Depends>.
+Allow automatic installs, upgrades or removals of packages even when marked to be on “hold”.  B<Note>: When these actions are requested explicitly, the “hold” package selection state always gets ignored.
 
-B<breaks>: Installera, även om det skulle förstöra ett annat paket (sedan dpkg 1.14.16). Detta påverkar fältet B<Breaks>.
+=item B<remove-reinstreq>:
 
-B<conflicts>: Installera även om paket som är i konflikt (krockar) med ett annat paket. Detta är farligt, eftersom det oftast leder till att vissa filer skrivs över. Detta påverkar fältet B<Conflicts>.
+Remove a package, even if it's broken and marked to require reinstallation. This may, for example, cause parts of the package to remain on the system, which will then be forgotten by B<dpkg>.
 
-B<confmiss>: Installera alltid saknade konfigurationsfiler utan att fråga. Detta är farligt, eftersom det inte bibehåller ändringar (tar bort) av filer.
+=item B<remove-protected>:
 
-B<confnew>: Om en konfigurationsfil har modifierats och versionsnumret i paketet ändrades, installera alltid nya versioner av ändrade konfigurationsfiler utan att fråga, såvida inte B<--force-confdef> också anges, i vilket fall det förvalda alternativet kommer att utföras.
+Remove, even if the package is considered protected (since dpkg 1.20.1). Protected packages contain mostly important system boot infrastructure or are used for custom system-local meta-packages.  Removing them might cause the whole system to be unable to boot or lose required functionality to operate, so use with caution.
 
-B<confold>: Om en konfigurationsfil har modifierats och versionsnumret i paketet ändrades, behåll alltid gamla versioner av ändrade konfigurationsfiler utan att fråga, såvida inte B<--force-confdef> också anges, i vilket fall det förvalda alternativet kommer att utföras.
+=item B<remove-essential>:
 
-B<confdef>: Om en konfigurationsfil har modifierats och versionsnumret i paketet ändrades, välj alltid det förvalda alternativt för ändrade konfigurationsfiler. Om inget förval har angivits kommer programmet stanna och fråga användaren såvida inte B<--force-confnew> eller B<--force-confold> också angetts, i så fall används den för att bestämma vad som ska utföras.
+Remove, even if the package is considered essential.  Essential packages contain mostly very basic Unix commands, required for the packaging system, for the operation of the system in general or during boot (although the latter should be converted to protected packages instead).  Removing them might cause the whole system to stop working, so use with caution.
 
-B<confask>: Erbjud alltid att ersätta en modifierad konfigurationsfil med versionen i paketet, även om versionen i paketet inte ändrades (sedan dpkg 1.15.8). Om någon av B<--force-confnew>, B<--force-confold> eller B<--force-confdef> också angetts, så används den för att bestämma vad som ska utföras.
+=item B<depends>:
 
-B<overwrite>: Skriv över ett pakets filer med ett annats.
+Turn all dependency problems into warnings.  This affects the B<Pre-Depends> and B<Depends> fields.
 
-B<overwrite-dir>: Skriv över ett pakets kataloger med ett annats filer.
+=item B<depends-version>:
 
-B<overwrite-diverted>: Skriv över en omdirigerad fil med en ej omdirigerad version.
+Don't care about versions when checking dependencies.  This affects the B<Pre-Depends> and B<Depends> fields.
 
-B<statoverride-add>: Skriver över en existerande stat-överstyrning när den läggs till (sedan dpkg 1.19.5).
+=item B<breaks>:
 
-B<statoverride-remove>: Ignorera en saknad stat-överstyrning när den tas bort (sedan dpkg 1.19.5).
+Install, even if this would break another package (since dpkg 1.14.6).  This affects the B<Breaks> field.
 
-B<security-mac>(*): Använd platformsspecifik säkerhet baserad på obligatorisk åtkomststyrning (Mandatory Access Controls, MAC) när filer installeras i filsystemet (sedan dpkg 1.19.5). På Linuxsystem använder implementationen SELinux.
+=item B<conflicts>:
 
-B<unsafe-io>: Utför inte säkra I/O-operationer vid uppackning (sedan dpkg 1.15.8.6). Detta innebär för närvarande att filsystemssynkroniseringar inte utförs innan namn på filer ändras, något som vi vet kan påverka prestanda betydligt negativt för vissa filsystem, vilket tyvärr är samma system som behöver säker I/O på grund av att de har ett otillförlitligt beteende som orsakar tomma filer vid tvära systemkrascher.
+Install, even if it conflicts with another package. This is dangerous, for it will usually cause overwriting of some files.  This affects the B<Conflicts> field.
+
+=item B<confmiss>:
+
+Always install the missing conffile without prompting. This is dangerous, since it means not preserving a change (removing) made to the file.
+
+=item B<confnew>:
+
+If a conffile has been modified and the version in the package did change, always install the new version without prompting, unless the B<--force-confdef> is also specified, in which case the default action is preferred.
+
+=item B<confold>:
+
+If a conffile has been modified and the version in the package did change, always keep the old version without prompting, unless the B<--force-confdef> is also specified, in which case the default action is preferred.
+
+=item B<confdef>:
+
+If a conffile has been modified and the version in the package did change, always choose the default action without prompting. If there is no default action it will stop to ask the user unless B<--force-confnew> or B<--force-confold> is also been given, in which case it will use that to decide the final action.
+
+=item B<confask>:
+
+If a conffile has been modified always offer to replace it with the version in the package, even if the version in the package did not change (since dpkg 1.15.8).  If any of B<--force-confnew>, B<--force-confold>, or B<--force-confdef> is also given, it will be used to decide the final action.
+
+=item B<overwrite>:
+
+Overwrite one package's file with another's file.
+
+=item B<overwrite-dir>:
+
+Overwrite one package's directory with another's file.
+
+=item B<overwrite-diverted>:
+
+Overwrite a diverted file with an undiverted version.
+
+=item B<statoverride-add>:
+
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<unsafe-io>:
+
+Do not perform safe I/O operations when unpacking (since dpkg 1.15.8.6). Currently this implies not performing file system syncs before file renames, which is known to cause substantial performance degradation on some file systems, unfortunately the ones that require the safe I/O on the first place due to their unreliable behaviour causing zero-length files on abrupt system crashes.
 
 I<Observera>: För ext4, den värsta syndaren, kan det vara värt att istället använda monteringsflaggan B<nodelalloc>, vilken både korrigerar prestandaförlusten och datasäkerhetsproblemen, det sistnämnda genom att inte låta filsystemet skapa tomma filer vid tvära krascher för programvara som inte utför synkronisering före atomära namnbyten.
 
-I<Varning: Den här flaggan kan ge bättre prestanda på bekostnad av dataförluster, använd med tillförsikt.>
+B<Warning>: Using this option might improve performance at the cost of losing data, use with care.
 
-B<script-chrootless>: Kör utvecklarskript utan att B<chroot>(2):a in i B<instdir> även om paketet inte stöder detta arbetssätt (sedan dpkg 1.18.5).
+=item B<script-chrootless>:
 
-I<Varning: Detta kan förstöra ditt värdsystem, använd med extrem tillförsikt.>
+Run maintainer scripts without B<chroot>(2)ing into B<instdir> even if the package does not support this mode of operation (since dpkg 1.18.5).
 
-B<architecture>: Hantera även paket med fel eller saknad maskinvaruarkitektur.
+B<Warning>: This can destroy your host system, use with extreme care.
 
-B<bad-version>: Hantera även paket med fel versioner (sedan dpkg 1.16.1).
+=item B<architecture>:
 
-B<bad-path>: Sökvägen i B<PATH> saknar viktiga program, så problem är troliga.
+Process even packages with wrong or no architecture.
 
-B<not-root>: Försök (av)installera saker även utan att vara root.
+=item B<bad-version>:
 
-B<bad-verify>: Installera ett paket även om det inte går att verifiera dess äkthet.
+Process even packages with wrong versions (since dpkg 1.16.1).
+
+=item B<bad-path>:
+
+B<PATH> is missing important programs, so problems are likely.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root.
+
+=item B<bad-verify>:
+
+Install a package even if it fails authenticity check.
+
+=back
 
 =item B<--ignore-depends>=I<paket>,...
 
@@ -589,7 +693,7 @@ Sedan dpkg 1.21.10 tar även arkitekturen med i beräkningen, vilket gör det m�
 
 Sätter en anropskrok I<kommando> som körs via ”sh -c” före eller efter B<dpkg> körs för åtgärderna I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, I<purge>, I<add-architecture> och I<remove-architecture> (sedan dpkg 1.15.4; åtgärderna I<add-architecture> och I<remove-architecture> sedan dpkg 1.17.19). Flaggan kan anges flera gånger. Ordningen på flaggorna som anges behålls och de som anges i konfigurationsfilen har företräde. Miljövariabeln B<DPKG_HOOK_ACTION> sätts för hakar i den nuvarande B<dpkg>-åtgärden. 
 
-<Observera:> Skal kan anropa B<dpkg> flera gånger per körning, vilket kan göra att hakarna körs fler gånger än förväntat.
+B<Note>: Front-ends might call B<dpkg> several times per invocation, which might run the hooks more times than expected.
 
 =item B<--path-exclude=>I<filnamnsmönster>
 
@@ -597,9 +701,9 @@ Sätter en anropskrok I<kommando> som körs via ”sh -c” före eller efter B<
 
 Sätt I<filnamnsmönster> som ett sökvägsfilter, antingen genom att exkludera eller åter inkludera tidigare exkluderade sökvägar som motsvarar det angivna mönstret under installationen (sedan dpkg 1.15.8).
 
-I<Varning: Tänk på att du kan totalt ödelägga ditt system, beroende på vilka sökvägar du exkluderar, så använd med tillförsikt.>
+B<Warning>: Take into account that depending on the excluded paths you might completely break your system, use with caution.
 
-Filnamnsmönstrena använder samma sorts jokertecken som skalet, där ”*” motsvarar en sekvens av valfritt antal tecken, inklusive den tomma strängen och även ”/”. Till exempel på motsvarar I<”/usr/*/READ*”> I<”/usr/share/doc/paket/README”>. ”?” motsvarar som vanligt ett ensamt tecken (även här ingår ”/”). Och ”[” inleder en teckenklass, som kan innehålla en lista över tecken, intervall och komplement. Se B<glob>(7) för detaljerad information om filnamnsmönster. B<Observera:> den nuvarande implementationen kan återinkludera fler kataloger och symboliska länkar än nödvändigt, speciellt nänär det finns en mer specifik återinkludering, för att vara på den säkra sidan och undvika möjliga uppackningsfel, framtida ändringar kan komma att rätta detta.
+The glob patterns use the same wildcards used in the shell, were ‘*’ matches any sequence of characters, including the empty string and also ‘/’.  For example, «I</usr/*/READ*>» matches «I</usr/share/doc/package/README>».  As usual, ‘?’ matches any single character (again, including ‘/’).  And ‘[’ starts a character class, which can contain a list of characters, ranges and complementations. See B<glob>(7) for detailed information about globbing. B<Note>: The current implementation might re-include more directories and symlinks than needed, in particular when there is a more specific re-inclusion, to be on the safe side and avoid possible unpack failures; future work might fix this.
 
 Detta kan användas för att ta bort alla sökvägar förutom några specifika; ett typiskt användningsområde är:
 
@@ -612,7 +716,7 @@ Dessa två flaggor kan anges flera gånger, och kan interfolieras med varandra. 
 
 Filtren appliceras när binärpaketen packas upp, och därför har de bara information om vilken sorts objekt som filtreras just nu (t.ex. en normal fil eller en katalog) och kan inte se vilka objekt som kommer härnäst. Eftersom filtren har sidoeffekter (i motsats till B<find>(1)-filter), får inte det att exkludera exakta sökvägsnamn som råkar vara ett katalogobjekt som I</usr/share/doc> önskat resultat, och endast sökvägsnamnet kommer att exkluderas (vilket kan komma att automatiskt tas med igen om koden ser behovet). Eventuella senare filer som finns i den katalogen kommer inte att kunna packas upp.
 
-Tips: se till att mönstren inte expanderas av ditt skal.
+B<Hint>: make sure the globs are not expanded by your shell.
 
 =item B<--verify-format> I<formatnamn>
 
@@ -652,7 +756,7 @@ Testet för filens läge misslyckades (sedan dpkg 1.21.0). Eftersom metadata fö
 
 =item 3 ”B<5>”
 
-Kontrollen av kondensatet misslyckades, vilket betyder att filens innehåll kan ha ändrats.
+The digest check failed, which means the file contents have changed.  This is only an integrity check and should not be considered as any kind of security verification.
 
 =item 4-9 ”B<?>”
 
@@ -920,6 +1024,16 @@ Statusfilen säkerhetskopieras dagligen i I<%BACKUPSDIR%>. Det kan vara nyttigt 
 
 Formatet och innehållet i ett binärpaket beskrivs i B<deb>(5).
 
+=head1 SECURITY
+
+Any operation that needs write access to the database or the filesystem is considered a privileged operation that might allow root escalation.  These operations must never be delegated to an untrusted user or be done on untrusted packages, as that might allow root access to the system.
+
+Some operations (such as package verification) might need root privileges to be able to access files on the filesystem that would otherwise be inaccessible due to restricted permissions, but should otherwise work normally and produce appropriate messages in those cases.
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
+
+See also the B<SECURITY> section of the L<dpkg-deb(1)> and L<dpkg-split(1)> manual pages.
+
 =head1 PROGRAMFEL
 
 B<--no-act> ger oftast mindre information än vad som vore hjälpsamt.
@@ -971,8 +1085,7 @@ För att göra en lokal kopia av paketmarkeringarna:
 
 =over 
 
-     B<dpkg --get-selections E<gt>mitturval>
- dpkg --get-selections> mitturval
+ dpkg --get-selections >myselections
 
 =back
 
@@ -989,7 +1102,7 @@ eller med dpkg 1.17.6 eller tidigare:
 =over 
 
  avail=$(mktemp)
- apt-cache dumpavail> "$avail"
+ apt-cache dumpavail >"$avail"
  dpkg --merge-avail "$avail"
  rm "$avail"
 

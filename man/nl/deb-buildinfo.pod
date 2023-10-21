@@ -28,7 +28,23 @@ Ieder veld begint met een markering, zoals B<Source> of B<Binary> (niet hoofdlet
 
 De controle-data mogen ingesloten liggen in een OpenPGP-handtekening met ASCII-harnas volgens de specificatie RFC4880.
 
-De naam van het B<.buildinfo>-bestand is afhankelijk van het type bouw en is zo specifiek als nodig, maar niet meer. Voor een bouw die B<any> bevat, is de naam I<broncode-naam>B<_>I<binaire-versie>B<_>I<arch>B<.buildinfo>. In geval het een bouw betreft die B<all> bevat, is de naam I<broncode-naam>B<_>I<binaire-versie>B<_>B<all.buildinfo>. En in geval het een bouw betreft die B<source> bevat, is de naam I<broncode-naam>B<_>I<broncode-versie>B<_>B<source.buildinfo>.
+The name of the B<.buildinfo> file will depend on the type of build and will be as specific as necessary but not more; the name will be:
+
+=over 
+
+=item I<source-name>B<_>I<binary-version>B<_>I<arch>B<.buildinfo>
+
+for a build that includes B<any>
+
+=item I<source-name>B<_>I<binary-version>B<_>B<all.buildinfo>
+
+otherwise for a build that includes B<all>
+
+=item I<source-name>B<_>I<source-version>B<_>B<source.buildinfo>
+
+otherwise for a build that includes B<source>
+
+=back
 
 =head1 VELDEN
 

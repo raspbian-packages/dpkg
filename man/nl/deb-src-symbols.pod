@@ -52,7 +52,7 @@ Aangezien symbooltags een uitbreiding zijn van het B<deb-symbols>(5)-systeem, ku
 
 =item B<optional>
 
-Een symbool dat als optional (facultatief) gemarkeerd is, kan om het even wanneer uit de bibliotheek verdwijnen en dat feit zal nooit een mislukking van B<dpkg-gensymbols> tot gevolg hebben. Nochtans zullen verdwenen facultatieve symbolen permanent als MISSING (ontbrekend) aangegeven worden in de diff (weergave van de veranderingen) bij elke nieuwe pakketrevisie. Dit gedrag dient als een geheugensteuntje voor de onderhouder dat een dergelijk symbool verwijderd moet worden uit het symboolbestand of terug toegevoegd aan de bibliotheek. Indien een facultatief symbool dat eerder als MISSING opgetekend stond in een volgende revisie plots opnieuw terug opduikt, zal het terug opgewaardeerd worden naar de status “existing” (bestaand) zonder wijziging van zijn minimumversie.
+A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
 
 Deze tag is nuttig voor private symbolen waarvan de verdwijning geen ABI-breuk veroorzaakt. De meeste van de C++-sjabloon-instantiaties vallen bijvoorbeeld onder deze categorie. Zoals elke andere tag kan ook deze een arbitraire waarde hebben: die kan gebruikt worden om aan te geven waarom het symbool als facultatief beschouwd wordt.
 
@@ -147,7 +147,7 @@ Dit patroon wordt door de tag I<symver> aangegeven. Goed onderhouden bibliotheke
 
 Alle symbolen die horen bij de versies GLIBC_2.0 en GLIBC_2.7 zullen resulteren in de respectieve minimale versies 2.0 en 2.7, met uitzondering van het symbool access@GLIBC_2.0. Dit laatste zal resulteren in een minimale vereiste van libc6 versie 2.2 en dit ondanks het feit dat het valt binnen het bereik van het patroon "(symver)GLIBC_2.0". De reden hiervoor is dat specifieke symbolen voorrang hebben op patronen.
 
-Merk op dat hoewel patronen met jokertekens volgens de oude stijl (in het veld symboolnaam aangegeven door "*@version") nog steeds ondersteund worden, zij vervangen werden door een syntaxis volgens de nieuwe stijl "(symver|optional)version". Als hetzelfde effect gewenst wordt moet bijvoorbeeld "*@GLIBC_2.0 2.0" geschreven worden als "(symver|optional)GLIBC_2.0 2.0".
+Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 

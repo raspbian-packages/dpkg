@@ -190,6 +190,14 @@ Die in diesem Verzeichnis benutzten Dateinamen liegen in einem intern B<dpkg-spl
 
 =back
 
+=head1 SICHERHEIT
+
+Untersuchen oder zusammensetzen nicht vertrauenswürdiger getrennter Paketarchive sollte als Sicherheitsgrenze betrachtet werden und jede Verletzung dieser Grenze, die aus diesen Aktionen resultiert, sollte als Sicherheitsverwundbarkeit betrachtet werden. Es wird nachdrücklich davon abgeraten, diese Aktionen auf nicht vertrauenswürdigen Daten als Root durchzuführen.
+
+Automatisches Zusammenstellen und Verwerfen von Teilen geteilter Pakete werden als privilegierte Aktionen betrachten, die zu einer Root-Eskalation führen können. Diese Aktionen dürfen niemals an nicht vertrauenswürdige Benutzer delegiert oder durch nicht vertrauenswürdige Pakete durchgeführt werden, da dies Root-Zugriff auf Ihr System ermöglichen könnte.
+
+Das Aufteilen von Paketarchiven sollte nur mit vertrauenswürdigen Daten erfolgen.
+
 =head1 FEHLER
 
 Volle Details über die Pakete in der Warteschlange sind nicht zu erhalten, ohne selbst im Warteschlangenverzeichnis zu wühlen.

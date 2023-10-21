@@ -54,6 +54,8 @@ I<Name>-I<Version>.so
 
 wobei I<Name> normalerweise B<lib> vorangestellt wird.
 
+Ersteres wird eher von dynamischen Bibliotheken mit stabilen Schnittstellen verwandt. Letzteres von dynamischen Bibliotheken mit instabilen Schnittstellen, bei denen die gesamte Version Teil des SONAME wird und vollständig beim Linken gegen diese Bibliotheken angegeben werden muss.
+
 =head1 BEISPIELE
 
 Die B<shlibs>-Datei für ein typisches Bibliothekspaket namens I<libcrunch1>, das eine Bibliothek mit dem SONAME I<libcrunch.so.1> bereitstellt, könnte wie folgt lauten:

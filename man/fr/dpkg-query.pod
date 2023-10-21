@@ -113,7 +113,7 @@ Z<>
   paquet détournant les autres S<vers :> I<diverted-to>
   détourné par I<paquet> S<vers :> I<diverted-to>
 
-S<Astuce :> lorsque la machine analyse la sortie, il est habituel de régler la localisation à B<C.UTF-8> pour obtenir des résultats reproductibles.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
 
 Cette commande ne donne pas les fichiers supplémentaires créés par les scripts du responsable de paquet, ni les alternatives.
 
@@ -156,7 +156,7 @@ Z<>
   détournement local S<depuis :> I<diverted-from>
   détournement localement S<en :> I<diverted-to>
 
-S<Astuce :> lorsque la machine analyse la sortie, il est habituel de régler la localisation à B<C.UTF-8> pour obtenir des résultats reproductibles.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
 
 =item B<-p>, B<--print-avail> [I<nom-du-paquet>...]
 
@@ -412,6 +412,10 @@ Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement ac
 Définie à S<« B<-FRSXMQ> »> par B<dpkg-query>, si elle n'est pas déjà fixée, lors du lancement d'un afficheur (depuis S<dpkg 1.19.2).> Pour modifier le comportement par défaut, cette variable peut être réglée à une autre valeur y compris une chaîne vide, ou bien les variables B<PAGER> ou B<DPKG_PAGER> peuvent être fixées pour désactiver des options spécifiques avec S<« B<-+> »,> par exemple B<DPKG_PAGER="less -+F">.
 
 =back
+
+=head1 SECURITY
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
 
 =head1 VOIR AUSSI
 

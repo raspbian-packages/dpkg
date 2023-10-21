@@ -80,7 +80,7 @@ Anta att filnamnet för paketet skaa vara I<filnamn> istället för det normala 
 
 =item B<-is>, B<-ip>, B<-isp>
 
-Dessa flaggor ignoreras för kompatibilitet med äldre versioner av dpkg:s byggskript men avråds numera ifrån. De användes tidigare för att tala om för B<dpkg-gencontrol> att inkludera Section- och Priority-fälten i control-filen. Detta är numera standardbeteendet. Om du vill återskapa det gamla beteendet kan du använda flaggan B<-U> för att ta bort fälten från control-filen.
+These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell B<dpkg-gencontrol> to include the Section and Priority fields in the control file. This is now the default behavior. If you want to get the old behavior you can use the B<-U> option to delete the fields from the control file.
 
 =item B<-P>I<paketbyggkatalog>
 

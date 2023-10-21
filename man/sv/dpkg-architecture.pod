@@ -60,6 +60,8 @@ Visar ett kommando liknande B<--print-set> men för att ta bort värdet för all
 
 Exekvera en I<kommandosträng> i en miljö som har alla variabler satta till det bestämda värdet.
 
+If the I<command-string> contains shell metacharacters, then it will be invoked through the system bourne shell.
+
 =item B<-L>, B<--list-known>
 
 Visar en lista över giltiga arkitekturnamn. Möjligen begränsad av en eller flera av träffvalen B<--match-wildcard>, B<--match-bits> eller B<--match-endian> (sedan dpkg 1.17.14).

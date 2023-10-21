@@ -60,6 +60,8 @@ Escreve um comando semelhante ao B<--print-set> mas para limpar o valor de todas
 
 Executa uma I<command-string> num ambiente que tem todas as variáveis definidas para o determinado valor.
 
+If the I<command-string> contains shell metacharacters, then it will be invoked through the system bourne shell.
+
 =item B<-L>, B<--list-known>
 
 Escreve uma lista de nomes de arquitecturas válidos. Possivelmente restringidos por uma ou mais das opções de correspondência B<--match-wildcard>, B<--match-bits> ou B<--match-endian> (desde dpkg 1.17.14).

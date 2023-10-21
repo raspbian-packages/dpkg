@@ -26,11 +26,11 @@ B<dpkg-scansources> sonda o I<directório-binário> fornecido por ficheiros I<.d
 
 O I<override-file>, se fornecido, é usado para definir prioridades nas estrofes de índice resultantes e para sobrepor o campo do maintainer dado nos ficheiros I<.dsc>. O ficheiro pode estar comprimido (desde dpkg 1.15.5). Veja B<deb-override>(5) o formato deste ficheiro.
 
-B<Nota:> Como o ficheiro de sobreposição é indexado por pacotes binário, não pacotes fonte, existe um pequeno problema aqui. A implementação actual usa a prioridade mais alta de todos os pacotes binários produzidos por um ficheiro I<.dsc> para a prioridade do pacote fonte, e para a entrada de sobreposição para o primeiro pacote binário listado no ficheiro I<.dsc> para modificar a informação do maintainer. Isto poderá ser alterado.
+B<Note>: Since the override file is indexed by binary, not source packages, there's a bit of a problem here. The current implementation uses the highest priority of all the binary packages produced by a I<.dsc> file for the priority of the source package, and the override entry for the first binary package listed in the I<.dsc> file to modify maintainer information. This might change.
 
 O I<path-prefix>, se dado, é pré-adicionado ao campo directório no índice fonte gerado. Geralmente você usa isto para fazer com que os campos directório contenham o caminho desde o topo da hierarquia do arquivo Debian.
 
-B<Nota:> Se você deseja aceder ao ficheiros Sources gerado com B<apt>(8) você vai provavelmente precisar de comprimir o ficheiro com B<gzip>(1) (gerando um ficheiro Sources.gz). O B<apt>(8) ignora ficheiros Sources não comprimidos excepto em acesso local (isto é, fontes B<file://>).
+B<Note>: If you want to access the generated Sources file with B<apt>(8) you will probably need to compress the file with B<gzip>(1)  (generating a Sources.gz file).  B<apt>(8)  ignores uncompressed Sources files except on local access (i.e.  B<file://> sources).
 
 =head1 OPÇÕES
 

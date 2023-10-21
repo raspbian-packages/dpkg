@@ -56,7 +56,7 @@ Die Konfigurationsdateien können vier Arten von Direktiven enthalten:
 
 =item B<STRIP> I<Schalter> I<Wert>
 
-Aus dem Schalter namens I<Schalter> alle in I<Wert> aufgeführten Bauschalter entfernen
+Aus dem Schalter namens I<Schalter> alle in I<Wert> aufgeführten Bauschalter entfernen. Seit Dpkg 1.16.1.
 
 =item B<APPEND> I<Schalter> I<Wert>
 
@@ -64,11 +64,13 @@ Erweitert den Schalter namens I<Schalter> durch Anhängen der in I<Wert> angegeb
 
 =item B<PREPEND> I<Schalter> I<Wert>
 
-Erweitert den Schalter namens I<Schalter> durch Voranstellen der in I<Wert> angegebenen Optionen. Ein Leerzeichen wird dem vorangestellten Wert angehängt, falls der derzeitige Wert nicht leer ist.
+Erweitert den Schalter namens I<Schalter> durch Voranstellen der in I<Wert> angegebenen Optionen. Ein Leerzeichen wird dem vorangestellten Wert angehängt, falls der derzeitige Wert nicht leer ist. Seit Dpkg 1.16.1.
 
 =back
 
 Die Konfigurationsdateien können Kommentare in Zeilen enthalten, die mit einer Raute (#) beginnen. Leere Zeilen werden auch ignoriert.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 BEFEHLE
 
@@ -220,11 +222,11 @@ Optionen für den C++-Compiler. Identisch zu B<CFLAGS>.
 
 =item B<OBJCFLAGS>
 
-Optionen für den Objective-C-Compiler. Identisch zu B<CFLAGS>.
+Optionen für den Objective-C-Compiler. Identisch zu B<CFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<OBJCXXFLAGS>
 
-Optionen für den Objective-C++-Compiler. Identisch zu B<CXXFLAGS>.
+Optionen für den Objective-C++-Compiler. Identisch zu B<CXXFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<GCJFLAGS>
 
@@ -240,7 +242,7 @@ Optionen für den Fortran-77-Compiler. Eine Untermenge von B<CFLAGS>.
 
 =item B<FCFLAGS>
 
-Optionen für den Fortran-9x-Compiler. Identisch zu B<FFLAGS>.
+Optionen für den Fortran-9x-Compiler. Identisch zu B<FFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<LDFLAGS>
 
@@ -260,6 +262,24 @@ Die spezielle Funktionalität B<all> (in allen Bereichen gültig) kann dazu verw
 
     export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+format,+fortify
 
+=head2 abi
+
+Several compile-time options (detailed below) can be used to enable features that can change the ABI of a package, but cannot be enabled by default due to backwards compatibility reasons unless coordinated or checked individually.
+
+=over 
+
+=item B<lfs>
+
+This setting (since dpkg 1.22.0; disabled by default) enables Large File Support on 32-bit architectures where their ABI does not include LFS by default, by adding B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> to B<CPPFLAGS>.
+
+When this feature is enabled it will override the value from the same feature in the B<future> feature area.
+
+=item B<time64>
+
+Diese Einstellung (seit Dpkg 1.22.0; standardmäßig deaktiviert) aktiviert die Unterstützung von 64-bit time_t auf 32-bit-Architekturen bei denen das ABI dies nicht standardmäßig enthält, indem B<-D_TIME_BITS=64> zu B<CPPFLAGS> hinzugefügt wird. Diese Einstellung aktiviert automatisch die Funktionalität B<lfs>, da sie diese benötigt.
+
+=back
+
 =head2 future (Zukunft)
 
 Mehrere Optionen zur Kompilierung (Details weiter unten) können verwandt werden, um Funktionen zu aktivieren, die standardmäßig aktiviert sein sollten, dies aber aus Rückwärtskompatibilitätsgründen nicht sein können.
@@ -268,7 +288,7 @@ Mehrere Optionen zur Kompilierung (Details weiter unten) können verwandt werden
 
 =item B<lfs>
 
-Diese Einstellung (standardmäßig deaktiviert) aktiviert die Unterstützung für große Dateien auf 32-Bit-Architekturen, bei denen ihre ABI diese Unterstützung nicht standardmäßig aktiviert, indem B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> zu B<CPPFLAGS> hinzugefügt wird.
+This setting (since dpkg 1.19.0; disabled by default) is now an alias for the B<lfs> feature in the B<abi> area, use that instead.  The feature from the B<abi> area overrides this setting.
 
 =back
 
@@ -280,11 +300,11 @@ Mehrere Optionen zur Kompilierung (Details weiter unten) können verwandt werden
 
 =item B<bug>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt Warnoptionen hinzu, die zuverlässig problematischen Quellcode erkennen. Diese Warnungen sind fatal. Die einzigen derzeit unterstützten Schalter sind B<CFLAGS> und B<CXXFLAGS>, wobei die Schalter auf B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> und B<-Werror=volatile-register-var> gesetzt werden.
+Diese Einstellung (seit Dpkg 1.17.4; standardmäßig deaktiviert) fügt Warnoptionen hinzu, die zuverlässig problematischen Quellcode erkennen. Diese Warnungen sind fatal. Die einzigen derzeit unterstützten Schalter sind B<CFLAGS> und B<CXXFLAGS>, wobei die Schalter auf B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> und B<-Werror=volatile-register-var> gesetzt werden.
 
 =item B<canary>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt Pseudo-Zufallsbarrieren-Optionen zu den Bauschaltern hinzu, so dass die Bauprotokolle überprüft werden können, wie die Bauschalter weitergereicht werden. Dies erlaubt, Auslassungen in den normalen Bauschaltereinstellungen zu finden. Derzeit werden nur die Schalter B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> und B<OBJCXXFLAGS> unterstützt, wobei die Schalter auf B<-D__DEB_CANARY_>I<Schalter>_I<Zufallskennung>B<__> gesetzt werden, und B<LDFLAGS>, das auf B<-Wl,-z,deb-canary->I<Zufallskennung> gesetzt wird.
+Diese Einstellung (seit Dpkg 1.17.14; standardmäßig deaktiviert) fügt Pseudo-Zufallsbarrieren-Optionen zu den Bauschaltern hinzu, so dass die Bauprotokolle überprüft werden können, wie die Bauschalter weitergereicht werden. Dies erlaubt, Auslassungen in den normalen Bauschaltereinstellungen zu finden. Derzeit werden nur die Schalter B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> und B<OBJCXXFLAGS> unterstützt, wobei die Schalter auf B<-D__DEB_CANARY_>I<Schalter>_I<Zufallskennung>B<__> gesetzt werden, und B<LDFLAGS>, das auf B<-Wl,-z,deb-canary->I<Zufallskennung> gesetzt wird.
 
 =back
 
@@ -308,19 +328,19 @@ Mehrere Kompilierzeit-Optionen (nachfolgend beschrieben) können dazu verwandt w
 
 =item B<address>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt B<-fsanitize=address> zu B<LDFLAGS> und B<-fsanitize=address -fno-omit-frame-pointer> zu B<CFLAGS> und B<CXXFLAGS> hinzu.
+Diese Einstellung (seit Dpkg 1.18.0; standardmäßig deaktiviert) fügt B<-fsanitize=address> zu B<LDFLAGS> und B<-fsanitize=address -fno-omit-frame-pointer> zu B<CFLAGS> und B<CXXFLAGS> hinzu.
 
 =item B<thread>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt B<-fsanitize=thread> zu B<CFLAGS>, B<CXXFLAGS> und B<LDFLAGS> hinzu.
+Diese Einstellung (seit Dpkg 1.18.0; standardmäßig deaktiviert) fügt B<-fsanitize=thread> zu B<CFLAGS>, B<CXXFLAGS> und B<LDFLAGS> hinzu.
 
 =item B<leak>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt B<-fsanitize=leak> zu B<LDFLAGS> hinzu. Sie wird automatisch deaktiviert, falls entweder die Funktionalitäten B<address> oder B<thread> aktiviert werden, da diese sie einschließen.
+Diese Einstellung (seit Dpkg 1.18.0; standardmäßig deaktiviert) fügt B<-fsanitize=leak> zu B<LDFLAGS> hinzu. Sie wird automatisch deaktiviert, falls entweder die Funktionalitäten B<address> oder B<thread> aktiviert werden, da diese sie einschließen.
 
 =item B<undefined>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt B<-fsanitize=undefined> zu B<CFLAGS>, B<CXXFLAGS> und B<LDFLAGS> hinzu.
+Diese Einstellung (seit Dpkg 1.18.0; standardmäßig deaktiviert) fügt B<-fsanitize=undefined> zu B<CFLAGS>, B<CXXFLAGS> und B<LDFLAGS> hinzu.
 
 =back
 
@@ -332,39 +352,47 @@ Mehrere Kompilierzeit-Optionen (nachfolgend beschrieben) können dazu verwandt w
 
 =item B<format>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-Wformat -Werror=format-security> zu B<CFLAGS>, B<CXXFLAGS> B<CXXFLAGS>, B<OBJCFLAGS> und B<OBJCXXFLAGS> hinzu. Damit erhalten Sie Warnungen bei inkorrekter Verwendung von Formatzeichenketten. Es wird zu einem Fehler führen, wenn Formatfunktionen deart verwandt werden, dass daraus ein mögliches Sicherheitsproblem werden könnte. Derzeit warnt dies bei Aufrufen von B<printf>- und B<scanf>-Funktionen, bei denen die Formatzeichenkette nicht eine reine Zeichenkette ist und es keine Formatargumente gibt, wie in B<printf(foo);> statt B<printf("%s", foo);>. Dies könnte ein Sicherheitsproblem sein, falls die Formatzeichenkette aus einer nicht vertrauenswürdigen Eingabe stammt und „%n“ enthält.
+Diese Einstellung (seit Dpkg 1.16.1; standardmäßig aktiviert) fügt B<-Wformat -Werror=format-security> zu B<CFLAGS>, B<CXXFLAGS> B<CXXFLAGS>, B<OBJCFLAGS> und B<OBJCXXFLAGS> hinzu. Damit erhalten Sie Warnungen bei inkorrekter Verwendung von Formatzeichenketten. Es wird zu einem Fehler führen, wenn Formatfunktionen deart verwandt werden, dass daraus ein mögliches Sicherheitsproblem werden könnte. Derzeit warnt dies bei Aufrufen von B<printf>- und B<scanf>-Funktionen, bei denen die Formatzeichenkette nicht eine reine Zeichenkette ist und es keine Formatargumente gibt, wie in B<printf(foo);> statt B<printf("%s", foo);>. Dies könnte ein Sicherheitsproblem sein, falls die Formatzeichenkette aus einer nicht vertrauenswürdigen Eingabe stammt und „%n“ enthält.
 
 =item B<fortify>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-D_FORTIFY_SOURCE=2> zu B<CPPFLAGS> hinzu. Während der Code-Erstellung hat der Compiler umfangreiche Informationen über Puffergrößen (wo möglich) und versucht, unsichere unbegrenzte Pufferfunktionsaufrufe durch längenbegrenzte zu ersetzen. Das ist besonders für alten, verkramten Code nützlich. Zusätzlich werden Formatzeichenketten in schreibbarem Speicher, die ‚%n’ enthalten, blockiert. Falls eine Anwendung von solchen Formatzeichenketten abhängt, müssen dafür andere Lösungsmöglichkeiten gefunden werden.
+Diese Einstellung (seit Dpkg 1.16.1; standardmäßig aktiviert) fügt B<-D_FORTIFY_SOURCE=2> zu B<CPPFLAGS> hinzu. Während der Code-Erstellung hat der Compiler umfangreiche Informationen über Puffergrößen (wo möglich) und versucht, unsichere unbegrenzte Pufferfunktionsaufrufe durch längenbegrenzte zu ersetzen. Das ist besonders für alten, verkramten Code nützlich. Zusätzlich werden Formatzeichenketten in schreibbarem Speicher, die ‚%n’ enthalten, blockiert. Falls eine Anwendung von solchen Formatzeichenketten abhängt, müssen dafür andere Lösungsmöglichkeiten gefunden werden.
 
 Beachten Sie, dass die Quellen auch mit B<-O1> oder höher übersetzt werden müssen, damit diese Option einen Effekt hat. Falls die Umgebungsvariable B<DEB_BUILD_OPTIONS> I<noopt> enthält, dann wird die Unterstützung von B<fortify> aufgrund neuer Warnungen von Glibc 2.16 und neuer deaktiviert.
 
 =item B<stackprotector>
 
-Diese Einstellung (standardmäßig aktiviert falls „stackprotectorstrong“ nicht verwandt wird) fügt B<-fstack-protector --param=ssp-buffer-size=4> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu. Dies fügt Sicherheitsprüfungen gegen die Überschreibung des Stapelspeichers (Stacks) hinzu. Damit werden viele mögliche Code-Einfügeangriffe zu Abbruchsituationen. Im besten Fall werden damit Code-Einfügungsangriffe zu Diensteverweigerungsangriffen oder zu keinen Problemen (abhängig von der Anwendung).
+Diese Einstellung (seit Dpkg 1.16.1; standardmäßig aktiviert falls „stackprotectorstrong“ nicht verwandt wird) fügt B<-fstack-protector --param=ssp-buffer-size=4> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu. Dies fügt Sicherheitsprüfungen gegen die Überschreibung des Stapelspeichers (Stacks) hinzu. Damit werden viele mögliche Code-Einfügeangriffe zu Abbruchsituationen. Im besten Fall werden damit Code-Einfügungsangriffe zu Diensteverweigerungsangriffen oder zu keinen Problemen (abhängig von der Anwendung).
 
 Diese Funktionalität benötigt das Linken mit Glibc (oder einem anderen Anbieter von B<__stack_chk_fail>). Sie muss daher deaktiviert werden, wenn mit B<-nostdlib> oder B<-ffreestanding> oder Ähnlichem gebaut wird.
 
 =item B<stackprotectorstrong>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-fstack-protector-strong> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu. Dies ist eine stärkere Variante von B<stackprotector>, allerdings ohne signifikante Einbußen bei der Leistung.
+Diese Einstellung (seit Dpkg 1.17.11; standardmäßig aktiviert) fügt B<-fstack-protector-strong> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu. Dies ist eine stärkere Variante von B<stackprotector>, allerdings ohne signifikante Einbußen bei der Leistung.
 
 Deaktivierung von B<stackprotector> deaktiviert auch diese Einstellung.
 
 Diese Funktionalität stellt die gleichen Anforderungen wie B<stackprotector> und benötigt zusätzlich GCC 4.9 oder neuer.
 
+=item B<stackclask>
+
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fstack-clash-protection> on B<amd64>, B<arm64>, B<armhf> and B<armel> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds code to prevent stack clash style attacks.
+
+=item B<branch>
+
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fcf-protection> on B<amd64> and B<-mbranch-protection=standard> on B<arm64> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds branch protection to indirect calls, jumps and returns to check whether these are valid at run-time.
+
 =item B<relro>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-Wl,-z,relro> zu B<LDFLAGS> hinzu. Während des Ladens des Programms müssen mehrere ELF-Speicherabschnitte vom Binder (Linker) geschrieben werden. Diese Einstellung signalisiert dem Ladeprogramm, diese Abschnitte in nur-Lese-Zugriff zu ändern, bevor die Steuerung an das Programm übergeben wird. Insbesondere verhindert dies GOT-Überschreibeangriffe. Falls diese Option deaktiviert ist, wird auch B<bindnow> deaktiviert.
+Diese Einstellung (seit Dpkg 1.16.1; standardmäßig aktiviert) fügt B<-Wl,-z,relro> zu B<LDFLAGS> hinzu. Während des Ladens des Programms müssen mehrere ELF-Speicherabschnitte vom Binder (Linker) geschrieben werden. Diese Einstellung signalisiert dem Ladeprogramm, diese Abschnitte in nur-Lese-Zugriff zu ändern, bevor die Steuerung an das Programm übergeben wird. Insbesondere verhindert dies GOT-Überschreibeangriffe. Falls diese Option deaktiviert ist, wird auch B<bindnow> deaktiviert.
 
 =item B<bindnow>
 
-Diese Einstellung (standardmäßig deaktiviert) fügt B<-Wl,-z,now> zu B<LDFLAGS> hinzu. Während des Ladens des Programms werden alle dynamischen Symbole aufgelöst, womit das gesamte PLT nur-lesend markiert werden kann (aufgrund von B<relro> oben). Diese Option kann nicht aktiviert werden, falls B<relro> nicht aktiviert ist.
+Diese Einstellung (seit Dpkg 1.16.1; standardmäßig deaktiviert) fügt B<-Wl,-z,now> zu B<LDFLAGS> hinzu. Während des Ladens des Programms werden alle dynamischen Symbole aufgelöst, womit das gesamte PLT nur-lesend markiert werden kann (aufgrund von B<relro> oben). Diese Option kann nicht aktiviert werden, falls B<relro> nicht aktiviert ist.
 
 =item B<pie>
 
-Diese Einstellung (seit Dpkg 1.18.23 ohne globale Vorgabe, da sie jetzt standardmäßig durch GCC auf den Debian-Architekturen Amd64, Arm64, Armel, Armhf, Hurd-i386, I386, Kfreebsd-amd64, Kfreebsd-i386, Mips, Mipsel, Mips64el, Powerpc, PPC64, PPC64el, Riscv64, S390x, Sparc und Sparc64 aktiviert ist) fügt, falls benötigt, die benötigten Optionen, um PIE zu aktivieren oder zu deaktivieren, über GCC-Spezifikationsdateien hinzu, abhängig davon, ob GCC auf diesen Architekturen die Schalter selbst einspeist oder nicht. Wenn die Einstellung aktiviert ist und GCC den Schalter einspeist, fügt dies nichts hinzu. Wenn die Einstellung aktiviert ist und GCC den Schalter nicht einspeist, dann fügt es B<-fPIE> (mittels I<%PKGDATADIR%/pie-compiler.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fPIE -pie> (mittels I<%PKGDATADIR%/pie-link.specs>) zu B<LDFLAGS> hinzu.  Wenn die Einstellung deaktiviert ist und GCC den Schalter einspeist, dann fügt es B<-fno-PIE> (mittels I<%PKGDATADIR%/no-pie-compile.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fno-PIE -no-pie> (mittels I<%PKGDATADIR%/no-pie-link.specs>) zu B<LDFLAGS> hinzu.
+Diese Einstellung (seit Dpkg 1.16.1; seit Dpkg 1.18.23 ohne globale Vorgabe, da sie jetzt standardmäßig durch GCC auf den Debian-Architekturen Amd64, Arm64, Armel, Armhf, Hurd-i386, I386, Kfreebsd-amd64, Kfreebsd-i386, Mips, Mipsel, Mips64el, Powerpc, PPC64, PPC64el, Riscv64, S390x, Sparc und Sparc64 aktiviert ist) fügt, falls benötigt, die benötigten Optionen, um PIE zu aktivieren oder zu deaktivieren, über GCC-Spezifikationsdateien hinzu, abhängig davon, ob GCC auf diesen Architekturen die Schalter selbst einspeist oder nicht. Wenn die Einstellung aktiviert ist und GCC den Schalter einspeist, fügt dies nichts hinzu. Wenn die Einstellung aktiviert ist und GCC den Schalter nicht einspeist, dann fügt es B<-fPIE> (mittels I<%PKGDATADIR%/pie-compiler.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fPIE -pie> (mittels I<%PKGDATADIR%/pie-link.specs>) zu B<LDFLAGS> hinzu.  Wenn die Einstellung deaktiviert ist und GCC den Schalter einspeist, dann fügt es B<-fno-PIE> (mittels I<%PKGDATADIR%/no-pie-compile.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fno-PIE -no-pie> (mittels I<%PKGDATADIR%/no-pie-link.specs>) zu B<LDFLAGS> hinzu.
 
 „Position Independent Executable“ (positionsunabhängige Programme) (PIE) ist benötigt, um „Address Space Layout Randomization“ (Bereitstellung eines zufälligen Adressbereichlayouts) (ASLR) auszunutzen, der von einigen Kernelversionen bereitgestellt wird. Während ASLR bereits für Datenbereiche auf dem Stapel (Stack) und Heap erzwungen werden kann (brk und mmap), müssen die Codebereiche positionsunabhängig übersetzt werden. Laufzeitbibliotheken machen dies bereits (B<-fPIC>), so dass sie ASLR automatisch erhalten, aber Programm-.text-Regionen müssen als PIE gebaut werden, um ASLR zu erhalten. Wenn dies passiert, sind ROP- (Return Oriented Programming) Angriffe sehr viel schwerer durchzuführen, da es keine statischen Orte mehr gibt, zu denen während eines Speicherverfälschungsangriffs hingesprungen werden könnte.
 
@@ -402,17 +430,21 @@ Die Kompilierzeit-Optionen (nachfolgend beschrieben) können dazu verwandt werde
 
 =item B<timeless>
 
-Diese (standardmäßig aktivierte) Einstellung fügt B<-Wdate-time> zu B<CPPFLAGS> hinzu. Dies führt zu Warnungen, wenn die Makros B<__TIME__>, B<__DATE__> und B<__TIMESTAMP__> verwandt werden.
+Diese (seit Dpkg 1.17.14; standardmäßig aktivierte) Einstellung fügt B<-Wdate-time> zu B<CPPFLAGS> hinzu. Dies führt zu Warnungen, wenn die Makros B<__TIME__>, B<__DATE__> und B<__TIMESTAMP__> verwandt werden.
 
 =item B<fixfilepath>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-ffile-prefix-map=>I<BUILDPATH>B<=.> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu, wobei B<BUILDPATH> auf das oberste Verzeichnis des bauenden Pakets gesetzt wird. Dies führt dazu, dass der Baupfad aus allen erstellten Dateien entfernt wird.
+Diese Einstellung (seit Dpkg 1.19.1; standardmäßig aktiviert) fügt B<-ffile-prefix-map=>I<BUILDPATH>B<=.> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu, wobei B<BUILDPATH> auf das oberste Verzeichnis des bauenden Pakets gesetzt wird. Dies führt dazu, dass der Baupfad aus allen erstellten Dateien entfernt wird.
 
 Falls sowohl B<fixdebugpath> als auch B<fixfilepath> gesetzt sind, hat diese Option Vorrang, da sie eine Obermenge erster ist.
 
+B<Hinweis>: Falls der Bauprozess die Bauschalter in die resultierenden gebauten Objekte erfasst, dann wird das Paket nicht mehr reproduzierbar. Die Deaktivierung dieser Option könnte einige der Objekte wieder reproduzierbar machen, würde dafür aber auch die Deaktivierung von B<fixdebugpath> benötigen, wodurch sämtliche erstellten Fehlersuchsymbole nicht mehr reproduzierbar wären. Die beste Korrektur besteht darin, die Bauschalter nicht mehr zu erfassen.
+
 =item B<fixdebugpath>
 
-Diese Einstellung (standardmäßig aktiviert) fügt B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu, wobei B<BUILDPATH> auf das oberste Verzeichnis des bauenden Pakets gesetzt wird. Dies führt dazu, dass der Baupfad aus allen erstellten Debug-Symbolen entfernt wird.
+Diese Einstellung (seit Dpkg 1.18.5; standardmäßig aktiviert) fügt B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> und B<FCFLAGS> hinzu, wobei B<BUILDPATH> auf das oberste Verzeichnis des bauenden Pakets gesetzt wird. Dies führt dazu, dass der Baupfad aus allen erstellten Debug-Symbolen entfernt wird.
+
+B<Hinweis>: Dies Funktion hat ähnliche Reproduzierbarkeitseigenschaften wie B<fixfilepath>.
 
 =back
 
@@ -424,31 +456,31 @@ Es gibt zwei Gruppen von Umgebungsvariablen, die den gleichen Vorgang durchführ
 
 =item B<DEB_>I<Schalter>B<_SET>
 
-=item B<DEB_>I<Schalter>B<_MAINT_SET>
+=item B<DEB_>I<Schalter>B<_MAINT_SET> (seit Dpkg 1.16.1)
 
 Diese Variable kann zum Erzwingen des für I<Schalter> zurückgegebenen Werts verwandt werden.
 
-=item B<DEB_>I<Schalter>B<_STRIP>
+=item B<DEB_>I<Schalter>B<_STRIP> (seit Dpkg 1.16.1)
 
-=item B<DEB_>I<Schalter>B<_MAINT_STRIP>
+=item B<DEB_>I<Schalter>B<_MAINT_STRIP> (seit Dpkg 1.16.1)
 
 Diese Variable kann zum Bereitstellen einer durch Leerzeichen getrennten Liste von Optionen verwandt werden, die aus dem Satz von I<Schalter> zurückgelieferten Schaltern entfernt werden.
 
 =item B<DEB_>I<Schalter>B<_APPEND>
 
-=item B<DEB_>I<Schalter>B<_MAINT_APPEND>
+=item B<DEB_>I<Schalter>B<_MAINT_APPEND> (seit Dpkg 1.16.1)
 
 Diese Variable kann zum Anhängen ergänzender Optionen zum Wert, der von I<Schalter> zurückgegeben wird, verwandt werden.
 
-=item B<DEB_>I<Schalter>B<_PREPEND>
+=item B<DEB_>I<Schalter>B<_PREPEND> (seit Dpkg 1.16.1)
 
-=item B<DEB_>I<Schalter>B<_MAINT_PREPEND>
+=item B<DEB_>I<Schalter>B<_MAINT_PREPEND> (seit Dpkg 1.16.1)
 
 Diese Variable kann zum Voranstellen ergänzender Optionen zum Wert, der von I<Schalter> zurückgegeben wird, verwandt werden.
 
 =item B<DEB_BUILD_OPTIONS>
 
-=item B<DEB_BUILD_MAINT_OPTIONS>
+=item B<DEB_BUILD_MAINT_OPTIONS> (seit Dpkg 1.16.1)
 
 Diese Variablen können von Benutzern oder Betreuern zum Deaktivieren oder Aktivieren verschiedener Bereichsfunktionalitäten benutzt werden, die Bauschalter beeinflussen. Die Variable B<DEB_BUILD_MAINT_OPTIONS> setzt jede Einstellung in den Funktionalitätsbereichen B<DEB_BUILD_OPTIONS> außer Kraft. Lesen Sie den Abschnitt B<FUNKTIONALITÄTSBEREICHE> für weitere Details.
 

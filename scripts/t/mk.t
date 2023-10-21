@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use Test::Dpkg qw(:paths);
 
 use File::Spec::Functions qw(rel2abs);
@@ -84,6 +84,8 @@ while (my ($k, $v) = each %arch) {
 }
 test_makefile('architecture.mk', 'with envvars');
 
+test_makefile('buildapi.mk');
+
 $ENV{DEB_BUILD_OPTIONS} = 'parallel=16';
 $ENV{TEST_DEB_BUILD_OPTION_PARALLEL} = '16';
 test_makefile('buildopts.mk');
@@ -115,7 +117,7 @@ my %buildtools = (
     NM => 'nm',
     AR => 'ar',
     RANLIB => 'ranlib',
-    PKG_CONFIG => 'pkg-config',
+    PKG_CONFIG => 'pkgconf',
 );
 
 while (my ($var, $tool) = each %buildtools) {
@@ -150,5 +152,3 @@ test_makefile('pkg-info.mk');
 test_makefile('vendor.mk');
 test_makefile('vendor-v0.mk');
 test_makefile('vendor-v1.mk');
-
-1;

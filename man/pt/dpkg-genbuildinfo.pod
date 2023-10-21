@@ -24,7 +24,7 @@ B<dpkg-genbuildinfo> [I<option>...]
 
 B<dpkg-genbuildinfo> lê informação a partir de uma árvore fonte Debian compilada e desempacotada e dos ficheiros que gerou, e gera um ficheiro de controle Debian que descreve o ambiente de compilação e os artefactos de compilação (ficheiro B<.buildinfo>).
 
-Este comando foi introduzido no dpkg 1.18.11.
+This program was introduced in dpkg 1.18.11.
 
 =head1 OPÇÕES
 

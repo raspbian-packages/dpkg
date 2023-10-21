@@ -32,6 +32,7 @@ use File::Basename qw(dirname);
 use Dpkg ();
 use Dpkg::Gettext;
 use Dpkg::ErrorHandling;
+use Dpkg::IPC;
 use Dpkg::Path qw(relative_to_pkg_root guess_pkg_root_dir
 		  check_files_are_the_same get_control_path);
 use Dpkg::Version;
@@ -40,6 +41,7 @@ use Dpkg::Shlibs::Objdump;
 use Dpkg::Shlibs::SymbolFile;
 use Dpkg::Substvars;
 use Dpkg::Arch qw(get_host_arch);
+use Dpkg::BuildAPI qw(get_build_api);
 use Dpkg::Deps;
 use Dpkg::Control::Info;
 use Dpkg::Control::Fields;
@@ -75,6 +77,10 @@ my @pkg_dir_to_ignore = ();
 my $host_arch = get_host_arch();
 
 my (@pkg_shlibs, @pkg_symbols, @pkg_root_dirs);
+
+my $control = Dpkg::Control::Info->new();
+# Initialize build API level.
+get_build_api($control);
 
 my ($stdout, %exec);
 foreach (@ARGV) {
@@ -157,7 +163,6 @@ if (-d 'debian') {
     push @pkg_root_dirs, keys %uniq;
 }
 
-my $control = Dpkg::Control::Info->new();
 my $fields = $control->get_source();
 my $bd_value = deps_concat($fields->{'Build-Depends'}, $fields->{'Build-Depends-Arch'});
 my $build_deps = deps_parse($bd_value, build_dep => 1, reduce_restrictions => 1);
@@ -202,12 +207,13 @@ foreach my $file (keys %exec) {
 	    $global_soname_notfound{$soname} = 1;
 	    my $msg = g_('cannot find library %s needed by %s (ELF ' .
 	                 "format: '%s' abi: '%s'; RPATH: '%s')");
-	    my $exec_abi = unpack 'H*', $obj->{exec_abi};
 	    if (scalar(split_soname($soname))) {
-		errormsg($msg, $soname, $file, $obj->{format}, $exec_abi, join(':', @{$obj->{RPATH}}));
+                errormsg($msg, $soname, $file, $obj->{format}, $obj->{exec_abi},
+                         join(':', @{$obj->{RPATH}}));
 		$error_count++;
 	    } else {
-		warning($msg, $soname, $file, $obj->{format}, $exec_abi, join(':', @{$obj->{RPATH}}));
+                warning($msg, $soname, $file, $obj->{format}, $obj->{exec_abi},
+                        join(':', @{$obj->{RPATH}}));
 	    }
 	    next;
 	}
@@ -753,6 +759,7 @@ sub extract_from_shlibs {
     while (<$shlibs_fh>) {
 	s/\s*\n$//;
 	next if m/^\#/;
+        ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
 	if (!m/$shlibs_re/) {
 	    warning(g_("shared libs info file '%s' line %d: bad line '%s'"),
 	            $shlibfile, $., $_);
@@ -891,10 +898,12 @@ sub my_find_library {
 my %cached_pkgmatch = ();
 
 sub find_packages {
+    my @paths = @_;
+
     my @files;
     my $pkgmatch = {};
 
-    foreach my $path (@_) {
+    foreach my $path (@paths) {
 	if (exists $cached_pkgmatch{$path}) {
 	    $pkgmatch->{$path} = $cached_pkgmatch{$path};
 	} else {
@@ -905,17 +914,16 @@ sub find_packages {
     }
     return $pkgmatch unless scalar(@files);
 
-    my $pid = open(my $dpkg_fh, '-|');
-    syserr(g_('cannot fork for %s'), 'dpkg-query --search') unless defined $pid;
-    if (!$pid) {
-	# Child process running dpkg --search and discarding errors
-	close STDERR;
-	open STDERR, '>', '/dev/null'
-	    or syserr(g_('cannot open file %s'), '/dev/null');
-	$ENV{LC_ALL} = 'C';
-	exec 'dpkg-query', '--search', '--', @files
-	    or syserr(g_('unable to execute %s'), 'dpkg');
-    }
+    # Child process running dpkg --search and discarding errors
+    my $dpkg_fh;
+    my $pid = spawn(
+        exec => [ 'dpkg-query', '--search', '--', @files ],
+        env => {
+            LC_ALL => 'C',
+        },
+        to_pipe => \$dpkg_fh,
+        error_to_file => '/dev/null',
+    );
     while (<$dpkg_fh>) {
 	chomp;
 	if (m/^local diversion |^diversion by/) {
@@ -932,5 +940,7 @@ sub find_packages {
 	}
     }
     close($dpkg_fh);
+    wait_child($pid, nocheck => 1, cmdline => 'dpkg-query --search');
+
     return $pkgmatch;
 }

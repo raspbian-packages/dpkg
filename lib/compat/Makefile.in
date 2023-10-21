@@ -89,8 +89,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @HAVE_SYS_ERRLIST_TRUE@am__append_1 = strerror.c
-@HAVE_GETOPT_FALSE@am__append_2 = getopt.c getopt.h
-@HAVE_GETOPT_LONG_FALSE@@HAVE_GETOPT_TRUE@am__append_3 = getopt.c getopt.h
+@HAVE_GETOPT_FALSE@am__append_2 = getopt.c getopt.h getopt_int.h
+@HAVE_GETOPT_LONG_FALSE@@HAVE_GETOPT_TRUE@am__append_3 = getopt.c getopt.h getopt_int.h
 @HAVE_GETOPT_LONG_FALSE@am__append_4 = getopt1.c
 @HAVE_OBSTACK_FREE_FALSE@am__append_5 = obstack.c obstack.h
 @HAVE_STRNLEN_FALSE@am__append_6 = strnlen.c
@@ -148,10 +148,10 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 libcompat_la_LIBADD =
 am__libcompat_la_SOURCES_DIST = empty.c compat.h compat-zlib.h \
-	gettext.h getopt.c getopt.h getopt1.c obstack.c obstack.h \
-	strnlen.c strchrnul.c strndup.c strerror.c strsignal.c \
-	snprintf.c vsnprintf.c asprintf.c vasprintf.c alphasort.c \
-	scandir.c unsetenv.c
+	gettext.h getopt.c getopt.h getopt_int.h getopt1.c obstack.c \
+	obstack.h strnlen.c strchrnul.c strndup.c strerror.c \
+	strsignal.c snprintf.c vsnprintf.c asprintf.c vasprintf.c \
+	alphasort.c scandir.c unsetenv.c
 @HAVE_GETOPT_FALSE@am__objects_2 = getopt.lo
 @HAVE_GETOPT_LONG_FALSE@@HAVE_GETOPT_TRUE@am__objects_3 = getopt.lo
 @HAVE_GETOPT_LONG_FALSE@am__objects_4 = getopt1.lo
@@ -366,6 +366,7 @@ POD2MAN = @POD2MAN@
 POSUB = @POSUB@
 PS_LIBS = @PS_LIBS@
 RANLIB = @RANLIB@
+RT_LIBS = @RT_LIBS@
 SED = @SED@
 SELINUX_CFLAGS = @SELINUX_CFLAGS@
 SELINUX_LIBS = @SELINUX_LIBS@

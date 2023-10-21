@@ -230,6 +230,12 @@ Falls gesetzt, wird es als Zeitstempel (als Sekunden seit der Epoche) in dem B<a
 
 Versuchen Sie nicht, nur mit B<dpkg-deb> Software zu installieren! Sie müssen B<dpkg> selber verwenden, um sicherzustellen, dass alle Dateien an den richtigen Ort platziert werden, die Paketskripte ausgeführt werden und sein Status und Inhalt aufgezeichnet wird.
 
+=head1 SICHERHEIT
+
+Untersuchen nicht vertrauenswürdiger Paketarchive oder ihr Entpacken in ein Arbeitsverzeichnis sollte als Sicherheitsgrenze betrachtet werden und jede Verletzung dieser Grenze, die aus diesen Aktionen resultiert, sollte als Sicherheitsverwundbarkeit betrachtet werden. Allerdings sollte der Umgang mit nicht vertrauenswürdigen Paketarchiven nicht leichtherzig erfolgen, da die Oberfläche alle unterstützten Komprimierungsbibliotheken umfasst, zusätzliche zu den Archivformaten und Steuerdateien selbst. Es wird nachdrücklich davon abgeraten, diese Aktionen auf nicht vertrauenswürdigen Daten als Root durchzuführen.
+
+Das Bauen von Paketarchiven sollte nur mit vertrauenswürdigen Daten erfolgen.
+
 =head1 FEHLER
 
 B<dpkg-deb -I> I<Paket1>B<.deb> I<Paket2>B<.deb> macht das Falsche.

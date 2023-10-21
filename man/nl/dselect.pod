@@ -156,7 +156,7 @@ Als B<dselect> opgestart wordt, kan het de volgende commando's uitvoeren, ofwel 
 
 Kies en configureer een benaderingsmethode om pakketbronnen te benaderen.
 
-Standaard biedt B<dselect> diverse benaderingsmethodes, zoals I<multi_cd>, I<mounted> of I<ftp>, maar andere pakketten kunnen andere methodes aanbieden, zoals bijvoorbeeld het pakket B<apt>(8) dat de benaderingsmethode I<apt> aanbiedt.
+By default, B<dselect> provides several methods such as I<media>, I<file> or I<ftp>, but other packages may provide additional methods, for example the I<apt> access method provided by the B<apt>(8) package.
 
 Het gebruik van de benaderingsmethode I<apt> wordt sterk aanbevolen.
 

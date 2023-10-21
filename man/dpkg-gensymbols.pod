@@ -74,6 +74,8 @@ Furthermore if the difference is too significant, it will even fail (you
 can customize how much difference you can tolerate, see the B<-c>
 option).
 
+This program was introduced in dpkg 1.14.8.
+
 =head1 MAINTAINING SYMBOLS FILES
 
 The base interchange format of the symbols file is described in
@@ -181,7 +183,7 @@ I<directory>
 to the list of directories to search for private shared libraries
 (since dpkg 1.19.1). This option can be used multiple times.
 
-B<Note:> Use this option instead of setting B<LD_LIBRARY_PATH>,
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>,
 as that environment variable is used to control the run-time linker
 and abusing it to set the shared library paths at build-time can be
 problematic when cross-compiling for example.

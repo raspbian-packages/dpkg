@@ -110,6 +110,8 @@ B<Nota>: Alguns directórios podem demorar após a migração no caso de contere
 
 B<Aviso>: Note que esta operação tem o potencial de tornar o sistema não utilizável ou quebrado em caso de uma pagarem súbita ou reinicio do sistema. estado inesperado do sistema, ou possíveis bugs no script. Esteja preparado com meio de recuperação e considere fazer cópias de salvaguarda antes.
 
+This program was introduced in dpkg 1.20.6.
+
 =head1 OPÇÕES
 
 =over 

@@ -37,7 +37,12 @@ m4_define([DPKG_DIVERT_DEL], [DPKG_DIVERT --remove])
 # Macros.
 #
 
-# DPKG_FILE_SIZE()
+# DPKG_SEQ($max)
+m4_define([DPKG_SEQ], [dnl
+  m4_for([i], [1], [$1], [], [i ])dnl
+])
+
+# DPKG_FILE_SIZE($filename)
 m4_define([DPKG_FILE_SIZE], [
   $PERL -E 'say -s shift' "$1" dnl
 ])

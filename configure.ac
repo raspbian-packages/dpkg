@@ -76,6 +76,8 @@ DPKG_DEB_COMPRESSOR([xz])
 
 # Checks for programs.
 AC_PROG_SED
+AC_PROG_GREP
+AC_PROG_EGREP
 AC_PROG_CC
 DPKG_C_C99
 AC_PROG_CXX
@@ -93,6 +95,7 @@ DPKG_CODE_COVERAGE
 AC_SYS_LARGEFILE
 
 # Checks for libraries.
+DPKG_LIB_RT
 DPKG_LIB_MD
 DPKG_LIB_Z
 DPKG_LIB_BZ2
@@ -150,7 +153,7 @@ AS_IF([test "x$build_dselect" = "xyes"], [
 ])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_BIGENDIAN
+DPKG_ARCH_ABI
 AC_C_CONST
 AC_C_INLINE
 AC_C_VOLATILE
@@ -158,8 +161,6 @@ AC_TYPE_MODE_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 DPKG_TYPE_PTRDIFF_T
-AC_CHECK_SIZEOF([unsigned int])
-AC_CHECK_SIZEOF([unsigned long])
 DPKG_DECL_SYS_SIGLIST
 DPKG_DECL_SYS_ERRLIST
 
@@ -219,6 +220,8 @@ DPKG_USE_DISK_PREALLOCATE
 # Checks for the build machinery.
 AC_DEFINE([LIBDPKG_VOLATILE_API], [1], [Acknowledge the volatility of the API.])
 DPKG_COMPILER_WARNINGS
+DPKG_COMPILER_SANITIZER
+DPKG_COMPILER_ANALYZER
 DPKG_COMPILER_OPTIMIZATIONS
 DPKG_LINKER_OPTIMIZATIONS
 DPKG_ARCHITECTURE
@@ -256,6 +259,24 @@ AC_OUTPUT
 cat <<CONFIG
 
 Configuration:
+  Arch attributes:
+    cpu name  . . . . . . . . . . : ${cpu_type}
+    os name . . . . . . . . . . . : ${os_type}
+    arch name . . . . . . . . . . : ${dpkg_arch}
+    arch bits . . . . . . . . . . : ${dpkg_arch_bits}
+    arch endian . . . . . . . . . : ${dpkg_arch_endian}
+    char bits . . . . . . . . . . : ${dpkg_char_bits}
+    char sign . . . . . . . . . . : ${dpkg_char_sign}
+    sizeof(short) . . . . . . . . : ${ac_cv_sizeof_short}
+    sizeof(int) . . . . . . . . . : ${ac_cv_sizeof_int}
+    sizeof(long)  . . . . . . . . : ${ac_cv_sizeof_long}
+    sizeof(long long) . . . . . . : ${ac_cv_sizeof_long_long}
+    sizeof(float) . . . . . . . . : ${ac_cv_sizeof_float}
+    sizeof(double)  . . . . . . . : ${ac_cv_sizeof_double}
+    sizeof(long double) . . . . . : ${ac_cv_sizeof_long_double}
+    sizeof(void *)  . . . . . . . : ${ac_cv_sizeof_void_p}
+    alignof(max_align_t)  . . . . : ${ac_cv_alignof_max_align_t}
+
   Features:
     native language support . . . : $USE_NLS
     unicode support . . . . . . . : $USE_UNICODE
@@ -281,6 +302,7 @@ Configuration:
     dselect . . . . . . . . . . . : $build_dselect
 
   System Libraries:
+    librt . . . . . . . . . . . . : $have_librt
     libsocket . . . . . . . . . . : ${have_libsocket:-no}
     libps . . . . . . . . . . . . : ${have_libps:-no}
     libkvm  . . . . . . . . . . . : ${have_libkvm:-no}

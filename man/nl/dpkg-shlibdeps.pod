@@ -98,7 +98,7 @@ De gepaste afhankelijkheidsrelaties tot gedeelde bibliotheken die nodig zijn voo
 
 I<map> vooraan toevoegen aan de lijst van mappen waarin naar particuliere gedeelde bibliotheken gezocht moet worden (sinds dpkg 1.17.0). Deze optie kan meermaals gebruikt worden.
 
-B<Opmerking:> gebruik deze optie in de plaats van het instellen van B<LD_LIBRARY_PATH>, aangezien die omgevingsvariabele gebruikt wordt om de runtime linker aan te sturen. Daarvan misbruik maken om de paden van gedeelde bibliotheken in te stellen tijdens het bouwen van het programma, kan problematisch zijn, bijvoorbeeld bij het cross-compileren.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-d>I<afhankelijkheidsveld>
 

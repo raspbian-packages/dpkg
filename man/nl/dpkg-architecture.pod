@@ -60,6 +60,8 @@ Een commando tonen dat vergelijkbaar is met B<--print-set>, maar om alle variabe
 
 Een I<commando-tekenreeks> uitvoeren in een omgeving waarin alle variabelen ingesteld zijn op de vastgelegde waarde.
 
+If the I<command-string> contains shell metacharacters, then it will be invoked through the system bourne shell.
+
 =item B<-L>, B<--list-known>
 
 Een lijst van geldige architectuurbenamingen tonen. Kan eventueel ingeperkt worden met een of meer van de vergelijkingsopties B<--match-wildcard>, B<--match-bits> of B<--match-endian> (sinds dpkg 1.17.14).

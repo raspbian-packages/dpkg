@@ -113,7 +113,7 @@ Z<>
   package diverts others to: I<diverted-to>
   diverted by I<pkg> to: I<diverted-to>
 
-Dica: Quando se faz análise máquina a uma saída,é costume definir o locale para B<C.UTF-8> para obter resultados reproduzíveis.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
 
 Este comando não irá listar ficheiros extra criados pelos scripts do maintainer, nem irá listar alternativas.
 
@@ -156,7 +156,7 @@ Z<>
   local diversion from: I<diverted-from>
   local diversion to: I<diverted-to>
 
-Dica: Quando se faz análise máquina a uma saída,é costume definir o locale para B<C.UTF-8> para obter resultados reproduzíveis.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
 
 =item B<-p>, B<--print-avail> [I<package-name>...]
 
@@ -412,6 +412,10 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 Definido pelo B<dpkg-query> para “B<-FRSXMQ>”, se não já definido, quando gera um paginador (desde dpkg 1.19.2). Para mudar o comportamento predefinido, esta variável pode ser pré-ajustada para qualquer outro valor incluindo uma string vazia, ou as variáveis B<PAGER> ou B<DPKG_PAGER> pode ser definidas para desactivar opções específicas com «B<-+>», por exemplo B<DPKG_PAGER="less -+F">.
 
 =back
+
+=head1 SECURITY
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
 
 =head1 VEJA TAMBÉM
 

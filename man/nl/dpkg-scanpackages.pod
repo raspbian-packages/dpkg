@@ -24,7 +24,7 @@ B<dpkg-scanpackages> [I<optie>...] I<pad-binair-pakket> [I<override-bestand> [I<
 
 B<dpkg-scanpackages> sorteert een boom van binaire Debian pakketten en maakt een bestand Packages aan, dat door B<apt>(8), B<dselect>(1), enz. gebruikt wordt om de gebruiker te informeren over welke pakketten voor installatie beschikbaar zijn. Deze Packages-bestanden zijn dezelfde als die welke men aantreft op de sites met Debian-archieven of op CD's. U kunt zelf gebruik maken van B<dpkg-scanpackages> als u een map met lokale pakketten maakt om ze op een cluster machines te installeren.
 
-B<Opmerking:> indien u het gegenereerde bestand Packages wilt gebruiken met B<apt>, zult u het wellicht moeten comprimeren met B<xz>(1) (wat een bestand Packages.xz genereert), met B<bzip2>(1) (wat een bestand Packages.bz2 genereert) of met B<gzip>(1) (wat een bestand Packages.gz genereert). B<apt>(8) negeert niet-gecomprimeerde Packages-bestanden tenzij in geval van lokale toegang (d.w.z. pakketbronnen in de vorm van B<file://>).
+B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<pad-binair-pakket> is de naam van de boom met binaire pakketten die verwerkt moet worden (bijvoorbeeld B<contrib/binary-i386>). Het is best om dit relatief te maken ten opzichte van de basismap van het Debian-archief, omdat elk Filename-veld uit het nieuwe Packages-bestand met die tekenreeks zal beginnen.
 

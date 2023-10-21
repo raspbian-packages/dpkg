@@ -270,6 +270,7 @@ AM_DISTCHECK_DVI_TARGET = dvi
 distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
+distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
@@ -381,6 +382,7 @@ POD2MAN = @POD2MAN@
 POSUB = @POSUB@
 PS_LIBS = @PS_LIBS@
 RANLIB = @RANLIB@
+RT_LIBS = @RT_LIBS@
 SED = @SED@
 SELINUX_CFLAGS = @SELINUX_CFLAGS@
 SELINUX_LIBS = @SELINUX_LIBS@
@@ -548,8 +550,6 @@ EXTRA_DIST = \
 	debian/dselect.lintian-overrides \
 	debian/dselect.manpages \
 	debian/dselect.postrm \
-	debian/dselect.preinst \
-	debian/dselect.prerm \
 	debian/libdpkg-dev.install \
 	debian/libdpkg-perl.install \
 	debian/source/format \
@@ -619,11 +619,6 @@ CPAN_DIST_VERSION = $(PACKAGE_VERSION)
 @PACKAGE_DIST_IS_RELEASE_FALSE@CPAN_DIST_SUFFIX = -TRIAL
 CPAN_DIST = $(CPAN_DIST_NAME)-$(CPAN_DIST_VERSION)$(CPAN_DIST_SUFFIX)
 CPAN_DIST_ARCHIVE = $(CPAN_DIST).tar.gz
-
-# Ignore the CPAN archive for distcleancheck.
-distcleancheck_listfiles = \
-	find -type f \( -name $(CPAN_DIST_ARCHIVE) -o -print \)
-
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -1358,7 +1353,7 @@ dist-hook:
 	    echo "$$file is a symlink packed as a file on the dist tar" >&2 ; \
 	    exit 1 ; \
 	  done ; \
-	  for file in `git ls-files | grep -v .gitignore`; do \
+	  for file in `git ls-files | grep -vE '\.git(ignore|-blame)'`; do \
 	    if [ ! -e "$(distdir)/$$file" ]; then \
 	      echo "$$file is missing in $(distdir)" >&2 ; \
 	      exit 1 ; \

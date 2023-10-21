@@ -50,6 +50,8 @@ Het hoofddoel van deze bestanden is aan te geven welke de minimale versie is die
 
 Indien het gegenereerde symboolbestand verschilt van datgene wat de onderhouder aanlevert, zal B<dpkg-gensymbols> de verschillen tussen de twee versies tonen in diff-formaat. Bovendien kan dit zelfs tot een mislukking leiden als de verschillen te significant zijn (u kunt aanpassen hoeveel verschil u kunt tolereren; zie de optie B<-c>).
 
+This program was introduced in dpkg 1.14.8.
+
 =head1 HET ONDERHOUD VAN SYMBOOLBESTANDEN
 
 De basisuitwisselingsindeling van het symboolbestand wordt beschreven in B<deb-symbols>(5), hetgeen gebruikt wordt door de symboolbestanden uit de binaire pakketten. Deze worden gegenereerd uit sjabloonsymboolbestanden met een indeling gebaseerd op het eerste, beschreven in B<deb-src-symbols>(5) en opgenomen in broncodepakketten.
@@ -112,7 +114,7 @@ Analyseer enkel de expliciet vermelde bibliotheken in plaats van alle publieke b
 
 Voeg I<map> vooraan toe aan de lijst van mappen waarin naar private gedeelde bibliotheken gezocht moet worden (sinds dpkg 1.19.1). Deze optie kan meermaals gebruikt worden.
 
-B<Opmerking:> gebruik deze optie in de plaats van het instellen van B<LD_LIBRARY_PATH>, aangezien die omgevingsvariabele gebruikt wordt om de runtime linker aan te sturen. Daarvan misbruik maken om de paden van gedeelde bibliotheken in te stellen tijdens het bouwen van het programma, kan problematisch zijn, bijvoorbeeld bij het cross-compileren.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-I>I<bestandsnaam>
 

@@ -156,7 +156,7 @@ Wenn B<Dselect> gestartet wird, kann es die folgenden Befehle ausführen, entwed
 
 Wählt und konfiguriert eine Zugriffsmethode für Paketdepots.
 
-Standardmäßig stellt B<dselect> mehrere Methoden wie I<multi_cd>, I<mounted> oder I<ftp> zur Verfügung, aber andere Pakete können zusätzliche Methoden bereitstellen, z.B. stellt das B<apt>-Paket die I<apt>(8)-Zugriffsmethode bereit.
+Standardmäßig stellt B<dselect> mehrere Methoden wie I<media>, I<file> oder I<ftp> zur Verfügung, aber andere Pakete können zusätzliche Methoden bereitstellen, z.B. stellt das B<apt>-Paket die I<apt>(8)-Zugriffsmethode bereit.
 
 Die Verwendung der I<apt>-Zugriffsmethode wird nachdrücklich empfohlen.
 

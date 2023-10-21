@@ -154,7 +154,7 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 
 Filen som innehåller den aktuella listan med systemets omdirigeringar. Den är placerad i B<dpkg>:s administrativa katalog, tillsammans med andra filer som är viktiga för B<dpkg>, till exempel I<status> och I<available>.
 
-B<Observera:> B<dpkg-divert> behåller den gamla versionen av filen, med filtillägget I<-old>, innan den ersätter den med den nya.
+B<Note>: B<dpkg-divert> preserves the old copy of this file, with extension I<-old>, before replacing it with the new one.
 
 =back
 

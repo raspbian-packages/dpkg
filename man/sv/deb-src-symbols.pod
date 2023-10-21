@@ -52,7 +52,7 @@ Eftersom symboltaggar er en utökning av formatet i I<deb-symbols(5)> kan de bar
 
 =item B<optional>
 
-En symbol markerad som valfri (optional) kan försvinna från bibliotektet när som helst och kommer aldrig göra så att B<dpkg-gensymbols> misslyckas. Försvunna symboler kommer dock fortfarande visas som saknade (MISSING) i differensen för varje ny paketversion. Detta beteende fungerar som en påminnelse för de paketansvariga om att symbolen måste tas bort från symbolfilen eller läggas tillbaka till biblioteket. När en valfri symbol som tidigare markerats som saknad (MISSING) plötsligt dyker upp igen i en senare version kommer den att uppgraderas tillbaka till befintligstatus (”existing”) med den minsta tillgängliga versionen oförändrad.
+A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
 
 Taggen är användbar för symboler som är privata och vars försvinnande inte gör att ABI:et går sönder. De flesta C++-mallinstansieringar faller till exempel in under denna kategori. Som andra taggar kan den här även ha ett godtyckligt värde: det kan användas för att indikera varför symbolen är att anse som valfri.
 
@@ -144,7 +144,7 @@ Detta mönster anges med taggen I<symver>. Välunderhållna bibliotek har versio
   access@GLIBC_2.0 2.2
 Alla symboler associerade med versionerna GLIBC_2.0 och GLIBC_2.7 kommer leda till den minimal version 2.0 respektive 2.7, med undantag av symbolen access@GLIBC_2.0. Den sistnämnda kommer leda till ett minsta beroende på libc6 version 2.2 trots att den motsvarar mönstret "(symver)GLIBC_2.0"-mönstret, eftersom specifika symboler gäller före mönster.
 
-Observera att även om den gamla sortens jokerteckenmönster (anges med "*@version" i symbolnamnfältet) fortfarande stöds så rekommenderas de inte längre i och med den nya sortens syntax "(symver|optional)version". Till exempel bör "*@GLIBC_2.0 2.0" skrivas som "(symver|optional)GLIBC_2.0 2.0" om samma beteende behövs.
+Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 

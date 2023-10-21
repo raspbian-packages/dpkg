@@ -156,7 +156,7 @@ Quand B<dselect> est démarré, il peut effectuer les actions suivantes, soit di
 
 Choisir et configurer une méthode d'accès aux dépôts de paquets.
 
-Par défaut, B<dselect> fournit plusieurs méthodes telles que I<multi_cd>, I<mounted>ou I<ftp>, mais d'autres paquets peuvent fournir des méthodes supplémentaires, par exemple la méthode d'accès I<apt> fournie par le paquet B<apt>(8).
+By default, B<dselect> provides several methods such as I<media>, I<file> or I<ftp>, but other packages may provide additional methods, for example the I<apt> access method provided by the B<apt>(8) package.
 
 L'utilisation de la méthode d'accès I<apt> est fortement conseillée.
 

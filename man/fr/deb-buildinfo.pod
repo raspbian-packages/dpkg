@@ -28,7 +28,23 @@ Chaque champ commence par une étiquette, telle que B<Source> ou B<Binary> (la c
 
 Les données de contrôle pourraient être incluses dans une signature OpenPGP S<« ASCII> S<Armored »,> comme spécifié dans la RFC4880.
 
-Le nom du fichier B<.buildinfo> dépendra du type de construction et sera aussi spécifique que nécessaire mais pas S<plus ;> lorsque la construction inclut B<any>, le nom sera I<nom-source>B<_>I<version-binaire>B<_>I<arch>B<.buildinfo>, ou sinon pour une construction B<all> le nom sera I<nom-source>B<_>I<binary-version>B<_>B<all.buildinfo> ou encore pour une construction qui inclut B<source> le nom sera I<nom-source>B<_>I<version-source>B<_>B<source.buildinfo>.
+The name of the B<.buildinfo> file will depend on the type of build and will be as specific as necessary but not more; the name will be:
+
+=over 
+
+=item I<source-name>B<_>I<binary-version>B<_>I<arch>B<.buildinfo>
+
+for a build that includes B<any>
+
+=item I<source-name>B<_>I<binary-version>B<_>B<all.buildinfo>
+
+otherwise for a build that includes B<all>
+
+=item I<source-name>B<_>I<source-version>B<_>B<source.buildinfo>
+
+otherwise for a build that includes B<source>
+
+=back
 
 =head1 LES CHAMPS
 

@@ -116,7 +116,7 @@ Ce champ indique que le paquet source contient les suites de tests spécifiées.
 
 Ce champ indique l'union de toutes les dépendances de test, séparées par des virgules (champs B<Depends> du fichier I<debian/tests/control>), toutes restrictions supprimées, et les dépendances OR mises à plat (c'est-à-dire converties en relations AND distinctes), sauf pour les binaires générés par ce paquet source et son équivalent de méta-dépendance B<@>.
 
-S<Raison :> ce champ est nécessaire parce qu'autrement chaque paquet source devrait être dépaqueté pour pouvoir obtenir les dépendances de test.
+B<Rationale>: this field is needed because otherwise to be able to get the test dependencies, each source package would need to be unpacked.
 
 =item B<Build-Depends:> I<liste-de-paquets>
 

@@ -56,7 +56,7 @@ Konfigurationsfilerna kan innehålla fyra sorters direktiv:
 
 =item B<STRIP> I<flagga> I<värde>
 
-Ta bort alla flaggor som listas i I<värde> från flaggan som anges i I<flagga>.
+Strip from the flag named I<flag> all the build flags listed in I<value>. Since dpkg 1.16.1.
 
 =item B<APPEND> I<flagga> I<värde>
 
@@ -64,11 +64,13 @@ Utöka flaggan I<flagga> genom att lägga till alternativen som anges i I<värde
 
 =item B<PREPEND> I<flagga> I<värde>
 
-Utöka flaggan I<flagga> genom att lägga till alternativen som anges i I<värde> först. Ett blanksteg läggs till efter värdet om flaggans nuvarande värde inte är tomt.
+Extend the flag named I<flag> by prepending the options given in I<value>. A space is appended to the prepended value if the flag's current value is non-empty.  Since dpkg 1.16.1.
 
 =back
 
 Konfigurationsfilerna kan innehålla kommentarer på rader som börjar med ett nummertecken (#). Även tomma rader ignoreras.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 KOMMANDON
 
@@ -84,7 +86,7 @@ Skriv ut listan över flaggor som stöds av den aktuella leverantören (en per r
 
 =item B<--status>
 
-Visa information som kan vara användbar för att förklara B<dpkg-buildflags> beteende (sedan dpkg 1.16.5): relevanta miljövariabler, aktuell återförsäljare, status för alla funktionsflaggor. Skriv även ut slutgiltiga kompilatorflaggor och deras källa.
+Display any information that can be useful to explain the behavior of B<dpkg-buildflags> (since dpkg 1.16.5): relevant environment variables, current vendor, state of all feature flags.  Also print the resulting compiler flags with their origin.
 
 Detta är tänkt att köras från B<debian/rules> så att byggloggen innehåller ett tydligt spår över de använda byggflaggorna. Det kan vara användbart för att diagnostisera problem rörande dessa.
 
@@ -142,7 +144,7 @@ flaggan är satt/modifierad av en miljöspecifik konfiguration.
 
 =item B<--query>
 
-Srkiv ut information som kan vara användbar för att förklara programmets beteende: aktuell återförsäljare, relevanta miljövariabler, funktionsområden, status för alla funktionsflaggor, huruvida en funktion hanteras av ett inbyggt förval av kompilatorn (sedan dpkg 1.21.14) och kompilatorflaggorna med sina ursprung (sedan dpkg 1.19.0).
+Print any information that can be useful to explain the behavior of the program: current vendor, relevant environment variables, feature areas, state of all feature flags, whether a feature is handled as a builtin default by the compiler (since dpkg 1.21.14), and the compiler flags with their origin (since dpkg 1.19.0).
 
 Till exempel:
 
@@ -220,11 +222,11 @@ Flaggor för C++-kompilatorn. Samma som B<CFLAGS>.
 
 =item B<OBJCFLAGS>
 
-Flaggor för Objective C-kompilatorn. Samma som B<CFLAGS>.
+Options for the Objective C compiler. Same as B<CFLAGS>.  Since dpkg 1.17.7.
 
 =item B<OBJCXXFLAGS>
 
-Flaggor för Objective C++-kompilatorn. Samma som B<CFLAGS>.
+Options for the Objective C++ compiler. Same as B<CXXFLAGS>.  Since dpkg 1.17.7.
 
 =item B<GCJFLAGS>
 
@@ -240,7 +242,7 @@ Flaggor för Fortran 77-kompilatorn. En delmängd av B<CFLAGS>.
 
 =item B<FCFLAGS>
 
-Flaggor för Fortran 9x-kompilatorn. Samma som B<FFLAGS>.
+Options for the Fortran 9x compiler. Same as B<FFLAGS>.  Since dpkg 1.17.7.
 
 =item B<LDFLAGS>
 
@@ -260,6 +262,24 @@ Den speciella funktionen B<all> kan användas för att aktivera eller inaktivera
 
     export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+format,+fortify
 
+=head2 abi
+
+Several compile-time options (detailed below) can be used to enable features that can change the ABI of a package, but cannot be enabled by default due to backwards compatibility reasons unless coordinated or checked individually.
+
+=over 
+
+=item B<lfs>
+
+This setting (since dpkg 1.22.0; disabled by default) enables Large File Support on 32-bit architectures where their ABI does not include LFS by default, by adding B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> to B<CPPFLAGS>.
+
+When this feature is enabled it will override the value from the same feature in the B<future> feature area.
+
+=item B<time64>
+
+This setting (since dpkg 1.22.0; disabled by default) enables 64-bit time_t support on 32-bit architectures where their ABI does not include it by default, by adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the B<lfs> feature as it requires it.
+
+=back
+
 =head2 future
 
 Flera kommandoradsflaggor (beskrivna nedan) kan användas för att aktivera funktioner som borde vara aktiverade som standard, men som inte kan vara det på grund av bakåtkompatibilitetsorsaker.
@@ -268,7 +288,7 @@ Flera kommandoradsflaggor (beskrivna nedan) kan användas för att aktivera funk
 
 =item B<lfs>
 
-Den här inställningen (inaktiverad som förval) aktiverar stöd för stora filer på 32-bitars-arkitekturer där deras ABI inte som förval inkluderar LFS, genom att lägga till B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> till B<CPPFLAGS>.
+This setting (since dpkg 1.19.0; disabled by default) is now an alias for the B<lfs> feature in the B<abi> area, use that instead.  The feature from the B<abi> area overrides this setting.
 
 =back
 
@@ -280,11 +300,11 @@ Flera kommandoradsflaggor (beskrivna nedan) kan användas för att göra det lä
 
 =item B<bug>
 
-Inställningen (inaktiverad som förval) lägger till ytterligare varningar som pålitligt upptäcket problematisk källkod. Varningarna är ödesdigra. De enda flaggor som för närvarande stöds är B<CFLAGS> och B<CXXFLAGS> med flaggorna satt till B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> och B<-Werror=volatile-register-var>.
+This setting (since dpkg 1.17.4; disabled by default) adds any warning option that reliably detects problematic source code.  The warnings are fatal.  The only currently supported flags are B<CFLAGS> and B<CXXFLAGS> with flags set to B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> and B<-Werror=volatile-register-var>.
 
 =item B<canary>
 
-Den här inställningen (inaktiverad som förval) lägger till overksamma tjallarflaggor till byggflaggorna, så att byggloggarna kan kontrolleras för att se hur byggflaggor vidarebefordras för att göra det enklare att hitta när vanliga byggflagor utesluts. De enda flaggor som stöds är för närvarande B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> och B<OBJCXXFLAGS> med flaggorna satta till B<-D__DEB_CANARY_>I<flag>_I<slumpmässigt-id>B<__>, och B<LDFLAGS> satt till B<-Wl,-z,deb-canary->I<slumpmässigt-id>.
+This setting (since dpkg 1.17.14; disabled by default) adds dummy canary options to the build flags, so that the build logs can be checked for how the build flags propagate and to allow finding any omission of normal build flag settings.  The only currently supported flags are B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> and B<OBJCXXFLAGS> with flags set to B<-D__DEB_CANARY_>I<flag>_I<random-id>B<__>, and B<LDFLAGS> set to B<-Wl,-z,deb-canary->I<random-id>.
 
 =back
 
@@ -308,19 +328,19 @@ Du kan använda flera kompileringsflaggor (se detaljer nedan) för att sanera de
 
 =item B<address>
 
-Den här inställningen (inaktiverad som förval) lägger till B<-fsanitize=address> till B<LDFLAGS> och B<-fsanitize=address -fno-omit-frame-pointer> till B<CFLAGS> och B<CXXFLAGS>.
+This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=address> to B<LDFLAGS> and B<-fsanitize=address -fno-omit-frame-pointer> to B<CFLAGS> and B<CXXFLAGS>.
 
 =item B<thread>
 
-Den här inställningen (inaktiverad som förval) lägger till B<-fsanitize=thread> till B<CFLAGS>, B<CXXFLAGS> och B<LDFLAGS>.
+This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=thread> to B<CFLAGS>, B<CXXFLAGS> and B<LDFLAGS>.
 
 =item B<leak>
 
-Den här inställningen (inaktiverad som förval) lägger till B<-fsanitize=leak> till B<LDFLAGS>. Den inaktiveras automatiskt om antingen funktionen B<address> eller B<thread> aktiveras, eftersom de implicerar den.
+This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=leak> to B<LDFLAGS>. It gets automatically disabled if either the B<address> or the B<thread> features are enabled, as they imply it.
 
 =item B<undefined>
 
-Den här inställningen (inaktiverad som förval) lägger till B<-fsanitize=undefined> till B<CFLAGS>, B<CXXFLAGS> och B<LDFLAGS>.
+This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=undefined> to B<CFLAGS>, B<CXXFLAGS> and B<LDFLAGS>.
 
 =back
 
@@ -332,39 +352,47 @@ Du kan använda flera kompileringsflaggor (se detaljer nedan) för att härda de
 
 =item B<format>
 
-Inställningen (aktiverad som förval) lägger till B<-Wformat -Werror=format-security> till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS> och B<OBJCXXFLAGS>. Detta kommer att varna om olämplig användning av formatsträngar, och att misslyckas när formatfunktionerna används på ett sätt som representerar möjliga säkerhetsproblem. För närvarande varnar detta om anrop till funktionerna B<printf> och B<scanf> där formatsträngen inte är en fast sträng och när det inte finns några formatargument, som i B<printf(foo);> istället för B<printf("%s", foo);> Detta kan vara ett säkerhetshål om formatsträngen kommer från en obetrodd källa och innehåller ”%n”.
+This setting (since dpkg 1.16.1; enabled by default) adds B<-Wformat -Werror=format-security> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS> and B<OBJCXXFLAGS>.  This will warn about improper format string uses, and will fail when format functions are used in a way that represent possible security problems. At present, this warns about calls to B<printf> and B<scanf> functions where the format string is not a string literal and there are no format arguments, as in B<printf(foo);> instead of B<printf("%s", foo);> This may be a security hole if the format string came from untrusted input and contains ‘%n’.
 
 =item B<fortify>
 
-Inställningen (aktiverad som förval) lägger till  B<-D_FORTIFY_SOURCE=2> till B<CPPFLAGS>. Kompilatorn har under kodgenereringen kännedom om en hel del information om buffertstorlekar (där tillämpligt) och försöker ersätta osäkra funktionsanrop med obegränsade buffertlängder med längdbegränsade dito. Det här är speciellt användbart för gammal, skräpig kod. Dessutom blockeras formatsträngar i skrivbart minne som innehåller ”%n”. Om ett program är beroende av en sådan formatsträng måste det gås runt i kod.
+This setting (since dpkg 1.16.1; enabled by default) adds B<-D_FORTIFY_SOURCE=2> to B<CPPFLAGS>. During code generation the compiler knows a great deal of information about buffer sizes (where possible), and attempts to replace insecure unlimited length buffer function calls with length-limited ones. This is especially useful for old, crufty code. Additionally, format strings in writable memory that contain ‘%n’ are blocked. If an application depends on such a format string, it will need to be worked around.
 
 Observera att för att den här flaggan ska ha någon funktion måste källkoden också kompileras med B<-O1> eller högre. Om miljövariabeln B<DEB_BUILD_OPTIONS> innehåller I<noopt> kommer stödet för B<fortify> att inaktiverats, på grund av nya varningar som ges av glibc 2.16 och senare.
 
 =item B<stackprotector>
 
-Inställningen (aktiverad som förval om stackprotectorstrong inte används) lägger till B<-fstack-protector --param=ssp-buffer-size=4> till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> och B<FCFLAGS>. Detta lägger till säkerhetskontroller mot stacköverskrivningar, vilket gör att många möjliga kodinjiceringsangrepp istället avbryter programmet. I det bästa fallet gör det kodinjiceringsangrepp till överbelastnignsangrepp eller icke-problem (beroende på programmet).
+This setting (since dpkg 1.16.1; enabled by default if stackprotectorstrong is not in use) adds B<-fstack-protector --param=ssp-buffer-size=4> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds safety checks against stack overwrites. This renders many potential code injection attacks into aborting situations. In the best case this turns code injection vulnerabilities into denial of service or into non-issues (depending on the application).
 
 Den här funktionen kräver länkning mot glibc (eller ett annat bibliotek som tillhandahåller B<__stack_chk_fail>), så det måste inaktiveras när du bygger med B<-nostdlib> eller B<-ffreestanding> eller liknande.
 
 =item B<stackprotectorstrong>
 
-Inställningen (aktiverad som förval) lägger till B<-fstack-protector-strong> till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> och B<FCFLAGS>. Detta är en starkare variant av B<stackprotector>, men utan markanta prestandaminskningar.
+This setting (since dpkg 1.17.11; enabled by default) adds B<-fstack-protector-strong> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This is a stronger variant of B<stackprotector>, but without significant performance penalties.
 
 Om du inaktiverar B<stackprotector> inaktiveras även denna inställning.
 
 Funktionen har samma krav som B<stackprotector>, och kräver dessutom gcc 4.9 eller senare.
 
+=item B<stackclask>
+
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fstack-clash-protection> on B<amd64>, B<arm64>, B<armhf> and B<armel> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds code to prevent stack clash style attacks.
+
+=item B<branch>
+
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fcf-protection> on B<amd64> and B<-mbranch-protection=standard> on B<arm64> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds branch protection to indirect calls, jumps and returns to check whether these are valid at run-time.
+
 =item B<relro>
 
-Inställningen (aktiverad som förval) lägger till B<-Wl,-z,relro> till B<LDFLAGS>. Vid inläsning av programmet måste länkaren skriva till flera ELF-minnessektioner. Den här inställningen flaggar till inläsaren att dessa sektioner ska göras skrivskyddade innan programmet får kontroll. Detta skyddar huvudsaklingen mot GOT-överskrivningsangrepp. Om inställningen inaktiveras kommer även B<bindnow> att inaktiveras.
+This setting (since dpkg 1.16.1; enabled by default) adds B<-Wl,-z,relro> to B<LDFLAGS>.  During program load, several ELF memory sections need to be written to by the linker. This flags the loader to turn these sections read-only before turning over control to the program. Most notably this prevents GOT overwrite attacks. If this option is disabled, B<bindnow> will become disabled as well.
 
 =item B<bindnow>
 
-Inställningen (inaktiverad som förval) lägger till B<-Wl,-z,bindnow> till B<LDFLAGS>. Vid inläsning av programmet löses alla dynamiska symboler, vilket gör att hela PLT kan markeras som skrivskyddad (på grund av B<relro> ovan). Inställningen kan inte aktiveras om B<relro> inte är aktiverad.
+This setting (since dpkg 1.16.1; disabled by default) adds B<-Wl,-z,now> to B<LDFLAGS>. During program load, all dynamic symbols are resolved, allowing for the entire PLT to be marked read-only (due to B<relro> above). The option cannot become enabled if B<relro> is not enabled.
 
 =item B<pie>
 
-Den här inställningen (utan globalt förval sedan dpkg 1.18.23, eftersom den aktiveras som förval numera av gcc på Debianarkitekturerna amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc och sparc64) lägger till de flaggor som krävs för att aktivera eller inaktivera PIE via gcc-specifikationsfiler, om det behövs, beroende på om gcc lägger till flaggorna själv på arkitekturen eller inte. Om inställningen aktiveras och gcc injicerar flaggorna lägger den inte till Någonting. Om inställningen är aktiverad och gcc inte injicerar flaggorna, lägger den till B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> och B<FCFLAGS>, och B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) till B<LDFLAGS>. När inställningen är inaktiverad och gcc injicerar flaggorna, lägger den till B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> till B<FCFLAGS>, och B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) till B<LDFLAGS>.
+This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian architectures) adds the required options to enable or disable PIE via gcc specs files, if needed, depending on whether gcc injects on that architecture the flags by itself or not.  When the setting is enabled and gcc injects the flags, it adds nothing.  When the setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled and gcc injects the flags, it adds B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) to B<LDFLAGS>.
 
 Positionsoberoende exekverbara program (PIE) behövs för att dra fördel av slumpmässig adressrymd (ASLR), vilket stöds av vissa versioner av kärnan. Medan ASLR redan kan användas för datautrymmen i stacken och heap:en (brk och mmap), måste kodområden först kompileras som positionsoberoende. Delade bibliotek gör redan detta (-fPIC), så de drar automatiskt fördel av ASLR medan binära .text-regioner måste byggas med PIE för att uppnå ASLR. När detta sker är ROP-angrepp (Return Oriented Programming) mycket svårare eftersom det inte finns några statiska platser att studsa från i ett minnesfördärvningsangrepp.
 
@@ -388,7 +416,7 @@ Kan länkas till alla program och delade bibliotek.
 
 =back
 
-Om flaggorna behöver sättas manuellt och gcc:s spec-injektion förbigås, finns det flera saker man behöver tänka på. Att ovillkorligen och explicit sända B<-fPIE>, B<-fpie> eller B<-pie> till ett byggsystem som använder libtool är säkert eftersom flaggorna kommer skalas av när delade bibliotek byggs. På projekt som bygger både program och delade bibliotek kan du annars behöva se till att B<-fPIC> alltid sänds sist i kompileringsflaggor såsom B<CFLAGS> när delade bibliotek byggs (så att den överstyre en tidigare angiven B<-PIE>), och att B<-shared> sänds sist till länkflaggor såsom B<LDFLAGS> (så att den överstyr en tidigare angiven B<-pie>). B<Observera:> Detta behöver inte göras med standard-gcc-specifikationsmaskineriet.
+If there is a need to set these flags manually, bypassing the gcc specs injection, there are several things to take into account. Unconditionally and explicitly passing B<-fPIE>, B<-fpie> or B<-pie> to a build-system using libtool is safe as these flags will get stripped when building shared libraries.  Otherwise on projects that build both programs and shared libraries you might need to make sure that when building the shared libraries B<-fPIC> is always passed last (so that it overrides any previous B<-PIE>) to compilation flags such as B<CFLAGS>, and B<-shared> is passed last (so that it overrides any previous B<-pie>) to linking flags such as B<LDFLAGS>. B<Note>: This should not be needed with the default gcc specs machinery.
 
 Eftersom PIE i tillägg implementeras med ett generellt register kan vissa arkitekturer med få register (men inte längre i386 eftersom optimeringar implementerats i gcc E<gt>= 5) se prestandaförluster upp till 15% i väldigt textsegment-tunga programs körning; de flesta körningar ser mindre än 1%. Arkitekturer med många generella register (t.ex amd64) ser inte en lika stor värsta falls-förlust.
 
@@ -402,17 +430,21 @@ Kompileringsflaggorna som anges nedan kan användas för att göra det lättare 
 
 =item B<timeless>
 
-Inställningen (aktiverad som förval) lägger till B<-Wdate-time> till B<CPPFLAGS>. Detta ger varningar när makrona B<__TIME__>, B<__DATE__> eller B<__TIMESTAMP__> används.
+This setting (since dpkg 1.17.14; enabled by default) adds B<-Wdate-time> to B<CPPFLAGS>.  This will cause warnings when the B<__TIME__>, B<__DATE__> and B<__TIMESTAMP__> macros are used.
 
 =item B<fixfilepath>
 
-Inställningen (aktiverad som förval) lägger till B<-ffile-prefix-map=>I<BYGGSÖKVÄG>B<=.> till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> och B<FCFLAGS> där B<BYGGSÖKVÄG>. Detta får till effekt att byggsökvägen försvinner från alla genererade filer.
+This setting (since dpkg 1.19.1; enabled by default) adds B<-ffile-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built. This has the effect of removing the build path from any generated file.
 
 Om både B<fixdebugpath> och B<fixfilepath> anges tar denna flagga företräde, eftersom den är en övermängd av den förstnämnda.
 
+B<Note>: If the build process captures the build flags into the resulting built objects, that will make the package unreproducible.  And while disabling this option might make some of the objects reproducible again this would also require disabling B<fixdebugpath>, which might make any generated debug symbols objects unreproducible.  The ideal fix is to stop capturing build flags.
+
 =item B<fixdebugpath>
 
-Inställningen (aktiverad som förval) lägger till B<-fdebug-prefix-map=>I<BYGGSÖKVÄG>B<=.> till till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> och B<FCFLAGS>. Detta får till effekt att byggsökvägen försvinner från alla genererade felsökningssymboler.
+This setting (since dpkg 1.18.5; enabled by default) adds B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built. This has the effect of removing the build path from any generated debug symbols.
+
+B<Note>: This feature has similar reproducible properties as B<fixfilepath>.
 
 =back
 
@@ -424,31 +456,31 @@ Det finns två uppsättningar miljövariabler som utför samma operationer, den 
 
 =item B<DEB_>I<flagga>B<_SET>
 
-=item B<DEB_>I<flagga>B<_MAINT_SET>
+=item B<DEB_>I<flag>B<_MAINT_SET> (since dpkg 1.16.1)
 
 Denna variabel kan användas för att tvinga fram värdet som returneras för given I<flagga>.
 
-=item B<DEB_>I<flagga>B<_STRIP>
+=item B<DEB_>I<flag>B<_STRIP> (since dpkg 1.16.1)
 
-=item B<DEB_>I<flagga>B<_MAINT_STRIP>
+=item B<DEB_>I<flag>B<_MAINT_STRIP> (since dpkg 1.16.1)
 
 Denna variabel kan användas för att tillhandahålla en blankstegsavdelad lista med flaggor som kommer att tas bort från uppsättningen flaggor som ges för given I<flagga>.
 
 =item B<DEB_>I<flagga>B<_APPEND>
 
-=item B<DEB_>I<flagga>B<_MAINT_APPEND>
+=item B<DEB_>I<flag>B<_MAINT_APPEND> (since dpkg 1.16.1)
 
 Denna variabel kan användas för att lägga till ytterligare flaggor till värdet som returneras för given I<flagga>.
 
-=item B<DEB_>I<flagga>B<_PREPEND>
+=item B<DEB_>I<flag>B<_PREPEND> (since dpkg 1.16.1)
 
-=item B<DEB_>I<flagga>B<_MAINT_PREPEND>
+=item B<DEB_>I<flag>B<_MAINT_PREPEND> (since dpkg 1.16.1)
 
 Denna variabel kan användas för att lägga till ytterligare flaggor först i värdet som returneras för given I<flagga>.
 
 =item B<DEB_BUILD_OPTIONS>
 
-=item B<DEB_BUILD_MAINT_OPTIONS>
+=item B<DEB_BUILD_MAINT_OPTIONS> (since dpkg 1.16.1)
 
 De här variablerna kan användas av en användare eller utvecklare för att slå av/på olika områdesfunktioner som påverkar byggflaggorna. Variabeln B<DEB_BUILD_MAINT_OPTIONS>-variabeln överstyr alla inställningar i funktionsområden i B<DEB_BUILD_OPTIONS>. Se avsnittet B<FUNKTIONSOMRÅDEN> för mer information.
 

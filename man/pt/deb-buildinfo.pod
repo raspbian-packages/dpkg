@@ -28,7 +28,23 @@ Cada campo começa com uma etiqueta, tal como B<Source> ou B<Binary> (insensíve
 
 Os dados de controle podem estar inclusos numa assinatura OpenPGP ASCII Armored, como especificado em RFC4880.
 
-O nome do ficheiro B<.buildinfo> irá depender do tipo de compilação e irá ser tão específico quanto necessário e não mais; para uma compilação que inclui B<any> o nome será I<source-name>B<_>I<binary-version>B<_>I<arch>B<.buildinfo>, ou caso contrário para uma compilação que inclui B<all> o nome será I<source-name>B<_>I<binary-version>B<_>B<all.buildinfo>, ou caso contrário para uma compilação que inclui B<source> o nome será I<source-name>B<_>I<source-version>B<_>B<source.buildinfo>.
+The name of the B<.buildinfo> file will depend on the type of build and will be as specific as necessary but not more; the name will be:
+
+=over 
+
+=item I<source-name>B<_>I<binary-version>B<_>I<arch>B<.buildinfo>
+
+for a build that includes B<any>
+
+=item I<source-name>B<_>I<binary-version>B<_>B<all.buildinfo>
+
+otherwise for a build that includes B<all>
+
+=item I<source-name>B<_>I<source-version>B<_>B<source.buildinfo>
+
+otherwise for a build that includes B<source>
+
+=back
 
 =head1 CAMPOS
 

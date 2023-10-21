@@ -127,8 +127,8 @@ sub load_override {
 	if (!defined $maintainer) {
 	    # do nothing
         } elsif ($maintainer =~ /^(.*\S)\s*=>\s*(.*)$/) {
-	    $override{$package}[O_MAINT_FROM] = [split m{\s*//\s*}, $1];
 	    $override{$package}[O_MAINT_TO] = $2;
+	    $override{$package}[O_MAINT_FROM] = [split m{\s*//\s*}, $1];
         } else {
 	    $override{$package}[O_MAINT_TO] = $maintainer;
 	}
@@ -206,6 +206,7 @@ sub process_dsc {
     my ($prefix, $file) = @_;
 
     my $basename = $file;
+    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
     my $dir = ($basename =~ s{^(.*)/}{}) ? $1 : '';
     $dir = "$prefix$dir";
     $dir =~ s{/+$}{};
@@ -286,7 +287,7 @@ sub process_dsc {
 }
 
 usageerr(g_('one to three arguments expected'))
-    if @ARGV < 1 or @ARGV > 3;
+    if not 1 <= @ARGV <= 3;
 
 push @ARGV, undef if @ARGV < 2;
 push @ARGV, '' if @ARGV < 3;

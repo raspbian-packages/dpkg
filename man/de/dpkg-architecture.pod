@@ -60,6 +60,8 @@ Gibt ähnlich wie B<--print-set> einen Export-Befehl aus, der alle Variablen lö
 
 Führt eine I<Befehlszeichenkette> in einer Umgebung aus, in der alle Variablen auf die festgelegten Werte gesetzt sind.
 
+Falls die I<Befehlszeichenkette> Shell-Metazeichen enthält, dann wird sie durch die System-Bourne-Shell aufgerufen.
+
 =item B<-L>, B<--list-known>
 
 Gibt eine Liste von gültigen Architekturnamen aus. Möglicherweise durch eine oder mehrere der Abgleich-Optionen B<--match-wildcard>, B<--match-bits> oder B<--match-endian> eingeschränkt (seit Dpkg 1.17.14).

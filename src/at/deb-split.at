@@ -23,7 +23,7 @@ dpkg-deb --root-owner-group -Znone -b pkg-split >/dev/null
 AT_CHECK([
 # Test splitting a package (in 10 parts: 9 * 210 KiB B + 158 KiB)
 dpkg-split -S 210 -s pkg-split.deb pkg-split-part
-for p in $(seq 10); do
+for p in DPKG_SEQ([10]); do
   test -f pkg-split-part.${p}of10.deb
 done
 ], [], [Splitting package pkg-split into 10 parts: 1 2 3 4 5 6 7 8 9 10 done
@@ -42,7 +42,7 @@ AT_CHECK_UNQUOTED([
 # Test debian-split with 2.x version
 cp pkg-split-part.1of10.deb pkg-split-part-version-2x.deb
 ar x pkg-split-part-version-2x.deb debian-split
-sed -e '1c2.999' debian-split >debian-split.new
+$SED -e '1c2.999' debian-split >debian-split.new
 mv debian-split.new debian-split
 ar rc pkg-split-part-version-2x.deb debian-split
 ar t pkg-split-part-version-2x.deb
@@ -113,9 +113,8 @@ dpkg-split -I pkg-split-part-missing-data.deb
 
 AT_CHECK([
 # Test duplicate debian-split member
-cp pkg-split-part.1of10.deb pkg-split-part-duplicate-magic.deb
-ar x pkg-split-part-duplicate-magic.deb debian-split
-ar ra debian-split pkg-split-part-duplicate-magic.deb debian-split debian-split
+ar x pkg-split-part.1of10.deb debian-split data.1
+ar qc pkg-split-part-duplicate-magic.deb debian-split debian-split data.1
 ar t pkg-split-part-duplicate-magic.deb
 dpkg-split -I pkg-split-part-duplicate-magic.deb
 ], [2], [debian-split

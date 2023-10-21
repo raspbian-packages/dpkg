@@ -154,7 +154,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 Ficheiro que contém a lista actual das divergências do sistema. Está localizado no directório de administração do B<dpkg>, juntamente com outros ficheiros importantes para o B<dpkg>, tais como <estado> ou I<disponível>.
 
-B<Nota:> O B<dpkg-divert> preserva uma cópia antiga deste ficheiro, com a extensão I<-old>, antes do o substituir pelo novo.
+B<Note>: B<dpkg-divert> preserves the old copy of this file, with extension I<-old>, before replacing it with the new one.
 
 =back
 

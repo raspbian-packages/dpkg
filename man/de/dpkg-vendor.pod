@@ -24,6 +24,8 @@ B<dpkg-vendor> [I<Option> …] I<Befehl>
 
 B<dpkg-vendor> ist ein Werkzeug, um Informationen über in B<%PKGCONFDIR%/origins> aufgeführte Lieferanten (engl. „vendor“) abzufragen. B<%PKGCONFDIR%/origins/default> enthält Informationen über den aktuellen Lieferanten.
 
+This program was introduced in dpkg 1.15.1.
+
 =head1 BEFEHLE
 
 =over 

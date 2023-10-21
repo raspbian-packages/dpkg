@@ -119,8 +119,6 @@ extracthalf(const char *debar, const char *dir,
   int p1[2], p2[2];
   int p2_out;
   char nlc;
-  int adminmember = -1;
-  bool header_done;
   struct compress_params decompress_params = {
     .type = COMPRESSOR_TYPE_GZIP,
     .threads_max = compress_params.threads_max,
@@ -133,8 +131,10 @@ extracthalf(const char *debar, const char *dir,
     read_fail(r, debar, _("archive magic version number"));
 
   if (strcmp(versionbuf, DPKG_AR_MAGIC) == 0) {
+    int adminmember = -1;
+    bool header_done = false;
+
     ctrllennum= 0;
-    header_done = false;
     for (;;) {
       struct dpkg_ar_hdr arh;
 
@@ -306,6 +306,7 @@ extracthalf(const char *debar, const char *dir,
                       _("decompressing archive '%s' (size=%jd) member '%s'"),
                       ar->name, (intmax_t)ar->size,
                       admininfo ? ADMINMEMBER : DATAMEMBER);
+    dpkg_ar_close(ar);
     exit(0);
   }
   close(p1[0]);
@@ -366,7 +367,7 @@ extracthalf(const char *debar, const char *dir,
   if (c1 != -1)
     subproc_reap(c1, _("paste"), 0);
   if (version.major == 0 && admininfo) {
-    /* Handle the version as a float to preserve the behaviour of old code,
+    /* Handle the version as a float to preserve the behavior of old code,
      * because even if the format is defined to be padded by 0's that might
      * not have been always true for really ancient versions... */
     while (version.minor && (version.minor % 10) == 0)

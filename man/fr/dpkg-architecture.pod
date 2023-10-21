@@ -60,6 +60,8 @@ Afficher une commande similaire à celle produite par B<--print-set>, mais pour 
 
 Exécuter une I<chaîne-de-commande> dans un environnement où toutes les variables sont positionnées aux valeurs spécifiées.
 
+If the I<command-string> contains shell metacharacters, then it will be invoked through the system bourne shell.
+
 =item B<-L>, B<--list-known>
 
 Afficher une liste des architectures valables. Elle peut être restreinte par une ou plusieurs des options correspondantes B<--match-wildcard>, B<--match-bits> ou B<--match-endian> (depuis S<dpkg 1.17.14).>

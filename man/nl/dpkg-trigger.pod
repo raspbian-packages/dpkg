@@ -30,6 +30,8 @@ Dit kan gebruikt worden door scripts van de pakketonderhouder in complexe en voo
 
 Een syntaxis van een triggernaam die niet herkend wordt, is voor B<dpkg-trigger> een fout.
 
+This program was introduced in dpkg 1.14.17.
+
 =head1 COMMANDO'S
 
 =over 

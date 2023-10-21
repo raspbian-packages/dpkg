@@ -154,8 +154,10 @@ Z<>
   package diverts others to: I<diverted-to>
   diverted by I<pkg> to: I<diverted-to>
 
-Hint: When machine parsing the output, it is customary to set the locale to
-B<C.UTF-8> to get reproducible results.
+B<Hint>: When machine parsing the output, it is customary to set the locale to
+B<C.UTF-8> to get reproducible results. On some systems this might also
+require adapting the B<LANGUAGE> environment variable appropriately if it
+is already set (see L<locale(7)>).
 
 This command will not list extra files created by maintainer scripts,
 nor will it list alternatives.
@@ -224,7 +226,7 @@ Z<>
   local diversion from: I<diverted-from>
   local diversion to: I<diverted-to>
 
-Hint: When machine parsing the output, it is customary to set the locale to
+B<Hint>: When machine parsing the output, it is customary to set the locale to
 B<C.UTF-8> to get reproducible results.
 
 =item B<-p>, B<--print-avail> [I<package-name>...]
@@ -545,6 +547,13 @@ variables can be set to disable specific options with «B<-+>», for
 example B<DPKG_PAGER="less -+F">.
 
 =back
+
+=head1 SECURITY
+
+Query operations should never require root, and delegating their execution
+to unprivileged users via some gain-root command can have security
+implications (such as privilege escalation), for example when a pager is
+automatically invoked by the tool.
 
 =head1 SEE ALSO
 

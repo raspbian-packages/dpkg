@@ -563,6 +563,12 @@ Formloser Text, der an den Anfang des in den Formaten „2.0“ und „3.0 (quil
 
 Diese Datei führt alle Patches auf, die (in der angegebenen Reihenfolge) auf das Quellpaket der Originalautoren angewandt werden müssen. Leerzeichen am Anfang und Ende werden entfernt. I<Lieferant> ist der Name des aktuellen Lieferanten in Kleinschreibung oder B<debian>, falls kein Lieferant definiert ist. Falls die lieferantenspezifische Seriendatei nicht existiert, wird eine lieferantenfreie Seriendatei verwandt. Zeilen, die mit ‚B<#>’ anfangen, sind Kommentare und werden übersprungen. Leere Zeilen werden ignoriert. Die verbleibenden Zeilen beginnen mit dem Dateinamen eines Patches (relativ zum Verzeichnis B<debian/patches/>) bis zum ersten Leerzeichen oder bis zum Zeilenende. Bis zum Ende der Zeile oder bis zum ersten ‚B<#>’ gefolgt von einem oder mehreren Leerzeichen (dies markiert den Beginn eines Kommentars, der bis zum Zeilenende geht) können optionale B<quilt>-Befehle folgen.
 
+=head1 SICHERHEIT
+
+Untersuchen nicht vertrauenswürdiger Quellpakete oder ihr Entpacken in ein Arbeitsverzeichnis sollte als Sicherheitsgrenze betrachtet werden und jede Verletzung dieser Grenze, die aus diesen Aktionen resultiert, sollte als Sicherheitsverwundbarkeit betrachtet werden. Allerdings sollte der Umgang mit nicht vertrauenswürdigen Quellpaketen nicht leichtherzig erfolgen, da die Oberfläche alle unterstützten Komprimierungsbefehle und Befehle zum Umgang mit bestimmten Datenformaten (wie L<tar(1)> oder L<patch(1)>) umfasst, zusätzliche zu den Quellpaketformaten und Steuerdateien selbst. Es wird nachdrücklich davon abgeraten, diese Aktionen auf nicht vertrauenswürdigen Daten als Root durchzuführen.
+
+Das Bauen von Quellpaketen sollte nur mit vertrauenswürdigen Daten erfolgen.
+
 =head1 FEHLER
 
 Die Stelle, an der das Überschreiben von Feldern passiert, verglichen mit bestimmten Standard-Ausgabe-Feldeinstellungen, ist eher verwirrend.

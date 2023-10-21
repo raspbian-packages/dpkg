@@ -24,7 +24,7 @@ B<dpkg-genbuildinfo> [I<Optionen> …]
 
 B<dpkg-genbuildinfo> liest Informationen aus einem entpackten und gebauten Debian-Quellcodebaum und aus den darin erzeugten Dateien und erzeugt eine Debian-Steuerdatei, die die Bauumgebung und Bauartefakte beschreibt (Datei B<.buildinfo>).
 
-Dieser Befehl wurde in Dpkg 1.18.11 hinzugefügt.
+This program was introduced in dpkg 1.18.11.
 
 =head1 OPTIONEN
 

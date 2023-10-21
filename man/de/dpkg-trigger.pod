@@ -30,6 +30,8 @@ Dies kann von Betreuerskripten in komplexen und durch Bedingungen beeinflusste S
 
 Nicht erkannte Triggernamen-Syntaxen sind für B<dpkg-trigger> ein Fehler.
 
+This program was introduced in dpkg 1.14.17.
+
 =head1 BEFEHLE
 
 =over 

@@ -98,7 +98,7 @@ Ta med beroenden som är passar för delade bibliotek som krävs för I<programf
 
 Lägg till I<katalog> först i listan över kataloger som ska eftersökas efter privata delade bibliotek (sedan dpkg 1.17.0). Flaggan kan användas flera gånger.
 
-B<Observera>: Använd den här flaggan istället för att sätta B<LD_LIBRARY_PATH>, eftersom miljövariabeln används för att styra körtidslänkaren, och genom att utnyttja det för att ange sökvägen till delade bibliotek vid kompilering kan det uppstå problem, till exempel vid korskompilering.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-d>I<beroendefält>
 

@@ -45,6 +45,8 @@ Dieses Programm wurde so entworfen, dass es in Betreuerskripten ausgeführt werd
 
 Viele dieser Aufgaben benötigen koordinierte Aktionen aus mehreren Betreuerskripten (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Um Fehler zu vermeiden, wird der gleiche Aufruf einfach in alle Skripte eingefügt und das Programm wird sein Verhalten automatisch abhängig von der Variable B<DPKG_MAINTSCRIPT_NAME> und den Argumenten im Betreuerskript, die Sie nach einem doppelten Bindestrich übergeben müssen, anpassen.
 
+This program was introduced in dpkg 1.15.7.
+
 =head1 GEMEINSAME PARAMETER
 
 =over 
@@ -75,7 +77,7 @@ Das bedeutet, falls ein Paket eine Conffile umbenennen oder entfernen soll, muss
 
 =head2 Eine Conffile entfernen
 
-Hinweis: In den meisten Fällen kann dies durch den Schalter C<remove-on-upgrade> in F<DEBIAN/conffiles> (seit Dpkg 1.20.6) ersetzt werden, siehe L<deb-conffiles(5)>.
+B<Hinweis>: In den meisten Fällen kann dies durch den Schalter C<remove-on-upgrade> in F<DEBIAN/conffiles> (seit Dpkg 1.20.6) ersetzt werden, siehe L<deb-conffiles(5)>.
 
 Falls eine Conffile komplett entfernt wird, sollte sie von der Platte entfernt werden, falls der Benutzer sie nicht verändert hat. Falls es lokale Anpassungen gibt, sollten diese erhalten werden. Falls das Upgrade des Pakets abgebrochen wird, sollte die neuerdings veraltete Conffile nicht verschwinden.
 
@@ -115,7 +117,7 @@ Aktuelle Implementierung: das B<preinst> überprüft, ob die Conffile verändert
 
 Beim Upgrade eines Pakets wird B<dpkg> einen Symlink nicht automatisch in ein Verzeichnis und umgekehrt umwandeln. Installationen älterer Versionen („downgrades“) werden nicht unterstützt und der Pfad verbleibt wie er ist.
 
-Hinweis: Die während dieser Schalter erstellten Symlinks und Verzeichnisse müssen in dem neuen Paket ausgeliefert werden oder B<dpkg> wird nicht in der Lage sein, sie beim endgültigen Löschen zu entfernen.
+B<Hinweis>: Die während dieser Schalter erstellten Symlinks und Verzeichnisse müssen in dem neuen Paket ausgeliefert werden oder B<dpkg> wird nicht in der Lage sein, sie beim endgültigen Löschen zu entfernen.
 
 =head2 Einen Symlink in ein Verzeichnis umwandeln
 

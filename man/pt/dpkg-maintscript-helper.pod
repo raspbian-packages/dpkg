@@ -41,7 +41,9 @@ B<dpkg-maintscript-helper> I<command> [I<parameter>...] B<--> I<maint-script-par
 
 Este programa destina-se a ser corrido dentro de scripts de maintainer para conseguir algumas tarefas que o B<dpkg> (ainda) não pode lidar nativamente seja por limitações de desenho ou devido a limitações actuais,
 
-Muitas destas tarefas requerem acções coordenadas dos vários scripts de maintainer (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Para evitar enganos a mesma chamada precisa simplesmente de englobar todos os scripts e o programa irá automaticamente adaptar o seu comportamento baseado na variável de ambiente B<DPKG_MAINTSCRIPT_NAME> e nos argumentos dos scripts do maintainer que você tem de reencaminhar após um duplo hífen.
+Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). To avoid mistakes the same call simply needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
+
+This program was introduced in dpkg 1.15.7.
 
 =head1 PARÂMETROS COMUNS
 
@@ -73,7 +75,7 @@ Isto significa que se um pacote se destina a renomear ou remover um conffile, de
 
 =head2 Remover um ficheiro de configuração
 
-Nota: Isto pode ser substituído na maioria dos casos pela bandeira C<remove-on-upgrade> em F<DEBIAN/conffiles> (desde dpkg 1.20.6), veja L<deb-conffiles(5)>.
+B<Note>: This can be replaced in most cases by the C<remove-on-upgrade> flag in F<DEBIAN/conffiles> (since dpkg 1.20.6), see L<deb-conffiles(5)>.
 
 Se um conffile for completamente removido, deve ser removido do disco, a menos que o utilizador o tenha modificado. Se existirem modificações locais, estas devem ser preservadas. Se a actualização do pacote abortar, o conffile obsoleto mais recente não deve desaparecer.
 
@@ -113,7 +115,7 @@ Implementação actual: o B<preinst> verifica se o conffile foi modificado. Se s
 
 Ao actualiza um pacote, o B<dpkg> não irá mudar automaticamente de um link simbólico para um directório ou vice-versa. Downgrades (descidas de versão) não são suportados e o caminho irá ser deixado como está.
 
-Nota: Os links simbólicos e directórios criados durante esses switches precisam de ser enviados nos novos pacotes, ou o B<dpkg> não será capaz de os remover durante a purga.
+B<Note>: The symlinks and directories created during these switches need to be shipped in the new packages, or B<dpkg> will not be able to remove them on purge.
 
 =head2 Alternar um link simbólico para directório
 

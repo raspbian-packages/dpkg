@@ -103,7 +103,7 @@ La description étendue du paquet source, extraite du champ B<Description> du pa
 
 La taille approximative de tous les fichiers installés du paquet. Cette valeur est copiée dans le champ adéquat du fichier S<« control »> ; quand on fixe cette variable, cela modifie la valeur de ce champ. Quand elle est indéterminée, B<dpkg-gencontrol> calcule la valeur par défaut en additionnant la taille de chaque fichier ordinaire et lien symbolique arrondie en unité d'un kio utilisée et sur la base d'un kio pour n'importe quel type d'objet du système de fichiers, les liens physiques étant comptés une seule fois comme des fichiers ordinaires.
 
-S<B<Remarque> :> Il faut tenir compte que cela ne peut jamais être qu'une approximation dans la mesure où la taille véritablement occupée sur un système installé dépend largement du système de fichiers utilisé et de ses paramètres, ce qui pourrait finir par l'utilisation de plus ou moins d'espace que ce qui est spécifié dans ce champ.
+B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
 
 =item B<Extra-Size>
 

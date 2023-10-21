@@ -80,17 +80,31 @@ Sätt rotkatalogen till B<katalog>, vilket sätter installationskatalogen till �
 
 Tvinga eller vägra (B<no-force> och B<refuse> betyder detsamma) att göra vissa saker (sedan dpkg 1.19.5). I<saker> är en kommaavdelad lista med saker som anges nedan. B<--force-help> visar en lista med beskrivningar. Saker som markeras med (*) är tvingade som förval.
 
-I<Varning: Dessa flaggor är huvudsakligen avsedda att endast användas av experter. Om du använder dem utan att fullt ut förstå vad de går ut på kan du förstöra din systeminstallation.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-B<all>: Slår på (eller av) alla tvingande flaggor.
+=over 4
 
-B<statoverride-add>: Skriver över en existerande stat-överstyrning när den läggs till (sedan dpkg 1.19.5).
+=item B<all>:
 
-B<statoverride-remove>: Ignorera en saknad stat-överstyrning när den tas bort (sedan dpkg 1.19.5).
+Turns on (or off) all force options.
 
-B<security-mac>(*): Använd platformsspecifik säkerhet baserad på obligatorisk åtkomststyrning (Mandatory Access Controls, MAC) när filer installeras i filsystemet (sedan dpkg 1.19.5). På Linuxsystem använder implementationen SELinux.
+=item B<statoverride-add>:
 
-B<not-root>: Försök (av)installera saker även utan att vara root (sedan dpkg 1.21.8).
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root (since dpkg 1.21.8).
+
+=back
 
 =item B<--force>
 
@@ -158,7 +172,7 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 
 Fil som innehåller den aktuella listan över statöverstyrningar på systemet. Den finns i B<dpkg>:s administrationskatalog, tillsammans med andra filer som är viktiga för B<dpkg>, som I<status> och I<available>.
 
-B<Observera:> B<dpkg-statoverride> bevarar den gamla upplagan av filen, med tillägget ”-old” innan den ersätts med den nya.
+B<Note>: B<dpkg-statoverride> preserves the old copy of this file, with extension “-old”, before replacing it with the new one.
 
 =back
 

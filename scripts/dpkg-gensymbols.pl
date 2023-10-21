@@ -24,6 +24,7 @@ use warnings;
 use Dpkg ();
 use Dpkg::Arch qw(get_host_arch);
 use Dpkg::Package;
+use Dpkg::BuildAPI qw(get_build_api);
 use Dpkg::Shlibs qw(get_library_paths);
 use Dpkg::Shlibs::Objdump;
 use Dpkg::Shlibs::SymbolFile;
@@ -156,8 +157,10 @@ if (not defined($sourceversion)) {
     my $changelog = changelog_parse();
     $sourceversion = $changelog->{'Version'};
 }
+my $control = Dpkg::Control::Info->new();
+# Initialize the build API level.
+get_build_api($control);
 if (not defined($oppackage)) {
-    my $control = Dpkg::Control::Info->new();
     my @packages = map { $_->{'Package'} } $control->get_packages();
     if (@packages == 0) {
 	error(g_('no package stanza found in control info'));
@@ -289,7 +292,7 @@ if ($compare || ! $quiet) {
 
 unless ($quiet) {
     require File::Temp;
-    require Digest::MD5;
+    require File::Compare;
 
     my $file_label;
 
@@ -306,12 +309,9 @@ unless ($quiet) {
 
     seek $before, 0, 0;
     seek $after, 0, 0;
-    my ($md5_before, $md5_after) = (Digest::MD5->new(), Digest::MD5->new());
-    $md5_before->addfile($before);
-    $md5_after->addfile($after);
 
     # Output diffs between symbols files if any
-    if ($md5_before->hexdigest() ne $md5_after->hexdigest()) {
+    if (File::Compare::compare($before, $after) != 0) {
 	if (not defined($output)) {
 	    warning(g_('the generated symbols file is empty'));
 	} elsif (defined($ref_symfile->{file})) {

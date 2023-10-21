@@ -153,7 +153,6 @@ filesavespackage(struct fsys_namenode_list *file,
                  struct pkginfo *pkgbeinginstalled)
 {
   struct fsys_node_pkgs_iter *iter;
-  struct pkgset *divpkgset;
   struct pkginfo *thirdpkg;
 
   debug(dbg_eachfiledetail, "filesavespackage file '%s' package %s",
@@ -164,6 +163,8 @@ filesavespackage(struct fsys_namenode_list *file,
    * we're installing then they're not actually the same file, so
    * we can't disappear the package - it is saved by this file. */
   if (file->namenode->divert && file->namenode->divert->useinstead) {
+    struct pkgset *divpkgset;
+
     divpkgset = file->namenode->divert->pkgset;
     if (divpkgset == pkgtobesaved->set || divpkgset == pkgbeinginstalled->set) {
       debug(dbg_eachfiledetail,"filesavespackage ... diverted -- save!");
@@ -194,10 +195,10 @@ filesavespackage(struct fsys_namenode_list *file,
         thirdpkg->set == pkgtobesaved->set)
       continue;
 
-    /* If !fileslistvalid then we've already disappeared this one, so
-     * we shouldn't try to make it take over this shared directory. */
     debug(dbg_eachfiledetail,"filesavespackage ...  is 3rd package");
 
+    /* If !files_list_valid then we have already disappeared this one,
+     * so we should not try to make it take over this shared directory. */
     if (!thirdpkg->files_list_valid) {
       debug(dbg_eachfiledetail, "process_archive ... already disappeared!");
       continue;
@@ -297,11 +298,10 @@ tarobject_skip_entry(struct tarcontext *tc, struct tar_entry *ti)
    * file data and set it to oblivion. */
   if (ti->type == TAR_FILETYPE_FILE) {
     struct dpkg_error err;
-    char fnamebuf[256];
 
     if (fd_skip(tc->backendpipe, ti->size, &err) < 0)
       ohshit(_("cannot skip file '%.255s' (replaced or excluded?) from pipe: %s"),
-             path_quote_filename(fnamebuf, ti->name, 256), err.str);
+             ti->name, err.str);
     tarobject_skip_padding(tc, ti);
   }
 }
@@ -354,8 +354,6 @@ tarobject_extract(struct tarcontext *tc, struct tar_entry *te,
 
   struct dpkg_error err;
   struct fsys_namenode *linknode;
-  char fnamebuf[256];
-  char fnamenewbuf[256];
   char *newhash;
   int rc;
 
@@ -379,8 +377,7 @@ tarobject_extract(struct tarcontext *tc, struct tar_entry *te,
     newhash = nfmalloc(MD5HASHLEN + 1);
     if (fd_fd_copy_and_md5(tc->backendpipe, fd, newhash, te->size, &err) < 0)
       ohshit(_("cannot copy extracted data for '%.255s' to '%.255s': %s"),
-             path_quote_filename(fnamebuf, te->name, 256),
-             path_quote_filename(fnamenewbuf, fnamenewvb.buf, 256), err.str);
+             te->name, fnamenewvb.buf, err.str);
     namenode->newhash = newhash;
     debug(dbg_eachfiledetail, "tarobject file digest=%s", namenode->newhash);
 
@@ -424,8 +421,7 @@ tarobject_extract(struct tarcontext *tc, struct tar_entry *te,
     debug(dbg_eachfiledetail, "tarobject blockdev");
     break;
   case TAR_FILETYPE_HARDLINK:
-    varbuf_reset(&hardlinkfn);
-    varbuf_add_str(&hardlinkfn, dpkg_fsys_get_dir());
+    varbuf_set_str(&hardlinkfn, dpkg_fsys_get_dir());
     linknode = fsys_hash_find_node(te->linkname, 0);
     varbuf_add_str(&hardlinkfn,
                    namenodetouse(linknode, tc->pkg, &tc->pkg->available)->name);
@@ -460,13 +456,12 @@ tarobject_hash(struct tarcontext *tc, struct tar_entry *te,
 {
   if (te->type == TAR_FILETYPE_FILE) {
     struct dpkg_error err;
-    char fnamebuf[256];
     char *newhash;
 
     newhash = nfmalloc(MD5HASHLEN + 1);
     if (fd_md5(tc->backendpipe, newhash, te->size, &err) < 0)
       ohshit(_("cannot compute MD5 digest for file '%.255s' in tar archive: %s"),
-             path_quote_filename(fnamebuf, te->name, 256), err.str);
+             te->name, err.str);
     tarobject_skip_padding(tc, te);
 
     namenode->newhash = newhash;
@@ -624,7 +619,6 @@ linktosameexistingdir(const struct tar_entry *ti, const char *fname,
 {
   struct stat oldstab, newstab;
   int statr;
-  const char *lastslash;
 
   statr= stat(fname, &oldstab);
   if (statr) {
@@ -637,14 +631,15 @@ linktosameexistingdir(const struct tar_entry *ti, const char *fname,
     return false;
 
   /* But is it to the same dir? */
-  varbuf_reset(symlinkfn);
   if (ti->linkname[0] == '/') {
-    varbuf_add_str(symlinkfn, dpkg_fsys_get_dir());
+    varbuf_set_str(symlinkfn, dpkg_fsys_get_dir());
   } else {
+    const char *lastslash;
+
     lastslash= strrchr(fname, '/');
     if (lastslash == NULL)
       internerr("tar entry filename '%s' does not contain '/'", fname);
-    varbuf_add_buf(symlinkfn, fname, (lastslash - fname) + 1);
+    varbuf_set_buf(symlinkfn, fname, (lastslash - fname) + 1);
   }
   varbuf_add_str(symlinkfn, ti->linkname);
   varbuf_end_str(symlinkfn);
@@ -765,6 +760,15 @@ tarobject(struct tar_archive *tar, struct tar_entry *ti)
      * backup/restore operation and were rudely interrupted.
      * So, we see if we have .dpkg-tmp, and if so we restore it. */
     if (rename(fnametmpvb.buf,fnamevb.buf)) {
+      /* Trying to remove a directory or a file on a read-only filesystem,
+       * even if non-existent, always returns EROFS. */
+      if (errno == EROFS) {
+        /* If the file does not exist the access() function will remap the
+         * EROFS into an ENOENT, otherwise restore EROFS to fail with that. */
+        if (access(fnametmpvb.buf, F_OK) == 0)
+          errno = EROFS;
+      }
+
       if (errno != ENOENT && errno != ENOTDIR)
         ohshite(_("unable to clean up mess surrounding '%.255s' before "
                   "installing another version"), ti->name);

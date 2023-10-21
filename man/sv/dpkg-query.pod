@@ -113,7 +113,7 @@ Z<>
   paketet omdirigerar andra till: I<omdirigerat-till>
   omdirigerat av I<paket> till: I<omdirigerat-till>
 
-TIps: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
 
 Kommandot kommer inte att visa extrafiler som skapas av paketskript, ej heller kommer det att visa alternativ.
 
@@ -155,7 +155,7 @@ eller för lokala omdirigeringar:
 Z<>
   lokal omdirigering från: I<omdirigerad-från>
   lokal omdirigering till: I<omdirigerad-till>
-TIps: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat.
+B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
 
 =item B<-p>, B<--print-avail> [I<paketnamn>...]
 
@@ -411,6 +411,10 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 Definieras av B<dpkg-query> till ”B<-FRSXMQ>”, om det inte redan är satt, när en bläddrare startas (sedan dpkg 1.19.2). För att ändra standardbeteendet kan variabeln sättas till ett annat värde, däribland en tom sträng, eller så kan variablerna B<PAGER> eller B<DPKG_PAGER> sättas för att inaktivera specifika flaggor med ”B<-+>”, till exempel B<DPKG_PAGER="less -+F">.
 
 =back
+
+=head1 SECURITY
+
+Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
 
 =head1 SE ÄVEN
 

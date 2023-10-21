@@ -138,7 +138,7 @@ B<-I> por si próprio adiciona opções B<--exclude> predefinidas que irão filt
 
 =back
 
-B<Nota:> Apesar de terem objectivos semelhantes, B<-i> e B<-I> têm muitas diferenças na sintaxe e semântica. B<-i> só pode ser especificado uma vez e e recebe uma expressão regular compatível com perl que é correspondida ao caminho relativo completo de cada ficheiro. B<-I> pode se especificado várias vezes e recebe um padrão de nome de ficheiro com wildcards de shell. O padrão é aplicado ao caminho relativo completo mas também a cada parte do caminho individualmente. A semântica exacta da opção B<--exclude> do tar é um tanto complicada, veja L<https://www.gnu.org/software/tar/manual/tar.html#wildcards> para a documentação completa.
+B<Note>: While they have similar purposes, B<-i> and B<-I> have very different syntax and semantics. B<-i> can only be specified once and takes a perl compatible regular expression which is matched against the full relative path of each file. B<-I> can specified multiple times and takes a filename pattern with shell wildcards.  The pattern is applied to the full relative path but also to each part of the path individually. The exact semantic of tar's B<--exclude> option is somewhat complicated, see L<https://www.gnu.org/software/tar/manual/tar.html#wildcards> for a full documentation.
 
 A regex e padrões predefinidos para ambas opções podem ser vistos no resultado do comando B<--help>.
 
@@ -278,7 +278,7 @@ Salta a aplicação do diff debian no topo das fontes do autor (desde dpkg 1.15.
 
 Extração suportada desde dpkg 1.13.9, compilação suportada desde dpkg 1.14.8. Também conhecido como wig&pen. Este formato não é recomendado para utilização em massa, o formato "3.0 (quilt)" substitui este. Wig&pen foi a primeira especificação de um formato de pacote fonte da nova geração.
 
-O comportamento deste formato é o mesmo que o do formato "3.0 (quilt)" com a excepção de que não usa uma lista de patches explicita. Todos os ficheiros em B<debian/patches/> que correspondem à expressão regular perl B<[\w-]+> têm de ser patches válidas: elas são aplicadas durante a extração.
+The behavior of this format is the same as the “3.0 (quilt)” format except that it doesn't use an explicit list of patches. All files in B<debian/patches/> matching the perl regular expression B<[\w-]+> must be valid patches: they are applied at extraction time.
 
 Quando se constrói um novo pacote fonte, qualquer alteração na fonte do autor é armazenada numa patch chamada B<zz_debian-diff-auto>.
 
@@ -300,9 +300,9 @@ Note que B<lintian>(1) irá emitir avisos incondicionais quando usa séries de f
 
 O carimbo temporal de todos os ficheiros com patch é reposto para a hora da extração do pacote fonte (isto evita inclinações do carimbo temporal que levam a problemas quando aplica patch a ficheiros auto-gerados).
 
-Contrariamente ao comportamento predefinido de B<quilt>, espera-se que as patches sejam aplicadas sem confusões. Quando esse não é o caso, você deve refrescar tais patches com B<quilt>, ou B<dpkg-source> irá terminar em erro ao tentar aplica-las.
+Contrary to B<quilt>'s default behavior, patches are expected to apply without any fuzz. When that is not the case, you should refresh such patches with B<quilt>, or B<dpkg-source> will error out while trying to apply them.
 
-Semelhante ao comportamento predefinido de B<quilt>. as patches também podem remover ficheiros.
+Similarly to B<quilt>'s default behavior, the patches can remove files too.
 
 O ficheiro B<.pc/applied-patches> é criado se algumas patches foram aplicadas durante a extração.
 
@@ -316,7 +316,7 @@ O directório debian actualizado e a lista de binários modificados são então 
 
 O diff gerado automaticamente não inclui alterações em ficheiros específicos de VCS assim como em muitos ficheiro temporários (veja valor predefinido associado à opção B<-i> no resultado de B<--help>). Em particular, o directório B<.pc> usado por B<quilt> é ignorado durante a geração da patch automática.
 
-B<Nota:> B<dpkg-source> B<--before-build> (e B<--build>) irão assegurar que todas as patches listadas no ficheiro series são aplicadas para que uma compilação do pacote tenha sempre todas as patches aplicadas. Faz isto ao encontrar patches não aplicadas (elas estão listadas no ficheiro B<series> mas não em B<.pc/applied-patches>), e se a primeira patch nesse conjunto puder ser aplicada sem erros, irá aplica-las todas. A opção B<--no-preparation> pode ser usada para desactivar este comportamento.
+B<Note>: B<dpkg-source> B<--before-build> (and B<--build>) will ensure that all patches listed in the series file are applied so that a package build always has all patches applied. It does this by finding unapplied patches (they are listed in the B<series> file but not in B<.pc/applied-patches>), and if the first patch in that set can be applied without errors, it will apply them all. The option B<--no-preparation> can be used to disable this behavior.
 
 B<Gravar alterações>
 
@@ -542,7 +542,7 @@ Cada opção deve ser posta numa linha separada. AS linhas vazias e linhas come�
  # ignore changes on config.{sub,guess}
  extend-diff-ignore = "(^|/)(config.sub|config.guess)$"
 
-B<Nota:> As opções B<format> não são aceites neste ficheiro, em vez disso você deve usar B<debian/source/format>.
+B<Note>: B<format> options are not accepted in this file, you should use B<debian/source/format> instead.
 
 =head2 debian/source/local-options
 
@@ -559,6 +559,12 @@ Texto de formato livre que é colocado no topo da patch automática gerada em fo
 =head2 debian/patches/series
 
 Este ficheiro lista todas as patches que têm de ser aplicadas (na ordem dada) no topo do pacote fonte do autor original. Os espaços iniciais e finais são retirados. O I<vendor> será o nome em minúsculas do fornecedor actual, ou B<debian> se não existir um fornecedor definido. Se o ficheiro series especifico-do-fornecedor não existir, será usado o ficheiro series sem-fornecedor. As linha começadas com ‘B<#>’ são comentários e são retiradas. Linhas vazias são ignoradas. As linhas restantes começam com um nome de ficheiro patch (relativo ao directório B<debian/patches/>) até ap primeiro caractere de espaço ou ao fim da linha. Opções B<quilt> opcionais podem seguir até ao fim da linha ou ao primeiro ‘B<#>’ precedido por um ou mais espaços (o que marca o começo de um comentário até ao fim da linha).
+
+=head1 SECURITY
+
+Examining untrusted source packages or extracting them into staging directories should be considered a security boundary, and any breakage of that boundary stemming from these operations should be considered a security vulnerability.  But handling untrusted source packages should not be done lightly, as the surface area includes any compression command supported, commands to handle specific data formats (such as L<tar(1)> or L<patch(1)>) in addition to the source package formats and control files themselves. Performing these operations over untrusted data as root is strongly discouraged.
+
+Building source packages should only be performed over trusted data.
 
 =head1 BUGS
 

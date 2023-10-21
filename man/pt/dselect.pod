@@ -156,7 +156,7 @@ Quando o B<dselect> é iniciado pode executar os seguintes comandos, seja direct
 
 Escolha e configure um método de acesso para aceder aos repositórios de pacotes.
 
-Por predefinição, B<dselect> fornece vários métodos tais como I<multi_cd>, I<mounted> ou I<ftp>, mas outros pacotes podem disponibilizar outros métodos, por exemplo o método de acesso I<apt> disponibilizado pelo pacote B<apt>(8).
+By default, B<dselect> provides several methods such as I<media>, I<file> or I<ftp>, but other packages may provide additional methods, for example the I<apt> access method provided by the B<apt>(8) package.
 
 O uso do método de acesso do I<apt> é fortemente recomendado.
 

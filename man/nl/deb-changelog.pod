@@ -42,7 +42,19 @@ I<pakket> en I<versie> zijn de naam van het broncodepakket en zijn versienummer.
 
 I<distributies> somt één of meer door een spatie van elkaar gescheiden distributies op waarin deze versie ondergebracht moet worden als ze geüpload wordt; dit wordt gekopieerd naar het veld B<Distribution> in het bestand I<.changes>. I<distributies> moet afgesloten worden door een puntkomma (U+003B ‘B<;>’).
 
-I<metadata> is een lijst items van het type I<trefwoord>=I<waarde> die onderling door een komma gescheiden worden. Elk trefwoord mag alleen mintekens en hoofdletterongevoelige alfanumerieke tekens bevatten, omdat ze moeten worden toegewezen aan B <deb822>(5)-veldnamen. De enige I<trefwoord>en die momenteel ondersteund worden door B<dpkg> zijn B<urgency> en B<binary-only>. De waarde van B<urgency> wordt gebruikt voor het B<Urgency>-veld in het I<.changes>-bestand voor de upload. B<binary-only> met als waarde B<yes> wordt gebruikt om aan te geven dat dit changelog-item betrekking heeft op een niet door de onderhouder gedane upload van uitsluitend het(de) binaire pakket(ten) (een automatisch opnieuw bouwen van het(de) binaire pakket(ten) met het changelog-item als enige aangebrachte wijziging).
+I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to B<deb822>(5) field names.  The only I<keyword>s currently supported by B<dpkg> are:
+
+=over 
+
+=item B<urgency>
+
+Its value is used for the B<Urgency> field in the I<.changes> file for the upload.
+
+=item B<binary-only>
+
+With a B<yes> value, it is used to denote that this changelog entry is for a binary-only non-maintainer upload (an automatic binary rebuild with the only change being the changelog entry).
+
+=back
 
 De informatie over de wijzigingen kan in feite om het even welk aantal regels beslaan die beginnen met minstens twee spaties (U+0020 B<SPACE>). Gewoonlijk begint men bij het beschrijven van een wijziging steeds met een asterisk, gevolgd door een spatie. Eventuele vervolgregels springen zo in dat ze uitgelijnd zijn met de tekst van de regel erboven. Als men dat wenst kunnen blanco regels gebruikt worden om groepen van veranderingen onderling te scheiden.
 

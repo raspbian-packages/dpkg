@@ -52,7 +52,7 @@ Comme les étiquettes de symbole sont une extension du format de B<deb-symbols(5
 
 =item B<optional>
 
-Un symbole marqué comme optionnel peut disparaître de la bibliothèque à tout moment et ne provoquera pas l'échec de B<dpkg-gensymbols>. Cependant, les symboles optionnels disparus apparaîtront en permanence comme manquants dans le fichier de différences, à chaque nouvelle version du paquet. Ce comportement sert de rappel au responsable qu'un tel symbole doit être supprimé du fichier de symboles ou bien rajouté à la bibliothèque. Un tel symbole optionnel, précédemment déclaré comme manquant S<(« MISSING »),> peut réapparaître soudainement dans la version suivante en étant remis à l'état existant S<(« existing »),> sans modification de sa version minimale.
+A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
 
 Cette étiquette est utile pour les symboles qui sont privés, car leur disparition ne provoque pas de changement d'interface applicative (ABI). Par exemple, la plupart des modèles d'instanciation C++ sont dans cette catégorie. Comme toute autre étiquette, celle-ci peut comporter une valeur arbitraire qui peut servir à indiquer pour quelle raison le symbole est optionnel.
 
@@ -147,7 +147,7 @@ Ce motif est indiqué par l'étiquette I<symver>. Les bibliothèques bien géré
 
 Tous les symboles associés avec les versions GLIBC_2.0 et GLIBC_2.7 conduiront respectivement à des versions minimales de 2.0 et 2.7, à l'exception du symbole access@GLIBC_2.0. Ce dernier amène à une dépendance minimale sur la S<version 2.2> de libc6 bien qu'il soit dans le scope de S<« (symvar)GLIBC_2.0 ».> Cela est dû au fait que les symboles spécifiques prennent le pas sur les motifs.
 
-Veuillez noter que les anciens motifs avec caractères génériques (indiqués sous la forme S<« *@version »)> dans le champ de nom de symbole sont toujours gérés. La nouvelle syntaxe S<« (symver|optional)version »> doit toutefois leur être préférée. Par exemple, S<« *@GLIBC_2.0> S<2.0 »> devrait être écrit sous la forme S<« (symver|optional)GLIBC_2.0> S<2.0 »> si un comportement analogue est recherché.
+Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 

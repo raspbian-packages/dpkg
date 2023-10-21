@@ -44,13 +44,13 @@ Remplace des fichiers existants s'ils ont le même nom que le fichier de destina
 
 Met les fichiers dans un sous-répertoire. Si le répertoire donné en paramètre existe, les fichiers sont déplacés dans ce répertoire ; sinon le répertoire cible, extrait du champ S<« section »> que contient la partie contrôle du paquet, sera S<« unstable/binary-I<architecture>/I<section> ».> Quand aucune information sur la section n'est trouvée dans le fichier S<« control »,> la section est supposée être B<no-section>. Dans ce cas, ainsi que si la section est B<non-free> ou B<contrib>, le répertoire cible est S<« I<section>/binary-I<architecture> ».> Le champ S<« section »> est facultatif ; aussi beaucoup de paquets sont dans la zone S<« no-section ».>
 
-S<B<Attention> :> I<Utilisez cette option avec S<précaution :> elle est compliquée.>
+B<Warning>: Use this option with care, it is messy.
 
 =item B<-c>, B<--create-dir>
 
 On peut utiliser cette option avec l'option B<-s>. Quand un répertoire cible n'est pas trouvé, il est créé automatiquement.
 
-S<B<Attention> :> I<Utilisez cette option avec précaution.>
+B<Warning>: Use this option with care.
 
 =item B<-?>, B<--help>
 

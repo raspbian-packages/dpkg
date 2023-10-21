@@ -98,7 +98,7 @@ Inclui as dependências apropriadas para as bibliotecas partilhadas requeridas p
 
 Adiciona I<directory> ao inicio da lista de directórios a pesquisar por bibliotecas partilhadas privadas (desde dpkg 1.17.0). Esta opção pode ser usada várias vezes.
 
-B<Nota:> Use esta opção em vez de definir B<LD_LIBRARY_PATH>, pois essa variável de ambiente é usado para controlar o vinculador de tempo-de-execução e abusar dela para definir caminhos de bibliotecas partilhadas durante a compilação pode ser problemático quando, por exemplo, se faz compilações cruzadas.
+B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
 
 =item B<-d>I<dependency-field>
 

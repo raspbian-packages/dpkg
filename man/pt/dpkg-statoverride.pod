@@ -80,17 +80,31 @@ Define o directório raiz para B<directory>, o que define o directório de insta
 
 Força ou recusa (B<no-force> e B<refuse> significam o mesmo) a fazer algumas coisas (desde dpkg 1.19.5).  I<things> é uma lista separada por vírgulas de coisas especificadas em baixo. B<--force-help> mostra uma mensagem a descreve-las. A coisas marcadas com (*) já são forçadas por predefinição.
 
-I<Aviso: Estas opções são maioritariamente destinadas a serem usadas apenas por experts. Usa-las sem total conhecimento dos seus efeitos pode danificar todo o seu sistema.>
+B<Warning>: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.
 
-B<all>: Liga (ou desliga) todas as opções de forçar.
+=over 4
 
-B<statoverride-add>: Sobrescreve uma sobreposição de estatística existente quando a adiciona (desde dpkg 1.19.5).
+=item B<all>:
 
-B<statoverride-remove>: Ignora uma sobreposição de estatística em falta quando a remove (desde dpkg 1.19.5).
+Turns on (or off) all force options.
 
-B<security-mac>(*): Usa segurança baseada em Mandatory Access Controls (MAC) específica da plataforma quando instala ficheiros no sistema de ficheiros (desde dpkg 1.19.5). Em sistemas Linux a implementação usa SELinux.
+=item B<statoverride-add>:
 
-B<not-root>: Tenta (des)instalar coisas mesmo não sendo root (desde dpkg 1.21.8).
+Overwrite an existing stat override when adding it (since dpkg 1.19.5).
+
+=item B<statoverride-remove>:
+
+Ignore a missing stat override when removing it (since dpkg 1.19.5).
+
+=item B<security-mac>(*):
+
+Use platform-specific Mandatory Access Controls (MAC) based security when installing files into the filesystem (since dpkg 1.19.5).  On Linux systems the implementation uses SELinux.
+
+=item B<not-root>:
+
+Try to (de)install things even when not root (since dpkg 1.21.8).
+
+=back
 
 =item B<--force>
 
@@ -158,7 +172,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 Ficheiro que contém a lista actual de sobreposições de estados do sistema. Está localizado no directório de administração do <dpkg>, juntamente com outros ficheiros importantes para o B<dpkg>, como I<status> ou I<available>.
 
-B<Nota:> O B<dpkg-statoverride> preserva uma copia antiga deste ficheiro, com a extensão "-old", antes de o substituir pelo novo.
+B<Note>: B<dpkg-statoverride> preserves the old copy of this file, with extension “-old”, before replacing it with the new one.
 
 =back
 

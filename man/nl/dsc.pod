@@ -116,7 +116,7 @@ Dit veld declareert dat het broncodepakket de opgegeven testsuites bevat. De waa
 
 Dit veld declareert de door komma's gescheiden unie van alle testvereisten (de velden B<Depends> uit het bestand I<debian/tests/control>), waaruit alle restricties verwijderd en alle OR-vereisten uitgevlakt werden (dit betekent omgezet naar aparte AND-relaties), uitgezonderd voor de binaire pakketten, gegenereerd door dit broncodepakket en het equivalent van zijn meta-vereiste B<@>.
 
-Motivering: dit veld is noodzakelijk omdat anders elk broncodepakket uitgepakt zou moeten worden om de testvereisten te kunnen achterhalen.
+B<Rationale>: this field is needed because otherwise to be able to get the test dependencies, each source package would need to be unpacked.
 
 =item B<Build-Depends:> I<pakketlijst>
 

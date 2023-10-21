@@ -173,24 +173,40 @@ specified, I<package-file> must refer to a directory instead.
 
 Installation consists of the following steps:
 
-B<1.> Extract the control files of the new package.
+=over 4
 
-B<2.> If another version of the same package was installed before
+=item B<1.>
+
+Extract the control files of the new package.
+
+=item B<2.>
+
+If another version of the same package was installed before
 the new installation, execute I<prerm> script of the old package.
 
-B<3.> Run I<preinst> script, if provided by the package.
+=item B<3.>
 
-B<4.> Unpack the new files, and at the same time back up the old
+Run I<preinst> script, if provided by the package.
+
+=item B<4.>
+
+Unpack the new files, and at the same time back up the old
 files, so that if something goes wrong, they can be restored.
 
-B<5.> If another version of the same package was installed before
+=item B<5.>
+
+If another version of the same package was installed before
 the new installation, execute the I<postrm> script of the old
 package. Note that this script is executed after the I<preinst>
 script of the new package, because new files are written at the same
 time old files are removed.
 
-B<6.> Configure the package. See B<--configure> for detailed
+=item B<6.>
+
+Configure the package. See B<--configure> for detailed
 information about how this is done.
+
+=back
 
 =item B<--unpack> I<package-file>...
 
@@ -208,16 +224,24 @@ If B<-a> or B<--pending> is given instead of I<package>,
 all unpacked but unconfigured packages are configured.
 
 To reconfigure a package which has already been configured, try the
-B<dpkg-reconfigure>(8)
-command instead.
+B<dpkg-reconfigure>(8) command instead (which is part of the B<debconf>
+project).
 
 Configuring consists of the following steps:
 
-B<1.> Unpack the conffiles, and at the same time back up
+=over 4
+
+=item B<1.>
+
+Unpack the conffiles, and at the same time back up
 the old conffiles, so that they can be restored if
 something goes wrong.
 
-B<2.> Run I<postinst> script, if provided by the package.
+=item B<2.>
+
+Run I<postinst> script, if provided by the package.
+
+=back
 
 Will process triggers unless B<--no-triggers> has been specified.
 
@@ -247,11 +271,21 @@ I<%ADMINDIR%/status>, are removed.
 
 Removing of a package consists of the following steps:
 
-B<1.> Run I<prerm> script
+=over 4
 
-B<2.> Remove the installed files
+=item B<1.>
 
-B<3.> Run I<postrm> script
+Run I<prerm> script.
+
+=item B<2.>
+
+Remove the installed files.
+
+=item B<3.>
+
+Run I<postrm> script.
+
+=back
 
 Will process triggers unless B<--no-triggers> has been specified.
 
@@ -263,7 +297,7 @@ If B<-a> or B<--pending> is given instead of a package name,
 then all packages unpacked or removed, but marked to be purged in file
 I<%ADMINDIR%/status>, are purged.
 
-B<Note:> Some configuration files might be unknown to B<dpkg> because they
+B<Note>: Some configuration files might be unknown to B<dpkg> because they
 are created and handled separately through the configuration scripts. In
 that case, B<dpkg> won't remove them by itself, but the package's
 I<postrm> script (which is called by B<dpkg>), has to take care of
@@ -273,10 +307,18 @@ home directories.
 
 Purging of a package consists of the following steps:
 
-B<1.> Remove the package, if not already removed. See B<--remove>
+=over 4
+
+=item B<1.>
+
+Remove the package, if not already removed. See B<--remove>
 for detailed information about how this is done.
 
-B<2.> Run I<postrm> script.
+=item B<2.>
+
+Run I<postrm> script.
+
+=back
 
 Will process triggers unless B<--no-triggers> has been specified.
 
@@ -296,6 +338,8 @@ of the file contents against the stored value in the files database.
 It will only get checked
 if the database contains the file md5sum. To check for any missing
 metadata in the database, the B<--audit> command can be used.
+This is only an integrity check and should not be considered as any
+kind of security verification.
 
 The output format is selectable with the B<--verify-format>
 option, which by default uses the B<rpm> format, but that might
@@ -376,7 +420,7 @@ to deinstall any packages not in list given to B<--set-selections>.
 Searches for packages selected for installation, but which for some
 reason still haven't been installed.
 
-B<Note:> This command makes use of both the available file and the package
+B<Note>: This command makes use of both the available file and the package
 selections.
 
 =item B<--predep-package>
@@ -387,7 +431,7 @@ pre-dependencies and has itself no unsatisfied pre-dependencies.
 If such a package is present, output it as a Packages file entry,
 which can be massaged as appropriate.
 
-B<Note:> This command makes use of both the available file and the package
+B<Note>: This command makes use of both the available file and the package
 selections.
 
 Returns 0 when a package is printed, 1 when no suitable package is
@@ -511,7 +555,7 @@ evaluates to true.
 
 Accept a series of commands on input file descriptor I<n>.
 
-B<Note:> Additional options set on the command line, and through this
+B<Note>: Additional options set on the command line, and through this
 file descriptor, are not reset for subsequent commands executed during the
 same run.
 
@@ -667,46 +711,55 @@ to do some things. I<things> is a comma separated list of things
 specified below. B<--force-help> displays a message describing them.
 Things marked with (*) are forced by default.
 
-I<Warning: These options are mostly intended to be used by experts
+B<Warning>: These options are mostly intended to be used by experts
 only. Using them without fully understanding their effects may break
-your whole system.>
+your whole system.
 
-B<all>:
+=over 2
+
+=item B<all>:
+
 Turns on (or off) all force options.
 
-B<downgrade>(*):
+=item B<downgrade>(*):
+
 Install a package, even if newer version of it is already installed.
 
-I<Warning: At present> B<dpkg> I<does not do any dependency
+B<Warning>: At present B<dpkg> does not do any dependency
 checking on downgrades and therefore will not warn you
 if the downgrade breaks the dependency of some other
 package. This can have serious side effects, downgrading
 essential system components can even make your whole
-system unusable. Use with care.>
+system unusable. Use with care.
 
-B<configure-any>:
+=item B<configure-any>:
+
 Configure also any unpacked but unconfigured packages on which the current
 package depends.
 
-B<hold>:
+=item B<hold>:
+
 Allow automatic installs, upgrades or removals of packages even when marked
 to be on “hold”.
-B<Note:> When these actions are requested explicitly, the “hold” package
+B<Note>: When these actions are requested explicitly, the “hold” package
 selection state always gets ignored.
 
-B<remove-reinstreq>:
+=item B<remove-reinstreq>:
+
 Remove a package, even if it's broken and marked to require
 reinstallation. This may, for example, cause parts of the package to
 remain on the system, which will then be forgotten by B<dpkg>.
 
-B<remove-protected>:
+=item B<remove-protected>:
+
 Remove, even if the package is considered protected (since dpkg 1.20.1).
 Protected packages contain mostly important system boot infrastructure or
 are used for custom system-local meta-packages.
 Removing them might cause the whole system to be unable to boot or lose
 required functionality to operate, so use with caution.
 
-B<remove-essential>:
+=item B<remove-essential>:
+
 Remove, even if the package is considered essential.
 Essential packages contain mostly very basic Unix commands, required for
 the packaging system, for the operation of the system in general or during
@@ -714,47 +767,56 @@ boot (although the latter should be converted to protected packages instead).
 Removing them might cause the whole system to stop working,
 so use with caution.
 
-B<depends>:
+=item B<depends>:
+
 Turn all dependency problems into warnings.
 This affects the B<Pre-Depends> and B<Depends> fields.
 
-B<depends-version>:
+=item B<depends-version>:
+
 Don't care about versions when checking dependencies.
 This affects the B<Pre-Depends> and B<Depends> fields.
 
-B<breaks>:
+=item B<breaks>:
+
 Install, even if this would break another package (since dpkg 1.14.6).
 This affects the B<Breaks> field.
 
-B<conflicts>:
+=item B<conflicts>:
+
 Install, even if it conflicts with another package. This is dangerous,
 for it will usually cause overwriting of some files.
 This affects the B<Conflicts> field.
 
-B<confmiss>:
+=item B<confmiss>:
+
 Always install the missing conffile without prompting. This is dangerous,
 since it means not preserving a change (removing) made to the file.
 
-B<confnew>:
+=item B<confnew>:
+
 If a conffile has been modified and the version in the package did change,
 always install the new version without prompting, unless the
 B<--force-confdef> is also specified, in which case the default
 action is preferred.
 
-B<confold>:
+=item B<confold>:
+
 If a conffile has been modified and the version in the package did change,
 always keep the old version without prompting, unless the
 B<--force-confdef> is also specified, in which case the default
 action is preferred.
 
-B<confdef>:
+=item B<confdef>:
+
 If a conffile has been modified and the version in the package did change,
 always choose the default action without prompting. If there is no default
 action it will stop to ask the user unless B<--force-confnew> or
 B<--force-confold> is also been given, in which case it will use
 that to decide the final action.
 
-B<confask>:
+=item B<confask>:
+
 If a conffile has been modified always offer to replace it with the
 version in the package, even if the version in the package did not
 change (since dpkg 1.15.8).
@@ -762,27 +824,34 @@ If any of B<--force-confnew>,
 B<--force-confold>, or B<--force-confdef> is also given,
 it will be used to decide the final action.
 
-B<overwrite>:
+=item B<overwrite>:
+
 Overwrite one package's file with another's file.
 
-B<overwrite-dir>:
+=item B<overwrite-dir>:
+
 Overwrite one package's directory with another's file.
 
-B<overwrite-diverted>:
+=item B<overwrite-diverted>:
+
 Overwrite a diverted file with an undiverted version.
 
-B<statoverride-add>:
+=item B<statoverride-add>:
+
 Overwrite an existing stat override when adding it (since dpkg 1.19.5).
 
-B<statoverride-remove>:
+=item B<statoverride-remove>:
+
 Ignore a missing stat override when removing it (since dpkg 1.19.5).
 
-B<security-mac>(*):
+=item B<security-mac>(*):
+
 Use platform-specific Mandatory Access Controls (MAC) based security when
 installing files into the filesystem (since dpkg 1.19.5).
 On Linux systems the implementation uses SELinux.
 
-B<unsafe-io>:
+=item B<unsafe-io>:
+
 Do not perform safe I/O operations when unpacking (since dpkg 1.15.8.6).
 Currently this
 implies not performing file system syncs before file renames, which is
@@ -797,29 +866,37 @@ degradation and the data safety issues, the latter by making the file
 system not produce zero-length files on abrupt system crashes with
 any software not doing syncs before atomic renames.
 
-I<Warning: Using this option might improve performance at the cost of
-losing data, use with care.>
+B<Warning>: Using this option might improve performance at the cost of
+losing data, use with care.
 
-B<script-chrootless>:
+=item B<script-chrootless>:
+
 Run maintainer scripts without B<chroot>(2)ing into B<instdir> even
 if the package does not support this mode of operation (since dpkg 1.18.5).
 
-I<Warning: This can destroy your host system, use with extreme care.>
+B<Warning>: This can destroy your host system, use with extreme care.
 
-B<architecture>:
+=item B<architecture>:
+
 Process even packages with wrong or no architecture.
 
-B<bad-version>:
+=item B<bad-version>:
+
 Process even packages with wrong versions (since dpkg 1.16.1).
 
-B<bad-path>:
+=item B<bad-path>:
+
 B<PATH> is missing important programs, so problems are likely.
 
-B<not-root>:
+=item B<not-root>:
+
 Try to (de)install things even when not root.
 
-B<bad-verify>:
+=item B<bad-verify>:
+
 Install a package even if it fails authenticity check.
+
+=back
 
 =item B<--ignore-depends>=I<package>,...
 
@@ -902,7 +979,7 @@ is preserved, with the ones from the configuration files taking precedence.
 The environment variable B<DPKG_HOOK_ACTION> is set for the hooks to the
 current B<dpkg> action.
 
-B<Note:> Front-ends might call B<dpkg> several
+B<Note>: Front-ends might call B<dpkg> several
 times per invocation, which might run the hooks more times than expected.
 
 =item B<--path-exclude=>I<glob-pattern>
@@ -913,8 +990,8 @@ Set I<glob-pattern> as a path filter, either by excluding or re-including
 previously excluded paths matching the specified patterns during install
 (since dpkg 1.15.8).
 
-I<Warning: Take into account that depending on the excluded paths you
-might completely break your system, use with caution.>
+B<Warning>: Take into account that depending on the excluded paths you
+might completely break your system, use with caution.
 
 The glob patterns use the same wildcards used in the shell, were
 ‘*’ matches any sequence of characters, including the empty string
@@ -926,7 +1003,7 @@ And ‘[’
 starts a character class, which can contain a list of characters, ranges
 and complementations. See B<glob>(7) for detailed information about
 globbing.
-B<Note:> The current implementation might re-include more directories
+B<Note>: The current implementation might re-include more directories
 and symlinks than needed, in particular when there is a more specific
 re-inclusion, to be on the safe side and avoid possible unpack failures;
 future work might fix this.
@@ -954,7 +1031,7 @@ pathname will be excluded (which could be automatically reincluded if the
 code sees the need).
 Any subsequent files contained within that directory will fail to unpack.
 
-Hint: make sure the globs are not expanded by your shell.
+B<Hint>: make sure the globs are not expanded by your shell.
 
 =item B<--verify-format> I<format-name>
 
@@ -1008,6 +1085,8 @@ information available.
 =item 3 ‘B<5>’
 
 The digest check failed, which means the file contents have changed.
+This is only an integrity check and should not be considered as any
+kind of security verification.
 
 =item 4-9 ‘B<?>’
 
@@ -1365,6 +1444,26 @@ useful if it's lost or corrupted due to filesystems troubles.
 
 The format and contents of a binary package are described in B<deb>(5).
 
+=head1 SECURITY
+
+Any operation that needs write access to the database or the filesystem
+is considered a privileged operation that might allow root escalation.
+These operations must never be delegated to an untrusted user or be done
+on untrusted packages, as that might allow root access to the system.
+
+Some operations (such as package verification) might need root privileges
+to be able to access files on the filesystem that would otherwise be
+inaccessible due to restricted permissions, but should otherwise work
+normally and produce appropriate messages in those cases.
+
+Query operations should never require root, and delegating their execution
+to unprivileged users via some gain-root command can have security
+implications (such as privilege escalation), for example when a pager is
+automatically invoked by the tool.
+
+See also the B<SECURITY> section of the L<dpkg-deb(1)> and L<dpkg-split(1)>
+manual pages.
+
 =head1 BUGS
 
 B<--no-act> usually gives less information than might be helpful.
@@ -1421,7 +1520,7 @@ To make a local copy of the package selection states:
 
 =over
 
- dpkg --get-selections> myselections
+ dpkg --get-selections >myselections
 
 =back
 
@@ -1441,7 +1540,7 @@ or with dpkg 1.17.6 and earlier:
 =over
 
  avail=$(mktemp)
- apt-cache dumpavail> "$avail"
+ apt-cache dumpavail >"$avail"
  dpkg --merge-avail "$avail"
  rm "$avail"
 

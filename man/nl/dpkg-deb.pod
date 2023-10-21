@@ -230,6 +230,12 @@ Indien dit ingesteld werd, zal het gebruikt worden als de tijdsaanduiding (times
 
 Tracht geen software te installeren met enkel maar B<dpkg-deb>! U moet zoals het hoort B<dpkg> gebruiken om er zeker van te zijn dat alle bestanden op de juiste plaats terechtkomen, dat de scripts van het pakket uitgevoerd worden en dat zijn toestand en inhoud bijgehouden worden.
 
+=head1 SECURITY
+
+Examining untrusted package archives or extracting them into staging directories should be considered a security boundary, and any breakage of that boundary stemming from these operations should be considered a security vulnerability.  But handling untrusted package archives should not be done lightly, as the surface area includes any compression library supported, in addition to the archive formats and control files themselves.  Performing these operations over untrusted data as root is strongly discouraged.
+
+Building package archives should only be performed over trusted data.
+
 =head1 BUGS
 
 B<dpkg-deb -I> I<pakket1>B<.deb> I<pakket2>B<.deb> doet de dingen fout.

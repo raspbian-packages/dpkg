@@ -59,7 +59,7 @@
 
 #include "actions.h"
 
-static const char *showformat = "${binary:Package}\t${Version}\n";
+static const char *opt_showformat = "${binary:Package}\t${Version}\n";
 
 static int opt_loadavail = 0;
 
@@ -250,8 +250,6 @@ static int
 listpackages(const char *const *argv)
 {
   struct pkg_array array;
-  struct pkginfo *pkg;
-  int i;
   int rc = 0;
   struct list_format fmt;
   struct pager *pager;
@@ -269,7 +267,11 @@ listpackages(const char *const *argv)
   pager = pager_spawn(_("showing package list on pager"));
 
   if (!*argv) {
+    int i;
+
     for (i = 0; i < array.n_pkgs; i++) {
+      struct pkginfo *pkg;
+
       pkg = array.pkgs[i];
       if (pkg->status == PKG_STAT_NOTINSTALLED)
         array.pkgs[i] = NULL;
@@ -332,10 +334,7 @@ searchoutput(struct fsys_namenode *namenode)
 static int
 searchfiles(const char *const *argv)
 {
-  struct fsys_namenode *namenode;
-  struct fsys_hash_iter *iter;
   const char *thisarg;
-  int found;
   int failures = 0;
   struct varbuf path = VARBUF_INIT;
   static struct varbuf vb;
@@ -348,7 +347,8 @@ searchfiles(const char *const *argv)
   ensure_diversions();
 
   while ((thisarg = *argv++) != NULL) {
-    found= 0;
+    struct fsys_namenode *namenode;
+    int found = 0;
 
     if (!strchr("*[?/",*thisarg)) {
       varbuf_reset(&vb);
@@ -361,14 +361,14 @@ searchfiles(const char *const *argv)
     if (!strpbrk(thisarg, "*[?\\")) {
       /* Trim trailing ‘/’ and ‘/.’ from the argument if it is not
        * a pattern, just a pathname. */
-      varbuf_reset(&path);
-      varbuf_add_str(&path, thisarg);
-      varbuf_end_str(&path);
+      varbuf_set_str(&path, thisarg);
       varbuf_trunc(&path, path_trim_slash_slashdot(path.buf));
 
       namenode = fsys_hash_find_node(path.buf, 0);
       found += searchoutput(namenode);
     } else {
+      struct fsys_hash_iter *iter;
+
       iter = fsys_hash_iter_new();
       while ((namenode = fsys_hash_iter_next(iter)) != NULL) {
         if (fnmatch(thisarg,namenode->name,0)) continue;
@@ -394,8 +394,6 @@ searchfiles(const char *const *argv)
 static int
 print_status(const char *const *argv)
 {
-  const char *thisarg;
-  struct pkginfo *pkg;
   int failures = 0;
 
   modstatdb_open(msdbrw_readonly);
@@ -403,7 +401,11 @@ print_status(const char *const *argv)
   if (!*argv) {
     writedb_stanzas(stdout, _("<standard output>"), 0);
   } else {
+    const char *thisarg;
+
     while ((thisarg = *argv++) != NULL) {
+      struct pkginfo *pkg;
+
       pkg = dpkg_options_parse_pkgname(cipaction, thisarg);
 
       if (pkg->status == PKG_STAT_NOTINSTALLED &&
@@ -439,8 +441,6 @@ print_status(const char *const *argv)
 static int
 print_avail(const char *const *argv)
 {
-  const char *thisarg;
-  struct pkginfo *pkg;
   int failures = 0;
 
   modstatdb_open(msdbrw_readonly | msdbrw_available_readonly);
@@ -448,7 +448,11 @@ print_avail(const char *const *argv)
   if (!*argv) {
     writedb_stanzas(stdout, _("<standard output>"), wdb_dump_available);
   } else {
+    const char *thisarg;
+
     while ((thisarg = *argv++) != NULL) {
+      struct pkginfo *pkg;
+
       pkg = dpkg_options_parse_pkgname(cipaction, thisarg);
 
       if (!pkg_is_informative(pkg, &pkg->available)) {
@@ -560,13 +564,11 @@ showpackages(const char *const *argv)
 {
   struct dpkg_error err;
   struct pkg_array array;
-  struct pkginfo *pkg;
   struct pkg_format_node *fmt;
   bool fmt_needs_db_fsys;
-  int i;
   int rc = 0;
 
-  fmt = pkg_format_parse(showformat, &err);
+  fmt = pkg_format_parse(opt_showformat, &err);
   if (!fmt) {
     notice(_("error in show format: %s"), err.str);
     dpkg_error_destroy(&err);
@@ -585,9 +587,13 @@ showpackages(const char *const *argv)
   pkg_array_sort(&array, pkg_sorter_by_nonambig_name_arch);
 
   if (!*argv) {
+    int i;
+
     if (fmt_needs_db_fsys)
       ensure_allinstfiles_available_quiet();
     for (i = 0; i < array.n_pkgs; i++) {
+      struct pkginfo *pkg;
+
       pkg = array.pkgs[i];
       if (pkg->status == PKG_STAT_NOTINSTALLED)
         continue;
@@ -855,7 +861,7 @@ static const struct cmdinfo cmdinfos[]= {
   { "admindir",   0,   1, NULL, NULL,        set_admindir, 0 },
   { "root",       0,   1, NULL, NULL,        set_root, 0   },
   { "load-avail", 0,   0, &opt_loadavail, NULL, NULL, 1    },
-  { "showformat", 'f', 1, NULL, &showformat, NULL          },
+  { "showformat", 'f', 1, NULL, &opt_showformat, NULL      },
   { "no-pager",   0,   0, NULL, NULL,        set_no_pager  },
   {  NULL,        0,   0, NULL, NULL,        NULL          }
 };

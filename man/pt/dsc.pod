@@ -116,7 +116,7 @@ Este campo declara que o pacote fonte contem as suites de teste especificadas. O
 
 Este campo declara a união de todas as dependências de todos os testes, separadas por espaços (campos B<Depends> no ficheiro I<debian/tests/control>), com todas as restrições removidas, e dependências OU achatadas (isto é, convertidas para relações E separadas), excepto para binários gerados por este pacote fonte e seus equivalentes de meta-dependência B<@>.
 
-Fundamento: este campo é necessário porque caso contrário, para puderem obter as dependências de teste, cada pacote fonte teria que ser desempacotado.
+B<Rationale>: this field is needed because otherwise to be able to get the test dependencies, each source package would need to be unpacked.
 
 =item B<Build-Depends:> I<package-list>
 

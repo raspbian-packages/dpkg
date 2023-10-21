@@ -103,7 +103,7 @@ Källkodspaketet utökade beskricning, hämtad från källkods-strofens B<Descri
 
 Den ungefärliga totala storleken på paketets installerade filer. Värdet kopieras in i motsvarande fält i styrfilen. Om du ställer in det kommer det att ersätta värdet på fältet. Om variabeln inte är satt kommer B<dpkg-gencontrol> att beräkna dess standardvärde genom att summera storleken på alla vanliga filer och symboliska länkar avrundat till 1 KiB-enheter, och ett grundvärde på 1 KiB för andra filsystemsobjekttyper. Hårda länkar räknas bara som vanliga filer en gång.
 
-B<Observera:> Tänk på att det här aldrig kan vara något annat än ett närmevärde eftersom den faktiska storleken som används på det installerade systemet i stor grad beror på vilket filsystem som används och dess parameterar, vilket kan komma att använda mer eller mindre plats än vad som anges i det här fältet.
+B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
 
 =item B<Extra-Size>
 
