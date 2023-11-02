@@ -88,7 +88,7 @@ Drapeaux S<d'erreur :>
 
 =back
 
-Un état en majuscules ou une lettre d'erreur indiquent que le paquet peut provoquer des problèmes graves. Veuillez consulter B<dpkg>(1) à propos des états et drapeaux ci-dessus.
+An uppercase status or error letter indicates the package is likely to cause severe problems. Please refer to L<dpkg(1)> for information about the above states and flags.
 
 On ne peut pas configurer le format de sortie de cette option. Il s'adapte automatiquement à la largeur du terminal. Ce format est destiné aux humains et la machine le lit mal. Voyez B<-W> (B<--show>) et B<--showformat> pour une possible configuration de ce format.
 
@@ -383,7 +383,7 @@ Définit le programme à exécuter lors du lancement d'une commande avec un shel
 
 =item B<DPKG_PAGER>
 
-Définit la commande d'afficheur à utiliser (depuis S<dpkg 1.19.1)> qui sera exécutée avec S<« B<$SHELL> S<-c> ».> Si B<SHELL> n'est pas défini, S<« B<sh> »> sera utilisé à la place. B<DPKG_PAGER> remplace la variable d'environnement B<PAGER> (depuis S<dpkg 1.19.2).>
+Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.  The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).
 
 =item B<DPKG_ROOT>
 
@@ -419,7 +419,7 @@ Query operations should never require root, and delegating their execution to un
 
 =head1 VOIR AUSSI
 
-B<dpkg>(1).
+L<dpkg(1)>.
 
 
 =head1 TRADUCTION

@@ -81,12 +81,12 @@ namenodetouse(struct fsys_namenode *namenode, struct pkginfo *pkg,
  */
 void checkpath(void) {
   static const char *const prog_list[] = {
-    DEFAULTSHELL,
+    DPKG_DEFAULT_SHELL,
     RM,
     TAR,
     DIFF,
     BACKEND,
-    /* Mac OS X uses dyld (Mach-O) instead of ld.so (ELF), and does not have
+    /* macOS uses dyld (Mach-O) instead of ld.so (ELF), and does not have
      * an ldconfig. */
 #if defined(__APPLE__) && defined(__MACH__)
     "update_dyld_shared_cache",

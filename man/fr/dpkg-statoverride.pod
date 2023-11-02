@@ -22,7 +22,7 @@ B<dpkg-statoverride> [I<option>...] I<commande>
 
 =head1 DESCRIPTION
 
-Les S<« B<dérogations> S<d'état> »> sont une façon de demander à B<dpkg>(1) de changer le propriétaire ou le mode d'un chemin lors de l'installation d'un paquet (cela s'applique à tout objet de système de fichiers que B<dpkg> gère, notamment les répertoires, les périphériques, etc.). On peut s'en servir pour forcer l'installation de programmes qui sont normalement S<« setuid »> sans ce drapeau S<« setuid »,> ou pour les rendre exécutables seulement par un groupe donné.
+“B<stat overrides>” are a way to tell L<dpkg(1)> to use a different owner or mode for a path when a package is installed (this applies to any filesystem object that B<dpkg> handles, including directories, devices, etc.). This can be used to force programs that are normally setuid to be install without a setuid flag, or only executable by a certain group.
 
 B<dpkg-statoverride> est un utilitaire pour gérer la liste des dérogations. Il possède trois fonctions S<élémentaires :> l'ajout, la suppression et le listage des dérogations.
 
@@ -178,7 +178,7 @@ B<Note>: B<dpkg-statoverride> preserves the old copy of this file, with extensio
 
 =head1 VOIR AUSSI
 
-B<dpkg>(1).
+L<dpkg(1)>.
 
 
 =head1 TRADUCTION

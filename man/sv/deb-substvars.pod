@@ -69,7 +69,7 @@ Aktuell värdarkitektur (dvs., arkitekturen paketet byggs för, motsvarigheten t
 
 =item B<vendor:Name>
 
-Aktuellt återförsäljarnamn (sedan dpkg 1.20.0). Värdet kommer från fältet B<Vendor> för aktuell återförsäljares origin-fil, så som B<dpkg-cendor>(1) skulle hämta det.
+The current vendor name (since dpkg 1.20.0).  This value comes from the B<Vendor> field for the current vendor's origin file, as L<dpkg-vendor(1)> would retrieve it.
 
 =item B<vendor:Id>
 
@@ -103,19 +103,19 @@ Källkodspaketet utökade beskricning, hämtad från källkods-strofens B<Descri
 
 Den ungefärliga totala storleken på paketets installerade filer. Värdet kopieras in i motsvarande fält i styrfilen. Om du ställer in det kommer det att ersätta värdet på fältet. Om variabeln inte är satt kommer B<dpkg-gencontrol> att beräkna dess standardvärde genom att summera storleken på alla vanliga filer och symboliska länkar avrundat till 1 KiB-enheter, och ett grundvärde på 1 KiB för andra filsystemsobjekttyper. Hårda länkar räknas bara som vanliga filer en gång.
 
-B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
+B<Observera>: Tänk på att det här aldrig kan vara något annat än ett närmevärde eftersom den faktiska storleken som används på det installerade systemet i stor grad beror på vilket filsystem som används och dess parameterar, vilket kan komma att använda mer eller mindre plats än vad som anges i det här fältet.
 
 =item B<Extra-Size>
 
 Ytterligare diskutrymme som används när paketet installeras. Om värdet är satt kommer dess värde att läggas till B<Installed-Size>-variabelns värde (oavsett om den satts explicit eller om det förvalda värdet används) innan det kopieras till styrfilens fält B<Installed-Size>.
 
-=item B<S:>I<fältnamn>
+=item B<S:>I<field-name>
 
-Värdet på källkods-strofens fält I<fältnamn> (som måste anges med rätt form av stora och små bokstäver; sedan dpkg 1.18.11). Om du sätter dessa variabler händer ingenting förutom där de explicit expanderats. Variablerna är bara tillgängliga när styrfiler för binärpaketen skapas.
+The value of the source stanza field I<field-name> (which must be given in the canonical capitalization; since dpkg 1.18.11).  Setting these variables has no effect other than on places where they are expanded explicitly. These variables are only available when generating binary control files.
 
-=item B<F:>I<fältnamn>
+=item B<F:>I<field-name>
 
-Värdet på utdatafältet I<fältnamn> (som måste anges med rätt form av stora och små bokstäver). Om du sätter dessa variabler händer ingenting förutom där de explicit expanderats.
+The value of the output field I<field-name> (which must be given in the canonical capitalization). Setting these variables has no effect other than on places where they are expanded explicitly.
 
 =item B<Format>
 
@@ -151,7 +151,7 @@ Lista över substitueringsvariabler och -värden.
 
 =head1 SE ÄVEN
 
-B<dpkg>(1), B<dpkg-vendor>(1), B<dpkg-genchanges>(1), B<dpkg-gencontrol>(1), B<dpkg-shlibdeps>(1), B<dpkg-source>(1).
+L<dpkg(1)>, L<dpkg-vendor(1)>, L<dpkg-genchanges(1)>, L<dpkg-gencontrol(1)>, L<dpkg-shlibdeps(1)>, L<dpkg-source(1)>.
 
 
 =head1 ÖVERSÄTTNING

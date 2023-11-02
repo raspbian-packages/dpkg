@@ -38,7 +38,7 @@ Värdet för fältet anger filens formatversion. Fältets syntax är ett version
 
 =item B<Date:> I<utgivningsdatum> (krävs)
 
-Det datum då paketet sist byggdes eller redigerades. Det måste vara på samma format som datumet i B<deb-changelog>(5)-posten.
+The date the package was built or last edited.  It must be in the same format as the date in a L<deb-changelog(5)> entry.
 
 Värdet på fältet hämtas vanligtvis ut från filen I<debian/changelog>.
 
@@ -56,7 +56,7 @@ Listar arkitekturer för de filer som sänds in just nu. Vanliga arkitekturer ä
 
 =item B<Version:> I<versionssträng> (krävs)
 
-Vanligtvis är detta det ursprungliga paketets versionsnummer på den form programmets författare använder. Den kan även innehålla ett Debianuppdateringsnummer (för paket vars källa är utanför Debian). Exakt format och sorteringsalgoritm beskrivs i B<deb-version>(7).
+Typically, this is the original package's version number in whatever form the program's author uses.  It may also include a Debian revision number (for non-native packages).  The exact format and sorting algorithm are described in L<deb-version(7)>.
 
 =item B<Distribution:> I<distribution>er (krävs)
 
@@ -128,7 +128,7 @@ Fältet B<Files> är inte konsistent med de andra B<Checksums>-fälten. Fälten 
 
 =head1 SE ÄVEN
 
-L<deb822(5)>, B<deb-src-control>(5), B<deb-version>(7).
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
 
 
 =head1 ÖVERSÄTTNING

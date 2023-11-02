@@ -25,7 +25,13 @@
 #undef BUILD_UPDATE_ALTERNATIVES
 
 /* default dpkg-deb build compressor */
-#undef DPKG_DEB_DEFAULT_COMPRESSOR
+#undef DEB_DEFAULT_COMPRESSOR
+
+/* pager program used by dpkg */
+#undef DPKG_DEFAULT_PAGER
+
+/* POSIX shell interpreter used by dpkg */
+#undef DPKG_DEFAULT_SHELL
 
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
@@ -78,6 +84,9 @@
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
+
+/* POSIX shell interpreter used by dpkg supports -- after -c */
+#undef HAVE_DPKG_SHELL_WITH_DASH_DASH
 
 /* Define to 1 if you have the <error.h> header file. */
 #undef HAVE_ERROR_H
@@ -246,6 +255,9 @@
 
 /* Define to 1 if you have the `strtoimax' function. */
 #undef HAVE_STRTOIMAX
+
+/* Define to 1 if you have the <sys/mkdev.h> header file. */
+#undef HAVE_SYS_MKDEV_H
 
 /* Define to 1 if you have the <sys/param.h> header file. */
 #undef HAVE_SYS_PARAM_H

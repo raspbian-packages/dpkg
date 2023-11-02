@@ -26,7 +26,7 @@ Symbolfilmallar medföljer Debiankällkodspaket och dess format är en övermän
 
 =head2 Kommentarer
 
-Kommentarer stöds i symbolmallfilerna. Alla rader med ”#” som första tecken är kommentarer, såvida inte det börjar med ”#include” (se stycket B<Använda inkluderingar>). Rader som börjar med ”#MISSING:” är speciella kommentarer som dokumenterar symboler som har försvunnit.
+Comments are supported in template symbol files. Any line with ‘#’ as the first character is a comment except if it starts with ‘#include’ (see section L</Using includes>).  Lines starting with ‘#MISSING:’ are special comments documenting symbols that have disappeared.
 
 =head2 Använda #PACKAGE#-substituering
 
@@ -34,7 +34,7 @@ I några sällsynta fall skiljer sig namnet på biblioteket mellan arkitekturer.
 
 =head2 Använda symboltaggar
 
-Symboltaggning är nyttigt för att markera symboler som är speciella på något sätt. Alla symboler kan ha ett godtyckligt antal taggar associerade med sig. Medan alla taggar tolkas och lagras är det bara ett par av dem som förstås av B<dpkg-gensymbols> och som utlöser specialhantering av symbolerna. Se undersymbolen B<Standardsymboltaggar> för mer information om dessa taggar.
+Symbol tagging is useful for marking symbols that are special in some way. Any symbol can have an arbitrary number of tags associated with it. While all tags are parsed and stored, only some of them are understood by B<dpkg-gensymbols> and trigger special handling of the symbols. See subsection L</Standard symbol tags> for reference of these tags.
 
 Taggarna anges precis före symbolnamnet (inga blanksteg tillåts mellan). Den börjar alltid med en vänsterparentes B<(>, slutar med en högerparentes B<)>, och måste innehålla minst en tagg. Ytterligare taggar avdelas med tecknet B<|>. En tagg kan ha ett värde, vilket separeras från taggnamnet med tecknet B<=>. Taggnamn och värden kan vara godtyckliga strängar, förutom att de inte kan innehålla de speciella tecknen B<)> B<|> B<=>. Symbolnamn som följer en taggangivelse kan, om så önskas, citeras med antingen B<'> eller B<"> för att tillåta blanksteg. Om inga taggar anges för symbolen tolkas dock citattecken som en del av symbolnamnet, vilket fortsätter till det första blanksteget.
 
@@ -44,7 +44,7 @@ Taggarna anges precis före symbolnamnet (inga blanksteg tillåts mellan). Den b
 
 Den första symbolen i exemplet är heter I<taggad citerad symbol> och har två taggar: I<tag1> med värdet I<jag är markerad> och I<taggnamn med blanksteg> som inte har något värde. Den andra symbolen heter I<taggad_ociterad_symbol> och är bara taggad med taggen som heter I<optional>. Den sista symbolen är ett exempel på en normal, otaggad symbol.
 
-Eftersom symboltaggar er en utökning av formatet i I<deb-symbols(5)> kan de bara användas i symbolfiler i källkodspaket (dessa filer är att anse som mallar som används för att bygga symbolfilerna som finns i binärpaketen). När B<dpkg-gensymbols> anropas utan flaggan B<-t> kommer det att mata ut symbolfiler kompatibla med B<deb-symbols>(5)-formatet: det hanterar symboler helt beroende på vad som beskrivs av standardtaggarna och tar bort alla taggar från utdata. I mall-läge (B<-t>) kommer däremot alla symboler och deras taggar (både standard och okända) att behållas i utdata och skrivas i sin originalform så som de lästes in.
+Since symbol tags are an extension of the L<deb-symbols(5)> format, they can only be part of the symbols files used in source packages (those files should then be seen as templates used to build the symbols files that are embedded in binary packages). When B<dpkg-gensymbols> is called without the B<-t> option, it will output symbols files compatible to the L<deb-symbols(5)> format: it fully processes symbols according to the requirements of their standard tags and strips all tags from the output. On the contrary, in template mode (B<-t>) all symbols and their tags (both standard and unknown ones)  are kept in the output and are written in their original form as they were loaded.
 
 =head2 Standardsymboltaggar
 
@@ -52,7 +52,7 @@ Eftersom symboltaggar er en utökning av formatet i I<deb-symbols(5)> kan de bar
 
 =item B<optional>
 
-A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
+En symbol markerad som valfri (optional) kan försvinna från bibliotektet när som helst och kommer aldrig göra så att B<dpkg-gensymbols> misslyckas. Försvunna symboler kommer dock fortfarande visas som saknade (MISSING) i differensen för varje ny paketversion. Detta beteende fungerar som en påminnelse för de paketansvariga om att symbolen måste tas bort från symbolfilen eller läggas tillbaka till biblioteket. När en valfri symbol som tidigare markerats som saknad (MISSING) plötsligt dyker upp igen i en senare version kommer den att uppgraderas tillbaka till befintligstatus (”existing”) med den minsta tillgängliga versionen oförändrad.
 
 Taggen är användbar för symboler som är privata och vars försvinnande inte gör att ABI:et går sönder. De flesta C++-mallinstansieringar faller till exempel in under denna kategori. Som andra taggar kan den här även ha ett godtyckligt värde: det kan användas för att indikera varför symbolen är att anse som valfri.
 
@@ -95,15 +95,15 @@ Ett alias för B<allow-internal> som avråds från (sedan dpkg 1.20.1, stöds se
 
 =item B<c++>
 
-Betecknar I<c++>-symbolmönster. Se stycket B<Använda symbolmönster> nedan.
+Denotes I<c++> symbol pattern. See L</Using symbol patterns> subsection below.
 
 =item B<symver>
 
-Anger I<symver> (symbolversion)-symbolmönstret. Se stycket B<Använda symbolmönster> nedan.
+Denotes I<symver> (symbol version) symbol pattern. See L</Using symbol patterns> subsection below.
 
 =item B<regex>
 
-Anger I<regex>-symbolmönstret. Se stycket I<Använda symbolmönster> nedan.
+Denotes I<regex> symbol pattern. See L</Using symbol patterns> subsection below.
 
 =back
 
@@ -111,9 +111,9 @@ Anger I<regex>-symbolmönstret. Se stycket I<Använda symbolmönster> nedan.
 
 Till skillnad från vanliga symbolspecifikationer kan ett mönster täcka flera faktiska symboler från biblioteket. B<dpkg-gensymbols> kommer försöka matcha varje mönster mot varje faktisk symbol som I<inte> har en motsvarande specifik symbol definierad i symbolfilen. Så fort det första mönster som motsvarar symbolen hittas kommer alla dess taggar och egenskaper att användas som en basspecifikation för symbolen. Om inget mönster motsvarar symbolen kommer den att tolkas som ny.
 
-Ett mönster anses som tappat om det inte motsvarar några symboler i biblioteket. Som standard kommer detta få B<dpkg-genchanges> att misslyckas om B<-c1> eller högre anges. Om ett sådant misslyckande inte är önskvärt kan mönstret dock märkas med taggen I<optional>. Om mönstret då inte motsvarar någonting kommer det bara dyka upp i differensen som saknas (MISSING). Mönstret kan dessutom, precis som andra symboler, begränsas till specifika arkitekturer med hjälp av I<arch>-taggen. Se stycket B<Standardsymboltaggar> ovan för mer information.
+A pattern is considered lost if it does not match any symbol in the library. By default this will trigger a B<dpkg-gensymbols> failure under B<-c1> or higher level. However, if the failure is undesired, the pattern may be marked with the I<optional> tag. Then if the pattern does not match anything, it will only appear in the diff as MISSING. Moreover, like any symbol, the pattern may be limited to the specific architectures with the I<arch> tag. Please refer to L</Standard symbol tags> subsection above for more information.
 
-Mönster är en utökning av B<deb-symbols(5)>-formatet och är därför endast tillåtna i symbolfilmallar. Syntax för angivelse av mönster skiljer sig inte från den för en specifik symbol. Symbolnamnsdelen av specifikationen fungerar dock som ett uttryck som ska jämföras mot I<namn@version> för den faktiska symbolen. För att skilja mellan olika sorters mönster, taggas mönster normalt med en speciell tagg.
+Patterns are an extension of the L<deb-symbols(5)> format hence they are only valid in symbol file templates. Pattern specification syntax is not any different from the one of a specific symbol. However, symbol name part of the specification serves as an expression to be matched against I<name@version> of the real symbol. In order to distinguish among different pattern types, a pattern will typically be tagged with a special tag.
 
 För närvarande stöder B<dpkg-gensymbols> tre grundläggande mönstertyper:
 
@@ -121,7 +121,7 @@ För närvarande stöder B<dpkg-gensymbols> tre grundläggande mönstertyper:
 
 =item B<c++>
 
-Detta mönster anges med taggen I<c++>. Den matchar enbart C++-symboler med deras avmanglade symbolnamn (som det skrivs ut av B<c++filt>(1)-verktyget). Det här mönstret är väldigt nyttigt för att matcha symboler vars manglade namn kan skilja sig mellan olika arkitekturer, medan deras avmanglade namn är desamma. En grupp dylika symboler är I<icke-virtuella ”thunks”> som har arkitekturspecifika offsetvärden inbyggda i sina manglade namn. En vanlig instans av detta fall är en virtuell destruktör som under diamantarv behöver en icke-virtuell ”thunk”-symbol. Även om till exempel ZThn8_N3NSB6ClassDD1Ev@Base på 32-bitarsarkitekturer troligtvis är _ZThn16_N3NSB6ClassDD1Ev@Base på64-bitarsarkitekturer, så kan de matchas med ett enda I<c++>-mönster:
+This pattern is denoted by the I<c++> tag. It matches only C++ symbols by their demangled symbol name (as emitted by L<c++filt(1)> utility). This pattern is very handy for matching symbols which mangled names might vary across different architectures while their demangled names remain the same. One group of such symbols is I<non-virtual thunks> which have architecture specific offsets embedded in their mangled names. A common instance of this case is a virtual destructor which under diamond inheritance needs a non-virtual thunk symbol. For example, even if _ZThn8_N3NSB6ClassDD1Ev@Base on 32-bit architectures will probably be _ZThn16_N3NSB6ClassDD1Ev@Base on 64-bit ones, it can be matched with a single I<c++> pattern:
 
  libdummy.so.1 libdummy1 #MINVER#
   [...]
@@ -144,7 +144,7 @@ Detta mönster anges med taggen I<symver>. Välunderhållna bibliotek har versio
   access@GLIBC_2.0 2.2
 Alla symboler associerade med versionerna GLIBC_2.0 och GLIBC_2.7 kommer leda till den minimal version 2.0 respektive 2.7, med undantag av symbolen access@GLIBC_2.0. Den sistnämnda kommer leda till ett minsta beroende på libc6 version 2.2 trots att den motsvarar mönstret "(symver)GLIBC_2.0"-mönstret, eftersom specifika symboler gäller före mönster.
 
-Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
+Observera att även om den gamla sortens jokerteckenmönster (anges med "*@version" i symbolnamnfältet) fortfarande stöds så rekommenderas de inte längre i och med den nya sortens syntax "(symver|optional)version". Till exempel bör "*@GLIBC_2.0 2.0" skrivas som "(symver|optional)GLIBC_2.0 2.0" om samma beteende behövs.
 
 =item B<regex>
 
@@ -187,10 +187,10 @@ Inkluderingsdirektivet kan även taggas som alla andra symboler:
 
 Alla symboler som inkluderas från I<fil-att-inkludera> kommer att anses som standard vara taggade med I<tagg> ... I<taggN>. Du kan använda denna funktion för att skapa en gemensam I<paket>.symbols-fil som inkluderar arkitekturspecifika filer:
 
-  gemensam_symbol1@Base 1.0
- (arch=amd64 ia64 alpha)#include "paket.symbols.64bit"
- (arch=!amd64 !ia64 !alpha)#include "paket.symbols.32bit"
-  gemensam_symbol2@Base 1.0
+  common_symbol1@Base 1.0
+ (arch=amd64 ia64 alpha)#include "package.symbols.64-bit"
+ (arch=!amd64 !ia64 !alpha)#include "package.symbols.32-bit"
+  common_symbol2@Base 1.0
 
 =back
 
@@ -202,7 +202,7 @@ En inkluderad fil kan repetera huvudraden som innehåller SONAME:t för bibliote
   arkitekturspecifik_symbol@Base 1.0
 =head1 SE ÄVEN
 
-B<deb-symbols>(5), B<dpkg-shlibdeps>(1), B<dpkg-gensymbols>(1).
+L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>, L<dpkg-gensymbols(1)>.
 
 
 =head1 ÖVERSÄTTNING

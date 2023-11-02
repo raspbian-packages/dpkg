@@ -70,5 +70,5 @@ De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
 
 =head1 ZIE OOK
 
-B<dpkg>(1).
+L<dpkg(1)>.
 

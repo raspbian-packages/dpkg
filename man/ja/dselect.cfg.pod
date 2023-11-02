@@ -30,7 +30,7 @@ I<~/.dselect.cfg>
 
 =head1 関連項目
 
-B<dselect>(1)
+L<dselect(1)>.
 
 
 =head1 翻訳者

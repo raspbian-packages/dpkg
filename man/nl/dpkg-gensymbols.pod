@@ -50,11 +50,11 @@ Het hoofddoel van deze bestanden is aan te geven welke de minimale versie is die
 
 Indien het gegenereerde symboolbestand verschilt van datgene wat de onderhouder aanlevert, zal B<dpkg-gensymbols> de verschillen tussen de twee versies tonen in diff-formaat. Bovendien kan dit zelfs tot een mislukking leiden als de verschillen te significant zijn (u kunt aanpassen hoeveel verschil u kunt tolereren; zie de optie B<-c>).
 
-This program was introduced in dpkg 1.14.8.
+Dit programma werd geïntroduceerd in dpkg 1.14.8.
 
 =head1 HET ONDERHOUD VAN SYMBOOLBESTANDEN
 
-De basisuitwisselingsindeling van het symboolbestand wordt beschreven in B<deb-symbols>(5), hetgeen gebruikt wordt door de symboolbestanden uit de binaire pakketten. Deze worden gegenereerd uit sjabloonsymboolbestanden met een indeling gebaseerd op het eerste, beschreven in B<deb-src-symbols>(5) en opgenomen in broncodepakketten.
+The base interchange format of the symbols file is described in L<deb-symbols(5)>, which is used by the symbols files included in binary packages. These are generated from template symbols files with a format based on the former, described in L<deb-src-symbols(5)> and included in source packages.
 
 De symboolbestanden zijn pas echt nuttig als ze de evolutie van het pakket reflecteren doorheen verschillende releases. De onderhouder moet ze dus iedere keer bijwerken wanneer een nieuw symbool toegevoegd wordt, zodat de minimale versie die eraan gekoppeld wordt, overeenkomt met de realiteit.
 
@@ -108,13 +108,13 @@ Definieer de pakketversie. Standaard is dat de versie die uit debian/changelog g
 
 =item B<-e>I<bibliotheekbestand>
 
-Analyseer enkel de expliciet vermelde bibliotheken in plaats van alle publieke bibliotheken te zoeken. U kunt in I<bibliotheekbestand> gebruik maken van shell-patronen met het oog op padnaamexpansie (zie de man-pagina B<File::Glob>(3perl) voor details) om met één enkel argument meerdere bibliotheken aan te duiden (anders heeft u meerdere malen B<-e> nodig).
+Only analyze libraries explicitly listed instead of finding all public libraries. You can use shell patterns used for pathname expansions (see the L<File::Glob> manual page for details) in I<library-file> to match multiple libraries with a single argument (otherwise you need multiple B<-e>).
 
 =item B<-l>I<map>
 
 Voeg I<map> vooraan toe aan de lijst van mappen waarin naar private gedeelde bibliotheken gezocht moet worden (sinds dpkg 1.19.1). Deze optie kan meermaals gebruikt worden.
 
-B<Note>: Use this option instead of setting B<LD_LIBRARY_PATH>, as that environment variable is used to control the run-time linker and abusing it to set the shared library paths at build-time can be problematic when cross-compiling for example.
+B<Opmerking>: gebruik deze optie in de plaats van het instellen van B<LD_LIBRARY_PATH>, aangezien die omgevingsvariabele gebruikt wordt om de runtime linker aan te sturen. Daarvan misbruik maken om de paden van gedeelde bibliotheken in te stellen tijdens het bouwen van het programma, kan problematisch zijn, bijvoorbeeld bij het cross-compileren.
 
 =item B<-I>I<bestandsnaam>
 
@@ -126,7 +126,7 @@ Het gegenereerde symboolbestand weergeven op de standaarduitvoer of schrijven na
 
 =item B<-t>
 
-Het symboolbestand in sjabloonmodus opschrijven, eerder dan in de indeling die compatibel is met B<deb-symbols>(5). Het grootste verschil is dat in de sjabloonmodus symboolnamen en tags geschreven worden in hun originele vorm in tegenstelling tot in de compatibele modus waarin de verwerkte symboolnamen ontdaan van hun tags gebruikt worden. Daarenboven kunnen bij het schrijven van een standaard B<deb-symbols>(5)-bestand sommige symbolen weggelaten worden (overeenkomstig de regels voor het verwerken van tags), terwijl in een symboolbestand-sjabloon steeds alle symbolen neergeschreven worden.
+Write the symbol file in template mode rather than the format compatible with L<deb-symbols(5)>. The main difference is that in the template mode symbol names and tags are written in their original form contrary to the post-processed symbol names with tags stripped in the compatibility mode. Moreover, some symbols might be omitted when writing a standard L<deb-symbols(5)> file (according to the tag processing rules) while all symbols are always written to the symbol file template.
 
 =item B<-c>I<[0-4]>
 
@@ -204,5 +204,5 @@ Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het active
 
 =head1 ZIE OOK
 
-L<https://people.redhat.com/drepper/symbol-versioning>, L<https://people.redhat.com/drepper/goodpractice.pdf>, L<https://people.redhat.com/drepper/dsohowto.pdf>, B<deb-src-symbol>(5), B<deb-symbols>(5), B<dpkg-shlibdeps>(1).
+L<https://people.redhat.com/drepper/symbol-versioning>, L<https://people.redhat.com/drepper/goodpractice.pdf>, L<https://people.redhat.com/drepper/dsohowto.pdf>, L<deb-src-symbol(5)>, L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>.
 

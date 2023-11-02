@@ -16,7 +16,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 dpkg-buildflags - retorna flags de compilação para usar durante a compilação de pacotes
 
-=head1 SINOPSE
+=head1 RESUMO
 
 B<dpkg-buildflags> [I<option>...] [I<command>]
 
@@ -38,11 +38,11 @@ para o utilizador actual com B<$XDG_CONFIG_HOME/dpkg/buildflags.conf> onde B<$XD
 
 =item 3.
 
-temporariamente pelo utilizador com variáveis de ambiente (veja a secção B<AMBIENTE>);
+temporarily by the user with environment variables (see section L</ENVIRONMENT>);
 
 =item 4.
 
-dinamicamente pelo maintainer do pacote com variáveis de ambiente definidas via B<debian/rules> (veja a secção B<AMBIENTE>).
+dynamically by the package maintainer with environment variables set via B<debian/rules> (see section L</ENVIRONMENT>).
 
 =back
 
@@ -56,7 +56,7 @@ Sobrescreve a flag chamada I<flag> para ter o valor I<valor>.
 
 =item B<STRIP> I<flag> I<value>
 
-Strip from the flag named I<flag> all the build flags listed in I<value>. Since dpkg 1.16.1.
+Despoja da flag chamada I<flag> todas as flags de compilação listadas em I<valor>. Desde dpkg 1.16.1.
 
 =item B<APPEND> I<flag> I<value>
 
@@ -64,13 +64,13 @@ Estende a flag chamada I<flag> ao acrescentar as opções dadas em I<valor>. É 
 
 =item B<PREPEND> I<flag> I<value>
 
-Extend the flag named I<flag> by prepending the options given in I<value>. A space is appended to the prepended value if the flag's current value is non-empty.  Since dpkg 1.16.1.
+Estende a flag chamada I<flag> ao precede-la com as opções dadas em I<valor>. É acrescentado um espaço ao valor precedido se o valor da flag actual não estiver vazio. Desde dpkg 1.16.1.
 
 =back
 
 Os ficheiros de configuração podem conter comentários nas linhas que começam com um cardinal (#). As linhas vazias também são ignoradas.
 
-This program was introduced in dpkg 1.15.7.
+Este programa foi introduzido no dpkg 1.15.7.
 
 =head1 COMANDOS
 
@@ -82,11 +82,11 @@ Escreve na saída standard todas as bandeiras de compilação e os seus valores.
 
 =item B<--list>
 
-Escreve a lista das flags suportadas pelo fornecedor actual (uma por cada linha). Veja a secção B<FLAGS SUPORTADAS> para mais informação sobre elas.
+Print the list of flags supported by the current vendor (one per line). See the L</SUPPORTED FLAGS> section for more information about them.
 
 =item B<--status>
 
-Display any information that can be useful to explain the behavior of B<dpkg-buildflags> (since dpkg 1.16.5): relevant environment variables, current vendor, state of all feature flags.  Also print the resulting compiler flags with their origin.
+Mostra qualquer informação que possa ser útil para explicar o comportamento de B<dpkg-buildflags> (desde dpkg 1.16.5): variáveis de ambiente relevantes, fornecedor actual, estado de todas as bandeiras de funcionalidades. Também escreve as bandeira de compilação resultantes com as suas origens.
 
 Isto destina-se a ser corrido a partir de B<debian/rules>, para que os relatórios de compilação mantenham um rasto claro das bandeiras de compilação usadas. Isto pode ser útil para diagnosticar problemas relacionados com elas.
 
@@ -144,7 +144,7 @@ a flag é definida/modifica por uma configuração específica do ambiente;
 
 =item B<--query>
 
-Print any information that can be useful to explain the behavior of the program: current vendor, relevant environment variables, feature areas, state of all feature flags, whether a feature is handled as a builtin default by the compiler (since dpkg 1.21.14), and the compiler flags with their origin (since dpkg 1.19.0).
+Escreve qualquer informação que possa ser útil para explicar o comportamento do programa: fornecedor actual, variáveis de ambiente relevantes, áreas de funcionalidades, estado de todas as bandeiras de funcionalidades, se uma funcionalidade é lidada como uma predefinição de compilação pelo compilador (desde dpkg 1.21.14), a as bandeiras de compilação com as suas origens (desde dpkg 1.19.0).
 
 Por exemplo:
 
@@ -206,47 +206,83 @@ Mostra a versão e termina.
 
 =item B<ASFLAGS>
 
-Opções para o assemblador. Valor predefinido: vazio. Desde dpkg 1.21.0.
+Options for the host assembler.  Default value: empty.  Since dpkg 1.21.0.
 
 =item B<CFLAGS>
 
-Opções para o compilador de C. O valor predefinido regulado pelo fornecedor inclui B<-g> e o nível de optimização predefinido (geralmente B<-O2>, ou B<-O0> se a variável de ambiente B<DEB_BUILD_OPTIONS> definir I<noopt>).
+Options for the host C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).
 
 =item B<CPPFLAGS>
 
-Opções para o pré-processador de C. Valor predefinido: vazio.
+Options for the host C preprocessor.  Default value: empty.
 
 =item B<CXXFLAGS>
 
-Opções para o compilador de C++. O mesmo que B<CFLAGS>.
+Options for the host C++ compiler.  Same as B<CFLAGS>.
 
 =item B<OBJCFLAGS>
 
-Options for the Objective C compiler. Same as B<CFLAGS>.  Since dpkg 1.17.7.
+Options for the host Objective C compiler.  Same as B<CFLAGS>.  Since dpkg 1.17.7.
 
 =item B<OBJCXXFLAGS>
 
-Options for the Objective C++ compiler. Same as B<CXXFLAGS>.  Since dpkg 1.17.7.
-
-=item B<GCJFLAGS>
-
-Opções para o compilador de Java do GNU (gcj). Um subconjunto de B<CFLAGS>.
+Options for the host Objective C++ compiler.  Same as B<CXXFLAGS>.  Since dpkg 1.17.7.
 
 =item B<DFLAGS>
 
-Opções para o compilador D (ldc ou gdc). Desde dpkg 1.20.6.
+Options for the host D compiler (ldc or gdc).  Since dpkg 1.20.6.
 
 =item B<FFLAGS>
 
-Opções para o compilador Fortran 77. Um subconjunto de B<CFLAGS>.
+Options for the host Fortran 77 compiler.  A subset of B<CFLAGS>.
 
 =item B<FCFLAGS>
 
-Options for the Fortran 9x compiler. Same as B<FFLAGS>.  Since dpkg 1.17.7.
+Options for the host Fortran 9x compiler.  Same as B<FFLAGS>.  Since dpkg 1.17.7.
 
 =item B<LDFLAGS>
 
-Opções passadas ao compilador quando faz link a executáveis ou objetos partilhados (se o vinculador (linker) for chamado directamente, então B<-Wl> e B<,> têm de ser cortados destas opções). Valor predefinido: empty.
+Options passed to the host compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options). Default value: empty.
+
+=item B<ASFLAGS_FOR_BUILD>
+
+Options for the build assembler.  Default value: empty.  Since dpkg 1.22.1.
+
+=item B<CFLAGS_FOR_BUILD>
+
+Options for the build C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).  Since dpkg 1.22.1.
+
+=item B<CPPFLAGS_FOR_BUILD>
+
+Options for the build C preprocessor.  Default value: empty.  Since dpkg 1.22.1.
+
+=item B<CXXFLAGS_FOR_BUILD>
+
+Options for the build C++ compiler.  Same as B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+
+=item B<OBJCFLAGS_FOR_BUILD>
+
+Options for the build Objective C compiler.  Same as B<CFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+
+=item B<OBJCXXFLAGS_FOR_BUILD>
+
+Options for the build Objective C++ compiler.  Same as B<CXXFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+
+=item B<DFLAGS_FOR_BUILD>
+
+Options for the build D compiler (ldc or gdc).  Since dpkg 1.22.1.
+
+=item B<FFLAGS_FOR_BUILD>
+
+Options for the build Fortran 77 compiler.  A subset of B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+
+=item B<FCFLAGS_FOR_BUILD>
+
+Options for the build Fortran 9x compiler.  Same as B<FFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+
+=item B<LDFLAGS_FOR_BUILD>
+
+Options passed to the build compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options).  Default value: empty.  Since dpkg 1.22.1.
 
 =back
 
@@ -264,19 +300,19 @@ A funcionalidade especial B<all> (válida em qualquer área) pode ser usada para
 
 =head2 abi
 
-Several compile-time options (detailed below) can be used to enable features that can change the ABI of a package, but cannot be enabled by default due to backwards compatibility reasons unless coordinated or checked individually.
+Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas para activar funcionalidades que podem modificar o ABI dum pacote, mas não podem estar activas por predefinição devido a razões de compatibilidade com versões anteriores, a menos que sejam coordenadas ou verificadas individualmente.
 
 =over 
 
 =item B<lfs>
 
-This setting (since dpkg 1.22.0; disabled by default) enables Large File Support on 32-bit architectures where their ABI does not include LFS by default, by adding B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> to B<CPPFLAGS>.
+Esta definição (desde dpkg 1.22.00; desactivada por predefinição) activa Suporte Ficheiros Longos em arquitecturas de 32-bit onde o seu ABI não inclui LFS (Large File Support) por predefinição, ao adicionar B<-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64> a B<CPPFLAGS>.
 
-When this feature is enabled it will override the value from the same feature in the B<future> feature area.
+Quando esta funcionalidade é activa irá sobrepor o valor da mesma funcionalidade na área de funcionalidades B<future>.
 
 =item B<time64>
 
-This setting (since dpkg 1.22.0; disabled by default) enables 64-bit time_t support on 32-bit architectures where their ABI does not include it by default, by adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the B<lfs> feature as it requires it.
+Esta definição (desde dpkg 1.22.0; desactivada por predefinição) activa suporte time_t de 64bit em arquitecturas de 32-bit onde o seu ABI não a inclui por predefinição, ao adicionar B<-D_TIME_BITS=64> a B<CPPFLAGS>. Esta definição activa automaticamente a funcionalidade B<lfs> porque a requer.
 
 =back
 
@@ -288,7 +324,7 @@ Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas 
 
 =item B<lfs>
 
-This setting (since dpkg 1.19.0; disabled by default) is now an alias for the B<lfs> feature in the B<abi> area, use that instead.  The feature from the B<abi> area overrides this setting.
+Esta definição (desde dpkg 1.19.0; desactivada por predefinição) é agora um nome alternativo para a funcionalidade B<lfs> na área B<abi>, use esta em vez da anterior. A funcionalidade da ária B<abi> sobrepõe esta definição.
 
 =back
 
@@ -300,11 +336,11 @@ Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas 
 
 =item B<bug>
 
-This setting (since dpkg 1.17.4; disabled by default) adds any warning option that reliably detects problematic source code.  The warnings are fatal.  The only currently supported flags are B<CFLAGS> and B<CXXFLAGS> with flags set to B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> and B<-Werror=volatile-register-var>.
+Esta definição (desde dpkg 1.17.4; desactivada por predefinição) adiciona qualquer opção de aviso de detecção de fiabilidade problemática no código fonte. Os avisos são fatais. As únicas bandeiras presentemente suportadas são B<CFLAGS> e B<CXXFLAGS> com bandeiras definidas para B<-Werror=array-bounds>, B<-Werror=clobbered>, B<-Werror=implicit-function-declaration> e B<-Werror=volatile-register-var>.
 
 =item B<canary>
 
-This setting (since dpkg 1.17.14; disabled by default) adds dummy canary options to the build flags, so that the build logs can be checked for how the build flags propagate and to allow finding any omission of normal build flag settings.  The only currently supported flags are B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> and B<OBJCXXFLAGS> with flags set to B<-D__DEB_CANARY_>I<flag>_I<random-id>B<__>, and B<LDFLAGS> set to B<-Wl,-z,deb-canary->I<random-id>.
+Esta definição (desde dpkg 1.17.14; desactivada por predefinição) adiciona opções canary fantoches às bandeiras de compilação, para que os relatórios de compilação possam ser verificados em como as bandeiras de compilação se propagam e para permitir encontrar qualquer omissão de definições normais de bandeiras de compilação. As únicas bandeiras actualmente suportadas são B<CPPFLAGS>, B<CFLAGS>, B<OBJCFLAGS>, B<CXXFLAGS> e B<OBJCXXFLAGS> com bandeiras definidas para B<-D__DEB_CANARY_>I<flag>_I<random-id>B<__>, e B<LDFLAGS> definida para B<-Wl,-z,deb-canary->I<random-id>.
 
 =back
 
@@ -316,7 +352,7 @@ Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas 
 
 =item B<lto>
 
-Esta definição (desde dpkg 1.21.0; desactivada por predefinição) activa Link Time Optimization ao adicionar B<-flto=auto -ffat-lto-objects> a B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS>, B<FCFLAGS> e B<LDFLAGS>.
+This setting (since dpkg 1.21.0; disabled by default) enables Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
 
 =back
 
@@ -328,19 +364,19 @@ Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas 
 
 =item B<address>
 
-This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=address> to B<LDFLAGS> and B<-fsanitize=address -fno-omit-frame-pointer> to B<CFLAGS> and B<CXXFLAGS>.
+Esta definição (desde dpkg 1.18.0; desactivada por predefinição) adiciona B<-fsanitize=address> a B<LDFLAGS> e B<-fsanitize=address -fno-omit-frame-pointer> a B<CFLAGS> e B<CXXFLAGS>.
 
 =item B<thread>
 
-This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=thread> to B<CFLAGS>, B<CXXFLAGS> and B<LDFLAGS>.
+Esta definição (desde dpkg 1.18.0; desactivada por predefinição) adiciona B<-fsanitize=thread> a B<CFLAGS>, B<CXXFLAGS> e B<LDFLAGS>.
 
 =item B<leak>
 
-This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=leak> to B<LDFLAGS>. It gets automatically disabled if either the B<address> or the B<thread> features are enabled, as they imply it.
+Esta definição (desde dpkg 1.18.0; desactivada por predefinição) adiciona B<-fsanitize=leak> a B<LDFLAGS>. Fica automaticamente desactivada se as funcionalidades B<address> ou B<thread> estiverem activas, pois elas já implicam isto.
 
 =item B<undefined>
 
-This setting (since dpkg 1.18.0; disabled by default) adds B<-fsanitize=undefined> to B<CFLAGS>, B<CXXFLAGS> and B<LDFLAGS>.
+Esta definição (desde dpkg 1.18.0; desactivada por predefinição) adiciona B<-fsanitize=undefined> a B<CFLAGS>, B<CXXFLAGS> e B<LDFLAGS>.
 
 =back
 
@@ -352,47 +388,47 @@ Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas 
 
 =item B<format>
 
-This setting (since dpkg 1.16.1; enabled by default) adds B<-Wformat -Werror=format-security> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS> and B<OBJCXXFLAGS>.  This will warn about improper format string uses, and will fail when format functions are used in a way that represent possible security problems. At present, this warns about calls to B<printf> and B<scanf> functions where the format string is not a string literal and there are no format arguments, as in B<printf(foo);> instead of B<printf("%s", foo);> This may be a security hole if the format string came from untrusted input and contains ‘%n’.
+Esta definição (desde dpkg 1.16.1; activada por predefinição) adiciona B<-Wformat -Werror=format-security> a B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS> e B<OBJCXXFLAGS>.  Isto irá avisar sobre uso de strings de formato impróprias, e irá falhar quando funções de formato forem usadas em modo que representem possíveis problemas de segurança. Presentemente, isto avisa sobre chamadas a funções B<printf> e B<scanf> onde a string de formato não é uma string literal e não existem argumentos de formato, como em B<printf(foo);> em vez de B<printf("%s", foo);> Isto pode ser um buraco de segurança se a string de formato vier de uma entrada não confiável e conter ‘%n’.
 
 =item B<fortify>
 
-This setting (since dpkg 1.16.1; enabled by default) adds B<-D_FORTIFY_SOURCE=2> to B<CPPFLAGS>. During code generation the compiler knows a great deal of information about buffer sizes (where possible), and attempts to replace insecure unlimited length buffer function calls with length-limited ones. This is especially useful for old, crufty code. Additionally, format strings in writable memory that contain ‘%n’ are blocked. If an application depends on such a format string, it will need to be worked around.
+Esta definição (desde dpkg 1.16.1; activada por predefinição) adiciona B<-D_FORTIFY_SOURCE=2> a B<CPPFLAGS>. Durante a geração de código o compilador sabe muita informação sobre tamanhos de buffer (onde possível), e tenta substituir chamadas de função buffer de comprimento ilimitadas e inseguras por umas limitadas em comprimento. Isto é especialmente útil para código antigo, desnecessariamente complicado. Adicionalmente, as strings de formato em memória gravável que contêm ‘%n’ são bloqueadas. Se uma aplicação depender de tal string de formato, isso terá que ser contornado.
 
 Note que para esta opção ter algum efeito, a fonte tem de também ser compilada com B<-O1> ou superior. Se a variável de ambiente B<DEB_BUILD_OPTIONS> conter I<noopt>, então o suporte a B<fortify> será desactivado, devido a novos avisos serem emitidos pelo glibc 2.16 e posterior.
 
 =item B<stackprotector>
 
-This setting (since dpkg 1.16.1; enabled by default if stackprotectorstrong is not in use) adds B<-fstack-protector --param=ssp-buffer-size=4> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds safety checks against stack overwrites. This renders many potential code injection attacks into aborting situations. In the best case this turns code injection vulnerabilities into denial of service or into non-issues (depending on the application).
+This setting (since dpkg 1.16.1; enabled by default if stackprotectorstrong is not in use) adds B<-fstack-protector --param=ssp-buffer-size=4> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds safety checks against stack overwrites. This renders many potential code injection attacks into aborting situations. In the best case this turns code injection vulnerabilities into denial of service or into non-issues (depending on the application).
 
 Esta funcionalidade requer ligação (link) a glibc (ou outro fornecedor de B<__stack_chk_fail>), portanto precisa de ser desactivada quando se compila com B<-nostdlib> ou B<-ffreestanding> ou semelhante.
 
 =item B<stackprotectorstrong>
 
-This setting (since dpkg 1.17.11; enabled by default) adds B<-fstack-protector-strong> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This is a stronger variant of B<stackprotector>, but without significant performance penalties.
+This setting (since dpkg 1.17.11; enabled by default) adds B<-fstack-protector-strong> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This is a stronger variant of B<stackprotector>, but without significant performance penalties.
 
 Desactivar B<stackprotector> irá também desactivar esta definição.
 
 Esta funcionalidade tem os mesmos requerimentos que B<stackprotector>, e adicionalmente também requer gcc 4.9 e posterior.
 
-=item B<stackclask>
+=item B<stackclash>
 
-This setting (since dpkg 1.22.0; enabled by default) adds B<-fstack-clash-protection> on B<amd64>, B<arm64>, B<armhf> and B<armel> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds code to prevent stack clash style attacks.
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fstack-clash-protection> on B<amd64>, B<arm64>, B<armhf> and B<armel> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds code to prevent stack clash style attacks.
 
 =item B<branch>
 
-This setting (since dpkg 1.22.0; enabled by default) adds B<-fcf-protection> on B<amd64> and B<-mbranch-protection=standard> on B<arm64> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds branch protection to indirect calls, jumps and returns to check whether these are valid at run-time.
+This setting (since dpkg 1.22.0; enabled by default) adds B<-fcf-protection> on B<amd64> and B<-mbranch-protection=standard> on B<arm64> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds branch protection to indirect calls, jumps and returns to check whether these are valid at run-time.
 
 =item B<relro>
 
-This setting (since dpkg 1.16.1; enabled by default) adds B<-Wl,-z,relro> to B<LDFLAGS>.  During program load, several ELF memory sections need to be written to by the linker. This flags the loader to turn these sections read-only before turning over control to the program. Most notably this prevents GOT overwrite attacks. If this option is disabled, B<bindnow> will become disabled as well.
+Esta definição (desde dpkg 1.16.1; activada por predefinição) adiciona B<-Wl,-z,relro> a B<LDFLAGS>. Durante o carregamento do programa, várias secções de memória ELF precisam de ser escritas pelo vinculador. Isto sinaliza ao carregador para tornar estas secções só-leitura antes de entregar o controlo ao programa. Mais notavelmente isto previne ataques de sobrescrita GOT. Se esta opção for desactivada, B<bindnow> irá ficar também desactivado.
 
 =item B<bindnow>
 
-This setting (since dpkg 1.16.1; disabled by default) adds B<-Wl,-z,now> to B<LDFLAGS>. During program load, all dynamic symbols are resolved, allowing for the entire PLT to be marked read-only (due to B<relro> above). The option cannot become enabled if B<relro> is not enabled.
+Esta definição (desde dpkg 1.16.1; desactivada por predefinição) adiciona B<-Wl,-z,now> a B<LDFLAGS>. Durante o carregamento do programa, todos os símbolos dinâmicos são resolvidos, permitindo que todo o PLT seja marcado só-leitura (devido ao B<relro> em cima). A opção pode ser activada se B<relro> não for activado.
 
 =item B<pie>
 
-This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian architectures) adds the required options to enable or disable PIE via gcc specs files, if needed, depending on whether gcc injects on that architecture the flags by itself or not.  When the setting is enabled and gcc injects the flags, it adds nothing.  When the setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled and gcc injects the flags, it adds B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) to B<LDFLAGS>.
+This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian architectures) adds the required options to enable or disable PIE via gcc specs files, if needed, depending on whether gcc injects on that architecture the flags by itself or not.  When the setting is enabled and gcc injects the flags, it adds nothing.  When the setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled and gcc injects the flags, it adds B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) to B<LDFLAGS>.
 
 Position Independent Executable (PIE) é necessário para tirar vantagem de Address Space Layout Randomization (ASLR), suportado por algumas versões de kernel. Enquanto ASLR já pode ser aplicada para áreas de dados na stack e heap (brk e mmap), as áreas de código têm de ser compiladas como independente-de-posição. As bibliotecas partilhadas já fazem isto (B<-fPIC>), assim elas ganham ASLR automaticamente, mas as regiões de texto binários precisam de ser compiladas como PIE para ganhar ASLR. Quando isto acontece, os ataques ROP (Return Oriented Programming) são mais difíceis pois não são localizações estáticas para ressaltar durante um ataque de corrupção de memória.
 
@@ -416,7 +452,7 @@ Pode ser vinculado a qualquer programa e biblioteca partilhada.
 
 =back
 
-If there is a need to set these flags manually, bypassing the gcc specs injection, there are several things to take into account. Unconditionally and explicitly passing B<-fPIE>, B<-fpie> or B<-pie> to a build-system using libtool is safe as these flags will get stripped when building shared libraries.  Otherwise on projects that build both programs and shared libraries you might need to make sure that when building the shared libraries B<-fPIC> is always passed last (so that it overrides any previous B<-PIE>) to compilation flags such as B<CFLAGS>, and B<-shared> is passed last (so that it overrides any previous B<-pie>) to linking flags such as B<LDFLAGS>. B<Note>: This should not be needed with the default gcc specs machinery.
+Se existir a necessidade de definir estas bandeiras manualmente, fazendo bypass à injeção de spec gcc, há varias coisas a ter em conta. Passar incondicionalmente e explicitamente B<-fPIE>, B<-fpie> ou B<-pie> a um sistema de compilação usando libtool é seguro pois estas bandeiras irão ser despojadas quando se compila bibliotecas partilhadas. Caso contrário em projetos que compilam ambos programas e bibliotecas partilhadas você pode precisar de certificar que quando compila as bibliotecas partilhadas, B<-fPIC> seja sempre passado em último (para que sobreponha qualquer B<-PIE> anterior) às bandeiras de compilação tais como B<CFLAGS>, e B<-shared> é passado em último (para que sobreponha qualquer B<-pie> anterior) para ligar em link bandeiras tais como B<LDFLAGS>. B<Nota>: Isto não deve ser necessário com a maquinaria de specs gcc predefinida.
 
 Adicionalmente, como PIE é implementado via registo geral, algumas arquitecturas com falta de registo (mas não incluindo mais a i386 desde as optimizações implementadas no gcc E<gt>= 5) podem ver perdas de performance até aos 15% em grandes cargas de aplicações de segmentos de texto pesados; a maioria das cargas vêm menos de 1%. Arquitecturas com registos mais gerais (ex. amd64) não vêm mais alto que uma penalidade de pior caso.
 
@@ -430,21 +466,21 @@ As opções de tempo de compilação detalhadas em baixo  podem ser usadas para 
 
 =item B<timeless>
 
-This setting (since dpkg 1.17.14; enabled by default) adds B<-Wdate-time> to B<CPPFLAGS>.  This will cause warnings when the B<__TIME__>, B<__DATE__> and B<__TIMESTAMP__> macros are used.
+Esta definição (desde dpkg 1.17.14; activada por predefinição) adiciona B<-Wdate-time> a B<CPPFLAGS>. Isto irá causar avisos quando as macros B<__TIME__>, B<__DATE__> e B<__TIMESTAMP__> são usadas.
 
 =item B<fixfilepath>
 
-This setting (since dpkg 1.19.1; enabled by default) adds B<-ffile-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built. This has the effect of removing the build path from any generated file.
+This setting (since dpkg 1.19.1; enabled by default) adds B<-ffile-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built.  This has the effect of removing the build path from any generated file.
 
 Se ambas B<fixdebugpath> e B<fixfilepath> forem definidas, esta opção toma precedência, porque é um superconjunto do anterior.
 
-B<Note>: If the build process captures the build flags into the resulting built objects, that will make the package unreproducible.  And while disabling this option might make some of the objects reproducible again this would also require disabling B<fixdebugpath>, which might make any generated debug symbols objects unreproducible.  The ideal fix is to stop capturing build flags.
+B<Nota>: Se o processo de compilação capturar as bandeiras de compilação para os objectos de compilação resultantes, isso irá tornar o pacote não-reproduzível. E ao desactivar esta opção poderá tornar alguns dos objectos reproduzíveis de novo isto irá também requerer desactivar B<fixdebugpath>, o que poderá tornar quaisquer símbolos de depuração gerados não-reproduzíveis. A correção ideal é parar de capturar bandeiras de compilação.
 
 =item B<fixdebugpath>
 
-This setting (since dpkg 1.18.5; enabled by default) adds B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<GCJFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built. This has the effect of removing the build path from any generated debug symbols.
+This setting (since dpkg 1.18.5; enabled by default) adds B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built.  This has the effect of removing the build path from any generated debug symbols.
 
-B<Note>: This feature has similar reproducible properties as B<fixfilepath>.
+B<Nota>: Esta funcionalidade tem propriedades de reprodução semelhantes a B<fixfilepath>.
 
 =back
 
@@ -456,33 +492,33 @@ Existem 2 conjuntos de variáveis de ambiente a fazer as mesmas operações, O p
 
 =item B<DEB_>I<flag>B<_SET>
 
-=item B<DEB_>I<flag>B<_MAINT_SET> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_MAINT_SET> (desde dpkg 1.16.1)
 
 Esta variável pode ser usada para forçar o valor retornado para a <flag> fornecida.
 
-=item B<DEB_>I<flag>B<_STRIP> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_STRIP> (desde dpkg 1.16.1)
 
-=item B<DEB_>I<flag>B<_MAINT_STRIP> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_MAINT_STRIP> (desde dpkg 1.16.1)
 
 Esta variável pode ser usada para disponibilizar uma lista separada por espaços das opções que irão ser despojadas do conjunto de flags retornado para a I<flag> fornecida.
 
 =item B<DEB_>I<flag>B<_APPEND>
 
-=item B<DEB_>I<flag>B<_MAINT_APPEND> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_MAINT_APPEND> (desde dpkg 1.16.1)
 
 Esta variável pode ser usada para acrescentar opções suplementares ao valor retornado para a I<flag> fornecida.
 
-=item B<DEB_>I<flag>B<_PREPEND> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_PREPEND> (desde dpkg 1.16.1)
 
-=item B<DEB_>I<flag>B<_MAINT_PREPEND> (since dpkg 1.16.1)
+=item B<DEB_>I<flag>B<_MAINT_PREPEND> (desde dpkg 1.16.1)
 
 Esta variável pode ser usada para adicionar opções suplementares ao inicio do valor retornado  para a I<flag> fornecida.
 
 =item B<DEB_BUILD_OPTIONS>
 
-=item B<DEB_BUILD_MAINT_OPTIONS> (since dpkg 1.16.1)
+=item B<DEB_BUILD_MAINT_OPTIONS> (desde dpkg 1.16.1)
 
-Estas variáveis podem ser usadas por um utilizador ou maintainer para desactivar/activar várias funcionalidades de área que afectam bandeiras de compilação. A variável B<DEB_BUILD_MAINT_OPTIONS> sobrepõe qualquer definição nas áreas de funcionalidade de B<DEB_BUILD_OPTIONS>. Veja a secção B<ÁREAS DE CARACTERÍSTICAS> para detalhes.
+These variables can be used by a user or maintainer to disable/enable various area features that affect build flags.  The B<DEB_BUILD_MAINT_OPTIONS> variable overrides any setting in the B<DEB_BUILD_OPTIONS> feature areas.  See the L</FEATURE AREAS> section for details.
 
 =item B<DEB_VENDOR>
 
@@ -563,7 +599,7 @@ ou para definir os parâmetros posicionais a passar a um comando:
 
 Você deve chamar B<dpkg-buildflags> ou incluir B<buildflags.mk> do ficheiro B<debian/rules> para obter as bandeiras de compilação necessárias para passar ao sistema de compilação. Note que versões antigas do B<dpkg-buildpackage> (antes do dpkg 1.16.1) exportavam estas bandeiras automaticamente. No entanto, você não deve confiar nisto, pois isto quebra a invocação manual de B<debian/rules>.
 
-Para pacotes com sistemas de compilação tipo autoconf, você pode passar as opções relevantes ao configure ou B<make>(1) directamente, como mostrado em cima.
+For packages with autoconf-like build systems, you can pass the relevant options to configure or L<make(1)> directly, as shown above.
 
 Para outros sistemas de compilação, ou quando precisa de um controle mais afinado acerca de quais bandeiras são passadas para onde, você pode usar B<--get>. Ou você pode incluir B<buildflags.mk> em vez disto, o que toma conta de chamar B<dpkg-buildflags> e guardar as bandeiras de compilação em variáveis do make.
 

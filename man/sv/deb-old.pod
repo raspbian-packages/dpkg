@@ -22,7 +22,7 @@ I<filnamn>B<.deb>
 
 =head1 BESKRIVNING
 
-B<.deb>-formatet är Debians binära paketformat. Denna manualsida beskriver det B<gamla> formatet som används före Debian 0.93. Se B<deb>(5) för detaljerad information om det nya formatet.
+The B<.deb> format is the Debian binary package file format. This manual page describes the B<old> format, used before Debian 0.93. Please see L<deb(5)> for details of the new format.
 
 =head1 FORMAT
 
@@ -42,7 +42,7 @@ Den andra gzip-packade tar-filen är filsystemsarkivet, vilken innehåller sökv
 
 =head1 SE ÄVEN
 
-B<deb>(5), B<dpkg-deb>(1), B<deb-control>(5).
+L<deb(5)>, L<deb-control(5)>, L<dpkg-deb(1)>.
 
 
 =head1 ÖVERSÄTTNING

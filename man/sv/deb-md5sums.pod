@@ -39,7 +39,7 @@ Om filen ”control” inte finns i det binära paketet kommer L<dpkg>(1)> att s
 
 =head1 SE ÄVEN
 
-B<md5sum>(1), B<dpkg-deb>(1), B<dpkg>(1).
+L<md5sum(1)>, L<dpkg-deb(1)>, L<dpkg(1)>.
 
 
 =head1 ÖVERSÄTTNING

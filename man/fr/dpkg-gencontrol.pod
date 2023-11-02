@@ -40,7 +40,7 @@ Fixe le numéro de version du paquet binaire qui sera créé.
 
 =item B<-V>I<nom>B<=>I<valeur>
 
-Fixe la valeur d'une variable de substitution. Consultez B<deb-substvars>(5) pour une discussion sur la valeur de substitution.
+Set an output substitution variable. See L<deb-substvars(5)> for discussion of output substitution.
 
 =item B<-T>I<fichier-substvars>
 
@@ -68,7 +68,7 @@ Lit ou écrit la liste des fichiers qui doivent être envoyés vers l'archive da
 
 =item B<-F>I<format-du-fichier-des-changements>
 
-Indique le format du fichier des changements. Voir B<dpkg-parsechangelog>(1) pour plus d'informations à propos des formats gérés.
+Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
 
 =item B<-p>I<paquet>
 
@@ -130,7 +130,7 @@ La liste des fichiers créés qui font partie de ceux qui seront envoyés sur le
 
 =head1 VOIR AUSSI
 
-B<deb-substvars>(5), B<deb-src-control>(5), B<deb-changelog>(5), B<deb-control>(5).
+L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-changelog(5)>, L<deb-control(5)>.
 
 
 =head1 TRADUCTION

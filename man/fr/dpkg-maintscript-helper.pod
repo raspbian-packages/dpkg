@@ -159,7 +159,7 @@ Détails de la mise en œuvre S<actuelle :> dans le script B<preinst>, il est v�
 
 =head1 INTÉGRATION DANS LES PAQUETS
 
-Lors de l'utilisation d'un assistant d'empaquetage, veuillez vérifier s'il ne dispose pas d'une intégration native de B<dpkg-maintscript-helper> ce qui vous facilitera la tâche. Voir par exemple B<dh_installdeb>(1).
+When using a packaging helper, please check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
 
 Comme B<dpkg-maintscript-helper> est utilisé dans le script B<preinst>, l'utiliser sans conditions impose une pré-dépendance afin de garantir que la version minimale nécessaire de B<dpkg> ait bien été préalablement configurée. La version minimale dépend de la commande S<utilisée :> ainsi pour B<rm_conffile> et B<mv_conffile>, cette version est 1.15.7.2, pour B<symlink_to_dir> et B<dir_to_symlink>, c'est S<1.17.14 :>
 
@@ -202,7 +202,7 @@ Fixe le mode de couleur (depuis S<dpkg 1.19.1).> Les valeurs admises actuellemen
 
 =head1 VOIR AUSSI
 
-B<dh_installdeb>(1)
+L<dh_installdeb(1)>.
 
 
 =head1 TRADUCTION

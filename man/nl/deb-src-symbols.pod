@@ -26,7 +26,7 @@ De symboolbestand-sjablonen worden geleverd met Debian bronpakketten en de indel
 
 =head2 Commentaar
 
-Commentaar wordt ondersteund in sjabloonsymboolbestanden. Elke regel met ‘#’ als eerste teken is een commentaarregel, behalve als die regel begint met ‘#include’ (zie het onderdeel over B<Het gebruik van includes>). Regels die beginnen met ‘#MISSING:’ zijn een bijzondere vorm van commentaar waarin symbolen die verdwenen zijn, gedocumenteerd worden.
+Comments are supported in template symbol files. Any line with ‘#’ as the first character is a comment except if it starts with ‘#include’ (see section L</Using includes>).  Lines starting with ‘#MISSING:’ are special comments documenting symbols that have disappeared.
 
 =head2 Substitutie van #PACKAGE# gebruiken
 
@@ -34,7 +34,7 @@ In enkele zeldzame gevallen verschilt de naam van de bibliotheek naargelang de a
 
 =head2 Symbooltags gebruiken
 
-Het gebruik van symbooltags is nuttig om symbolen te markeren die op een of andere manier bijzonder zijn. Aan elk symbool kan een arbitrair aantal tags gekoppeld worden. Hoewel alle tags ontleed en opgeslagen worden, worden slechts een aantal ervan herkend door B<dpkg-gensymbols>. Ze lokken een speciale behandeling van de symbolen uit. Zie het onderdeel B<Standaard symbooltags> voor een voorstelling van deze tags.
+Symbol tagging is useful for marking symbols that are special in some way. Any symbol can have an arbitrary number of tags associated with it. While all tags are parsed and stored, only some of them are understood by B<dpkg-gensymbols> and trigger special handling of the symbols. See subsection L</Standard symbol tags> for reference of these tags.
 
 Tags worden vlak voor de symboolnaam opgegeven (tussenin mag er geen witruimte zijn). Een opgave begint steeds met het openen van een haakje B<(> en eindigt met het sluiten ervan B<)> en moet minstens één tag bevatten. Meerdere tags worden onderling gescheiden door een B<|>-teken. Elke tag kan een facultatieve waarde hebben die van de naam van de tag gescheiden wordt door het teken B<=>. Namen van tags en waarden kunnen arbitraire tekenreeksen zijn, behalve dat zij niet de speciale tekens B<)> B<|> B<=> mogen bevatten. De symboolnaam die na een tagopgave komt kan facultatief tussen aanhalingstekens geplaatst worden, ofwel met B<'> of met B<">, waardoor hij witruimte mag bevatten. Evenwel, indien er voor het symbool geen tags opgegeven werden, zullen de aanhalingstekens behandeld worden als onderdeel van de naam van het symbool die eindigt bij de eerste spatie.
 
@@ -44,7 +44,7 @@ Tags worden vlak voor de symboolnaam opgegeven (tussenin mag er geen witruimte z
 
 Het eerste symbool in het voorbeeld werd I<getagd en aangehaald symbool> genoemd en heeft twee tags: I<tag1> met als waarde I<ik werd gemarkeerd> en I<tagnaam met spatie> die geen waarde heeft. Het tweede symbool met als naam I<getagd_niet-aangehaald_symbool> werd enkel gemarkeerd met de tag die I<optioneel> als naam heeft. Het laatste symbool is een voorbeeld van een normaal niet-getagd symbool.
 
-Aangezien symbooltags een uitbreiding zijn van het B<deb-symbols>(5)-systeem, kunnen zij enkel deel uitmaken van de symboolbestanden die in broncodepakketten gebruikt worden (die bestanden moeten dan gezien worden als sjablonen die gebruikt worden om de symboolbestanden te bouwen die in de binaire pakketten zitten). Indien B<dpkg-gensymbols> aangeroepen wordt zonder de optie B<-t> zal het symboolbestanden produceren die compatibel zijn met het B<deb-symbols>(5)-systeem: er gebeurt een volledige verwerking van de symbolen in overeenstemming met de vereisten van hun standaardtags en de uitvoer wordt ontdaan van alle tags. In sjabloonmodus (B<-t>) daarentegen blijven in de uitvoer alle symbolen en hun tags (zowel de standaardtags als de niet-gekende) behouden en worden ze in hun originele vorm neergeschreven zoals ze geladen werden.
+Since symbol tags are an extension of the L<deb-symbols(5)> format, they can only be part of the symbols files used in source packages (those files should then be seen as templates used to build the symbols files that are embedded in binary packages). When B<dpkg-gensymbols> is called without the B<-t> option, it will output symbols files compatible to the L<deb-symbols(5)> format: it fully processes symbols according to the requirements of their standard tags and strips all tags from the output. On the contrary, in template mode (B<-t>) all symbols and their tags (both standard and unknown ones)  are kept in the output and are written in their original form as they were loaded.
 
 =head2 Standaard symbooltags
 
@@ -52,7 +52,7 @@ Aangezien symbooltags een uitbreiding zijn van het B<deb-symbols>(5)-systeem, ku
 
 =item B<optional>
 
-A symbol marked as optional can disappear from the library at any time and that will never cause B<dpkg-gensymbols> to fail. However, disappeared optional symbols will continuously appear as MISSING in the diff in each new package revision. This behavior serves as a reminder for the maintainer that such a symbol needs to be removed from the symbol file or readded to the library. When the optional symbol, which was previously declared as MISSING, suddenly reappears in the next revision, it will be upgraded back to the “existing” status with its minimum version unchanged.
+Een symbool dat als optional (facultatief) gemarkeerd is, kan om het even wanneer uit de bibliotheek verdwijnen en dat feit zal nooit een mislukking van B<dpkg-gensymbols> tot gevolg hebben. Nochtans zullen verdwenen facultatieve symbolen permanent als MISSING (ontbrekend) aangegeven worden in de diff (weergave van de veranderingen) bij elke nieuwe pakketrevisie. Dit gedrag dient als een geheugensteuntje voor de pakketbeheerder dat een dergelijk symbool verwijderd moet worden uit het symboolbestand of terug toegevoegd aan de bibliotheek. Indien een facultatief symbool dat eerder als MISSING opgetekend stond in een volgende revisie plots opnieuw opduikt, zal het terug opgewaardeerd worden naar de status “existing” (bestaand) zonder wijziging van zijn minimumversie.
 
 Deze tag is nuttig voor private symbolen waarvan de verdwijning geen ABI-breuk veroorzaakt. De meeste van de C++-sjabloon-instantiaties vallen bijvoorbeeld onder deze categorie. Zoals elke andere tag kan ook deze een arbitraire waarde hebben: die kan gebruikt worden om aan te geven waarom het symbool als facultatief beschouwd wordt.
 
@@ -96,15 +96,15 @@ Een verouderde alias voor B<allow-internal> (sinds dpkg 1.20.1, ondersteund sind
 
 =item B<c++>
 
-Geeft een I<c++>-symboolpatroon aan. Zie hierna in de subsectie B<Het gebruik van symboolpatronen>.
+Denotes I<c++> symbol pattern. See L</Using symbol patterns> subsection below.
 
 =item B<symver>
 
-Geeft een I<symver> (symboolversie) symboolpatroon aan. Zie hierna in de subsectie B<Het gebruik van symboolpatronen>.
+Denotes I<symver> (symbol version) symbol pattern. See L</Using symbol patterns> subsection below.
 
 =item B<regex>
 
-Geeft een I<regex>-symboolpatroon aan. Zie hierna in de subsectie B<Het gebruik van symboolpatronen>.
+Denotes I<regex> symbol pattern. See L</Using symbol patterns> subsection below.
 
 =back
 
@@ -112,9 +112,9 @@ Geeft een I<regex>-symboolpatroon aan. Zie hierna in de subsectie B<Het gebruik 
 
 Anders dan een standaardbeschrijving van een symbool, kan een patroon meerdere echte symbolen uit de bibliotheek dekken. B<dpkg-gensymbols> zal proberen om elk patroon te vergelijken met elk reëel symbool waarvoor in het symboolbestand I<geen> specifiek symbooltegenhanger gedefinieerd werd. Telkens wanneer een eerste overeenkomst met een patroon gevonden wordt, worden alle tags en eigenschappen ervan gebruikt als basisspecificatie voor het symbool. Indien er met geen enkel patroon een overeenkomst gevonden wordt, zal het symbool als nieuw beschouwd worden.
 
-Een patroon wordt als verloren beschouwd als het met geen enkel symbool uit de bibliotheek overeenkomt. Standaard zal dit onder B<-c1> of een hoger niveau een mislukking van B<dpkg-gensymbols> uitlokken. Indien een dergelijke mislukking echter onwenselijk is, kan het patroon gemarkeerd worden met de tag I<optional>. Als het patroon in dat geval geen overeenkomst oplevert, zal het enkel in de diff (weergave van de wijzigingen) als MISSING (ontbrekend) vermeld worden. Zoals elk ander symbool kan ook een patroon beperkt worden tot specifieke architecturen met de tag I<arch>. Raadpleeg het onderdeel B<Standaard symbooltags> hierboven voor meer informatie.
+A pattern is considered lost if it does not match any symbol in the library. By default this will trigger a B<dpkg-gensymbols> failure under B<-c1> or higher level. However, if the failure is undesired, the pattern may be marked with the I<optional> tag. Then if the pattern does not match anything, it will only appear in the diff as MISSING. Moreover, like any symbol, the pattern may be limited to the specific architectures with the I<arch> tag. Please refer to L</Standard symbol tags> subsection above for more information.
 
-Patronen vormen een uitbreiding van het B<deb-symbols>(5)-systeem en zijn daarom enkel geldig in symboolbestand-sjablonen. De syntaxis voor het opgeven van patronen verschilt niet van die voor een specifiek symbool. Het onderdeel symboolnaam van de specificatie fungeert echter als een expressie die vergeleken wordt met I<naam@versie> van het echte symbool. Om het onderscheid te maken tussen verschillende types patronen, wordt een patroon doorgaans gemarkeerd met een speciale tag.
+Patterns are an extension of the L<deb-symbols(5)> format hence they are only valid in symbol file templates. Pattern specification syntax is not any different from the one of a specific symbol. However, symbol name part of the specification serves as an expression to be matched against I<name@version> of the real symbol. In order to distinguish among different pattern types, a pattern will typically be tagged with a special tag.
 
 Op dit ogenblik ondersteunt B<dpkg-gensymbols> drie fundamentele patroontypes:
 
@@ -122,7 +122,7 @@ Op dit ogenblik ondersteunt B<dpkg-gensymbols> drie fundamentele patroontypes:
 
 =item B<c++>
 
-Dit patroon wordt met de tag I<c++> aangeduid. Het zoekt enkel een overeenkomst met C++-symbolen aan de hand van hun ontwarde (demangled) symboolnaam (zoals die weergegeven wordt door het hulpprogramma B<c++filt>(1)). Dit patroon is zeer handig om symbolen te vinden waarvan de verhaspelde naam op verschillende architecturen anders kan zijn, terwijl hun ontwarde naam gelijk blijft. Een groep van dergelijke symbolen is I<non-virtual thunks> die architectuurspecifieke geheugenplaatsen ingebed hebben in hun verhaspelde naam. Een courant voorkomend voorbeeld hiervan is een virtuele destructor die onder een diamantovererving een niet-virtueel thunk-symbool nodig heeft. Bijvoorbeeld, zelfs als _ZThn8_N3NSB6ClassDD1Ev@Base op 32-bits-architecturen wellicht _ZThn16_N3NSB6ClassDD1Ev@Base zal zijn op 64-bits-architecturen, kunnen zij met één enkel I<c++>-patroon aangeduid worden:
+This pattern is denoted by the I<c++> tag. It matches only C++ symbols by their demangled symbol name (as emitted by L<c++filt(1)> utility). This pattern is very handy for matching symbols which mangled names might vary across different architectures while their demangled names remain the same. One group of such symbols is I<non-virtual thunks> which have architecture specific offsets embedded in their mangled names. A common instance of this case is a virtual destructor which under diamond inheritance needs a non-virtual thunk symbol. For example, even if _ZThn8_N3NSB6ClassDD1Ev@Base on 32-bit architectures will probably be _ZThn16_N3NSB6ClassDD1Ev@Base on 64-bit ones, it can be matched with a single I<c++> pattern:
 
  libdummy.so.1 libdummy1 #MINVER#
   [...]
@@ -147,7 +147,7 @@ Dit patroon wordt door de tag I<symver> aangegeven. Goed onderhouden bibliotheke
 
 Alle symbolen die horen bij de versies GLIBC_2.0 en GLIBC_2.7 zullen resulteren in de respectieve minimale versies 2.0 en 2.7, met uitzondering van het symbool access@GLIBC_2.0. Dit laatste zal resulteren in een minimale vereiste van libc6 versie 2.2 en dit ondanks het feit dat het valt binnen het bereik van het patroon "(symver)GLIBC_2.0". De reden hiervoor is dat specifieke symbolen voorrang hebben op patronen.
 
-Please note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version". For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
+Merk op dat hoewel patronen met jokertekens volgens de oude stijl (in het veld symboolnaam aangegeven door "*@version") nog steeds ondersteund worden, zij vervangen werden door een syntaxis volgens de nieuwe stijl "(symver|optional)version". Als hetzelfde effect gewenst wordt moet bijvoorbeeld "*@GLIBC_2.0 2.0" geschreven worden als "(symver|optional)GLIBC_2.0 2.0".
 
 =item B<regex>
 
@@ -192,10 +192,10 @@ Net zoals om het even welk symbool kan ook een include-opdracht tags krijgen:
 
 Als gevolg daarvan zal er standaard van uitgegaan worden dat alle symbolen die uit I<in-te-voegen-bestand> opgenomen worden, gemarkeerd zijn met I<tag> ... I<tagN>. U kunt van deze functionaliteit gebruik maken om een gemeenschappelijk bestand I<pakket>.symbols te maken waarin architectuurspecifieke symboolbestanden opgenomen worden:
 
-  gemeenschappelijk_symbool1@Base 1.0
- (arch=amd64 ia64 alpha)#include "pakket.symbols.64bit"
- (arch=!amd64 !ia64 !alpha)#include "pakket.symbols.32bit"
-  gemeenschappelijk_symbool2@Base 1.0
+  common_symbol1@Base 1.0
+ (arch=amd64 ia64 alpha)#include "package.symbols.64-bit"
+ (arch=!amd64 !ia64 !alpha)#include "package.symbols.32-bit"
+  common_symbol2@Base 1.0
 
 =back
 
@@ -208,5 +208,5 @@ Een ingevoegd bestand kan de kopregel die de SONAME van de bibliotheek bevat, he
 
 =head1 ZIE OOK
 
-B<deb-symbols>(5), B<dpkg-shlibdeps>(1), B<dpkg-gensymbols>(1).
+L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>, L<dpkg-gensymbols(1)>.
 

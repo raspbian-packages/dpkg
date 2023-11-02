@@ -88,7 +88,7 @@ Foutvlaggen:
 
 =back
 
-Een toestand die aangeduid wordt met een hoofdletter of een foutletter wijzen erop dat het waarschijnlijk is dat het pakket ernstige problemen zal veroorzaken. Gelieve B<dpkg>(1) te raadplegen voor informatie over de bovenstaande toestanden en vlaggen.
+An uppercase status or error letter indicates the package is likely to cause severe problems. Please refer to L<dpkg(1)> for information about the above states and flags.
 
 De indeling van de uitvoer van deze optie kan niet geconfigureerd worden, maar varieert automatisch om te passen binnen de breedte van de terminal. Ze is bedoeld om door personen gelezen te worden, en kan niet gemakkelijk gelezen worden door een machine. Zie B<-W> (B<--show>) en B<--showformat> voor een manier om de indeling van de uitvoer te configureren.
 
@@ -113,7 +113,7 @@ Z<>
   pakket leidt andere om naar: I<omgeleid-naar>
   omgeleid door I<pkkt> naar: I<omgeleid-naar>
 
-B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
+B<Hint>: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen. Op sommige systemen kan dit ook vereisen dat de omgevingsvariabele B<LANGUAGE> op de juiste manier wordt aangepast als deze al is ingesteld (zie L<locale(7)>).
 
 Dit commando geeft geen extra bestanden weer die door scripts van de pakketonderhouder aangemaakt werden en ook geen alternatieven.
 
@@ -156,7 +156,7 @@ Z<>
   lokale omleiding van: I<omgeleid-van>
   lokale omleiding naar: I<omgeleid-naar>
 
-B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+B<Hint>: wanneer de uitvoer machinaal wordt verwerkt, is het gebruikelijk om de landinstelling in te stellen op B<C.UTF-8> om reproduceerbare resultaten te krijgen.
 
 =item B<-p>, B<--print-avail> [I<pakketnaam>...]
 
@@ -383,7 +383,7 @@ Stelt het uit te voeren programma in wanneer een commando via een shell voortgeb
 
 =item B<DPKG_PAGER>
 
-Stelt het te gebruiken pagineringscommando in (sinds dpkg 1.19.1), hetwelk uitgevoerd zal worden met «B<$SHELL -c>». Indien B<SHELL> niet ingesteld is, zal «B<sh>» gebruikt worden. B<DPKG_PAGER> overschrijft de omgevingsvariabele B<PAGER> (sinds dpkg 1.19.2).
+Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.  The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).
 
 =item B<DPKG_ROOT>
 
@@ -413,11 +413,11 @@ Indien niet reeds ingesteld, wordt het als “B<-FRSXMQ>” gedefinieerd door B<
 
 =back
 
-=head1 SECURITY
+=head1 BEVEILIGING
 
-Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
+Query-operaties zouden nooit root mogen vereisen, en het delegeren van hun uitvoering naar niet-geprivilegieerde gebruikers via een commando om beheerdersrechten te verwerden, kan veiligheidsimplicaties hebben (zoals een probleem van rechtenuitbreiding), bijvoorbeeld wanneer een pagineringsprogramma automatisch wordt aangeroepen door het hulpmiddel.
 
 =head1 ZIE OOK
 
-B<dpkg>(1).
+L<dpkg(1)>.
 

@@ -40,7 +40,7 @@ Stelt het versienummer in van het binaire pakket dat gegenereerd zal worden.
 
 =item B<-V>I<naam>B<=>I<waarde>
 
-Stel een uitvoersubstitutievariabele in. Zie B<deb-substvars>(5) voor een bespreking van uitvoersubstitutie.
+Set an output substitution variable. See L<deb-substvars(5)> for discussion of output substitution.
 
 =item B<-T>I<substvars-bestand>
 
@@ -68,7 +68,7 @@ De lijst van bestanden die geüpload moeten worden hier lezen of schrijven, eerd
 
 =item B<-F>I<changelog-indeling>
 
-Geeft de indeling van het bestand changelog aan. Zie B<dpkg-parsechangelog>(1) voor informatie over alternatieve indelingen.
+Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
 
 =item B<-p>I<pakket>
 
@@ -80,7 +80,7 @@ Ervan uitgaan dat de bestandsnaam van het pakket I<bestandsnaam> zal zijn in pla
 
 =item B<-is>, B<-ip>, B<-isp>
 
-These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell B<dpkg-gencontrol> to include the Section and Priority fields in the control file. This is now the default behavior. If you want to get the old behavior you can use the B<-U> option to delete the fields from the control file.
+Deze opties worden genegeerd omwille van de compatibiliteit met oudere versies van de bouwscripts van dpkg, maar zijn nu verouderd. Vroeger werden ze gebruikt om B<dpkg-gencontrol> te laten weten dat de velden Section (sectie) en Priority (prioriteit) opgenomen moesten worden in het bestand control. Nu is dit het standaardgedrag. Indien u het oude gedrag wenst, kunt u de optie B<-U> gebruiken om die velden uit het controlebestand te verwijderen.
 
 =item B<-P>I<pakketbouwmap>
 
@@ -130,5 +130,5 @@ De lijst van gegenereerde bestanden die deel uitmaken van de upload die voorbere
 
 =head1 ZIE OOK
 
-B<deb-substvars>(5), B<deb-src-control>(5), B<deb-changelog>(5), B<deb-control>(5).
+L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-changelog(5)>, L<deb-control(5)>.
 

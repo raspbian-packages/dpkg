@@ -24,7 +24,7 @@ B<start-stop-daemon> [I<option>...] I<commande>
 
 On se sert de B<start-stop-daemon> pour contrôler la création ou l'arrêt de processus système. En utilisant une des options de correspondance, B<start-stop-daemon> peut être configuré pour trouver les exemplaires présents d'un processus en fonctionnement.
 
-B<Note>: Unless B<--pid> or B<--pidfile> are specified, B<start-stop-daemon> behaves similar to B<killall>(1).  B<start-stop-daemon> will scan the process table looking for any processes which match the process name, parent pid, uid, and/or gid (if specified). Any matching process will prevent B<--start> from starting the daemon. All matching processes will be sent the TERM signal (or the one specified via B<--signal> or B<--retry>) if B<--stop> is specified. For daemons which have long-lived children which need to live through a B<--stop>, you must specify a pidfile.
+B<Note>: Unless B<--pid> or B<--pidfile> are specified, B<start-stop-daemon> behaves similar to L<killall(1)>.  B<start-stop-daemon> will scan the process table looking for any processes which match the process name, parent pid, uid, and/or gid (if specified). Any matching process will prevent B<--start> from starting the daemon. All matching processes will be sent the TERM signal (or the one specified via B<--signal> or B<--retry>) if B<--stop> is specified. For daemons which have long-lived children which need to live through a B<--stop>, you must specify a pidfile.
 
 =head1 COMMANDES
 
@@ -134,7 +134,7 @@ N'affiche pas de messages d'information ; affiche seulement les messages d'erreu
 
 =item B<-c>, B<--chuid> I<identifiant>|I<uid>[B<:>I<groupe>|I<gid>]
 
-Change pour cet utilisateur ou S<« uid »> avant de lancer le processus. On peut aussi préciser un groupe en ajoutant un B<:>, puis le groupe ou un S<« gid »> de la même façon qu'avec la commande B<chown>(1) (I<utilisateur>B<:>I<groupe>). Lorsqu'un utilisateur est indiqué mais pas de groupe alors le groupe primaire de celui-ci est utilisé. Quand on utilise cette option, on doit veiller à ce que les groupes primaires ainsi que les groupes secondaires existent bien, même si l'option B<--group> n'est pas spécifiée. L'option B<--group> sert seulement pour les groupes dont l'utilisateur n'est pas membre (c'est comme rendre membre d'un groupe-pour-processus des utilisateurs génériques comme B<nobody>).
+Change to this username/uid before starting the process. You can also specify a group by appending a B<:>, then the group or gid in the same way as you would for the L<chown(1)> command (I<user>B<:>I<group>).  If a user is specified without a group, the primary GID for that user is used.  When using this option you must realize that the primary and supplemental groups are set as well, even if the B<--group> option is not specified. The B<--group> option is only for groups that the user isn't normally a member of (like adding per process group membership for generic users like B<nobody>).
 
 =item B<-r>, B<--chroot> I<root>
 
@@ -152,7 +152,7 @@ B<Warning>: B<start-stop-daemon> cannot check the exit status if the process fai
 
 =item B<--notify-await>
 
-Wait for the background process to send a readiness notification before considering the service started (since version 1.19.3).  This implements parts of the systemd readiness protocol, as specified in the B<sd_notify>(3) manual page.  The following variables are supported:
+Wait for the background process to send a readiness notification before considering the service started (since version 1.19.3).  This implements parts of the systemd readiness protocol, as specified in the L<sd_notify(3)> manual page.  The following variables are supported:
 
 =over 
 

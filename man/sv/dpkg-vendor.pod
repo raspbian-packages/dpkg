@@ -24,7 +24,7 @@ B<dpkg-vendor> [I<flaggor>...] I<åtgärd>
 
 B<dpkg-vendor> är ett verktyg för att fråga efter återförsäljare som finns i I<%PKGCONFDIR%/origins>. B<%PKGCONFDIR%/origins/default> innehåller information om den aktuella återförsäljaren.
 
-This program was introduced in dpkg 1.15.1.
+Kommandot introducerades i dpkg 1.15.1.
 
 =head1 KOMMANDON
 
@@ -82,7 +82,7 @@ Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även 
 
 =head1 SE ÄVEN
 
-B<deb-origin>(5).
+L<deb-origin(5)>.
 
 
 =head1 ÖVERSÄTTNING

@@ -30,5 +30,5 @@ I<~/.dselect.cfg>
 
 =head1 VEDERE ANCHE
 
-B<dselect>(1).
+L<dselect(1)>.
 

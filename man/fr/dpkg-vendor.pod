@@ -82,7 +82,7 @@ Si cette variable est définie, elle sera utilisée pour décider l'activation d
 
 =head1 VOIR AUSSI
 
-B<deb-origin>(5).
+L<deb-origin(5)>.
 
 
 =head1 TRADUCTION

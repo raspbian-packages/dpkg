@@ -70,7 +70,7 @@ Si cette variable est définie, elle sera utilisée pour décider l'activation d
 
 =head1 LIMITATIONS
 
-Tout ce qui ne peut pas être analysé par Dpkg::Changelog est perdu lors de la fusion. Cela peut comprendre des commentaires qui ne sont pas censés se trouver là, etc.
+Anything that is not parsed by L<Dpkg::Changelog> is lost during the merge. This might include stuff like comments which were not supposed to be there, etc.
 
 =head1 INTÉGRATION AVEC GIT
 

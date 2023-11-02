@@ -22,7 +22,7 @@ B<dpkg-statoverride> [I<Option> …] I<Befehl>
 
 =head1 BESCHREIBUNG
 
-„B<Stat-Hinwegsetzungen>“ sind eine Möglichkeit, B<dpkg>(1) mitzuteilen, einen anderen Eigentümer oder Modus für einen Pfad zu verwenden, wenn ein Paket installiert wird (dies kann jedes Dateisystemobjekt sein, das B<dpkg> handhabt, darunter Verzeichnisse, Geräte, usw.). Dies kann dazu verwendet werden, Programme, die normalerweise setuid sind, dazu zu zwingen, ohne setuid-Markierung zu installieren, oder nur von einer bestimmten Gruppe ausführbar zu sein.
+„B<Stat-Hinwegsetzungen>“ sind eine Möglichkeit, L<dpkg(1)> mitzuteilen, einen anderen Eigentümer oder Modus für einen Pfad zu verwenden, wenn ein Paket installiert wird (dies kann jedes Dateisystemobjekt sein, das B<dpkg> handhabt, darunter Verzeichnisse, Geräte, usw.). Dies kann dazu verwendet werden, Programme, die normalerweise setuid sind, dazu zu zwingen, ohne setuid-Markierung zu installieren, oder nur von einer bestimmten Gruppe ausführbar zu sein.
 
 B<dpkg-statoverride> ist ein Hilfswerkzeug, um die Liste der Status-Hinwegsetzungen zu verwalten. Es hat drei grundlegende Funktionen: Hinzufügen, Entfernen und Auflisten von Hinwegsetzungen.
 
@@ -178,7 +178,7 @@ B<Hinweis>: B<dpkg-statoverride> erhält die alte Kopie dieser Datei mit der End
 
 =head1 SIEHE AUCH
 
-B<dpkg>(1).
+L<dpkg(1)>.
 
 
 =head1 ÜBERSETZUNG

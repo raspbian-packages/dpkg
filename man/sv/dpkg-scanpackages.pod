@@ -22,13 +22,13 @@ B<dpkg-scanpackages> [I<flagga>...] I<binärsökväg> [I<överstyrningsfil> [I<s
 
 =head1 BESKRIVNING
 
-B<dpkg-scanpackages> går genom ett träd av Debianbinärpaket och skapar en Packages-fil, som B<apt>(8), B<dselect>(8) osv. använder för att berätta för användaren vilka paket som kan installeras. Dessa Packages-filer är desamma som de som finns på Debianarkivspeglar och cd-rom:ar. Du kan använda B<dpkg-scanpackages> själv för att skapa en katalog med lokala paket att installera på en klase maskiner.
+B<dpkg-scanpackages> sorts through a tree of Debian binary packages and creates a Packages file, used by L<apt(8)>, L<dselect(1)>, etc, to tell the user what packages are available for installation. These Packages files are the same as those found on Debian archive sites and media discs. You might use B<dpkg-scanpackages> yourself if making a directory of local packages to install on a cluster of machines.
 
-B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
+B<Note>: If you want to access the generated Packages file with L<apt(8)> you will probably need to compress the file with L<xz(1)> (generating a Packages.xz file), L<bzip2(1)> (generating a Packages.bz2 file) or L<gzip(1)> (generating a Packages.gz file).  L<apt(8)> ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<binärsökväg> är namnet på trädet med binärpaketen som ska hanteras (till exempel B<contrib/binary-i386>). Det är bäst att skapa den relativt till roten på Debianarkivet eftersom alla Filename-fält i den skapade Packages-filen kommer inledas med strängen.
 
-I<överstyrningsfil> är namnet på en fil som ska läsas in och som innehåller information om hur paketet passar in i distributionen (filen kan vara komprimerad sedan dpkg 1.15.5); se B<deb-override>(5).
+I<override-file> is the name of a file to read which contains information about how the package fits into the distribution (the file can be compressed since dpkg 1.15.5); see L<deb-override(5)>.
 
 I<sökvägsprefix> är en frivillig sträng som läggs till i början i filnamnsfältet.
 
@@ -44,7 +44,7 @@ Sök efter *.I<typ>-paket, i stället för *.deb.
 
 =item B<-e>, B<--extra-override> I<fil>
 
-Läs I<fil> för att hitta ytterligare överstyrningar (filen kan vara komprimerad sedan dpkg 1.15.5). Se B<deb-extra-override>(5) för mer information om dess format.
+Scan I<file> to find supplementary overrides (the file can be compressed since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
 
 =item B<-a>, B<--arch> I<arkitektur>
 
@@ -92,7 +92,7 @@ B<dpkg-scanpackages> skriver ut de vanliga självförklarande felen. Det varnar 
 
 =head1 SE ÄVEN
 
-B<dpkg>(1), B<dselect>(1), B<deb-override>(5), B<deb-extra-override>(5), B<dpkg-scansources>(1).
+L<dpkg(1)>, L<dselect(1)>, L<deb-override(5)>, L<deb-extra-override(5)>, L<dpkg-scansources(1)>.
 
 
 =head1 ÖVERSÄTTNING

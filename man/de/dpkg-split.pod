@@ -174,7 +174,7 @@ Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B
 
 =item B<SOURCE_DATE_EPOCH>
 
-Falls gesetzt, wird sie als Zeitstempel (als Sekunden seit der Epoche) in dem B<ar>(5)-Container von B<deb-split>(5) verwandt.
+Falls gesetzt, wird sie als Zeitstempel (als Sekunden seit der Epoche) in dem L<ar(5)>(5)-Container von L<deb-split(5)> verwandt.
 
 =back
 
@@ -206,7 +206,7 @@ Es gibt keine einfache Art zu testen, ob eine Datei, die ein Teil eines Binärpa
 
 =head1 SIEHE AUCH
 
-B<deb>(5), B<deb-control>(5), B<dpkg-deb>(1), B<dpkg>(1).
+L<deb(5)>, L<deb-control(5)>, L<dpkg-deb(1)>, L<dpkg(1)>.
 
 
 =head1 ÜBERSETZUNG

@@ -30,7 +30,7 @@ Dit kan gebruikt worden door scripts van de pakketonderhouder in complexe en voo
 
 Een syntaxis van een triggernaam die niet herkend wordt, is voor B<dpkg-trigger> een fout.
 
-This program was introduced in dpkg 1.14.17.
+Dit programma werd geïntroduceerd in dpkg 1.14.17.
 
 =head1 COMMANDO'S
 
@@ -122,5 +122,5 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =head1 ZIE OOK
 
-B<dpkg>(1), B<deb-triggers>(5), B<%PKGDOCDIR%/spec/triggers.txt>.
+L<dpkg(1)>, L<deb-triggers(5)>, B<%PKGDOCDIR%/spec/triggers.txt>.
 

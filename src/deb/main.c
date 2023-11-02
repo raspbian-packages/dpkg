@@ -163,8 +163,15 @@ set_deb_format(const struct cmdinfo *cip, const char *value)
     badusage(_("unknown deb format version: %s"), value);
 }
 
+struct compress_params compress_params_deb0 = {
+  .type = COMPRESSOR_TYPE_GZIP,
+  .strategy = COMPRESSOR_STRATEGY_NONE,
+  .level = -1,
+  .threads_max = -1,
+};
+
 struct compress_params compress_params = {
-  .type = DPKG_DEB_DEFAULT_COMPRESSOR,
+  .type = DEB_DEFAULT_COMPRESSOR,
   .strategy = COMPRESSOR_STRATEGY_NONE,
   .level = -1,
   .threads_max = -1,
@@ -293,6 +300,13 @@ int main(int argc, const char *const *argv) {
 
   if (!compressor_check_params(&compress_params, &err))
     badusage(_("invalid compressor parameters: %s"), err.str);
+
+  if (!opt_uniform_compression && deb_format.major == 0)
+    badusage(_("unsupported deb format '%d.%d' with non-uniform compression"),
+             deb_format.major, deb_format.minor);
+
+  if (deb_format.major == 0)
+    compress_params = compress_params_deb0;
 
   if (opt_uniform_compression &&
       (compress_params.type != COMPRESSOR_TYPE_NONE &&

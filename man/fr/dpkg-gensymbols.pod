@@ -54,7 +54,7 @@ This program was introduced in dpkg 1.14.8.
 
 =head1 TENUE À JOUR DES FICHIERS SYMBOLES
 
-Le format interchangeable de base du fichier de symboles est décrit dans B<deb-symbols>(5) et est utilisé par les fichiers de symboles inclus dans les paquets binaires. Ils sont générés à partir des fichiers de symboles modèles avec un format basé sur le précédent décrit dans B<deb-src-symbols>(5) et inclus dans les paquets source.
+The base interchange format of the symbols file is described in L<deb-symbols(5)>, which is used by the symbols files included in binary packages. These are generated from template symbols files with a format based on the former, described in L<deb-src-symbols(5)> and included in source packages.
 
 Les fichiers de symboles deviennent réellement utiles lorsqu'ils permettent de suivre l'évolution du paquet sur plusieurs versions. En conséquence, le responsable doit les mettre à jour chaque fois qu'un nouveau symbole est ajouté afin que la version minimale associée corresponde à la réalité.
 
@@ -108,7 +108,7 @@ Définit la version du paquet. La valeur par défaut est la version extraite de 
 
 =item B<-e>I<fichier-bibliothèque>
 
-N'analyse que les bibliothèques explicitement mentionnées au lieu de rechercher toutes les bibliothèques publiques. Les motifs du shell peuvent être utilisés pour l'expansion des chemins d'accès (voir la page de manuel de B<File::Glob>(3perl) pour plus d'informations) dans I<fichier-bibliothèque> pour établir une correspondance avec plusieurs bibliothèques avec un seul paramètre (afin d'éviter d'utiliser plusieurs options B<-e>).
+Only analyze libraries explicitly listed instead of finding all public libraries. You can use shell patterns used for pathname expansions (see the L<File::Glob> manual page for details) in I<library-file> to match multiple libraries with a single argument (otherwise you need multiple B<-e>).
 
 =item B<-l>I<répertoire>
 
@@ -126,7 +126,7 @@ Affiche le fichier de symboles créé sur la sortie standard ou dans le I<nom-de
 
 =item B<-t>
 
-Écrit le fichier de symboles en mode modèle plutôt que dans un format compatible avec B<deb-symbols>(5). La différence majeure réside dans le fait que les noms de symboles et les étiquettes sont écrits dans leur forme d'origine au lieu d'être interprétés, avec réduction des étiquettes en mode de compatibilité. De plus, certains symboles peuvent être omis lors de l'écriture d'un fichier B<deb-symbols>(5) standard (selon les règles de traitement des étiquettes) alors que tous les symboles sont écrits lors de la création d'un modèle de fichier de symboles.
+Write the symbol file in template mode rather than the format compatible with L<deb-symbols(5)>. The main difference is that in the template mode symbol names and tags are written in their original form contrary to the post-processed symbol names with tags stripped in the compatibility mode. Moreover, some symbols might be omitted when writing a standard L<deb-symbols(5)> file (according to the tag processing rules) while all symbols are always written to the symbol file template.
 
 =item B<-c>I<[0-4]>
 
@@ -204,7 +204,7 @@ Si cette variable est définie, elle sera utilisée pour décider l'activation d
 
 =head1 VOIR AUSSI
 
-L<https://people.redhat.com/drepper/symbol-versioning>, L<https://people.redhat.com/drepper/goodpractice.pdf>, L<https://people.redhat.com/drepper/dsohowto.pdf>, B<deb-src-symbol>(5), B<deb-symbols>(5), B<dpkg-shlibdeps>(1).
+L<https://people.redhat.com/drepper/symbol-versioning>, L<https://people.redhat.com/drepper/goodpractice.pdf>, L<https://people.redhat.com/drepper/dsohowto.pdf>, L<deb-src-symbol(5)>, L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>.
 
 
 =head1 TRADUCTION

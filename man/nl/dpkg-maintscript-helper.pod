@@ -41,9 +41,9 @@ B<dpkg-maintscript-helper> I<commando> [I<parameter>...] B<--> I<onderhouderscri
 
 Dit programma is ontwikkeld om uitgevoerd te worden binnenin onderhouderscripts om sommige taken te verrichten die B<dpkg> (nog) niet alleen kan uitvoeren, ofwel omwille van gemaakte keuzes inzake design ofwel ten gevolge van actuele beperkingen.
 
-Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). To avoid mistakes the same call simply needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
+Veel van deze taken vereisen gecoördineerde actie van verschillende onderhouderscripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Om fouten te vermijden moet gewoon dezelfde aanroep in alle scripts geplaatst worden en het programma zal zijn gedrag automatisch aan passen op basis van de omgevingsvariabele B<DPKG_MAINTSCRIPT_NAME> en de argumenten van de onderhouderscripts die na een dubbel koppelteken opgegeven moeten worden.
 
-This program was introduced in dpkg 1.15.7.
+Dit programma werd geïntroduceerd in dpkg 1.15.7.
 
 =head1 GEMEENSCHAPPELIJKE PARAMETERS
 
@@ -75,7 +75,7 @@ Dit houdt in dat indien een pakket de bedoeling heeft om een configuratiebestand
 
 =head2 Een configuratiebestand verwijderen
 
-B<Note>: This can be replaced in most cases by the C<remove-on-upgrade> flag in F<DEBIAN/conffiles> (since dpkg 1.20.6), see L<deb-conffiles(5)>.
+B<Opmerking>: In de meeste gevallen kan dit vervangen worden door de vlag C<remove-on-upgrade> in F<DEBIAN/conffiles> (sinds dpkg 1.20.6), zie L<deb-conffiles(5)>.
 
 Indien een configuratiebestand volledig verwijderd wordt, moet het van schijf verwijderd worden, tenzij de gebruiker het aangepast heeft. Indien er lokale aanpassingen aangebracht werden, moeten die behouden blijven. Indien het opwaarderen van het pakket afbreekt, mag het pas in onbruik geraakte configuratiebestand niet verdwijnen.
 
@@ -115,7 +115,7 @@ Huidige toepassing: het script B<preinst> controleert of het configuratiebestand
 
 Bij het opwaarderen van een pakket zal B<dpkg> niet automatisch een symbolische koppeling omzetten naar een map of vice versa. Degradaties worden niet ondersteund en het pad wordt onveranderd gelaten.
 
-B<Note>: The symlinks and directories created during these switches need to be shipped in the new packages, or B<dpkg> will not be able to remove them on purge.
+B<Opmerking>: de symbolische koppelingen en mappen die tijdens deze omzettingen worden gemaakt, moeten mee opgenomen worden in de nieuwe pakketten, anders kan B<dpkg> ze niet verwijderen bij het wissen van het pakket.
 
 =head2 Een symbolische koppeling omzetten naar een map
 
@@ -155,7 +155,7 @@ Huidige toepassing: het script B<preinst> controleert of de map bestaat en geen 
 
 =head1 DE INTEGRATIE IN PAKKETTEN
 
-Gelieve bij het gebruiken van een hulpmiddel voor het verpakken na te gaan of er geen systeemeigen integratie in B<dpkg-maintscript-helper> van bestaat, wat het leven voor u makkelijker zou maken. Zie bijvoorbeeld B<dh_installdeb>(1).
+When using a packaging helper, please check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
 
 Gegeven het feit dat B<dpkg-maintscript-helper> gebruikt wordt in het script B<preinst>, houdt een onvoorwaardelijk gebruik ervan een voorafgaande vereiste in om te kunnen garanderen dat de benodigde versie van B<dpkg> voordien uitgepakt werd. De benodigde versie hangt af van het gebruikte commando. Voor B<rm_conffile> en B<mv_conffile> is dat 1.15.7.2. Voor B<symlink_to_dir> en B<dir_to_symlink> is dat 1.17.14:
 
@@ -198,5 +198,5 @@ Stelt de kleurmodus in (sinds dpkg 1.19.1). Waarden die momenteel gebruikt mogen
 
 =head1 ZIE OOK
 
-B<dh_installdeb>(1).
+L<dh_installdeb(1)>.
 

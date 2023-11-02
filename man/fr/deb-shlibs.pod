@@ -32,7 +32,7 @@ Les fichiers B<shlibs> associent les noms et versions (I<SONAMEs>) des biblioth�
 
 Les champs I<bibliothèque> et I<version> sont séparés par des espaces. Le champ I<dépendances> finit la ligne. Le champ I<type> est optionnel et donc normalement pas nécessaire.
 
-Le champ I<dépendances> utilise la même syntaxe que le champ B<Depends> d'un fichier de contrôle d'un paquet binaire, voir B<deb-control>(5).
+The I<dependencies> field has the same syntax as the B<Depends> field in a binary control file, see L<deb-control(5)>.
 
 =head1 FORMATS DE SONAME
 
@@ -70,7 +70,7 @@ Les I<dépendances> doivent indiquer la version la plus récente du paquet qui a
 
 =head1 VOIR AUSSI
 
-B<deb-control>(5), B<dpkg-shlibdeps>(1), B<deb-symbols>(5).
+L<deb-control(5)>, L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>.
 
 
 =head1 TRADUCTION

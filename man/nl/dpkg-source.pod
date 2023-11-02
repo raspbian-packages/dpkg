@@ -44,7 +44,7 @@ Indien het broncodepakket een niet-standaardindeling gebruikt (momenteel beteken
 
 Een broncodepakket bouwen (B<--build> sinds dpkg 1.17.14). Het eerste argument dat geen optie is, wordt gebruikt als de naam van de map die de voor Debian gereedgemaakte broncodeboom bevat (d.w.z. met een onderliggende map debian en eventuele veranderingen aan de originele bestanden). Afhankelijk van de broncodepakketindeling die men gebruikt om het broncodepakket te bouwen, kunnen bijkomende parameters opgegeven worden.
 
-B<dpkg-source> zal het broncodepakket bouwen volgens de eerste indeling die gevonden wordt in de hierna volgende geordende lijst: de indeling opgegeven met de commandoregeloptie I<--format>, de indeling aangegeven in B<debian/source/format>, “1.0”. Het terugvallen op “1.0” word afgeschaft en zal op een bepaald moment in de toekomst weggelaten worden. U zou de gewenste broncode-indeling steeds moeten documenteren in B<debian/source/format>. Zie het onderdeel B<INDELINGEN VAN BRONCODEPAKKETTEN> voor een uitgebreide beschrijving van de verschillende indelingen voor broncodepakketten.
+B<dpkg-source> will build the source package with the first format found in this ordered list: the format indicated with the I<--format> command line option, the format indicated in B<debian/source/format>, “1.0”.  The fallback to “1.0” is deprecated and will be removed at some point in the future, you should always document the desired source format in B<debian/source/format>. See section L</SOURCE PACKAGE FORMATS> for an extensive description of the various source package formats.
 
 =item B<--print-format> I<map>
 
@@ -88,7 +88,7 @@ Duidt het changelog-bestand aan waaruit informatie gelezen moet worden. Standaar
 
 =item B<-F>I<changelog-indeling>
 
-Geeft de indeling van het bestand changelog aan. Zie B<dpkg-parsechangelog>(1) voor informatie over alternatieve indelingen.
+Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
 
 =item B<--format=>I<waarde>
 
@@ -96,7 +96,7 @@ De opgegeven indeling gebruiken om het broncodepakket te bouwen (sinds dpkg 1.14
 
 =item B<-V>I<naam>B<=>I<waarde>
 
-Een uitvoersubstitutievariabele instellen. Zie B<deb-substvars>(5) voor een bespreking van uitvoersubstitutie.
+Set an output substitution variable.  See L<deb-substvars(5)> for a discussion of output substitution.
 
 =item B<-T>I<substvars-bestand>
 
@@ -132,13 +132,13 @@ De opgegeven perl reguliere expressie breidt de standaardwaarde die door B<--dif
 
 =item B<-I>[I<bestandspatroon>], B<--tar-ignore>[=I<bestandspatroon>]
 
-Indien deze optie opgegeven werd, wordt het patroon doorgegeven aan de optie B<--exclude> van B<tar>(1) wanneer dit commando ingeroepen wordt om een bestand .orig.tar of .tar aan te maken (B<--tar-ignore> sinds dpkg 1.15.6). Bijvoorbeeld, B<-I>CVS zal tar CVS-mappen doen overslaan bij het genereren van een .tar.gz-bestand. Deze optie kan meermaals herhaald worden om meerdere patronen die uitgesloten moeten worden op te sommen.
+If this option is specified, the pattern will be passed to L<tar(1)>'s B<--exclude> option when it is called to generate a .orig.tar or .tar file (B<--tar-ignore> since dpkg 1.15.6).  For example, B<-I>CVS will make tar skip over CVS directories when generating a .tar.gz file. The option may be repeated multiple times to list multiple patterns to exclude.
 
 B<-I> zelf voegt standaard B<--exclude>-opties toe die zorgen voor het uitfilteren van controlebestanden en -mappen van de meest courante versiebeheersystemen, van back-upbestanden en wisselbestanden en van bouwuitvoermappen van Libtool.
 
 =back
 
-B<Note>: While they have similar purposes, B<-i> and B<-I> have very different syntax and semantics. B<-i> can only be specified once and takes a perl compatible regular expression which is matched against the full relative path of each file. B<-I> can specified multiple times and takes a filename pattern with shell wildcards.  The pattern is applied to the full relative path but also to each part of the path individually. The exact semantic of tar's B<--exclude> option is somewhat complicated, see L<https://www.gnu.org/software/tar/manual/tar.html#wildcards> for a full documentation.
+B<Opmerking>: hoewel zij vergelijkbare bedoelingen hebben, hebben B<-i> en B<-I> een heel verschillende syntaxis en semantiek. B<-i> kan slechts eenmaal opgegeven worden en verwacht een reguliere expressie die perl-compatibel is en die vergeleken wordt met het volledige relatieve pad van elk bestand. B<-I> kan meermaals opgegeven worden en verwacht een bestandsnaampatroon met shell-jokertekens. Het patroon wordt toegepast op het volledige relatieve pad maar ook op elk individueel onderdeel van het pad. De exacte semantiek van de optie B<--exclude> van tar is enigszins gecompliceerd. Zie voor een volledige documentatie L<https://www.gnu.org/software/tar/manual/tar.html#wildcards>.
 
 De standaard reguliere expressies en patronen voor beide opties zijn te zien in de uitvoer van het commando B<--help>.
 
@@ -278,7 +278,7 @@ Slaat het toepassen van de debian diff bovenop de broncode van de toeleveraar ov
 
 Extraheren wordt sinds dpkg 1.13.9 ondersteund, bouwen sinds dpkg 1.14.8. Ook gekend als wig&pen. Deze indeling wordt niet aangeraden voor massaal gebruik, de indeling “3.0 (quilt)” vervangt ze. Wig&pen was de eerste specificatie van een broncodepakketindeling van de nieuwe generatie.
 
-The behavior of this format is the same as the “3.0 (quilt)” format except that it doesn't use an explicit list of patches. All files in B<debian/patches/> matching the perl regular expression B<[\w-]+> must be valid patches: they are applied at extraction time.
+Het gedrag van deze indeling is hetzelfde als bij de indeling “3.0 (quilt)”, behalve dat het geen gebruik maakt van een expliciete lijst van patches. Alle bestanden in B<debian/patches/> die beantwoorden aan de reguliere expressie B<[\w-]+> moeten geldige patches zijn: zij worden op het moment van extraheren toegepast.
 
 Bij het bouwen van een nieuw broncodepakket worden eventuele wijzigingen aan de broncode van de toeleveraar opgeslagen in een patch met als naam B<zz_debian-diff-auto>.
 
@@ -296,13 +296,13 @@ Eerst wordt het belangrijkste originele tar-archief uitgepakt en nadien worden a
 
 Vervolgens worden alle patches toegepast die vermeld zijn in B<debian/patches/>I<leverancier>B<.series> of B<debian/patches/series>, waarbij I<leverancier> de naam is in kleine letters van de huidige leverancier, of B<debian> als geen leverancier gedefinieerd is. Indien het eerste bestand gebruikt wordt en het laatste niet bestaat (of een symbolische koppeling is), dan zal het laatste vervangen worden door een symbolische koppeling naar het eerste. Dit is bedoeld om het gebruik van B<quilt> bij het beheer van het geheel van patches te vereenvoudigen. Leveranciersspecifieke series-bestanden hebben tot doel het serialiseren van meerdere leveranciersgebonden ontwikkelingstakken op een declaratieve manier mogelijk te maken, wat verkieslijker is boven een open codering van deze aanpak in B<debian/rules>. Dit is in het bijzonder nuttig wanneer de broncode voorwaardelijk gepatched moet worden omdat de betrokken bestanden geen ingebouwde ondersteuning hebben voor conditionele occlusie. Merk nochtans op dat hoewel B<dpkg-source> op correcte wijze de ontleding uitvoert van series-bestanden met expliciete opties die gebruikt worden voor het toepassen van patches (op elke regel opgeslagen na de bestandsnaam van de patch en één of meer spaties), het deze opties negeert en steeds patches verwacht die kunnen toegepast worden met de optie B<-p1> van B<patch>. Het zal dus een waarschuwing geven als het dergelijke opties tegenkomt en het bouwen zal waarschijnlijk mislukken.
 
-Opmerking: indien leveranciers-series-bestanden gebruikt worden, geeft B<lintian>(1) onvoorwaardelijke waarschuwingen als gevolg van een controversieel Debian-specifiek besluit. Extern gebruik zou hierdoor niet getroffen mogen worden. Om dergelijke waarschuwingen het zwijgen op te leggen kunt u het dpkg-profiel van lintian gebruiken door aan B<lintian>(1) de optie «B<--profile dpkg>» mee te geven.
+Note that L<lintian(1)> will emit unconditional warnings when using vendor series due to a controversial Debian specific ruling, which should not affect any external usage; to silence these, the dpkg lintian profile can be used by passing «B<--profile dpkg>» to L<lintian(1)>.
 
 Voor alle bestanden waarop een patch toegepast werd, wordt de tijdsaanduiding teruggezet op het tijdstip van extraheren van het broncodepakket (dit vermijdt scheeftrekkingen van de tijdsaanduiding hetgeen tot problemen kan leiden wanneer automatisch gegenereerde bestanden gepatcht worden).
 
-Contrary to B<quilt>'s default behavior, patches are expected to apply without any fuzz. When that is not the case, you should refresh such patches with B<quilt>, or B<dpkg-source> will error out while trying to apply them.
+In tegenstelling tot het standaardgedrag van B<quilt> wordt verwacht dat patches zonder gedoe toegepast kunnen worden. Indien dat niet het geval is, zou u de patches moeten verversen met B<quilt>, anders zal B<dpkg-source> met een foutmelding afbreken terwijl het probeert ze toe te passen.
 
-Similarly to B<quilt>'s default behavior, the patches can remove files too.
+Analoog aan het standaardgedrag van B<quilt> kunnen patches ook bestanden verwijderen.
 
 Als tijdens het extraheren patches werden toegepast, wordt het bestand B<.pc/applied-patches> aangemaakt.
 
@@ -316,7 +316,7 @@ De bijgewerkte map debian en de lijst van gewijzigde binaire bestanden wordt dan
 
 De automatisch gegenereerde diff bevat geen wijzigingen aan VCS-specifieke bestanden (d.w.z. bestanden eigen aan het versiebeheersysteem) en aan veel tijdelijke bestanden (kijk in de uitvoer van B<--help> voor de standaardwaarde die met de optie B<-i>) verbonden is. In het bijzonder wordt de map B<.pc> die door B<quilt> gebruikt wordt, genegeerd tijdens het genereren van de automatische patch.
 
-B<Note>: B<dpkg-source> B<--before-build> (and B<--build>) will ensure that all patches listed in the series file are applied so that a package build always has all patches applied. It does this by finding unapplied patches (they are listed in the B<series> file but not in B<.pc/applied-patches>), and if the first patch in that set can be applied without errors, it will apply them all. The option B<--no-preparation> can be used to disable this behavior.
+B<Opmerking>: B<dpkg-source> B<--before-build> (en B<--build>) zal ervoor zorgen dat alle patches die in het bestand series opgesomd zijn, toegepast worden, zodat bij het bouwen van een pakket steeds alle patches toegepast zijn. Het doet dit door te zoeken naar niet-toegepaste patches (ze worden opgesomd in het bestand B<series> maar niet in B<.pc/applied-patches>) en indien de eerste patch uit die reeks foutloos toegepast kan worden, zal het ze allemaal toepassen. De optie B<--no-preparation> kan gebruikt worden om dit gedrag uit te schakelen.
 
 B<Wijzigingen optekenen>
 
@@ -324,7 +324,7 @@ B<Wijzigingen optekenen>
 
 =item B<--commit> [I<map>] [I<patchnaam>] [I<patchbestand>]
 
-Genereert een patch in verband met de lokale wijzigingen die niet door het patchsysteem van B<quilt> beheerd worden en integreert die in het patchsysteem onder de naam I<patchnaam>. Indien de naam ontbreekt, zal er interactief om gevraagd worden. Indien I<patchbestand> opgegeven werd, wordt dat gebruikt als de te integreren patch in verband met de lokale wijzigingen. Na de integratie wordt een editor opgestart, zodat u de meta-informatie in de koptekst van de patch kunt bewerken.
+Generates a patch corresponding to the local changes that are not managed by the B<quilt> patch system and integrates it in the patch system under the name I<patch-name>. If the name is missing, it will be asked interactively. If I<patch-file> is given, it is used as the patch corresponding to the local changes to integrate. Once integrated, an editor (the first one found from B<sensible-editor>, C<$VISUAL>, C<$EDITOR>, B<vi>) is launched so that you can edit the meta-information in the patch header.
 
 Een I<patchbestand> opgeven is vooral nuttig na een mislukte bouwpoging die dat bestand vooraf aanmaakte. Op grond daarvan wordt dat bestand na integratie verwijderd. Merk ook op dat de wijzigingen die het patch-bestand bevat, reeds toegepast moeten zijn op de boom en dat de bestanden die door de patch aangepast werden geen bijkomende niet-opgetekende wijzigingen mogen bevatten.
 
@@ -424,7 +424,7 @@ B<Bouwen>
 
 Vooraleer voort te gaan, worden een aantal controles uitgevoerd om zeker te zijn dat er geen niet-vastgelegde wijzigingen zijn die niet mogen genegeerd worden.
 
-B<git-bundle>(1) wordt gebruikt om een bundel te genereren van het git-depot. Standaard worden alle takken en tags uit het depot in de bundel opgenomen.
+L<git-bundle(1)> is used to generate a bundle of the git repository.  By default, all branches and tags in the repository are included in the bundle.
 
 B<Bouwopties>
 
@@ -432,7 +432,7 @@ B<Bouwopties>
 
 =item B<--git-ref=>I<ref>
 
-Laat toe om een git-referentie op te geven die in de git-bundel opgenomen moet worden. Daar gebruik van maken schakelt het standaardgedrag om alle takken en tags op te nemen, uit. Kan meermaals vermeld worden. De I<referentie> kan de naam van een tak of een tag zijn die opgenomen moet worden. Het kan ook een parameter zijn die doorgegeven kan worden aan B<git-rev-list>(1). Gebruik bijvoorbeeld B<--git-ref=>main om enkel de hoofdtak op te nemen. Om alle takken en tags, behalve de tak persoonlijk op te nemen, gebruikt u B<--git-ref=>--all B<--git-ref=>^persoonlijk
+Allows specifying a git ref to include in the git bundle. Use disables the default behavior of including all branches and tags. May be specified multiple times. The I<ref> can be the name of a branch or tag to include. It may also be any parameter that can be passed to L<git-rev-list(1)>. For example, to include only the main branch, use B<--git-ref=>main. To include all tags and branches, except for the private branch, use B<--git-ref=>--all B<--git-ref=>^private
 
 =item B<--git-depth=>I<aantal>
 
@@ -499,7 +499,7 @@ Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het active
 
 =item B<SOURCE_DATE_EPOCH>
 
-Indien dit ingesteld werd, zal het gebruikt worden als de tijdsaanduiding (timestamp) (in seconden sinds de epoch) om de mtime vast te zetten op de items uit het B<tar>(5)-bestand.
+If set, it will be used as the timestamp (as seconds since the epoch) to clamp the mtime in the L<tar(5)> file entries.
 
 =item B<VISUAL>
 
@@ -545,7 +545,7 @@ Elke optie moet op een aparte regel geplaatst worden. Lege regels en regels die 
   # negeer wijzigingen aan config.{sub,guess}
   extend-diff-ignore = "(^|/)(config.sub|config.guess)$"
 
-B<Note>: B<format> options are not accepted in this file, you should use B<debian/source/format> instead.
+B<Opmerking>: B<format>-opties worden niet aanvaard in dit bestand. U moet daarvoor eerder B<debian/source/format> gebruiken.
 
 =head2 debian/source/local-options
 
@@ -563,11 +563,11 @@ Vrij opgemaakte tekst die geplaatst wordt bovenaan de automatische patch die geg
 
 Dit bestand somt alle patches op die toegepast moeten worden (in de opgegeven volgorde) bovenop het broncodepakket van de toeleveraar. Spaties vooraan en achteraan worden weggehaald. I<leverancier> is de naam in kleine letters van de huidige leverancier of B<debian> als geen leverancier gedefinieerd werd. Indien het leveranciersspecifieke series-bestand niet bestaat, zal het leveranciersloze series-bestand gebruikt worden. Regels die beginnen met ‘B<#>’ zijn commentaar en worden overgeslagen. Lege regels worden genegeerd. De overige regels beginnen met de bestandsnaam van een patch (relatief ten opzichte van de map B<debian/patches/>) tot aan de eerste spatie of het einde van de regel. Facultatieve B<quilt>-opties kunnen daarna komen tot aan het einde van de regel of tot aan het eerste ‘B<#>’-teken dat voorafgegaan wordt door één of meer spaties (hetgeen het begin van een commentaarstuk aangeeft dat doorloopt tot het einde van de regel).
 
-=head1 SECURITY
+=head1 BEVEILIGING
 
-Examining untrusted source packages or extracting them into staging directories should be considered a security boundary, and any breakage of that boundary stemming from these operations should be considered a security vulnerability.  But handling untrusted source packages should not be done lightly, as the surface area includes any compression command supported, commands to handle specific data formats (such as L<tar(1)> or L<patch(1)>) in addition to the source package formats and control files themselves. Performing these operations over untrusted data as root is strongly discouraged.
+Het onderzoeken van niet-vertrouwde broncodepakketten of het uitpakken ervan in staging-mappen moet worden beschouwd als een grens van veiligheid en elke doorbreking van die grens als gevolg van deze handelingen moet worden beschouwd als een veiligheidslek. Het omgaan met niet-vertrouwde broncodepakketten mag niet lichtvaardig gebeuren, aangezien het totale gebied elk ondersteund compressiecommando omvat, commando's om specifieke gegevensindelingen te verwerken (zoals L<tar(1)> of L<patch(1)>) naast de broncodepakketindelingen en controlebestanden zelf. Het uitvoeren van deze operaties op basis van niet-vertrouwde gegevens als root wordt sterk afgeraden.
 
-Building source packages should only be performed over trusted data.
+Het bouwen van broncodepakketten mag alleen worden uitgevoerd op basis van vertrouwde gegevens.
 
 =head1 BUGS
 
@@ -575,5 +575,5 @@ Het punt waarop de vervanging van velden plaats vindt, vergeleken met bepaalde s
 
 =head1 ZIE OOK
 
-B<deb-src-control>(5), B<deb-changelog>(5), B<deb-substvars>(5), B<dsc>(5).
+L<deb-src-control(5)>, L<deb-changelog(5)>, L<deb-substvars(5)>, L<dsc(5)>.
 

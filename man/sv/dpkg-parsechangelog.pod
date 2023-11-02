@@ -62,15 +62,21 @@ Följande flaggor kan användas för att styra utdata från ändringsloggtolken,
 
 =item B<--format> I<utdataformat>
 
-Välj utdataformat. Stödda format är för närvarande B<dpkg> och B<rfc822>. B<dpkg> är det klassiska utdataformatet (från innan denna flagga var tillgänglig) och förvalet. Det består av ett stycke i Debians control-format (se B<deb-control>(5)). Om mer än en post önskas tas de flesta fält från den första posten (vanligtvis den nyaste posten), förutom om annat anges:
+Set the output format. Currently supported values are B<dpkg> and B<rfc822>.  B<dpkg> is the classic output format (from before this option existed) and the default. It consists of one stanza in Debian control format (see L<deb-control(5)>). If more than one entry is requested, then most fields are taken from the first entry (usually the most recent entry), except otherwise stated:
 
 =over 
 
 =item B<Source:> I<paketnamn>
 
+Namnet på källkodspaketet.
+
 =item B<Version:> I<version>
 
+The source version number.  B<Note>: For binary-only releases there might be no corresponding source release.
+
 =item B<Distribution:> I<målutgåva>
+
+A space-separated list of one or more distribution names where this version should be installed when it is uploaded.
 
 =item B<Urgency:> I<brådska>
 
@@ -78,9 +84,11 @@ Högsta brådskan av alla de inkluderade posterna används, följt av de sammans
 
 =item B<Maintainer:> I<författare>
 
+The name and email address of the person who prepared these changes, they are B<not> necessarily those of the uploader or the usual package maintainer.
+
 =item B<Date:> I<datum>
 
-Postens datum, så som det står skrivet i ändringsloggen. Med ett B<strptime>(3)-format på "B<%a, %d %b %Y %T %z>", men där veckodagen kanske inte nödvändigtvis motsvarar den faktiska dagen som hämtas från resten av datumsträngen. Om du behöver en mer korrekt representation av datumet, använd fältet B<Timestamp>, men tänk på att det kanske inte är möjligt att koppla det tillbaka till det exakta värdet på det här fältet. 
+The date of the entry as a string, as it appears in the changelog.  With a L<strptime(3)> format "B<%a, %d %b %Y %T %z>", but where the day of the week might not actually correspond to the real day obtained from the rest of the date string.  If you need a more accurate representation of the date, use the B<Timestamp> field, but take into account it might not be possible to map it back to the exact value in this field.
 
 =item B<Timestamp:> I<tidsstämpel>
 
@@ -106,11 +114,11 @@ B<rfc822>-formatet använder samma fält, men ger ett separat stycke för varje 
 
 Inkludera alla ändringar i omvänd ordning (sedan dpkg 1.19.1).
 
-B<Note>: For the B<dpkg> format the first entry will be the most ancient entry.
+B<Observera>: För B<dpkg>-formatet kommer den första posten vara den äldsta posten.
 
 =item B<--all>
 
-Include all changes.  B<Note>: Other options have no effect when this is in use.
+Ta med alla ändringar. B<Observera>: övriga flaggor har ingen effekt när denna används.
 
 =item B<-s>, B<--since> I<version>
 
@@ -158,7 +166,7 @@ Namn på ändringsloggformat är icke-tomma strängar med små alfanumeriska tec
 
 Om en sådan rad finns kommer B<dpkg-parsechangelog> att leta efter tolken som en perlmodul B<Dpkg::Changelog::>I<annatformat>; det är ett fel om det inte finns. Standardformatet för ändringsloggar är B<debian> och en tolk för detta format inkluderas som standard.
 
-Tolken ska vara ett dervat av klassen Dpkg::Changelog och implementera de krävda dokumenterade gränssnitten.
+The parser should be derived from the L<Dpkg::Changelog> class and implement the required documented interface.
 
 Om ändringsloggformatet som tolkas alltid eller nästan alltid innehåller en blank rad mellan individuella ändringsposter bör dessa blanka rader tas bort, så att utdataformatet blir mer kompakt.
 
@@ -198,9 +206,13 @@ Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även 
 
 =back
 
+=head1 PROGRAMFEL
+
+The B<Maintainer> field has a confusing name matching the field in the F<debian/control> file but not its exact semantics, where its meaning would be better represented by the B<Changed-By> field name used in the F<.changes> file.
+
 =head1 SE ÄVEN
 
-B<deb-changelog>(5).
+L<deb-changelog(5)>.
 
 
 =head1 ÖVERSÄTTNING

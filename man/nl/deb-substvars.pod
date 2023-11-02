@@ -69,7 +69,7 @@ De huidige computerarchitectuur (d.w.z. de architectuur waarvoor het pakket gebo
 
 =item B<vendor:Name>
 
-De naam van de huidige leverancier (sinds dpkg 1.20.0). Deze waarde is afkomstig van het B<Vendor>-veld voor het origin-bestand van de huidige leverancier, zoals B<dpkg-vendor>(1) het zou ophalen.
+The current vendor name (since dpkg 1.20.0).  This value comes from the B<Vendor> field for the current vendor's origin file, as L<dpkg-vendor(1)> would retrieve it.
 
 =item B<vendor:Id>
 
@@ -103,19 +103,19 @@ De uitgebreide beschrijving van het bronpakket, gehaald uit het veld B<Descripti
 
 De geschatte totale grootte van de uit het pakket geïnstalleerde bestanden. Deze waarde wordt gekopieerd naar het overeenkomstige veld in het bestand control. Dit instellen wijzigt de waarde van dat veld. Indien deze variabele niet ingesteld werd, zal B<dpkg-gencontrol> de standaardwaarde berekenen door de grootte van alle gewone bestanden en alle symbolische koppelingen samen te nemen, afgerond tot op een eenheid van 1 KiB, en met een richtlijn van 1 KiB voor elk ander type object van het bestandssysteem. Daarbij worden harde koppelingen slechts éénmaal geteld als een gewoon bestand.
 
-B<Note>: Take into account that this can only ever be an approximation, as the actual size used on the installed system will depend greatly on the filesystem used and its parameters, which might end up using either more or less space than the specified in this field.
+B<Opmerking:> Houd er rekening mee dat dit steeds slechts een schatting kan zijn, aangezien de werkelijke grootte die op het geïnstalleerde systeem gebruikt zal worden, in grote mate afhankelijk is van het gebruikte bestandssysteem en de parameters ervan, waardoor het eindresultaat kan zijn dat ofwel meer ofwel minder ruimte in beslag genomen wordt dan in dit veld opgegeven werd.
 
 =item B<Extra-Size>
 
 Extra schijfruimte die gebruikt wordt als het pakket geïnstalleerd is. Indien deze variabele ingesteld werd, wordt de waarde ervan opgeteld bij de variabele B<Installed-Size> (ofwel de expliciet ingestelde of de standaardwaarde ervan) vooraleer ze gekopieerd wordt naar het veld B<Installed-Size> in het bestand control.
 
-=item B<S:>I<veldnaam>
+=item B<S:>I<field-name>
 
-De waarde van het broncodeveld I<veldnaam> (die moet opgegeven worden in de gebruikelijke schrijfwijze met hoofd-/kleine letters; sinds dpkg 1.18.11). Het instellen van deze variabelen heeft geen effect tenzij op die plaatsen waar ze expliciet geëxpandeerd worden. Deze variabelen zijn enkel beschikbaar tijdens het genereren van de control-bestanden van het binaire pakket.
+The value of the source stanza field I<field-name> (which must be given in the canonical capitalization; since dpkg 1.18.11).  Setting these variables has no effect other than on places where they are expanded explicitly. These variables are only available when generating binary control files.
 
-=item B<F:>I<veldnaam>
+=item B<F:>I<field-name>
 
-De waarde van het uitvoerveld I<veldnaam> (die moet opgegeven worden in de gebruikelijke schrijfwijze met hoofd-/kleine letters). Het instellen van deze variabelen heeft geen effect tenzij op die plaatsen waar ze expliciet geëxpandeerd worden.
+The value of the output field I<field-name> (which must be given in the canonical capitalization). Setting these variables has no effect other than on places where they are expanded explicitly.
 
 =item B<Format>
 
@@ -151,5 +151,5 @@ Lijst met substitutievariabelen en hun waarden.
 
 =head1 ZIE OOK
 
-B<dpkg>(1), B<dpkg-vendor>(1), B<dpkg-genchanges>(1), B<dpkg-gencontrol>(1), B<dpkg-shlibdeps>(1), B<dpkg-source>(1).
+L<dpkg(1)>, L<dpkg-vendor(1)>, L<dpkg-genchanges(1)>, L<dpkg-gencontrol(1)>, L<dpkg-shlibdeps(1)>, L<dpkg-source(1)>.
 

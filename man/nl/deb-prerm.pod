@@ -56,5 +56,5 @@ Vooraleer het pakket vervangen word ten gevolge van een conflict.
 
 =head1 ZIE OOK
 
-B<dpkg>(1).
+L<dpkg(1)>.
 

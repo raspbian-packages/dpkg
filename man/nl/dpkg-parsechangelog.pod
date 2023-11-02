@@ -62,15 +62,21 @@ De volgende opties kunnen gebruikt worden om de uitvoer van de changelog-ontlede
 
 =item B<--format> I<uitvoerindeling>
 
-Stel de indeling van de uitvoer in. Momenteel ondersteunde waarden zijn B<dpkg> en B<rfc822>. B<dpkg> is de klassieke indeling van de uitvoer (van voor het bestaan van deze optie) en ook de standaard. Het bestaat uit één onderdeel volgens het indelingssysteem van Debian control (zie B<deb-control>(5)). Indien meer dan één item opgevraagd wordt, dan worden de meeste velden genomen uit het eerste item (gewoonlijk het meest recente item), tenzij anders vermeld:
+Set the output format. Currently supported values are B<dpkg> and B<rfc822>.  B<dpkg> is the classic output format (from before this option existed) and the default. It consists of one stanza in Debian control format (see L<deb-control(5)>). If more than one entry is requested, then most fields are taken from the first entry (usually the most recent entry), except otherwise stated:
 
 =over 
 
 =item B<Source:> I<pakketnaam>
 
+De naam van het broncodepakket.
+
 =item B<Version:> I<versie>
 
+The source version number.  B<Note>: For binary-only releases there might be no corresponding source release.
+
 =item B<Distribution:> I<doeldistributie>
+
+A space-separated list of one or more distribution names where this version should be installed when it is uploaded.
 
 =item B<Urgency:> I<urgentie>
 
@@ -78,9 +84,11 @@ Van alle opgenomen items wordt de hoogste urgentie gebruikt, gevolgd door de sam
 
 =item B<Maintainer:> I<auteur>
 
+The name and email address of the person who prepared these changes, they are B<not> necessarily those of the uploader or the usual package maintainer.
+
 =item B<Date:> I<datum>
 
-De datum van het item als een tekenreeks, zoals die voorkomt in het changelog-bestand. Met een B<strptime>(3)-indeling "B<%a, %d %b %Y %T %z>", maar waarbij het kan zijn dat de dag van de week niet echt overeenkomt met de werkelijke dag die bekomen wordt uit de rest van de datumtekenreeks. Indien u een meer accurate representatie van de datum nodig heeft, moet u gebruik maken van het B<Timestamp>-veld, maar u moet er rekening mee houden dat het mogelijk is dat het niet meer exact terug omgezet kan worden naar de waarde van dat veld.
+The date of the entry as a string, as it appears in the changelog.  With a L<strptime(3)> format "B<%a, %d %b %Y %T %z>", but where the day of the week might not actually correspond to the real day obtained from the rest of the date string.  If you need a more accurate representation of the date, use the B<Timestamp> field, but take into account it might not be possible to map it back to the exact value in this field.
 
 =item B<Timestamp:> I<tijdsaanduiding>
 
@@ -106,11 +114,11 @@ De indeling volgens B<rfc822> maakt gebruik van dezelfde velden, maar gebruikt i
 
 Alle wijzigingen in omgekeerde volgorde opnemen (sinds dpkg 1.19.1).
 
-B<Note>: For the B<dpkg> format the first entry will be the most ancient entry.
+B<Opmerking>: voor de indeling B<dpkg> zal het eerste item het oudste item zijn.
 
 =item B<--all>
 
-Include all changes.  B<Note>: Other options have no effect when this is in use.
+Alle wijzigingen opnemen. B<Opmerking>: andere opties hebben geen effect als deze optie gebruikt wordt.
 
 =item B<-s>, B<--since> I<versie>
 
@@ -158,7 +166,7 @@ Een naam voor een changelog-indelingen moet een niet-lege alfanumerieke tekenree
 
 Indien een dergelijke regel bestaat, zal B<dpkg-parsechangelog> naar het ontleedprogramma zoeken als een B<Dpkg::Changelog::>I<andere-indeling> perl module. Het is een fout als die niet voorhanden is. De parsernaam in de perlmodule zal automatisch in hoofdletters gezet worden. De standaard changelog-indeling is B<debian> en standaard is er voorzien in een programma om ze te ontleden.
 
-Het ontleedprogramma moet ontleend worden aan de Dpkg::Changelog-klasse en moet de vereiste vastgelegde interface implementeren.
+The parser should be derived from the L<Dpkg::Changelog> class and implement the required documented interface.
 
 Indien de changelog-indeling die ontleed wordt altijd of bijna altijd een witregel heeft tussen aparte notities in verband met wijzigingen, moeten die lege regels weggenomen worden om als resultaat een compacte uitvoer te bekomen.
 
@@ -198,7 +206,11 @@ Het changelog-bestand dat gebruikt wordt om versieafhankelijke informatie over h
 
 =back
 
+=head1 BUGS
+
+The B<Maintainer> field has a confusing name matching the field in the F<debian/control> file but not its exact semantics, where its meaning would be better represented by the B<Changed-By> field name used in the F<.changes> file.
+
 =head1 ZIE OOK
 
-B<deb-changelog>(5).
+L<deb-changelog(5)>.
 

@@ -45,7 +45,7 @@ Dieses Programm wurde so entworfen, dass es in Betreuerskripten ausgeführt werd
 
 Viele dieser Aufgaben benötigen koordinierte Aktionen aus mehreren Betreuerskripten (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Um Fehler zu vermeiden, wird der gleiche Aufruf einfach in alle Skripte eingefügt und das Programm wird sein Verhalten automatisch abhängig von der Variable B<DPKG_MAINTSCRIPT_NAME> und den Argumenten im Betreuerskript, die Sie nach einem doppelten Bindestrich übergeben müssen, anpassen.
 
-This program was introduced in dpkg 1.15.7.
+Dieses Programm wurde in Dpkg 1.15.7 hinzugefügt.
 
 =head1 GEMEINSAME PARAMETER
 
@@ -157,7 +157,7 @@ Aktuelle Implementierung: das B<preinst> überprüft, ob das Verzeichnis existie
 
 =head1 INTEGRATION IN PAKETE
 
-Bei der Benutzung der Paketierungshelfer prüfen Sie bitte, ob eine native B<dpkg-maintscript-helper>-Integration existiert. Hierdurch könnte Ihr Aufwand verringert werden. Lesen Sie beispielsweise B<dh_installdeb>(1).
+Bei der Benutzung der Paketierungshelfer prüfen Sie bitte, ob eine native B<dpkg-maintscript-helper>-Integration existiert. Hierdurch könnte Ihr Aufwand verringert werden. Lesen Sie beispielsweise L<dh_installdeb(1)>.
 
 Da B<dpkg-maintscript-helper> im B<preinst> verwandt wird, benötigt der bedingungslose Einsatz eine prä-Abhängigkeit (I<pre-dependency>), um sicherzustellen, dass die Mindestversion von B<dpkg> bereits entpackt wurde. Die benötigte Version hängt vom verwandten Befehl ab, für B<rm_conffile> und B<mv_conffile> lautet sie 1.15.7.2, für B<symlink_to_dir> und B<dir_to_symlink> lautet sie 1.17.14:
 
@@ -200,7 +200,7 @@ Setzt den Farbmodus (seit Dpkg 1.19.1). Die derzeit unterstützten Werte sind: B
 
 =head1 SIEHE AUCH
 
-B<dh_installdeb>(1).
+L<dh_installdeb(1)>.
 
 
 =head1 ÜBERSETZUNG

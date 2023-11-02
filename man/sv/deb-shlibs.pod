@@ -32,7 +32,7 @@ B<shlibs>-filer skapar en koppling mellan biblioteksnamn och versioner (I<SONAME
 
 Fälten I<bibliotek> och I<version> avdelas med blanktecken medan fältet I<beroenden> sträcker sig till slutet av raden. Fältet I<typ> är frivilligt och behövs vanligtvis inte.
 
-Fältet I<dependencies> har samma syntax som fältet B<Depends> i en binär-styrfil, se B<deb-control>(5).
+The I<dependencies> field has the same syntax as the B<Depends> field in a binary control file, see L<deb-control(5)>.
 
 =head1 SONAME-FORMAT
 
@@ -54,7 +54,7 @@ I<namn>-I<version>.so
 
 där I<namn> vanligtvis prefigeras med B<lib>.
 
-The former tends to be used by shared libraries with stable interfaces.  The latter by shared libraries with unstable interfaces, where the whole version becomes part of the SONAME and needs to be specified in full when linking against those libraries.
+Den förstnämnda används oftast av delade bibliotek med stabila gränssnitt. Det senare av delade bibliotek med instabila gränssnitt, där hela versionsnumret blir en del av dess SONAME och måste anges i sin helhet vid länkning mot sådana paket.
 
 =head1 EXEMPEL
 
@@ -70,7 +70,7 @@ Fältet I<beroenden> måste ange den senaste versionen av paketet som lade till 
 
 =head1 SE ÄVEN
 
-B<deb-control>(5), B<dpkg-shlibdeps>(1), B<deb-symbols>(5).
+L<deb-control(5)>, L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>.
 
 
 =head1 ÖVERSÄTTNING

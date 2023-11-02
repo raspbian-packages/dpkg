@@ -116,7 +116,7 @@ static int opt_force = 0;
 static void
 version(void)
 {
-	printf(_("Debian %s version %s.\n"), PROGNAME, VERSION);
+	printf(_("%s version %s.\n"), PROGNAME, VERSION);
 	printf("\n");
 
 	printf(_(
@@ -538,7 +538,7 @@ log_msg(const char *fmt, ...)
 }
 
 /*
- * Filesystem access for alernative handling.
+ * Filesystem access for alternative handling.
  */
 
 static char *

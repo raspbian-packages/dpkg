@@ -88,7 +88,7 @@ Felflaggor:
 
 =back
 
-En versal status- eller felbokstav anger att paketet troligen kommer orsaka allvarliga problem. Se B<dpkg>(1) för information om status och flaggor ovan.
+An uppercase status or error letter indicates the package is likely to cause severe problems. Please refer to L<dpkg(1)> for information about the above states and flags.
 
 Utdataformatet för den här flaggan kan inte justeras, men varieras automatiskt för att passa terminalbredden. Det är avsett för mänskliga läsare, och är inte enkelt maskinläsbart. Se B<-W> (B<--show>) och B<--showformat> för hur du konfigurerar utdataformatet.
 
@@ -113,7 +113,7 @@ Z<>
   paketet omdirigerar andra till: I<omdirigerat-till>
   omdirigerat av I<paket> till: I<omdirigerat-till>
 
-B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results. On some systems this might also require adapting the B<LANGUAGE> environment variable appropriately if it is already set (see L<locale(7)>).
+B<Tips>: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat. På några system kan det också vara nödvändigt att justera miljövariabeln B<LANGUAGE> på lämpligt vis om den redan är satt (se L<locale(7>).
 
 Kommandot kommer inte att visa extrafiler som skapas av paketskript, ej heller kommer det att visa alternativ.
 
@@ -155,7 +155,7 @@ eller för lokala omdirigeringar:
 Z<>
   lokal omdirigering från: I<omdirigerad-från>
   lokal omdirigering till: I<omdirigerad-till>
-B<Hint>: When machine parsing the output, it is customary to set the locale to B<C.UTF-8> to get reproducible results.
+B<Tips>: När utdata ska tolkas av en maskin är det normalt att sätta lokalen till B<C.UTF-8> för att få reproducerbara resultat.
 
 =item B<-p>, B<--print-avail> [I<paketnamn>...]
 
@@ -382,7 +382,7 @@ Väljer program att köra när nya kommandon startas via ett skal (sedan dpkg 1.
 
 =item B<DPKG_PAGER>
 
-Väljer bläddrarprogram att använda (sedan dpkg 1.19.1),  vilket kommer startas med ”B<$SHELL -c>”. Om B<SHELL> inte har valts kommer ”B<sh>” att användas istället. B<DPKG_PAGER> överstyr miljövariabeln B<PAGER> (sedan dpkg 1.19.2).
+Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.  The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).
 
 =item B<DPKG_ROOT>
 
@@ -412,13 +412,13 @@ Definieras av B<dpkg-query> till ”B<-FRSXMQ>”, om det inte redan är satt, n
 
 =back
 
-=head1 SECURITY
+=head1 SÄKERHET
 
-Query operations should never require root, and delegating their execution to unprivileged users via some gain-root command can have security implications (such as privilege escalation), for example when a pager is automatically invoked by the tool.
+Frågeoperationer bör aldrig kräva root-behörighet, och delegering av exekvering av dem till icke-privilegierade användare via något kommando föra att få root-behörighet kan ha säkerhetskonsekvenser (såsom utökning av privilegier), till exempel när en siduppdelare körs automatiskt från verktyget.
 
 =head1 SE ÄVEN
 
-B<dpkg>(1).
+L<dpkg(1)>.
 
 
 =head1 ÖVERSÄTTNING

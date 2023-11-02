@@ -22,13 +22,13 @@ B<dpkg-scanpackages> [I<optie>...] I<pad-binair-pakket> [I<override-bestand> [I<
 
 =head1 BESCHRIJVING
 
-B<dpkg-scanpackages> sorteert een boom van binaire Debian pakketten en maakt een bestand Packages aan, dat door B<apt>(8), B<dselect>(1), enz. gebruikt wordt om de gebruiker te informeren over welke pakketten voor installatie beschikbaar zijn. Deze Packages-bestanden zijn dezelfde als die welke men aantreft op de sites met Debian-archieven of op CD's. U kunt zelf gebruik maken van B<dpkg-scanpackages> als u een map met lokale pakketten maakt om ze op een cluster machines te installeren.
+B<dpkg-scanpackages> sorts through a tree of Debian binary packages and creates a Packages file, used by L<apt(8)>, L<dselect(1)>, etc, to tell the user what packages are available for installation. These Packages files are the same as those found on Debian archive sites and media discs. You might use B<dpkg-scanpackages> yourself if making a directory of local packages to install on a cluster of machines.
 
-B<Note>: If you want to access the generated Packages file with B<apt>(8) you will probably need to compress the file with B<xz>(1)  (generating a Packages.xz file), B<bzip2>(1)  (generating a Packages.bz2 file) or B<gzip>(1)  (generating a Packages.gz file).  B<apt>(8)  ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
+B<Note>: If you want to access the generated Packages file with L<apt(8)> you will probably need to compress the file with L<xz(1)> (generating a Packages.xz file), L<bzip2(1)> (generating a Packages.bz2 file) or L<gzip(1)> (generating a Packages.gz file).  L<apt(8)> ignores uncompressed Packages files except on local access (i.e.  B<file://> sources).
 
 I<pad-binair-pakket> is de naam van de boom met binaire pakketten die verwerkt moet worden (bijvoorbeeld B<contrib/binary-i386>). Het is best om dit relatief te maken ten opzichte van de basismap van het Debian-archief, omdat elk Filename-veld uit het nieuwe Packages-bestand met die tekenreeks zal beginnen.
 
-I<override-bestand> is de naam van een bestand dat moet ingelezen worden en dat informatie bevat over hoe het pakket binnen de distributie past (het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5); zie B<deb-override>(5).
+I<override-file> is the name of a file to read which contains information about how the package fits into the distribution (the file can be compressed since dpkg 1.15.5); see L<deb-override(5)>.
 
 I<padprefix> is een facultatieve tekenreeks die voorgevoegd moet worden in de Filename-velden.
 
@@ -44,7 +44,7 @@ Zoeken naar pakketten van het type *.I<type> in plaats van naar pakketten van he
 
 =item B<-e>, B<--extra-override> I<bestand>
 
-Zoeken in het I<bestand> naar bijkomende vervangingen (het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5). Zie B<deb-extra-override>(5) voor meer informatie over hoe het ingedeeld wordt.
+Scan I<file> to find supplementary overrides (the file can be compressed since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
 
 =item B<-a>, B<--arch> I<arch>
 
@@ -92,5 +92,5 @@ B<dpkg-scanpackages> gebruikt de gangbare foutberichten die op zich duidelijk zi
 
 =head1 ZIE OOK
 
-B<dpkg>(1), B<dselect>(1), B<deb-override>(5), B<deb-extra-override>(5), B<dpkg-scansources>(1).
+L<dpkg(1)>, L<dselect(1)>, L<deb-override(5)>, L<deb-extra-override(5)>, L<dpkg-scansources(1)>.
 

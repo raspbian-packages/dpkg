@@ -40,7 +40,7 @@ see L<deb-symbols(5)>.
 
 Comments are supported in template symbol files. Any line with ‘#’ as
 the first character is a comment except if it starts with ‘#include’
-(see section B<Using includes>).
+(see section L</Using includes>).
 Lines starting with ‘#MISSING:’ are special comments documenting
 symbols that have disappeared.
 
@@ -59,7 +59,7 @@ Symbol tagging is useful for marking symbols that are special in some way.  Any
 symbol can have an arbitrary number of tags associated with it. While all tags are
 parsed and stored, only some of them are understood by
 B<dpkg-gensymbols> and trigger special handling of the symbols. See
-subsection B<Standard symbol tags> for reference of these tags.
+subsection L</Standard symbol tags> for reference of these tags.
 
 Tag specification comes right before the symbol name (no whitespace is allowed
 in between). It always starts with an opening bracket B<(>, ends with a
@@ -83,12 +83,12 @@ that has no value. The second symbol named I<tagged_unquoted_symbol> is
 only tagged with the tag named I<optional>. The last symbol is an
 example of the normal untagged symbol.
 
-Since symbol tags are an extension of the B<deb-symbols>(5) format, they
+Since symbol tags are an extension of the L<deb-symbols(5)> format, they
 can only be part of the symbols files used in source packages (those files
 should then be seen as templates used to build the symbols files that are
 embedded in binary packages). When
 B<dpkg-gensymbols> is called without the B<-t> option, it will
-output symbols files compatible to the B<deb-symbols>(5) format:
+output symbols files compatible to the L<deb-symbols(5)> format:
 it fully processes symbols according to the requirements of their standard tags
 and strips all tags from the output. On the contrary, in template mode
 (B<-t>) all symbols and their tags (both standard and unknown ones)
@@ -183,17 +183,17 @@ supported since dpkg 1.15.3).
 
 =item B<c++>
 
-Denotes I<c++> symbol pattern. See B<Using symbol patterns> subsection
+Denotes I<c++> symbol pattern. See L</Using symbol patterns> subsection
 below.
 
 =item B<symver>
 
-Denotes I<symver> (symbol version) symbol pattern. See B<Using symbol
+Denotes I<symver> (symbol version) symbol pattern. See L</Using symbol
 patterns> subsection below.
 
 =item B<regex>
 
-Denotes I<regex> symbol pattern. See B<Using symbol patterns> subsection
+Denotes I<regex> symbol pattern. See L</Using symbol patterns> subsection
 below.
 
 =back
@@ -213,9 +213,9 @@ higher level. However, if the failure is undesired, the pattern may be marked
 with the I<optional> tag. Then if the pattern does not match anything, it
 will only appear in the diff as MISSING. Moreover, like any symbol, the pattern
 may be limited to the specific architectures with the I<arch> tag. Please
-refer to B<Standard symbol tags> subsection above for more information.
+refer to L</Standard symbol tags> subsection above for more information.
 
-Patterns are an extension of the B<deb-symbols>(5) format hence they are
+Patterns are an extension of the L<deb-symbols(5)> format hence they are
 only valid in symbol file templates. Pattern specification syntax is not any
 different from the one of a specific symbol. However, symbol name part of the
 specification serves as an expression to be matched against I<name@version>
@@ -229,14 +229,14 @@ At the moment, B<dpkg-gensymbols> supports three basic pattern types:
 =item B<c++>
 
 This pattern is denoted by the I<c++> tag. It matches only C++ symbols by
-their demangled symbol name (as emitted by B<c++filt>(1) utility). This
+their demangled symbol name (as emitted by L<c++filt(1)> utility). This
 pattern is very handy for matching symbols which mangled names might vary
 across different architectures while their demangled names remain the same. One
 group of such symbols is I<non-virtual thunks> which have architecture
 specific offsets embedded in their mangled names. A common instance of this
 case is a virtual destructor which under diamond inheritance needs a
 non-virtual thunk symbol. For example, even if _ZThn8_N3NSB6ClassDD1Ev@Base on
-32bit architectures will probably be _ZThn16_N3NSB6ClassDD1Ev@Base on 64bit
+32-bit architectures will probably be _ZThn16_N3NSB6ClassDD1Ev@Base on 64-bit
 ones, it can be matched with a single I<c++> pattern:
 
  libdummy.so.1 libdummy1 #MINVER#
@@ -357,8 +357,8 @@ to create a common I<package>.symbols file which includes architecture
 specific symbol files:
 
   common_symbol1@Base 1.0
- (arch=amd64 ia64 alpha)#include "package.symbols.64bit"
- (arch=!amd64 !ia64 !alpha)#include "package.symbols.32bit"
+ (arch=amd64 ia64 alpha)#include "package.symbols.64-bit"
+ (arch=!amd64 !ia64 !alpha)#include "package.symbols.32-bit"
   common_symbol2@Base 1.0
 
 =back
@@ -382,6 +382,6 @@ to do it is the following:
 
 =head1 SEE ALSO
 
-B<deb-symbols>(5),
-B<dpkg-shlibdeps>(1),
-B<dpkg-gensymbols>(1).
+L<deb-symbols(5)>,
+L<dpkg-shlibdeps(1)>,
+L<dpkg-gensymbols(1)>.

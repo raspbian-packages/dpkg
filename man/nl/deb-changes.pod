@@ -38,7 +38,7 @@ De waarde van dit veld bepaalt de indelingsversie van het bestand. De syntaxis v
 
 =item B<Date:> I<datum-van-uitgave> (verplicht)
 
-De datum waarop het pakket gebouwd werd of het laatst bewerkt. Hij moet in dezelfde indeling opgemaakt zijn als de datum in een B<deb-changelog>(5)-item.
+The date the package was built or last edited.  It must be in the same format as the date in a L<deb-changelog(5)> entry.
 
 De waarde van dit veld wordt meestal gehaald uit het bestand I<debian/changelog>.
 
@@ -56,7 +56,7 @@ Somt de architecturen op van de bestanden die momenteel geüpload worden. Gebrui
 
 =item B<Version:> I<versie-tekenreeks> (verplicht)
 
-Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook voor gebruikt. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in B<deb-version>(7).
+Typically, this is the original package's version number in whatever form the program's author uses.  It may also include a Debian revision number (for non-native packages).  The exact format and sorting algorithm are described in L<deb-version(7)>.
 
 =item B<Distribution:> I<distributie>s (verplicht)
 
@@ -128,5 +128,5 @@ Het veld B<Files> is niet consistent met de andere B<Checksums>-velden. De velde
 
 =head1 ZIE OOK
 
-L<deb822(5)>, B<deb-src-control>(5), B<deb-version>(7).
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
 

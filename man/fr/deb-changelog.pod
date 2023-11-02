@@ -29,20 +29,20 @@ Le format de I<debian/changelog> permet aux outils de construction du paquet de 
 Ce format est une série d'entrées comme S<celles-ci :>
 
 Z<>
-I<paquet> (I<version>) I<distributions>; I<métadonnées>
-          [ligne(s) blanches(s) facultative(s), retirée(s)]
-  * I<détails-de-modification>
-    I<plus-de-détails-de-modification>
-          [ligne(s) blanches(s), y compris dans la sortie de
-          B<dpkg-parsechangelog>(1)]
-  * I<encore-plus-de-détails-de-modification>
-          [ligne(s) blanches(s) facultative(s), retirée(s)]
- -- I<nom-responsable> E<lt>I<adresse-électronique>E<gt>  I<date>
+ I<package> (I<version>) I<distributions>; I<metadata>
+          [optional blank line(s), stripped]
+  * I<change-details>
+    I<more-change-details>
+          [blank line(s), included in L<dpkg-parsechangelog(1)> output]
+  * I<even-more-change-details>
+          [optional blank line(s), stripped]
+  -- I<maintainer-name> <I<email-address>>  I<date>
+
 I<paquet> et I<version> sont le nom et le numéro de version du paquet source. I<version> est délimité par les parenthèses U+00028 S<« B<(> »> et U+0029 S<« B<)> ».>
 
 I<distributions> liste une ou plusieurs distributions, séparées par une espace, dans lesquelles cette version peut être installée après S<téléchargement ;> l'entrée est copiée dans le champ B<Distribution> dans le fichier I<.changes>. I<distributions> doit se terminer par un point-virgule (U+003B S<« B<;> »).>
 
-I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to B<deb822>(5) field names.  The only I<keyword>s currently supported by B<dpkg> are:
+I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to L<deb822(5)> field names.  The only I<keyword>s currently supported by B<dpkg> are:
 
 =over 
 
@@ -162,7 +162,7 @@ La totalité du journal des modifications doit être encodé en UTF-8.
 
 =head1 VOIR AUSSI
 
-B<deb822>(5), B<deb-version>(7), B<deb-changes>(5), B<dpkg-parsechangelog>(1).
+L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 TRADUCTION

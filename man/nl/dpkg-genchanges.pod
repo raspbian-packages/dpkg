@@ -118,7 +118,7 @@ Gebruik I<onderhouder-adres> als de naam en het e-mailadres van de onderhouder v
 
 =item B<-V>I<naam>B<=>I<waarde>
 
-Een uitvoersubstitutievariabele instellen. Zie B<deb-substvars>(5) voor een bespreking van uitvoersubstitutie.
+Set an output substitution variable.  See L<deb-substvars(5)> for a discussion of output substitution.
 
 =item B<-T>I<substvars-bestand>
 
@@ -146,7 +146,7 @@ Hier de lijst van bestanden lezen welke geüpload moeten worden, eerder dan gebr
 
 =item B<-F>I<changelog-indeling>
 
-Geeft de indeling van het bestand changelog aan. Zie B<dpkg-parsechangelog>(1) voor informatie over alternatieve indelingen.
+Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
 
 =item B<-u>I<map-upload-bestanden>
 
@@ -196,5 +196,5 @@ De lijst van gegenereerde bestanden die deel uitmaken van de upload die voorbere
 
 =head1 ZIE OOK
 
-B<deb-substvars>(5), B<deb-src-control>(5), B<deb-src-files>(5), B<deb-changelog>(5), B<deb-changes>(5).
+L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 

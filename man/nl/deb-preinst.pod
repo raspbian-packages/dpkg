@@ -52,5 +52,5 @@ Indien I<postrm> mislukt tijdens het opwaarderen of mislukt bij een mislukte opw
 
 =head1 ZIE OOK
 
-B<dpkg>(1).
+L<dpkg(1)>.
 

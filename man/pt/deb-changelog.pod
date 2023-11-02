@@ -16,7 +16,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 deb-changelog - formato do ficheiro changelog de pacotes fonte dpkg
 
-=head1 SINOPSE
+=head1 RESUMO
 
 B<debian/changelog>
 
@@ -33,7 +33,7 @@ Z<>
           [optional blank line(s), stripped]
   * I<change-details>
     I<more-change-details>
-          [blank line(s), included in B<dpkg-parsechangelog>(1) output]
+          [blank line(s), included in L<dpkg-parsechangelog(1)> output]
   * I<even-more-change-details>
           [optional blank line(s), stripped]
   -- I<maintainer-name> <I<email-address>>  I<date>
@@ -42,17 +42,17 @@ I<package> e I<version> são o nome do pacote fonte e o número da versão. I<ve
 
 I<distributions> lista uma ou mais distribuições separadas por espaços onde esta versão deve ser instalada quando é enviada; é copiado para o campo B<Distribution> no ficheiro I<.changes>. I<distributions> tem de ser terminada com um caractere ponto e vírgula (U+003B ‘B<;>’).
 
-I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to B<deb822>(5) field names.  The only I<keyword>s currently supported by B<dpkg> are:
+I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to L<deb822(5)> field names.  The only I<keyword>s currently supported by B<dpkg> are:
 
 =over 
 
 =item B<urgency>
 
-Its value is used for the B<Urgency> field in the I<.changes> file for the upload.
+O seu valor é usado para o campo B<Urgency> no ficheiro I<.changes> para o envio.
 
 =item B<binary-only>
 
-With a B<yes> value, it is used to denote that this changelog entry is for a binary-only non-maintainer upload (an automatic binary rebuild with the only change being the changelog entry).
+Com um valor B<yes>, é usado para denotar que esta entrada no changelog é para um envio binary-only non-maintainer (uma recompilação binária automática com a única alteração a ser a entrada changelog).
 
 =back
 
@@ -162,7 +162,7 @@ Todo o changelog tem de estar codificado em UTF-8.
 
 =head1 VEJA TAMBÉM
 
-B<deb822>(5), B<deb-version>(7), B<deb-changes>(5), B<dpkg-parsechangelog>(1).
+L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 TRADUÇÃO

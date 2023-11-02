@@ -29,30 +29,30 @@ Formatet på <debian/changelog> gör det möjligt för paketbyggverktyg att uppt
 Formatet är ett antal poster såsom denna:
 
 Z<>
- I<paket> (I<version>) I<distributioner>; I<metadata>
-          [valfri(a) blankrad(er), tas bort]
-  * I<ändringsdetalj>
-    I<fler-ändringsdetaljer>
-          [blankrad(er), tas med i utdata från B<dpkg-parsechangelog>(1)]
-  * I<ytterligare-ändringsdetaljer>
-          [valfri(a) blankrad(er), tas bort]
-  -- I<ansvarig-namn> <I<epost-adress>>  I<datum>
+ I<package> (I<version>) I<distributions>; I<metadata>
+          [optional blank line(s), stripped]
+  * I<change-details>
+    I<more-change-details>
+          [blank line(s), included in L<dpkg-parsechangelog(1)> output]
+  * I<even-more-change-details>
+          [optional blank line(s), stripped]
+  -- I<maintainer-name> <I<email-address>>  I<date>
 
 I<paket> och I<version> är källkodspaketets namn och versionsnummer. I<version> avdelas av parentes U+0028 ”B<(>” och U+0029 ”B<)>”.
 
 I<distributioner> anger en eller flera blankstegsavdelade distributioner där den här versionen ska installeras efter insändning; värdet kopieras till fältet B<Distribution> i I<.changes>-filen. I<distributions> måste avslutas av ett semikolon (U+003B ”B<;>”).
 
-I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to B<deb822>(5) field names.  The only I<keyword>s currently supported by B<dpkg> are:
+I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to L<deb822(5)> field names.  The only I<keyword>s currently supported by B<dpkg> are:
 
 =over 
 
-=item B<urgency>
+=item B<urgency> (brådska)
 
-Its value is used for the B<Urgency> field in the I<.changes> file for the upload.
+Värdet används för fältet B<Urgency> i I<.changes>-filen vid insändning.
 
-=item B<binary-only>
+=item B<binary-only> (endast binär)
 
-With a B<yes> value, it is used to denote that this changelog entry is for a binary-only non-maintainer upload (an automatic binary rebuild with the only change being the changelog entry).
+Med värdet B<yes> används fältet för att ange att ändringsposten är för en insändning bestående av enbart binärer från någon annan än den paketansvarige (”binary-only non-maintainer upload”, en automatisk ombyggd binär där den enda ändringen är ändringsloggposten).
 
 =back
 
@@ -162,7 +162,7 @@ Hela ändringsloggen måste vara kodad i UTF-8.
 
 =head1 SE ÄVEN
 
-B<deb822>(5), B<deb-version>(7), B<deb-changes>(5), B<dpkg-parsechangelog>(1).
+L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 ÖVERSÄTTNING

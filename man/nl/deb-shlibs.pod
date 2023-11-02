@@ -32,7 +32,7 @@ B<shlibs>-bestanden zetten namen en versies (I<SONAMEs>) van gedeelde bibliothek
 
 De velden I<bibliotheek> en I<versie> worden door witruimte van elkaar gescheiden, maar het veld I<vereisten> loopt door tot het einde van de regel. Het veld I<type> is facultatief en meestal niet nodig.
 
-Het veld I<vereisten> heeft dezelfde syntaxis als het veld B<Depends> in het control-bestand van een binair pakket, zie B<deb-control>(5).
+The I<dependencies> field has the same syntax as the B<Depends> field in a binary control file, see L<deb-control(5)>.
 
 =head1 SONAME-INDELINGEN
 
@@ -54,7 +54,7 @@ I<naam>-I<versie>.so
 
 waarbij I<naam> gewoonlijk voorafgegaan wordt door B<lib>.
 
-The former tends to be used by shared libraries with stable interfaces.  The latter by shared libraries with unstable interfaces, where the whole version becomes part of the SONAME and needs to be specified in full when linking against those libraries.
+De eerste wordt meestal gebruikt door gedeelde bibliotheken met stabiele interfaces. De tweede wordt gebruikt door gedeelde bibliotheken met onstabiele interfaces, waarbij de hele versie onderdeel wordt van de SONAME en volledig gespecificeerd moet worden bij het linken naar deze bibliotheken.
 
 =head1 VOORBEELDEN
 
@@ -70,5 +70,5 @@ De I<vereisten> moeten de meest recente versie vermelden van het pakket dat nieu
 
 =head1 ZIE OOK
 
-B<deb-control>(5), B<dpkg-shlibdeps>(1), B<deb-symbols>(5).
+L<deb-control(5)>, L<deb-symbols(5)>, L<dpkg-shlibdeps(1)>.
 

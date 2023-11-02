@@ -88,7 +88,7 @@ Fehler-Schalter:
 
 =back
 
-Ein Großbuchstabe als Status oder Fehler zeigt an, dass das Paket wahrscheinlich schwere Fehler verursachen wird. Bitte lesen Sie B<dpkg>(1) über die oben genannten Zustände und Schalter.
+Ein Großbuchstabe als Status oder Fehler zeigt an, dass das Paket wahrscheinlich schwere Fehler verursachen wird. Bitte lesen Sie L<dpkg(1)> über die oben genannten Zustände und Schalter.
 
 Das Ausgabeformat dieser Option kann nicht konfiguriert werden, variiert aber automatisch mit der Terminalbreite. Die Ausgabe ist für menschliche Leser gedacht und nicht leicht maschinenlesbar. Lesen Sie über die Optionen B<-W> (B<--show>) und B<--showformat>, um das Ausgabeformat zu konfigurieren.
 
@@ -383,7 +383,7 @@ Setzt das auszuführende Programm, wenn ein Befehl über eine Shell ausgeführt 
 
 =item B<DPKG_PAGER>
 
-Setzt den zu verwendenden Pager-Befehl (seit Dpkg 1.19.1), der mit „B<$SHELL -c>“ ausgeführt wird. Falls B<SHELL> nicht gesetzt ist, wird stattdessen „B<sh>“ verwandt. B<DPKG_PAGER> setzt die Umgebungsvariable B<PAGER> außer Kraft (seit Dpkg 1.19.2).
+Setzt den zu verwendenden Pager-Befehl (seit Dpkg 1.19.1), der mit „B<$SHELL -c>“ ausgeführt wird. Falls B<SHELL> nicht gesetzt ist, wird stattdessen „B<%DPKG_DEFAULT_SHELL%>“ verwandt. B<DPKG_PAGER> setzt die Umgebungsvariable B<PAGER> außer Kraft (seit Dpkg 1.19.2).
 
 =item B<DPKG_ROOT>
 
@@ -419,7 +419,7 @@ Abfrageaktionen sollten niemals Root benötigen und die Übertragung ihrer Ausf�
 
 =head1 SIEHE AUCH
 
-B<dpkg>(1).
+L<dpkg(1)>.
 
 
 =head1 ÜBERSETZUNG

@@ -30,5 +30,5 @@ I<~/.dpkg.cfg>
 
 =head1 VEDERE ANCHE
 
-B<dpkg>(1).
+L<dpkg(1)>.
 

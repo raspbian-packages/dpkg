@@ -16,7 +16,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 dpkg-gencontrol - gera ficheiros de controle Debian
 
-=head1 SINOPSE
+=head1 RESUMO
 
 B<dpkg-gencontrol> [I<option>...]
 
@@ -40,7 +40,7 @@ Define o número de versão do pacote binário que será gerado.
 
 =item B<-V>I<name>B<=>I<value>
 
-Define uma variável de substituição de resultado. Veja B<deb-substvars>(5) para discussão sobre substituição de resultado.
+Set an output substitution variable. See L<deb-substvars(5)> for discussion of output substitution.
 
 =item B<-T>I<substvars-file>
 
@@ -68,7 +68,7 @@ Lê ou escreve a lista de ficheiros a ser enviada para aqui, em vez de usar B<de
 
 =item B<-F>I<changelog-format>
 
-Especifica o formato do registo de alterações. Veja B<dpkg-parsechangelog>(1) para informação acerca dos formatos alternativos.
+Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
 
 =item B<-p>I<package>
 
@@ -80,7 +80,7 @@ Assume que o nome do ficheiro do pacote será I<filename> em vez do nome de fich
 
 =item B<-is>, B<-ip>, B<-isp>
 
-These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell B<dpkg-gencontrol> to include the Section and Priority fields in the control file. This is now the default behavior. If you want to get the old behavior you can use the B<-U> option to delete the fields from the control file.
+Estas opções são ignoradas para compatibilidade com versões mais antigas dos scripts de compilação do dpkg, mas estão agora descontinuadas. Anteriormente eram usadas para dizer ao B<dpkg-gencontrol> para incluir os campos Section e Priority no ficheiro de controle. Este agora é o comportamento predefinido. Se você deseja obter o comportamento antigo, você pode usar a opção B<-U> para apagar os campos do ficheiro de controle.
 
 =item B<-P>I<package-build-dir>
 
@@ -130,7 +130,7 @@ A lista de ficheiros gerados que fazem parte do envio a ser preparado. B<dpkg-ge
 
 =head1 VEJA TAMBÉM
 
-B<deb-substvars>(5), B<deb-src-control>(5), B<deb-changelog>(5), B<deb-control>(5).
+L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-changelog(5)>, L<deb-control(5)>.
 
 
 =head1 TRADUÇÃO
