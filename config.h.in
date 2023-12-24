@@ -33,6 +33,9 @@
 /* POSIX shell interpreter used by dpkg */
 #undef DPKG_DEFAULT_SHELL
 
+/* Whether structured procfs supports LFS */
+#undef DPKG_STRUCTURED_PROCFS_SUPPORTS_LFS
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #undef ENABLE_NLS
@@ -145,9 +148,6 @@
 /* Define to 1 if you have the <libintl.h> header file. */
 #undef HAVE_LIBINTL_H
 
-/* Define to 1 if you have the `selinux' library (-lselinux). */
-#undef HAVE_LIBSELINUX
-
 /* Define to 1 if you have the <linux/fiemap.h> header file. */
 #undef HAVE_LINUX_FIEMAP_H
 
@@ -255,6 +255,9 @@
 
 /* Define to 1 if you have the `strtoimax' function. */
 #undef HAVE_STRTOIMAX
+
+/* Define to 1 if the system has the type `struct psinfo'. */
+#undef HAVE_STRUCT_PSINFO
 
 /* Define to 1 if you have the <sys/mkdev.h> header file. */
 #undef HAVE_SYS_MKDEV_H
@@ -373,8 +376,14 @@
 /* The size of `long long', as computed by sizeof. */
 #undef SIZEOF_LONG_LONG
 
+/* The size of `off_t', as computed by sizeof. */
+#undef SIZEOF_OFF_T
+
 /* The size of `short', as computed by sizeof. */
 #undef SIZEOF_SHORT
+
+/* The size of `time_t', as computed by sizeof. */
+#undef SIZEOF_TIME_T
 
 /* The size of `void *', as computed by sizeof. */
 #undef SIZEOF_VOID_P

@@ -206,83 +206,83 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<ASFLAGS>
 
-Options for the host assembler.  Default value: empty.  Since dpkg 1.21.0.
+Optionen für den Assembler des Rechners. Standardwert: leer. Seit Dpkg 1.21.0.
 
 =item B<CFLAGS>
 
-Options for the host C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).
+Optionen für den C-Compiler des Rechners. Der vom Lieferanten gesetzte Standardwert enthält I<-g> und die Standard-Optimierungsstufe (normalerweise I<-O2> oder B<-O0>, falls die Umgebungsvariable B<DEB_BUILD_OPTIONS> I<noopt> definiert).
 
 =item B<CPPFLAGS>
 
-Options for the host C preprocessor.  Default value: empty.
+Optionen für den C-Präprozessor des Rechners. Standardwert: leer.
 
 =item B<CXXFLAGS>
 
-Options for the host C++ compiler.  Same as B<CFLAGS>.
+Optionen für den C++-Compiler des Rechners. Identisch zu B<CFLAGS>.
 
 =item B<OBJCFLAGS>
 
-Options for the host Objective C compiler.  Same as B<CFLAGS>.  Since dpkg 1.17.7.
+Optionen für den Objective-C-Compiler des Rechners. Identisch zu B<CFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<OBJCXXFLAGS>
 
-Options for the host Objective C++ compiler.  Same as B<CXXFLAGS>.  Since dpkg 1.17.7.
+Optionen für den Objective-C++-Compiler des Rechners. Identisch zu B<CXXFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<DFLAGS>
 
-Options for the host D compiler (ldc or gdc).  Since dpkg 1.20.6.
+Optionen für den D-Compiler des Rechners (ldc oder gdc). Seit Dpkg 1.20.6.
 
 =item B<FFLAGS>
 
-Options for the host Fortran 77 compiler.  A subset of B<CFLAGS>.
+Optionen für den Fortran-77-Compiler des Rechners. Eine Untermenge von B<CFLAGS>.
 
 =item B<FCFLAGS>
 
-Options for the host Fortran 9x compiler.  Same as B<FFLAGS>.  Since dpkg 1.17.7.
+Optionen für den Fortran-9x-Compiler des Rechners. Identisch zu B<FFLAGS>. Seit Dpkg 1.17.7.
 
 =item B<LDFLAGS>
 
-Options passed to the host compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options). Default value: empty.
+Optionen, die beim Linken von Programmen oder Laufzeitbibliotheken an den Compiler des Rechners weitergegeben werden (falls der Linker direkt aufgerufen wird, müssen B<-Wl> und B<,> aus diesen Optionen entfernt werden). Standardmäßig leer.
 
 =item B<ASFLAGS_FOR_BUILD>
 
-Options for the build assembler.  Default value: empty.  Since dpkg 1.22.1.
+Optionen für den Assembler zum Bauen. Standardwert: leer. Seit Dpkg 1.22.1.
 
 =item B<CFLAGS_FOR_BUILD>
 
-Options for the build C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).  Since dpkg 1.22.1.
+Optionen für den C-Compiler zum Bauen. Der vom Lieferanten gesetzte Standardwert enthält I<-g> und die Standard-Optimierungsstufe (normalerweise I<-O2> oder B<-O0>, falls die Umgebungsvariable B<DEB_BUILD_OPTIONS> I<noopt> definiert). Seit Dpkg 1.22.1.
 
 =item B<CPPFLAGS_FOR_BUILD>
 
-Options for the build C preprocessor.  Default value: empty.  Since dpkg 1.22.1.
+Optionen für den C-Präprozessor zum Bauen. Standardwert: leer. Seit Dpkg 1.22.1.
 
 =item B<CXXFLAGS_FOR_BUILD>
 
-Options for the build C++ compiler.  Same as B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Optionen für den C++-Compiler zum Bauen. Identisch zu B<CFLAGS_FOR_BUILD>. Seit Dpkg 1.22.1.
 
 =item B<OBJCFLAGS_FOR_BUILD>
 
-Options for the build Objective C compiler.  Same as B<CFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+Optionen für den Objective-C-Compiler zum Bauen. Identisch zu B<CFLAGS_FOR_BUILD>. Seit Dpkg 1.22.1.
 
 =item B<OBJCXXFLAGS_FOR_BUILD>
 
-Options for the build Objective C++ compiler.  Same as B<CXXFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Optionen für den Objective-C++-Compiler zum Bauen. Identisch zu B<CXXFLAGS_FOR_BUILD>. Seit Dpkg 1.22.1.
 
 =item B<DFLAGS_FOR_BUILD>
 
-Options for the build D compiler (ldc or gdc).  Since dpkg 1.22.1.
+Optionen für den D-Compiler (ldc oder gdc) zum Bauen. Seit Dpkg 1.22.1.
 
 =item B<FFLAGS_FOR_BUILD>
 
-Options for the build Fortran 77 compiler.  A subset of B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Optionen für den Fortran-77-Compiler zum Bauen. Eine Untermenge von B<CFLAGS_FOR_BUILD>. Seit Dpkg 1.22.1.
 
 =item B<FCFLAGS_FOR_BUILD>
 
-Options for the build Fortran 9x compiler.  Same as B<FFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+Optionen für den Fortran-9x-Compiler zum Bauen. Identisch zu B<FFLAGS_FOR_BUILD>. Seit Dpkg 1.22.1.
 
 =item B<LDFLAGS_FOR_BUILD>
 
-Options passed to the build compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options).  Default value: empty.  Since dpkg 1.22.1.
+Optionen, die beim Linken von Programmen oder Laufzeitbibliotheken an den Compiler zum Bauen weitergegeben werden (falls der Linker direkt aufgerufen wird, müssen B<-Wl> und B<,> aus diesen Optionen entfernt werden). Standardmäßig leer. Seit Dpkg 1.22.1.
 
 =back
 

@@ -24,7 +24,7 @@ B<start-stop-daemon> [I<optie>...] I<commando>
 
 B<start-stop-daemon> wordt gebruikt om het creëren en afsluiten van processen op systeemniveau te regelen. Door een van de overeenkomstige opties te gebruiken kan B<start-stop-daemon> geconfigureerd worden om bestaande exemplaren te vinden van actieve processen.
 
-B<Note>: Unless B<--pid> or B<--pidfile> are specified, B<start-stop-daemon> behaves similar to L<killall(1)>.  B<start-stop-daemon> will scan the process table looking for any processes which match the process name, parent pid, uid, and/or gid (if specified). Any matching process will prevent B<--start> from starting the daemon. All matching processes will be sent the TERM signal (or the one specified via B<--signal> or B<--retry>) if B<--stop> is specified. For daemons which have long-lived children which need to live through a B<--stop>, you must specify a pidfile.
+B<Opmerking>: tenzij B<--pid> of B<--pidfile> opgegeven werden, gedraagt B<start-stop-daemon> zich gelijk L<killall(1)>.  B<start-stop-daemon> zal de procestabel overlopen op zoek naar processen die overeenkomen met de procesnaam, het moeder-pid, uid en/of gid (als ze opgegeven werden). Voor elk proces dat een overeenkomst oplevert, zal verhinderd worden dat B<--start> het proces opstart. Aan alle overeenkomende processen zal het TERM-signaal (of het signaal dat met B<--signal> of B<--retry> opgegeven werd) gegeven worden, indien B<--stop> opgegeven werd. Voor achtergronddiensten met langlevende dochterprocessen die bij een B<--stop> moeten blijven bestaan, moet u een pid-bestand opgeven.
 
 =head1 COMMANDO'S
 
@@ -134,7 +134,7 @@ Geen informatieve berichten weergeven; enkel foutmeldingen tonen.
 
 =item B<-c>, B<--chuid> I<gebruikersnaam>|I<uid>[B<:>I<groep>|I<gid>]
 
-Change to this username/uid before starting the process. You can also specify a group by appending a B<:>, then the group or gid in the same way as you would for the L<chown(1)> command (I<user>B<:>I<group>).  If a user is specified without a group, the primary GID for that user is used.  When using this option you must realize that the primary and supplemental groups are set as well, even if the B<--group> option is not specified. The B<--group> option is only for groups that the user isn't normally a member of (like adding per process group membership for generic users like B<nobody>).
+Naar deze gebruikersnaam/uid veranderen voordat het proces gestart wordt. U kunt ook een groep opgeven door een B<:> toe te voegen en dan de groep of gid op te geven op dezelfde manier als voor het commando L<chown(1)> (I<gebruiker>B<:>I<groep>). Indien een gebruiker opgegeven wordt zonder een groep, dan wordt voor die gebruiker zijn primaire GID gebruikt. Bij het gebruik van deze optie moet u er zich van bewust zijn dat ook de primaire en bijkomende groepen ingesteld worden, ook als de optie B<--group> niet opgegeven werd. De optie B<--group> dient enkel voor groepen waartoe de gebruiker normaal niet behoort (zoals het voor een specifiek proces instellen van een groepslidmaatschap voor algemene gebruikers zoals B<nobody>).
 
 =item B<-r>, B<--chroot> I<hoofdmap>
 
@@ -152,7 +152,7 @@ B<Waarschuwing>: B<start-stop-daemon> kan de afsluitstatus van het proces niet o
 
 =item B<--notify-await>
 
-Wait for the background process to send a readiness notification before considering the service started (since version 1.19.3).  This implements parts of the systemd readiness protocol, as specified in the L<sd_notify(3)> manual page.  The following variables are supported:
+Wachten tot het achtergrondproces een kennisgeving zendt dat het gereed is, vooraleer de dienst als opgestart beschouwd wordt (sinds versie 1.19.3). Dit past elementen van het 'readiness protocol' van systemd toe, zoals dit in de man-pagina L<sd_notify(3)> gespecificeerd wordt. De volgende variabelen worden ondersteund:
 
 =over 
 

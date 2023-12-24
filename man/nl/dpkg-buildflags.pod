@@ -38,11 +38,11 @@ voor de huidige gebruiker met B<$XDG_CONFIG_HOME/dpkg/buildflags.conf>, waarbij 
 
 =item 3.
 
-temporarily by the user with environment variables (see section L</ENVIRONMENT>);
+tijdelijk door de gebruiker met omgevingsvariabelen (zie het onderdeel L</OMGEVING>);
 
 =item 4.
 
-dynamically by the package maintainer with environment variables set via B<debian/rules> (see section L</ENVIRONMENT>).
+dynamisch door de pakketbeheerder met omgevingsvariabelen die ingesteld worden via B<debian/rules> (zie het onderdeel L</OMGEVING>).
 
 =back
 
@@ -82,7 +82,7 @@ Op standaarduitvoer alle compilatievlaggen en hun waarden tonen. Dit geeft per r
 
 =item B<--list>
 
-Print the list of flags supported by the current vendor (one per line). See the L</SUPPORTED FLAGS> section for more information about them.
+Een lijst weergeven van vlaggen die door de huidige leverancier ondersteund worden (één per regel). Zie het onderdeel L</ONDERSTEUNDE VLAGGEN> voor meer informatie daarover.
 
 =item B<--status>
 
@@ -207,83 +207,83 @@ De versie tonen en afsluiten.
 
 =item B<ASFLAGS>
 
-Options for the host assembler.  Default value: empty.  Since dpkg 1.21.0.
+Opties voor de host-assembler. Standaardwaarde: leeg. Sinds dpkg 1.21.0.
 
 =item B<CFLAGS>
 
-Options for the host C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).
+Opties voor de host-C-compiler. De door de leverancier ingestelde standaardwaarde bestaat uit B<-g> en het standaardniveau van optimalisatie (gewoonlijk B<-O2>, of B<-O0> indien de omgevingsvariabele B<DEB_BUILD_OPTIONS> I<noopt> aangeeft).
 
 =item B<CPPFLAGS>
 
-Options for the host C preprocessor.  Default value: empty.
+Opties voor de host-C-preprocessor. Standaardwaarde: leeg.
 
 =item B<CXXFLAGS>
 
-Options for the host C++ compiler.  Same as B<CFLAGS>.
+Opties voor de host-C++ compiler. Hetzelfde als B<CFLAGS>.
 
 =item B<OBJCFLAGS>
 
-Options for the host Objective C compiler.  Same as B<CFLAGS>.  Since dpkg 1.17.7.
+Opties voor de host-Objective C compiler. Hetzelfde als B<CFLAGS>. Sinds dpkg 1.17.7.
 
 =item B<OBJCXXFLAGS>
 
-Options for the host Objective C++ compiler.  Same as B<CXXFLAGS>.  Since dpkg 1.17.7.
+Opties voor de host-Objective C++ compiler. Hetzelfde als B<CXXFLAGS>. Sinds dpkg 1.17.7.
 
 =item B<DFLAGS>
 
-Options for the host D compiler (ldc or gdc).  Since dpkg 1.20.6.
+Opties voor de host-D-compiler (ldc of gdc). Sinds dpkg 1.20.6.
 
 =item B<FFLAGS>
 
-Options for the host Fortran 77 compiler.  A subset of B<CFLAGS>.
+Opties voor de host-Fortran 77 compiler. Een subset van B<CFLAGS>.
 
 =item B<FCFLAGS>
 
-Options for the host Fortran 9x compiler.  Same as B<FFLAGS>.  Since dpkg 1.17.7.
+Opties voor de host-Fortran 9x compiler. Hetzelfde als B<FFLAGS>. Sinds dpkg 1.17.7.
 
 =item B<LDFLAGS>
 
-Options passed to the host compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options). Default value: empty.
+Opties die aan de host-compiler doorgegeven worden bij het linken van uitvoerbare programma's en gedeelde objecten (indien de linker rechtstreeks aangeroepen wordt, dan moeten B<-Wl> en B<,> van die opties verwijderd worden). Standaardwaarde: leeg.
 
 =item B<ASFLAGS_FOR_BUILD>
 
-Options for the build assembler.  Default value: empty.  Since dpkg 1.22.1.
+Opties voor de bouwassembler. Standaardwaarde: leeg. Sinds dpkg 1.21.0.
 
 =item B<CFLAGS_FOR_BUILD>
 
-Options for the build C compiler.  The default value set by the vendor includes B<-g> and the default optimization level (B<-O2> usually, or B<-O0> if the B<DEB_BUILD_OPTIONS> environment variable defines I<noopt>).  Since dpkg 1.22.1.
+Opties voor de bouw-C-compiler. De door de leverancier ingestelde standaardwaarde bestaat uit B<-g> en het standaardniveau van optimalisatie (gewoonlijk B<-O2>, of B<-O0> indien de omgevingsvariabele B<DEB_BUILD_OPTIONS> I<noopt> aangeeft). Sinds dpkg 1.22.1.
 
 =item B<CPPFLAGS_FOR_BUILD>
 
-Options for the build C preprocessor.  Default value: empty.  Since dpkg 1.22.1.
+Opties voor de bouw-C-preprocessor. Standaardwaarde: leeg. Sinds dpkg 1.22.1.
 
 =item B<CXXFLAGS_FOR_BUILD>
 
-Options for the build C++ compiler.  Same as B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Opties voor de bouw-C++ compiler. Hetzelfde als B<CFLAGS_FOR_BUILD>. Sinds dpkg 1.22.1.
 
 =item B<OBJCFLAGS_FOR_BUILD>
 
-Options for the build Objective C compiler.  Same as B<CFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+Opties voor de bouw-Objective C compiler. Hetzelfde als B<CFLAGS_FOR_BUILD>. Sinds dpkg 1.22.1.
 
 =item B<OBJCXXFLAGS_FOR_BUILD>
 
-Options for the build Objective C++ compiler.  Same as B<CXXFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Opties voor de bouw-Objective C++ compiler. Hetzelfde als B<CXXFLAGS_FOR_BUILD>. Sinds dpkg 1.22.1.
 
 =item B<DFLAGS_FOR_BUILD>
 
-Options for the build D compiler (ldc or gdc).  Since dpkg 1.22.1.
+Opties voor de bouw-D-compiler (ldc of gdc). Sinds dpkg 1.22.1.
 
 =item B<FFLAGS_FOR_BUILD>
 
-Options for the build Fortran 77 compiler.  A subset of B<CFLAGS_FOR_BUILD>.  Since dpkg 1.22.1.
+Opties voor de bouw-Fortran 77 compiler. Een deelverzameling van B<CFLAGS_FOR_BUILD>. Sinds dpkg 1.22.1.
 
 =item B<FCFLAGS_FOR_BUILD>
 
-Options for the build Fortran 9x compiler.  Same as B<FFLAGS_FOR_BUILD>. Since dpkg 1.22.1.
+Opties voor de bouw-Fortran 9x compiler. Hetzelfde als B<FFLAGS_FOR_BUILD>. Sinds dpkg 1.22.1.
 
 =item B<LDFLAGS_FOR_BUILD>
 
-Options passed to the build compiler when linking executables or shared objects (if the linker is called directly, then B<-Wl> and B<,> have to be stripped from these options).  Default value: empty.  Since dpkg 1.22.1.
+Opties die aan de bouw-compiler doorgegeven worden bij het linken van uitvoerbare programma's of gedeelde objecten (indien de linker rechtstreeks aangeroepen wordt, dan moeten B<-Wl> en B<,> van die opties verwijderd worden). Standaardwaarde: leeg. Sinds dpkg 1.22.1.
 
 =back
 
@@ -353,7 +353,7 @@ Er kunnen verschillende compilatieopties (die hierna beschreven worden) gebruikt
 
 =item B<lto>
 
-This setting (since dpkg 1.21.0; disabled by default) enables Link Time Optimization by adding B<-flto=auto -ffat-lto-objects> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS>, B<FCFLAGS> and B<LDFLAGS>.
+Deze instelling (sinds dpkg 1.21.0; standaard uitgeschakeld) zet Link Time Optimization aan door B<-flto=auto -ffat-lto-objects> toe te voegen aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS>, B<FCFLAGS> of B<LDFLAGS>.
 
 =back
 
@@ -399,13 +399,13 @@ Merk op dat de code ook met B<-O1> of hoger gecompileerd moet worden opdat deze 
 
 =item B<stackprotector>
 
-This setting (since dpkg 1.16.1; enabled by default if stackprotectorstrong is not in use) adds B<-fstack-protector --param=ssp-buffer-size=4> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds safety checks against stack overwrites. This renders many potential code injection attacks into aborting situations. In the best case this turns code injection vulnerabilities into denial of service or into non-issues (depending on the application).
+Deze instelling (sinds dpkg 1.16.1; standaard geactiveerd als stackprotectorstrong niet gebruikt wordt) voegt B<-fstack-protector --param=ssp-buffer-size=4> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>. Dit voegt beveiligingscontroles tegen het overschrijven van de stack toe. Dit maakt dat bij veel mogelijke code-injectieaanvallen afgebroken wordt. In het beste geval wordt op die manier een kwetsbaarheid voor code-injectie omgebogen tot een denial-of-service (dienst niet beschikbaar) of een fictief probleem (afhankelijk van de toepassing).
 
 Deze functionaliteit vereist het linken van de code met glibc (of een andere aanbieder van B<__stack_chk_fail>) en moet dus uitgeschakeld worden als er gebouwd wordt met B<-nostdlib> of B<-ffreestanding> of iets gelijkaardigs.
 
 =item B<stackprotectorstrong>
 
-This setting (since dpkg 1.17.11; enabled by default) adds B<-fstack-protector-strong> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This is a stronger variant of B<stackprotector>, but without significant performance penalties.
+Deze instelling (sinds dpkg 1.17.11; standaard geactiveerd) voegt B<-fstack-protector-strong> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>. Dit is een sterkere variant van B<stackprotector>, maar zonder noemenswaardig prestatieverlies.
 
 Het uitzetten van B<stackprotector> schakelt ook deze functionaliteit uit.
 
@@ -413,11 +413,11 @@ Deze functionaliteit stelt dezelfde vereisten als B<stackprotector> en heeft daa
 
 =item B<stackclash>
 
-This setting (since dpkg 1.22.0; enabled by default) adds B<-fstack-clash-protection> on B<amd64>, B<arm64>, B<armhf> and B<armel> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds code to prevent stack clash style attacks.
+Deze instelling (sinds dpkg 1.22.0; standaard geactiveerd) voegt op B<amd64>, B<arm64>, B<armhf> en B<armel> B<-fstack-protector-strong> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>. Hiermee wordt code toegevoegd om aanvallen van het type stack-clash te voorkomen.
 
 =item B<branch>
 
-This setting (since dpkg 1.22.0; enabled by default) adds B<-fcf-protection> on B<amd64> and B<-mbranch-protection=standard> on B<arm64> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>.  This adds branch protection to indirect calls, jumps and returns to check whether these are valid at run-time.
+Deze instelling (sinds dpkg 1.22.0; standaard geactiveerd) voegt B<-fstack-protector-strong> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>. Dit voegt takbeveiliging toe aan indirecte aanroepen, sprongen en retouren om te controleren of deze geldig zijn tijdens het uitvoeren.
 
 =item B<relro>
 
@@ -429,7 +429,7 @@ Deze instelling (sinds dpkg 1.16.1; standaard uitgeschakeld) voegt B<-Wl,-z,now>
 
 =item B<pie>
 
-This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian architectures) adds the required options to enable or disable PIE via gcc specs files, if needed, depending on whether gcc injects on that architecture the flags by itself or not.  When the setting is enabled and gcc injects the flags, it adds nothing.  When the setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled and gcc injects the flags, it adds B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) to B<LDFLAGS>.
+Deze instelling (sinds dpkg 1.16.1; zonder algemene standaardinstelling sinds dpkg 1.18.23, aangezien het nu standaard geactiveerd wordt door gcc op de Debian-architecturen amd64, arm64, armel, armhf, hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc en sparc64) voegt zo nodig de vereiste opties toe om PIE te activeren of te deactiveren via gcc specs-bestanden, afhankelijk van het feit of gcc op die architectuur de vlaggen zelf injecteert of niet. Indien de instelling geactiveerd is en gcc de vlaggen injecteert, voegt ze niets toe. Indien de instelling geactiveerd is en gcc de vlaggen niet injecteert, voegt ze B<-fPIE> toe (via I<%PKGDATADIR%/pie-compiler.specs>) aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>, en B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) aan B<LDFLAGS>. Indien de instelling gedeactiveerd is en gcc de vlaggen injecteert, voegt ze B<-fno-PIE> toe (via I<%PKGDATADIR%/no-pie-compile.specs>) aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>, en B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) aan B<LDFLAGS>.
 
 Position Independent Executable (PIE - positie-onafhankelijke programma) is nodig om voordeel te halen uit Address Space Layout Randomization (ASLR - de adresruimte rangschikken in toevallige volgorde), hetgeen door sommige kernelversies ondersteund wordt. Hoewel ASLR reeds voor datagebieden in de stack en de heap opgelegd kan worden (brk and mmap), moeten de codegebieden als positieonafhankelijk gecompileerd worden. Gedeelde bibliotheken doen dit reeds (B<-fPIC>), waardoor zij automatisch ASLR krijgen, maar binaire .text-gebieden moeten als PIE gebouwd worden om ASLR te krijgen. Als dit gebeurt, worden aanvallen van het type ROP (Return Oriented Programming - op terugkeerwaarde georiënteerd programmeren) veel moeilijker aangezien er geen statische locaties meer zijn die bij een aanval van geheugenvervuiling als springplank gebruikt kunnen worden.
 
@@ -471,7 +471,7 @@ Deze instelling (sinds dpkg 1.17.14; standaard geactiveerd) voegt B<-Wdate-time>
 
 =item B<fixfilepath>
 
-This setting (since dpkg 1.19.1; enabled by default) adds B<-ffile-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built.  This has the effect of removing the build path from any generated file.
+Deze instelling (sinds dpkg 1.19.1; standaard geactiveerd) voegt B<-ffile-prefix-map=>I<BUILDPATH>B<=.> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>, waarbij B<BUILDPATH> ingesteld wordt op de basismap van het pakket dat gebouwd wordt. Dit heeft als effect dat het bouwpad verwijderd wordt van elk gegenereerd bestand.
 
 Indien zowel B<fixdebugpath> als B<fixfilepath> ingesteld zijn, heeft deze laatste optie voorrang, omdat het een superset is van de eerste.
 
@@ -479,7 +479,7 @@ B<Opmerking>: Als het bouwproces de bouwvlaggen in de resulterende gebouwde obje
 
 =item B<fixdebugpath>
 
-This setting (since dpkg 1.18.5; enabled by default) adds B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS> where B<BUILDPATH> is set to the top-level directory of the package being built.  This has the effect of removing the build path from any generated debug symbols.
+Deze instelling (sinds dpkg 1.18.5; standaard geactiveerd) voegt B<-fdebug-prefix-map=>I<BUILDPATH>B<=.> toe aan B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> en B<FCFLAGS>, waarbij B<BUILDPATH> ingesteld wordt op de basismap van het pakket dat gebouwd wordt. Dit heeft als effect dat het bouwpad verwijderd wordt van eventueel gegenereerde debug-symbolen.
 
 B<Opmerking>: deze functie heeft vergelijkbare reproduceerbare eigenschappen als B<fixfilepath>.
 
@@ -487,7 +487,7 @@ B<Opmerking>: deze functie heeft vergelijkbare reproduceerbare eigenschappen als
 
 =head1 OMGEVING
 
-Er zijn twee sets omgevingsvariabelen die dezelfde operaties uitvoeren. De eerste (DEB_I<vlag>_I<operatie>) zou nooit gebruikt mogen worden binnen B<debian/rules>. Die is bedoeld voor eventuele gebruikers die het bronpakket opnieuw willen bouwen met andere bouwvlaggen. De tweede set (DEB_I<vlag>_MAINT_I<operatie>) zou door pakketonderhouders enkel in B<debian/rules> gebruikt moeten worden om de resulterende bouwvlaggen aan te passen.
+Er zijn twee sets omgevingsvariabelen die dezelfde operaties uitvoeren. De eerste (DEB_I<vlag>_I<operatie>) zou nooit gebruikt mogen worden binnen B<debian/rules>. Die is bedoeld voor eventuele gebruikers die het bronpakket opnieuw willen bouwen met andere bouwvlaggen. De tweede set (DEB_I<vlag>_MAINT_I<operatie>) zou door pakketbeheerders enkel in B<debian/rules> gebruikt moeten worden om de resulterende bouwvlaggen aan te passen.
 
 =over 
 
@@ -519,7 +519,7 @@ Deze variabele kan gebruikt worden om vooraan bijkomende opties toe te voegen aa
 
 =item B<DEB_BUILD_MAINT_OPTIONS> (sinds dpkg 1.16.1)
 
-These variables can be used by a user or maintainer to disable/enable various area features that affect build flags.  The B<DEB_BUILD_MAINT_OPTIONS> variable overrides any setting in the B<DEB_BUILD_OPTIONS> feature areas.  See the L</FEATURE AREAS> section for details.
+Deze variabelen kunnen door een gebruiker of een beheerder gebruikt worden om diverse gebiedsfuncties die bouwvlaggen beïnvloeden, te activeren of uit te zetten. De variabele B<DEB_BUILD_MAINT_OPTIONS> vervangt eventuele instellingen in de functionaliteitsgebieden B<DEB_BUILD_OPTIONS>. Zie het onderdeel L</FUNCTIONALITEITSGEBIEDEN> voor de details.
 
 =item B<DEB_VENDOR>
 
@@ -600,7 +600,7 @@ of om de positieparameters in te stellen die aan een commando doorgegeven moeten
 
 Om de benodigde bouwvlaggen te bekomen die aan het bouwsysteem doorgegeven moeten worden, moet u vanuit het bestand B<debian/rules> B<dpkg-buildflags> aanroepen of B<buildflags.mk> invoegen. Merk op dat oudere versies van B<dpkg-buildpackage> (voor dpkg 1.16.1) deze vlaggen automatisch exporteerden. U zou hierop echter niet mogen betrouwen, aangezien dit het handmatig aanroepen van B<debian/rules> defect maakt.
 
-For packages with autoconf-like build systems, you can pass the relevant options to configure or L<make(1)> directly, as shown above.
+Voor pakketten met een autoconf-achtig bouwsysteem, kunt u de relevante opties rechtstreeks doorgeven aan configure of L<make(1)>, zoals hiervoor geïllustreerd werd.
 
 Voor andere bouwsystemen, of indien u een meer fijnmazige controle nodig heeft over welke vlaggen waar doorgegeven worden, kunt u B<--get> gebruiken. Of in de plaats daarvan kunt u B<buildflags.mk> invoegen, dat zorgt voor het aanroepen van B<dpkg-buildflags> en het opslaan van de bouwvlaggen in variabelen voor make.
 

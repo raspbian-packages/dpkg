@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NOME
 
-dsc - formato Debian de ficheiro de controle de pacotes fonte
+dsc - Debian source package control file format
 
 =head1 RESUMO
 

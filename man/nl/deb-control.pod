@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NAAM
 
-deb-control - Indeling van het hoofdcontrolebestand van de Debian binaire pakketten
+deb-control - Debian binary package control file format
 
 =head1 OVERZICHT
 
@@ -22,7 +22,7 @@ B<DEBIAN/control>
 
 =head1 BESCHRIJVING
 
-Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the master B<debian/control> file in Debian source packages, see L<deb-src-control(5)>.
+Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the B<debian/control> template source control file in Debian source packages, see L<deb-src-control(5)>.
 
 Dit bestand bevat een aantal velden. Ieder veld begint met een markering, zoals B<Package> of B<Version> (niet hoofdlettergevoelig), gevolgd door een dubbele punt en de tekstinhoud van het veld (hoofdlettergevoelig tenzij anders vermeld). Velden worden enkel door veldmarkeringen begrensd. De tekstinhoud van het veld kan met andere woorden verschillende regels lang zijn, maar de installatiegereedschappen zullen bij het verwerken van de tekstinhoud de regels gewoonlijk samenvoegen (behalve voor het veld B<Description>; zie hierna).
 
@@ -40,7 +40,7 @@ Dit veld definieert het pakkettype. B<udeb> is voor pakketten waarvan de omvang 
 
 =item B<Version:> I<versie-tekenreeks> (verplicht)
 
-Typically, this is the original package's version number in whatever form the program's author uses. It may also include a Debian revision number (for non-native packages). The exact format and sorting algorithm are described in L<deb-version(7)>.
+Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook aan geeft. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in L<deb-version(7)>.
 
 =item B<Maintainer:> I<volledige-naam-en-e-mail> (aanbevolen)
 
@@ -130,7 +130,7 @@ Dit laat pakketten die dit pakket als vereiste hebben (reverse-dependencies) toe
 
 =item B<Source:> I<broncode-naam> [B<(>I<broncode-versie>B<)>]
 
-De naam van het broncodepakket waaruit dit binaire pakket afkomstig is, indien die verschillend is van de naam van het pakket zelf. Indien de versie van het broncodepakket verschilt van de versie van het binaire pakket, dan zal de I<broncode-naam> gevolgd worden door een I<broncode-versie> tussen haakjes. Dit kan het geval zijn als de upload een uitsluitend binaire upload is die niet door de onderhouder uitgevoerd wordt, of wanneer via «B<dpkg-gencontrol -v>» voor het binaire pakket een verschillend versienummer ingesteld wordt.
+De naam van het broncodepakket waaruit dit binaire pakket afkomstig is, indien die verschillend is van de naam van het pakket zelf. Indien de versie van het broncodepakket verschilt van de versie van het binaire pakket, dan zal de I<broncode-naam> gevolgd worden door een I<broncode-versie> tussen haakjes. Dit kan het geval zijn als de upload een uitsluitend binaire upload is die niet door de beheerder uitgevoerd wordt, of wanneer via «B<dpkg-gencontrol -v>» voor het binaire pakket een verschillend versienummer ingesteld wordt.
 
 =item B<Subarchitecture:> I<waarde>
 
@@ -214,7 +214,7 @@ Dit veld werd vroeger gebruikt om een lijst van door spaties van elkaar gescheid
 
 =item B<Auto-Built-Package:> I<lijst-met-redenen>
 
-Dit veld somt een lijst van onderling door spaties gescheiden redenen op waarom dit pakket automatisch gegenereerd werd. Binaire pakketten die met dit veld gemarkeerd werden, zullen niet te vinden zijn in het hoofdcontrolebestand I<debian/control> van de broncode. De enige reden die momenteel gebruikt wordt, is B<debug-symbols>.
+This field specifies a whitespace separated list of reasons why this package was auto-generated.  Binary packages marked with this field will not appear in the I<debian/control> template source control file.  The only currently used reason is B<debug-symbols>.
 
 =item B<Build-Ids:> I<lijst met elf-bouw-id's>
 

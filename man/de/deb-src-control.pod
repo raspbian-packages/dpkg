@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 BEZEICHNUNG
 
-deb-src-control - Dateiformat der Hauptsteuerdatei von Debian-Quellpaketen
+deb-src-control - Dateiformat der Vorlagensteuerdatei von Debian-Quellpaketen
 
 =head1 ÜBERSICHT
 
@@ -22,9 +22,9 @@ B<debian/control>
 
 =head1 BESCHREIBUNG
 
-Jedes Debian-Quellpaket enthält eine Hauptdatei „B<debian/control>“. Deren L<deb822(5)>-Format ist eine Obermenge der in Debian-Binärpaketen ausgelieferten B<control>-Datei, siehe L<deb-control(5)>.
+Jedes Debian-Quellpaket enthält die Vorlagenquellsteuerdatei „B<debian/control>“. Deren L<deb822(5)>-Format ist eine Obermenge der in Debian-Binärpaketen ausgelieferten B<control>-Datei, siehe L<deb-control(5)>.
 
-Diese Datei enthält mindestens zwei Absätze, die durch eine Leerzeile getrennt werden. Der erste Absatz führt alle allgemeinen Informationen über das Quellpaket auf, während jeder folgende Absatz genau ein Binärpaket beschreibt. Jeder Absatz besteht aus mindestens einem Feld. Ein Feld beginnt mit einem Feldnamen, wie B<Package> oder B<Section> (Groß-/Kleinschreibung egal), gefolgt von einem Doppelpunkt, dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben) und einem Zeilenumbruch. Mehrzeilige Felder sind auch erlaubt, aber jede ergänzende Zeile ohne Feldnamen sollte mit mindestens einem Leerzeichen beginnen. Der Inhalt des mehrzeiligen Feldes wird durch die Werkzeuge im Allgemeinen zu einer Zeile zusammengeführt (das Feld B<Description> ist eine Ausnahme, siehe unten). Um Leerzeilen in ein mehrzeiliges Feld einzufügen, verwenden Sie einen Satzpunkt nach dem Leerzeichen. Zeilen, die mit ‚B<#>’ beginnen, werden als Kommentare betrachtet.
+Diese Datei enthält mindestens zwei Absätze, die durch eine Leerzeile getrennt werden. Der erste Absatz heißt Quellpaketabsatz und führt alle allgemeinen Informationen über das Quellpaket auf, während alle folgende Absätze Binärpaketabsatz heißen und genau ein Binärpaket pro Absatz beschreiben. Jeder Absatz besteht aus mindestens einem Feld. Ein Feld beginnt mit einem Feldnamen, wie B<Package> oder B<Section> (Groß-/Kleinschreibung egal), gefolgt von einem Doppelpunkt, dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben) und einem Zeilenumbruch. Mehrzeilige Felder sind auch erlaubt, aber jede ergänzende Zeile ohne Feldnamen sollte mit mindestens einem Leerzeichen beginnen. Der Inhalt des mehrzeiligen Feldes wird durch die Werkzeuge im Allgemeinen zu einer Zeile zusammengeführt (das Feld B<Description> ist eine Ausnahme, siehe unten). Um Leerzeilen in ein mehrzeiliges Feld einzufügen, verwenden Sie einen Satzpunkt nach dem Leerzeichen. Zeilen, die mit ‚B<#>’ beginnen, werden als Kommentare betrachtet.
 
 =head1 QUELLPAKET-FELDER
 
@@ -68,11 +68,11 @@ Dieses Feld wird verwandt, um anzuzeigen, ob die Datei B<debian/rules> (fake)roo
 
 =item B<no>
 
-Die Binärziele werden überhaupt kein (fake)root benötigen.
+Die Binärziele werden überhaupt kein (fake)root benötigen. Dies ist in B<dpkg-build-api> Stufe >=1 die Vorgabe.
 
 =item B<binary-targets>
 
-Die Binärziele müssen immer unter (fake)root ausgeführt werden. Dieser Wert ist die Vorgabe, wenn die Datei fehlt. Die Aufnahme dieses Feldes mit einem expliziten B<binary-targets> ist zwar streng genommen nicht notwendig, markiert aber, dass es darauf untersucht wurde.
+Die Binärziele müssen immer unter (fake)root ausgeführt werden. Dieser Wert ist in B<dpkg-build-api> Stufe 0 die Vorgabe, wenn die Datei fehlt. Die Aufnahme dieses Feldes mit einem expliziten B<binary-targets> ist zwar streng genommen nicht notwendig, markiert aber, dass es darauf untersucht wurde.
 
 =item I<Impl-Schlüsselwörter>
 

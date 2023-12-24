@@ -29,20 +29,20 @@ De indeling van het bestand I<debian/changelog> laat het gereedschap voor het bo
 Deze indeling bestaat uit een reeks vermeldingen zoals deze:
 
 Z<>
- I<package> (I<version>) I<distributions>; I<metadata>
-          [optional blank line(s), stripped]
-  * I<change-details>
-    I<more-change-details>
-          [blank line(s), included in L<dpkg-parsechangelog(1)> output]
-  * I<even-more-change-details>
-          [optional blank line(s), stripped]
-  -- I<maintainer-name> <I<email-address>>  I<date>
+ I<pakket> (I<versie>) I<distributies>; I<metadata>
+          [optioneel (een) blanco regel(s), die gestript worden]
+  * I<informatie-over-de-veranderingen>
+    I<nog-informatie-over-de-aanpassingen>
+          [blanco regel(s), zichtbaar in de uitvoer van L<dpkg-parsechangelog(1)>]
+  * I<en-eventueel-nog-meer-wijzigingsinformatie>
+          [optioneel (een) blanco regel(s), die gestript worden]
+ -- I<naam-van-de-beheerder> <I<e-mailadres>>  I<datum>
 
 I<pakket> en I<versie> zijn de naam van het broncodepakket en zijn versienummer. I<versie> wordt begrensd door de haakjes U+00028 ‘B<(>’ en U+0029 ‘B<)>’.
 
 I<distributies> somt één of meer door een spatie van elkaar gescheiden distributies op waarin deze versie ondergebracht moet worden als ze geüpload wordt; dit wordt gekopieerd naar het veld B<Distribution> in het bestand I<.changes>. I<distributies> moet afgesloten worden door een puntkomma (U+003B ‘B<;>’).
 
-I<metadata> lists zero or more comma-separated I<keyword>=I<value> items. Each keyword can contain only minus and case insensitive alphanumeric characters, as they need to be mapped to L<deb822(5)> field names.  The only I<keyword>s currently supported by B<dpkg> are:
+I<metadata> is een lijst items van het type I<trefwoord>=I<waarde> die onderling door een komma gescheiden worden. Elk trefwoord mag alleen mintekens en hoofdletterongevoelige alfanumerieke tekens bevatten, omdat ze moeten worden toegewezen aan L<deb822(5)>-veldnamen. De enige I<trefwoord>en die momenteel ondersteund worden door B<dpkg> zijn:
 
 =over 
 
@@ -78,7 +78,7 @@ Dat wil zeggen dat de tekenreks moet bestaan uit het woord B<closes:> gevolgd do
 
 Deze informatie wordt overgebracht via het veld B<Closes> in het bestand I<.changes>, waarbij, afhankelijk van de software voor archiefonderhoud, alle vermelde bugnummers automatisch gesloten kunnen worden.
 
-De naam van de onderhouder en het e-mailadres die in het changelog-bestand vermeld worden moeten betrekking hebben op de persoon die deze release van het pakket voorbereidde. Deze gegevens betreffen B<niet> noodzakelijk de persoon die het pakket uploadt of de persoon die het pakket gewoonlijk onderhoudt. De hier vermelde informatie wordt gekopieerd naar het veld B<Changed-By> in het bestand I<.changes> en zal later, wanneer de upload in het distributiearchief ondergebracht wordt, gebruikt worden voor het zenden van een kennisgeving.
+De naam van de beheerder en het e-mailadres die in het changelog-bestand vermeld worden moeten betrekking hebben op de persoon die deze release van het pakket voorbereidde. Deze gegevens betreffen B<niet> noodzakelijk de persoon die het pakket uploadt of de persoon die het pakket gewoonlijk onderhoudt. De hier vermelde informatie wordt gekopieerd naar het veld B<Changed-By> in het bestand I<.changes> en zal later, wanneer de upload in het distributiearchief ondergebracht wordt, gebruikt worden voor het zenden van een kennisgeving.
 
 De I<datum> heeft de volgende indeling (compatibel met en met dezelfde betekenis als in RFC2822 en RFC5322, of hetgeen het commando «date -R» genereert):
 
@@ -126,7 +126,7 @@ De afwijking is van de tijdzone ten opzichte van de gecoördineerde wereldtijd (
 
 =back
 
-De eerste “titel”-regel met de naam van het pakket moet beginnen aan de linkermarge. De “volgende” regel met de gegevens over de onderhouder en de datum moet door exact één spatie voorafgegaan worden (U+0020 B<SPACE>). Tussen de informatie over de onderhouder en de datum moeten exact twee spaties staan (U+0020 B<SPACE>). Elk onderdeel van de I<datum> kan gescheiden worden door één of meer spaties (U+0020 B<SPACE>), behalve na de komma waar het gescheiden kan worden door nul of meer spaties (U+0020 B<SPACE>).
+De eerste “titel”-regel met de naam van het pakket moet beginnen aan de linkermarge. De “volgende” regel met de gegevens over de beheerder en de datum moet door exact één spatie voorafgegaan worden (U+0020 B<SPACE>). Tussen de informatie over de beheerder en de datum moeten exact twee spaties staan (U+0020 B<SPACE>). Elk onderdeel van de I<datum> kan gescheiden worden door één of meer spaties (U+0020 B<SPACE>), behalve na de komma waar het gescheiden kan worden door nul of meer spaties (U+0020 B<SPACE>).
 
 Elke regel die volledig (d.w.z. zonder voorafgaande witruimte) bestaat uit commentaar in de vorm van B<#>- of B</* */> of RCS-trefwoorden.
 

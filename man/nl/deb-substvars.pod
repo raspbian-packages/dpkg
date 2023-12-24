@@ -69,7 +69,7 @@ De huidige computerarchitectuur (d.w.z. de architectuur waarvoor het pakket gebo
 
 =item B<vendor:Name>
 
-The current vendor name (since dpkg 1.20.0).  This value comes from the B<Vendor> field for the current vendor's origin file, as L<dpkg-vendor(1)> would retrieve it.
+De naam van de huidige leverancier (sinds dpkg 1.20.0). Deze waarde is afkomstig van het B<Vendor>-veld voor het origin-bestand van de huidige leverancier, zoals L<dpkg-vendor(1)> het zou ophalen.
 
 =item B<vendor:Id>
 
@@ -109,13 +109,13 @@ B<Opmerking:> Houd er rekening mee dat dit steeds slechts een schatting kan zijn
 
 Extra schijfruimte die gebruikt wordt als het pakket geïnstalleerd is. Indien deze variabele ingesteld werd, wordt de waarde ervan opgeteld bij de variabele B<Installed-Size> (ofwel de expliciet ingestelde of de standaardwaarde ervan) vooraleer ze gekopieerd wordt naar het veld B<Installed-Size> in het bestand control.
 
-=item B<S:>I<field-name>
+=item B<S:>I<veldnaam>
 
-The value of the source stanza field I<field-name> (which must be given in the canonical capitalization; since dpkg 1.18.11).  Setting these variables has no effect other than on places where they are expanded explicitly. These variables are only available when generating binary control files.
+De waarde van het broncodeveld I<veldnaam> (die moet opgegeven worden in de gebruikelijke schrijfwijze met hoofd-/kleine letters; sinds dpkg 1.18.11). Het instellen van deze variabelen heeft geen effect tenzij op die plaatsen waar ze expliciet geëxpandeerd worden. Deze variabelen zijn enkel beschikbaar tijdens het genereren van de control-bestanden van het binaire pakket.
 
-=item B<F:>I<field-name>
+=item B<F:>I<veldnaam>
 
-The value of the output field I<field-name> (which must be given in the canonical capitalization). Setting these variables has no effect other than on places where they are expanded explicitly.
+De waarde van het uitvoerveld I<veldnaam> (die moet opgegeven worden in de gebruikelijke schrijfwijze met hoofd-/kleine letters). Het instellen van deze variabelen heeft geen effect tenzij op die plaatsen waar ze expliciet geëxpandeerd worden.
 
 =item B<Format>
 

@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NAMN
 
-dsc - styrfilformat för Debians källkodspaket
+dsc - Debian source package control file format
 
 =head1 SYNOPS
 

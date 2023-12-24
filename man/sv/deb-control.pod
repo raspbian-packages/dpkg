@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NAMN
 
-deb-control - huvudstyrfilsformat för Debians binärpaket
+deb-control - Debian binary package control file format
 
 =head1 SYNOPS
 
@@ -22,7 +22,7 @@ I<DEBIAN/control>
 
 =head1 BESKRIVNING
 
-Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the master B<debian/control> file in Debian source packages, see L<deb-src-control(5)>.
+Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the B<debian/control> template source control file in Debian source packages, see L<deb-src-control(5)>.
 
 Filen innehåller ett antal fält. Varje fält börjar med en etikett, såsom B<Package> eller B<Version> (skiftlägesoberoende), följt av ett kolontecken och fältets kropp (skiftlägesberoende såvida inte annat anges). Fält avdelas endast av fältetiketter. Med andra ord kan texten i fälten spänna över flera rader, men installationsverktygen kommer oftast att slå samman rader när kroppen tolkas (förutom när det gäller fältet B<Description>, se nedan).
 
@@ -214,7 +214,7 @@ Det här fältet används för att ange en blankstegsavdelad lista med byggprofi
 
 =item B<Auto-Built-Package:> I<orsakslista>
 
-Det här fältet innehåller en blankstegsavdelad lista med orsaker till varför det här paketet autogenererades. Binärpaket som markerats med det här fältet kommer inta dyka upp i huvud-källkodsstyrfilen I<debian/control>. Den enda orsak som används är för närvarande B<debug-symbols> (felsökningssymboler).
+This field specifies a whitespace separated list of reasons why this package was auto-generated.  Binary packages marked with this field will not appear in the I<debian/control> template source control file.  The only currently used reason is B<debug-symbols>.
 
 =item B<Build-Ids:> I<elf-bygg-id-lista>
 

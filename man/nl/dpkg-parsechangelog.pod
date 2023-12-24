@@ -62,7 +62,7 @@ De volgende opties kunnen gebruikt worden om de uitvoer van de changelog-ontlede
 
 =item B<--format> I<uitvoerindeling>
 
-Set the output format. Currently supported values are B<dpkg> and B<rfc822>.  B<dpkg> is the classic output format (from before this option existed) and the default. It consists of one stanza in Debian control format (see L<deb-control(5)>). If more than one entry is requested, then most fields are taken from the first entry (usually the most recent entry), except otherwise stated:
+De indeling van de uitvoer instellen. Momenteel ondersteunde waarden zijn B<dpkg> en B<rfc822>. B<dpkg> is de klassieke indeling van de uitvoer (van voor het bestaan van deze optie) en ook de standaard. Het bestaat uit één onderdeel volgens het indelingssysteem van Debian control (zie L<deb-control(5)>). Indien meer dan één item opgevraagd wordt, dan worden de meeste velden genomen uit het eerste item (gewoonlijk het meest recente item), tenzij anders vermeld:
 
 =over 
 
@@ -72,11 +72,11 @@ De naam van het broncodepakket.
 
 =item B<Version:> I<versie>
 
-The source version number.  B<Note>: For binary-only releases there might be no corresponding source release.
+Het versienummer van de broncode. B<Opmerking>: Voor releases die uitsluitend binair zijn, is er mogelijk geen overeenkomstige broncoderelease.
 
 =item B<Distribution:> I<doeldistributie>
 
-A space-separated list of one or more distribution names where this version should be installed when it is uploaded.
+Een door spaties gescheiden lijst van een of meer namen van distributies waarin deze versie ondergebracht moet worden als ze geüpload wordt.
 
 =item B<Urgency:> I<urgentie>
 
@@ -84,11 +84,11 @@ Van alle opgenomen items wordt de hoogste urgentie gebruikt, gevolgd door de sam
 
 =item B<Maintainer:> I<auteur>
 
-The name and email address of the person who prepared these changes, they are B<not> necessarily those of the uploader or the usual package maintainer.
+De naam en het e-mailadres van de persoon die deze wijzigingen heeft voorbereid, dit zijn B<niet> noodzakelijkerwijs die van de uploader of de gebruikelijke pakketbeheerder.
 
 =item B<Date:> I<datum>
 
-The date of the entry as a string, as it appears in the changelog.  With a L<strptime(3)> format "B<%a, %d %b %Y %T %z>", but where the day of the week might not actually correspond to the real day obtained from the rest of the date string.  If you need a more accurate representation of the date, use the B<Timestamp> field, but take into account it might not be possible to map it back to the exact value in this field.
+De datum van het item als een tekenreeks, zoals die voorkomt in het changelog-bestand. Met een L<strptime(3)>-opmaak "B<%a, %d %b %Y %T %z>", maar waarbij het kan zijn dat de dag van de week niet echt overeenkomt met de werkelijke dag die bekomen wordt uit de rest van de datumtekenreeks. Indien u een meer accurate representatie van de datum nodig heeft, moet u gebruik maken van het B<Timestamp>-veld, maar u moet er rekening mee houden dat het mogelijk is dat het niet meer exact terug omgezet kan worden naar de waarde van dat veld.
 
 =item B<Timestamp:> I<tijdsaanduiding>
 
@@ -166,7 +166,7 @@ Een naam voor een changelog-indelingen moet een niet-lege alfanumerieke tekenree
 
 Indien een dergelijke regel bestaat, zal B<dpkg-parsechangelog> naar het ontleedprogramma zoeken als een B<Dpkg::Changelog::>I<andere-indeling> perl module. Het is een fout als die niet voorhanden is. De parsernaam in de perlmodule zal automatisch in hoofdletters gezet worden. De standaard changelog-indeling is B<debian> en standaard is er voorzien in een programma om ze te ontleden.
 
-The parser should be derived from the L<Dpkg::Changelog> class and implement the required documented interface.
+Het ontleedprogramma moet ontleend worden aan de L<Dpkg::Changelog>-klasse en moet de vereiste vastgelegde interface implementeren.
 
 Indien de changelog-indeling die ontleed wordt altijd of bijna altijd een witregel heeft tussen aparte notities in verband met wijzigingen, moeten die lege regels weggenomen worden om als resultaat een compacte uitvoer te bekomen.
 
@@ -208,7 +208,7 @@ Het changelog-bestand dat gebruikt wordt om versieafhankelijke informatie over h
 
 =head1 BUGS
 
-The B<Maintainer> field has a confusing name matching the field in the F<debian/control> file but not its exact semantics, where its meaning would be better represented by the B<Changed-By> field name used in the F<.changes> file.
+Het veld B<Maintainer> heeft een verwarrende naam die overeenkomt met het veld in het bestand F<debian/control>, maar niet met zijn exacte semantiek, waarbij de betekenis beter zou worden weergegeven door de veldnaam B<Changed-By> die wordt gebruikt in het bestand F<.changes>.
 
 =head1 ZIE OOK
 

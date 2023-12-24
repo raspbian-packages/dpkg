@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 BEZEICHNUNG
 
-deb-control - Dateiformat der Hauptsteuerdatei von binären Debian-Paketen
+deb-control - Steuer-Dateiformat der binären Debian-Pakete
 
 =head1 ÜBERSICHT
 
@@ -22,7 +22,7 @@ B<DEBIAN/control>
 
 =head1 BESCHREIBUNG
 
-Jedes Debian-Binärpaket enthält eine Datei B<control> in seinem B<control>-Element. Ihr L<deb822(5)>-Format ist eine Teilmenge der Hauptdatei B<debian/control> in dem Debian-Quellpaket, siehe L<deb-src-control(5)>.
+Jedes Debian-Binärpaket enthält eine Datei B<control> in seinem B<control>-Element. Ihr L<deb822(5)>-Format ist eine Teilmenge der B<debian/control> Vorlagen-Quell-Steuerdatei in Debian-Quellpaketen, siehe L<deb-src-control(5)>.
 
 Diese Datei enthält eine Reihe von Feldern. Jedes Feld beginnt mit einer Markierung, wie B<Package> oder B<Version> (Groß-/Kleinschreibung egal), gefolgt von einem Doppelpunkt und dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben). Felder werden nur durch die Feldmarkierungen abgegrenzt. Mit anderen Worten, Feldtexte können mehrere Zeilen überspannen, aber die Installationswerkzeuge werden im Allgemeinen die Zeilen bei der Verarbeitung des Feldinhaltes zusammenfassen (mit Ausnahme des B<Description>-Feldes, sehen Sie dazu unten).
 
@@ -214,7 +214,7 @@ Dieses Feld legte eine durch Leerraumzeichen getrennte Liste von Bauprofilen fes
 
 =item B<Auto-Built-Package:> I<Begründungsliste>
 
-Dieses Feld legt eine durch Leerraumzeichen getrennte Liste von Begründungen fest, warum dieses Paket automatisch erstellt wurde. Binärpakete, die mit diesem Feld markiert wurden, werden nicht in der Hauptquellsteuerdatei I<debian/control> auftauchen. Die einzige derzeit verwandte Begründung ist B<debug-symbols>.
+Dieses Feld legt eine durch Leerraumzeichen getrennte Liste von Begründungen fest, warum dieses Paket automatisch erstellt wurde. Binärpakete, die mit diesem Feld markiert wurden, werden nicht in der Vorlagenquellsteuerdatei I<debian/control> auftauchen. Die einzige derzeit verwandte Begründung ist B<debug-symbols>.
 
 =item B<Build-Ids:> I<ELF-Baukennungsliste> 
 

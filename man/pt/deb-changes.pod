@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NOME
 
-deb-changes - Formato Debian de ficheiros de alterações
+deb-changes - Debian upload changes control file format
 
 =head1 RESUMO
 

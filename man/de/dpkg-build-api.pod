@@ -51,11 +51,11 @@ B<dpkg-shlibdeps> verwendet die Umgebungsvariable B<LD_LIBRARY_PATH> nicht mehr.
 
 =item *
 
-B<dpkg-buildpackage> setzt standardmäßig B<Rules-Requires-Root> auf B<no>. Um das Verhalten aus B<v0> wiederherzustellen, sollte B<Rules-Requires-Root> auf B<binary-targets> gesetzt werden.
+B<dpkg-buildpackage> setzt standardmäßig den Wert von B<Rules-Requires-Root> auf B<no>. Um das Verhalten aus B<v0> wiederherzustellen, sollte B<Rules-Requires-Root> auf B<binary-targets> gesetzt werden.
 
 =item *
 
-B<dpkg-buildpackage> benötigt alle benötigten Ziele in F<debian/rules>. Das heißt, B<clean>, B<build>, B<build-indep>, B<build-arch>, B<binary-indep> und B<binary-arch>.
+B<dpkg-buildpackage> erwartet, dass alle benötigten Ziele in F<debian/rules> unterstützt werden. Es hat keinen rückwärtskompatiblen Rückfall-Code mehr. Die benötigten Ziele sind B<clean>, B<build>, B<build-indep>, B<build-arch>, B<binary-indep> und B<binary-arch>.
 
 =item *
 

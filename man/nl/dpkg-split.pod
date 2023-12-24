@@ -174,7 +174,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =item B<SOURCE_DATE_EPOCH>
 
-If set, it will be used as the timestamp (as seconds since the epoch) in the L<deb-split(5)>'s L<ar(5)> container.
+Indien dit ingesteld werd, zal het gebruikt worden als de tijdsaanduiding (timestamp) (in seconden sinds de epoch) in de L<ar(5)>-container van L<deb-split(5)>.
 
 =back
 

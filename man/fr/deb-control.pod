@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NOM
 
-deb-control - Format du fichier principal de contrôle dans les paquets binaires Debian
+deb-control - Debian binary package control file format
 
 =head1 SYNOPSIS
 
@@ -22,7 +22,7 @@ B<DEBIAN/control>
 
 =head1 DESCRIPTION
 
-Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the master B<debian/control> file in Debian source packages, see L<deb-src-control(5)>.
+Each Debian binary package contains a B<control> file in its B<control> member, and its L<deb822(5)> format is a subset of the B<debian/control> template source control file in Debian source packages, see L<deb-src-control(5)>.
 
 Ce fichier contient un certain nombre de champs. Chaque champ commence par une étiquette, telle que B<Package> ou B<Version> (la casse n'importe pas), suivie d'un S<« : »,> et du contenu du champ (sensible à la casse à moins que cela ne soit spécifié autrement). Les champs sont séparés seulement par des étiquettes de champ. En d'autres termes, le contenu d'un champ peut s'étendre sur plusieurs lignes, mais les outils d'installation joindront en général les lignes pendant le traitement du contenu du champ (sauf pour le champ B<Description>, voir ci-dessous).
 
@@ -214,7 +214,7 @@ Ce champ sert à spécifier une liste, séparée par des espaces, de profils de 
 
 =item B<Auto-Built-Package:> I<liste-de-raisons>
 
-Ce champ définit une liste, séparée par des espaces, des raisons pour lesquelles ce paquet a été généré automatiquement. Les paquets binaires marqués avec ce champ n'apparaîtront pas dans le fichier principal de contrôle des sources I<debian/control>. B<debug-symbols> est la seule raison utilisée actuellement.
+This field specifies a whitespace separated list of reasons why this package was auto-generated.  Binary packages marked with this field will not appear in the I<debian/control> template source control file.  The only currently used reason is B<debug-symbols>.
 
 =item B<Build-Ids:> I<liste-identifiants-de-construction-elf>
 

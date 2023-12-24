@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NOM
 
-dsc - Format du fichier de contrôle dans les paquets source Debian
+dsc - Debian source package control file format
 
 =head1 SYNOPSIS
 

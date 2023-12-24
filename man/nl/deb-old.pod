@@ -22,7 +22,7 @@ I<bestandsnaam>B<.deb>
 
 =head1 BESCHRIJVING
 
-The B<.deb> format is the Debian binary package file format. This manual page describes the B<old> format, used before Debian 0.93. Please see L<deb(5)> for details of the new format.
+Het B<.deb>-formaat is de indeling voor een binair pakketbestand in Debian. Deze man-pagina beschrijft de B<oude> indeling die voor Debian 0.93 in gebruik was. Zie L<deb(5)> voor de details van de nieuwe indeling.
 
 =head1 INDELING
 

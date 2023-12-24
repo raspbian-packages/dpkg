@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 BEZEICHNUNG
 
-dpkg-genchanges - Format der Debian-Changes-Datei
+dpkg-genchanges - Format der Upload-Changes-Datei von Debian
 
 =head1 ÜBERSICHT
 

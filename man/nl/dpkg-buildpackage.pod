@@ -182,21 +182,21 @@ Enkel zinvol in samenhang met B<--target> (sinds dpkg 1.15.0). Vereist dat het d
 
 =item B<-C>I<beschrijving-van-de-wijzigingen>
 
-=item B<-m>I<adres-van-de-onderhouder>
+=item B<-m>I<adres-van-de-beheerder>
 
-=item B<-e>I<adres-van-de-onderhouder>
+=item B<-e>I<adres-van-de-beheerder>
 
 Wordt ongewijzigd doorgegeven aan B<dpkg-genchanges>. Zie de man-pagina ervan.
 
-=item B<--build-by=>I<adres-van-de-pakketonderhouder>
+=item B<--build-by=>I<adres-van-de-beheerder>
 
-=item B<--source--by=>I<adres-van-de-pakketonderhouder> (sinds dpkg 1.21.10)
+=item B<--source--by=>I<adres-van-de-beheerder> (sinds dpkg 1.21.10)
 
 Doorgeven als B<-m> aan B<dpkg-genchanges>. Zie de man-pagina ervan.
 
-=item B<--release-by=>I<adres-van-de-pakketonderhouder>
+=item B<--release-by=>I<adres-van-de-beheerder>
 
-=item B<--changed-by=>I<adres-van-de-pakketonderhouder> (sinds dpkg 1.21.10)
+=item B<--changed-by=>I<adres-van-de-beheerder> (sinds dpkg 1.21.10)
 
 Doorgeven als B<-e> aan B<dpkg-genchanges>. Zie de man-pagina ervan.
 
@@ -572,7 +572,7 @@ B<dpkg-architecture> wordt aangeroepen met de doorgegeven parameters B<-a> en B<
 
 =item B<DEB_RULES_REQUIRES_ROOT>
 
-This variable is set to the value obtained from the B<Rules-Requires-Root> field, the dpkg-build-api level or from the command-line.  When set, it will be a valid value for the B<Rules-Requires-Root> field.  It is used to notify B<debian/rules> whether the B<rootless-builds.txt> specification is supported.
+Deze variabele wordt ingesteld op de waarde die verkregen wordt uit het veld B<Rules-Requires-Root>, het niveau van dpkg-build-api of vanuit de commandoregel. Indien ze ingesteld is, zal ze een geldige waarde zijn voor het veld B<Rules-Requires-Root>. Ze wordt gebruikt om B<debian/rules> te informeren of de specificatie B<rootless-builds.txt> ondersteund wordt.
 
 =item B<DEB_GAIN_ROOT_CMD>
 

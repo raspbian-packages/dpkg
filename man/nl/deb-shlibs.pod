@@ -32,7 +32,7 @@ B<shlibs>-bestanden zetten namen en versies (I<SONAMEs>) van gedeelde bibliothek
 
 De velden I<bibliotheek> en I<versie> worden door witruimte van elkaar gescheiden, maar het veld I<vereisten> loopt door tot het einde van de regel. Het veld I<type> is facultatief en meestal niet nodig.
 
-The I<dependencies> field has the same syntax as the B<Depends> field in a binary control file, see L<deb-control(5)>.
+Het veld I<vereisten> heeft dezelfde syntaxis als het veld B<Depends> in het control-bestand van een binair pakket, zie L<deb-control(5)>.
 
 =head1 SONAME-INDELINGEN
 

@@ -21,7 +21,7 @@
 
 =head1 NAME
 
-deb-src-control - Debian source packages' master control file format
+deb-src-control - Debian source package template control file format
 
 =head1 SYNOPSIS
 
@@ -29,13 +29,16 @@ B<debian/control>
 
 =head1 DESCRIPTION
 
-Each Debian source package contains the master «B<debian/control>» file,
+Each Debian source package contains the «B<debian/control>» template source
+control file,
 and its L<deb822(5)> format is a superset of the B<control> file
 shipped in Debian binary packages, see L<deb-control(5)>.
 
 This file contains at least 2 stanzas, separated by a blank line.
-The first stanza lists all information about the source package in general,
-while each following stanza describes exactly one binary package.
+The first stanza is called the source package stanza and lists all
+information about the source package in general,
+while each following stanzas are called the binary package stanzas and
+describe exactly one binary package per stanza.
 Each stanza consists of at least one field.
 A field starts with a field name, such as B<Package> or B<Section>
 (case insensitive), followed by a colon, the body of the field
@@ -109,13 +112,16 @@ This field is used to indicate whether the B<debian/rules> file requires
 =item B<no>
 
 The binary targets will not require (fake)root at all.
+This is the default in B<dpkg-build-api> level >= 1.
 
 =item B<binary-targets>
 
 The binary targets must always be run under (fake)root.
-This value is the default when the field is omitted; adding the field
-with an explicit B<binary-targets> while not strictly needed, marks
-it as having been analyzed for this requirement.
+This value is the default in B<dpkg-build-api> level 0,
+when the field is omitted;
+adding the field with an explicit B<binary-targets>,
+while not strictly needed,
+marks it as having been analyzed for this requirement.
 
 =item I<impl-keywords>
 

@@ -51,11 +51,11 @@ B<dpkg-shlibdeps> maakt niet langer gebruik van de omgevingsvariabele B<LD_LIBRA
 
 =item *
 
-B<dpkg-buildpackage> stelt standaard B<Rules-Requires-Root> in op B<no>. Om het gedrag uit B<v0> te herstellen moet B<Rules-Requires-Root> worden ingesteld op B<binary-targets>.
+B<dpkg-buildpackage> defaults to B<Rules-Requires-Root> value B<no>.  To restore the B<v0> behavior B<Rules-Requires-Root> should be set to B<binary-targets>.
 
 =item *
 
-B<dpkg-buildpackage> vereist alle vereiste targets van F<debian/rules>. Dat zijn B<clean>, B<build>, B<build-indep>, B<build-arch>, B<binary-indep> en B<binary-arch>.
+B<dpkg-buildpackage> expects all required F<debian/rules> targets to be supported and no longer has backwards compatibility fallback code.  The required targets are B<clean>, B<build>, B<build-indep>, B<build-arch>, B<binary-indep> and B<binary-arch>.
 
 =item *
 

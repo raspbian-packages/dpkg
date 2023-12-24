@@ -74,7 +74,7 @@ Specificeert waar zich de lijst van bestanden bevindt die door het bouwproces aa
 
 =item B<-F>I<changelog-indeling>
 
-Specifies the format of the changelog. See L<dpkg-parsechangelog(1)> for information about alternative formats.
+Geeft de indeling van het bestand changelog aan. Zie L<dpkg-parsechangelog(1)> voor informatie over alternatieve indelingen.
 
 =item B<-O>[I<bestandsnaam>]
 

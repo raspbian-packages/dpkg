@@ -14,7 +14,7 @@ If the PO get lost, keeping this translation up-to-date will be harder.
 
 =head1 NOM
 
-deb-changes - Format des fichiers S<« .changes »> Debian
+deb-changes - Debian upload changes control file format
 
 =head1 SYNOPSIS
 

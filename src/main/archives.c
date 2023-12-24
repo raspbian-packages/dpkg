@@ -89,6 +89,8 @@ tar_pool_alloc(size_t size)
     tar_pool_init = true;
   }
 
+  /* cppcheck-suppress[nullPointerArithmetic]:
+   * False positive, imported module. */
   return obstack_alloc(&tar_pool, size);
 }
 
@@ -108,6 +110,8 @@ static void
 tar_pool_release(void)
 {
   if (tar_pool_init) {
+    /* cppcheck-suppress[nullPointerArithmetic,pointerLessThanZero]:
+     * False positive, imported module. */
     obstack_free(&tar_pool, NULL);
     tar_pool_init = false;
   }
@@ -422,7 +426,7 @@ tarobject_extract(struct tarcontext *tc, struct tar_entry *te,
     break;
   case TAR_FILETYPE_HARDLINK:
     varbuf_set_str(&hardlinkfn, dpkg_fsys_get_dir());
-    linknode = fsys_hash_find_node(te->linkname, 0);
+    linknode = fsys_hash_find_node(te->linkname, FHFF_NONE);
     varbuf_add_str(&hardlinkfn,
                    namenodetouse(linknode, tc->pkg, &tc->pkg->available)->name);
     if (linknode->flags & (FNNF_DEFERRED_RENAME | FNNF_NEW_CONFF))
@@ -469,7 +473,7 @@ tarobject_hash(struct tarcontext *tc, struct tar_entry *te,
   } else if (te->type == TAR_FILETYPE_HARDLINK) {
     struct fsys_namenode *linknode;
 
-    linknode = fsys_hash_find_node(te->linkname, 0);
+    linknode = fsys_hash_find_node(te->linkname, FHFF_NONE);
     namenode->newhash = linknode->newhash;
     debug(dbg_eachfiledetail, "tarobject hardlink digest=%s", namenode->newhash);
   }
@@ -685,7 +689,7 @@ tarobject(struct tar_archive *tar, struct tar_entry *ti)
   if (strchr(ti->name, '\n'))
     ohshit(_("newline not allowed in archive object name '%.255s'"), ti->name);
 
-  namenode = fsys_hash_find_node(ti->name, 0);
+  namenode = fsys_hash_find_node(ti->name, FHFF_NONE);
 
   if (namenode->flags & FNNF_RM_CONFF_ON_UPGRADE)
     ohshit(_("conffile '%s' marked for removal on upgrade, shipped in package"),

@@ -70,7 +70,7 @@ Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het active
 
 =head1 BEPERKINGEN
 
-Anything that is not parsed by L<Dpkg::Changelog> is lost during the merge. This might include stuff like comments which were not supposed to be there, etc.
+Alles wat niet door L<Dpkg::Changelog> ontleed wordt, geraakt tijdens het samenvoegen verloren. Dit kan gaan om zaken zoals commentaar die daar niet hoort te staan, enz.
 
 =head1 INTEGRATIE MET GIT
 

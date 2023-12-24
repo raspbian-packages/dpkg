@@ -56,7 +56,7 @@ De waarde van dit veld bepaalt de indelingsversie van het bestand. De syntaxis v
 
 =item B<Source:> I<broncode-naam> [B<(>I<broncode-versie>B<)>] (verplicht)
 
-De naam van het broncodepakket. Indien de versie van het broncodepakket verschilt van de versie van het binaire pakket, dan zal de I<broncode-naam> gevolgd worden door een I<broncode-versie> tussen haakjes. Dit kan het geval zijn als de bouw gebeurt voor een uitsluitend binaire upload die niet door de onderhouder uitgevoerd wordt.
+De naam van het broncodepakket. Indien de versie van het broncodepakket verschilt van de versie van het binaire pakket, dan zal de I<broncode-naam> gevolgd worden door een I<broncode-versie> tussen haakjes. Dit kan het geval zijn als de bouw gebeurt voor een uitsluitend binaire upload die niet door de beheerder uitgevoerd wordt.
 
 =item B<Binary:> I<lijst-binaire-pakketten> (vereist in de context)
 
@@ -68,13 +68,13 @@ Dit veld met spaties als scheidingsteken, somt de architecturen op van de bestan
 
 =item B<Version:> I<versie-tekenreeks> (verplicht)
 
-Typically, this is the original package's version number in whatever form the program's author uses.  It may also include a Debian revision number (for non-native packages).  The exact format and sorting algorithm are described in L<deb-version(7)>.
+Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook voor gebruikt. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in L<deb-version(7)>.
 
 =item B<Binary-Only-Changes:>
 
 =item S< >I<changelog-item>
 
-Dit multiregel-veld bevat in voorkomend geval de samengevoegde tekst van het changelog-item voor een uitsluitend binaire upload die niet door de onderhouder uitgevoerd wordt (een binary-only non-maintainer upload - binNMU). Om van dit veld een geldig multiregel-veld te maken, worden lege regels vervangen door één enkel punt (‘.’) en springen alle regels in met één spatie. De exacte inhoud hangt af van de changelog-indeling.
+Dit multiregel-veld bevat in voorkomend geval de samengevoegde tekst van het changelog-item voor een uitsluitend binaire upload die niet door de beheerder uitgevoerd wordt (een binary-only non-maintainer upload - binNMU). Om van dit veld een geldig multiregel-veld te maken, worden lege regels vervangen door één enkel punt (‘.’) en springen alle regels in met één spatie. De exacte inhoud hangt af van de changelog-indeling.
 
 =item B<Checksums-Md5:> (verplicht)
 
@@ -100,7 +100,7 @@ De Debian-architectuur van de installatie waarin de pakketten gebouwd worden. Ge
 
 =item B<Build-Date:> I<bouwdatum>
 
-The date the package was built.  It must be in the same format as the date in a L<deb-changelog(5)> entry.
+De datum waarop het pakket gebouwd werd. Hij moet dezelfde indeling hebben als de datum in een L<deb-changelog(5)>-item.
 
 =item B<Build-Kernel-Version:> I<bouwkernel-versie>
 

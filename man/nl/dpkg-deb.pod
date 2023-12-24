@@ -38,7 +38,7 @@ De meeste commando's die als argument een invoerarchief verwachten, kunnen dit a
 
 Maakt een debian-archief van de bestandssysteemboom die in I<map-binair-pakket> staat. I<map-binair-pakket> moet een onderliggende map B<DEBIAN> hebben waarin de bestanden met controle-informatie opgeslagen zijn, zoals het bestand control zelf. Deze map zal I<niet> voorkomen in het bestandssysteemarchief van het binaire pakket, maar in de plaats daarvan zullen de bestanden daaruit in het conrole-informatiegebied van het binaire pakket geplaatst worden.
 
-Tenzij u B<--nocheck> opgeeft, zal B<dpkg-deb> B<DEBIAN/control> lezen en het ontleden. Het zal het bestand controleren op syntaxisfouten en op andere problemen en de naam tonen van het binaire pakket dat gebouwd wordt. B<dpkg-deb> zal ook de toegangsrechten van de scripts van de onderhouder nazien en van andere bestanden die te vinden zijn in de map B<DEBIAN> met controle-informatie.
+Tenzij u B<--nocheck> opgeeft, zal B<dpkg-deb> B<DEBIAN/control> lezen en het ontleden. Het zal het bestand controleren op syntaxisfouten en op andere problemen en de naam tonen van het binaire pakket dat gebouwd wordt. B<dpkg-deb> zal ook de toegangsrechten van de scripts van de beheerder nazien en van andere bestanden die te vinden zijn in de map B<DEBIAN> met controle-informatie.
 
 Indien geen I<archief> opgegeven werd, zal B<dpkg-deb> het pakket wegschrijven in het bestand I<map-binair-pakket>B<.deb>.
 
@@ -94,11 +94,11 @@ Het invoerarchief wordt (momenteel) niet sequentieel verwerkt, waardoor het van 
 
 =item B<--ctrl-tarfile> I<archief>
 
-Extracts the control data from a binary package and sends it to standard output in B<tar> format (since dpkg 1.17.14). Together with L<tar(1)> this can be used to extract a particular control file from a package archive. The input archive will always be processed sequentially.
+Extraheert de controlegegevens uit een binair pakket en stuurt ze naar de standaarduitvoer in B<tar>-indeling (sinds dpkg 1.17.14). Samen met L<tar(1)> kan dit gebruikt worden om een specifiek controlebestand uit een pakketarchief te extraheren. Het invoerarchief wordt steeds sequentieel verwerkt.
 
 =item B<--fsys-tarfile> I<archief>
 
-Extracts the filesystem tree data from a binary package and sends it to standard output in B<tar> format. Together with L<tar(1)> this can be used to extract a particular file from a package archive.  The input archive will always be processed sequentially.
+Extraheert de gegevens van de bestandssysteemboom uit een binair pakket en stuurt ze naar de standaarduitvoer in B<tar>-indeling. Samen met L<tar(1)> kan dit gebruikt worden om een specifiek bestand uit een pakketarchief te extraheren. Het invoerarchief wordt steeds sequentieel verwerkt.
 
 =item B<-e>, B<--control> I<archief> [I<map>]
 
@@ -126,7 +126,7 @@ De versie tonen en afsluiten.
 
 Deze optie wordt gebruikt om op te geven in welke indeling B<--show> zijn uitvoer moet produceren. De indeling is een tekenreeks die vorm geeft aan de uitvoer die voor elk opgesomd pakket gegenereerd wordt.
 
-The string may reference any status field using the “${I<field-name>}” form, a list of the valid fields can be easily produced using B<-I> on the same package. A complete explanation of the formatting options (including escape sequences and field tabbing) can be found in the explanation of the B<--showformat> option in L<dpkg-query(1)>.
+De tekenreeks mag in de vorm “${I<veldnaam>}” verwijzen naar elk statusveld. Een lijst van geldige velden kan gemakkelijk bekomen worden door voor hetzelfde pakket B<-I> te gebruiken. Een volledige uitleg over de indelingsmogelijkheden (met inbegrip van stuurcodes en het bepalen van de tussenruimte tussen velden) kan men vinden in de toelichting bij de optie B<--showformat> van L<dpkg-query(1)>.
 
 De standaard voor dit veld is “${Package}\t${Version}\n”.
 
@@ -140,7 +140,7 @@ Specificeren welke compressiestrategie gebruikt moet worden door het compressiep
 
 =item B<-Z>I<compressietype>
 
-Specify which compression type to use when building a package.  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18) and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
+Specificeren welk compressietype bij het bouwen van een pakket gebruikt moet worden. Toegestane waarden zijn B<gzip>, B<xz> (sinds dpkg 1.15.6), B<zstd> (sinds dpkg 1.21.18) en B<none> (standaard is B<%DEB_DEFAULT_COMPRESSOR%>).
 
 =item B<--[no-]uniform-compression>
 
@@ -222,7 +222,7 @@ Indien dit ingesteld werd, zal B<dpkg-deb> het gebruiken als de map waarin tijde
 
 =item B<SOURCE_DATE_EPOCH>
 
-If set, it will be used as the timestamp (as seconds since the epoch) in the L<deb(5)>'s L<ar(5)> container and used to clamp the mtime in the L<tar(5)> file entries.
+Indien dit ingesteld werd, zal het gebruikt worden als de tijdsaanduiding (timestamp) (in seconden sinds de epoch) in de L<ar(5)>-container van het L<deb(5)>-bestand en zal het ook gebruikt worden om de mtime vast te zetten op de items uit het L<tar(5)>-bestand.
 
 =back
 

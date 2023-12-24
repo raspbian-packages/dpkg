@@ -78,7 +78,7 @@ Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het active
 
 =head1 BUGS
 
-Some packages don't follow the name structure I<package>B<_>I<version>B<_>I<architecture>B<.deb>.  Packages renamed by B<dpkg-name> will follow this structure. Generally this will have no impact on how packages are installed by L<dselect(1)>/L<dpkg(1)>, but other installation tools might depend on this naming structure.
+Bepaalde pakketten volgen de naamstructuur I<pakket>B<_>I<versie>B<_>I<architectuur>B<.deb> niet. Pakketten die door B<dpkg-name> hernoemd worden, volgen deze structuur. Over het algemeen heeft dit geen invloed op de manier waarop pakketten door L<dselect(1)>/L<dpkg(1)> geïnstalleerd worden, maar ander installatiegereedschap kan eventueel steunen op die naamgevingsstructuur.
 
 =head1 VOORBEELDEN
 
