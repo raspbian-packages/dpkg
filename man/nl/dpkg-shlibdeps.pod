@@ -50,7 +50,7 @@ Door een pakket verstrekte informatie over afhankelijkheidsrelaties tot gedeelde
 
 Tijdens het doorzoeken van de door al de programma's gebruikte symbolen, onthoudt B<dpkg-shlibdeps> van elke bibliotheek de (hoogste) minimale versie die nodig is. Op het eind van het proces is het in staat voor elke gebruikte bibliotheek uit te schrijven wat de minimale vereiste is (in de veronderstelling dat de informatie uit de I<symbols>-bestanden accuraat is).
 
-Bij wijze van beschermende maatregel kan een symbols-bestand een meta-informatieveld B<Build-Depends-Pakket> bevatten. Dan zal B<dpkg-shlibdeps> de door het corresponderende pakket vereiste minimale versie halen uit het veld B<Build-Depends> en deze versie gebruiken als ze hoger is dan de minimale versie die berekend werd via het doorzoeken van symbolen.
+As a safe-guard measure, a symbols file can provide a B<Build-Depends-Package> or B<Build-Depends-Packages> meta-information field and B<dpkg-shlibdeps> will extract the minimal version required by the corresponding package in the B<Build-Depends> field and use this version if it's higher than the minimal version computed by scanning symbols.
 
 =head2 Shlibs-bestanden
 

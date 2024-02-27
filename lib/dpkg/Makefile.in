@@ -113,14 +113,6 @@ host_triplet = @host@
 @HAVE_LINKER_VERSION_SCRIPT_FALSE@	libdpkg.sym \
 @HAVE_LINKER_VERSION_SCRIPT_FALSE@	# EOL
 
-@BUILD_SHARED_TRUE@am__append_4 = \
-@BUILD_SHARED_TRUE@	$(LIBINTL) \
-@BUILD_SHARED_TRUE@	$(Z_LIBS) \
-@BUILD_SHARED_TRUE@	$(LZMA_LIBS) \
-@BUILD_SHARED_TRUE@	$(ZSTD_LIBS) \
-@BUILD_SHARED_TRUE@	$(BZ2_LIBS) \
-@BUILD_SHARED_TRUE@	# EOL
-
 check_PROGRAMS = $(am__EXEEXT_1) t/b-fsys-hash$(EXEEXT) \
 	t/b-pkg-hash$(EXEEXT) t/c-tarextract$(EXEEXT) \
 	t/c-treewalk$(EXEEXT) t/c-trigdeferred$(EXEEXT)
@@ -196,10 +188,10 @@ am__installdirs = "$(DESTDIR)$(devlibdir)" "$(DESTDIR)$(pkgconfigdir)" \
 	"$(DESTDIR)$(pkgincludedir)"
 LTLIBRARIES = $(devlib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-@BUILD_SHARED_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1) \
-@BUILD_SHARED_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@BUILD_SHARED_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-libdpkg_la_DEPENDENCIES = ../compat/libcompat.la $(am__DEPENDENCIES_2)
+libdpkg_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	../compat/libcompat.la
 am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	c-ctype.lo cleanup.lo color.lo command.lo compress.lo dbdir.lo \
 	dbmodify.lo db-ctrl-access.lo db-ctrl-format.lo \
@@ -227,13 +219,13 @@ libdpkg_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 t_b_fsys_hash_SOURCES = t/b-fsys-hash.c
 am__dirstamp = $(am__leading_dot)dirstamp
 t_b_fsys_hash_OBJECTS = t/b-fsys-hash.$(OBJEXT)
-am__DEPENDENCIES_3 = libdpkg.la $(am__DEPENDENCIES_1) \
+am__DEPENDENCIES_2 = libdpkg.la $(am__DEPENDENCIES_1) \
 	../compat/libcompat.la
-am__DEPENDENCIES_4 = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_3)
-t_b_fsys_hash_DEPENDENCIES = $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
+t_b_fsys_hash_DEPENDENCIES = $(am__DEPENDENCIES_3)
 t_b_pkg_hash_SOURCES = t/b-pkg-hash.c
 t_b_pkg_hash_OBJECTS = t/b-pkg-hash.$(OBJEXT)
-t_b_pkg_hash_DEPENDENCIES = $(am__DEPENDENCIES_4)
+t_b_pkg_hash_DEPENDENCIES = $(am__DEPENDENCIES_3)
 t_c_tarextract_SOURCES = t/c-tarextract.c
 t_c_tarextract_OBJECTS = t/c-tarextract.$(OBJEXT)
 t_c_tarextract_LDADD = $(LDADD)
@@ -712,6 +704,7 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+aclocaldir = @aclocaldir@
 admindir = @admindir@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -719,6 +712,7 @@ am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 backupsdir = @backupsdir@
+bashcompletionsdir = @bashcompletionsdir@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -730,6 +724,7 @@ datadir = @datadir@
 datarootdir = @datarootdir@
 devlibdir = @devlibdir@
 docdir = @docdir@
+docspecdir = @docspecdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
@@ -747,10 +742,14 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
+methodsdir = @methodsdir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+perllibdir = @perllibdir@
 pkgconfdir = @pkgconfdir@
+pkgconfigdir = @pkgconfigdir@
+polkitactionsdir = @polkitactionsdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -782,21 +781,23 @@ LDADD = \
 	../compat/libcompat.la \
 	# EOL
 
+EXTRA_DIST = libdpkg.map libdpkg.pc.in $(test_scripts) $(test_data) # \
+	EOL
 DISTCLEANFILES = libdpkg.sym # EOL
-EXTRA_DIST = \
-	$(test_scripts) \
-	$(test_data) \
-	libdpkg.map \
-	libdpkg.pc.in \
-	# EOL
-
-pkgconfigdir = $(devlibdir)/pkgconfig
 pkgconfig_DATA = libdpkg.pc
 devlib_LTLIBRARIES = libdpkg.la
 EXTRA_libdpkg_la_DEPENDENCIES = libdpkg.map $(am__append_3)
-libdpkg_la_LDFLAGS = -no-undefined $(am__append_1) $(am__append_2) \
-	$(MD_LIBS)
-libdpkg_la_LIBADD = ../compat/libcompat.la $(am__append_4)
+libdpkg_la_LDFLAGS = -no-undefined $(am__append_1) $(am__append_2)
+libdpkg_la_LIBADD = \
+	$(Z_LIBS) \
+	$(LZMA_LIBS) \
+	$(ZSTD_LIBS) \
+	$(BZ2_LIBS) \
+	$(MD_LIBS) \
+	$(LIBINTL) \
+	../compat/libcompat.la \
+	# EOL
+
 libdpkg_la_SOURCES = \
 	dlist.h \
 	ar.c \

@@ -514,7 +514,7 @@ Falls gesetzt, wird er zum Signieren der B<.changes>-, B<.buildinfo>- und B<.dsc
 
 =item B<DEB_BUILD_OPTIONS>
 
-Falls gesetzt, wird sie eine durch Leerraumzeichen getrennte Liste von Optionen enthalten, die das Verhalten einiger im Paketbau beteiligter Dpkg-Werkzeuge beeinflusst und möglicherweise den Paketbauprozess beeinflusst, falls der Code in F<debian/rules> sie berücksichtigt.
+Falls gesetzt, wird sie eine durch Leerraumzeichen getrennte Liste von Optionen enthalten, die das Verhalten einiger im Paketbau beteiligter Dpkg-Werkzeuge beeinflusst und möglicherweise den Paketbauprozess beeinflusst, falls der Code in F<debian/rules> sie berücksichtigt. Bei diesen Optionen können Parameter direkt nach einem Gleichzeichen (»B<=>«) gesetzt werden. Für Optionen, die mehrere Parameter akzeptieren, werden diese nicht durch Leerzeichen getrennt, da diese für separate Optionen reserviert sind.
 
 Die folgenden Optionen sind den Dpkg-Werkzeugen bekannt und werden von ihnen unterstützt, andere von F<debian/rules> berücksichtigte Optionen könnnten in Distributions-spezifischen Richtlinien definiert sein.
 
@@ -539,6 +539,22 @@ Das F<debian/rules> in der Paketierung sollte sicherstellen, dass die Fehlersuch
 =item B<terse>
 
 B<dpkg-buildpackage> wird den Schalter B<--no-print-directory> von L<make(1)> an die Umgebungsvariable B<MAKEFLAGS> anhängen. Das F<debian/rules> in der Paketierung sollte die Ausführlichkeit reduzieren, aber nicht komplett still sein.
+
+=item B<hardening=>I<Funktionalitätspezi>
+
+=item B<reproducible=>I<Funktionalitätspezi>
+
+=item B<abi=>I<Funktionalitätspezi>
+
+=item B<future=>I<Funktionalitätspezi>
+
+=item B<qa=>I<Funktionalitätspezi>
+
+=item B<optimize=>I<Funktionalitätspezi>
+
+=item B<sanitize=>I<Funktionalitätspezi>
+
+Dies sind die Funktionalitätsbereiche, die die Bauschalter-Funktionalitäten steuern. Lesen Sie L<dpkg-buildflags(1)> zu weiteren Details.
 
 =back
 

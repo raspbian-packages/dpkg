@@ -17,16 +17,10 @@ LDADD = \
 	../compat/libcompat.la \
 	# EOL
 
+
+EXTRA_DIST =
 DISTCLEANFILES =
 
-EXTRA_DIST = \
-	$(test_scripts) \
-	$(test_data) \
-	libdpkg.map \
-	libdpkg.pc.in \
-	# EOL
-
-pkgconfigdir = $(devlibdir)/pkgconfig
 pkgconfig_DATA = libdpkg.pc
 
 devlib_LTLIBRARIES = libdpkg.la
@@ -38,6 +32,7 @@ EXTRA_libdpkg_la_DEPENDENCIES = \
 libdpkg_la_LDFLAGS = \
 	-no-undefined \
 	# EOL
+
 if HAVE_LINKER_VERSION_SCRIPT
 libdpkg_la_LDFLAGS += \
 	-Wl,--version-script=$(srcdir)/libdpkg.map \
@@ -46,23 +41,22 @@ else
 libdpkg_la_LDFLAGS += \
 	-export-symbols libdpkg.sym \
 	# EOL
+
 EXTRA_libdpkg_la_DEPENDENCIES += \
 	libdpkg.sym \
 	# EOL
 endif
-libdpkg_la_LDFLAGS += $(MD_LIBS)
+
 libdpkg_la_LIBADD = \
-	../compat/libcompat.la \
-	# EOL
-if BUILD_SHARED
-libdpkg_la_LIBADD += \
-	$(LIBINTL) \
 	$(Z_LIBS) \
 	$(LZMA_LIBS) \
 	$(ZSTD_LIBS) \
 	$(BZ2_LIBS) \
+	$(MD_LIBS) \
+	$(LIBINTL) \
+	../compat/libcompat.la \
 	# EOL
-endif
+
 libdpkg_la_SOURCES = \
 	dlist.h \
 	ar.c \
@@ -193,6 +187,11 @@ pkginclude_HEADERS = \
 	version.h \
 	# EOL
 
+EXTRA_DIST += \
+	libdpkg.map \
+	libdpkg.pc.in \
+	# EOL
+
 DISTCLEANFILES += \
 	libdpkg.sym \
 	# EOL
@@ -264,6 +263,11 @@ test_data = \
 	t/data/meminfo-no-info \
 	t/data/meminfo-no-unit \
 	t/data/meminfo-ok \
+	# EOL
+
+EXTRA_DIST += \
+	$(test_scripts) \
+	$(test_data) \
 	# EOL
 
 BENCHMARK_LDADD_FLAGS = \

@@ -50,7 +50,7 @@ Informação de dependências de bibliotecas partilhadas fornecidas pelo pacote.
 
 Enquanto sonda os símbolos usados por todos os binários, o B<dpkg-shlibdeps> lembra-se da versão mínima (mais alta) necessária para cada biblioteca. No final do processo, é capaz de escrever a dependência mínima para cada biblioteca usada (desde que a informação dos ficheiros I<symbols> esteja exacta).
 
-Como medida de salva-guarda, um ficheiro de símbolos pode fornecer um campo de meta-informação B<Build-Depends-Package> e B<dpkg-shlibdeps> irá extrair a versão mínima requerida pelo pacote correspondente no campo B<Build-Depends> e usa esta versão se for maior que a versão mínima computada pela sondagem dos símbolos.
+As a safe-guard measure, a symbols file can provide a B<Build-Depends-Package> or B<Build-Depends-Packages> meta-information field and B<dpkg-shlibdeps> will extract the minimal version required by the corresponding package in the B<Build-Depends> field and use this version if it's higher than the minimal version computed by scanning symbols.
 
 =head2 Ficheiros shlibs
 

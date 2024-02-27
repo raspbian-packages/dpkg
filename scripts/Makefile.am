@@ -2,68 +2,9 @@
 
 SUBDIRS = mk po
 
-sbin_SCRIPTS = \
-	dpkg-fsys-usrunmess \
-	# EOL
+EXTRA_DIST =
+CLEANFILES =
 
-bin_SCRIPTS = \
-	dpkg-architecture \
-	dpkg-buildflags \
-	dpkg-buildapi \
-	dpkg-buildpackage \
-	dpkg-buildtree \
-	dpkg-checkbuilddeps \
-	dpkg-distaddfile \
-	dpkg-genbuildinfo \
-	dpkg-genchanges \
-	dpkg-gencontrol \
-	dpkg-gensymbols \
-	dpkg-mergechangelogs \
-	dpkg-name \
-	dpkg-parsechangelog \
-	dpkg-scanpackages \
-	dpkg-scansources \
-	dpkg-shlibdeps \
-	dpkg-source \
-	dpkg-vendor \
-	# EOL
-
-EXTRA_DIST = \
-	dpkg-architecture.pl \
-	dpkg-buildapi.pl \
-	dpkg-buildflags.pl \
-	dpkg-buildpackage.pl \
-	dpkg-buildtree.pl \
-	dpkg-checkbuilddeps.pl \
-	dpkg-distaddfile.pl \
-	dpkg-fsys-usrunmess.pl \
-	dpkg-genbuildinfo.pl \
-	dpkg-genchanges.pl \
-	dpkg-gencontrol.pl \
-	dpkg-gensymbols.pl \
-	dpkg-mergechangelogs.pl \
-	dpkg-name.pl \
-	dpkg-parsechangelog.pl \
-	dpkg-scanpackages.pl \
-	dpkg-scansources.pl \
-	dpkg-shlibdeps.pl \
-	dpkg-source.pl \
-	dpkg-vendor.pl \
-	$(test_scripts) \
-	$(test_data) \
-	# EOL
-
-dist_zshcompletions_DATA = \
-	completion/zsh/_dpkg-parsechangelog \
-	# EOL
-
-CLEANFILES = \
-	$(test_data_objects) \
-	$(sbin_SCRIPTS) \
-	$(bin_SCRIPTS) \
-	# EOL
-
-perllibdir = $(PERL_LIBDIR)
 nobase_dist_perllib_DATA = \
 	Dpkg/Arch.pm \
 	Dpkg/BuildAPI.pm \
@@ -154,6 +95,67 @@ nobase_dist_perllib_DATA = \
 
 EXTRA_DIST += \
 	Test/Dpkg.pm \
+	# EOL
+
+sbin_SCRIPTS = \
+	dpkg-fsys-usrunmess \
+	# EOL
+
+bin_SCRIPTS = \
+	dpkg-architecture \
+	dpkg-buildflags \
+	dpkg-buildapi \
+	dpkg-buildpackage \
+	dpkg-buildtree \
+	dpkg-checkbuilddeps \
+	dpkg-distaddfile \
+	dpkg-genbuildinfo \
+	dpkg-genchanges \
+	dpkg-gencontrol \
+	dpkg-gensymbols \
+	dpkg-mergechangelogs \
+	dpkg-name \
+	dpkg-parsechangelog \
+	dpkg-scanpackages \
+	dpkg-scansources \
+	dpkg-shlibdeps \
+	dpkg-source \
+	dpkg-vendor \
+	# EOL
+
+EXTRA_DIST += \
+	dpkg-architecture.pl \
+	dpkg-buildapi.pl \
+	dpkg-buildflags.pl \
+	dpkg-buildpackage.pl \
+	dpkg-buildtree.pl \
+	dpkg-checkbuilddeps.pl \
+	dpkg-distaddfile.pl \
+	dpkg-fsys-usrunmess.pl \
+	dpkg-genbuildinfo.pl \
+	dpkg-genchanges.pl \
+	dpkg-gencontrol.pl \
+	dpkg-gensymbols.pl \
+	dpkg-mergechangelogs.pl \
+	dpkg-name.pl \
+	dpkg-parsechangelog.pl \
+	dpkg-scanpackages.pl \
+	dpkg-scansources.pl \
+	dpkg-shlibdeps.pl \
+	dpkg-source.pl \
+	dpkg-vendor.pl \
+	# EOL
+
+CLEANFILES += \
+	$(sbin_SCRIPTS) \
+	$(bin_SCRIPTS) \
+	# EOL
+
+dist_bashcompletions_DATA = \
+	# EOL
+
+dist_zshcompletions_DATA = \
+	completion/zsh/_dpkg-parsechangelog \
 	# EOL
 
 # Keep it even if empty to have man3dir correctly set
@@ -422,12 +424,21 @@ test_data = \
 	t/origins/ubuntu \
 	# EOL
 
+EXTRA_DIST += \
+	$(test_scripts) \
+	$(test_data) \
+	# EOL
+
 test_data_objects = \
 	t/Dpkg_Shlibs/libobjdump.basictags-amd64.so \
 	t/Dpkg_Shlibs/libobjdump.basictags-i386.so \
 	t/Dpkg_Shlibs/libobjdump.basictags-mips.so \
 	t/Dpkg_Shlibs/libobjdump.patterns.so \
 	t/Dpkg_Shlibs/libobjdump.spacesyms.so \
+	# EOL
+
+CLEANFILES += \
+	$(test_data_objects) \
 	# EOL
 
 $(srcdir)/t/Dpkg_Shlibs/libobjdump.basictags-amd64.so: $(srcdir)/t/Dpkg_Shlibs/basictags.c

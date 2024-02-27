@@ -30,10 +30,6 @@ Este programa foi introduzido no dpkg 1.22.0.
 
 =over 
 
-=item B<-c>I<control-file>
-
-Especifica o ficheiro de controle fonte principal de onde ler informação. A predefinição é F<debian/control>.
-
 =item B<--help>
 
 Mostra a mensagem de utilização e termina.
@@ -41,6 +37,16 @@ Mostra a mensagem de utilização e termina.
 =item B<--version>
 
 Mostra a versão e termina.
+
+=back
+
+=head1 OPÇÕES
+
+=over 
+
+=item B<-c>I<control-file>
+
+Especifica o ficheiro de controle fonte principal de onde ler informação. A predefinição é F<debian/control>.
 
 =back
 

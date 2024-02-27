@@ -514,7 +514,7 @@ Används för att signera filerna B<.changes>, B<.buildinfo> och B<.dsc>-filerna
 
 =item B<DEB_BUILD_OPTIONS>
 
-Om satt, innehåller en blankstegsavdelad lista med flaggor som påverkar beteendet för några dpkg-verktyg som används i paketbyggandet, och kan påverka paketbyggprocessen om koden i F<debian/rules> stöder dem.
+If set, it will contain a space-separated list of options that affect the behavior of some dpkg tools involved in package building, and might affect the package build process if the code in F<debian/rules> honors them.  These options can have parameters specified immediately after an equal sign (‘B<=>‘).  For options that support multiple parameters, these will not be separated by spaces, as these are reserved to separate options.
 
 Följande flaggor känns och stöds av dpkg-verktygen, andra flaggor som stöds av F<debian/rules> kan anges av distributionsspecifika policydokument.
 
@@ -539,6 +539,22 @@ Paketets F<debian/rules> bör se till att objekt inte får felsökningsinformati
 =item B<terse>
 
 B<dpkg-buildpackage> lägger till L<make(1)>-flaggan B<--no-print-directory> till miljövariabeln B<MAKEFLAGS>. Paketets F<debian/rules> bör minska pratsamheten, utan att bli helt tyst.
+
+=item B<hardening=>I<feature-spec>
+
+=item B<reproducible=>I<feature-spec>
+
+=item B<abi=>I<feature-spec>
+
+=item B<future=>I<feature-spec>
+
+=item B<qa=>I<feature-spec>
+
+=item B<optimize=>I<feature-spec>
+
+=item B<sanitize=>I<feature-spec>
+
+These are feature areas that control build flag features.  See L<dpkg-buildflags(1)> for further details.
 
 =back
 

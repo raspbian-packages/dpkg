@@ -120,14 +120,15 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(nobase_dist_pkgdata_DATA) \
-	$(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(dist_bashcompletions_DATA) \
+	$(nobase_dist_pkgdata_DATA) $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" \
-	"$(DESTDIR)$(pkglibexecdir)" "$(DESTDIR)$(pkgdatadir)"
+	"$(DESTDIR)$(pkglibexecdir)" "$(DESTDIR)$(bashcompletionsdir)" \
+	"$(DESTDIR)$(pkgdatadir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_dpkg_OBJECTS = common/force.$(OBJEXT) common/selinux.$(OBJEXT) \
@@ -153,9 +154,9 @@ am__v_lt_1 =
 am_dpkg_deb_OBJECTS = deb/build.$(OBJEXT) deb/extract.$(OBJEXT) \
 	deb/info.$(OBJEXT) deb/main.$(OBJEXT)
 dpkg_deb_OBJECTS = $(am_dpkg_deb_OBJECTS)
-dpkg_deb_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+dpkg_deb_LDADD = $(LDADD)
+dpkg_deb_DEPENDENCIES = ../lib/dpkg/libdpkg.la $(am__DEPENDENCIES_1) \
+	../lib/compat/libcompat.la
 am_dpkg_divert_OBJECTS = divert/main.$(OBJEXT)
 dpkg_divert_OBJECTS = $(am_dpkg_divert_OBJECTS)
 dpkg_divert_LDADD = $(LDADD)
@@ -275,7 +276,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-DATA = $(nobase_dist_pkgdata_DATA)
+DATA = $(dist_bashcompletions_DATA) $(nobase_dist_pkgdata_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -441,6 +442,7 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+aclocaldir = @aclocaldir@
 admindir = @admindir@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -448,6 +450,7 @@ am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 backupsdir = @backupsdir@
+bashcompletionsdir = @bashcompletionsdir@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -459,6 +462,7 @@ datadir = @datadir@
 datarootdir = @datarootdir@
 devlibdir = @devlibdir@
 docdir = @docdir@
+docspecdir = @docspecdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
@@ -476,10 +480,14 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
+methodsdir = @methodsdir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+perllibdir = @perllibdir@
 pkgconfdir = @pkgconfdir@
+pkgconfigdir = @pkgconfigdir@
+polkitactionsdir = @polkitactionsdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -572,14 +580,6 @@ dpkg_deb_SOURCES = \
 	deb/main.c \
 	# EOL
 
-dpkg_deb_LDADD = \
-	$(LDADD) \
-	$(Z_LIBS) \
-	$(LZMA_LIBS) \
-	$(ZSTD_LIBS) \
-	$(BZ2_LIBS) \
-	# EOL
-
 dpkg_divert_SOURCES = \
 	divert/main.c \
 	# EOL
@@ -614,6 +614,9 @@ dpkg_statoverride_LDADD = \
 
 dpkg_trigger_SOURCES = \
 	trigger/main.c \
+	# EOL
+
+dist_bashcompletions_DATA = \
 	# EOL
 
 SUFFIXES = .sh .pl
@@ -1032,6 +1035,27 @@ mostlyclean-libtool:
 
 clean-libtool:
 	-rm -rf .libs _libs
+install-dist_bashcompletionsDATA: $(dist_bashcompletions_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(dist_bashcompletions_DATA)'; test -n "$(bashcompletionsdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(bashcompletionsdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(bashcompletionsdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(bashcompletionsdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(bashcompletionsdir)" || exit $$?; \
+	done
+
+uninstall-dist_bashcompletionsDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_bashcompletions_DATA)'; test -n "$(bashcompletionsdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(bashcompletionsdir)'; $(am__uninstall_files_from_dir)
 install-nobase_dist_pkgdataDATA: $(nobase_dist_pkgdata_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_dist_pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
@@ -1146,7 +1170,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibexecdir)" "$(DESTDIR)$(pkgdatadir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibexecdir)" "$(DESTDIR)$(bashcompletionsdir)" "$(DESTDIR)$(pkgdatadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -1253,7 +1277,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-data-local install-nobase_dist_pkgdataDATA
+install-data-am: install-data-local install-dist_bashcompletionsDATA \
+	install-nobase_dist_pkgdataDATA
 
 install-dvi: install-dvi-am
 
@@ -1334,6 +1359,7 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
+	uninstall-dist_bashcompletionsDATA \
 	uninstall-nobase_dist_pkgdataDATA uninstall-pkglibexecSCRIPTS
 
 .MAKE: check-am install-am install-strip
@@ -1345,16 +1371,17 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-binPROGRAMS \
 	install-binSCRIPTS install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-nobase_dist_pkgdataDATA \
-	install-pdf install-pdf-am install-pkglibexecSCRIPTS \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installcheck-local installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
-	uninstall-binPROGRAMS uninstall-binSCRIPTS \
+	install-data-local install-dist_bashcompletionsDATA \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-nobase_dist_pkgdataDATA install-pdf \
+	install-pdf-am install-pkglibexecSCRIPTS install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installcheck-local installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am uninstall-binPROGRAMS \
+	uninstall-binSCRIPTS uninstall-dist_bashcompletionsDATA \
 	uninstall-nobase_dist_pkgdataDATA uninstall-pkglibexecSCRIPTS
 
 .PRECIOUS: Makefile

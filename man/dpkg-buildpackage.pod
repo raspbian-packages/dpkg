@@ -753,6 +753,11 @@ If set, it will contain a space-separated list of options that affect
 the behavior of some dpkg tools involved in package building,
 and might affect the package build process if the code in F<debian/rules>
 honors them.
+These options can have parameters specified immediately after an
+equal sign (‘B<=>‘).
+For options that support multiple parameters,
+these will not be separated by spaces,
+as these are reserved to separate options.
 
 The following are the options known and supported by dpkg tools,
 other options honored by F<debian/rules> might be defined by distribution
@@ -790,6 +795,23 @@ B<dpkg-buildpackage> will append the B<--no-print-directory> L<make(1)>
 flag to the B<MAKEFLAGS> environment variable.
 The F<debian/rules> in the packaging should reduce verbosity, while not
 being completely quiet.
+
+=item B<hardening=>I<feature-spec>
+
+=item B<reproducible=>I<feature-spec>
+
+=item B<abi=>I<feature-spec>
+
+=item B<future=>I<feature-spec>
+
+=item B<qa=>I<feature-spec>
+
+=item B<optimize=>I<feature-spec>
+
+=item B<sanitize=>I<feature-spec>
+
+These are feature areas that control build flag features.
+See L<dpkg-buildflags(1)> for further details.
 
 =back
 

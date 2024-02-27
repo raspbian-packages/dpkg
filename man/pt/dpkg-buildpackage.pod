@@ -514,7 +514,7 @@ Se definido, será usado para assinar os ficheiros B<.changes>, B<.buildinfo> e 
 
 =item B<DEB_BUILD_OPTIONS>
 
-Se definido, irá conter uma lista de opções separadas por espaços que afectam o comportamento de algumas ferramentas do dpkg envolvidas na compilação de pacote, e pode afectar o processo de compilação se o código em I<debian/rules> as honrar.
+If set, it will contain a space-separated list of options that affect the behavior of some dpkg tools involved in package building, and might affect the package build process if the code in F<debian/rules> honors them.  These options can have parameters specified immediately after an equal sign (‘B<=>‘).  For options that support multiple parameters, these will not be separated by spaces, as these are reserved to separate options.
 
 O seguinte são opções conhecidas e suportadas pelas ferramentas do dpkg, outras opções honradas por F<debian/rules> podem ser definidas por políticas específicas da distribuição.
 
@@ -539,6 +539,22 @@ O F<debian/rules> no empacotamento deve assegurar que os objectos não ficam com
 =item B<terse>
 
 B<dpkg-buildpackage> irá acrescentar a bandeira B<--no-print-directory> L<make(1)> à variável de ambiente B<MAKEFLAGS>. O F<debian/rules> no empacotamento deve reduzir nos detalhes, não sendo completamente silencioso.
+
+=item B<hardening=>I<feature-spec>
+
+=item B<reproducible=>I<feature-spec>
+
+=item B<abi=>I<feature-spec>
+
+=item B<future=>I<feature-spec>
+
+=item B<qa=>I<feature-spec>
+
+=item B<optimize=>I<feature-spec>
+
+=item B<sanitize=>I<feature-spec>
+
+These are feature areas that control build flag features.  See L<dpkg-buildflags(1)> for further details.
 
 =back
 

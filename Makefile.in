@@ -415,6 +415,7 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+aclocaldir = @aclocaldir@
 admindir = @admindir@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -422,6 +423,7 @@ am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 backupsdir = @backupsdir@
+bashcompletionsdir = @bashcompletionsdir@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -433,6 +435,7 @@ datadir = @datadir@
 datarootdir = @datarootdir@
 devlibdir = @devlibdir@
 docdir = @docdir@
+docspecdir = @docspecdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
@@ -450,10 +453,14 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
+methodsdir = @methodsdir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+perllibdir = @perllibdir@
 pkgconfdir = @pkgconfdir@
+pkgconfigdir = @pkgconfigdir@
+polkitactionsdir = @polkitactionsdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -479,7 +486,6 @@ SUBDIRS = \
 	# EOL
 
 ACLOCAL_AMFLAGS = -I m4
-aclocaldir = $(datadir)/aclocal
 dist_aclocal_DATA = \
 	m4/dpkg-arch.m4 \
 	m4/dpkg-build.m4 \
@@ -510,7 +516,6 @@ dist_doc_DATA = \
 	doc/README.feature-removal-schedule \
 	# EOL
 
-docspecdir = $(docdir)/spec
 dist_docspec_DATA = \
 	doc/spec/frontend-api.txt \
 	doc/spec/protected-field.txt \
@@ -518,65 +523,30 @@ dist_docspec_DATA = \
 	doc/spec/triggers.txt \
 	# EOL
 
-EXTRA_DIST = \
-	.gitlab-ci.yml \
-	.mailmap \
-	ChangeLog.old \
-	README.l10n \
-	autogen \
-	build-aux/gen-changelog \
-	build-aux/get-version \
-	build-aux/lcov-inject \
-	build-aux/run-script \
-	build-aux/test-runner \
-	doc/coding-style.txt \
-	debian/README.bug-usertags \
-	debian/bug-script \
-	debian/changelog \
-	debian/control \
-	debian/copyright \
-	debian/dpkg-dev.docs \
-	debian/dpkg-dev.install \
-	debian/dpkg-dev.manpages \
-	debian/dpkg.alternatives.logrotate \
-	debian/dpkg.cfg \
-	debian/dpkg.cron.daily \
-	debian/dpkg.docs \
+EXTRA_DIST = .gitlab-ci.yml .mailmap ChangeLog.old README.l10n autogen \
+	build-aux/gen-changelog build-aux/get-version \
+	build-aux/lcov-inject build-aux/run-script \
+	build-aux/test-runner doc/coding-style.txt \
+	debian/README.bug-usertags debian/bug-script debian/changelog \
+	debian/control debian/copyright debian/dpkg-dev.docs \
+	debian/dpkg-dev.install debian/dpkg-dev.manpages \
+	debian/dpkg.alternatives.logrotate debian/dpkg.cfg \
+	debian/dpkg.cron.daily debian/dpkg.docs \
 	debian/dpkg.dpkg-db-backup.service \
-	debian/dpkg.dpkg-db-backup.timer \
-	debian/dpkg.install \
-	debian/dpkg.manpages \
-	debian/dpkg.postinst \
-	debian/dpkg.postrm \
-	debian/dpkg.logrotate \
-	debian/dpkg.lintian-overrides \
-	debian/dpkg.lintian-profile \
-	debian/dselect.cfg \
-	debian/dselect.docs \
-	debian/dselect.install \
-	debian/dselect.lintian-overrides \
-	debian/dselect.manpages \
-	debian/dselect.postrm \
-	debian/libdpkg-dev.install \
-	debian/libdpkg-perl.install \
-	debian/source/format \
-	debian/source/lintian-overrides \
-	debian/not-installed \
-	debian/rules \
-	debian/shlibs.default \
-	debian/shlibs.override \
-	debian/tests/control \
-	debian/tests/test-func \
-	debian/tests/test-func-root \
-	debian/tests/test-not-root \
-	debian/tests/test-root \
-	po/its/polkit.its \
-	po/its/polkit.loc \
-	tests \
-	$(test_scripts) \
-	$(test_data) \
-	# EOL
-
+	debian/dpkg.dpkg-db-backup.timer debian/dpkg.install \
+	debian/dpkg.manpages debian/dpkg.postinst debian/dpkg.postrm \
+	debian/dpkg.logrotate debian/dpkg.lintian-overrides \
+	debian/dpkg.lintian-profile debian/dselect.cfg \
+	debian/dselect.docs debian/dselect.install \
+	debian/dselect.lintian-overrides debian/dselect.manpages \
+	debian/dselect.postrm debian/libdpkg-dev.install \
+	debian/libdpkg-perl.install debian/source/format \
+	debian/source/lintian-overrides debian/not-installed \
+	debian/rules debian/shlibs.default debian/shlibs.override \
+	debian/tests/control debian/tests/test-func \
+	debian/tests/test-func-root debian/tests/test-not-root \
+	debian/tests/test-root po/its/polkit.its po/its/polkit.loc \
+	tests $(test_scripts) $(test_data) # EOL
 @COVERAGE_ENABLED_TRUE@LCOV_OPTS = --quiet --rc geninfo_checksum=1 --rc lcov_branch_coverage=1
 @COVERAGE_ENABLED_TRUE@LCOV_CAPTURE_OPTS = $(LCOV_OPTS) --no-recursion \
 @COVERAGE_ENABLED_TRUE@	--directory $(top_builddir)/lib/dpkg \

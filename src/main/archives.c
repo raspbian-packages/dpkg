@@ -534,8 +534,9 @@ tarobject_matches(struct tarcontext *tc,
                   const char *fn_new, struct tar_entry *te,
                   struct fsys_namenode *namenode)
 {
-  char *linkname;
+  struct varbuf linkname = VARBUF_INIT;
   ssize_t linksize;
+  bool linkmatch;
 
   debug(dbg_eachfiledetail, "tarobject matches on-disk object?");
 
@@ -548,8 +549,7 @@ tarobject_matches(struct tarcontext *tc,
      * remain real symlinks where we can compare the target. */
     if (!S_ISLNK(stab->st_mode))
       break;
-    linkname = m_malloc(stab->st_size + 1);
-    linksize = readlink(fn_old, linkname, stab->st_size + 1);
+    linksize = file_readlink(fn_old, &linkname, stab->st_size);
     if (linksize < 0)
       ohshite(_("unable to read link '%.255s'"), fn_old);
     else if (linksize > stab->st_size)
@@ -558,13 +558,10 @@ tarobject_matches(struct tarcontext *tc,
     else if (linksize < stab->st_size)
       warning(_("symbolic link '%.250s' size has changed from %jd to %zd"),
              fn_old, (intmax_t)stab->st_size, linksize);
-    linkname[linksize] = '\0';
-    if (strcmp(linkname, te->linkname) == 0) {
-      free(linkname);
+    linkmatch = strcmp(linkname.buf, te->linkname) == 0;
+    varbuf_destroy(&linkname);
+    if (linkmatch)
       return;
-    } else {
-      free(linkname);
-    }
     break;
   case TAR_FILETYPE_CHARDEV:
     if (S_ISCHR(stab->st_mode) && stab->st_rdev == te->dev)
@@ -1044,25 +1041,21 @@ tarobject(struct tar_archive *tar, struct tar_entry *ti)
         ohshite(_("unable to move aside '%.255s' to install new version"),
                 ti->name);
     } else if (S_ISLNK(stab.st_mode)) {
-      ssize_t symlink_len;
+      ssize_t linksize;
       int rc;
 
       /* We can't make a symlink with two hardlinks, so we'll have to
        * copy it. (Pretend that making a copy of a symlink is the same
        * as linking to it.) */
-      varbuf_reset(&symlinkfn);
-      varbuf_grow(&symlinkfn, stab.st_size + 1);
-      symlink_len = readlink(fnamevb.buf, symlinkfn.buf, symlinkfn.size);
-      if (symlink_len < 0)
+      linksize = file_readlink(fnamevb.buf, &symlinkfn, stab.st_size);
+      if (linksize < 0)
         ohshite(_("unable to read link '%.255s'"), ti->name);
-      else if (symlink_len > stab.st_size)
+      else if (linksize > stab.st_size)
         ohshit(_("symbolic link '%.250s' size has changed from %jd to %zd"),
-               fnamevb.buf, (intmax_t)stab.st_size, symlink_len);
-      else if (symlink_len < stab.st_size)
+               fnamevb.buf, (intmax_t)stab.st_size, linksize);
+      else if (linksize < stab.st_size)
         warning(_("symbolic link '%.250s' size has changed from %jd to %zd"),
-               fnamevb.buf, (intmax_t)stab.st_size, symlink_len);
-      varbuf_trunc(&symlinkfn, symlink_len);
-      varbuf_end_str(&symlinkfn);
+               fnamevb.buf, (intmax_t)stab.st_size, linksize);
       if (symlink(symlinkfn.buf,fnametmpvb.buf))
         ohshite(_("unable to make backup symlink for '%.255s'"), ti->name);
       rc = lchown(fnametmpvb.buf, stab.st_uid, stab.st_gid);
@@ -1693,19 +1686,17 @@ wanttoinstall(struct pkginfo *pkg)
     } else {
       return true;
     }
+  } else if (in_force(FORCE_DOWNGRADE)) {
+    warning(_("downgrading %.250s from %.250s to %.250s"),
+            pkg_name(pkg, pnaw_nonambig),
+            versiondescribe(&pkg->installed.version, vdew_nonambig),
+            versiondescribe(&pkg->available.version, vdew_nonambig));
+    return true;
   } else {
-    if (in_force(FORCE_DOWNGRADE)) {
-      warning(_("downgrading %.250s from %.250s to %.250s"),
-              pkg_name(pkg, pnaw_nonambig),
-              versiondescribe(&pkg->installed.version, vdew_nonambig),
-              versiondescribe(&pkg->available.version, vdew_nonambig));
-      return true;
-    } else {
-      notice(_("will not downgrade %.250s from %.250s to %.250s, skipping"),
-             pkg_name(pkg, pnaw_nonambig),
-             versiondescribe(&pkg->installed.version, vdew_nonambig),
-             versiondescribe(&pkg->available.version, vdew_nonambig));
-      return false;
-    }
+    notice(_("will not downgrade %.250s from %.250s to %.250s, skipping"),
+           pkg_name(pkg, pnaw_nonambig),
+           versiondescribe(&pkg->installed.version, vdew_nonambig),
+           versiondescribe(&pkg->available.version, vdew_nonambig));
+    return false;
   }
 }

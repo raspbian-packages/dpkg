@@ -1,3 +1,697 @@
+commit 1c92a4a8bfbeea30ceb0109b096c4ec845e3c6ce
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 27 04:32:30 2024 +0100
+
+    Release 1.22.5
+
+ debian/changelog | 61 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 58 insertions(+), 3 deletions(-)
+
+commit 546e929bd8b06806d3c0c0276815f7573d1ab4b5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 27 04:28:02 2024 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   2 +-
+ dselect/po/ca.po        |   2 +-
+ dselect/po/cs.po        |   2 +-
+ dselect/po/da.po        |   2 +-
+ dselect/po/de.po        |   2 +-
+ dselect/po/dselect.pot  |   4 +-
+ dselect/po/el.po        |   2 +-
+ dselect/po/es.po        |   2 +-
+ dselect/po/et.po        |   2 +-
+ dselect/po/eu.po        |   2 +-
+ dselect/po/fr.po        |   2 +-
+ dselect/po/gl.po        |   2 +-
+ dselect/po/hu.po        |   2 +-
+ dselect/po/id.po        |   2 +-
+ dselect/po/it.po        |   2 +-
+ dselect/po/ja.po        |   2 +-
+ dselect/po/ko.po        |   2 +-
+ dselect/po/nb.po        |   2 +-
+ dselect/po/nl.po        |   2 +-
+ dselect/po/nn.po        |   2 +-
+ dselect/po/pl.po        |   2 +-
+ dselect/po/pt.po        |   2 +-
+ dselect/po/pt_BR.po     |   2 +-
+ dselect/po/ro.po        |   2 +-
+ dselect/po/ru.po        |   2 +-
+ dselect/po/sk.po        |   2 +-
+ dselect/po/sv.po        |   2 +-
+ dselect/po/tl.po        |   2 +-
+ dselect/po/vi.po        |   2 +-
+ dselect/po/zh_CN.po     |   2 +-
+ dselect/po/zh_TW.po     |   2 +-
+ man/po/de.po            |  64 +++++++++---
+ man/po/dpkg-man.pot     | 184 ++++++++++++++++++++++++++++------
+ man/po/es.po            | 220 ++++++++++++++++++++++++++++++++--------
+ man/po/fr.po            | 245 ++++++++++++++++++++++++++++++++++++++-------
+ man/po/hu.po            | 190 +++++++++++++++++++++++++++++------
+ man/po/it.po            | 189 +++++++++++++++++++++++++++++------
+ man/po/ja.po            | 218 ++++++++++++++++++++++++++++++++--------
+ man/po/nl.po            | 258 +++++++++++++++++++++++++++++++++++++++--------
+ man/po/pl.po            | 220 ++++++++++++++++++++++++++++++++--------
+ man/po/pt.po            | 259 ++++++++++++++++++++++++++++++++++++++++--------
+ man/po/pt_BR.po         | 186 ++++++++++++++++++++++++++++------
+ man/po/ru.po            | 186 ++++++++++++++++++++++++++++------
+ man/po/sv.po            | 258 +++++++++++++++++++++++++++++++++++++++--------
+ man/po/zh_CN.po         | 184 ++++++++++++++++++++++++++++------
+ po/ast.po               |   2 +-
+ po/bs.po                |   2 +-
+ po/ca.po                |   2 +-
+ po/cs.po                |   2 +-
+ po/da.po                |   2 +-
+ po/de.po                |   2 +-
+ po/dpkg.pot             |   4 +-
+ po/dz.po                |   2 +-
+ po/el.po                |   2 +-
+ po/eo.po                |   2 +-
+ po/es.po                |   2 +-
+ po/et.po                |   2 +-
+ po/eu.po                |   2 +-
+ po/fr.po                |   2 +-
+ po/gl.po                |   2 +-
+ po/hu.po                |   2 +-
+ po/id.po                |   2 +-
+ po/it.po                |   2 +-
+ po/ja.po                |   2 +-
+ po/km.po                |   2 +-
+ po/ko.po                |   2 +-
+ po/ku.po                |   2 +-
+ po/lt.po                |   2 +-
+ po/mr.po                |   2 +-
+ po/nb.po                |   2 +-
+ po/ne.po                |   2 +-
+ po/nl.po                |   2 +-
+ po/nn.po                |   2 +-
+ po/oc.po                |   2 +-
+ po/pa.po                |   2 +-
+ po/pl.po                |   2 +-
+ po/pt.po                |   2 +-
+ po/pt_BR.po             |   2 +-
+ po/ro.po                |   2 +-
+ po/ru.po                |   2 +-
+ po/sk.po                |   2 +-
+ po/sv.po                |   2 +-
+ po/th.po                |   2 +-
+ po/tl.po                |   2 +-
+ po/tr.po                |   2 +-
+ po/vi.po                |   2 +-
+ po/zh_CN.po             |   2 +-
+ po/zh_TW.po             |   2 +-
+ scripts/po/ca.po        |  36 ++++---
+ scripts/po/de.po        |   2 +-
+ scripts/po/dpkg-dev.pot |  26 +++--
+ scripts/po/es.po        |  30 +++---
+ scripts/po/fr.po        |  30 +++---
+ scripts/po/nl.po        |  30 +++---
+ scripts/po/pl.po        |  30 +++---
+ scripts/po/pt.po        |  30 +++---
+ scripts/po/ru.po        |  30 +++---
+ scripts/po/sv.po        |  36 ++++---
+ 98 files changed, 2617 insertions(+), 676 deletions(-)
+
+commit ef90821fe45b99fa8c8c4279b9a74c30f59f491d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 27 04:19:59 2024 +0100
+
+    Dpkg::Vendor::Debian: Enable qa=+bug-implicit-func for abi=+time64 feature
+    
+    Per https://lists.debian.org/debian-devel/2023/05/msg00262.html et al.,
+    missing glibc includes can cause packages to link to the wrong symbols,
+    potentially causing crashes or misbehavior. Since functions that use
+    time_t are fairly ubiquitous, there's a high risk of this happening for
+    *some* package in Debian and derivatives. Better to make all software
+    with missing function declarations fail to build now, than to spend
+    all cycle tracking down runtime bugs.
+    
+    Based-on-patch-by: Steve Langasek <steve.langasek@ubuntu.com>
+
+ man/dpkg-buildflags.pod       |  5 ++++-
+ scripts/Dpkg/Vendor/Debian.pm |  4 ++++
+ scripts/t/Dpkg_BuildFlags.t   | 14 +++++++++++++-
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+commit 1f0ebe1945724fd57fd3984af0031ce9bf55b524
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 27 04:19:53 2024 +0100
+
+    Dpkg::Vendor::Debian: Enable time64 feature by default except on <some>-i386
+    
+    On Debian the plan is to switch all architectures to default to time64,
+    except for i386 (which is left to use time32 for backwards binary
+    compatibility reasons), and hurd-i386 and kfreebsd-i386 (which do not
+    have time64 support).
+    
+    In addition, the default compiler (gcc) also emits the necessary
+    pre-processor flags on armel, armhf, hppa, m68k, mips, mipsel, powerpc
+    and sh4, so for those if the user has explicitly requested abi=-time64
+    we need to emit options to unset the macros.
+    
+    If the user explicitly requests abi=+time64, then it will be enabled
+    everywhere (except for hurd-i386 and kfreebsd-i386 where the kernel does
+    not support it), so that it can be requested explicitly on packages that
+    want or need to be time64 aware regardless of the default exception, and
+    so that we do not break any ABI with packages that might have already
+    opted in.
+    
+    Based-on-patch-by: Steve Langasek <steve.langasek@ubuntu.com>
+    Closes: #1037136
+
+ man/dpkg-buildflags.pod       |  26 +++++++++--
+ scripts/Dpkg/Vendor/Debian.pm |  35 +++++++++++++-
+ scripts/t/Dpkg_BuildFlags.t   | 105 +++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 161 insertions(+), 5 deletions(-)
+
+commit 5822b37460127d772f06a09b0acceaf87a1fec66
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 26 23:22:36 2024 +0100
+
+    test: Pass -T+1 to xz to workaround spurious warning with xz 5.6.0
+    
+    This new xz version will automatically emit a warning when it reduces
+    the amount of threads to use if it exceeds the soft memory limit, even
+    when the user has not specified a number of threads to use. This is
+    making the test fail. Add an explicit -T+1 for now to force parallel
+    mode with a single thread until the warning problem gets sorted out in
+    xz upstream.
+    
+    Closes: #1064856
+
+ src/at/deb-format.at | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit feb804df14cabdefd9cb89bb96c4c20049254c7e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 19:01:19 2024 +0100
+
+    Dpkg::Vendor::Ubuntu: Pass compiler flags to disable features
+    
+    These are enabled by the compiler, so when the features are disabled we
+    need to pass appropriate compiler flags to disable them.
+    
+    Based-on-patch-by: Matthias Klose <doko@ubuntu.com>
+
+ scripts/Dpkg/Vendor/Ubuntu.pm | 47 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+commit 732bd89cd234260fddb99b11691ea785945ce356
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 18:52:11 2024 +0100
+
+    Dpkg::Vendor: Make the add_build_flags() a non-private method
+    
+    Making it possible to override this method makes the code for the
+    derivative modules shorter and more clear.
+
+ scripts/Dpkg/Vendor/Debian.pm  |  4 ++--
+ scripts/Dpkg/Vendor/Default.pm | 13 +++++++++++++
+ scripts/Dpkg/Vendor/Ubuntu.pm  | 19 +++++++++++--------
+ 3 files changed, 26 insertions(+), 10 deletions(-)
+
+commit 2447e83868efe8c14ba3c560b675ed781c1fe220
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 18:17:35 2024 +0100
+
+    Dpkg::Vendor::Debian: Only append branch compiler flags if $flag is set
+    
+    This should always be the case on Debian, as we make sure to only enable
+    the feature on the CPUs we are checking in the conditionals setting
+    $flag. But let's make the code more robust, against changes in
+    derivatives or in case this code gets copy & pasted into something else
+    that might not be guaranteed to have $flag set.
+
+ scripts/Dpkg/Vendor/Debian.pm | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit e8549c459ded424d0376c8acba0006cda1c885a7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 26 02:53:17 2024 +0100
+
+    man: Mention Build-Depends-Packages in dpkg-shlibdeps(1)
+    
+    The manual page had a mention for Build-Depends-Package but not for
+    Build-Depends-Packages.
+
+ man/dpkg-shlibdeps.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 971aa61131e03fa75144436d400945a8605fce0d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 02:07:09 2024 +0100
+
+    man: Use L</> markup for inter link reference
+    
+    This was missed in the previous conversion.
+
+ man/dpkg-parsechangelog.pod | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 9c72dc7aed1ddc2b9aa9d7d2ca391fc905168894
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Thu Feb 22 21:26:18 2024 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 225 ++++++++++++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 183 insertions(+), 42 deletions(-)
+
+commit 111226c9c5f1d04c304418fa5db627852ca2a166
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 01:31:17 2024 +0100
+
+    dpkg-query: Rename failures variables tracking no matches to misses
+    
+    This makes it more clear what the variable is tracking, and what kind
+    of failure this is about, specifically the amount of missed matches.
+    
+    Changelog: internal
+
+ src/query/main.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+commit edb7f6a197ff0c206b17e2e922611c0a0714f266
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 00:57:09 2024 +0100
+
+    dpkg-query: Rename rc variables tracking no matches to misses
+    
+    This makes it more clear what the variable is tracking, as we are not
+    returning a return code but the actual amount of missed matches.
+    
+    Changelog: internal
+
+ src/query/main.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit 8fcf649f9c8bd5bbc58ccd1527eca22892447045
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Feb 16 05:15:02 2024 +0100
+
+    dpkg-query: Fix exit codes for --show
+    
+    The manual page states that (most) dpkg-query commands will return 0 for
+    success, 1 for files or packages not being found, and 2 for fatal errors.
+    But the code was coercing the return values from each function into a
+    boolean, which meant that the --show command would not return 2 on parse
+    errors for the --showformat.
+    
+    Move the coercion into each command function, and map the format error
+    in --show into a proper 2.
+    
+    Closes: #1064036
+
+ src/query/main.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+commit 759883b03e517922f0a0a78b22fc7d7f174c589c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 10 18:28:00 2024 +0100
+
+    man: Improve build flags feature specification in environment variables
+    
+    Add information about the format of the feature areas and the feature
+    specification, how the values get parsed and how they override each
+    other. Add few examples to showcase the various scenarios.
+    
+    Closes: #1063641
+
+ man/dpkg-buildflags.pod   | 28 ++++++++++++++++++++++++++++
+ man/dpkg-buildpackage.pod |  5 +++++
+ 2 files changed, 33 insertions(+)
+
+commit ffb1714f336689560e2c34d17b35e03000465de5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 10 18:28:00 2024 +0100
+
+    man: Document known feature areas in DEB_BUILD_OPTIONS for dpkg-buildpackage
+    
+    The entry for DEB_BUILD_OPTIONS has a list of known options but not for
+    the known feature areas that dpkg-buildflags handles.
+
+ man/dpkg-buildpackage.pod | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+commit 442b01e9c68f29fbc8ef4bbfb33aa6ecad942cd5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 22 01:47:29 2024 +0100
+
+    man: Do not duplicate list of known feature areas in dpkg-buildflags
+    
+    This requires keeping them in sync, which we have clearly failed to do
+    in the past. Instead use a reference to the section listing them all,
+    so that only one place in this manual page needs to be updated.
+
+ man/dpkg-buildflags.pod | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit 63ab47f774d1e29a02a6ee9813905737c3f5bc4c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 10 20:03:11 2024 +0100
+
+    man: Add spaces around make variable assignments
+    
+    This makes it more clear that these are not shell variables, but make
+    variables which accept spaces around variable assignments.
+
+ man/dpkg-buildflags.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit f241d067a5b9ccba6fc947eb2127de1c37f5c485
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 28 01:10:57 2022 +0100
+
+    dpkg-mergechangelogs: Refactor merge_tail() sub from anonymous sub
+    
+    Changelog: internal
+
+ scripts/dpkg-mergechangelogs.pl | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+commit 6419e5f30baa1efb432ac918f316e38ef360fb07
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 1 04:25:46 2023 +0100
+
+    perl: Fold if into previous else
+    
+    This simplifies the code and reduces the indentation levels.
+
+ dselect/methods/ftp/install.pl    | 30 +++++++++++++-----------------
+ scripts/Dpkg/BuildOptions.pm      | 10 ++++------
+ scripts/Dpkg/Changelog/Entry.pm   | 16 +++++++---------
+ scripts/Dpkg/Deps/Simple.pm       |  8 +++-----
+ scripts/Dpkg/Shlibs/Symbol.pm     | 28 +++++++++++-----------------
+ scripts/Dpkg/Source/Package/V1.pm | 22 ++++++++++------------
+ scripts/dpkg-shlibdeps.pl         | 14 ++++++--------
+ scripts/dpkg-source.pl            |  8 +++-----
+ 8 files changed, 57 insertions(+), 79 deletions(-)
+
+commit 96ae2e533e8ebdc23ca6a4078057a34d1700b971
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 1 04:11:17 2023 +0100
+
+    lib, src: Fold if with last previous else
+    
+    This simplifies the code and reduces the indentation levels.
+    
+    Changelog: internal
+
+ lib/dpkg/parse.c    |  7 +++----
+ src/deb/build.c     |  7 +++----
+ src/main/archives.c | 24 +++++++++++-------------
+ src/main/script.c   | 12 +++++-------
+ 4 files changed, 22 insertions(+), 28 deletions(-)
+
+commit 17abf9229e6edf4e71fd3496238bff8be992cd1f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 6 22:38:33 2022 +0100
+
+    libdpkg: Deindent an else clause
+
+ lib/dpkg/version.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 779bb95d52ac54bc7c431663de55b8ebcdb4e352
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Nov 21 01:43:18 2023 +0100
+
+    libdpkg: Refactor file_readlink() function
+    
+    This function will read a symlink target into a varbuf.
+
+ lib/dpkg/file.c      | 19 +++++++++++++++++++
+ lib/dpkg/file.h      |  3 +++
+ lib/dpkg/libdpkg.map |  1 +
+ src/main/archives.c  | 21 +++++++--------------
+ src/main/configure.c |  6 +-----
+ 5 files changed, 31 insertions(+), 19 deletions(-)
+
+commit eea6717cb234d6fff1d80770eee7df9be00ae4af
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 6 03:15:59 2024 +0100
+
+    dpkg: Reduce variable scope in conffderef()
+    
+    Changelog: internal
+
+ src/main/configure.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit dca905e326a810286caab5ab8bc1dd2f511114d8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 6 03:09:31 2024 +0100
+
+    dpkg: Rename r variable for readlink() return value to linksize
+    
+    This uses the same variable name as other instances in the codebase.
+    
+    Changelog: internal
+
+ src/main/configure.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+commit 06b88796d442b3cce917846feca3e70d0e2a5467
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 6 03:05:02 2024 +0100
+
+    dpkg: Rename symlink_len to linksize
+    
+    This uses the same variable name as other instances in the codebase.
+    
+    Changelog: internal
+
+ src/main/archives.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit 640daee2954fb456b970be48ba8adc39eed9b21d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Nov 21 22:40:20 2023 +0100
+
+    libdpkg: Use an intermediate mode variable in secure_unlink_statted()
+
+ lib/dpkg/path-remove.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+commit c39305ca72f5142fcb774b99ceb025e35e6e77ce
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Feb 21 18:08:03 2024 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Add support for Sequoia gpg Chameleon
+    
+    This program implements the most used parts of the GnuPG CLI,
+    which covers our needs, but using the Sequoia-PGP as its underlying
+    implementation.
+    
+    If present, we prefer the Chameleon over the original GnuPG.
+
+ README                                | 2 +-
+ debian/control                        | 8 ++++----
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 4 ++--
+ scripts/Test/Dpkg.pm                  | 1 +
+ scripts/t/Dpkg_OpenPGP.t              | 1 +
+ 5 files changed, 9 insertions(+), 7 deletions(-)
+
+commit 32206f2e00a6412b03bc4e6e4ee7f94a0ba3b058
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 18:37:44 2024 +0100
+
+    build: Add infrastructure for bash-completions
+    
+    This is the scaffolding to then be able to add the actual support into
+    the source tree.
+
+ configure.ac        | 3 +++
+ dselect/Makefile.am | 3 +++
+ scripts/Makefile.am | 3 +++
+ src/Makefile.am     | 3 +++
+ utils/Makefile.am   | 5 +++++
+ 5 files changed, 17 insertions(+)
+
+commit aa37e818a53fcee8af4b61d2162f778f6be01dfa
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 23:12:26 2024 +0100
+
+    build: Fix libdpkg library flags for static and dynamic linking
+    
+    We should always add the library dependencies to the LIBADD variable,
+    regardless of whether we are building the library as static or shared,
+    so that libtool can track them and use them on users, and so that we
+    do not need to specify them for the programs linking against libdpkg.
+
+ lib/dpkg/Makefile.am | 11 +++--------
+ m4/dpkg-build.m4     |  1 -
+ src/Makefile.am      |  8 --------
+ 3 files changed, 3 insertions(+), 17 deletions(-)
+
+commit ebb442a46a490da4d81e272c3c5e8565b63e36a7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 23:12:26 2024 +0100
+
+    build: Move MD_LIBS from LDFLAGS to LDADD for libdpkg
+    
+    The correct place to add the library link flags is LDADD, not LDFLAGS.
+
+ lib/dpkg/Makefile.am | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 50f46e6bed37bf82cd1485c189e62849c1f85ff4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 23:02:55 2024 +0100
+
+    build: Move u-a rules within automake conditional
+    
+    This follows the same pattern as the s-s-d build rules.
+
+ utils/Makefile.am | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+commit 519118e24a626e27d53493e7c261473c9bd8f059
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 20:07:07 2024 +0100
+
+    build: Reorder automake variables
+    
+    Place library files or modules first before the programs that uses them.
+    Split and move EXTRA_DIST and CLEANFILES closer to the sections related
+    to the listed files. Add blank lines between variables.
+
+ Makefile.am                 |   9 ++--
+ dselect/methods/Makefile.am |  10 ++--
+ lib/dpkg/Makefile.am        |  25 ++++++---
+ man/Makefile.am             |   9 ++--
+ scripts/Makefile.am         | 129 +++++++++++++++++++++++---------------------
+ utils/Makefile.am           |  32 ++++++-----
+ 6 files changed, 122 insertions(+), 92 deletions(-)
+
+commit d7c0992402a936304d408933959b79e811aede83
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 28 20:07:07 2024 +0100
+
+    build: Split each automake variable value into its own line
+    
+    This makes it easier to sort, and modify with minimal diffs.
+
+ dselect/Makefile.am | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+commit 0bc71ec07778bf4cb2019efcce825e63239f1d0f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 31 03:40:52 2024 +0100
+
+    build: Use PACKAGE_TARNAME for pathname components in directories
+    
+    While currently PACKAGE_NAME and PACKAGE_TARNAME are the same, they
+    are not necessarily intended to be, so use the appropriate variable
+    to be future proof.
+
+ configure.ac | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit e896e9ec388633cf2031a7180bd2b7d37e9ad51e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 31 03:39:47 2024 +0100
+
+    build: Move directory definitions to configure
+    
+    This makes it possible to set them using --with-<some>dir options,
+    and we list them on the summary for better visibility, and avoid having
+    to define them multiple times in different automake files.
+
+ Makefile.am                 |  4 ----
+ configure.ac                | 16 ++++++++++++++++
+ dselect/methods/Makefile.am |  3 ---
+ lib/dpkg/Makefile.am        |  1 -
+ m4/dpkg-progs.m4            |  2 ++
+ scripts/Makefile.am         |  1 -
+ utils/Makefile.am           |  1 -
+ 7 files changed, 18 insertions(+), 10 deletions(-)
+
+commit 9caac129d0c3df15f781c83c8e00865eb27a61c9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 31 02:56:32 2024 +0100
+
+    build: Rename pkexec variables to polkitactions
+    
+    The variable is for the polkit actions directory, which can contain not
+    only files for pkexec policies, but any actions in general.
+
+ utils/Makefile.am | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 5efa4e6ded295b766244c3b047d30fb4215b9d61
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jan 23 11:50:18 2024 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Update to new CLI API changes
+    
+    The sq CLI is still not declared stable, and it gets improved from
+    time to time. We need to adapt the Sequoia-PGP backend to use the
+    new subcommand structure.
+
+ debian/control                          | 4 ++--
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 3e8fbeac09366e7fbfce51251351c5650e323a14
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 27 23:57:49 2024 +0100
+
+    libdpkg: Add comment clarifying GNU long name format expectations
+    
+    We have fixed the portability issues with the terminating NUL character,
+    but we should make it explicit in the comment describing the GNU long
+    names format.
+
+ lib/dpkg/tarfn.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+commit ebf943c7b1b980edffbaa68851f4a2a87cffad58
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Thu Jan 25 17:47:08 2024 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 37 +++++++++++++++++++++----------------
+ 1 file changed, 21 insertions(+), 16 deletions(-)
+
+commit 3727ab2475fdf27bf70e9a72182ca5eef52341b6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 24 22:58:50 2024 +0100
+
+    dpkg-buildapi: Remove -v alias for --version
+    
+    This is not documented in the manual page, and diverges from almost
+    every other script in the project. While strictly speaking this is an
+    API break, the command is quite new and the option is no essential
+    for operation and expected to be mostly used by users.
+
+ scripts/dpkg-buildapi.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 96e6f04fe2bdd1122e7bebadc44e63d8bdd8fe75
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 24 22:52:23 2024 +0100
+
+    man, doc: Fix dpkg-buildapi option and command grouping in descriptions
+    
+    The --help output did not have a Commands section nor included it in its
+    usage blurb. The manual page did not have an OPTIONS section.
+
+ man/dpkg-buildapi.pod    | 16 +++++++++++-----
+ scripts/dpkg-buildapi.pl |  8 +++++---
+ 2 files changed, 16 insertions(+), 8 deletions(-)
+
+commit 8231bd3bf1d80780698b9a1238eae5df367e158a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 24 13:35:07 2024 +0100
+
+    Bump version to 1.22.5
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 4baf1e5485b6eaf4eb4347bfb9c4923fd2737488
 Author: Guillem Jover <guillem@debian.org>
 Date:   Wed Jan 24 13:12:56 2024 +0100

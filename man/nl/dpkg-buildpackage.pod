@@ -514,7 +514,7 @@ Indien dit ingesteld werd, zal het gebruikt worden om de bestanden B<.changes>, 
 
 =item B<DEB_BUILD_OPTIONS>
 
-Indien dit ingesteld werd, zal het een door spaties gescheiden lijst met opties bevatten die het gedrag beïnvloeden van sommige dpkg-gereedschappen die betrokken zijn bij het bouwen van pakketten, en die het bouwproces van pakketten kunnen beïnvloeden als de code in F<debian/rules> deze opties erkent.
+If set, it will contain a space-separated list of options that affect the behavior of some dpkg tools involved in package building, and might affect the package build process if the code in F<debian/rules> honors them.  These options can have parameters specified immediately after an equal sign (‘B<=>‘).  For options that support multiple parameters, these will not be separated by spaces, as these are reserved to separate options.
 
 Hieronder volgen de opties die bekend zijn en worden ondersteund door dpkg-gereedschappen; andere opties die worden erkend door F<debian/rules> kunnen worden gedefinieerd door distributiespecifiek beleid.
 
@@ -539,6 +539,22 @@ In het verpakkingsproces moet F<debian/rules> ervoor zorgen dat geen foutopspori
 =item B<terse>
 
 B<dpkg-buildpackage> zal de L<make(1)>-vlag B<--no-print-directory> toevoegen aan de omgevingsvariabele B<MAKEFLAGS>. In het verpakkingsproces moet F<debian/rules> de breedsprakigheid beperken, maar niet helemaal stil zijn.
+
+=item B<hardening=>I<feature-spec>
+
+=item B<reproducible=>I<feature-spec>
+
+=item B<abi=>I<feature-spec>
+
+=item B<future=>I<feature-spec>
+
+=item B<qa=>I<feature-spec>
+
+=item B<optimize=>I<feature-spec>
+
+=item B<sanitize=>I<feature-spec>
+
+These are feature areas that control build flag features.  See L<dpkg-buildflags(1)> for further details.
 
 =back
 

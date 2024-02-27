@@ -34,7 +34,7 @@ Especifica o ficheiro de registo de alterações de onde ler informação. Pode 
 
 =item B<-F> I<changelog-format>
 
-Especifica o formato do changelog. Por predefinição o formato é lido a partir de uma linha especial perto do fundo do changelog ou falhando isto cai para o formato standard B<debian>. Veja também B<CHANGELOG FORMATS>.
+Specifies the format of the changelog.  By default the format is read from a special line near the bottom of the changelog or failing that defaults to the B<debian> standard format.  See also L</CHANGELOG FORMATS>.
 
 =item B<-L> I<libdir>
 

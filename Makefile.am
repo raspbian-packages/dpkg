@@ -16,8 +16,6 @@ SUBDIRS = \
 
 ACLOCAL_AMFLAGS = -I m4
 
-aclocaldir = $(datadir)/aclocal
-
 dist_aclocal_DATA = \
 	m4/dpkg-arch.m4 \
 	m4/dpkg-build.m4 \
@@ -47,8 +45,6 @@ dist_doc_DATA = \
 	doc/README.api \
 	doc/README.feature-removal-schedule \
 	# EOL
-
-docspecdir = $(docdir)/spec
 
 dist_docspec_DATA = \
 	doc/spec/frontend-api.txt \
@@ -111,9 +107,6 @@ EXTRA_DIST = \
 	debian/tests/test-root \
 	po/its/polkit.its \
 	po/its/polkit.loc \
-	tests \
-	$(test_scripts) \
-	$(test_data) \
 	# EOL
 
 .PHONY: doc
@@ -212,6 +205,12 @@ test_data = \
 	t/codespell/stopwords \
 	t/cppcheck/cppcheck.supp \
 	t/critic/perlcriticrc \
+	# EOL
+
+EXTRA_DIST += \
+	tests \
+	$(test_scripts) \
+	$(test_data) \
 	# EOL
 
 # We need to use absolute paths here due to strict.t invoking a sub-perl,

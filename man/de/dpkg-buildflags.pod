@@ -179,7 +179,7 @@ Zum Beispiel:
 
 =item B<--query-features> I<Bereich>
 
-Gibt die Funktionalitäten, die für den übergebenen Bereich aktiviert sind, aus (seit Dpkg 1.16.2). Falls die Funktionalität als eingebaute Vorgabe durch den Compiler gehandhabt wird (selbst wenn nur für einige Architekturen), dann wird das Feld B<Builtin> ausgegeben (seit Dpkg 1.21.14). Die einzigen unter Debian und abgeleiteten Distributionen derzeit erkannten Bereiche sind B<future>, B<qa>, B<reproducible>, B<sanitize> und B<hardening>. Lesen Sie den Abschnitt B<FUNKTIONALITÄTSBEREICHE> für weitere Details. Beendet sich mit 0, falls der Bereich bekannt ist, andernfalls mit 1.
+Gibt die Funktionalitäten, die für den übergebenen Bereich aktiviert sind, aus (seit Dpkg 1.16.2). Falls die Funktionalität als eingebaute Vorgabe durch den Compiler gehandhabt wird (selbst wenn nur für einige Architekturen), dann wird das Feld B<Builtin> ausgegeben (seit Dpkg 1.21.14). Lesen Sie den Abschnitt B<FUNKTIONALITÄTSBEREICHE> für weitere Details zu den aktuell erkannten Bereichen. Beendet sich mit 0, falls der Bereich bekannt ist, andernfalls mit 1.
 
 Die Ausgabe ist im RFC822-Format, mit einem Abschnitt pro Funktionalität. Beispiel:
 
@@ -290,13 +290,30 @@ Neue Schalter können in Zukunft hinzugefügt werden, falls die Notwendigkeit au
 
 =head1 FUNKTIONALITÄTSBEREICHE
 
-Jede Bereichsfunktionalität kann durch den entsprechenden Bereichswert in den Umgebungsvariablen B<DEB_BUILD_OPTIONS> und B<DEB_BUILD_MAINT_OPTIONS> mit den ‚B<+>’- und ‚B<->’-Schaltern aktiviert und deaktiviert werden. Soll beispielsweise für B<hardening> die „pie“-Funktionalität aktiviert und die „fortify“-Funktionalität deaktiviert werden, können Sie Folgendes in B<debian/rules> verwenden:
+Funktionalitätsbereiche sind derzeit Lieferanten-spezifisch und die nachfolgend beschriebenen werden nur unter Debian und abgeleiteten Distributionen erkannt.
 
-    export DEB_BUILD_MAINT_OPTIONS=hardening=+pie,-fortify
+Jeder Funktionalitätsbereich kann in dem Bereichswert der Umgebungsvariablen B<DEB_BUILD_OPTIONS> und B<DEB_BUILD_MAINT_OPTIONS> durch die Wandler »B<+>« und »B<->« aktiviert oder deaktiviert werden. Gemäß der allgemeine Syntax dieser Variablen (in L<dpkg-buildpackage(1)> beschrieben) können mehrere Funktionalitätsbereiche getrennt durch Leerzeichen angegeben werden, wobei jede die Funktionalitätskennzeichner als verpflichtende Parameter nach einem Gleichzeichen (»B<=>«) erhält. Die Funktionalitätskennzeichner werden durch Kommata getrennt und von links nach rechts ausgewertet, wobei die Einstellungen innerhalb des gleichen Funktionalitätskennzeichners die vorhergehenden außer Kraft setzen, selbst falls die Funktionalitätskennzeichner über mehrere, durch Leerzeichen getrennte Funktionalitätsbereichseinstellungen für den gleichen Bereich verteilt sind.
+
+Um beispielsweise die B<hardening>-Funktionalität »pie« zu aktivieren und die Funktionalität »fortify« zu deaktivieren, können Sie folgendes in B<debian/rules> verwenden:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=+pie,-fortify
 
 Die spezielle Funktionalität B<all> (in allen Bereichen gültig) kann dazu verwandt werden, alle Bereichsfunktionalitäten auf einmal zu aktivieren oder zu deaktivieren. Um daher alles im Bereich B<hardening> zu deaktivieren und nur „format“ und „fortify“ zu aktiveren, kann Folgendes eingesetzt werden:
 
-    export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+format,+fortify
+    export DEB_BUILD_MAINT_OPTIONS = hardening=-all,+format,+fortify
+
+Es können mehrere Funktionalitätsbereiche gesetzt werden:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=+pie abi=+lfs
+
+Das Außerkraftsetzenverhalten gilt auch für die besondere Funktionalität B<all>, sowie bestimmten Funktionalitäten, wodurch Zusammensetzungen ermöglicht werden sollten. Um daher »lfs« im Bereich B<abi> zu aktivieren und nur »pie« und »fortify« in dem Bereich B<hardening>, aber »format« nur, wenn CONDITION definiert ist, könnte dies wie folgt passieren:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=-all,+pie,+format abi=+lfs
+    …
+    DEB_BUILD_MAINT_OPTIONS += hardening=+fortify
+    ifdef CONDITION
+    DEB_BUILD_MAINT_OPTIONS += hardening=-format
+    endif
 
 =head2 abi
 
@@ -312,7 +329,11 @@ Wenn diese Funktionalität aktiviert ist, wird sie den Wert aus der gleichen Fun
 
 =item B<time64>
 
-Diese Einstellung (seit Dpkg 1.22.0; standardmäßig deaktiviert) aktiviert die Unterstützung von 64-bit time_t auf 32-bit-Architekturen bei denen das ABI dies nicht standardmäßig enthält, indem B<-D_TIME_BITS=64> zu B<CPPFLAGS> hinzugefügt wird. Diese Einstellung aktiviert automatisch die Funktionalität B<lfs>, da sie diese benötigt.
+This setting (since dpkg 1.22.0; enabled by default except for i386, hurd-i386 and kfreebsd-i386 since dpkg 1.22.5) enables 64-bit time_t support on 32-bit architectures where their ABI does not include it by default, by adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the B<lfs> feature from the B<abi> feature area, and the B<bug-implicit-func> feature from the B<qa> feature area as it requires them.
+
+If the setting is enabled explicitly then it gets enabled on all architectures including i386 but not hurd-i386 nor kfreebsd-i386 (where the kernel does not have time64 interfaces), ignoring the binary backwards compatibility default.
+
+It is also enabled by default by gcc on the armel, armhf, hppa, m68k, mips, mipsel, powerpc and sh4 Debian architectures, where disabling the feature will add instead B<-U_LARGEFILE_SOURCE -U_FILE_OFFSET_BITS -U_TIME_BITS> to B<CPPFLAGS>.
 
 =back
 

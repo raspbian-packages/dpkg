@@ -699,7 +699,6 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 {
 	static struct varbuf target = VARBUF_INIT;
 	struct stat stab;
-	ssize_t r;
 	int loopprotect;
 
 	varbuf_set_str(result, dpkg_fsys_get_dir());
@@ -724,6 +723,8 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 			      in, result->buf);
 			return 0;
 		} else if (S_ISLNK(stab.st_mode)) {
+			ssize_t linksize;
+
 			debug(dbg_conffdetail, "conffderef symlink loopprotect=%d",
 			      loopprotect);
 			if (loopprotect++ >= 25) {
@@ -734,36 +735,35 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 				return -1;
 			}
 
-			varbuf_reset(&target);
-			varbuf_grow(&target, stab.st_size + 1);
-			r = readlink(result->buf, target.buf, target.size);
-			if (r < 0) {
+			linksize = file_readlink(result->buf, &target, stab.st_size);
+			if (linksize < 0) {
 				warning(_("%s: unable to readlink conffile '%s'\n"
 				          " (= '%s'): %s"),
 				        pkg_name(pkg, pnaw_nonambig), in,
 				        result->buf, strerror(errno));
 				return -1;
-			} else if (r != stab.st_size) {
+			} else if (linksize != stab.st_size) {
 				warning(_("symbolic link '%.250s' size has "
 				          "changed from %jd to %zd"),
-				        result->buf, (intmax_t)stab.st_size, r);
+				        result->buf, (intmax_t)stab.st_size,
+				        linksize);
 				/* If the returned size is smaller, let's
 				 * proceed, otherwise error out. */
-				if (r > stab.st_size)
+				if (linksize > stab.st_size)
 					return -1;
 			}
-			varbuf_trunc(&target, r);
-			varbuf_end_str(&target);
 
 			debug(dbg_conffdetail,
 			      "conffderef readlink gave %zd, '%s'",
-			      r, target.buf);
+			      linksize, target.buf);
 
 			if (target.buf[0] == '/') {
 				varbuf_set_str(result, dpkg_fsys_get_dir());
 				debug(dbg_conffdetail,
 				      "conffderef readlink absolute");
 			} else {
+				ssize_t r;
+
 				for (r = result->used - 1; r > 0 && result->buf[r] != '/'; r--)
 					;
 				if (r < 0) {

@@ -34,7 +34,7 @@ Indique le fichier des changements où trouver des renseignements. Un S<« - »>
 
 =item B<-F> I<format-du-fichier-des-changements>
 
-Indique le format du fichier changelog. Par défaut, c'est une ligne spéciale, près de la fin du fichier, qui l'indique ; sinon, on utilise le format classique B<debian>. Voir aussi B<FORMATS DES FICHIERS DE CHANGEMENTS>.
+Specifies the format of the changelog.  By default the format is read from a special line near the bottom of the changelog or failing that defaults to the B<debian> standard format.  See also L</CHANGELOG FORMATS>.
 
 =item B<-L> I<rep_lib>
 

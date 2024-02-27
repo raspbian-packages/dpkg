@@ -319,6 +319,7 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+aclocaldir = @aclocaldir@
 admindir = @admindir@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -326,6 +327,7 @@ am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 backupsdir = @backupsdir@
+bashcompletionsdir = @bashcompletionsdir@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -337,6 +339,7 @@ datadir = @datadir@
 datarootdir = @datarootdir@
 devlibdir = @devlibdir@
 docdir = @docdir@
+docspecdir = @docspecdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
@@ -354,10 +357,14 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
+methodsdir = @methodsdir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+perllibdir = @perllibdir@
 pkgconfdir = @pkgconfdir@
+pkgconfigdir = @pkgconfigdir@
+polkitactionsdir = @polkitactionsdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -371,7 +378,11 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 zshcompletionsdir = @zshcompletionsdir@
-methodsdir = $(pkglibexecdir)/methods
+nobase_dist_perllib_DATA = \
+	Dselect/Method.pm \
+	Dselect/Method/Ftp.pm \
+	# EOL
+
 nobase_dist_methods_DATA = \
 	file/names \
 	file/desc.file \
@@ -391,12 +402,6 @@ nobase_methods_SCRIPTS = \
 	media/install \
 	media/setup \
 	media/update \
-	# EOL
-
-perllibdir = $(PERL_LIBDIR)
-nobase_dist_perllib_DATA = \
-	Dselect/Method.pm \
-	Dselect/Method/Ftp.pm \
 	# EOL
 
 EXTRA_DIST = \

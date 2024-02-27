@@ -179,7 +179,7 @@ Till exempel:
 
 =item B<--query-features> I<område>
 
-Skriv ut funktioner aktiverade för ett givet område (sedan dpkg 1.16.2). Om funktionen hanteras (även om bara av några arkitekturer) som ett inbyggt förval av kompilatorn visas fältet B<Bultin> (sedan dpkg 1.21.14). De enda för närvarande kända områdena på Debian och dess derivat är B<future>, B<qa>, B<reproducible>, B<sanitize> och B<hardening>, se avsnittet B<FUNKTIONSOMRÅDEN> för fler detaljer. Avslutar med 0 om området är känt, avslutar annars med 1.
+Print the features enabled for a given area (since dpkg 1.16.2).  If the feature is handled (even if only on some architectures) as a builtin default by the compiler, then a B<Builtin> field is printed (since dpkg 1.21.14). See the L</FEATURE AREAS> section for more details about the currently recognized areas.  Exits with 0 if the area is known otherwise exits with 1.
 
 Utdata är på RFC822-headerformat, med en sektion per funktion. Till exempel:
 
@@ -290,13 +290,30 @@ Nya flaggor kan komma att läggas till i framtiden om behovet uppstår (till exe
 
 =head1 FUNKTIONSOMRÅDEN
 
-Varje områdesfunktion kan aktiveras och inaktiveras i områdesvärdet i miljövariablerna B<DEB_BUILD_OPTIONS> och B<DEB_BUILD_MAINT_OPTIONS> modifierarna ”B<+>” och ”B<->”. Till exempel, för att aktivera B<hardening>-funktionen ”pie” och inaktivera funktionen ”fortify” genom att ange detta i B<debian/rules>:
+Feature areas are currently vendor specific, and the ones described below are only recognized on Debian and derivatives.
 
-    export DEB_BUILD_MAINT_OPTIONS=hardening=+pie,-fortify
+Each area feature can be enabled and disabled in the B<DEB_BUILD_OPTIONS> and B<DEB_BUILD_MAINT_OPTIONS> environment variable's area value with the ‘B<+>’ and ‘B<->’ modifier.  Following the general syntax of these variables (described in L<dpkg-buildpackage(1)>), multiple feature areas can be specified separated by spaces, where each get feature specifiers as mandatory parameters after an equal sign (‘B<=>’).  The feature specifiers are comma-separated and parsed from left to right, where the settings within the same feature specifier override previous ones, even if the feature specifiers are split across multiple space-separated feature area settings for the same area.
+
+For example, to enable the B<hardening> “pie” feature and disable the “fortify” feature you can do this in B<debian/rules>:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=+pie,-fortify
 
 Den speciella funktionen B<all> kan användas för att aktivera eller inaktivera alla områdesfunktioner samtidigt. Du kan till exempel inaktivera allt i området B<hardening> och endast aktivera ”format” och ”fortify” med:
 
-    export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+format,+fortify
+    export DEB_BUILD_MAINT_OPTIONS = hardening=-all,+format,+fortify
+
+Multiple feature areas can be set:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=+pie abi=+lfs
+
+The override behavior applies as much to the B<all> special feature, as to specific features, which should allow for composition.  Thus to enable “lfs” in the B<abi> area, and only “pie” and “fortify” in the B<hardening> area, but “format” only when CONDITION is defined, this could be done with:
+
+    export DEB_BUILD_MAINT_OPTIONS = hardening=-all,+pie,+format abi=+lfs
+    …
+    DEB_BUILD_MAINT_OPTIONS += hardening=+fortify
+    ifdef CONDITION
+    DEB_BUILD_MAINT_OPTIONS += hardening=-format
+    endif
 
 =head2 abi
 
@@ -312,7 +329,11 @@ När funktionen är aktiverad kommer den överstyra värdet från samma funktion
 
 =item B<time64>
 
-Den här inställningen (sedan dpkg 1.22.0; inaktiverad som förval) aktiverar stöd för 64-bitars time_t på 32-bitars-arkitekturer där deras ABI inte som förval inkluderar det, genom att lägga till B<-D_TIME_BITS=64> till B<CPPFLAGS>. Inställningen aktiverar automatiskt L<lfs>-funktionerna eftersom den behövs för att den ska fungera.
+This setting (since dpkg 1.22.0; enabled by default except for i386, hurd-i386 and kfreebsd-i386 since dpkg 1.22.5) enables 64-bit time_t support on 32-bit architectures where their ABI does not include it by default, by adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the B<lfs> feature from the B<abi> feature area, and the B<bug-implicit-func> feature from the B<qa> feature area as it requires them.
+
+If the setting is enabled explicitly then it gets enabled on all architectures including i386 but not hurd-i386 nor kfreebsd-i386 (where the kernel does not have time64 interfaces), ignoring the binary backwards compatibility default.
+
+It is also enabled by default by gcc on the armel, armhf, hppa, m68k, mips, mipsel, powerpc and sh4 Debian architectures, where disabling the feature will add instead B<-U_LARGEFILE_SOURCE -U_FILE_OFFSET_BITS -U_TIME_BITS> to B<CPPFLAGS>.
 
 =back
 

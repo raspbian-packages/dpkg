@@ -30,10 +30,6 @@ Dit programma werd geïntroduceerd in dpkg 1.22.0.
 
 =over 
 
-=item B<-c>I<control-bestand>
-
-Geeft aan wat het hoofdcontrolebestand van de broncode is waaruit informatie gehaald moet worden. Standaard is dat F<debian/control>.
-
 =item B<--help>
 
 Info tonen over het gebruik en afsluiten.
@@ -41,6 +37,16 @@ Info tonen over het gebruik en afsluiten.
 =item B<--version>
 
 De versie tonen en afsluiten.
+
+=back
+
+=head1 OPTIES
+
+=over 
+
+=item B<-c>I<control-bestand>
+
+Geeft aan wat het hoofdcontrolebestand van de broncode is waaruit informatie gehaald moet worden. Standaard is dat F<debian/control>.
 
 =back
 

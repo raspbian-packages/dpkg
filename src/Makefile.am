@@ -98,14 +98,6 @@ dpkg_deb_SOURCES = \
 	deb/main.c \
 	# EOL
 
-dpkg_deb_LDADD = \
-	$(LDADD) \
-	$(Z_LIBS) \
-	$(LZMA_LIBS) \
-	$(ZSTD_LIBS) \
-	$(BZ2_LIBS) \
-	# EOL
-
 dpkg_divert_SOURCES = \
 	divert/main.c \
 	# EOL
@@ -140,6 +132,9 @@ dpkg_statoverride_LDADD = \
 
 dpkg_trigger_SOURCES = \
 	trigger/main.c \
+	# EOL
+
+dist_bashcompletions_DATA = \
 	# EOL
 
 SUFFIXES =
