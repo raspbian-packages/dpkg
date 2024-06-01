@@ -1,3 +1,371 @@
+commit b2f9600ead232a2dd3c27f8b52807a9ca5854d17
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 10 20:23:06 2024 +0100
+
+    Release 1.22.6
+
+ debian/changelog | 42 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
+
+commit e277df5e15eb6145fb4bcb6babcea3bc4051b67f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 10 20:21:23 2024 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 21 ++++++++++++++++-----
+ man/po/dpkg-man.pot     | 20 ++++++++++++++------
+ man/po/es.po            | 23 ++++++++++++++++++-----
+ man/po/fr.po            | 23 ++++++++++++++++++-----
+ man/po/hu.po            | 21 ++++++++++++++++-----
+ man/po/it.po            | 23 ++++++++++++++++++-----
+ man/po/ja.po            | 23 ++++++++++++++++++-----
+ man/po/nl.po            | 27 ++++++++++++++++++++++-----
+ man/po/pl.po            | 23 ++++++++++++++++++-----
+ man/po/pt.po            | 35 ++++++++++++++++++++++++++++++-----
+ man/po/pt_BR.po         | 21 ++++++++++++++++-----
+ man/po/ru.po            | 21 ++++++++++++++++-----
+ man/po/sv.po            | 23 ++++++++++++++++++-----
+ man/po/zh_CN.po         | 23 ++++++++++++++++++-----
+ po/ast.po               | 12 ++++++------
+ po/bs.po                |  6 +++---
+ po/ca.po                | 10 +++++-----
+ po/cs.po                | 12 ++++++------
+ po/da.po                | 12 ++++++------
+ po/de.po                | 12 ++++++------
+ po/dpkg.pot             |  8 ++++----
+ po/dz.po                | 12 ++++++------
+ po/el.po                | 12 ++++++------
+ po/eo.po                | 12 ++++++------
+ po/es.po                | 12 ++++++------
+ po/et.po                | 12 ++++++------
+ po/eu.po                | 12 ++++++------
+ po/fr.po                | 12 ++++++------
+ po/gl.po                | 12 ++++++------
+ po/hu.po                | 12 ++++++------
+ po/id.po                | 14 +++++++-------
+ po/it.po                | 12 ++++++------
+ po/ja.po                | 12 ++++++------
+ po/km.po                | 12 ++++++------
+ po/ko.po                | 14 +++++++-------
+ po/ku.po                |  6 +++---
+ po/lt.po                | 10 +++++-----
+ po/mr.po                | 12 ++++++------
+ po/nb.po                | 14 +++++++-------
+ po/ne.po                | 12 ++++++------
+ po/nl.po                | 12 ++++++------
+ po/nn.po                | 12 ++++++------
+ po/oc.po                | 10 +++++-----
+ po/pa.po                | 12 ++++++------
+ po/pl.po                | 12 ++++++------
+ po/pt.po                | 12 ++++++------
+ po/pt_BR.po             | 12 ++++++------
+ po/ro.po                | 12 ++++++------
+ po/ru.po                | 12 ++++++------
+ po/sk.po                | 12 ++++++------
+ po/sv.po                | 10 +++++-----
+ po/th.po                | 12 ++++++------
+ po/tl.po                | 12 ++++++------
+ po/tr.po                | 12 ++++++------
+ po/vi.po                | 12 ++++++------
+ po/zh_CN.po             | 12 ++++++------
+ po/zh_TW.po             | 12 ++++++------
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/nl.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/pt.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 98 files changed, 548 insertions(+), 363 deletions(-)
+
+commit 07140b132092e92d8d6b1b6805ff056089951dad
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 3 18:53:12 2024 +0100
+
+    Dpkg::Vendor::Debian: Unconditionally set qa bug-implicit-func
+    
+    For the time64 default change, we conditionally enabled
+    bug-implicit-func to avoid silent ABI breakage due to implicit function
+    declarations that end up using the time32 symbols, but that is causing
+    confusion as the effects are not visible on the most commonly used
+    architectures. Instead, enable this globally, unless the maintainer has
+    specified otherwise.
+    
+    Ref: #1065371
+
+ man/dpkg-buildflags.pod       |  6 ++---
+ scripts/Dpkg/Vendor/Debian.pm | 15 ++++++++-----
+ scripts/t/Dpkg_BuildFlags.t   | 51 ++++++++++++++++++++++++++++++++++---------
+ 3 files changed, 52 insertions(+), 20 deletions(-)
+
+commit 5806169ee5a7320ef2e2863642365803216d107c
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Mar 9 08:01:44 2024 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 39 +++++++++++++++++++++++++--------------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
+
+commit 7052455b00cfeeddf0dd07a0b59041ab684bade8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 9 07:31:42 2024 +0100
+
+    build: Fix typo in CI config
+    
+    Fixes: commit e3f5a70aeecf0ded9f3f515de56e72dba36bce4f
+    Changelog: silent
+
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 8233c44d991952bb3d73f776dc00b1ca8e9945e0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 8 00:15:57 2024 +0100
+
+    build: Add gen-release script
+    
+    This is an import of the local script that has been driving the usual
+    release process for a long time, but with the multi-branch support
+    removed, and only targeting the current tree structure.
+
+ Makefile.am           |   1 +
+ build-aux/.gitignore  |   1 +
+ build-aux/gen-release | 166 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ t/shellcheck.t        |   1 +
+ 4 files changed, 169 insertions(+)
+
+commit a348606625cd63dff860fe766bcf3b5a725261e8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 8 13:13:14 2024 +0100
+
+    test: Skip OpenPGP tests if the backend does not have a verify command
+    
+    If we cannot verify, we should skip the relevant tests for this
+    backend.
+    
+    Closes: #1065648
+
+ scripts/t/Dpkg_OpenPGP.t | 63 ++++++++++++++++++++++++++----------------------
+ 1 file changed, 34 insertions(+), 29 deletions(-)
+
+commit 8547597648e5f4c0545c7383d281a2a42f2daac6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 9 00:18:12 2024 +0100
+
+    test: Refactor certfile and keyfile filenames for OpenPGP test
+
+ scripts/t/Dpkg_OpenPGP.t | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+commit b46e860fa360f17a3646bf1babc8ca6ec9062069
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 9 00:12:23 2024 +0100
+
+    test: Refactor OpenPGP backend and commands list
+    
+    Instead of having two places to keep up-to-date, unify this in the
+    Test::Dpkg module into a single hash, and add a getter so that we can
+    keep one place to track this data.
+
+ scripts/Test/Dpkg.pm     | 43 ++++++++++++++++++++++++++++++++-----------
+ scripts/t/Dpkg_OpenPGP.t | 12 ++----------
+ 2 files changed, 34 insertions(+), 21 deletions(-)
+
+commit e3f5a70aeecf0ded9f3f515de56e72dba36bce4f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 9 04:09:05 2024 +0100
+
+    build: Test with minimal library dependencies in CI
+    
+    This disables the optional library usage, so we exercise non-library
+    using code paths, so that we can catch regressions such as the one
+    fixed in commit ec0f9943da9410427869e33d4fe8e2612d8e75dc.
+
+ .gitlab-ci.yml | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+commit de5e15f26100b379430a3d5071d199791ca37cf5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 8 12:59:36 2024 +0100
+
+    dpkg-deb: Fix up compressor parameters for default legacy format
+    
+    When using the gzip command as a compressor backend the code ended up
+    passing «-c-1» because the default compression level was set to -1,
+    and we were not fixing it up.
+    
+    Move the compressor fix up call after we have set compressor_params.
+    
+    Fixes: commit b499f2688349694d24c4a4e53d461deeae826f5c
+
+ src/deb/main.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 78598d3d655c39222178b4d48ce1d640e717496b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 8 00:21:23 2024 +0100
+
+    man: Document dpkg versions supporting SOURCE_DATE_EPOCH for various tools
+    
+    The variable did not include that information in the description for
+    the various tools that honor it.
+
+ man/dpkg-deb.pod    | 2 ++
+ man/dpkg-source.pod | 2 ++
+ man/dpkg-split.pod  | 2 ++
+ 3 files changed, 6 insertions(+)
+
+commit f0f117bc03652d74cb6dbf985ce7a3613ada732e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 8 00:21:08 2024 +0100
+
+    debian: Fix typo in man page reference in changelog
+
+ debian/changelog | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit dd66748f0d697c30f2a1855386fc1c1148276298
+Author: Andreas Rönnquist <gusnan@debian.org>
+Date:   Fri Mar 8 23:45:45 2024 +0100
+
+    po: Fix typos in Swedish man pages translations
+    
+    Closes: #1065672
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/sv.po | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 279c6ccb31343edbea89492cd4c9ed8cdf1b5771
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 7 03:23:42 2024 +0100
+
+    po: Fix typos in Swedish man pages translations
+    
+    Closes: #1065575
+    Stable-Candidate: 1.21.x 1.20.x
+
+ man/po/sv.po | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit ece63b215eeab2911ea11d6c62dc6ddf719abaf8
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Thu Mar 7 03:19:12 2024 +0100
+
+    po: Update Dutch man pages translations
+    
+    Closes: #1065518
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/nl.po | 146 ++++++++++++++++++-----------------------------------------
+ 1 file changed, 44 insertions(+), 102 deletions(-)
+
+commit e7478f6c153d4e4dcbedb7fedfff69d42de47c26
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Thu Mar 7 03:15:34 2024 +0100
+
+    po: Update Portugese man pages translations
+    
+    Closes: #1065401
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+Notes:
+    Changelog: s/Portugese/Portuguese/
+
+ man/po/pt.po | 2225 ++++++++++++++--------------------------------------------
+ 1 file changed, 535 insertions(+), 1690 deletions(-)
+
+commit 4993fe783b62a3403804a3df8dbe755ae532a06a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 3 18:42:34 2024 +0100
+
+    Dpkg::Vendor::Debian: Make it possible to disable qa=-bug-implicit-func
+    
+    We do not need to forcibly enable this feature if the user explicitly
+    specified it.
+    
+    Closes: #1065371
+
+ scripts/Dpkg/Vendor/Debian.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 24d57d5eeaf77594e1f56116932048a6593a774c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 29 02:15:33 2024 +0100
+
+    libdpkg: Use a macro to define the zstd default compression level
+    
+    This means we only need to change a single place to change the default
+    value.
+
+ lib/dpkg/compress.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit ad996529f127657818a47efbfc57cedfcb42f662
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Feb 28 04:35:58 2024 +0100
+
+    libdpkg: Use array access instead of pointer arithmetic for meminfo parser
+    
+    This makes the code more uniform and shorter.
+
+ lib/dpkg/meminfo.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit c881a5a867601482383aaf242f7590f2e11e9427
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed Feb 28 18:57:49 2024 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 40 ++++++++++++++++------------------------
+ 1 file changed, 16 insertions(+), 24 deletions(-)
+
+commit 354f9ddb654296d1632e07dd7448efcbc11479ac
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 27 05:01:29 2024 +0100
+
+    Bump version to 1.22.6
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 1c92a4a8bfbeea30ceb0109b096c4ec845e3c6ce
 Author: Guillem Jover <guillem@debian.org>
 Date:   Tue Feb 27 04:32:30 2024 +0100
