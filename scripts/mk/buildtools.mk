@@ -25,7 +25,10 @@
 # The variables are not exported by default. This can be changed by
 # defining DPKG_EXPORT_BUILDTOOLS.
 
-dpkg_datadir = $(srcdir)/mk
+ifndef dpkg_buildtools_mk_included
+dpkg_buildtools_mk_included = yes
+
+dpkg_datadir ?= $(dir $(lastword $(MAKEFILE_LIST)))
 include $(dpkg_datadir)/architecture.mk
 
 # We set the TOOL_FOR_BUILD variables to the specified value, and the TOOL
@@ -33,18 +36,18 @@ include $(dpkg_datadir)/architecture.mk
 # not defined or contain the make built-in defaults. On native builds if
 # TOOL is defined and TOOL_FOR_BUILD is not, we fallback to use TOOL.
 define dpkg_buildtool_setvar
-  ifeq (,$(findstring $(3),$(DEB_BUILD_OPTIONS)))
-    ifeq ($(origin $(1)),default)
+  ifeq (,$(filter $(3),$(DEB_BUILD_OPTIONS)))
+    ifneq (,$(filter default undefined,$(origin $(1))))
       $(1) = $(DEB_HOST_GNU_TYPE)-$(2)
-    else
-      $(1) ?= $(DEB_HOST_GNU_TYPE)-$(2)
     endif
 
     # On native build fallback to use TOOL if that's defined.
-    ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-      $(1)_FOR_BUILD ?= $$($(1))
-    else
-      $(1)_FOR_BUILD ?= $(DEB_BUILD_GNU_TYPE)-$(2)
+    ifeq (undefined,$(origin $(1)_FOR_BUILD))
+      ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+        $(1)_FOR_BUILD = $$($(1))
+      else
+        $(1)_FOR_BUILD = $(DEB_BUILD_GNU_TYPE)-$(2)
+      endif
     endif
   else
     $(1) = :
@@ -74,3 +77,5 @@ $(eval $(call dpkg_buildtool_setvar,AR,ar))
 $(eval $(call dpkg_buildtool_setvar,RANLIB,ranlib))
 $(eval $(call dpkg_buildtool_setvar,PKG_CONFIG,pkgconf))
 $(eval $(call dpkg_buildtool_setvar,QMAKE,qmake))
+
+endif # dpkg_buildtools_mk_included

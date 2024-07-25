@@ -162,6 +162,10 @@ Om satt och ingen av flaggorna B<--force->I<...> har angivits används det som d
 
 Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
 
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+
 =back
 
 =head1 FILER

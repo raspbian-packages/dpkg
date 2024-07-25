@@ -18,17 +18,21 @@ dpkg-buildpackage - compila pacotes binários ou fonte a partir de fontes
 
 =head1 RESUMO
 
-B<dpkg-buildpackage> [I<option>...]
+B<dpkg-buildpackage> [I<option>...] [B<-->] [I<filename>.dsc|I<directory>]
 
 =head1 DESCRIÇÃO
 
-B<dpkg-buildpackage> é um programa que automatiza os processos de compilar um pacote Debian. Consiste nos seguintes passos:
+B<dpkg-buildpackage> is a program that automates the process of building a Debian package.
+
+The I<filename>.dsc and I<directory> arguments are supported since dpkg 1.22.7.  Their semantics are experimental.
+
+It consists of the following steps:
 
 =over 
 
 =item B<1.>
 
-Corre o hook B<preinit> antes de ler qualquer ficheiro fonte. Prepara o ambiente de compilação ao definir várias variáveis de ambiente. (veja B<ENVIRONMENT>), corre o hook B<init>, e chama B<dpkg-source --before-build> (a menos que B<-T> ou B<--target> sejam usados).
+It runs the B<preinit> hook before reading any source file.  If a B<.dsc> file has been specified it unpacks it anew and changes directory to it, if a I<directory> has been specified it changes directory to it, otherwise it expects the current directory to contain the source tree.  It prepares the build environment by setting various environment variables (see B<ENVIRONMENT>), runs the B<init> hook, and calls B<dpkg-source --before-build> (unless B<-T> or B<--target> has been used).
 
 =item B<2.>
 
@@ -40,7 +44,7 @@ Se um ou mais alvos específicos foram seleccionado com a opção B<-T> ou B<--t
 
 =item B<4.>
 
-Corre o hook B<source> e chama B<dpkg-source -b> para gerar o pacote fonte. (se foi requerida uma compilação B<source> com B<--build> ou com opções equivalentes).
+It runs the B<source> hook and calls B<dpkg-source -b> to generate the source package (if a B<source> build has been requested with B<--build> or equivalent options, and if no B<.dsc> has been specified).
 
 =item B<5.>
 
@@ -48,7 +52,7 @@ Corre o hook B<build> e chama B<debian/rules> I<build-target>, depois corre o ho
 
 =item B<6.>
 
-Corre o hook B<buildinfo>, e chama B<dpkg-genbuildinfo> para gerar um ficheiro B<.buildinfo>. Várias opções de B<dpkg-buildpackage> são reencaminhadas para o B<dpkg-genbuildinfo>.
+It runs the B<buildinfo> hook and calls B<dpkg-genbuildinfo> to generate a B<.buildinfo> file.  Several B<dpkg-buildpackage> options are forwarded to B<dpkg-genbuildinfo>.  If a I<.dsc> has been specified, then it will be referenced in the generated B<.buildinfo> file, as we can ascertain the provenance of the source tree.
 
 =item B<7.>
 
@@ -89,6 +93,10 @@ Corre o hook B<check> e chama um verificados de pacote para o ficheiro B<.change
 Corre o hook B<sign> e assina usando o backend OpenPGP (desde que não seja uma compilação NÃO-LANÇADA, ou se B<--no-sign> for especificado) para assinar o ficheiro B<.dsc> (se algum, a menos que B<-us> ou B<--unsigned-source> sejam especificados), o ficheiro B<.buildinfo> (a menos que B<-ui>, B<--unsigned-buildinfo>, B<-uc> ou B<--unsigned-changes> sejam especificados) e os ficheiros B<.changes> (a menos que B<-uc> ou B<--unsigned-changes> sejam especificados).
 
 =item B<12.>
+
+If a B<.dsc> file has been specified, it removes the extracted source directory.
+
+=item B<13.>
 
 Corre o hook B<done>.
 
@@ -316,7 +324,7 @@ Obtém B<DPKG_BUILDPACKAGE_HOOK_SOURCE_OPTIONS> com as listas de opções separa
 
 =item B<build>
 
-Obtém B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> com o nome do alvo de compilação B<debian/rules> chamado, mas apenas se chamado.
+Gets B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> with the name of the B<debian/rules> build target called.  Before dpkg 1.22.7 the variable was only set if the target was called.
 
 =item B<binary>
 
@@ -624,7 +632,7 @@ Entre dpkg 1.14.17 e 1.16.1, B<dpkg-buildpackage> exportava as bandeiras de comp
 
 =head2 Metas de compilação predefinidas
 
-B<dpkg-buildpackage> está  a usar os alvos B<build-arch> e B<build-indep> desde dpkg 1.16.2. Esses alvos são assim obrigatórios. Mas para evitar ruturas de pacotes existentes, e facilitar a transição, se o pacote fonte não compilar ambos pacotes binários independentes e dependentes da arquitectura (desde dpkg 1.18.8) irá regressar ao uso de alvo B<build> se B<make -f debian/rules -qn> I<build-target> retornar 2 como código de saída.
+B<dpkg-buildpackage> is using the B<build-arch> and B<build-indep> targets since dpkg 1.16.2.  Before dpkg 1.22.7, there was code to try to detect the missing targets and fallback on the B<build> target.  Those targets are thus mandatory.
 
 =head1 SEGURANÇA
 

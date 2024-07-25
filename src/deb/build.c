@@ -544,7 +544,9 @@ parse_timestamp(const char *value)
 
   errno = 0;
   timestamp = strtoimax(value, &end, 10);
-  if (value == end || *end || errno != 0)
+  if (value == end || *end)
+    ohshit(_("unable to parse timestamp '%.255s'"), value);
+  else if (errno != 0)
     ohshite(_("unable to parse timestamp '%.255s'"), value);
 
   return timestamp;
@@ -597,7 +599,7 @@ do_build(const char *const *argv)
   m_output(stdout, _("<standard output>"));
 
   timestamp_str = getenv("SOURCE_DATE_EPOCH");
-  if (timestamp_str)
+  if (str_is_set(timestamp_str))
     timestamp = parse_timestamp(timestamp_str);
   else
     timestamp = time(NULL);
@@ -614,7 +616,7 @@ do_build(const char *const *argv)
    * unlink our temporary file so others can't mess with it. */
   tfbuf = path_make_temp_template("dpkg-deb");
   gzfd = mkstemp(tfbuf);
-  if (gzfd == -1)
+  if (gzfd < 0)
     ohshite(_("failed to make temporary file (%s)"), _("control member"));
   /* Make sure it's gone, the fd will remain until we close it. */
   if (unlink(tfbuf))
@@ -686,7 +688,7 @@ do_build(const char *const *argv)
      * temporary file so others can't mess with it. */
     tfbuf = path_make_temp_template("dpkg-deb");
     gzfd = mkstemp(tfbuf);
-    if (gzfd == -1)
+    if (gzfd < 0)
       ohshite(_("failed to make temporary file (%s)"), _("data member"));
     /* Make sure it's gone, the fd will remain until we close it. */
     if (unlink(tfbuf))

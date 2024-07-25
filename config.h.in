@@ -136,9 +136,6 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the `isascii' function. */
-#undef HAVE_ISASCII
-
 /* Define to 1 if you have the <kvm.h> header file. */
 #undef HAVE_KVM_H
 
@@ -168,9 +165,6 @@
 
 /* Define to 1 if you have the <md5.h> header file. */
 #undef HAVE_MD5_H
-
-/* Define to 1 if you have the `memcpy' function. */
-#undef HAVE_MEMCPY
 
 /* Define to 1 if you have the <minix/config.h> header file. */
 #undef HAVE_MINIX_CONFIG_H
@@ -220,9 +214,6 @@
 /* Define to 1 if you have the `setsid' function. */
 #undef HAVE_SETSID
 
-/* Define to 1 if you have the <stddef.h> header file. */
-#undef HAVE_STDDEF_H
-
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 
@@ -252,9 +243,6 @@
 
 /* Define to 1 if you have the `strsignal' function. */
 #undef HAVE_STRSIGNAL
-
-/* Define to 1 if you have the `strtoimax' function. */
-#undef HAVE_STRTOIMAX
 
 /* Define to 1 if the system has the type `struct psinfo'. */
 #undef HAVE_STRUCT_PSINFO

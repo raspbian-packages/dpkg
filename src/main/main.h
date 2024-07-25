@@ -22,6 +22,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <stdbool.h>
+
 #include <dpkg/debug.h>
 #include <dpkg/pkg-list.h>
 
@@ -220,6 +222,8 @@ bool ignore_depends(const struct pkginfo *pkg);
 bool force_breaks(struct deppossi *possi);
 bool force_depends(struct deppossi *possi);
 bool force_conflicts(struct deppossi *possi);
+bool
+conffile_is_disappearing(struct conffile *conff);
 void
 conffile_mark_obsolete(struct pkginfo *pkg, struct fsys_namenode *namenode);
 void pkg_conffiles_mark_old(struct pkginfo *pkg);

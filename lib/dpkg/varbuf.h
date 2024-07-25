@@ -24,6 +24,7 @@
 
 #include <stddef.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include <dpkg/macros.h>
@@ -83,6 +84,8 @@ void varbuf_reset(struct varbuf *v);
 void varbuf_destroy(struct varbuf *v);
 void varbuf_free(struct varbuf *v);
 
+const char *varbuf_str(struct varbuf *v);
+
 void varbuf_set_varbuf(struct varbuf *v, struct varbuf *other);
 void varbuf_set_buf(struct varbuf *v, const void *buf, size_t size);
 #define varbuf_set_str(v, s) varbuf_set_buf(v, s, strlen(s))
@@ -96,8 +99,11 @@ void varbuf_map_char(struct varbuf *v, int c_src, int c_dst);
 #define varbuf_add_strn(v, s, n) varbuf_add_buf(v, s, strnlen(s, n))
 void varbuf_add_dir(struct varbuf *v, const char *dirname);
 void varbuf_add_buf(struct varbuf *v, const void *s, size_t size);
-void varbuf_end_str(struct varbuf *v);
-const char *varbuf_get_str(struct varbuf *v);
+
+bool varbuf_has_prefix(struct varbuf *v, struct varbuf *prefix);
+bool varbuf_has_suffix(struct varbuf *v, struct varbuf *suffix);
+void varbuf_trim_varbuf_prefix(struct varbuf *v, struct varbuf *prefix);
+void varbuf_trim_char_prefix(struct varbuf *v, int prefix);
 
 int varbuf_printf(struct varbuf *v, const char *fmt, ...) DPKG_ATTR_PRINTF(2);
 int varbuf_vprintf(struct varbuf *v, const char *fmt, va_list va)
@@ -182,7 +188,7 @@ varbuf::operator()(const char *s)
 inline const char *
 varbuf::string()
 {
-	return varbuf_get_str(this);
+	return varbuf_str(this);
 }
 #endif
 

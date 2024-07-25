@@ -22,7 +22,7 @@
 #include <config.h>
 #include <compat.h>
 
-#if HAVE_SYS_SYSMACROS_H
+#ifdef HAVE_SYS_SYSMACROS_H
 #include <sys/sysmacros.h>
 #endif
 #include <sys/stat.h>
@@ -209,7 +209,6 @@ tar_header_get_prefix_name(struct tar_header *h)
 	varbuf_add_strn(&path, h->prefix, sizeof(h->prefix));
 	varbuf_add_char(&path, '/');
 	varbuf_add_strn(&path, h->name, sizeof(h->name));
-	varbuf_end_str(&path);
 
 	return path.buf;
 }

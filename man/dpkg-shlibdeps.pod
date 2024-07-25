@@ -225,6 +225,21 @@ B<dpkg-shlibdeps>
 will automatically remove the dependency from all fields except the
 one representing the most important dependencies.
 
+=item B<--package=>I<package>
+
+Define the package name.
+
+When specified,
+the package name will be used to change defaults based on the
+binary package metadata in F<debian/control>.
+
+If the package is B<Essential: yes>,
+then the default dependency field is B<Pre-Depends>, otherwise B<Depends>.
+The default package type is set from the B<Package-Type> field.
+The package is added to the set of packages excluded by B<-x>.
+
+Option supported since dpkg 1.22.7.
+
 =item B<-p>I<varname-prefix>
 
 Start substitution variables with
@@ -342,6 +357,12 @@ Show the version and exit.
 =head1 ENVIRONMENT
 
 =over
+
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture.
+This affects the objects and symbols files searched for and
+their default search pathnames.
 
 =item B<DPKG_COLORS>
 

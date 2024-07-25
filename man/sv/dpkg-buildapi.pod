@@ -58,6 +58,14 @@ Anger huvudkällkodsstyrfilen som information ska läsas från. Standardvärdet 
 
 Bygg-API-nivån att använda. Den här är tänkt att användas internt av verktyg som körs från F<debian/rules> för att undvika att tolka F<debian/Control> flera gånger, inte att sätta den globala bygg-API-nivån från F<debian/rules>, eftersom byggdrivare (så som L<dpkg-buildpackage(1)>) annars inte kan nå den.
 
+=item B<DPKG_COLORS>
+
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+
 =back
 
 =head1 FILER

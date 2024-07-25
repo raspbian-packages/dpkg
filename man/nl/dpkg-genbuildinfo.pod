@@ -124,6 +124,14 @@ De versie tonen en afsluiten.
 
 Deze variabele kan gebruikt worden via de optie B<buildinfo> voor het activeren of deactiveren van verschillende functies die invloed hebben op de informatie die opgenomen wordt in het bestand .buildinfo (sinds dpkg 1.18.19). Deze optie bevat een lijst van onderling door komma's gescheiden functies, die voorafgegaan worden door de bepaling ‘B<+>’ of ‘B<->’, welke aangeven of die functie al dan niet geactiveerd moet worden. De bijzondere functie “B<all>” kan gebruikt worden om alle overige functies te activeren of te deactiveren. De functie “B<path>” regelt of het veld B<Build-Path> onvoorwaardelijk mee opgenomen moet worden.
 
+=item B<DEB_BUILD_ARCH>
+
+Sets the build architecture.  This affects the value for the B<Build-Architecture> field, and the check for the cross-compilation mode.
+
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture.  This affects the filename used for the .buildinfo file, and the check for the cross-compilation mode.
+
 =item B<DPKG_COLORS>
 
 Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.

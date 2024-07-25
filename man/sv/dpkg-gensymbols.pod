@@ -188,6 +188,10 @@ Visar version och avslutar.
 
 =over 
 
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture if the B<--arch> option has not be specified.
+
 =item B<DPKG_GENSYMBOLS_CHECK_LEVEL>
 
 Överstyr kommandokontrollnivån, även om kommandoradsflaggan B<-c> gavs (observera att detta går mot den normala konventionen att kommandoardsflaggor har företräde över miljövariabler).

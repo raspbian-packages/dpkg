@@ -50,7 +50,7 @@ Paketlokal överstyrande beroendeinformation för delade bibliotek. Filerna befi
 
 B<dpkg-shlibs> kommer ihåg den (största) minimala version som behövs av varje bibliotek när den söker genom de symboler som används av alla binärfilerna. När proceduren är avslutad kan den visa det minsta beroende som behövs av alla bibliotek som används (så tillvida informationen i I<symbols>-filerna är korrekt).
 
-As a safe-guard measure, a symbols file can provide a B<Build-Depends-Package> or B<Build-Depends-Packages> meta-information field and B<dpkg-shlibdeps> will extract the minimal version required by the corresponding package in the B<Build-Depends> field and use this version if it's higher than the minimal version computed by scanning symbols.
+Som en säkerhetsåtgärd kan en symbols-fil innehålla metainformationsfältet B<Build-Depends-Package> eller B<Build-Depends-Packages>, varpå B<dpkg-shlibdeps> hämtar vilken minsta version som behövs för paketet ur B<Build-Depends>-fältet och använder denna version om den är högre än den minsta version som beräknats genom att söka genom symbolerna.
 
 =head2 Shlibs-filer
 
@@ -107,6 +107,16 @@ Lägg till beroenden som ska läggas till till control-filens beroendefält I<be
 Flaggan B<-d>I<beroendefält> gäller för samtliga binärer efter flaggan, fram till nästa B<-d>I<beroendefält>. Standardvärdet för I<beroendefält> är B<Depends>.
 
 Om samma katalogpost (eller en uppsättning alternativ) förekommer i mer än ett av de kända beroendefältnamnen B<Pre-Depends>, B<Depends>, B<Recommends>, B<Enhances> eller B<Suggests> så kommer B<dpkg-shlibdeps> att automatiskt ta bort beroendet från samtliga fält förutom det som anger de viktigaste beroendena.
+
+=item B<--package=>I<package>
+
+Define the package name.
+
+When specified, the package name will be used to change defaults based on the binary package metadata in F<debian/control>.
+
+If the package is B<Essential: yes>, then the default dependency field is B<Pre-Depends>, otherwise B<Depends>.  The default package type is set from the B<Package-Type> field.  The package is added to the set of packages excluded by B<-x>.
+
+Option supported since dpkg 1.22.7.
 
 =item B<-p>I<variabelnamnsprefix>
 
@@ -169,6 +179,10 @@ Visar version och avslutar.
 =head1 MILJÖVARIABLER
 
 =over 
+
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture.  This affects the objects and symbols files searched for and their default search pathnames.
 
 =item B<DPKG_COLORS>
 

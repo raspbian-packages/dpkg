@@ -89,8 +89,8 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
-	$(top_srcdir)/m4/dpkg-build.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
+	$(top_srcdir)/m4/dpkg-arch.m4 $(top_srcdir)/m4/dpkg-build.m4 \
 	$(top_srcdir)/m4/dpkg-compiler.m4 \
 	$(top_srcdir)/m4/dpkg-coverage.m4 \
 	$(top_srcdir)/m4/dpkg-funcs.m4 \
@@ -290,6 +290,7 @@ PACKAGE_RELEASE_DATE = @PACKAGE_RELEASE_DATE@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
+PACKAGE_VCS_ID = @PACKAGE_VCS_ID@
 PACKAGE_VCS_TYPE = @PACKAGE_VCS_TYPE@
 PACKAGE_VCS_URL = @PACKAGE_VCS_URL@
 PACKAGE_VCS_WEB = @PACKAGE_VCS_WEB@
@@ -371,6 +372,8 @@ install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
+localedir_c = @localedir_c@
+localedir_c_make = @localedir_c_make@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@

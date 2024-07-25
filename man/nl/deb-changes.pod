@@ -108,9 +108,11 @@ De eerste regel van de veldwaarde (het deel dat op dezelfde regel staat als de d
 
 Dit veld somt alle bestanden op die deel uitmaken van de upload. De lijst van bestanden uit dit veld moet overeenkomen met de bestandslijst in de andere gerelateerde B<Checksums>-velden.
 
-=item B<Checksums-Sha1:> (verplicht)
+B<Note>: The MD5 checksum is considered weak, and should never be assumed to be sufficient for secure verification, but this field cannot be omitted as it provides metadata not available anywhere else.
 
-=item B<Checksums-Sha256:> (verplicht)
+=item B<Checksums-Sha1:> (required, weak)
+
+=item B<Checksums-Sha256:> (required, strong)
 
 =item S< >I<controlesom> I<grootte> I<bestandsnaam>
 
@@ -119,6 +121,8 @@ Deze multiregel-velden bevatten een lijst van bestanden met een controlesom en e
 De eerste regel van de veldwaarde (het deel dat op dezelfde regel staat als de door een dubbele punt gevolgde veldnaam) is steeds leeg. De inhoud van het veld wordt in de vervolgregels verwoord, één regel per bestand. Elke regel bestaat uit elementen die onderling door een spatie gescheiden zijn en het bestand beschrijven: zijn controlesom, zijn bestandsgrootte en zijn naam.
 
 Deze velden sommen alle bestanden op die deel uitmaken van de upload. De lijst van bestanden uit deze velden moet overeenkomen met de bestandslijst in het veld B<Files> en in de andere gerelateerde B<Checksums>-velden.
+
+B<Note>: The SHA-1 checksum is considered weak, and should never be assumed to be sufficient for secure verification.
 
 =back
 

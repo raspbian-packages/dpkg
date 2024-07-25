@@ -693,6 +693,8 @@ Sinds dpkg 1.21.10 wordt ook rekening gehouden met de architectuur, wat het moge
 
 Instellen dat een uitbreiding (hook) I<commando> via "%DPKG_DEFAULT_SHELL% -c" moet uitgevoerd worden voor of na het uitvoeren van B<dpkg> bij de acties I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, I<purge> (sinds dpkg 1.15.4) en de acties I<add-architecture> en I<remove-architecture> (sinds dpkg 1.17.19) van B<dpkg>. Deze optie kan meermaals opgegeven worden. De volgorde waarin de opties opgegeven worden, wordt behouden, waarbij deze uit de configuratiebestanden voorrang hebben. De omgevingsvariabele B<DPKG_HOOK_ACTION> wordt ingesteld voor de uitbreidingen (hooks) bij de huidige actie van B<dpkg>.
 
+The invoke hooks are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+
 B<Opmerking>: frontends kunnen B<dpkg> meerdere keren per aanroep aanroepen, waardoor de uitbreidingen meer keren dan verwacht uitgevoerd kunnen worden.
 
 =item B<--path-exclude=>I<glob-patroon>
@@ -725,8 +727,8 @@ Stelt de indeling in van de uitvoer van het commando B<--verify> (sinds dpkg 1.1
 De enige momenteel ondersteunde indeling van de uitvoer is B<rpm>, die bestaat uit een regel voor elk pad dat een controle niet doorstaan heeft. Deze regels hebben de volgende indeling:
 
 Z<>
- B<missing  > [B<c>] I<padnaam> [B<(>I<foutmelding>B<)>]
- B<??5??????> [B<c>] I<padnaam>
+ B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
+ B<?M5??????> [B<c>] I<pathname>
 
 De eerste 9 tekens worden gebruikt om het resultaat van de controle te rapporteren, ofwel een letterlijke B<missing> wanneer het bestand niet aanwezig is of de metagegevens ervan niet kunnen worden opgehaald, ofwel een van de volgende speciale tekens die het resultaat voor elke controle aangeven:
 
@@ -808,6 +810,8 @@ Verzonden juist voor het begin van een verwerkingsfase. I<fase> is een van de vo
 =item B<--status-logger>=I<commando>
 
 Door een machine te lezen informatie over pakketstatus en voortgang versturen naar de standaardinvoer van het shell-commando I<commando> dat via "%DPKG_DEFAULT_SHELL% -c" moet uitgevoerd worden (sinds dpkg 1.16.0). Deze optie kan meermaals opgegeven worden. De indeling van de uitvoer is dezelfde als bij B<--status-fd>.
+
+The status loggers are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
 
 =item B<--log=>I<bestandsnaam>
 
@@ -907,6 +911,10 @@ Het programma dat B<dpkg> zal uitvoeren als het gebruik maakt van een paginering
 =item B<DPKG_COLORS>
 
 Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
 
 =item B<DPKG_DEBUG>
 

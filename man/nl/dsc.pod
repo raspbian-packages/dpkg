@@ -169,11 +169,11 @@ Indien het binaire pakket essentieel (essential) is, zal dit trefwoord de waarde
 
 =back
 
-=item B<Files:> (verplicht)
+=item B<Files:> (required, weak)
 
-=item B<Checksums-Sha1:> (verplicht)
+=item B<Checksums-Sha1:> (required, weak)
 
-=item B<Checksums-Sha256:> (verplicht)
+=item B<Checksums-Sha256:> (required, strong)
 
 =item S< >I<controlesom> I<grootte> I<bestandsnaam>
 
@@ -182,6 +182,8 @@ Deze multiregel-velden bevatten een lijst van bestanden met voor elk van hen een
 De eerste regel van de veldwaarde (het deel dat op dezelfde regel staat als de door een dubbele punt gevolgde veldnaam) is steeds leeg. De inhoud van het veld wordt in de vervolgregels verwoord, één regel per bestand. Elke regel bestaat uit de controlesom, een spatie, de bestandsgrootte, een spatie en de bestandsnaam.
 
 Deze velden sommen alle bestanden op die deel uitmaken van het broncodepakket. De lijst bestanden in deze velden moet overeenkomen met de lijst bestanden in de andere verwante velden.
+
+B<Note>: The MD5 and SHA-1 checksums are considered weak, and should never be assumed to be sufficient for secure verification.
 
 =back
 

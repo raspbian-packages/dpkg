@@ -60,6 +60,12 @@ Die URL des Original- (Upstream-)Projekts.
 
 Die I<URL> der Fehlerdatenbank für dieses Paket. Das derzeit verwendete Format ist I<BTS-Art>B<://>I<BTS-Adresse> wie in B<debbugs://bugs.debian.org>. Dieses Feld wird normalerweise nicht benötigt.
 
+=item B<Build-Driver:> I<Treibername>
+
+Dieses experiementelle Feld legt den Namen des Bautreibers fest, der zum Bau dieses Pakets verwendet werden soll. Falls nicht angegeben, ist die Vorgabe für I<Treibername> B<debian-rules>.
+
+Dieses Feld wird seit Dpkg 1.22.7 unterstützt.
+
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-keywords>
 
 Dieses Feld wird verwandt, um anzuzeigen, ob die Datei B<debian/rules> (fake)root-Priviliegien benötigt, um einige ihrer Ziele auszuführen, und falls ja, wann.
@@ -308,7 +314,7 @@ I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

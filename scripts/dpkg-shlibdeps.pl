@@ -42,6 +42,7 @@ use Dpkg::Shlibs::SymbolFile;
 use Dpkg::Substvars;
 use Dpkg::Arch qw(get_host_arch);
 use Dpkg::BuildAPI qw(get_build_api);
+use Dpkg::Package;
 use Dpkg::Deps;
 use Dpkg::Control::Info;
 use Dpkg::Control::Fields;
@@ -60,11 +61,12 @@ my $i = 0; my %depstrength = map { $_ => $i++ } @depfields;
 textdomain('dpkg-dev');
 
 my $admindir = $Dpkg::ADMINDIR;
+my $oppackage;
 my $shlibsoverride = "$Dpkg::CONFDIR/shlibs.override";
 my $shlibsdefault = "$Dpkg::CONFDIR/shlibs.default";
 my $shlibslocal = 'debian/shlibs.local';
-my $packagetype = 'deb';
-my $dependencyfield = 'Depends';
+my $packagetype;
+my $dependencyfield;
 my $varlistfile = 'debian/substvars';
 my $varlistfilenew;
 my $varnameprefix = 'shlibs';
@@ -79,7 +81,9 @@ my $host_arch = get_host_arch();
 
 my (@pkg_shlibs, @pkg_symbols, @pkg_root_dirs);
 
-my ($stdout, %exec);
+my @execs;
+my $stdout;
+
 foreach (@ARGV) {
     if (m/^-T(.*)$/) {
 	$varlistfile = $1;
@@ -113,18 +117,18 @@ foreach (@ARGV) {
 	    warning(g_("unrecognized dependency field '%s'"), $dependencyfield);
 	}
     } elsif (m/^-e(.*)$/) {
-	if (exists $exec{$1}) {
-	    # Affect the binary to the most important field
-	    if ($depstrength{$dependencyfield} > $depstrength{$exec{$1}}) {
-		$exec{$1} = $dependencyfield;
-	    }
-	} else {
-	    $exec{$1} = $dependencyfield;
-	}
+        push @execs, [ $1, $dependencyfield ];
     } elsif (m/^--ignore-missing-info$/) {
 	$ignore_missing_info = 1;
     } elsif (m/^--warnings=(\d+)$/) {
 	$warnings = $1;
+    } elsif (m/^--package=(.+)$/) {
+        $oppackage = $1;
+        my $err = pkg_name_is_illegal($oppackage);
+        error(g_("illegal package name '%s': %s"), $oppackage, $err) if $err;
+
+        # Exclude self.
+        push @exclude, $1;
     } elsif (m/^-t(.*)$/) {
 	$packagetype = $1;
     } elsif (m/^-v$/) {
@@ -133,16 +137,11 @@ foreach (@ARGV) {
 	push @exclude, $1;
     } elsif (m/^-/) {
 	usageerr(g_("unknown option '%s'"), $_);
-    } elsif (exists $exec{$_}) {
-        # Affect the binary to the most important field
-        if ($depstrength{$dependencyfield} > $depstrength{$exec{$_}}) {
-           $exec{$_} = $dependencyfield;
-        }
     } else {
-        $exec{$_} = $dependencyfield;
+        push @execs, [ $_, $dependencyfield ];
     }
 }
-usageerr(g_('need at least one executable')) unless scalar keys %exec;
+usageerr(g_('need at least one executable')) unless scalar @execs;
 
 report_options(debug_level => $debug);
 
@@ -161,6 +160,42 @@ if (-d 'debian') {
 my $control = Dpkg::Control::Info->new();
 # Initialize build API level.
 get_build_api($control);
+
+my $default_depfield;
+
+if (defined $oppackage) {
+    my $pkg = $control->get_pkg_by_name($oppackage);
+    if (not defined $pkg) {
+        error(g_('package %s not in control info'), $oppackage);
+    }
+
+    $packagetype //= $pkg->{'Package-Type'} ||
+                     $pkg->get_custom_field('Package-Type');
+
+    # For essential packages we default to Pre-Depends.
+    if (defined $pkg->{Essential} && $pkg->{Essential} eq 'yes') {
+        $default_depfield = 'Pre-Depends';
+    }
+}
+
+$packagetype //= 'deb';
+$default_depfield //= 'Depends';
+
+my %exec;
+foreach my $exec_item (@execs) {
+    my ($path, $depfield) = @{$exec_item};
+
+    $depfield //= $default_depfield;
+
+    if (exists $exec{$path}) {
+        # Affect the binary to the most important field
+        if ($depstrength{$depfield} > $depstrength{$exec{$path}}) {
+            $exec{$path} = $depfield;
+        }
+    } else {
+        $exec{$path} = $depfield;
+    }
+}
 
 foreach my $libdir (@priv_lib_dirs) {
     Dpkg::Shlibs::add_library_dir($libdir);
@@ -607,6 +642,7 @@ sub usage {
   -d<dependency-field>     next executable(s) set shlibs:<dependency-field>.")
     . "\n\n" . g_(
 "Options:
+  --package=<package>      generate substvars for <package> (default is unset).
   -l<library-dir>          add directory to private shared library search list.
   -p<varname-prefix>       set <varname-prefix>:* instead of shlibs:*.
   -O[<file>]               write variable settings to stdout (or <file>).

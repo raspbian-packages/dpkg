@@ -18,17 +18,21 @@ dpkg-buildpackage - Binär- oder Quellpakete aus Quellen bauen
 
 =head1 ÜBERSICHT
 
-B<dpkg-buildpackage> [I<Option> …]
+B<dpkg-buildpackage> [I<option>...] [B<-->] [I<filename>.dsc|I<directory>]
 
 =head1 BESCHREIBUNG
 
-B<dpkg-buildpackage> ist ein Programm, das den Prozess des Bauens eines Debian-Paketes automatisiert. Der Bauprozess besteht aus den folgenden Schritten:
+B<dpkg-buildpackage> is a program that automates the process of building a Debian package.
+
+The I<filename>.dsc and I<directory> arguments are supported since dpkg 1.22.7.  Their semantics are experimental.
+
+It consists of the following steps:
 
 =over 
 
 =item B<1.>
 
-Es wird der Hook B<preinit> ausgeführt, bevor irgendeine Quelldatei gelesen wird. Die Bauumgebung wird vorbereitet, indem verschiedene Umgebungsvariablen gesetzt werden (siehe B<UMGEBUNG>), der B<init>-Hook ausgeführt und B<dpkg-source --before-build> aufgerufen wird (es sei denn, B<-T> oder B<--target> wurde verwandt).
+It runs the B<preinit> hook before reading any source file.  If a B<.dsc> file has been specified it unpacks it anew and changes directory to it, if a I<directory> has been specified it changes directory to it, otherwise it expects the current directory to contain the source tree.  It prepares the build environment by setting various environment variables (see B<ENVIRONMENT>), runs the B<init> hook, and calls B<dpkg-source --before-build> (unless B<-T> or B<--target> has been used).
 
 =item B<2.>
 
@@ -40,7 +44,7 @@ Falls eines oder mehrere spezielle Ziele mit der Option B<-T> oder B<--target> a
 
 =item B<4.>
 
-Der Hook B<source> wird ausgeführt und B<dpkg-source -b> aufgerufen, um das Quellpaket zu erstellen (falls mit B<--build> oder äquivalenten Optionen ein B<source> (Quell-)Bau erbeten wurde).
+It runs the B<source> hook and calls B<dpkg-source -b> to generate the source package (if a B<source> build has been requested with B<--build> or equivalent options, and if no B<.dsc> has been specified).
 
 =item B<5.>
 
@@ -48,7 +52,7 @@ Es führt den Hook B<build> aus und ruft B<debian/rules> I<Bauziel> auf. Dann f�
 
 =item B<6.>
 
-Der Hook B<buildinfo> wird ausgeführt und B<dpkg-genbuildinfo> aufgerufen, um eine B<.buildinfo>-Datei zu erstellen. Viele Optionen von B<dpkg-buildpackage> werden an B<dpkg-genbuildinfo> weitergeleitet.
+It runs the B<buildinfo> hook and calls B<dpkg-genbuildinfo> to generate a B<.buildinfo> file.  Several B<dpkg-buildpackage> options are forwarded to B<dpkg-genbuildinfo>.  If a I<.dsc> has been specified, then it will be referenced in the generated B<.buildinfo> file, as we can ascertain the provenance of the source tree.
 
 =item B<7.>
 
@@ -89,6 +93,10 @@ Der Hook B<check> wird ausgeführt und ein Paketprüfprogramm für die Datei B<.
 Der Hook B<sign> wird ausgeführt und mittels eines OpenPGP-Backends signiert (so lange es sich nicht um einen „UNRELEASED“-Bau handelt oder B<--no-sign> angegeben wurde), um die B<.dsc>-Datei (falls vorhanden und B<-us> oder B<--unsigned-source> nicht angegeben wurde), die B<.buildinfo>-Datei (falls B<-ui>, B<--unsigned-buildinfo>, B<-uc> oder B<--unsigned-changes> nicht angegeben wurden) und die B<.changes>-Datei (falls B<-uc> oder B<--unsigned-changes> nicht angegeben wurde) zu signieren.
 
 =item B<12.>
+
+If a B<.dsc> file has been specified, it removes the extracted source directory.
+
+=item B<13.>
 
 Der Hook B<done> wird ausgeführt.
 
@@ -316,7 +324,7 @@ Erhält B<DPKG_BUILDPACKAGE_HOOK_SOURCE_OPTIONS> mit einer Leerzeichen-getrennte
 
 =item B<build>
 
-Erhält B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> mit den Namen des von B<debian/rules> aufgerufenen Bauziels, aber nur, wenn eines aufgerufen wurde.
+Erhält B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> mit den Namen des von B<debian/rules> aufgerufenen Bauziels. Vor Dpkg 1.22.7 wurde diese Variable nur gesetzt, falls das Ziel aufgerufen wurde.
 
 =item B<binary>
 
@@ -624,7 +632,7 @@ Zwischen Dpkg 1.14.17 and 1.16.1 exportierte B<dpkg-buildpackage> Kompilierschal
 
 =head2 Standard Bauziele
 
-B<dpkg-buildpackage> verwendet seit Dpkg 1.16.2 die Ziele B<build-arch> und B<build-indep>. Diese Ziele sind daher verpflichtend. Um aber Baufehler bei existierenden Paketen zu vermeiden und um den Übergang zu erleichtern, (und seit Dpkg 1.18.8 falls das Quellpaket nicht sowohl architekturabhängige wie -unabhängige Binärpakete baut) wird es auf das Ziel B<build> zurückfallen, falls B<make -f debian/rules -qn> I<Bauziel> den Rückgabewert 2 liefert.
+B<dpkg-buildpackage> verwendet die Ziele B<build-arch> und B<build-indep> seit Dpkg 1.16.2. Vor Dpkg 1.22.7 gab es Code, der versuchte, die fehlenden Ziele zu erkennen und auf das Ziel B<build> zurückzufallen. Diese Ziele sind daher verpflichtend.
 
 =head1 SICHERHEIT
 
@@ -641,7 +649,7 @@ I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

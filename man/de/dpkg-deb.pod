@@ -216,6 +216,10 @@ Die Option B<-z> erlaubt das Hinwegsetzen über diesen Wert.
 
 Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
 
+=item B<DPKG_NLS>
+
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.22.7). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
 =item B<TMPDIR>
 
 Falls gesetzt, wird B<dpkg-deb> es als das Verzeichnis verwenden, in dem temporäre Dateien und Verzeichnisse erstellt werden.
@@ -251,7 +255,7 @@ F<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb(5)>, L<deb-control(5)>, L<dpkg(1)
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

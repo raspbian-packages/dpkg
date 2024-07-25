@@ -99,7 +99,9 @@ parse_timestamp(const char *value)
 
 	errno = 0;
 	timestamp = strtoimax(value, &end, 10);
-	if (value == end || *end || errno != 0)
+	if (value == end || *end)
+		ohshit(_("unable to parse timestamp '%.255s'"), value);
+	else if (errno != 0)
 		ohshite(_("unable to parse timestamp '%.255s'"), value);
 
 	return timestamp;
@@ -162,7 +164,7 @@ mksplit(const char *file_src, const char *prefix, off_t maxpartsize,
 	version = versiondescribe(&pkg->available.version, vdew_nonambig);
 
 	timestamp_str = getenv("SOURCE_DATE_EPOCH");
-	if (timestamp_str)
+	if (str_is_set(timestamp_str))
 		timestamp = parse_timestamp(timestamp_str);
 	else
 		timestamp = time(NULL);

@@ -76,15 +76,17 @@ Tipicamente, isto é o número de versão do pacote original seja em que formato
 
 Este campo multi-linha contem o texto concatenado da entrada changelog para um envio de não-maintainer apenas binário (binNMU) se esse for o caso. Para tornar isto numa entrada multi-linha válida as linhas vazias são substituídas com um único ponto final (‘.’) e todas as linhas são indentadas por um caractere de espaço. O conteúdo exacto depende do formato do changelog.
 
-=item B<Checksums-Md5:> (necessário)
+=item B<Checksums-Md5:> (required, weak)
 
-=item B<Checksums-Sha1:> (necessário)
+=item B<Checksums-Sha1:> (required, weak)
 
-=item B<Checksums-Sha256:> (necessário)
+=item B<Checksums-Sha256:> (required, strong)
 
 =item S< >I<checksum> I<size> I<filename>
 
 Estes campos multi-linha contêm uma lista de ficheiros com um sumário de verificação e tamanho para cada um deles. Estes campos têm a mesma sintaxe e diferem apenas no algoritmo de checksum usado: MD5 para B<Checksums-Md5>, SHA-1 para B<Checksums-Sha1> e SHA-256 para B<Checksums-Sha256>.
+
+B<Note>: The MD5 and SHA-1 checksums are considered weak, and should never be assumed to be sufficient for secure verification.
 
 A primeira linha do campo valor (a parte na mesma linha que tem o campo nome seguido de dois pontos) é sempre vazia. O conteúdo do campo é expressado como linhas de continuação, uma linha por ficheiro. Cada linha consiste de entradas separadas por espaços que descrevem o ficheiro: o sumário de verificação (checksum), o tamanho do ficheiro, e o nome do ficheiro.
 

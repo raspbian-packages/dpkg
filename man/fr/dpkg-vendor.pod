@@ -22,7 +22,7 @@ B<dpkg-vendor> [I<option>...] I<commande>
 
 =head1 DESCRIPTION
 
-B<dpkg-vendor> est un outil qui permet de récupérer des informations sur les éditeurs S<(« vendors »)> de distributions référencés dans B<%PKGCONFDIR%/origins>. B<%PKGCONFDIR%/origins/default> contient l'information relative à l'éditeur actuellement utilisé.
+B<dpkg-vendor> est un outil qui permet de récupérer des informations sur les éditeurs (« vendors ») de distributions référencés dans B<%PKGCONFDIR%/origins>. B<%PKGCONFDIR%/origins/default> contient l'information relative à l'éditeur actuellement utilisé.
 
 This program was introduced in dpkg 1.15.1.
 
@@ -68,15 +68,15 @@ Suppose que l'éditeur actuel est I<éditeur> au lieu d'utiliser la variable B<D
 
 =item B<DEB_VENDOR>
 
-Ce réglage définit l'éditeur S<(« vendor »)> actuel. Si cette valeur est vide, le contenu du fichier B<%PKGCONFDIR%/origins/default> est utilisé.
+Ce réglage définit l'éditeur (« vendor ») actuel. Si cette valeur est vide, le contenu du fichier B<%PKGCONFDIR%/origins/default> est utilisé.
 
 =item B<DPKG_COLORS>
 
-Définit le mode de couleur (depuis S<dpkg 1.18.5).> Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+Définit le mode de couleur (depuis dpkg 1.18.5). Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
 
 =item B<DPKG_NLS>
 
-Si cette variable est définie, elle sera utilisée pour décider l'activation de la prise en charge des langues (NLS – Native Language Support), connu aussi comme la gestion de l'internationalisation (ou i18n) (depuis S<dpkg 1.19.0).> Les valeurs permises S<sont :> B<0> et B<1> (par défaut).
+Si cette variable est définie, elle sera utilisée pour décider l'activation de la prise en charge des langues (NLS – Native Language Support), connu aussi comme la gestion de l'internationalisation (ou i18n) (depuis dpkg 1.19.0). Les valeurs permises sont : B<0> et B<1> (par défaut).
 
 =back
 

@@ -655,7 +655,7 @@ Ignorera beroendekontroll för angivna paket (i verkligheten utförs kontrollen,
 
 Gör allting som efterfrågas, men skriv inte några ändringar. Detta används för att se vad som skulle ha hänt med åtgärden utan att faktiskt ändra något.
 
-Be sure to give B<--no-act> before the action-parameter, or you might end up with undesirable results (e.g. B<dpkg --purge foo --no-act> will first purge package “foo” and then try to purge package ”--no-act”, even though you probably expected it to actually do nothing).
+Se till att du anger B<--no-act> före åtgärdsflaggan, annars kan du få oönskade biverkningar (t.ex så kommer B<dpkg --purge foo --no-act> först att rensa ut paketet ”foo” för att sedan försöka rensa ut paketet ”--no-act”, trots att du troligen förväntade dig att ingenting skulle utföras).
 
 =item B<-R>, B<--recursive>
 
@@ -693,6 +693,8 @@ Sedan dpkg 1.21.10 tar även arkitekturen med i beräkningen, vilket gör det m�
 
 Sätter en anropskrok I<kommando> som körs via ”%DPKG_DEFAULT_SHELL% -c” före eller efter B<dpkg> körs för åtgärderna I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove> och I<purge> (sedan dpkg 1.15.4) samt I<add-architecture> och I<remove-architecture> (sedan dpkg 1.17.19). Flaggan kan anges flera gånger. Ordningen på flaggorna som anges behålls och de som anges i konfigurationsfilen har företräde. Miljövariabeln B<DPKG_HOOK_ACTION> sätts för hakar i den nuvarande B<dpkg>-åtgärden. 
 
+The invoke hooks are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+
 B<Observera>: Skal kan anropa B<dpkg> flera gånger per körning, vilket kan göra att hakarna körs fler gånger än förväntat.
 
 =item B<--path-exclude=>I<filnamnsmönster>
@@ -725,8 +727,8 @@ Väljer utdataformat för kommandot B<--verify> (sedan dpkg 1.17.2).
 Det enda utdataformatet som stöds är för närvarande B<rpm>, som består av en rad för varje sökväg där ett test misslyckas. Dessa rader har följande format:
 
 Z<>
- B<missing  > [B<c>] I<sökvägsnamn> [B<(>I<felmeddelande>B<)>]
- B<??5??????> [B<c>] I<sökvägsnamn>
+ B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
+ B<?M5??????> [B<c>] I<pathname>
 
 De första 9 tecknen används för att rapportera resultaten från testerna, antingen ett bokstavligt B<missing> (saknas) om filen inte finns eller dess metadata inte kan hämtas, eller ett av följande specialtecken som rapporterar resultatet från varje enskilt test:
 
@@ -808,6 +810,8 @@ Sänds precis innan ett hanteringsskede påbörjas. I<Skede> är något av B<upg
 =item B<--status-logger>=I<kommando>
 
 Sänd maskinläsbar paketstatus och förloppsinformation till skal-I<kommando>ts standard in, som körs via ”%DPKG_DEFAULT_SHELL% -c” (sedan dpkg 1.16.0). Flaggan kan anges flera gånger. Utdataformatet som används är detsamma som för B<--status-fd>.
+
+The status loggers are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
 
 =item B<--log=>I<filnamn>
 
@@ -907,6 +911,10 @@ Programmet B<dpkg> kommer att köra när en bläddrare körs, vilken kommer att 
 =item B<DPKG_COLORS>
 
 Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
 
 =item B<DPKG_DEBUG>
 

@@ -24,9 +24,9 @@ B<dpkg-fsys-usrunmess> [I<option>...]
 
 B<dpkg-fsys-usrunmess> est un outil pour corriger les systèmes de fichiers qui ont été installés à nouveau avec les installateurs récents qui ont des valeurs par défaut fâcheuses ou migrés vers la disposition cassée de /usr fusionné au moyen d'alias de répertoires, ce qui B<n'est pas> pris en charge par dpkg. Voir la FAQ de dpkg.
 
-S<B<Note> :> le comité technique de Debian a décidé que dans la publication suivant Bookworm, la disposition sans fusion de /usr ne serait plus prise en charge et par conséquent, certains des responsables de paquet pourraient ne plus corriger les problèmes ou retirer de façon intentionnelle la prise en charge la disposition sans fusion, aussi vous devrez vous décider et choisir votre poison.
+B<Note> : le comité technique de Debian a décidé que dans la publication suivant Bookworm, la disposition sans fusion de /usr ne serait plus prise en charge et par conséquent, certains des responsables de paquet pourraient ne plus corriger les problèmes ou retirer de façon intentionnelle la prise en charge la disposition sans fusion, aussi vous devrez vous décider et choisir votre poison.
 
-Le programme réalisera les actions globales S<suivantes :>
+Le programme réalisera les actions globales suivantes :
 
 =over 
 
@@ -104,11 +104,11 @@ Désinscrire le B<policy-rc.d> et restaurer l'état des alternatives.
 
 =back
 
-S<B<Note> :> Lors de l'exécution du programme à partir de certains interpréteurs tels que L<bash(1)> ou L<zsh(1)>, après exécution, vous devrez peut-être demander à l'interpréteur d'oublier tous les emplacements retenus d'exécutable avec par exemple la commande C<hash -r>.
+B<Note> : Lors de l'exécution du programme à partir de certains interpréteurs tels que L<bash(1)> ou L<zsh(1)>, après exécution, vous devrez peut-être demander à l'interpréteur d'oublier tous les emplacements retenus d'exécutable avec par exemple la commande C<hash -r>.
 
-S<B<Note> :> certains répertoires pourraient subsister après la migration au cas où ils contiennent des fichiers non suivis. Une liste est affichée une fois que le script s'est terminé pour une investigation plus approfondie.
+B<Note> : certains répertoires pourraient subsister après la migration au cas où ils contiennent des fichiers non suivis. Une liste est affichée une fois que le script s'est terminé pour une investigation plus approfondie.
 
-S<B<Attention> :> notez que cette opération peut potentiellement rendre le système inutilisable ou cassé en cas de plantage brutal, ou de redémarrage, d'état inattendu du système ou des bogues potentiel dans le script. Soyez prêt avec des médias de récupération et pensez à réaliser des sauvegarde au préalable.
+B<Attention> : notez que cette opération peut potentiellement rendre le système inutilisable ou cassé en cas de plantage brutal, ou de redémarrage, d'état inattendu du système ou des bogues potentiel dans le script. Soyez prêt avec des médias de récupération et pensez à réaliser des sauvegarde au préalable.
 
 This program was introduced in dpkg 1.20.6.
 

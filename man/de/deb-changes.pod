@@ -108,9 +108,11 @@ Die erste Zeile des Feldwertes (dem Teil auf der gleichen Zeile wie der von eine
 
 Dieses Feld führt alle Dateien, die den Upload bilden, auf. Die Liste der Dateien in diesem Feld muss auf die Liste der Dateien in den anderen zugehörigen B<Checksums>-Feldern passen.
 
-=item B<Checksums-Sha1:> (verpflichtend)
+B<Hinweis>: Die MD5-Prüfsumme wird als schwach betrachtet und sollte niemals für die sichere Überprüfung als ausreichend betrachtet werden. Dieses Feld kann allerdings nicht entfallen, da es ansonsten nicht verfügbare Metadaten bereitstellt.
 
-=item B<Checksums-Sha256:> (verpflichtend)
+=item B<Checksums-Sha1:> (verpflichtend, schwach)
+
+=item B<Checksums-Sha256:> (verpflichtend, stark)
 
 =item S< >I<Prüfsumme> I<Größe> I<Dateiname>
 
@@ -119,6 +121,8 @@ Diese mehrzeiligen Felder enthalten eine Liste von Dateien mit einer Prüfsumme 
 Die erste Zeile des Feldwertes (der Teil auf der gleichen Zeile wie der durch einen Doppelpunkt gefolgte Feldname) ist immer leer. Der Inhalt des Feldes wird durch Fortsetzungszeilen ausgedrückt, eine Zeile pro Datei. Jede Zeile besteht aus durch Leerzeichen getrennten Einträgen, die die Datei beschreiben: der Prüfsumme, der Dateigröße und dem Dateinamen.
 
 Diese Felder führen alle Dateien auf, aus denen der Upload besteht. Die Liste der Dateien in diesen Feldern muss zu der Liste in dem Feld B<Files> und den anderen zugehörigen B<Checksums>-Feldern passen.
+
+B<Hinweis>: Die SHA-1-Prüfsumme wird als schwach betrachtet und sollte niemals für die sichere Überprüfung als ausreichend betrachtet werden.
 
 =back
 
@@ -133,7 +137,7 @@ L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

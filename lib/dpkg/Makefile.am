@@ -76,6 +76,7 @@ libdpkg_la_SOURCES = \
 	db-fsys-digest.c \
 	db-fsys-divert.c \
 	db-fsys-files.c \
+	db-fsys-load.c \
 	db-fsys-override.c \
 	deb-version.c \
 	debug.c \
@@ -84,10 +85,11 @@ libdpkg_la_SOURCES = \
 	dump.c \
 	ehandle.c \
 	error.c \
+	execname.c \
 	fdio.c \
 	file.c \
 	fields.c \
-	fsys-dir.c\
+	fsys-dir.c \
 	fsys-iter.c \
 	fsys-hash.c \
 	glob.c \
@@ -154,6 +156,7 @@ pkginclude_HEADERS = \
 	dpkg-db.h \
 	ehandle.h \
 	error.h \
+	execname.h \
 	fdio.h \
 	file.h \
 	fsys.h \

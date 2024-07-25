@@ -58,6 +58,14 @@ Especifica o ficheiro de controle fonte principal de onde ler informação. A pr
 
 O nível API de compilação a usar. Isto destina-se a ser usado internamente pelas ferramentas executadas a partir de F<debian/rules> para se evitar ter de se analisar F<debian/control> várias vezes, e não para definir o nível API de compilação global de F<debian/rules>, caso contrário as drivers de compilação (como a L<dpkg-buildpackage(1)>) não poderiam aceder a ele.
 
+=item B<DPKG_COLORS>
+
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+
 =back
 
 =head1 FICHEIROS

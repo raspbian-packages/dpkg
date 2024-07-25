@@ -76,15 +76,17 @@ Vanligtvis är detta det ursprungliga paketets versionsnummer på den form progr
 
 Det här flerradiga fältet innehåller den sammanslagna texten från ändringsloggposter för en insändning av enbart binärer från någon annan än paketansvarige (”binary-only non-maintainer upload”, binNMU) om detta är tillfället. För att göra fältet till ett giltigt flerradsfält ersätts tomma rader med en ensam punkt (”.”) och alla rader får ett teckens indrag. Exakt innehåll beror på formatet på ändringsloggen.
 
-=item B<Checksums-Md5:> (krävs)
+=item B<Checksums-Md5:> (required, weak)
 
-=item B<Checksums-Sha1:> (krävs)
+=item B<Checksums-Sha1:> (required, weak)
 
-=item B<Checksums-Sha256:> (krävs)
+=item B<Checksums-Sha256:> (required, strong)
 
 =item S< >I<kontrollsumma> I<storlek> I<filnamn>
 
 De här flerradsfälteten innehåller en lista med filer med en kontrollsumma och storlek för var och en. Fälten har samma syntax och skiljer sig bara vad gäller vilken kontrollsummealgoritm som används: MD5 för B<Checksums-Md5>, SHA-1 för B<Checksums-Sha1> och SHA-256 för B<Checksums-Sha256>.
+
+B<Note>: The MD5 and SHA-1 checksums are considered weak, and should never be assumed to be sufficient for secure verification.
 
 Första raden i fältvärdet (delen av på samma rad som fältnamnet följt av kolon) är alltid tom. Innehållet i fältet anges som fortsättningsrader, en rad per fil. Varje rad består av blankstegsavdelade fält som beskriver filen: kontrollsumman, filstorleken och filnamnet.
 

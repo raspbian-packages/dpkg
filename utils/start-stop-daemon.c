@@ -103,9 +103,7 @@
 #include <signal.h>
 #include <termios.h>
 #include <unistd.h>
-#ifdef HAVE_STDDEF_H
 #include <stddef.h>
-#endif
 #include <stdbool.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -548,7 +546,7 @@ wait_for_child(pid_t pid)
 
 	do {
 		child = waitpid(pid, &status, 0);
-	} while (child == -1 && errno == EINTR);
+	} while (child < 0 && errno == EINTR);
 
 	if (child != pid)
 		fatal("error waiting for child");
@@ -800,7 +798,7 @@ daemonize(void)
 	 * performing actions, such as creating a pidfile. */
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGCHLD);
-	if (sigprocmask(SIG_BLOCK, &mask, &oldmask) == -1)
+	if (sigprocmask(SIG_BLOCK, &mask, &oldmask) < 0)
 		fatale("cannot block SIGCHLD");
 
 	if (notify_await)
@@ -851,7 +849,7 @@ daemonize(void)
 		_exit(0);
 	}
 
-	if (sigprocmask(SIG_SETMASK, &oldmask, NULL) == -1)
+	if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0)
 		fatale("cannot restore signal mask");
 
 	debug("Detaching complete...\n");
@@ -1142,7 +1140,7 @@ set_proc_schedule(struct res_schedule *sched)
 
 	param.sched_priority = sched->priority;
 
-	if (sched_setscheduler(getpid(), sched->policy, &param) == -1)
+	if (sched_setscheduler(getpid(), sched->policy, &param) < 0)
 		fatale("unable to set process scheduler");
 #endif
 }
@@ -1162,7 +1160,7 @@ set_io_schedule(struct res_schedule *sched)
 	int io_sched_mask;
 
 	io_sched_mask = IOPRIO_PRIO_VALUE(sched->policy, sched->priority);
-	if (ioprio_set(IOPRIO_WHO_PROCESS, getpid(), io_sched_mask) == -1)
+	if (ioprio_set(IOPRIO_WHO_PROCESS, getpid(), io_sched_mask) < 0)
 		warning("unable to alter IO priority to mask %i (%s)\n",
 		        io_sched_mask, strerror(errno));
 #endif
@@ -1624,7 +1622,7 @@ proc_status_field(pid_t pid, const char *field)
 
 	return value;
 }
-#elif (defined(OS_Solaris) || defined(OS_AIX)) && HAVE_STRUCT_PSINFO
+#elif (defined(OS_Solaris) || defined(OS_AIX)) && defined(HAVE_STRUCT_PSINFO)
 static bool
 proc_get_psinfo(pid_t pid, struct psinfo *psinfo)
 {
@@ -1736,7 +1734,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 
 	sprintf(lname, "/proc/%d/exe", pid);
 	nread = readlink(lname, lcontents, sizeof(lcontents) - 1);
-	if (nread == -1)
+	if (nread < 0)
 		return false;
 
 	filename = lcontents;
@@ -1755,7 +1753,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 
 	return (sb.st_dev == esb->st_dev && sb.st_ino == esb->st_ino);
 }
-#elif (defined(OS_Solaris) || defined(OS_AIX)) && HAVE_STRUCT_PSINFO
+#elif (defined(OS_Solaris) || defined(OS_AIX)) && defined(HAVE_STRUCT_PSINFO)
 static bool
 pid_is_exec(pid_t pid, const struct stat *esb)
 {
@@ -1877,7 +1875,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 	/* Find and compare string. */
 	start_argv_0_p = *pid_argv_p;
 
-	/* Find end of argv[0] then copy and cut of str there. */
+	/* Find end of argv[0] then copy and cut off str there. */
 	end_argv_0_p = strchr(*pid_argv_p, ' ');
 	if (end_argv_0_p == NULL)
 		/* There seems to be no space, so we have the command
@@ -1885,7 +1883,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 		start_argv_0_p = *pid_argv_p;
 	else {
 		/* Tests indicate that this never happens, since
-		 * kvm_getargv itself cuts of tailing stuff. This is
+		 * kvm_getargv itself cuts off tailing stuff. This is
 		 * not what the manual page says, however. */
 		strncpy(buf, *pid_argv_p, (end_argv_0_p - start_argv_0_p));
 		buf[(end_argv_0_p - start_argv_0_p) + 1] = '\0';
@@ -1948,7 +1946,7 @@ pid_is_child(pid_t pid, pid_t ppid)
 
 	return (pid_t)pbi.pbi_ppid == ppid;
 }
-#elif (defined(OS_Solaris) || defined(OS_AIX)) && HAVE_STRUCT_PSINFO
+#elif (defined(OS_Solaris) || defined(OS_AIX)) && defined(HAVE_STRUCT_PSINFO)
 static bool
 pid_is_child(pid_t pid, pid_t ppid)
 {
@@ -2057,7 +2055,7 @@ pid_is_user(pid_t pid, uid_t uid)
 
 	return pbi.pbi_ruid == uid;
 }
-#elif (defined(OS_Solaris) || defined(OS_AIX)) && HAVE_STRUCT_PSINFO
+#elif (defined(OS_Solaris) || defined(OS_AIX)) && defined(HAVE_STRUCT_PSINFO)
 static bool
 pid_is_user(pid_t pid, uid_t uid)
 {
@@ -2182,7 +2180,7 @@ pid_is_cmd(pid_t pid, const char *name)
 
 	return false;
 }
-#elif (defined(OS_Solaris) || defined(OS_AIX)) && HAVE_STRUCT_PSINFO
+#elif (defined(OS_Solaris) || defined(OS_AIX)) && defined(HAVE_STRUCT_PSINFO)
 static bool
 pid_is_cmd(pid_t pid, const char *name)
 {

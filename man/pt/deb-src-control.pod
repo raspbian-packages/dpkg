@@ -60,6 +60,12 @@ O URL da página inicial do projecto do autor original
 
 O I<url> do sistema de acompanhamento de bugs deste pacote. O formato usado actualmente é I<bts-type>B<://>I<bts-address>, como B<debbugs://bugs.debian.org>. Este campo geralmente não é necessário.
 
+=item B<Build-Driver:> I<driver-name>
+
+This experimental field specifies the name of the build driver to use to build this package.  When omitted the I<driver-name> defaults to B<debian-rules>.
+
+This field is supported since dpkg 1.22.7.
+
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-keywords>
 
 Este campo é usado para indicar se o campo B<debian/rules> requer privilégios de (fake)root para correr alguns dos seus alvos, e se sim quando.

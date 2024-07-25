@@ -109,8 +109,8 @@ bin_PROGRAMS = $(am__EXEEXT_1)
 @BUILD_START_STOP_DAEMON_TRUE@am__append_5 = 
 subdir = utils
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
-	$(top_srcdir)/m4/dpkg-build.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
+	$(top_srcdir)/m4/dpkg-arch.m4 $(top_srcdir)/m4/dpkg-build.m4 \
 	$(top_srcdir)/m4/dpkg-compiler.m4 \
 	$(top_srcdir)/m4/dpkg-coverage.m4 \
 	$(top_srcdir)/m4/dpkg-funcs.m4 \
@@ -351,6 +351,7 @@ PACKAGE_RELEASE_DATE = @PACKAGE_RELEASE_DATE@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
+PACKAGE_VCS_ID = @PACKAGE_VCS_ID@
 PACKAGE_VCS_TYPE = @PACKAGE_VCS_TYPE@
 PACKAGE_VCS_URL = @PACKAGE_VCS_URL@
 PACKAGE_VCS_WEB = @PACKAGE_VCS_WEB@
@@ -432,6 +433,8 @@ install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
+localedir_c = @localedir_c@
+localedir_c_make = @localedir_c_make@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
@@ -488,10 +491,11 @@ CLEANFILES = org.dpkg.pkexec.update-alternatives.policy # EOL
 @BUILD_UPDATE_ALTERNATIVES_TRUE@	$(LIBINTL) \
 @BUILD_UPDATE_ALTERNATIVES_TRUE@	# EOL
 
-do_polkit_subst = $(SED) \
-	-e 's,[@]bindir[@],$(bindir),g' \
-	# EOL
+subst_polkit_rules = "\
+	s{[@]bindir[@]}{$(bindir)}g; \
+	"
 
+subst_polkit_filter = $(PERL) -p -e $(subst_polkit_rules)
 @BUILD_START_STOP_DAEMON_TRUE@start_stop_daemon_SOURCES = \
 @BUILD_START_STOP_DAEMON_TRUE@	start-stop-daemon.c \
 @BUILD_START_STOP_DAEMON_TRUE@	# EOL
@@ -984,7 +988,7 @@ org.dpkg.pkexec.update-alternatives.policy: update-alternatives.polkit.in Makefi
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(AM_V_GEN) GETTEXTDATADIR="$(top_srcdir)/po" \
 	  $(MSGFMT) --xml --template $< -d $(top_srcdir)/po -o - \
-	  | $(do_polkit_subst) >$@
+	  | $(subst_polkit_filter) >$@
 
 install-data-local:
 @BUILD_UPDATE_ALTERNATIVES_TRUE@	$(MKDIR_P) $(DESTDIR)$(sysconfdir)/alternatives
@@ -1003,6 +1007,10 @@ tap-clean:
 tap-check: $(test_data) $(test_programs) $(test_scripts)
 	[ -z "$(test_tmpdir)" ] || $(MKDIR_P) $(test_tmpdir)
 	  $(TEST_ENV_VARS) \
+	  TEST_PARALLEL=$(TEST_PARALLEL) \
+	  TEST_VERBOSE=$(TEST_VERBOSE) \
+	  abs_srcdir=$(abs_srcdir) \
+	  abs_builddir=$(abs_builddir) \
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \

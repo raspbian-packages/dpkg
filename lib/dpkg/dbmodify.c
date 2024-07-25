@@ -70,7 +70,8 @@ static int ulist_select(const struct dirent *de) {
   if (l > IMPORTANTMAXLEN)
     ohshit(_("updates directory contains file '%.250s' whose name is too long "
            "(length=%d, max=%d)"), de->d_name, l, IMPORTANTMAXLEN);
-  if (updateslength == -1) updateslength= l;
+  if (updateslength < 0)
+    updateslength = l;
   else if (l != updateslength)
     ohshit(_("updates directory contains files with different length names "
            "(both %d and %d)"), l, updateslength);
@@ -85,7 +86,7 @@ static void cleanupdates(void) {
 
   updateslength= -1;
   cdn = scandir(updatesdir, &cdlist, &ulist_select, alphasort);
-  if (cdn == -1) {
+  if (cdn < 0) {
     if (errno == ENOENT) {
       if (cstatus >= msdbrw_write &&
           dir_make_path(updatesdir, 0755) < 0)
@@ -102,7 +103,6 @@ static void cleanupdates(void) {
     for (i=0; i<cdn; i++) {
       varbuf_rollback(&updatefn_state);
       varbuf_add_str(&updatefn, cdlist[i]->d_name);
-      varbuf_end_str(&updatefn);
       parsedb(updatefn.buf, pdb_parse_update, NULL);
     }
 
@@ -112,7 +112,6 @@ static void cleanupdates(void) {
       for (i=0; i<cdn; i++) {
         varbuf_rollback(&updatefn_state);
         varbuf_add_str(&updatefn, cdlist[i]->d_name);
-        varbuf_end_str(&updatefn);
         if (unlink(updatefn.buf))
           ohshite(_("failed to remove incorporated update file %.255s"),
                   updatefn.buf);
@@ -193,7 +192,6 @@ modstatdb_init(void)
 
   varbuf_init(&updatefn, strlen(updatesdir) + 1 + IMPORTANTMAXLEN);
   varbuf_add_dir(&updatefn, updatesdir);
-  varbuf_end_str(&updatefn);
   varbuf_snapshot(&updatefn, &updatefn_state);
 
   db_initialized = true;
@@ -225,9 +223,9 @@ modstatdb_is_locked(void)
   int lockfd;
   bool locked;
 
-  if (dblockfd == -1) {
+  if (dblockfd < 0) {
     lockfd = open(lockfile, O_RDONLY);
-    if (lockfd == -1) {
+    if (lockfd < 0) {
       if (errno == ENOENT)
         return false;
       ohshite(_("unable to check lock file for dpkg database directory %s"),
@@ -241,7 +239,7 @@ modstatdb_is_locked(void)
 
   /* We only close the file if there was no lock open, otherwise we would
    * release the existing lock on close. */
-  if (dblockfd == -1)
+  if (dblockfd < 0)
     close(lockfd);
 
   return locked;
@@ -255,7 +253,7 @@ modstatdb_can_lock(void)
 
   if (getenv("DPKG_FRONTEND_LOCKED") == NULL) {
     frontendlockfd = open(frontendlockfile, O_RDWR | O_CREAT | O_TRUNC, 0660);
-    if (frontendlockfd == -1) {
+    if (frontendlockfd < 0) {
       if (errno == EACCES || errno == EPERM)
         return false;
       else
@@ -267,7 +265,7 @@ modstatdb_can_lock(void)
   }
 
   dblockfd = open(lockfile, O_RDWR | O_CREAT | O_TRUNC, 0660);
-  if (dblockfd == -1) {
+  if (dblockfd < 0) {
     if (errno == EACCES || errno == EPERM)
       return false;
     else
@@ -285,7 +283,7 @@ modstatdb_lock(void)
     ohshit(_("you do not have permission to lock the dpkg database directory %s"),
            dpkg_db_get_dir());
 
-  if (frontendlockfd != -1)
+  if (frontendlockfd >= 0)
     file_lock(&frontendlockfd, FILE_LOCK_NOWAIT, frontendlockfile,
               _("dpkg frontend lock"));
   file_lock(&dblockfd, FILE_LOCK_NOWAIT, lockfile,
@@ -297,7 +295,7 @@ modstatdb_unlock(void)
 {
   /* Unlock. */
   pop_cleanup(ehflag_normaltidy);
-  if (frontendlockfd != -1)
+  if (frontendlockfd >= 0)
     pop_cleanup(ehflag_normaltidy);
 
   dblockfd = -1;

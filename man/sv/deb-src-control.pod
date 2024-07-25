@@ -60,6 +60,12 @@ URL till uppströmsprojektets hemsida.
 
 I<Url>:en till felrapporteringssystemet för detta paket. Det nuvarande formatet är I<systemtyp>://I<address>, till exempel B<debbugs://bugs.debian.org>. Det här fältet är normalt sett inte nödvändigt.
 
+=item B<Build-Driver:> I<driver-name>
+
+This experimental field specifies the name of the build driver to use to build this package.  When omitted the I<driver-name> defaults to B<debian-rules>.
+
+This field is supported since dpkg 1.22.7.
+
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-nyckelord>
 
 Det här fältet används för att ange om filen B<debian/rules> kräver (fake)root-privilegier för att köra några av sina mål, och i så fall när.

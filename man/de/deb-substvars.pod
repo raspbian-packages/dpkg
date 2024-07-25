@@ -30,7 +30,7 @@ Eine Variablenersetzung hat die Form B<${>I<Variablenname>B<}>. Variablennamen b
 
 =head2 Dateisyntax
 
-Ersetzungsvariablen können in einer Datei festgelegt werden. Diese Dateien bestehen aus Zeilen der Form I<Name>B<=>I<Wert> oder I<Name>B<?=>I<Wert>. Der Operator B<=> weist eine normale Ersetzungsvariable zu, während der Operator B<?=> (seit Dpkg 1.21.8) eine optionale Ersetzungsvariable zuweist, die keine Warnungen ausgibt, selbst wenn sie nicht verwandt wird. Leerraumzeichen am Zeilenende, leere Zeilen und Zeilen, die mit dem B<#>-Symbol starten (Kommentare) werden ignoriert.
+Substitution variables can be specified in a file.  These files consist of lines of the form I<name>B<=>I<value>, I<name>B<?=>I<value>, or I<name>B<!=>I<value>.  The B<=> operator assigns a normal substitution variable, the B<?=> operator (since dpkg 1.21.8) assigns an optional substitution variable which will emit no warnings even if unused, and the B<!=> operator (since dpkg 1.22.7) assigns a required substitution variable which will error out if unused.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
 
 =head2 Ersetzungen
 
@@ -156,7 +156,7 @@ L<dpkg(1)>, L<dpkg-vendor(1)>, L<dpkg-genchanges(1)>, L<dpkg-gencontrol(1)>, L<d
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

@@ -108,9 +108,11 @@ Första raden i fältvärdet (delen av på samma rad som fältnamnet följt av k
 
 Det här fälten visar alla filer insändningen består av. Listan över filer i fältet måste motsvara listan över filer i de andra relaterade B<Checksums>-fälten.
 
-=item B<Checksums-Sha1:> (krävs)
+B<Note>: The MD5 checksum is considered weak, and should never be assumed to be sufficient for secure verification, but this field cannot be omitted as it provides metadata not available anywhere else.
 
-=item B<Checksums-Sha256:> (krävs)
+=item B<Checksums-Sha1:> (required, weak)
+
+=item B<Checksums-Sha256:> (required, strong)
 
 =item S< >I<kontrollsumma> I<storlek> I<filnamn>
 
@@ -119,6 +121,8 @@ De här flerradsfälteten innehåller en lista med filer med en kontrollsumma oc
 Första raden i fältvärdet (delen av på samma rad som fältnamnet följt av kolon) är alltid tom. Innehållet i fältet anges som fortsättningsrader, en rad per fil. Varje rad består av blankstegsavdelade fält som beskriver filen: kontrollsumman, filstorleken och filnamnet.
 
 De här fälten visar alla filer insändningen består av. Listan över filer i fälten måste motsvara listan över filer i fältet B<Files> och de andra relaterade B<Checksums>-fälten.
+
+B<Note>: The SHA-1 checksum is considered weak, and should never be assumed to be sufficient for secure verification.
 
 =back
 

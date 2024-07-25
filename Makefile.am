@@ -47,6 +47,7 @@ dist_doc_DATA = \
 	# EOL
 
 dist_docspec_DATA = \
+	doc/spec/build-driver.txt \
 	doc/spec/frontend-api.txt \
 	doc/spec/protected-field.txt \
 	doc/spec/rootless-builds.txt \
@@ -54,13 +55,12 @@ dist_docspec_DATA = \
 	# EOL
 
 EXTRA_DIST = \
-	.gitlab-ci.yml \
-	.mailmap \
 	ChangeLog.old \
 	README.l10n \
 	autogen \
 	build-aux/gen-changelog \
 	build-aux/gen-release \
+	build-aux/get-vcs-id \
 	build-aux/get-version \
 	build-aux/lcov-inject \
 	build-aux/run-script \
@@ -94,6 +94,7 @@ EXTRA_DIST = \
 	debian/dselect.manpages \
 	debian/dselect.postrm \
 	debian/libdpkg-dev.install \
+	debian/libdpkg-dev.manpages \
 	debian/libdpkg-perl.install \
 	debian/source/format \
 	debian/source/lintian-overrides \
@@ -238,14 +239,21 @@ include $(top_srcdir)/build-aux/cpan.am
 # that we're not forgetting some files, and we are not storing any symlink
 # in the repository (except for the origins/default one) as those degrade
 # to regular files due to automake telling tar to dereference them.
+#
+# XXX: As long as we have the Makefile based functional test suite, we need
+# to remove .gitignore files from it, because we are including the entire
+# hierarchy in EXTRA_DIST.
 dist-hook:
 	echo $(VERSION) >$(distdir)/.dist-version
+	echo $(PACKAGE_VCS_URL) >$(distdir)/.dist-vcs-url
+	echo $(PACKAGE_VCS_ID) >$(distdir)/.dist-vcs-id
+	find "$(distdir)/tests" -type f -name '.git*' | xargs rm -f
 	if [ -e .git ]; then \
 	  for file in `git ls-tree -r HEAD | grep ^12 | grep -v t/origins/default`; do \
 	    echo "$$file is a symlink packed as a file on the dist tar" >&2 ; \
 	    exit 1 ; \
 	  done ; \
-	  for file in `git ls-files | grep -vE '\.git(ignore|-blame)'`; do \
+	  for file in `git ls-files | grep -vE '\.(git|mailmap)'`; do \
 	    if [ ! -e "$(distdir)/$$file" ]; then \
 	      echo "$$file is missing in $(distdir)" >&2 ; \
 	      exit 1 ; \

@@ -8,6 +8,7 @@ AC_INIT([dpkg], m4_esyscmd([build-aux/get-version]),
         [https://wiki.debian.org/Teams/Dpkg])
 DPKG_DIST_IS_RELEASE
 AC_SUBST([PACKAGE_COPYRIGHT_HOLDER], ['Dpkg Developers'])
+AC_SUBST([PACKAGE_VCS_ID], m4_esyscmd([build-aux/get-vcs-id]))
 AC_SUBST([PACKAGE_VCS_TYPE], [git])
 AC_SUBST([PACKAGE_VCS_URL], [https://git.dpkg.org/git/dpkg/dpkg.git])
 AC_SUBST([PACKAGE_VCS_WEB], [https://git.dpkg.org/cgit/dpkg/dpkg.git])
@@ -127,7 +128,6 @@ AS_IF([test "x$build_start_stop_daemon" = "xyes"], [
 
 # Checks for header files.
 AC_CHECK_HEADERS([\
-  stddef.h \
   error.h \
   err.h \
   locale.h \
@@ -207,11 +207,10 @@ DPKG_CHECK_COMPAT_FUNCS([\
   alphasort \
   unsetenv \
 ])
-AC_CHECK_FUNCS([memcpy lchown],
-  [], [AC_MSG_ERROR([missing required function])])
 AC_CHECK_FUNCS([\
-  strtoimax \
-  isascii \
+  lchown \
+], [], [AC_MSG_ERROR([missing required function])])
+AC_CHECK_FUNCS([\
   setsid \
   getdtablesize \
   getprocs64 \
@@ -273,6 +272,10 @@ AC_OUTPUT
 
 # Print the current configuration
 cat <<CONFIG
+
+Release:
+  Version . . . . . : $PACKAGE_VERSION
+  VCS id  . . . . . : $PACKAGE_VCS_ID
 
 Configuration:
   Arch attributes:

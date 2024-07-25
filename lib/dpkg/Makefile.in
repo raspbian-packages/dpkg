@@ -118,8 +118,8 @@ check_PROGRAMS = $(am__EXEEXT_1) t/b-fsys-hash$(EXEEXT) \
 	t/c-treewalk$(EXEEXT) t/c-trigdeferred$(EXEEXT)
 subdir = lib/dpkg
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
-	$(top_srcdir)/m4/dpkg-build.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
+	$(top_srcdir)/m4/dpkg-arch.m4 $(top_srcdir)/m4/dpkg-build.m4 \
 	$(top_srcdir)/m4/dpkg-compiler.m4 \
 	$(top_srcdir)/m4/dpkg-coverage.m4 \
 	$(top_srcdir)/m4/dpkg-funcs.m4 \
@@ -196,16 +196,16 @@ am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	c-ctype.lo cleanup.lo color.lo command.lo compress.lo dbdir.lo \
 	dbmodify.lo db-ctrl-access.lo db-ctrl-format.lo \
 	db-ctrl-upgrade.lo db-fsys-digest.lo db-fsys-divert.lo \
-	db-fsys-files.lo db-fsys-override.lo deb-version.lo debug.lo \
-	depcon.lo dir.lo dump.lo ehandle.lo error.lo fdio.lo file.lo \
-	fields.lo fsys-dir.lo fsys-iter.lo fsys-hash.lo glob.lo \
-	i18n.lo log.lo meminfo.lo mustlib.lo namevalue.lo nfmalloc.lo \
-	options.lo options-dirs.lo options-parsers.lo pager.lo \
-	parse.lo parsehelp.lo path.lo path-remove.lo pkg.lo \
-	pkg-array.lo pkg-files.lo pkg-format.lo pkg-hash.lo \
-	pkg-list.lo pkg-namevalue.lo pkg-queue.lo pkg-show.lo \
-	pkg-spec.lo progname.lo program.lo progress.lo report.lo \
-	string.lo strhash.lo strwide.lo subproc.lo tarfn.lo \
+	db-fsys-files.lo db-fsys-load.lo db-fsys-override.lo \
+	deb-version.lo debug.lo depcon.lo dir.lo dump.lo ehandle.lo \
+	error.lo execname.lo fdio.lo file.lo fields.lo fsys-dir.lo \
+	fsys-iter.lo fsys-hash.lo glob.lo i18n.lo log.lo meminfo.lo \
+	mustlib.lo namevalue.lo nfmalloc.lo options.lo options-dirs.lo \
+	options-parsers.lo pager.lo parse.lo parsehelp.lo path.lo \
+	path-remove.lo pkg.lo pkg-array.lo pkg-files.lo pkg-format.lo \
+	pkg-hash.lo pkg-list.lo pkg-namevalue.lo pkg-queue.lo \
+	pkg-show.lo pkg-spec.lo progname.lo program.lo progress.lo \
+	report.lo string.lo strhash.lo strwide.lo subproc.lo tarfn.lo \
 	treewalk.lo trigname.lo trignote.lo triglib.lo trigdeferred.lo \
 	utils.lo varbuf.lo version.lo
 libdpkg_la_OBJECTS = $(am_libdpkg_la_OBJECTS)
@@ -428,12 +428,13 @@ am__depfiles_remade = ./$(DEPDIR)/ar.Plo ./$(DEPDIR)/arch.Plo \
 	./$(DEPDIR)/compress.Plo ./$(DEPDIR)/db-ctrl-access.Plo \
 	./$(DEPDIR)/db-ctrl-format.Plo ./$(DEPDIR)/db-ctrl-upgrade.Plo \
 	./$(DEPDIR)/db-fsys-digest.Plo ./$(DEPDIR)/db-fsys-divert.Plo \
-	./$(DEPDIR)/db-fsys-files.Plo ./$(DEPDIR)/db-fsys-override.Plo \
-	./$(DEPDIR)/dbdir.Plo ./$(DEPDIR)/dbmodify.Plo \
-	./$(DEPDIR)/deb-version.Plo ./$(DEPDIR)/debug.Plo \
-	./$(DEPDIR)/depcon.Plo ./$(DEPDIR)/dir.Plo \
-	./$(DEPDIR)/dump.Plo ./$(DEPDIR)/ehandle.Plo \
-	./$(DEPDIR)/error.Plo ./$(DEPDIR)/fdio.Plo \
+	./$(DEPDIR)/db-fsys-files.Plo ./$(DEPDIR)/db-fsys-load.Plo \
+	./$(DEPDIR)/db-fsys-override.Plo ./$(DEPDIR)/dbdir.Plo \
+	./$(DEPDIR)/dbmodify.Plo ./$(DEPDIR)/deb-version.Plo \
+	./$(DEPDIR)/debug.Plo ./$(DEPDIR)/depcon.Plo \
+	./$(DEPDIR)/dir.Plo ./$(DEPDIR)/dump.Plo \
+	./$(DEPDIR)/ehandle.Plo ./$(DEPDIR)/error.Plo \
+	./$(DEPDIR)/execname.Plo ./$(DEPDIR)/fdio.Plo \
 	./$(DEPDIR)/fields.Plo ./$(DEPDIR)/file.Plo \
 	./$(DEPDIR)/fsys-dir.Plo ./$(DEPDIR)/fsys-hash.Plo \
 	./$(DEPDIR)/fsys-iter.Plo ./$(DEPDIR)/glob.Plo \
@@ -658,6 +659,7 @@ PACKAGE_RELEASE_DATE = @PACKAGE_RELEASE_DATE@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
+PACKAGE_VCS_ID = @PACKAGE_VCS_ID@
 PACKAGE_VCS_TYPE = @PACKAGE_VCS_TYPE@
 PACKAGE_VCS_URL = @PACKAGE_VCS_URL@
 PACKAGE_VCS_WEB = @PACKAGE_VCS_WEB@
@@ -739,6 +741,8 @@ install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
+localedir_c = @localedir_c@
+localedir_c_make = @localedir_c_make@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
@@ -817,6 +821,7 @@ libdpkg_la_SOURCES = \
 	db-fsys-digest.c \
 	db-fsys-divert.c \
 	db-fsys-files.c \
+	db-fsys-load.c \
 	db-fsys-override.c \
 	deb-version.c \
 	debug.c \
@@ -825,10 +830,11 @@ libdpkg_la_SOURCES = \
 	dump.c \
 	ehandle.c \
 	error.c \
+	execname.c \
 	fdio.c \
 	file.c \
 	fields.c \
-	fsys-dir.c\
+	fsys-dir.c \
 	fsys-iter.c \
 	fsys-hash.c \
 	glob.c \
@@ -895,6 +901,7 @@ pkginclude_HEADERS = \
 	dpkg-db.h \
 	ehandle.h \
 	error.h \
+	execname.h \
 	fdio.h \
 	file.h \
 	fsys.h \
@@ -1308,6 +1315,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/db-fsys-digest.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/db-fsys-divert.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/db-fsys-files.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/db-fsys-load.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/db-fsys-override.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbdir.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbmodify.Plo@am__quote@ # am--include-marker
@@ -1318,6 +1326,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dump.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ehandle.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/error.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/execname.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fdio.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fields.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/file.Plo@am__quote@ # am--include-marker
@@ -1655,6 +1664,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/db-fsys-digest.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-divert.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-files.Plo
+	-rm -f ./$(DEPDIR)/db-fsys-load.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-override.Plo
 	-rm -f ./$(DEPDIR)/dbdir.Plo
 	-rm -f ./$(DEPDIR)/dbmodify.Plo
@@ -1665,6 +1675,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/dump.Plo
 	-rm -f ./$(DEPDIR)/ehandle.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
+	-rm -f ./$(DEPDIR)/execname.Plo
 	-rm -f ./$(DEPDIR)/fdio.Plo
 	-rm -f ./$(DEPDIR)/fields.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
@@ -1812,6 +1823,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/db-fsys-digest.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-divert.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-files.Plo
+	-rm -f ./$(DEPDIR)/db-fsys-load.Plo
 	-rm -f ./$(DEPDIR)/db-fsys-override.Plo
 	-rm -f ./$(DEPDIR)/dbdir.Plo
 	-rm -f ./$(DEPDIR)/dbmodify.Plo
@@ -1822,6 +1834,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/dump.Plo
 	-rm -f ./$(DEPDIR)/ehandle.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
+	-rm -f ./$(DEPDIR)/execname.Plo
 	-rm -f ./$(DEPDIR)/fdio.Plo
 	-rm -f ./$(DEPDIR)/fields.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
@@ -1968,6 +1981,10 @@ tap-clean:
 tap-check: $(test_data) $(test_programs) $(test_scripts)
 	[ -z "$(test_tmpdir)" ] || $(MKDIR_P) $(test_tmpdir)
 	  $(TEST_ENV_VARS) \
+	  TEST_PARALLEL=$(TEST_PARALLEL) \
+	  TEST_VERBOSE=$(TEST_VERBOSE) \
+	  abs_srcdir=$(abs_srcdir) \
+	  abs_builddir=$(abs_builddir) \
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \

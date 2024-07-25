@@ -60,6 +60,12 @@ De URL van de homepage van het toeleverend project (upstream).
 
 De I<URL> van het bugopvolgingssysteem voor dit pakket. De momenteel gebruikte indeling is I<bts-type>B<://>I<bts-adres>, zoals B<debbugs://bugs.debian.org>. Meestal is dit veld niet nodig.
 
+=item B<Build-Driver:> I<driver-name>
+
+This experimental field specifies the name of the build driver to use to build this package.  When omitted the I<driver-name> defaults to B<debian-rules>.
+
+This field is supported since dpkg 1.22.7.
+
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-trefwoorden>
 
 Dit veld wordt gebruikt om aan te geven of het bestand B<debian/rules> voorrechten van (fake)root nodig heeft om sommige van zijn targets uit te voeren, en zo ja wanneer.

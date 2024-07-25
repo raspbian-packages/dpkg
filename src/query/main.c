@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#if HAVE_LOCALE_H
+#ifdef HAVE_LOCALE_H
 #include <locale.h>
 #endif
 #include <errno.h>
@@ -355,7 +355,6 @@ searchfiles(const char *const *argv)
       varbuf_add_char(&vb, '*');
       varbuf_add_str(&vb, thisarg);
       varbuf_add_char(&vb, '*');
-      varbuf_end_str(&vb);
       thisarg= vb.buf;
     }
     if (!strpbrk(thisarg, "*[?\\")) {

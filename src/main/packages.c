@@ -561,11 +561,10 @@ breaks_check_one(struct varbuf *aemsgs, enum dep_check *ok,
     return;
 
   varbufdependency(&depmsg, breaks->up);
-  varbuf_end_str(&depmsg);
   varbuf_printf(aemsgs, _(" %s (%s) breaks %s and is %s.\n"),
                 pkg_name(breaker, pnaw_nonambig),
                 versiondescribe(&breaker->installed.version, vdew_nonambig),
-                depmsg.buf, gettext(statusstrings[breaker->status]));
+                varbuf_str(&depmsg), gettext(statusstrings[breaker->status]));
   varbuf_destroy(&depmsg);
 
   if (virtbroken) {
@@ -727,7 +726,6 @@ dependencies_ok(struct pkginfo *pkg, struct pkginfo *removing,
       if (interestingwarnings) {
         /* Don't print the line about the package to be removed if
          * that's the only line. */
-        varbuf_end_str(&oemsgs);
         varbuf_add_str(aemsgs, _("; however:\n"));
         varbuf_add_varbuf(aemsgs, &oemsgs);
       } else {
@@ -755,6 +753,7 @@ dependencies_ok(struct pkginfo *pkg, struct pkginfo *removing,
     progress_bytrigproc = canfixbytrig;
 
   varbuf_destroy(&oemsgs);
-  debug(dbg_depcon,"ok %d msgs >>%.*s<<", ok, (int)aemsgs->used, aemsgs->buf);
+  debug(dbg_depcon, "ok %d msgs >>%s<<", ok, varbuf_str(aemsgs));
+
   return ok;
 }

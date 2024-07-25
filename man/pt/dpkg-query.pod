@@ -129,7 +129,7 @@ Escreve o I<ficheiro-controle> instalado no seu sistema a partir de I<nome-pacot
 
 Lista caminhos para ficheiros de controle instalados no seu sistema a partir de I<package-name> (desde dpkg 1.15.4).  Se for especificado I<control-file> então apenas lista o caminho para esse ficheiro de controle se estiver presente.
 
-B<Aviso>: este comando está descontinuado pois da acesso direto à base de dados interna do  dpkg, por favor use B<--control-list> e B<--control-show> em vez deste para todos os casos onde esses comandos possam dar os mesmos resultados finais. esult. Apesar disto, enquanto ainda existir pelo menos um caso onde este comando é necessário (isto é, quando é preciso de remover um script de maintainer postrm prejudicial), e enquanto não existir boa solução para isso, este comando não será removido.
+B<Warning>: This command is deprecated as it gives direct access to the internal dpkg database, please switch to use B<--control-list> and B<--control-show> instead for all cases where those commands might give the same end result.  Although, as long as there is still at least one case where this command is needed (i.e. when having to remove a damaging postrm maintainer script), and while there is no good solution for that, this command will not get removed.
 
 =item B<-S>, B<--search> I<filename-search-pattern>...
 
@@ -232,6 +232,8 @@ Informação do pacote pode ser incluída ao inserir referencias variáveis a ca
 
 =item B<Description>
 
+=item B<Description-md5> (internal, front-end related)
+
 =item B<Enhances>
 
 =item B<Protected>
@@ -267,6 +269,12 @@ Informação do pacote pode ser incluída ao inserir referencias variáveis a ca
 =item B<Revision> (obsoleto)
 
 =item B<Section>
+
+=item B<SHA1> (internal, front-end related)
+
+=item B<SHA256> (internal, front-end related)
+
+=item B<SHA512> (internal, front-end related)
 
 =item B<Size> (interno, relacionado com front-end)
 
@@ -400,6 +408,10 @@ Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. 
 =item B<DPKG_COLORS>
 
 Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
 
 =back
 

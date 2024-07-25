@@ -28,7 +28,7 @@
 #include <sys/stat.h>
 
 #include <errno.h>
-#if HAVE_LOCALE_H
+#ifdef HAVE_LOCALE_H
 #include <locale.h>
 #endif
 #include <fcntl.h>
@@ -147,7 +147,6 @@ file_init(struct file *f, const char *filename)
 
 	varbuf_add_str(&usefilename, dpkg_fsys_get_dir());
 	varbuf_add_str(&usefilename, filename);
-	varbuf_end_str(&usefilename);
 
 	f->name = varbuf_detach(&usefilename);
 	f->stat_state = FILE_STAT_INVALID;
@@ -329,7 +328,7 @@ varbuf_diversion(struct varbuf *str, const char *pkgname,
 			              filename, divertto, pkgname);
 	}
 
-	return str->buf;
+	return varbuf_str(str);
 }
 
 static const char *
@@ -349,7 +348,7 @@ diversion_current(const char *filename)
 		return varbuf_diversion(&str, opt_pkgname, filename, opt_divertto);
 	}
 
-	return str.buf;
+	return varbuf_str(&str);
 }
 
 static const char *

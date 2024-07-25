@@ -97,12 +97,12 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = dpkg$(EXEEXT) dpkg-deb$(EXEEXT) dpkg-divert$(EXEEXT) \
-	dpkg-query$(EXEEXT) dpkg-split$(EXEEXT) \
+	dpkg-query$(EXEEXT) dpkg-realpath$(EXEEXT) dpkg-split$(EXEEXT) \
 	dpkg-statoverride$(EXEEXT) dpkg-trigger$(EXEEXT)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
-	$(top_srcdir)/m4/dpkg-build.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
+	$(top_srcdir)/m4/dpkg-arch.m4 $(top_srcdir)/m4/dpkg-build.m4 \
 	$(top_srcdir)/m4/dpkg-compiler.m4 \
 	$(top_srcdir)/m4/dpkg-coverage.m4 \
 	$(top_srcdir)/m4/dpkg-funcs.m4 \
@@ -167,6 +167,11 @@ dpkg_query_OBJECTS = $(am_dpkg_query_OBJECTS)
 dpkg_query_LDADD = $(LDADD)
 dpkg_query_DEPENDENCIES = ../lib/dpkg/libdpkg.la $(am__DEPENDENCIES_1) \
 	../lib/compat/libcompat.la
+am_dpkg_realpath_OBJECTS = realpath/main.$(OBJEXT)
+dpkg_realpath_OBJECTS = $(am_dpkg_realpath_OBJECTS)
+dpkg_realpath_LDADD = $(LDADD)
+dpkg_realpath_DEPENDENCIES = ../lib/dpkg/libdpkg.la \
+	$(am__DEPENDENCIES_1) ../lib/compat/libcompat.la
 am_dpkg_split_OBJECTS = split/info.$(OBJEXT) split/join.$(OBJEXT) \
 	split/main.$(OBJEXT) split/queue.$(OBJEXT) \
 	split/split.$(OBJEXT)
@@ -241,10 +246,10 @@ am__depfiles_remade = common/$(DEPDIR)/force.Po \
 	main/$(DEPDIR)/select.Po main/$(DEPDIR)/trigproc.Po \
 	main/$(DEPDIR)/unpack.Po main/$(DEPDIR)/update.Po \
 	main/$(DEPDIR)/verify.Po query/$(DEPDIR)/main.Po \
-	split/$(DEPDIR)/info.Po split/$(DEPDIR)/join.Po \
-	split/$(DEPDIR)/main.Po split/$(DEPDIR)/queue.Po \
-	split/$(DEPDIR)/split.Po statoverride/$(DEPDIR)/main.Po \
-	trigger/$(DEPDIR)/main.Po
+	realpath/$(DEPDIR)/main.Po split/$(DEPDIR)/info.Po \
+	split/$(DEPDIR)/join.Po split/$(DEPDIR)/main.Po \
+	split/$(DEPDIR)/queue.Po split/$(DEPDIR)/split.Po \
+	statoverride/$(DEPDIR)/main.Po trigger/$(DEPDIR)/main.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -265,12 +270,13 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(dpkg_SOURCES) $(dpkg_deb_SOURCES) $(dpkg_divert_SOURCES) \
-	$(dpkg_query_SOURCES) $(dpkg_split_SOURCES) \
-	$(dpkg_statoverride_SOURCES) $(dpkg_trigger_SOURCES)
-DIST_SOURCES = $(dpkg_SOURCES) $(dpkg_deb_SOURCES) \
-	$(dpkg_divert_SOURCES) $(dpkg_query_SOURCES) \
+	$(dpkg_query_SOURCES) $(dpkg_realpath_SOURCES) \
 	$(dpkg_split_SOURCES) $(dpkg_statoverride_SOURCES) \
 	$(dpkg_trigger_SOURCES)
+DIST_SOURCES = $(dpkg_SOURCES) $(dpkg_deb_SOURCES) \
+	$(dpkg_divert_SOURCES) $(dpkg_query_SOURCES) \
+	$(dpkg_realpath_SOURCES) $(dpkg_split_SOURCES) \
+	$(dpkg_statoverride_SOURCES) $(dpkg_trigger_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -396,6 +402,7 @@ PACKAGE_RELEASE_DATE = @PACKAGE_RELEASE_DATE@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
+PACKAGE_VCS_ID = @PACKAGE_VCS_ID@
 PACKAGE_VCS_TYPE = @PACKAGE_VCS_TYPE@
 PACKAGE_VCS_URL = @PACKAGE_VCS_URL@
 PACKAGE_VCS_WEB = @PACKAGE_VCS_WEB@
@@ -477,6 +484,8 @@ install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
+localedir_c = @localedir_c@
+localedir_c_make = @localedir_c_make@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
@@ -517,9 +526,9 @@ LDADD = \
 	# EOL
 
 EXTRA_DIST = dpkg-db-backup.sh dpkg-db-keeper.sh \
-	dpkg-maintscript-helper.sh dpkg-realpath.sh \
-	$(srcdir)/at/atlocal.in $(srcdir)/at/package.m4 \
-	$(TESTSUITE_AT) $(TESTSUITE) $(srcdir)/at/package.m4
+	dpkg-maintscript-helper.sh $(srcdir)/at/atlocal.in \
+	$(srcdir)/at/package.m4 $(TESTSUITE_AT) $(TESTSUITE) \
+	$(srcdir)/at/package.m4
 CLEANFILES = $(bin_SCRIPTS) $(pkglibexec_SCRIPTS) # EOL
 DISTCLEANFILES = at/atconfig at/atconfig
 nobase_dist_pkgdata_DATA = \
@@ -528,7 +537,6 @@ nobase_dist_pkgdata_DATA = \
 
 bin_SCRIPTS = \
 	dpkg-maintscript-helper \
-	dpkg-realpath \
 	# EOL
 
 pkglibexec_SCRIPTS = \
@@ -589,6 +597,10 @@ dpkg_query_SOURCES = \
 	query/main.c \
 	# EOL
 
+dpkg_realpath_SOURCES = \
+	realpath/main.c \
+	# EOL
+
 dpkg_split_SOURCES = \
 	split/dpkg-split.h \
 	split/info.c \
@@ -620,34 +632,32 @@ dist_bashcompletions_DATA = \
 	# EOL
 
 SUFFIXES = .sh .pl
-do_shell_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
-	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
-	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
-	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":" \
-	-e "s:^TAR=.*$$:TAR='$(TAR)':" \
-	# EOL
+subst_shell_rules = "\
+	s{^ADMINDIR=.*$$}{ADMINDIR='$(admindir)'}; \
+	s{^BACKUPSDIR=.*$$}{BACKUPSDIR='$(backupsdir)'}; \
+	s{^PKGDATADIR_DEFAULT=.*$$}{PKGDATADIR_DEFAULT='$(pkgdatadir)'}; \
+	s{^version=['\"][^'\"]*[\"']}{version=\"$(PACKAGE_VERSION)\"}; \
+	s{^TAR=.*$$}{TAR='$(TAR)'}; \
+	"
 
+subst_shell_filter = $(PERL) -p -e $(subst_shell_rules)
+subst_shell_file = $(PERL) -i -p -e $(shell_subst_rules)
 
 # Perl support.
-do_perl_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
-	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
-	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
-	-e "s:our \$$LIBDIR = .*;:our \$$LIBDIR = '$(pkglibexecdir)';:" \
-	-e "s:our \$$DATADIR = .*;:our \$$DATADIR = '$(pkgdatadir)';:" \
-	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
-	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
-	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
-	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:" \
-	# EOL
+subst_perl_rules = "\
+	s{^\#!\s*/usr/bin/perl}{\#!$(PERL)}; \
+	s{our \\\$$CONFDIR = .*;}{our \\\$$CONFDIR = '$(pkgconfdir)';}; \
+	s{our \\\$$ADMINDIR = .*;}{our \\\$$ADMINDIR = '$(admindir)';}; \
+	s{our \\\$$LIBDIR = .*;}{our \\\$$LIBDIR = '$(pkglibexecdir)';}; \
+	s{our \\\$$DATADIR = .*;}{our \\\$$DATADIR = '$(pkgdatadir)';}; \
+	s{our \\\$$PROGMAKE = .*;}{our \\\$$PROGMAKE = '$(MAKE)';}; \
+	s{our \\\$$PROGTAR = .*;}{our \\\$$PROGTAR = '$(TAR)';}; \
+	s{our \\\$$PROGPATCH = .*;}{our \\\$$PROGPATCH = '$(PATCH)';}; \
+	s{our \\\$$PROGVERSION = .*;}{our \\\$$PROGVERSION = '$(PACKAGE_VERSION)';}; \
+	"
 
-
-# Makefile support.
-do_make_subst = $(AM_V_GEN) $(SED) \
-	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):" \
-	# EOL
-
+subst_perl_filter = $(PERL) -p -e $(subst_perl_rules)
+subst_perl_file = $(PERL) -i -p -e $(subst_perl_rules)
 TESTSUITE_AT = $(srcdir)/at/testsuite.at $(srcdir)/at/local.at \
 	$(srcdir)/at/deb-format.at $(srcdir)/at/deb-fields.at \
 	$(srcdir)/at/deb-content.at $(srcdir)/at/deb-split.at \
@@ -655,6 +665,8 @@ TESTSUITE_AT = $(srcdir)/at/testsuite.at $(srcdir)/at/local.at \
 	$(srcdir)/at/chdir.at
 TESTSUITE = $(srcdir)/at/testsuite
 AUTOTEST_DEPS = at/atconfig at/atlocal $(TESTSUITE)
+TEST_VERBOSE_OPT = $(TEST_VERBOSE:0=)
+TESTSUITEFLAGS = -j$(TEST_PARALLEL) $(TEST_VERBOSE_OPT:1=--verbose)
 AUTOTEST = $(AUTOM4TE) --language=autotest
 all: all-am
 
@@ -836,6 +848,18 @@ query/main.$(OBJEXT): query/$(am__dirstamp) \
 dpkg-query$(EXEEXT): $(dpkg_query_OBJECTS) $(dpkg_query_DEPENDENCIES) $(EXTRA_dpkg_query_DEPENDENCIES) 
 	@rm -f dpkg-query$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(dpkg_query_OBJECTS) $(dpkg_query_LDADD) $(LIBS)
+realpath/$(am__dirstamp):
+	@$(MKDIR_P) realpath
+	@: > realpath/$(am__dirstamp)
+realpath/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) realpath/$(DEPDIR)
+	@: > realpath/$(DEPDIR)/$(am__dirstamp)
+realpath/main.$(OBJEXT): realpath/$(am__dirstamp) \
+	realpath/$(DEPDIR)/$(am__dirstamp)
+
+dpkg-realpath$(EXEEXT): $(dpkg_realpath_OBJECTS) $(dpkg_realpath_DEPENDENCIES) $(EXTRA_dpkg_realpath_DEPENDENCIES) 
+	@rm -f dpkg-realpath$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(dpkg_realpath_OBJECTS) $(dpkg_realpath_LDADD) $(LIBS)
 split/$(am__dirstamp):
 	@$(MKDIR_P) split
 	@: > split/$(am__dirstamp)
@@ -958,6 +982,7 @@ mostlyclean-compile:
 	-rm -f divert/*.$(OBJEXT)
 	-rm -f main/*.$(OBJEXT)
 	-rm -f query/*.$(OBJEXT)
+	-rm -f realpath/*.$(OBJEXT)
 	-rm -f split/*.$(OBJEXT)
 	-rm -f statoverride/*.$(OBJEXT)
 	-rm -f trigger/*.$(OBJEXT)
@@ -992,6 +1017,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@main/$(DEPDIR)/update.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@main/$(DEPDIR)/verify.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@query/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@realpath/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@split/$(DEPDIR)/info.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@split/$(DEPDIR)/join.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@split/$(DEPDIR)/main.Po@am__quote@ # am--include-marker
@@ -1210,6 +1236,8 @@ distclean-generic:
 	-rm -f main/$(am__dirstamp)
 	-rm -f query/$(DEPDIR)/$(am__dirstamp)
 	-rm -f query/$(am__dirstamp)
+	-rm -f realpath/$(DEPDIR)/$(am__dirstamp)
+	-rm -f realpath/$(am__dirstamp)
 	-rm -f split/$(DEPDIR)/$(am__dirstamp)
 	-rm -f split/$(am__dirstamp)
 	-rm -f statoverride/$(DEPDIR)/$(am__dirstamp)
@@ -1254,6 +1282,7 @@ distclean: distclean-am
 	-rm -f main/$(DEPDIR)/update.Po
 	-rm -f main/$(DEPDIR)/verify.Po
 	-rm -f query/$(DEPDIR)/main.Po
+	-rm -f realpath/$(DEPDIR)/main.Po
 	-rm -f split/$(DEPDIR)/info.Po
 	-rm -f split/$(DEPDIR)/join.Po
 	-rm -f split/$(DEPDIR)/main.Po
@@ -1335,6 +1364,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f main/$(DEPDIR)/update.Po
 	-rm -f main/$(DEPDIR)/verify.Po
 	-rm -f query/$(DEPDIR)/main.Po
+	-rm -f realpath/$(DEPDIR)/main.Po
 	-rm -f split/$(DEPDIR)/info.Po
 	-rm -f split/$(DEPDIR)/join.Po
 	-rm -f split/$(DEPDIR)/main.Po
@@ -1389,12 +1419,12 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 
 .sh: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_shell_subst) <$< >$@
+	$(AM_V_GEN) $(subst_shell_filter) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 .pl: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_perl_subst) <$< >$@
+	$(AM_V_GEN) $(subst_perl_filter) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 install-data-local:
@@ -1402,6 +1432,9 @@ install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(admindir)/info
 	$(MKDIR_P) $(DESTDIR)$(admindir)/parts
 	$(MKDIR_P) $(DESTDIR)$(admindir)/updates
+
+TEST_VERBOSE ?= 0
+TEST_PARALLEL ?= 1
 
 # The ":;" works around a Bash 3.2 bug when the output is not writable.
 $(srcdir)/at/package.m4: $(top_srcdir)/configure.ac

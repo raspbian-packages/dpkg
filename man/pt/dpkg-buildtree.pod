@@ -44,6 +44,20 @@ Mostra a versão e termina.
 
 =back
 
+=head1 AMBIENTE
+
+=over 
+
+=item B<DPKG_COLORS>
+
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+=item B<DPKG_NLS>
+
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+
+=back
+
 =head1 FICHEIROS
 
 =head2 Ficheiros limpos

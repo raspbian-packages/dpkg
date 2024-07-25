@@ -108,6 +108,16 @@ Die Option B<-d>I<Abhängigkeitsfeld> betrifft alle Programme, die danach angege
 
 Falls der gleiche Abhängigkeitseintrag (oder ein Satz von Alternativen) mehr als einmal in den erkannten Abhängigkeitsfeldnamen B<Pre-Depends>, B<Depends>, B<Recommends>, B<Enhances> oder B<Suggests> auftaucht, wird B<dpkg-shlibdeps> die Abhängigkeit von allen Feldern außer dem, das die wichtigsten Abhängigkeiten repräsentiert, entfernen.
 
+=item B<--package=>I<Paket>
+
+Definiert den Paketnamen.
+
+Wenn angegeben wird der Paketname verwandt, um die Vorgaben, basierend auf den Binärpaket-Metadaten in F<debian/control>, zu ändern.
+
+Falls das Paket B<Essential: yes>, dann ist das standardmäßige Abhängigkeitsfeld B<Pre-Depends>, andernfalls B<Depends>. Der Standard-Pakettyp wird aus dem Feld B<Package-Type> gesetzt. Das Paket wird zu der Gruppe der mit B<-x> ausgeschlossenen Pakete hinzugefügt.
+
+Option unterstützt seit Dpkg 1.22.7.
+
 =item B<-p>I<Variablennamepräfix>
 
 Beginnt die Ersetzungsvariablen mit I<Variablennamepräfix>B<:> statt mit B<shlibs:>. Entsprechend werden alle Ersetzungsvariablen, die mit I<Variablennamepräfix>B<:> (statt mit B<shlibs:>) beginnen, aus der Ersetzungsvariablendatei entfernt.
@@ -169,6 +179,10 @@ Gibt die Version aus und beendet das Programm.
 =head1 UMGEBUNG
 
 =over 
+
+=item B<DEB_HOST_ARCH>
+
+Setzt die Host-Architektur. Dies betrifft Objekte und Symboldateien, nach denen gesucht wird, und ihre standardmäßigen Suchpfadnamen.
 
 =item B<DPKG_COLORS>
 
@@ -248,7 +262,7 @@ L<deb-substvars(5)>, L<deb-shlibs(5)>, L<deb-symbols(5)>, L<dpkg-gensymbols(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

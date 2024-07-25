@@ -7,7 +7,10 @@ CLEANFILES =
 
 nobase_dist_perllib_DATA = \
 	Dpkg/Arch.pm \
+	Dpkg/Archive/Ar.pm \
 	Dpkg/BuildAPI.pm \
+	Dpkg/BuildDriver.pm \
+	Dpkg/BuildDriver/DebianRules.pm \
 	Dpkg/BuildEnv.pm \
 	Dpkg/BuildFlags.pm \
 	Dpkg/BuildInfo.pm \
@@ -124,6 +127,7 @@ bin_SCRIPTS = \
 	# EOL
 
 EXTRA_DIST += \
+	dpkg-ar.pl \
 	dpkg-architecture.pl \
 	dpkg-buildapi.pl \
 	dpkg-buildflags.pl \
@@ -191,12 +195,8 @@ if BUILD_POD_DOC
 	done
 endif
 
-# Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
 install-data-hook:
-	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm \
-	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm.new
-	mv $(DESTDIR)$(perllibdir)/Dpkg.pm.new \
-	   $(DESTDIR)$(perllibdir)/Dpkg.pm
+	$(subst_perl_file) $(DESTDIR)$(perllibdir)/Dpkg.pm
 
 uninstall-local:
 if BUILD_POD_DOC
@@ -369,6 +369,7 @@ test_data = \
 	t/Dpkg_Source_Package/package_1.0.orig.tar \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.asc \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.sig \
+	t/Dpkg_Substvars/substvars-req \
 	t/Dpkg_Substvars/substvars1 \
 	t/Dpkg_Substvars/substvars2 \
 	t/dpkg_buildpackage/dpkgdb/status \

@@ -74,6 +74,10 @@ De versie tonen en afsluiten.
 
 =over 
 
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture.  This affects the dependency resolution logic, which might then not match what the system dpkg considers satisfiable.
+
 =item B<DEB_BUILD_PROFILES>
 
 Indien dit ingesteld is, zal dit gebruikt worden als het/de actieve bouwprofiel(en) voor het pakket dat gebouwd wordt. Het is een lijst van profielnamen die onderling door spaties gescheiden worden. De optie B<-P> heeft voorrang hierop.

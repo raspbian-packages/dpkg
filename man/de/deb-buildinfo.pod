@@ -76,15 +76,17 @@ Typischerweise ist das die Original-Paketversionsnummer, in der Form, die der Pr
 
 Das mehrzeilige Feld enthält den aneinandergehängten Text des Changelog-Eintrages eines rein binären, nicht-Betreuer-Uploads (binNMU), sofern dies der Fall ist. Um ein gültiges mehrzeiliges Feld zu erhalten, werden leere Zeilen durch ein einzelnen Satzpunkt (‚.’) ersetzt und alle Zeilen mit einem Leerzeichen eingerückt. Der genaue Inhalt hängt vom Changelog-Format ab.
 
-=item B<Checksums-Md5:> (verpflichtend)
+=item B<Checksums-Md5:> (verpflichtend, schwach)
 
-=item B<Checksums-Sha1:> (verpflichtend)
+=item B<Checksums-Sha1:> (verpflichtend, schwach)
 
-=item B<Checksums-Sha256:> (verpflichtend)
+=item B<Checksums-Sha256:> (verpflichtend, stark)
 
 =item S< >I<Prüfsumme> I<Größe> I<Dateiname>
 
 Diese mehrzeiligen Felder enthalten eine Liste von Dateien mit einer Prüfsumme und Größe für jede. Diese Felder haben die gleiche Syntax und unterscheiden sich nur im verwandten Prüfsummenalgorithmus: MD5 für B<Checksums-Md5>, SHA-1 für B<Checksums-Sha1> und SHA-256 für B<Checksums-Sha256>.
+
+B<Hinweis>: Die MD5- und SHA-1-Prüfsummen werden als schwach betrachtet und sollten niemals für die sichere Überprüfung als ausreichend betrachtet werden.
 
 Die erste Zeile des Feldwertes (der Teil auf der gleichen Zeile wie der durch einen Doppelpunkt gefolgte Feldname) ist immer leer. Der Inhalt des Feldes wird durch Fortsetzungszeilen ausgedrückt, eine Zeile pro Datei. Jede Zeile besteht aus durch Leerzeichen getrennten Einträgen, die die Datei beschreiben: der Prüfsumme, der Dateigröße und dem Dateinamen.
 
@@ -177,7 +179,7 @@ L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-genbuildinfo(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2023 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

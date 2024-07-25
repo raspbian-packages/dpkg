@@ -108,8 +108,8 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = scripts
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/dpkg-arch.m4 \
-	$(top_srcdir)/m4/dpkg-build.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
+	$(top_srcdir)/m4/dpkg-arch.m4 $(top_srcdir)/m4/dpkg-build.m4 \
 	$(top_srcdir)/m4/dpkg-compiler.m4 \
 	$(top_srcdir)/m4/dpkg-coverage.m4 \
 	$(top_srcdir)/m4/dpkg-funcs.m4 \
@@ -349,6 +349,7 @@ PACKAGE_RELEASE_DATE = @PACKAGE_RELEASE_DATE@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
+PACKAGE_VCS_ID = @PACKAGE_VCS_ID@
 PACKAGE_VCS_TYPE = @PACKAGE_VCS_TYPE@
 PACKAGE_VCS_URL = @PACKAGE_VCS_URL@
 PACKAGE_VCS_WEB = @PACKAGE_VCS_WEB@
@@ -430,6 +431,8 @@ install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
+localedir_c = @localedir_c@
+localedir_c_make = @localedir_c_make@
 localstatedir = @localstatedir@
 logdir = @logdir@
 mandir = @mandir@
@@ -455,9 +458,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 zshcompletionsdir = @zshcompletionsdir@
 SUBDIRS = mk po
-EXTRA_DIST = Test/Dpkg.pm dpkg-architecture.pl dpkg-buildapi.pl \
-	dpkg-buildflags.pl dpkg-buildpackage.pl dpkg-buildtree.pl \
-	dpkg-checkbuilddeps.pl dpkg-distaddfile.pl \
+EXTRA_DIST = Test/Dpkg.pm dpkg-ar.pl dpkg-architecture.pl \
+	dpkg-buildapi.pl dpkg-buildflags.pl dpkg-buildpackage.pl \
+	dpkg-buildtree.pl dpkg-checkbuilddeps.pl dpkg-distaddfile.pl \
 	dpkg-fsys-usrunmess.pl dpkg-genbuildinfo.pl dpkg-genchanges.pl \
 	dpkg-gencontrol.pl dpkg-gensymbols.pl dpkg-mergechangelogs.pl \
 	dpkg-name.pl dpkg-parsechangelog.pl dpkg-scanpackages.pl \
@@ -466,7 +469,10 @@ EXTRA_DIST = Test/Dpkg.pm dpkg-architecture.pl dpkg-buildapi.pl \
 CLEANFILES = $(sbin_SCRIPTS) $(bin_SCRIPTS) $(test_data_objects) # EOL
 nobase_dist_perllib_DATA = \
 	Dpkg/Arch.pm \
+	Dpkg/Archive/Ar.pm \
 	Dpkg/BuildAPI.pm \
+	Dpkg/BuildDriver.pm \
+	Dpkg/BuildDriver/DebianRules.pm \
 	Dpkg/BuildEnv.pm \
 	Dpkg/BuildFlags.pm \
 	Dpkg/BuildInfo.pm \
@@ -590,34 +596,32 @@ dist_zshcompletions_DATA = \
 man3_MANS = 
 man_perl_section = 3perl
 SUFFIXES = .sh .pl
-do_shell_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^ADMINDIR=.*$$:ADMINDIR='$(admindir)':" \
-	-e "s:^BACKUPSDIR=.*$$:BACKUPSDIR='$(backupsdir)':" \
-	-e "s:^PKGDATADIR_DEFAULT=.*$$:PKGDATADIR_DEFAULT='$(pkgdatadir)':" \
-	-e "s:^version=['\"][^'\"]*[\"']:version=\"$(PACKAGE_VERSION)\":" \
-	-e "s:^TAR=.*$$:TAR='$(TAR)':" \
-	# EOL
+subst_shell_rules = "\
+	s{^ADMINDIR=.*$$}{ADMINDIR='$(admindir)'}; \
+	s{^BACKUPSDIR=.*$$}{BACKUPSDIR='$(backupsdir)'}; \
+	s{^PKGDATADIR_DEFAULT=.*$$}{PKGDATADIR_DEFAULT='$(pkgdatadir)'}; \
+	s{^version=['\"][^'\"]*[\"']}{version=\"$(PACKAGE_VERSION)\"}; \
+	s{^TAR=.*$$}{TAR='$(TAR)'}; \
+	"
 
+subst_shell_filter = $(PERL) -p -e $(subst_shell_rules)
+subst_shell_file = $(PERL) -i -p -e $(shell_subst_rules)
 
 # Perl support.
-do_perl_subst = $(AM_V_GEN) $(SED) \
-	-e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
-	-e "s:our \$$CONFDIR = .*;:our \$$CONFDIR = '$(pkgconfdir)';:" \
-	-e "s:our \$$ADMINDIR = .*;:our \$$ADMINDIR = '$(admindir)';:" \
-	-e "s:our \$$LIBDIR = .*;:our \$$LIBDIR = '$(pkglibexecdir)';:" \
-	-e "s:our \$$DATADIR = .*;:our \$$DATADIR = '$(pkgdatadir)';:" \
-	-e "s:our \$$PROGMAKE = .*;:our \$$PROGMAKE = '$(MAKE)';:" \
-	-e "s:our \$$PROGTAR = .*;:our \$$PROGTAR = '$(TAR)';:" \
-	-e "s:our \$$PROGPATCH = .*;:our \$$PROGPATCH = '$(PATCH)';:" \
-	-e "s:our \$$PROGVERSION = .*;:our \$$PROGVERSION = '$(PACKAGE_VERSION)';:" \
-	# EOL
+subst_perl_rules = "\
+	s{^\#!\s*/usr/bin/perl}{\#!$(PERL)}; \
+	s{our \\\$$CONFDIR = .*;}{our \\\$$CONFDIR = '$(pkgconfdir)';}; \
+	s{our \\\$$ADMINDIR = .*;}{our \\\$$ADMINDIR = '$(admindir)';}; \
+	s{our \\\$$LIBDIR = .*;}{our \\\$$LIBDIR = '$(pkglibexecdir)';}; \
+	s{our \\\$$DATADIR = .*;}{our \\\$$DATADIR = '$(pkgdatadir)';}; \
+	s{our \\\$$PROGMAKE = .*;}{our \\\$$PROGMAKE = '$(MAKE)';}; \
+	s{our \\\$$PROGTAR = .*;}{our \\\$$PROGTAR = '$(TAR)';}; \
+	s{our \\\$$PROGPATCH = .*;}{our \\\$$PROGPATCH = '$(PATCH)';}; \
+	s{our \\\$$PROGVERSION = .*;}{our \\\$$PROGVERSION = '$(PACKAGE_VERSION)';}; \
+	"
 
-
-# Makefile support.
-do_make_subst = $(AM_V_GEN) $(SED) \
-	-e "s:dpkg_datadir[[:space:]]*=[[:space:]]*[^[:space:]]*:dpkg_datadir = $(pkgdatadir):" \
-	# EOL
-
+subst_perl_filter = $(PERL) -p -e $(subst_perl_rules)
+subst_perl_file = $(PERL) -i -p -e $(subst_perl_rules)
 POD2MAN_OPTS = \
 	--utf8 \
 	--release=$(PACKAGE_VERSION) \
@@ -776,6 +780,7 @@ test_data = \
 	t/Dpkg_Source_Package/package_1.0.orig.tar \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.asc \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.sig \
+	t/Dpkg_Substvars/substvars-req \
 	t/Dpkg_Substvars/substvars1 \
 	t/Dpkg_Substvars/substvars2 \
 	t/dpkg_buildpackage/dpkgdb/status \
@@ -1361,12 +1366,12 @@ uninstall-man: uninstall-man3
 
 .sh: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_shell_subst) <$< >$@
+	$(AM_V_GEN) $(subst_shell_filter) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 .pl: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
-	$(do_perl_subst) <$< >$@
+	$(AM_V_GEN) $(subst_perl_filter) <$< >$@
 	$(AM_V_at) chmod +x $@
 
 install-data-local:
@@ -1385,12 +1390,8 @@ install-data-local:
 @BUILD_POD_DOC_TRUE@	  fi; \
 @BUILD_POD_DOC_TRUE@	done
 
-# Ideally we'd use '$(SED) -i', but unfortunately that's not portable.
 install-data-hook:
-	$(do_perl_subst) <$(DESTDIR)$(perllibdir)/Dpkg.pm \
-	                 >$(DESTDIR)$(perllibdir)/Dpkg.pm.new
-	mv $(DESTDIR)$(perllibdir)/Dpkg.pm.new \
-	   $(DESTDIR)$(perllibdir)/Dpkg.pm
+	$(subst_perl_file) $(DESTDIR)$(perllibdir)/Dpkg.pm
 
 uninstall-local:
 @BUILD_POD_DOC_TRUE@	for module in $(nobase_dist_perllib_DATA); do \
@@ -1460,6 +1461,10 @@ tap-clean:
 tap-check: $(test_data) $(test_programs) $(test_scripts)
 	[ -z "$(test_tmpdir)" ] || $(MKDIR_P) $(test_tmpdir)
 	  $(TEST_ENV_VARS) \
+	  TEST_PARALLEL=$(TEST_PARALLEL) \
+	  TEST_VERBOSE=$(TEST_VERBOSE) \
+	  abs_srcdir=$(abs_srcdir) \
+	  abs_builddir=$(abs_builddir) \
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \

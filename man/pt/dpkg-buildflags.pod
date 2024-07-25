@@ -373,7 +373,7 @@ Esta definição (desde dpkg 1.17.14; desactivada por predefinição) adiciona o
 
 =head2 optimize
 
-Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas para ajudar a optimizar um binário resultante (desde dpkg 1.21.0). B<Nota>: ativador B<todas> estas opções pode resultar em artefactos binários não reproduzíveis.
+Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: Enabling B<all> these options can result in unreproducible binary artifacts.
 
 =over 
 
@@ -385,7 +385,7 @@ Esta definição (desde dpkg 1.21.0; desactivada por predefinição) activa Link
 
 =head2 sanitize
 
-Várias opções de tempo de compilação (detalhado em baixo) podem ser usadas para ajudar a higienizar um binário resultante contra corrupções de memória, fugas de memória, utilização após livre, segmentação de dados e bugs de comportamento indefinido.  B<Nota>: estas opções B<não> devem ser usadas para compilações de produção pois elas podem reduzir a confiança na conformidade do código, reduzir a segurança ou mesmo a funcionalidade.
+Several compile-time options (detailed below) can be used to help sanitize a resulting binary against memory corruptions, memory leaks, use after free, threading data races and undefined behavior bugs.  B<Note>: These options should B<not> be used for production builds as they can reduce reliability for conformant code, reduce security or even functionality.
 
 =over 
 
@@ -554,6 +554,10 @@ Esta definição define o fornecedor actual. Se não definida, irá descobrir o 
 =item B<DEB_BUILD_PATH>
 
 Esta variável define o caminho de compilação (desde dpkg 1.18.8) a usar em funcionalidades como B<fixdebugpath> para que possam ser controladas pelo chamador. Esta variável é actualmente específica de Debian e derivados.
+
+=item B<DEB_HOST_ARCH>
+
+Sets the host architecture.  This affects the build flags that are emitted, which is typically relevant when cross-compiling, where B<DEB_HOST_ARCH> is different to B<DEB_BUILD_ARCH>.
 
 =item B<DPKG_COLORS>
 

@@ -93,11 +93,11 @@ info_spew(const char *debar, const char *dir, const char *const *argv)
     varbuf_reset(&controlfile);
     varbuf_printf(&controlfile, "%s/%s", dir, component);
 
-    fd = open(controlfile.buf, O_RDONLY);
+    fd = open(varbuf_str(&controlfile), O_RDONLY);
     if (fd >= 0) {
       if (fd_fd_copy(fd, 1, -1, &err) < 0)
         ohshit(_("cannot extract control file '%s' from '%s': %s"),
-               controlfile.buf, debar, err.str);
+               varbuf_str(&controlfile), debar, err.str);
       close(fd);
     } else if (errno == ENOENT) {
       notice(_("'%.255s' contains no control component '%.255s'"),
@@ -159,7 +159,7 @@ info_list(const char *debar, const char *dir)
   FILE *cc;
 
   cdn = scandir(dir, &cdlist, &ilist_select, alphasort);
-  if (cdn == -1)
+  if (cdn < 0)
     ohshite(_("cannot scan directory '%.255s'"), dir);
 
   for (n = 0; n < cdn; n++) {
@@ -259,12 +259,11 @@ info_field(const char *debar, const char *dir, const char *const *fields,
       if (arbfield)
         varbuf_add_arbfield(&str, arbfield, fieldflags);
     }
-    varbuf_end_str(&str);
 
     if (fieldflags & fw_printheader)
-      printf("%s", str.buf);
+      printf("%s", varbuf_str(&str));
     else
-      printf("%s\n", str.buf);
+      printf("%s\n", varbuf_str(&str));
   }
 
   m_output(stdout, _("<standard output>"));

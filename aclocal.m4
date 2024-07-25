@@ -1552,6 +1552,7 @@ AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
+m4_include([m4/build-to-host.m4])
 m4_include([m4/dpkg-arch.m4])
 m4_include([m4/dpkg-build.m4])
 m4_include([m4/dpkg-compiler.m4])
