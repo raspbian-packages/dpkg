@@ -191,7 +191,7 @@ am__DEPENDENCIES_1 =
 libdpkg_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	../compat/libcompat.la
+	$(am__DEPENDENCIES_1) ../compat/libcompat.la
 am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	c-ctype.lo cleanup.lo color.lo command.lo compress.lo dbdir.lo \
 	dbmodify.lo db-ctrl-access.lo db-ctrl-format.lo \
@@ -793,6 +793,7 @@ devlib_LTLIBRARIES = libdpkg.la
 EXTRA_libdpkg_la_DEPENDENCIES = libdpkg.map $(am__append_3)
 libdpkg_la_LDFLAGS = -no-undefined $(am__append_1) $(am__append_2)
 libdpkg_la_LIBADD = \
+	$(PS_LIBS) \
 	$(Z_LIBS) \
 	$(LZMA_LIBS) \
 	$(ZSTD_LIBS) \

@@ -104,8 +104,7 @@ info_spew(const char *debar, const char *dir, const char *const *argv)
              debar, component);
       re++;
     } else {
-      ohshite(_("open component '%.255s' (in %.255s) failed in an unexpected way"),
-              component, dir);
+      ohshite(_("cannot open file '%.255s'"), controlfile.buf);
     }
   }
   varbuf_destroy(&controlfile);
@@ -115,21 +114,25 @@ info_spew(const char *debar, const char *dir, const char *const *argv)
               "%d requested control components are missing", re), re);
 }
 
-static char *
-info_interpreter(FILE *cc, int *lines)
-{
+struct script {
   char interpreter[INTERPRETER_MAX + 1];
+  int lines;
+};
+
+static void
+info_script(FILE *cc, struct script *script)
+{
   int c;
 
-  *lines = 0;
-  interpreter[0] = '\0';
+  script->lines = 0;
+  script->interpreter[0] = '\0';
   if (getc(cc) == '#' && getc(cc) == '!') {
     char *p;
     int il;
 
     while ((c = getc(cc)) == ' ')
       ;
-    p = interpreter;
+    p = script->interpreter;
     *p++ = '#';
     *p++ = '!';
     il = 2;
@@ -140,14 +143,12 @@ info_interpreter(FILE *cc, int *lines)
     }
     *p = '\0';
     if (c == '\n')
-      (*lines)++;
+      script->lines++;
   }
   while ((c = getc(cc)) != EOF) {
     if (c == '\n')
-      (*lines)++;
+      script->lines++;
   }
-
-  return m_strdup(interpreter);
 }
 
 static void
@@ -172,30 +173,28 @@ info_list(const char *debar, const char *dir)
     varbuf_printf(&controlfile, "%s/%s", dir, cdep->d_name);
 
     if (stat(controlfile.buf, &stab))
-      ohshite(_("cannot stat '%.255s' (in '%.255s')"), cdep->d_name, dir);
+      ohshite(_("cannot get file '%.255s' metadata"), controlfile.buf);
     if (S_ISREG(stab.st_mode)) {
       int exec_mark = (S_IXUSR & stab.st_mode) ? '*' : ' ';
-      char *interpreter;
-      int lines;
+      struct script script;
 
       cc = fopen(controlfile.buf, "r");
       if (!cc)
-        ohshite(_("cannot open '%.255s' (in '%.255s')"), cdep->d_name, dir);
+        ohshite(_("cannot open file '%.255s'"), controlfile.buf);
 
-      interpreter = info_interpreter(cc, &lines);
+      info_script(cc, &script);
 
       if (ferror(cc))
-        ohshite(_("failed to read '%.255s' (in '%.255s')"), cdep->d_name, dir);
+        ohshite(_("cannot read file '%.255s'"), controlfile.buf);
       fclose(cc);
-      if (str_is_set(interpreter))
+
+      if (str_is_set(script.interpreter))
         printf(_(" %7jd bytes, %5d lines   %c  %-20.127s %.127s\n"),
-               (intmax_t)stab.st_size, lines, exec_mark, cdep->d_name,
-               interpreter);
+               (intmax_t)stab.st_size, script.lines, exec_mark, cdep->d_name,
+               script.interpreter);
       else
         printf(_(" %7jd bytes, %5d lines   %c  %.127s\n"),
-               (intmax_t)stab.st_size, lines, exec_mark, cdep->d_name);
-
-      free(interpreter);
+               (intmax_t)stab.st_size, script.lines, exec_mark, cdep->d_name);
     } else {
       printf(_("     not a plain file          %.255s\n"), cdep->d_name);
     }
@@ -208,7 +207,7 @@ info_list(const char *debar, const char *dir)
   cc = fopen(controlfile.buf, "r");
   if (!cc) {
     if (errno != ENOENT)
-      ohshite(_("failed to read '%.255s' (in '%.255s')"), CONTROLFILE, dir);
+      ohshite(_("cannot read file '%.255s'"), controlfile.buf);
     warning(_("no 'control' file in control archive!"));
   } else {
     int lines, c;
@@ -224,7 +223,7 @@ info_list(const char *debar, const char *dir)
       putc('\n', stdout);
 
     if (ferror(cc))
-      ohshite(_("failed to read '%.255s' (in '%.255s')"), CONTROLFILE, dir);
+      ohshite(_("cannot read file '%.255s'"), controlfile.buf);
     fclose(cc);
   }
 

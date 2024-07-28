@@ -130,17 +130,17 @@ The string may reference any status field using the “${I<field-name>}” form,
 
 Par défaut, la valeur de ce champ est « ${Package}\t${Version}\n ».
 
-=item B<-z>I<niveau_compression>
+=item B<-z>, B<--compression-level=>I<compress-level>
 
-Indique le niveau de compression à fournir au logiciel de compression appelé en sous-main lors de la compression du paquet. La valeur par défaut est 9 pour gzip, 6 pour xz, 3 pour zstd. Les valeurs possibles sont spécifiques aux compresseurs : pour gzip entre 0 et 9, 0 correspond à aucune compression, pour xz entre 0 et 9, pour zstd de 0 à 22, les niveaux 20 à 22 activant son mode ultra. Avant la version 1.16.2, la valeur 0 correspondait à « aucune compression » pour tous les logiciels de compression.
+Specify which compression level to use on the compressor backend, when building a package (default is 9 for gzip, 6 for xz, 3 for zstd; long option since dpkg 1.22.9).  The accepted values are compressor specific.  For gzip, from 0-9 with 0 being mapped to compressor none.  For xz from 0-9.  For zstd from 0-22, with levels from 20 to 22 enabling its ultra mode.  Before dpkg 1.16.2 level 0 was equivalent to compressor none for all compressors.
 
-=item B<-S>I<stratégie-compression>
+=item B<-S>, B<--compression-strategy=>I<compress-strategy>
 
-Indique la stratégie de compression à fournir au logiciel de compression appelé en sous-main lors de la construction du paquet (depuis dpkg 1.16.2). Les valeurs autorisées sont B<none> (depuis dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> et B<fixed> pour gzip (depuis dpkg 1.17.0) et B<extreme> pour xz.
+Specify which compression strategy to use on the compressor backend, when building a package (since dpkg 1.16.2, long option since dpkg 1.22.9). Allowed values are B<none> (since dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> and B<fixed> for gzip (since dpkg 1.17.0) and B<extreme> for xz.
 
-=item B<-Z>I<type_compression>
+=item B<-Z>, B<--compression=>I<compress-type>
 
-Specify which compression type to use when building a package.  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18) and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
+Specify which compression type to use when building a package (long option since dpkg 1.22.9).  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18)  and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
 
 =item B<--[no-]uniform-compression>
 
