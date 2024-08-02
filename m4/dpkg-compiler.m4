@@ -211,7 +211,7 @@ AC_DEFUN([DPKG_COMPILER_OPTIMIZATIONS], [
 ])
 
 # DPKG_TRY_C99([ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND])
-# ------------------------------------------------------
+# ------------
 # Try compiling some C99 code to see whether it works
 AC_DEFUN([DPKG_TRY_C99], [
   AC_COMPILE_IFELSE([
@@ -253,6 +253,10 @@ AC_DEFUN([DPKG_TRY_C99], [
 
 	/* Magic __func__ variable. */
 	printf("%s", __func__);
+
+#if __STDC_VERSION__ < 199901L
+#error "Requires C99"
+#endif
     ]])
   ], [$1], [$2])dnl
 ])# DPKG_TRY_C99
@@ -261,11 +265,11 @@ AC_DEFUN([DPKG_TRY_C99], [
 # ----------
 # Check whether the compiler can do C99
 AC_DEFUN([DPKG_C_C99], [
-  AC_CACHE_CHECK([whether $CC supports C99 features], [dpkg_cv_c99], [
+  AC_CACHE_CHECK([whether $CC supports C99], [dpkg_cv_c99], [
     DPKG_TRY_C99([dpkg_cv_c99=yes], [dpkg_cv_c99=no])
   ])
   AS_IF([test "x$dpkg_cv_c99" != "xyes"], [
-    AC_CACHE_CHECK([for $CC option to accept C99 features], [dpkg_cv_c99_arg], [
+    AC_CACHE_CHECK([for $CC option to accept C99], [dpkg_cv_c99_arg], [
       dpkg_cv_c99_arg=none
       dpkg_save_CC="$CC"
       for arg in "-std=gnu99" "-std=c99" "-c99" "-AC99" "-xc99=all" \
@@ -282,13 +286,11 @@ AC_DEFUN([DPKG_C_C99], [
     ])
     AS_IF([test "x$dpkg_cv_c99_arg" != "xnone"], [
       CC="$CC $dpkg_cv_c99_arg"
-      dpkg_cv_c99=1
+      dpkg_cv_c99=yes
     ])
   ])
-  AS_IF([test "x$dpkg_cv_c99" = "xyes"], [
-    AC_DEFINE([HAVE_C99], 1, [Define to 1 if the compiler supports C99.])
-  ], [
-    AC_MSG_ERROR([unsupported required C99 extensions])
+  AS_IF([test "x$dpkg_cv_c99" != "xyes"], [
+    AC_MSG_ERROR([unsupported required C99])
   ])
 ])# DPKG_C_C99
 
@@ -302,6 +304,10 @@ AC_DEFUN([DPKG_TRY_CXX11], [
     ]], [[
 	// Null pointer keyword.
 	void *ptr = nullptr;
+
+#if __cplusplus < 201103L
+#error "Requires C++11"
+#endif
     ]])
   ], [$1], [$2])
   AC_LANG_POP([C++])dnl
@@ -333,7 +339,4 @@ AC_DEFUN([DPKG_CXX_CXX11], [
       dpkg_cv_cxx11=yes
     ])
   ])
-  AS_IF([test "x$dpkg_cv_cxx11" = "xyes"], [
-    AC_DEFINE([HAVE_CXX11], 1, [Define to 1 if the compiler supports C++11.])
-  ])[]dnl
 ])# DPKG_CXX_CXX11

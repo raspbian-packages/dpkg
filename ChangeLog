@@ -1,3 +1,233 @@
+commit ef5536cfe24e4c41c6fdc56e4530161fade3887c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jul 27 05:45:16 2024 +0200
+
+    Release 1.22.10
+
+ debian/changelog | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+commit e4d8d44ddf66f85837c2ffa4525ce1023721ad69
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jul 27 05:43:38 2024 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        | 2 +-
+ dselect/po/ca.po        | 2 +-
+ dselect/po/cs.po        | 2 +-
+ dselect/po/da.po        | 2 +-
+ dselect/po/de.po        | 2 +-
+ dselect/po/dselect.pot  | 4 ++--
+ dselect/po/el.po        | 2 +-
+ dselect/po/es.po        | 2 +-
+ dselect/po/et.po        | 2 +-
+ dselect/po/eu.po        | 2 +-
+ dselect/po/fr.po        | 2 +-
+ dselect/po/gl.po        | 2 +-
+ dselect/po/hu.po        | 2 +-
+ dselect/po/id.po        | 2 +-
+ dselect/po/it.po        | 2 +-
+ dselect/po/ja.po        | 2 +-
+ dselect/po/ko.po        | 2 +-
+ dselect/po/nb.po        | 2 +-
+ dselect/po/nl.po        | 2 +-
+ dselect/po/nn.po        | 2 +-
+ dselect/po/pl.po        | 2 +-
+ dselect/po/pt.po        | 2 +-
+ dselect/po/pt_BR.po     | 2 +-
+ dselect/po/ro.po        | 2 +-
+ dselect/po/ru.po        | 2 +-
+ dselect/po/sk.po        | 2 +-
+ dselect/po/sv.po        | 2 +-
+ dselect/po/tl.po        | 2 +-
+ dselect/po/vi.po        | 2 +-
+ dselect/po/zh_CN.po     | 2 +-
+ dselect/po/zh_TW.po     | 2 +-
+ man/po/dpkg-man.pot     | 4 ++--
+ po/ast.po               | 2 +-
+ po/bs.po                | 2 +-
+ po/ca.po                | 2 +-
+ po/cs.po                | 2 +-
+ po/da.po                | 2 +-
+ po/de.po                | 2 +-
+ po/dpkg.pot             | 4 ++--
+ po/dz.po                | 2 +-
+ po/el.po                | 2 +-
+ po/eo.po                | 2 +-
+ po/es.po                | 2 +-
+ po/et.po                | 2 +-
+ po/eu.po                | 2 +-
+ po/fr.po                | 2 +-
+ po/gl.po                | 2 +-
+ po/hu.po                | 2 +-
+ po/id.po                | 2 +-
+ po/it.po                | 2 +-
+ po/ja.po                | 2 +-
+ po/km.po                | 2 +-
+ po/ko.po                | 2 +-
+ po/ku.po                | 2 +-
+ po/lt.po                | 2 +-
+ po/mr.po                | 2 +-
+ po/nb.po                | 2 +-
+ po/ne.po                | 2 +-
+ po/nl.po                | 2 +-
+ po/nn.po                | 2 +-
+ po/oc.po                | 2 +-
+ po/pa.po                | 2 +-
+ po/pl.po                | 2 +-
+ po/pt.po                | 2 +-
+ po/pt_BR.po             | 2 +-
+ po/ro.po                | 2 +-
+ po/ru.po                | 2 +-
+ po/sk.po                | 2 +-
+ po/sv.po                | 2 +-
+ po/th.po                | 2 +-
+ po/tl.po                | 2 +-
+ po/tr.po                | 2 +-
+ po/vi.po                | 2 +-
+ po/zh_CN.po             | 2 +-
+ po/zh_TW.po             | 2 +-
+ scripts/po/ca.po        | 2 +-
+ scripts/po/de.po        | 2 +-
+ scripts/po/dpkg-dev.pot | 4 ++--
+ scripts/po/es.po        | 2 +-
+ scripts/po/fr.po        | 2 +-
+ scripts/po/nl.po        | 2 +-
+ scripts/po/pl.po        | 2 +-
+ scripts/po/pt.po        | 2 +-
+ scripts/po/ru.po        | 2 +-
+ scripts/po/sv.po        | 2 +-
+ 85 files changed, 89 insertions(+), 89 deletions(-)
+
+commit 58146a371becc8ef2b10587b2d781fb3bc941bc1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jul 27 03:11:48 2024 +0200
+
+    Revert "scripts/mk: Reduce the number of subprocesses"
+    
+    This partially reverts commit e146a68a375453db89bc3b5e816d9405e5fd5634.
+    
+    While the reverted commit significantly reduced the amount of
+    subprocesses, it has caused some breakage on functionality packages were
+    relying on, some of which is currently hard to diagnose due to make
+    programming model complexity (at least the regressions for the build
+    flags), and another set is due to external packages using internal dpkg
+    macros. In any case the breakage is too big, and for some of the changes
+    potentially silent.
+    
+    Keep the documentation changes from the original patch, and preserve the
+    newly introduced DEB_TIMESTAMP variable.
+    
+    Revert this for now until the situation is more clear. And then it can
+    be reevaluated how to potentially reintroduce this, perhaps through a
+    new dpkg-build-api level, if that would require changes in packaging.
+    
+    Closes: #1076904, #1077005
+
+ scripts/mk/architecture.mk | 14 +++++---------
+ scripts/mk/buildapi.mk     |  6 +-----
+ scripts/mk/buildflags.mk   | 36 +++++++++++++++++++-----------------
+ scripts/mk/pkg-info.mk     | 19 ++++++++-----------
+ scripts/mk/vendor.mk       |  8 ++++----
+ 5 files changed, 37 insertions(+), 46 deletions(-)
+
+commit 3618de586c8f2eeb9003c209bc5563bd6bda1a85
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jul 26 02:16:56 2024 +0200
+
+    Dpkg::Changelog: Remove useless escaping for -
+    
+    These are not within [] to mark a range, they are literal minus signs.
+
+ scripts/Dpkg/Changelog/Debian.pm       | 2 +-
+ scripts/Dpkg/Changelog/Entry/Debian.pm | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit af10377e240142c65a53816954b2fc814d887fba
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jul 26 02:12:16 2024 +0200
+
+    Dpkg::Changelog::Entry::Debian: Remove obsolete /o modifier from regex
+    
+    This modifier is no longer needed, and its use is now discouraged.
+
+ scripts/Dpkg/Changelog/Entry/Debian.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit dd4d53d9784b33976ea1177e91ce5ceb896f1d63
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 05:04:13 2024 +0200
+
+    build: Simplify C standard check output
+    
+    Do not print that we are checking for features or that we are missing
+    extensions. Just state that C standard we are looking for.
+
+ m4/dpkg-compiler.m4 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit adc3dd67b3c5580919fc9ee99e2b6ec9819c4640
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 17:48:19 2024 +0200
+
+    build: Fix dpkg_cv_c99 assignment in DPKG_C_C99 macro
+    
+    The variable should be assigned a "yes" not a "1".
+
+ m4/dpkg-compiler.m4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1b562a0e9a2879d9db5855a1988cd3a8ed4e42e0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 23:52:22 2024 +0200
+
+    build: Fix length for comment bar line after autoconf functions
+    
+    The current convention is to use a length matching the function name,
+    but not its arguments.
+
+ m4/dpkg-arch.m4     | 4 ++--
+ m4/dpkg-compiler.m4 | 2 +-
+ m4/dpkg-funcs.m4    | 2 +-
+ m4/dpkg-libs.m4     | 4 ++--
+ m4/dpkg-progs.m4    | 2 +-
+ 5 files changed, 7 insertions(+), 7 deletions(-)
+
+commit f320bc0f8fb92d33c3252f61c4e7eb3fcf9401b9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 04:23:08 2024 +0200
+
+    build: Use pre-defined macros to check C/C++ conformance requirements
+    
+    In addition to the features we might explicitly check for, also use the
+    pre-defined macros that carry the language standard version currently in
+    use.
+
+ m4/dpkg-compiler.m4 | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit a2f7f85d5b6353291b863cb855b748ada75cb566
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 04:41:59 2024 +0200
+
+    build: Do not define macros for C/C++ standard level
+    
+    This is already tracked by pre-defined compiler macros. There is no need
+    to try to set these ourselves.
+
+ m4/dpkg-compiler.m4 | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+commit e2b2561766f9948267fd31a74396516c323d9bec
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 23:23:10 2024 +0200
+
+    Bump version to 1.22.10
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 82ab77437894fc3201e7e111677e83027c02294a
 Author: Guillem Jover <guillem@debian.org>
 Date:   Wed Jul 24 23:08:24 2024 +0200
