@@ -18,21 +18,21 @@ dpkg-buildpackage - Binär- oder Quellpakete aus Quellen bauen
 
 =head1 ÜBERSICHT
 
-B<dpkg-buildpackage> [I<option>...] [B<-->] [I<filename>.dsc|I<directory>]
+B<dpkg-buildpackage> [I<Option>…] [B<-->] [I<Dateiname>.dsc|I<Verzeichnis>]
 
 =head1 BESCHREIBUNG
 
-B<dpkg-buildpackage> is a program that automates the process of building a Debian package.
+B<dpkg-buildpackage> ist ein Programm, das den Prozess des Bauens eines Debian-Paketes automatisiert.
 
-The I<filename>.dsc and I<directory> arguments are supported since dpkg 1.22.7.  Their semantics are experimental.
+Die Argumente I<Dateiname>.dsc und I<Verzeichnis> werden seit Dpkg 1.22.7 unterstützt. Ihre Semantik ist experimentell.
 
-It consists of the following steps:
+Der Bauprozess besteht aus den folgenden Schritten:
 
 =over 
 
 =item B<1.>
 
-It runs the B<preinit> hook before reading any source file.  If a B<.dsc> file has been specified it unpacks it anew and changes directory to it, if a I<directory> has been specified it changes directory to it, otherwise it expects the current directory to contain the source tree.  It prepares the build environment by setting various environment variables (see B<ENVIRONMENT>), runs the B<init> hook, and calls B<dpkg-source --before-build> (unless B<-T> or B<--target> has been used).
+Es wird der Hook B<preinit> ausgeführt, bevor irgendeine Quelldatei gelesen wird. Falls eine B<.dsc>-Datei angegeben wurde, wird diese erneut entpackt und in das Verzeichnis hinein gewechselt, falls ein I<Verzeichnis> angegeben wurde, wird hinein gewechselt, andernfalls wird erwartet, dass das aktuelle Verzeichnis den Qellbaum enthält. Die Bauumgebung wird vorbereitet, indem verschiedene Umgebungsvariablen gesetzt werden (siehe B<UMGEBUNG>), der B<init>-Hook ausgeführt und B<dpkg-source --before-build> aufgerufen wird (es sei denn, B<-T> oder B<--target> wurde verwandt).
 
 =item B<2.>
 
@@ -44,7 +44,7 @@ Falls eines oder mehrere spezielle Ziele mit der Option B<-T> oder B<--target> a
 
 =item B<4.>
 
-It runs the B<source> hook and calls B<dpkg-source -b> to generate the source package (if a B<source> build has been requested with B<--build> or equivalent options, and if no B<.dsc> has been specified).
+Der Hook B<source> wird ausgeführt und B<dpkg-source -b> aufgerufen, um das Quellpaket zu erstellen (falls mit B<--build> oder äquivalenten Optionen ein B<source> (Quell-)Bau erbeten wurde und keine B<.dsc> angegeben wurde).
 
 =item B<5.>
 
@@ -52,7 +52,7 @@ Es führt den Hook B<build> aus und ruft B<debian/rules> I<Bauziel> auf. Dann f�
 
 =item B<6.>
 
-It runs the B<buildinfo> hook and calls B<dpkg-genbuildinfo> to generate a B<.buildinfo> file.  Several B<dpkg-buildpackage> options are forwarded to B<dpkg-genbuildinfo>.  If a I<.dsc> has been specified, then it will be referenced in the generated B<.buildinfo> file, as we can ascertain the provenance of the source tree.
+Der Hook B<buildinfo> wird ausgeführt und B<dpkg-genbuildinfo> aufgerufen, um eine B<.buildinfo>-Datei zu erstellen. Viele Optionen von B<dpkg-buildpackage> werden an B<dpkg-genbuildinfo> weitergeleitet. Falls eine I<.dsc> angegeben wurde, dann wird sie in der erstellten B<.buildinfo>-Datei referenziert, da die Herkunft des Quellbaums sichergestellt werden kann.
 
 =item B<7.>
 
@@ -94,7 +94,7 @@ Der Hook B<sign> wird ausgeführt und mittels eines OpenPGP-Backends signiert (s
 
 =item B<12.>
 
-If a B<.dsc> file has been specified, it removes the extracted source directory.
+Falls eine B<.dsc>-Datei angegeben wurde, wird das extrahierte Quellverzeichnis entfernt.
 
 =item B<13.>
 

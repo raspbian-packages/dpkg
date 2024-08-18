@@ -26,7 +26,7 @@ Alla Debian-källkodspaket kan lagra bygginformation i en B<.buildinfo>-styrfil,
 
 Varje fält börjar med en etikett, såsom B<Source> eller B<Binary> (skiftlägesoberoende), följt av ett kolontecken och fältets kropp (skiftlägesberoende såvida inte annat anges). Fält avdelas endast av fältetiketter. Med andra ord kan texten i fälten spänna över flera rader, men installationsverktygen kommer oftast att slå samman rader när kroppen tolkas (förutom när det gäller flerradsfälten B<Binary-Only-Changes>, B<Installed-Build-Depends>, B<Environment>, B<Checksums-Md5>, B<Checksums-Sha1> och B<Checksums-Sha256>, se nedan).
 
-Styrinformationen kan omges av en OpenPGP-signatur i ASCII-skal, såsom beskrivs i RFC4880.
+The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
 
 Namnet på B<.buildinfo>-filen kommer att bero på byggtypen och kommer att vara så specifik som möjligt, men inte mer; namnet kommer att vara:
 

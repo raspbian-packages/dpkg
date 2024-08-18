@@ -26,7 +26,7 @@ Chaque envoi dans Debian est composé d'un fichier de contrôle .changes qui con
 
 Chaque champ commence par une étiquette, telle que B<Source> ou B<Binary> (la casse n'importe pas), suivie d'un « : », et du contenu du champ (sensible à la casse à moins que cela ne soit spécifié autrement). Les champs sont séparés seulement par des étiquettes de champ. En d'autres termes, le contenu d'un champ peut s'étendre sur plusieurs lignes, mais les outils d'installation joindront en général les lignes pendant le traitement du contenu du champ (sauf pour les champs à lignes multiples B<Description>, B<Changes>, B<Files>, B<Checksums-Sha1> et B<Checksums-Sha256>, voir ci-dessous).
 
-Les données de contrôle pourraient être incluses dans une signature OpenPGP « ASCII Armored », comme spécifié dans la RFC4880.
+The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
 
 =head1 LES CHAMPS
 

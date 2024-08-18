@@ -26,7 +26,7 @@ Jeder Debian-Upload besteht aus einer .changes-Steuerdatei, die eine Reihe von F
 
 Jedes Feld beginnt mit einer Markierung wie B<Source> oder B<Binary> (Groß-/Kleinschreibung ist egal), gefolgt von einem Doppelpunkt und dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben). Felder werden nur durch Feldmarkierungen abgegrenzt. Mit anderen Worten: Der Feldtext kann sich über mehrere Zeilen erstrecken, wobei die Installationswerkzeuge die Zeilen bei der Verarbeitung des Feldinhaltes zusammenfügen werden (Ausnahmen sind die mehrzeiligen Felder B<Description>, B<Changes>, B<Files>, B<Checksums-Sha1> und B<Checksums-Sha256>, siehe unten).
 
-Die Steuerdaten können in eine Signatur mit einer wie in RFC4880 spezifizierten OpenPGP-ASCII-Hülle eingeschlossen sein.
+The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
 
 =head1 FELDER
 

@@ -26,7 +26,7 @@ Jeder Bau eines Debian-Quellpakets kann die Bauinformationen in einer B<.buildin
 
 Jedes Feld beginnt mit einer Markierung, wie B<Source> oder B<Binary> (Groß-/Kleinschreibung ist egal), gefolgt von einem Doppelpunkt und dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben). Felder werden nur durch Feldmarkierungen begrenzt. Mit anderen Worten, Felder können mehrere Zeilen umfassen, aber die Installationswerkzeuge werden im Allgemeinen die Zeilen bei der Verarbeitung des Feldinhaltes zusammenfassen (außer im Falle der mehrzeiligen Felder B<Binary-Only-Changes>, B<Installed-Build-Depends>, B<Environment>, B<Checksums-Md5>, B<Checksums-Sha1> und B<Checksums-Sha256>, siehe unten).
 
-Die Steuerdaten können in eine Signatur mit einer wie in RFC4880 spezifizierten OpenPGP-ASCII-Hülle eingeschlossen sein.
+The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
 
 Der Name der B<.buildinfo>-Datei wird von der Art des Baus abhängen und wird so spezifisch wie notwendig sein, aber nicht mehr; der Name wird
 

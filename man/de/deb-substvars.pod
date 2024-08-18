@@ -30,7 +30,7 @@ Eine Variablenersetzung hat die Form B<${>I<Variablenname>B<}>. Variablennamen b
 
 =head2 Dateisyntax
 
-Substitution variables can be specified in a file.  These files consist of lines of the form I<name>B<=>I<value>, I<name>B<?=>I<value>, or I<name>B<!=>I<value>.  The B<=> operator assigns a normal substitution variable, the B<?=> operator (since dpkg 1.21.8) assigns an optional substitution variable which will emit no warnings even if unused, and the B<!=> operator (since dpkg 1.22.7) assigns a required substitution variable which will error out if unused.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+Ersetzungsvariablen können in einer Datei festgelegt werden. Diese Dateien bestehen aus Zeilen der Form I<Name>B<=>I<Wert>, I<Name>B<?=>I<Wert> oder I<Name>B<!=>I<Wert>. Der Operator B<=> weist eine normale Ersetzungsvariable zu, der Operator B<?=> (seit Dpkg 1.21.8) weist eine optionale Ersetzungsvariable zu, die keine Warnungen ausgibt, selbst wenn sie nicht verwandt wird und der Operator B<!=> (seit Dpkg 1.22.7) weist eine benötigte Ersetzungsvariable zu, die einen Fehler auslöst, falls sie nicht verwandt wird. Leerraumzeichen am Zeilenende, leere Zeilen und Zeilen, die mit dem B<#>-Symbol starten (Kommentare) werden ignoriert.
 
 =head2 Ersetzungen
 

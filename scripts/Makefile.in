@@ -734,6 +734,8 @@ test_data = \
 	t/Dpkg_OpenPGP/sign-file-inline.sig \
 	t/Dpkg_OpenPGP/sign-file.asc \
 	t/Dpkg_OpenPGP/sign-file.sig \
+	t/Dpkg_Shlibs/anglebrackets.cpp \
+	t/Dpkg_Shlibs/anglebrackets.symbols \
 	t/Dpkg_Shlibs/basictags.c \
 	t/Dpkg_Shlibs/basictags.symbols \
 	t/Dpkg_Shlibs/ld.so.conf \
@@ -741,6 +743,7 @@ test_data = \
 	t/Dpkg_Shlibs/ld.so.conf.d/normal.conf \
 	t/Dpkg_Shlibs/ld.so.conf.d/recursive.conf \
 	t/Dpkg_Shlibs/ld.so.conf_2 \
+	t/Dpkg_Shlibs/objdump.anglebrackets \
 	t/Dpkg_Shlibs/objdump.basictags-amd64 \
 	t/Dpkg_Shlibs/objdump.basictags-i386 \
 	t/Dpkg_Shlibs/objdump.basictags-mips \
@@ -837,11 +840,14 @@ test_data = \
 	# EOL
 
 test_data_objects = \
+	t/Dpkg_Shlibs/libobjdump.anglebrackets.so \
 	t/Dpkg_Shlibs/libobjdump.basictags-amd64.so \
 	t/Dpkg_Shlibs/libobjdump.basictags-i386.so \
 	t/Dpkg_Shlibs/libobjdump.basictags-mips.so \
 	t/Dpkg_Shlibs/libobjdump.patterns.so \
 	t/Dpkg_Shlibs/libobjdump.spacesyms.so \
+	t/Dpkg_Shlibs/spacesyms.c \
+	t/Dpkg_Shlibs/spacesyms.o \
 	# EOL
 
 all: all-recursive
@@ -1409,6 +1415,10 @@ coverage: check
 coverage-clean:
 	rm -rf cover_db
 
+$(srcdir)/t/Dpkg_Shlibs/libobjdump.anglebrackets.so: $(srcdir)/t/Dpkg_Shlibs/anglebrackets.cpp
+	$(CXX) $(CXXFLAGS) -shared -fPIC -Wl,-soname -Wl,libanglebrackets.so.1 \
+	  $< -o $@
+
 $(srcdir)/t/Dpkg_Shlibs/libobjdump.basictags-amd64.so: $(srcdir)/t/Dpkg_Shlibs/basictags.c
 	$(CC) $(CFLAGS) -shared -fPIC -Wl,-soname -Wl,libbasictags.so.1 $< \
 	  -DAMD64 -o $@
@@ -1440,6 +1450,8 @@ $(srcdir)/t/Dpkg_Shlibs/libobjdump.spacesyms.so: $(srcdir)/t/Dpkg_Shlibs/spacesy
 .PHONY: refresh-test-data
 
 refresh-test-data: $(test_data_objects)
+	$(OBJDUMP) $(srcdir)/t/Dpkg_Shlibs/libobjdump.anglebrackets.so \
+	  >$(srcdir)/t/Dpkg_Shlibs/objdump.anglebrackets
 	$(OBJDUMP) $(srcdir)/t/Dpkg_Shlibs/libobjdump.basictags-amd64.so \
 	  >$(srcdir)/t/Dpkg_Shlibs/objdump.basictags-amd64
 	$(OBJDUMP) $(srcdir)/t/Dpkg_Shlibs/libobjdump.basictags-i386.so \
@@ -1450,7 +1462,7 @@ refresh-test-data: $(test_data_objects)
 	  >$(srcdir)/t/Dpkg_Shlibs/objdump.patterns
 	$(OBJDUMP) $(srcdir)/t/Dpkg_Shlibs/libobjdump.spacesyms.so \
 	  >$(srcdir)/t/Dpkg_Shlibs/objdump.spacesyms
-	$(OBJDUMP) `which ls` >$(srcdir)/t/Dpkg_Shlibs/objdump.ls
+	$(OBJDUMP) `command -v ls` >$(srcdir)/t/Dpkg_Shlibs/objdump.ls
 
 TEST_VERBOSE ?= 0
 TEST_PARALLEL ?= 1

@@ -1,3 +1,283 @@
+commit ee7e9118d0a9581cb00c5ce02dccd561b3096387
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 12:44:43 2024 +0200
+
+    Release 1.22.11
+
+ debian/changelog | 30 +++++++++++++++++++++++++++---
+ 1 file changed, 27 insertions(+), 3 deletions(-)
+
+commit 54aec70de7aad9c7ed45befae9eb68ce72e5fdc1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 12:39:15 2024 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 54 ++++++++++++++++++++++++++++---------------------
+ man/po/dpkg-man.pot     |  6 +++---
+ man/po/es.po            |  4 ++--
+ man/po/fr.po            |  8 ++++++--
+ man/po/hu.po            |  4 ++--
+ man/po/it.po            |  4 ++--
+ man/po/ja.po            |  4 ++--
+ man/po/nl.po            |  8 ++++++--
+ man/po/pl.po            |  4 ++--
+ man/po/pt.po            |  8 ++++++--
+ man/po/pt_BR.po         |  4 ++--
+ man/po/ru.po            |  4 ++--
+ man/po/sv.po            |  8 ++++++--
+ man/po/zh_CN.po         |  4 ++--
+ po/ast.po               |  2 +-
+ po/bs.po                |  2 +-
+ po/ca.po                |  2 +-
+ po/cs.po                |  2 +-
+ po/da.po                |  2 +-
+ po/de.po                |  2 +-
+ po/dpkg.pot             |  4 ++--
+ po/dz.po                |  2 +-
+ po/el.po                |  2 +-
+ po/eo.po                |  2 +-
+ po/es.po                |  2 +-
+ po/et.po                |  2 +-
+ po/eu.po                |  2 +-
+ po/fr.po                |  2 +-
+ po/gl.po                |  2 +-
+ po/hu.po                |  2 +-
+ po/id.po                |  2 +-
+ po/it.po                |  2 +-
+ po/ja.po                |  2 +-
+ po/km.po                |  2 +-
+ po/ko.po                |  2 +-
+ po/ku.po                |  2 +-
+ po/lt.po                |  2 +-
+ po/mr.po                |  2 +-
+ po/nb.po                |  2 +-
+ po/ne.po                |  2 +-
+ po/nl.po                |  2 +-
+ po/nn.po                |  2 +-
+ po/oc.po                |  2 +-
+ po/pa.po                |  2 +-
+ po/pl.po                |  2 +-
+ po/pt.po                |  2 +-
+ po/pt_BR.po             |  2 +-
+ po/ro.po                |  2 +-
+ po/ru.po                |  2 +-
+ po/sk.po                |  2 +-
+ po/sv.po                |  2 +-
+ po/th.po                |  2 +-
+ po/tl.po                |  2 +-
+ po/tr.po                |  2 +-
+ po/vi.po                |  2 +-
+ po/zh_CN.po             |  2 +-
+ po/zh_TW.po             |  2 +-
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        | 12 +++++++----
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/nl.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/pt.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 98 files changed, 168 insertions(+), 140 deletions(-)
+
+commit 9bd4e1b17aefac90a3f20855e237d3873b90c3b9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 09:22:04 2024 +0200
+
+    doc: Replace references to crypto-refresh and RFC4880 with RFC9580
+    
+    The refresh to the RFC4880 has been approved now, and it is called
+    RFC9580, so we can use its final name instead of the obsolete RFC
+    or the previous draft ones.
+
+ man/deb-buildinfo.pod                 | 2 +-
+ man/deb-changes.pod                   | 2 +-
+ man/dsc.pod                           | 2 +-
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 8 +++-----
+ 4 files changed, 6 insertions(+), 8 deletions(-)
+
+commit 3e2046ecd9ecc4e6b8116ff2fb06d6e6e7ed9bfe
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 16:14:43 2024 +0200
+
+    Dpkg::Shlibs::Cppfilt: Do not normalize angle brackets for operators
+    
+    We should not normalize angle brackets for these operators, otherwise
+    we turn them into invalid syntax.
+    
+    Closes: #1076067
+
+ scripts/Dpkg/Shlibs/Cppfilt.pm              |  2 +
+ scripts/Makefile.am                         | 10 ++++
+ scripts/t/Dpkg_Shlibs/anglebrackets.cpp     | 23 ++++++++++
+ scripts/t/Dpkg_Shlibs/anglebrackets.symbols |  7 +++
+ scripts/t/Dpkg_Shlibs/objdump.anglebrackets | 71 +++++++++++++++++++++++++++++
+ scripts/t/Dpkg_Shlibs_Cppfilt.t             | 18 +++++++-
+ 6 files changed, 130 insertions(+), 1 deletion(-)
+
+commit 322ecd6cdd6fdc7c865069bbfef3297751e02763
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 16:13:38 2024 +0200
+
+    test: Refactor load_objdump_obj()
+    
+    We are doing the same thing over and over. Refactor into a single
+    function.
+
+ scripts/t/Dpkg_Shlibs.t | 86 ++++++++++++++-----------------------------------
+ 1 file changed, 24 insertions(+), 62 deletions(-)
+
+commit dc8f6ffc0e69fb21f9132e4255b5972440ced2f2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 29 00:28:52 2024 +0200
+
+    test: Unroll Dpkg::Changelog file tests loop
+    
+    The unit tests were using a loop, which had a tiny common part and the
+    rest was specific logic for each individual file, which made reading
+    the loop and following the code path more complex than needed.
+    
+    Unroll the loop, to have one section per file.
+
+ scripts/t/Dpkg_Changelog.t | 452 ++++++++++++++++++++++++---------------------
+ 1 file changed, 237 insertions(+), 215 deletions(-)
+
+commit e718824ff597f78cacd6c6bab424a9e902babb3e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 29 00:36:29 2024 +0200
+
+    test: Refactor setup_changelog() in Dpkg::Changelog test
+
+ scripts/t/Dpkg_Changelog.t | 82 ++++++++++++++++++++++++++--------------------
+ 1 file changed, 47 insertions(+), 35 deletions(-)
+
+commit b08c26021f3e2398743ebf95510838ab54d6f071
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 29 00:31:29 2024 +0200
+
+    test: Improve Dpkg::Changelog data test case message
+
+ scripts/t/Dpkg_Changelog.t | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 958f881063aff9a9a43510e68b6ef1d09a7a2cc5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 29 00:29:16 2024 +0200
+
+    test: Fix coding style in perl test cases
+    
+    Remove spurious spaces around parenthesis in function calls.
+
+ scripts/t/Dpkg_Changelog.t      |  10 +-
+ scripts/t/Dpkg_Shlibs.t         | 627 +++++++++++++++++++++++++++-------------
+ scripts/t/Dpkg_Shlibs_Cppfilt.t |  22 +-
+ 3 files changed, 436 insertions(+), 223 deletions(-)
+
+commit f562efd82303542892ea0af7186093acc2980db5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 14:59:10 2024 +0200
+
+    build: Add declaration for funcs symbols in spacesyms.c
+    
+    Warned-by: gcc -Wmissing-variable-declarations
+
+ scripts/t/Dpkg_Shlibs/spacesyms-c-gen.pl | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 266c62412918f40b6966d699b08dc48354ceac4e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 14:58:02 2024 +0200
+
+    build: Remove generated spacesyms.o and spacesyms.c on clean
+    
+    Both these files are generated, so we should be cleaning them up.
+
+ scripts/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 4fc2add4b8f68e9fcb13d4753cfd800c6f2f1f43
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 15:02:05 2024 +0200
+
+    build: Use 'command -v' instead of 'which'
+    
+    The latter is not portable, and at least in Debian there was an attempt
+    to deprecate it.
+
+ scripts/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 356a1068021cea2df51cb017a47c11ce14d85a0b
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Sat Jul 27 17:22:55 2024 +0200
+
+    po: Update German programs translation
+    
+    Update to 1195t.
+
+ po/de.po | 60 +++++++++++++++---------------------------------------------
+ 1 file changed, 15 insertions(+), 45 deletions(-)
+
+commit ed77a56e88136b4416033c0ac6aa8977ce499666
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Jul 27 14:35:34 2024 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 114 ++++++++++++++++-------------------------------------------
+ 1 file changed, 30 insertions(+), 84 deletions(-)
+
+commit a83545d3722fda64ffdacb88873bf6fe18773bc3
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Jul 27 14:35:11 2024 +0200
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 148 +++++++++++++++++++++++--------------------------------
+ 1 file changed, 62 insertions(+), 86 deletions(-)
+
+commit 4eacab3cf36cb8d8a5370841029483b23efb171a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jul 27 06:02:02 2024 +0200
+
+    Bump version to 1.22.11
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit ef5536cfe24e4c41c6fdc56e4530161fade3887c
 Author: Guillem Jover <guillem@debian.org>
 Date:   Sat Jul 27 05:45:16 2024 +0200

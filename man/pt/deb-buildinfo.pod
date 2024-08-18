@@ -26,7 +26,7 @@ Cada compilação de pacote fonte Debian pode gravar a informação de compilaç
 
 Cada campo começa com uma etiqueta, tal como B<Source> ou B<Binary> (insensível a maiúsculas/minúsculas), seguida de dois pontos, e do corpo do campo (sensível a maiúsculas/minúsculas a menos que declarado o contrário). Os campos são delimitados apenas pelas etiquetas (tags) dos campos. Por outras palavras, o campo de texto pode ter várias linhas de comprimento, mas as ferramentas de instalação irão geralmente juntar as linhas quando processam o corpo do campo (excepto no caso de campos multi-linha B<Binary-Only-Changes>, B<Installed-Build-Depends>, B<Environment>, B<Checksums-Md5>, B<Checksums-Sha1> e B<Checksums-Sha256>, ver abaixo).
 
-Os dados de controle podem estar inclusos numa assinatura OpenPGP ASCII Armored, como especificado em RFC4880.
+The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
 
 O nome do ficheiro B<.buildinfo> irá depender do tipo de compilação e será tão específico quanto necessário mas não mais; o nome irá ser:
 
