@@ -1,0 +1,42 @@
+#!/bin/sh
+# See deb-postinst(5).
+
+set -e
+
+PROGNAME=dpkg
+
+. /usr/share/dpkg/sh/dpkg-error.sh
+
+setup_aliases()
+{
+  local prog=start-stop-daemon
+
+  # Add a backward compatibility symlink alias for s-s-d, which is now
+  # installed in its canonical location.
+  if [ ! -f "$DPKG_ROOT/sbin/$prog" ] && [ -d "$DPKG_ROOT/sbin" ]; then
+    ln -s "/usr/sbin/$prog" "$DPKG_ROOT/sbin/$prog"
+  fi
+}
+
+case "$1" in
+configure)
+  setup_aliases
+  ;;
+abort-upgrade|abort-deconfigure|abort-remove)
+  ;;
+*)
+  error "called with unknown argument '$1'"
+  ;;
+esac
+
+# Due to #932360 in debhelper we need to explicitly tell systemd to reload.
+case "$1" in
+configure|abort-upgrade|abort-deconfigure|abort-remove)
+  if [ -d /run/systemd/system ]; then
+    systemctl --system daemon-reload >/dev/null || true
+  fi
+  ;;
+esac
+
+#DEBHELPER#
+exit 0
