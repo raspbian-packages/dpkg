@@ -593,7 +593,11 @@ Benutzerkonfigurationsdatei
 
 =item B<%PKGDATADIR%/buildflags.mk>
 
-Make-Steuerdateischnipsel, das alle von B<dpkg-buildflags> unterstützten Schalter in Variablen laden (und optional exportieren) wird. (seit Dpkg 1.16.1)
+Makefile snippet that loads (and optionally export) all flags supported by B<dpkg-buildflags> into variables (since dpkg 1.16.1).
+
+=item B<%PKGDATADIR%/buildtools.mk>
+
+Makefile snippet that sets suitable host and build tools (and optionally export them) into variables (since dpkg 1.19.0).
 
 =back
 
@@ -665,7 +669,7 @@ Und natürlich können Sie die Schalter manuell an Befehle weitergeben:
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

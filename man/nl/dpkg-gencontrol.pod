@@ -106,7 +106,7 @@ De versie tonen en afsluiten.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.
+Stelt de computerarchitectuur in.
 
 =item B<DPKG_COLORS>
 

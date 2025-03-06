@@ -30,7 +30,7 @@ En variabelsubstitution har formen B<${>I<variabelnamn>B<}>. Variabelnamn bestå
 
 =head2 Filsyntax
 
-Substitution variables can be specified in a file.  These files consist of lines of the form I<name>B<=>I<value>, I<name>B<?=>I<value>, or I<name>B<!=>I<value>.  The B<=> operator assigns a normal substitution variable, the B<?=> operator (since dpkg 1.21.8) assigns an optional substitution variable which will emit no warnings even if unused, and the B<!=> operator (since dpkg 1.22.7) assigns a required substitution variable which will error out if unused.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+Substitueringsvariabler kan anges i en fil. En sådan fil består av rader på formen I<namn>B<=>I<värde>, I<namn>B<?=><värde>, eller I<namn>B<!=>I<värde>. Operatorn B<=> tilldelar en normal substitueringsvariabel, operatorn B<?=> (sedan dpkg 1.21.8) tilldelar en valfri variabel som inte skriver ut någon varning även om den inte används, och operatorn B<!=> (sedan dpkg 1.22.7) tilldelar en krävd substitueringsvariabel som kommer orsaka ett felavslut om den inte används. Avslutande blanksteg på en rad, blanka rader och rader som börjar med en B<#>-symbol (kommentarer) ignoreras.
 
 =head2 Substituering
 

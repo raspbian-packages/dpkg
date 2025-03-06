@@ -108,15 +108,15 @@ Flaggan B<-d>I<beroendefält> gäller för samtliga binärer efter flaggan, fram
 
 Om samma katalogpost (eller en uppsättning alternativ) förekommer i mer än ett av de kända beroendefältnamnen B<Pre-Depends>, B<Depends>, B<Recommends>, B<Enhances> eller B<Suggests> så kommer B<dpkg-shlibdeps> att automatiskt ta bort beroendet från samtliga fält förutom det som anger de viktigaste beroendena.
 
-=item B<--package=>I<package>
+=item B<--package=>I<paket>
 
-Define the package name.
+Ange paketets namn.
 
-When specified, the package name will be used to change defaults based on the binary package metadata in F<debian/control>.
+När detta anges kommer paketnamnet används för att ändra förvalen baserade på binärpaketets metadata i F<debian/control>.
 
-If the package is B<Essential: yes>, then the default dependency field is B<Pre-Depends>, otherwise B<Depends>.  The default package type is set from the B<Package-Type> field.  The package is added to the set of packages excluded by B<-x>.
+Om paketet är B<Essential: yes> är det förvalda beroendefältet B<Pre-Depends>, annars B<Depends>. Den förvalda pakettypen anges från fältet B<Package-Type>. Paketet läggs till uppsättningen över paket som utesluts av B<-x>.
 
-Option supported since dpkg 1.22.7.
+Flaggan stöds sedan dpkg 1.22.7.
 
 =item B<-p>I<variabelnamnsprefix>
 
@@ -158,9 +158,31 @@ Ignorera I<paketbyggkatalog> vid sökning efter delade shlibs, symboler och dela
 
 Misslyckas inte om det inte upptäcks någon beroendeinformation för ett delat bibliotek (sedan dpkg 1.14.8). Den här flaggan rekommenderas inte, alla bibliotek bör tillhandahålla beroendeinformation (antingen med shlibs-filer eller med symbols-filer), även om de ännu inte används av andra paket.
 
-=item B<--warnings=>I<värde>
+=item B<--warnings=>[I<value>|I<string>[,...]]
 
-I<Värde> är ett bitfält som anger de varningar som kan ges av B<dpkg-shlibdeps> (sedan dpkg 1.14.17). Bit 0 (värde=1) aktiverar varningen ”symbolen I<sym>, som används av I<binär>, hittades inte i något av biblioteken”, bit 1 (värde=2) aktiverar varningen ”paketet kunde undvika ett onödigt beroende” och bit 2 (värde=4) aktiverar varningen ”I<binär> borde inte vara länkat mot I<bibliotek>”. Standard för I<värde> är 3: de första två varningarna är aktiva som standard, men inte den sista. Sätt I<värde> till 7 om du vill att alla varningar ska vara aktiva.
+Select the set of warnings that can be emitted by B<dpkg-shlibdeps> (since dpkg 1.14.17).
+
+The warnings can be selected from a comma-separated list of symbolic names (since dpkg 1.22.12), or from a I<value> denoting a bit field for these warnings.
+
+=over 
+
+=item symbol-not-found (bit 0, value 1)
+
+Selects the warning “symbol I<sym> used by I<binary> found in none of the libraries”.
+
+Enabled by default.
+
+=item avoidable-dependency (bit 1, value 2)
+
+Selects the warning “package could avoid a useless dependency”.
+
+Enabled by default.
+
+=item useless-linkage (bit 2, value 4)
+
+Select the warning “I<binary> should not be linked against I<library>”.
+
+=back
 
 =item B<--admindir=>I<kat>
 
@@ -182,7 +204,7 @@ Visar version och avslutar.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the objects and symbols files searched for and their default search pathnames.
+Anger värdarkitekturen. Detta påverkar de objekt- och symbolfiler som söks efter och deras förvalda söknings-sökvägsnamn.
 
 =item B<DPKG_COLORS>
 

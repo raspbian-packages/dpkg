@@ -18,21 +18,21 @@ dpkg-buildpackage - compila pacotes binários ou fonte a partir de fontes
 
 =head1 RESUMO
 
-B<dpkg-buildpackage> [I<option>...] [B<-->] [I<filename>.dsc|I<directory>]
+B<dpkg-buildpackage> [I<opção>...] [B<-->] [I<nomeficheiro>.dsc|I<directório>]
 
 =head1 DESCRIÇÃO
 
-B<dpkg-buildpackage> is a program that automates the process of building a Debian package.
+B<dpkg-buildpackage> é um programa que automatiza os processos de compilar um pacote Debian.
 
-The I<filename>.dsc and I<directory> arguments are supported since dpkg 1.22.7.  Their semantics are experimental.
+Os argumentos I<filename>.dsc e I<directory> são suportados desde dpkg 1.22.7.  As suas semânticas são experimentais.
 
-It consists of the following steps:
+Consiste dos seguintes passos:
 
 =over 
 
 =item B<1.>
 
-It runs the B<preinit> hook before reading any source file.  If a B<.dsc> file has been specified it unpacks it anew and changes directory to it, if a I<directory> has been specified it changes directory to it, otherwise it expects the current directory to contain the source tree.  It prepares the build environment by setting various environment variables (see B<ENVIRONMENT>), runs the B<init> hook, and calls B<dpkg-source --before-build> (unless B<-T> or B<--target> has been used).
+Corre o hook B<preinit> antes de ler qualquer ficheiro fonte. Se um ficheiro B<.dsc> foi especificado, descompacta-o de  novo e muda de directório para ele, se um I<directory> foi especificado muda de directório para ele, caso contrário espera que o directório actual contenha a árvore fonte. Prepara o ambiente de compilação ao definir várias variáveis de ambiente. (veja B<ENVIRONMENT>), corre o hook B<init>, e chama B<dpkg-source --before-build> (a menos que B<-T> ou B<--target> sejam usados).
 
 =item B<2.>
 
@@ -44,7 +44,7 @@ Se um ou mais alvos específicos foram seleccionado com a opção B<-T> ou B<--t
 
 =item B<4.>
 
-It runs the B<source> hook and calls B<dpkg-source -b> to generate the source package (if a B<source> build has been requested with B<--build> or equivalent options, and if no B<.dsc> has been specified).
+Corre o hook B<source> e chama B<dpkg-source -b> para gerar o pacote fonte. (se foi requerida uma compilação B<source> com B<--build> ou com opções equivalentes, e se nenhum B<.dsc> foi especificado).
 
 =item B<5.>
 
@@ -52,7 +52,7 @@ Corre o hook B<build> e chama B<debian/rules> I<build-target>, depois corre o ho
 
 =item B<6.>
 
-It runs the B<buildinfo> hook and calls B<dpkg-genbuildinfo> to generate a B<.buildinfo> file.  Several B<dpkg-buildpackage> options are forwarded to B<dpkg-genbuildinfo>.  If a I<.dsc> has been specified, then it will be referenced in the generated B<.buildinfo> file, as we can ascertain the provenance of the source tree.
+Corre o hook B<buildinfo>, e chama B<dpkg-genbuildinfo> para gerar um ficheiro B<.buildinfo>. Várias opções de B<dpkg-buildpackage> são reencaminhadas para o B<dpkg-genbuildinfo>. Se foi especificado um I<.dsc>, então será referenciado no ficheiro B<.buildinfo> gerado, pois assim podemos verificar a proveniência da árvore fonte.
 
 =item B<7.>
 
@@ -94,7 +94,7 @@ Corre o hook B<sign> e assina usando o backend OpenPGP (desde que não seja uma 
 
 =item B<12.>
 
-If a B<.dsc> file has been specified, it removes the extracted source directory.
+Se um ficheiro B<.dsc> foi especificado, remove o directório de fonte extraída.
 
 =item B<13.>
 
@@ -262,7 +262,7 @@ Não verifica dependências de compilação embutidas e conflitos (desde dpkg 1.
 
 =item B<--rules-requires-root>
 
-Não respeita o campo B<Rules-Requires-Root>, caindo para o seu valor de predefinição antiga (desde dpkg 1.19.1).
+Do not honor the B<Rules-Requires-Root> field, falling back to its legacy default value B<binary-targets> (since dpkg 1.19.1).
 
 =item B<-nc>, B<--no-pre-clean>
 
@@ -324,7 +324,7 @@ Obtém B<DPKG_BUILDPACKAGE_HOOK_SOURCE_OPTIONS> com as listas de opções separa
 
 =item B<build>
 
-Gets B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> with the name of the B<debian/rules> build target called.  Before dpkg 1.22.7 the variable was only set if the target was called.
+Obtém B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> com o nome do alvo de compilação B<debian/rules> chamado. Antes do dpkg 1.22.7 a variável só era definida apenas se o alvo fosse chamado.
 
 =item B<binary>
 
@@ -514,7 +514,7 @@ Se definido, será usado como o comando para verificar o ficheiro B<.changes> (d
 
 =item B<DEB_SIGN_KEYID>
 
-Se definido, será usado para assinar os ficheiros B<.changes>, B<.buildinfo> e B<.dsc> (desde dpkg 1.17.2). Sobreposto pela opção B<--sign-key>.
+If set, it will be used to sign the B<.changes>, B<.buildinfo> and B<.dsc> files (since dpkg 1.17.2).  Overridden by the B<--sign-keyid> option.
 
 =item B<DEB_SIGN_KEYFILE>
 
@@ -632,7 +632,7 @@ Entre dpkg 1.14.17 e 1.16.1, B<dpkg-buildpackage> exportava as bandeiras de comp
 
 =head2 Metas de compilação predefinidas
 
-B<dpkg-buildpackage> is using the B<build-arch> and B<build-indep> targets since dpkg 1.16.2.  Before dpkg 1.22.7, there was code to try to detect the missing targets and fallback on the B<build> target.  Those targets are thus mandatory.
+B<dpkg-buildpackage> está a usar os alvos B<build-arch> e B<build-indep> desde o dpkg 1.16.2.  Antes do dpkg 1.22.7, existia código para tentar detectar os alvos em falta e regressar ao alvo B<build>.  Esses alvos são assim obrigatórios.
 
 =head1 SEGURANÇA
 

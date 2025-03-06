@@ -38,13 +38,13 @@ Bei den meisten Befehlen, die ein Archiv als Eingabeargument erwarten, kann der 
 
 Legt ein Debian-Archiv aus dem Dateisystembaum, der in I<Programmverzeichnis> gespeichert ist, an. I<Programmverzeichnis> muss ein B<DEBIAN>-Unterverzeichnis aufweisen, das die Dateien mit Steuerinformation wie die B<control>-Datei selbst enthält. Dieses Verzeichnis wird I<nicht> in dem Dateisystemarchiv des Binärpakets auftauchen, sondern die Dateien selbst werden in den Steuer-Informationsbereich des Binärpakets gepackt.
 
-Falls Sie nicht B<--nocheck> angeben, wird B<dpkg-deb> B<DEBIAN/control> lesen und es auswerten. Es prüft die Datei auf Syntax-Fehler und andere Probleme und zeigt den Namen des zu bauenden Binärpakets an. B<dpkg-deb> wird auch die Rechte der Betreuer-Skripte und anderer Dateien im B<DEBIAN>-Steuer-Informationsverzeichnis prüfen.
+Falls Sie nicht B<--no-check> angeben, wird B<dpkg-deb> B<DEBIAN/control> lesen und es auswerten. Es prüft die Datei auf Syntax-Fehler und andere Probleme und zeigt den Namen des zu bauenden Binärpakets an. B<dpkg-deb> wird auch die Rechte der Betreuer-Skripte und anderer Dateien im B<DEBIAN>-Steuer-Informationsverzeichnis prüfen.
 
 Falls kein I<Archiv> angegeben ist, wird B<dpkg-deb> das Paket in die Datei I<Programmverzeichnis>B<.deb> schreiben.
 
 Falls das anzulegende Archiv bereits existiert, wird es überschrieben.
 
-Falls das zweite Argument ein Verzeichnis ist, wird B<dpkg-deb> in die Datei I<Verzeichnis>B</>I<Paket>B<_>I<Version>B<_>I<Arch>B<.deb.> schreiben. Wenn ein Zielverzeichnis statt einer Datei angegeben ist, darf die Option B<--nocheck> nicht verwendet werden (da B<dpkg-deb> die Paketsteuerdatei lesen und auswerten muss, um den zu verwendenden Dateinamen zu bestimmen).
+Falls das zweite Argument ein Verzeichnis ist, wird B<dpkg-deb> in die Datei I<Verzeichnis>B</>I<Paket>B<_>I<Version>B<_>I<Arch>B<.deb.> schreiben. Wenn ein Zielverzeichnis statt einer Datei angegeben ist, darf die Option B<--no-check> nicht verwendet werden (da B<dpkg-deb> die Paketsteuerdatei lesen und auswerten muss, um den zu verwendenden Dateinamen zu bestimmen).
 
 =item B<-I>, B<--info> I<Archiv> [I<Steuer-Dateiname> …]
 
@@ -162,9 +162,15 @@ Setzt das beim Bau verwandte Archivformat (seit Dpkg 1.17.0). Erlaubte Werte sin
 
 Das alte Format wird nicht so leicht von nicht-Debian-Werkzeugen eingelesen und ist jetzt veraltet; der einzige Zweck ist zum Bau von Paketen, die von Dpkg-Versionen kleiner 0.93.76 (September 1995) eingelesen werden sollen. Diese Dpkg-Version wurde nur als i386 a.out-Programm veröffentlicht.
 
-=item B<--nocheck>
+=item B<--no-check>
 
 Unterdrückt die normalen Überprüfungen von B<dpkg-deb --build> über die vorgeschlagenen Inhalte eines Archivs. Damit können Sie jedes Archiv bauen, das Sie möchten, egal wie defekt es ist.
+
+Option unterstützt seit Dpkg 1.22.12.
+
+=item B<--nocheck>
+
+Dies ist ein Alias für B<--no-check>.
 
 =item B<-v>, B<--verbose>
 
@@ -255,7 +261,7 @@ F<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb(5)>, L<deb-control(5)>, L<dpkg(1)
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

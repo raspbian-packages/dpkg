@@ -262,7 +262,7 @@ Prüft die eingebauten Bauabhängigkeiten und -konflikte nicht (seit Dpkg 1.18.2
 
 =item B<--rules-requires-root>
 
-Berücksichtigt das Feld B<Rules-Requires-Root> nicht, sondern fällt auf den alten Vorgabewert zurück (seit Dpkg 1.19.1).
+Berücksichtigt das Feld B<Rules-Requires-Root> nicht, sondern fällt auf den alten Vorgabewert B<binary-targets> zurück (seit Dpkg 1.19.1).
 
 =item B<-nc>, B<--no-pre-clean>
 
@@ -514,7 +514,7 @@ Falls gesetzt, wird er zum Prüfen der B<.changes>-Datei verwandt (seit Dpkg 1.1
 
 =item B<DEB_SIGN_KEYID>
 
-Falls gesetzt, wird er zum Signieren der B<.changes>-, B<.buildinfo>- und B<.dsc>-Dateien verwandt (seit Dpkg 1.17.2). Wird durch die Option B<--sign-key> außer Kraft gesetzt.
+Falls gesetzt, wird er zum Signieren der B<.changes>-, B<.buildinfo>- und B<.dsc>-Dateien verwandt (seit Dpkg 1.17.2). Wird durch die Option B<--sign-keyid> außer Kraft gesetzt.
 
 =item B<DEB_SIGN_KEYFILE>
 
@@ -649,7 +649,7 @@ I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

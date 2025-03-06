@@ -38,13 +38,13 @@ Pour la plupart des commandes recevant un argument d'entrée d'archive, l'archiv
 
 Crée une archive Debian avec l'arborescence contenue dans I<répertoire-binaire>. I<répertoire-binaire> doit posséder un sous-répertoire B<DEBIAN> qui contient les fichiers de contrôle tels que le fichier « control » lui-même. Ce répertoire I<n'apparaît pas> dans l'archive de l'arborescence du paquet binaire ; mais les fichiers qu'il contient sont mis dans la zone de contrôle du paquet binaire.
 
-À moins de préciser B<--nocheck>, B<dpkg-deb> lit B<DEBIAN/control> et l'analyse. Il cherche dans le fichier les erreurs de syntaxe et d'autres problèmes existants ; puis il affiche le nom du paquet binaire qu'il construit. B<dpkg-deb> vérifie aussi les permissions des scripts du responsable et des autres fichiers qu'il trouve dans le répertoire de contrôle B<DEBIAN>.
+Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> control information directory.
 
 Quand aucune I<archive> n'est donnée, B<dpkg-deb> écrit le paquet dansI<répertoire-binaire>B<.deb>.
 
 Si l'archive qui doit être créée existe déjà, elle est remplacée.
 
-Quand le second argument est un répertoire, B<dpkg-deb> écrira dans le fichier I<répertoire>B</>I<paquet>B<_>I<version>B<_>I<arch>B<.deb>. Quand un répertoire cible est précisé à la place d'un fichier, l'option B<--nocheck> ne doit pas être utilisée (puisque B<dpkg-deb> a besoin de lire et d'analyser le fichier de contrôle du paquet pour connaître le nom de fichier à utiliser).
+If the second argument is a directory then B<dpkg-deb> will write to the file I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> When a target directory is specified, rather than a file, the B<--no-check> option may not be used (since B<dpkg-deb> needs to read and parse the package control file to determine which filename to use).
 
 =item B<-I>, B<--info> I<archive> [I<nom-fichier-control>...]
 
@@ -162,9 +162,15 @@ Indique la version du format d'archive utilisé lors de la construction (depuis 
 
 L'ancien format d'archive, moins facilement compris par les outils non-Debian, est maintenant dépassé. On l'utilise seulement quand on construit des paquets qui doivent être analysés par des versions de dpkg plus anciennes que la version 0.93.76 (septembre 1995), qui fut produite uniquement pour le format « i386 a.out ».
 
-=item B<--nocheck>
+=item B<--no-check>
 
 Empêche les vérifications normales de B<dpkg-deb --build> quant au contenu proposé d'une archive. De cette façon, on peut construire n'importe quelle archive, aussi défectueuse soit-elle.
+
+Option supported since dpkg 1.22.12.
+
+=item B<--nocheck>
+
+This is an alias for B<--no-check>.
 
 =item B<-v>, B<--verbose>
 

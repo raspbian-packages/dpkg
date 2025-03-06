@@ -38,13 +38,13 @@ De meeste commando's die als argument een invoerarchief verwachten, kunnen dit a
 
 Maakt een debian-archief van de bestandssysteemboom die in I<map-binair-pakket> staat. I<map-binair-pakket> moet een onderliggende map B<DEBIAN> hebben waarin de bestanden met controle-informatie opgeslagen zijn, zoals het bestand control zelf. Deze map zal I<niet> voorkomen in het bestandssysteemarchief van het binaire pakket, maar in de plaats daarvan zullen de bestanden daaruit in het conrole-informatiegebied van het binaire pakket geplaatst worden.
 
-Tenzij u B<--nocheck> opgeeft, zal B<dpkg-deb> B<DEBIAN/control> lezen en het ontleden. Het zal het bestand controleren op syntaxisfouten en op andere problemen en de naam tonen van het binaire pakket dat gebouwd wordt. B<dpkg-deb> zal ook de toegangsrechten van de scripts van de beheerder nazien en van andere bestanden die te vinden zijn in de map B<DEBIAN> met controle-informatie.
+Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> control information directory.
 
 Indien geen I<archief> opgegeven werd, zal B<dpkg-deb> het pakket wegschrijven in het bestand I<map-binair-pakket>B<.deb>.
 
 Indien het te maken archief reeds bestaat, zal het overschreven worden.
 
-Indien het tweede argument een map is, zal B<dpkg-deb> schrijven in het bestand I<map>B</>I<pakket>B<_>I<versie>B<_>I<arch>B<.deb>. Indien een doelmap opgegeven werd, eerder dan een bestand, kan de optie B<--nocheck> niet gebruikt worden (aangezien B<dpkg-deb> het control-bestand van het pakket moet lezen en ontleden om te kunnen uitmaken welke bestandsnaam gebruikt moet worden).
+If the second argument is a directory then B<dpkg-deb> will write to the file I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> When a target directory is specified, rather than a file, the B<--no-check> option may not be used (since B<dpkg-deb> needs to read and parse the package control file to determine which filename to use).
 
 =item B<-I>, B<--info> I<archief> [I<naam-controlebestand>...]
 
@@ -130,17 +130,17 @@ De tekenreeks mag in de vorm “${I<veldnaam>}” verwijzen naar elk statusveld.
 
 De standaard voor dit veld is “${Package}\t${Version}\n”.
 
-=item B<-z>, B<--compression-level=>I<compress-level>
+=item B<-z>, B<--compression-level=>I<compressieniveau>
 
-Specify which compression level to use on the compressor backend, when building a package (default is 9 for gzip, 6 for xz, 3 for zstd; long option since dpkg 1.22.9).  The accepted values are compressor specific.  For gzip, from 0-9 with 0 being mapped to compressor none.  For xz from 0-9.  For zstd from 0-22, with levels from 20 to 22 enabling its ultra mode.  Before dpkg 1.16.2 level 0 was equivalent to compressor none for all compressors.
+Specificeren welk compressieniveau gebruikt moet worden door het compressieprogramma bij het bouwen van het pakket (standaard is dat 9 voor gzip, 6 voor xz, 3 voor zstd; lange optie sinds dpkg 1.22.9). Toegestane waarden zijn compressorafhankelijk. Voor gzip is dat 0-9, waarbij 0 vertaald wordt als geen compressie. Voor xz is dat 0-9. Voor zstd is dat 0-22, waarbij de niveaus 20 tot 22 de ultra-modus activeren. Voor dpkg 1.16.2 was niveau 0 het equivalent van geen compressie voor alle compressieprogramma's.
 
-=item B<-S>, B<--compression-strategy=>I<compress-strategy>
+=item B<-S>, B<--compression-strategy=>I<compressiestrategie>
 
-Specify which compression strategy to use on the compressor backend, when building a package (since dpkg 1.16.2, long option since dpkg 1.22.9). Allowed values are B<none> (since dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> and B<fixed> for gzip (since dpkg 1.17.0) and B<extreme> for xz.
+Specificeren welke compressiestrategie gebruikt moet worden door het compressieprogramma bij het bouwen van een pakket (sinds dpkg 1.16.2, lange optie sinds dpkg 1.22.9). Toegestane waarden zijn B<none> (sinds dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> en B<fixed> voor gzip (sinds dpkg 1.17.0) en B<extreme> voor xz.
 
-=item B<-Z>, B<--compression=>I<compress-type>
+=item B<-Z>, B<--compression=>I<compressietype>
 
-Specify which compression type to use when building a package (long option since dpkg 1.22.9).  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18)  and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
+Specificeren welk compressietype bij het bouwen van een pakket gebruikt moet worden (lange optie sinds dpkg 1.22.9). Toegestane waarden zijn B<gzip>, B<xz> (sinds dpkg 1.15.6), B<zstd> (sinds dpkg 1.21.18) en B<none> (standaard is B<%DEB_DEFAULT_COMPRESSOR%>).
 
 =item B<--[no-]uniform-compression>
 
@@ -162,9 +162,15 @@ Instellen welke versie van archiefindeling bij het bouwen gebruikt moet worden (
 
 De oude archiefindeling wordt door niet-Debian gereedschap minder gemakkelijk ontleed en wordt nu als verouderd beschouwd. Het enige nut ervan is nog als pakketten gebouwd worden die moeten ontleed worden door versies van dpkg die ouder zijn dan versie 0.93.76 (september 1995), die enkel uitgegeven werd als een i386 a.out.
 
-=item B<--nocheck>
+=item B<--no-check>
 
 Dit onderdrukt de gebruikelijke controles die door B<dpkg-deb --build> uitgevoerd worden op de voorgestelde inhoud van een archief. Op die manier kunt u gelijk welk archief bouwen, hoe onklaar het ook is.
+
+Option supported since dpkg 1.22.12.
+
+=item B<--nocheck>
+
+This is an alias for B<--no-check>.
 
 =item B<-v>, B<--verbose>
 
@@ -218,7 +224,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.22.7). Geldige waarden zijn: B<0> and B<1> (standaard).
 
 =item B<TMPDIR>
 
@@ -246,7 +252,7 @@ Het bouwen van pakketarchieven mag alleen worden uitgevoerd op basis van vertrou
 
 B<dpkg-deb -I> I<pakket1>B<.deb> I<pakket2>B<.deb> doet de dingen fout.
 
-Er gebeurt geen authenticatie van de B<.deb>-bestanden. Er gebeurt inderdaad zelfs geen simpele toets van de controlesom. (Hoogwaardig gereedschap, zoals APT, ondersteunt het authenticeren van pakketten die van een opgegeven pakketbron opgehaald werden. En tegenwoordig hebben de meeste pakketten een md5sum-controlebestand dat door debian/rules gegenereerd werd. Dit wordt echter niet rechtstreeks ondersteund door basaal gereedschap.)
+Er gebeurt geen authenticatie van de B<.deb>-bestanden. Er gebeurt inderdaad zelfs geen simpele toets van het controlegetal. (Hoogwaardig gereedschap, zoals APT, ondersteunt het authenticeren van pakketten die van een opgegeven pakketbron opgehaald werden. En tegenwoordig hebben de meeste pakketten een md5sum-controlebestand dat door debian/rules gegenereerd werd. Dit wordt echter niet rechtstreeks ondersteund door basaal gereedschap.)
 
 =head1 ZIE OOK
 

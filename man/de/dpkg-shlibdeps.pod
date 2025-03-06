@@ -158,9 +158,31 @@ Ignoriert I<Paketbauverzeichnis> beim Schauen nach Shlibs, Symbolen und gemeinsa
 
 Falls keine Abhängigkeitsinformationen für die Laufzeitbibliothek gefunden werden kann, erfolgt kein Fehlschlag (seit Dpkg 1.14.8). Von der Verwendung dieser Option wird abgeraten, da alle Bibliotheken Abhängigkeitsinformationen bereitstellen sollten (entweder über shlibs-Dateien oder über symbols-Dateien), selbst falls diese noch nicht von anderen Paketen verwendet werden.
 
-=item B<--warnings=>I<Wert>
+=item B<--warnings=>[I<Wert>|I<Zeichenkette>[,…]]
 
-I<Wert> ist ein Bitfeld, das den Satz an Warnungen definiert, die von B<dpkg-shlibdeps> ausgegeben werden können (seit Dpkg 1.14.17). Bit 0 (Wert=1) aktiviert die Warnung „Symbol I<Sym>, verwendet von I<Programm>, in keiner der Bibliotheken gefunden.“, Bit 1 (Wert=2) aktiviert die Warnung „Das Paket könnte eine nutzlose Abhängigkeit vermeiden“ und Bit 2 (Wert=4) aktiviert die Warnung „I<Programm> sollte nicht gegen I<Bibliothek> gelinkt werden“. Standardmäßig ist I<Wert> 3: die ersten zwei Warnungen sind standardmäßig aktiv, die letzte nicht. Setzen Sie I<Wert> auf 7, falls Sie möchten, dass alle Warnungen aktiv sein sollen.
+Wählt die Gruppe der Warnungen, die von B<dpkg-shlibdeps> ausgegeben werden kann (seit Dpkg 1.14.17).
+
+Die Warnungen können aus einer Kommata-getrennten Liste von symbolischen Namen ausgewählt werden (seit Dpkg 1.22.12) oder aus einem I<Wert>, der ein Bitfeld für diese Warnungen bezeichnet.
+
+=over 
+
+=item symbol-not-found (Symbol nicht gefunden, Bit 0, Wert 1)
+
+Wählt die Warnung „Symbol I<Sym>, verwendet von I<Programm>, in keiner der Bibliotheken gefunden“.
+
+Standardmäßig aktiviert.
+
+=item avoidable-dependency (Vermeidbare Abhängigkeit, Bit 1, Wert 2)
+
+Wählt die Warnung „Das Paket könnte eine nutzlose Abhängigkeit vermeiden“.
+
+Standardmäßig aktiviert.
+
+=item useless-linkage (nutzloses Linken, Bit 2, Wert 4)
+
+Wählt die Warnung „I<Programm> sollte nicht gegen I<Bibliothek> gelinkt werden“.
+
+=back
 
 =item B<--admindir=>I<Verz>
 
@@ -262,7 +284,7 @@ L<deb-substvars(5)>, L<deb-shlibs(5)>, L<deb-symbols(5)>, L<dpkg-gensymbols(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

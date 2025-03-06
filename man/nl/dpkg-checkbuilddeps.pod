@@ -76,7 +76,7 @@ De versie tonen en afsluiten.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the dependency resolution logic, which might then not match what the system dpkg considers satisfiable.
+Stelt de computerarchitectuur in. Dit heeft invloed op de logica bij het oplossen van vereisten, wat dan mogelijk niet overeenkomt met wat het systeem dpkg als bevredigend beschouwt.
 
 =item B<DEB_BUILD_PROFILES>
 

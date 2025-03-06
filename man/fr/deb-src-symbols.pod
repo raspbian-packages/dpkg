@@ -66,11 +66,11 @@ Ces étiquettes permettent de restreindre la liste des architectures avec lesque
 
 Dans le mode de fonctionnement par défaut (pas en mode « modèle »), seuls les symboles spécifiques de certaines architectures qui correspondent à l'architecture courante sont écrits dans le fichier de symboles. Au contraire, tous les symboles spécifiques d'architectures (y compris ceux des architectures différentes) seront écrits dans le fichier de symboles, dans le mode « modèle ».
 
-Le format de I<liste-d'architectures> est le même que le format utilisé dans les champs B<Build-Depends> des fichiers I<debian/control> (à l'exception des crochets d'inclusion []). Par exemple, le premier symbole de la liste qui suit sera pris en compte sur les architectures alpha, n'importe quelle amd64 et ia64, le second uniquement sur les architectures linux et le troisième partout sauf sur armel.
+The format of I<architecture-list> is the same as the one used in the B<Build-Depends> field of I<debian/control> (except the enclosing square brackets []).  For example, the first symbol from the list below will be considered only on arm64, any-amd64 and riscv64 architectures, the second only on linux architectures, while the third one anywhere except on armel.
 
-  (arch=alpha any-amd64 ia64)un_symbole_spécifique_64bit@Base 1.0
-  (arch=linux-any)un_symbole_spécifique_linux@Base 1.0
-  (arch=!armel)un_symbole_inexistant_sur_armel@Base 1.0
+  (arch=arm64 any-amd64 riscv64)arch_specific_symbol@Base 1.0
+  (arch=linux-any)linux_specific_symbol@Base 1.0
+  (arch=!armel)symbol_armel_does_not_have@Base 1.0
 
 Les I<octets-architecture> sont soit B<32> soit B<64>.
 
@@ -191,8 +191,8 @@ La directive d'inclusion peut également être étiquetée comme tout autre symb
 Le résultat sera que tous les symboles inclus depuis I<fichier_à_inclure> seront considérés comme étiquetés par défaut avec I<etiq> ... I<etiqN>. Cela permet de créer un fichier I<paquet>.symbols commun qui inclut les fichiers de symboles spécifiques des architectures :
 
   common_symbol1@Base 1.0
- (arch=amd64 ia64 alpha)#include "package.symbols.64-bit"
- (arch=!amd64 !ia64 !alpha)#include "package.symbols.32-bit"
+ (arch-bits=64)#include "package.symbols.64-bit"
+ (arch-bits=32)#include "package.symbols.32-bit"
   common_symbol2@Base 1.0
 
 =back

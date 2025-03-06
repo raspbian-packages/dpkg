@@ -34,6 +34,12 @@ Kommandot introducerades i dpkg 1.22.3.
 
 Tar bort alla artefakter som skapats under ett bygge av olika dpkg-verktyg, och sökvägar som används eller styrs av dpkg-verktyg som det är säkert att rensa. Filerna används för att spåra tillståndet mellan paketbyggkörningar och är i många fall interna implementationsdetaljer som paketeraren inte behöver bry sig om, eller är riggningskataloger som innehåller byggartefakter.
 
+=item B<is-rootless>
+
+Checks whether the build tree can be built with no root privileges (since dpkg 1.22.12).
+
+This command can be used safely even with versions where the command was not yet available as the default will then be the historic one where root was required.
+
 =item B<--help>
 
 Visar hjälpskärm och avslutar.
@@ -54,7 +60,7 @@ Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval)
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
 
 =back
 

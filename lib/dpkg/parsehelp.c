@@ -41,17 +41,15 @@ parse_error_msg(struct parsedb_state *ps, const char *fmt, va_list args)
 {
   struct varbuf *vb = &ps->errmsg;
 
-  varbuf_reset(vb);
-
   if (ps->pkg && ps->pkg->set->name)
-    varbuf_printf(vb, _("parsing file '%s' near line %d package '%s':\n "),
-                  ps->filename, ps->lno,
-                  pkgbin_name(ps->pkg, ps->pkgbin, pnaw_nonambig));
+    varbuf_set_fmt(vb, _("parsing file '%s' near line %d package '%s':\n "),
+                   ps->filename, ps->lno,
+                   pkgbin_name(ps->pkg, ps->pkgbin, pnaw_nonambig));
   else
-    varbuf_printf(vb, _("parsing file '%.255s' near line %d:\n "),
-                  ps->filename, ps->lno);
+    varbuf_set_fmt(vb, _("parsing file '%.255s' near line %d:\n "),
+                   ps->filename, ps->lno);
 
-  varbuf_vprintf(vb, fmt, args);
+  varbuf_add_vfmt(vb, fmt, args);
 
   return vb->buf;
 }
@@ -172,7 +170,7 @@ void varbufversion
         (!version->revision || !strchr(version->revision,':'))) break;
     /* Fall through. */
   case vdew_always:
-    varbuf_printf(vb, "%u:", version->epoch);
+    varbuf_add_fmt(vb, "%u:", version->epoch);
     break;
   default:
     internerr("unknown versiondisplayepochwhen '%d'", vdew);

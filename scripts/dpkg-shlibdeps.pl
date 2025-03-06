@@ -25,7 +25,7 @@ use strict;
 use warnings;
 use feature qw(state);
 
-use List::Util qw(any none);
+use List::Util qw(any none sum);
 use Cwd qw(realpath);
 use File::Basename qw(dirname);
 
@@ -53,6 +53,12 @@ use constant {
     WARN_DEP_AVOIDABLE => 2,
     WARN_NOT_NEEDED => 4,
 };
+
+my %warn2bits = (
+    'symbol-not-found' => WARN_SYM_NOT_FOUND,
+    'avoidable-dependency' => WARN_DEP_AVOIDABLE,
+    'useless-linkage' => WARN_NOT_NEEDED,
+);
 
 # By increasing importance
 my @depfields = qw(Suggests Recommends Depends Pre-Depends);
@@ -122,6 +128,8 @@ foreach (@ARGV) {
 	$ignore_missing_info = 1;
     } elsif (m/^--warnings=(\d+)$/) {
 	$warnings = $1;
+    } elsif (m/^--warnings=([a-z,-]+)$/) {
+        $warnings = sum map { $warn2bits{$_} } split m{,}, $1;
     } elsif (m/^--package=(.+)$/) {
         $oppackage = $1;
         my $err = pkg_name_is_illegal($oppackage);
@@ -374,11 +382,12 @@ foreach my $file (keys %exec) {
         $ignore++ unless scalar split_soname($soname);
         # 3/ when we have been asked to do so
         $ignore++ if $ignore_missing_info;
-        error(g_('no dependency information found for %s ' .
-                 "(used by %s)\n" .
-                 'Hint: check if the library actually comes ' .
-                 'from a package.'), $lib, $file)
-            unless $ignore;
+        if (not $ignore) {
+            errormsg(g_('no dependency information found for %s (used by %s)'),
+                     $lib, $file);
+            hint(g_('check if the library actually comes from a package'));
+            exit 1;
+        }
       }
     }
 

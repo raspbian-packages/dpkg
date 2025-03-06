@@ -64,7 +64,7 @@ Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
 
 =back
 
@@ -76,7 +76,7 @@ If set, it will be used to decide whether to activate Native Language Support, a
 
 =item B<%PKGDATADIR%/buildapi.mk>
 
-Makefile-fragment dat het bouw-API-niveau ontleedt.
+Makefile snippet that parses the build API level into a variable.
 
 =back
 

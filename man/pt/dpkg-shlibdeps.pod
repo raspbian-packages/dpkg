@@ -108,15 +108,15 @@ A opção B<-d>I<dependency-field> produz efeito para todos os executáveis apó
 
 Se a mesma entrada de dependência (ou conjunto de alternativas) aparecer em mais do que um dos nomes de campos de dependência reconhecida B<Pre-Depends>, B<Depends>, B<Recommends>, B<Enhances> ou B<Suggests> então B<dpkg-shlibdeps> irá remover automaticamente a dependência de todos os campos excepto daquele que representa as dependências mais importantes.
 
-=item B<--package=>I<package>
+=item B<--package=>I<pacote>
 
-Define the package name.
+Define o nome do pacote.
 
-When specified, the package name will be used to change defaults based on the binary package metadata in F<debian/control>.
+Quando usado, este nome de pacote será usado para mudar a predefinição baseada nos metadados de pacote binário em F<debian/control>.
 
-If the package is B<Essential: yes>, then the default dependency field is B<Pre-Depends>, otherwise B<Depends>.  The default package type is set from the B<Package-Type> field.  The package is added to the set of packages excluded by B<-x>.
+Se o pacote for B<Essential: yes>, então o campo de dependência predefinido é B<Pre-Depends>, caso contrário B<Depends>.  O tipo de pacote predefinido é definido a partir do campo B<Package-Type>.  O pacote é adicionado ao conjunto de pacotes excluídos por B<-x>.
 
-Option supported since dpkg 1.22.7.
+Opção suportada desde dpkg 1.22.7.
 
 =item B<-p>I<varname-prefix>
 
@@ -158,9 +158,31 @@ Ignora I<package-build-dir> quando procurar por shlibs, symbols, e ficheiros de 
 
 Não falha se a informação de dependência não pode ser encontrada para uma biblioteca partilhada (desde dpkg 1.14.8). A utilização desta opção é desencorajada, todas as bibliotecas devem fornecer informação de dependências (seja com ficheiros shlibs, ou com ficheiros symbols) mesmo se ainda não forem usadas por outros pacotes.
 
-=item B<--warnings=>I<value>
+=item B<--warnings=>[I<value>|I<string>[,...]]
 
-I<value> é um campo de bit que define o conjunto de avisos que podem ser emitidos pelo B<dpkg-shlibdeps> (desde dpkg 1.14.17).  Bit 0 (valor=1) activa o aviso “symbol I<sym> usado por I<binary> encontrado em nenhuma das bibliotecas, bit 1 (valor=2) activa o aviso “pacote podia evitar uma dependência inútil” e bit 2 (valor=4) activa o aviso “I<binary> não deveria estar em link contra I<library>”. O I<value> predefinido é 3: os dois primeiros avisos estão activos por predefinição, o último não está. Defina I<value> para 7 se deseja ter todos os avisos activos.
+Select the set of warnings that can be emitted by B<dpkg-shlibdeps> (since dpkg 1.14.17).
+
+The warnings can be selected from a comma-separated list of symbolic names (since dpkg 1.22.12), or from a I<value> denoting a bit field for these warnings.
+
+=over 
+
+=item symbol-not-found (bit 0, value 1)
+
+Selects the warning “symbol I<sym> used by I<binary> found in none of the libraries”.
+
+Enabled by default.
+
+=item avoidable-dependency (bit 1, value 2)
+
+Selects the warning “package could avoid a useless dependency”.
+
+Enabled by default.
+
+=item useless-linkage (bit 2, value 4)
+
+Select the warning “I<binary> should not be linked against I<library>”.
+
+=back
 
 =item B<--admindir=>I<dir>
 
@@ -182,7 +204,7 @@ Mostra a versão e termina.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the objects and symbols files searched for and their default search pathnames.
+Define a arquitectura da máquina anfitriã.  Isto afecta os ficheiros de objectos e símbolos a procurar e os seus nomes de caminho de busca predefinidos.
 
 =item B<DPKG_COLORS>
 

@@ -106,6 +106,8 @@ Ce champ à lignes multiples fournit une liste de fichiers avec la md5sum, la ta
 
 La première ligne de la valeur du champ (la partie sur la même ligne que le nom du champ suivi par deux-points) est toujours vide. Le contenu du champ est exprimé sous la forme de lignes de continuation, un ligne par fichier. Chaque ligne consiste en des entrées, séparées par des espaces, décrivant le fichier : la md5sum, la taille du fichier, sa section, sa priorité et son nom.
 
+If the section or priority are omitted from the package, these default to B<unknown> and B<optional> respectively (since dpkg 1.22.13).
+
 Ce champ liste tous les fichiers qui composent l'envoi. La liste de fichiers de ce champ doit correspondre à celle présente dans les autres champs relatifs aux B<Checksums>.
 
 B<Note>: The MD5 checksum is considered weak, and should never be assumed to be sufficient for secure verification, but this field cannot be omitted as it provides metadata not available anywhere else.

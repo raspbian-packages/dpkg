@@ -26,7 +26,7 @@ It provides a class which is able to substitute variables in strings.
 
 =cut
 
-package Dpkg::Substvars 2.02;
+package Dpkg::Substvars 2.03;
 
 use strict;
 use warnings;
@@ -126,7 +126,8 @@ sub set_as_used {
 =item $s->set_as_auto($key, $value)
 
 Add/replace a substitution and mark it as used and automatic (no warnings
-will be produced even if unused).
+will be produced even if unused), and will not be emitted into the substvars
+file.
 
 =cut
 
@@ -134,6 +135,32 @@ sub set_as_auto {
     my ($self, $key, $value) = @_;
 
     $self->set($key, $value, SUBSTVAR_ATTR_USED | SUBSTVAR_ATTR_AUTO);
+}
+
+=item $s->set_as_optional($key, $value)
+
+Add/replace a substitution and mark it as used and optional (no warnings
+will be produced even if unused).
+
+=cut
+
+sub set_as_optional {
+    my ($self, $key, $value) = @_;
+
+    $self->set($key, $value, SUBSTVAR_ATTR_USED | SUBSTVAR_ATTR_OPT);
+}
+
+=item $s->set_as_required($key, $value)
+
+Add/replace a substitution and mark it as required (an error
+will be produced if it is not used).
+
+=cut
+
+sub set_as_required {
+    my ($self, $key, $value) = @_;
+
+    $self->set($key, $value, SUBSTVAR_ATTR_REQ);
 }
 
 =item $s->get($key)
@@ -187,20 +214,18 @@ sub parse {
 
     binmode($fh);
     while (<$fh>) {
-        my $attr;
-
 	next if m/^\s*\#/ || !m/\S/;
 	s/\s*\n$//;
 	if (! m/^(\w[-:0-9A-Za-z]*)([?!])?\=(.*)$/) {
 	    error(g_('bad line in substvars file %s at line %d'),
 		  $varlistfile, $.);
 	}
-        ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
         if (defined $2) {
-            $attr = (SUBSTVAR_ATTR_USED | SUBSTVAR_ATTR_OPT) if $2 eq '?';
-            $attr = (SUBSTVAR_ATTR_REQ) if $2 eq '!';
+            $self->set_as_optional($1, $3) if $2 eq '?';
+            $self->set_as_required($1, $3) if $2 eq '!';
+        } else {
+            $self->set($1, $3);
         }
-        $self->set($1, $3, $attr);
         $count++;
     }
 
@@ -405,12 +430,27 @@ sub set_msg_prefix {
     $self->{msg_prefix} = $prefix;
 }
 
-=item $s->filter(remove => $rmfunc)
+=item $s->filter(%opts)
 
-=item $s->filter(keep => $keepfun)
+Filter the substitution variables.
 
-Filter the substitution variables, either removing or keeping all those
-that return true when $rmfunc->($key) or $keepfunc->($key) is called.
+Options:
+
+=over
+
+=item B<remove>
+
+A function returning a boolean,
+used to decide whether to remove a substitution variable,
+executed as $opts{remove}->($var).
+
+=item B<keep>
+
+A function returning a boolean,
+used to decide whether to keep the substitution variable,
+executed as $opts{keep}->($var).
+
+=back
 
 =cut
 
@@ -466,6 +506,10 @@ indicated file.
 =back
 
 =head1 CHANGES
+
+=head2 Version 2.03 (dpkg 1.22.15)
+
+New methods: $s->set_as_optional(), $s->set_as_required().
 
 =head2 Version 2.02 (dpkg 1.22.7)
 

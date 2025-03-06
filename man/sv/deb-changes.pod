@@ -26,7 +26,7 @@ Varje Debianinsändning består av en styrfil .changes, som innehåller ett anta
 
 Varje fält börjar med en etikett, såsom B<Source> eller B<Binary> (skiftlägesoberoende), följt av ett kolontecken och fältets kropp (skiftlägesberoende såvida inte annat anges). Fält avdelas endast av fältetiketter. Med andra ord kan texten i fälten spänna över flera rader, men installationsverktygen kommer oftast att slå samman rader när kroppen tolkas (förutom när det gäller flerradsfälten B<Description>, B<Changes>, B<Files>, B<Checksums-Sha1> och B<Checksums-Sha256>, se nedan).
 
-The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
+Styrinformationen kan omges av en OpenPGP-signatur i ASCII-skal, såsom beskrivs i RFC9580.
 
 =head1 FÄLT
 
@@ -106,13 +106,15 @@ Det här flerradiga fältet innehåller en lista över filer tillsammans med md5
 
 Första raden i fältvärdet (delen av på samma rad som fältnamnet följt av kolon) är alltid tom. Innehållet i fältet anges som fortsättningsrader, en rad per fil. Varje rad består av blankstegsavdelade fält som beskriver filen: md5-summan, filstorleken, filsektionen, filprioriteten och filnamnet.
 
+If the section or priority are omitted from the package, these default to B<unknown> and B<optional> respectively (since dpkg 1.22.13).
+
 Det här fälten visar alla filer insändningen består av. Listan över filer i fältet måste motsvara listan över filer i de andra relaterade B<Checksums>-fälten.
 
-B<Note>: The MD5 checksum is considered weak, and should never be assumed to be sufficient for secure verification, but this field cannot be omitted as it provides metadata not available anywhere else.
+B<Observera>: MD5-kontrollsumman anses vara svag och bör aldrig anses vara tillräcklig för en säker bekräftelse, men fältet kan inte uteslutas eftersom det innehåller metadata som inte är tillgänglig någon annanstans.
 
-=item B<Checksums-Sha1:> (required, weak)
+=item B<Checksums-Sha1:> (krävs, svag)
 
-=item B<Checksums-Sha256:> (required, strong)
+=item B<Checksums-Sha256:> (krävs, stark)
 
 =item S< >I<kontrollsumma> I<storlek> I<filnamn>
 
@@ -122,7 +124,7 @@ Första raden i fältvärdet (delen av på samma rad som fältnamnet följt av k
 
 De här fälten visar alla filer insändningen består av. Listan över filer i fälten måste motsvara listan över filer i fältet B<Files> och de andra relaterade B<Checksums>-fälten.
 
-B<Note>: The SHA-1 checksum is considered weak, and should never be assumed to be sufficient for secure verification.
+B<Observera>: SHA-1-kontrollsumman anses vara svag och bör aldrig anses vara tillräcklig för en säker bekräftelse.
 
 =back
 

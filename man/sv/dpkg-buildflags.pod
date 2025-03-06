@@ -373,7 +373,7 @@ Den här inställningen (sedan dpkg 1.17.14; inaktiverad som förval) lägger ti
 
 =head2 optimize
 
-Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: Enabling B<all> these options can result in unreproducible binary artifacts.
+Flera kommandoradsflaggor (beskrivna nedan) kan användas för att hjälpa till att optimera den skapade binären (sedan dpkg 1.21.0). B<Observera>: Om B<all> aktiveras kan dessa flaggor leda till binärartefakter som inte kan reproduceras.
 
 =over 
 
@@ -385,7 +385,7 @@ Inställningen (sedan dpkg 1.2.0; inaktiverad som förval) aktiverar Link Time O
 
 =head2 sanitize
 
-Several compile-time options (detailed below) can be used to help sanitize a resulting binary against memory corruptions, memory leaks, use after free, threading data races and undefined behavior bugs.  B<Note>: These options should B<not> be used for production builds as they can reduce reliability for conformant code, reduce security or even functionality.
+Du kan använda flera kompileringsflaggor (se detaljer nedan) för att sanera den färdiga binären mot minnesfördärvningsar, minnesläckor, användning efter frigivning, datakapplöpningsfel i trådar och fel i förbindels med odefinierat beteende. B<Observera>: Dessa flaggor bör B<inte> användas för produktionsbygg eftersom de kan minska pålitligheten för korrekt kod, minska säkerheten eller till och med funktionsrikedomen.
 
 =over 
 
@@ -557,7 +557,7 @@ Den här variabeln anger byggsökvägen (sedan dpkg 1.18.8) att använda i funkt
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the build flags that are emitted, which is typically relevant when cross-compiling, where B<DEB_HOST_ARCH> is different to B<DEB_BUILD_ARCH>.
+Anger värdarkitekturen. Detta påverkar de byggflagor som anges, vilket vanligtvis är relvant vid korskompilering, där B<DEB_HOST_ARCH> skiljer sig från B<DEB_BUILD_ARCH>.
 
 =item B<DPKG_COLORS>
 
@@ -593,7 +593,11 @@ Användarens konfigurationsfil.
 
 =item B<%PKGDATADIR%/buildflags.mk>
 
-Makefile-klipp som läser in (och eventuellt exporterar) alla flaggor som stöd av B<dpkg-buildflags> till variabler (sedan dpkg 1.16.1).
+Makefile snippet that loads (and optionally export) all flags supported by B<dpkg-buildflags> into variables (since dpkg 1.16.1).
+
+=item B<%PKGDATADIR%/buildtools.mk>
+
+Makefile snippet that sets suitable host and build tools (and optionally export them) into variables (since dpkg 1.19.0).
 
 =back
 

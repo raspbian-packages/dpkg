@@ -38,13 +38,13 @@ Para a maioria dos comandos que recebem uma entrada de argumento de arquivo, o a
 
 Cria um arquivo debian para a árvore de sistema de ficheiros armazenada em I<binary-directory>. I<binary-directory> tem de ter um sub-directório B<DEBIAN>, o qual contém os ficheiros de informação de controlo tais como o próprio ficheiro control. Este directório I<não> irá aparecer no arquivo de sistema de ficheiros do pacote binários, mas em vez disso os ficheiros nele serão postos na área de informação de controlo do pacote binário.
 
-A menos que você especifique B<--nocheck>, B<dpkg-deb> irá ler B<DEBIAN/control> e analisa-lo. Irá verificar o ficheiro por erros de sintaxe e outros problemas, e mostrar o nome do pacote binário a ser compilado. B<dpkg-deb> irá também verificar as permissões dos scripts do maintainer e outros ficheiros encontrados no directório de informação de controlo B<DEBIAN>.
+Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> control information directory.
 
 Se não for especificado nenhum I<archive> então o B<dpkg-deb> irá escrever o pacote no ficheiro I<binary-directory>B<.deb>.
 
 Se o arquivo a ser criado já existir, ele será sobrescrito.
 
-Se o segundo argumento for um directório então B<dpkg-deb> irá escrever para o ficheiro I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> Quando é especificado um directório alvo, em vez de um ficheiro, a opção B<--nocheck> pode não ser usada (pois B<dpkg-deb> precisa de ler e analisar o ficheiro de controle do pacote para determinar qual o nome de ficheiro a suar).
+If the second argument is a directory then B<dpkg-deb> will write to the file I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> When a target directory is specified, rather than a file, the B<--no-check> option may not be used (since B<dpkg-deb> needs to read and parse the package control file to determine which filename to use).
 
 =item B<-I>, B<--info> I<archive> [I<control-file-name>...]
 
@@ -132,15 +132,15 @@ A predefinição para este campo é “${Package}\t${Version}\n”.
 
 =item B<-z>, B<--compression-level=>I<compress-level>
 
-Specify which compression level to use on the compressor backend, when building a package (default is 9 for gzip, 6 for xz, 3 for zstd; long option since dpkg 1.22.9).  The accepted values are compressor specific.  For gzip, from 0-9 with 0 being mapped to compressor none.  For xz from 0-9.  For zstd from 0-22, with levels from 20 to 22 enabling its ultra mode.  Before dpkg 1.16.2 level 0 was equivalent to compressor none for all compressors.
+Especifica que nível de compressão usar no backend compressor, quando compila um pacote (a predefinição é 9 para gzip, 6 para xz, 3 para zstd; opção longa desde dpkg 1.22.9). Os valores aceites são específicos do compressor. Para gzip de 0-9 com 0 a ser mapeado para nenhuma compressão. Para xz de 0-9. Para zstd de 0-22, com os níveis de 20 a 22 a ativarem o seu modo ultra. Antes do dpkg 1.16.2 o nível 0 era equivalente a nenhuma compressão para todos os compressores.
 
 =item B<-S>, B<--compression-strategy=>I<compress-strategy>
 
-Specify which compression strategy to use on the compressor backend, when building a package (since dpkg 1.16.2, long option since dpkg 1.22.9). Allowed values are B<none> (since dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> and B<fixed> for gzip (since dpkg 1.17.0) and B<extreme> for xz.
+Especifica qual a estratégia de compressão usar no backend compressor, quando compila um pacote (desde dpkg 1.16.2, opção longa desde dpkg 1.22.9). Valores permitidos são B<none> (desde dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> e B<fixed> para gzip (desde dpkg 1.17.0) e B<extreme> para xz.
 
 =item B<-Z>, B<--compression=>I<compress-type>
 
-Specify which compression type to use when building a package (long option since dpkg 1.22.9).  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18)  and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
+Especifica qual tipo de compressão usar quando compila um pacote (opção longa desde dpkg 1.22.9). Valores permitidos são B<gzip>, B<xz> (desde dpkg 1.15.6), B<zstd> (desde dpkg 1.21.18) e B<none> (a predefinição é B<%DEB_DEFAULT_COMPRESSOR%>).
 
 =item B<--[no-]uniform-compression>
 
@@ -162,9 +162,15 @@ Define a versão de formato de arquivo usado quando compila (desde dpkg 1.17.0).
 
 O formato de arquivo antigo é menos facilmente analisado por ferramentas não-Debian e está agora obsoleto; o seu único uso é quando se compila pacotes para serem analisados por versões do dpkg anteriores a 0.93.76 (Setembro 1995), o qual foi um lançamento apenas para i386.
 
-=item B<--nocheck>
+=item B<--no-check>
 
 Inibe as verificações usuais de B<dpkg-deb --build> no conteúdo proposto de um arquivo. Deste modo, você pode compilar qualquer arquivo que queira, não interessa o quanto estragado.
+
+Option supported since dpkg 1.22.12.
+
+=item B<--nocheck>
+
+This is an alias for B<--no-check>.
 
 =item B<-v>, B<--verbose>
 
@@ -218,7 +224,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.22.7). Os valores aceites são B<0> e B<1> (predefinição).
 
 =item B<TMPDIR>
 
@@ -228,7 +234,7 @@ Se definido, B<dpkg-deb> irá usa-lo como o directório onde criar ficheiros e d
 
 Se definido, será usado como marca temporal (em segundos desde a época) no contentor L<ar(5)> de L<deb(5)> e usado para engatar o mtime nas entradas do ficheiro L<tar(5)>.
 
-Since dpkg 1.18.8.
+Desde dpkg 1.18.8.
 
 =back
 

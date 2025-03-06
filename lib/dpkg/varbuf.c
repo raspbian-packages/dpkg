@@ -55,6 +55,15 @@ varbuf_init(struct varbuf *v, size_t size)
 }
 
 void
+varbuf_swap(struct varbuf *v, struct varbuf *o)
+{
+	struct varbuf m = *v;
+
+	*v = *o;
+	*o = m;
+}
+
+void
 varbuf_grow(struct varbuf *v, size_t need_size)
 {
 	size_t new_size;
@@ -106,6 +115,16 @@ varbuf_str(struct varbuf *v)
 	return v->buf;
 }
 
+char *
+varbuf_array(const struct varbuf *v, size_t index)
+{
+	if (index > v->used)
+		internerr("varbuf array access (%zu) > used (%zu)",
+		          index, v->used);
+
+	return v->buf + index;
+}
+
 void
 varbuf_set_buf(struct varbuf *v, const void *buf, size_t size)
 {
@@ -117,6 +136,26 @@ void
 varbuf_set_varbuf(struct varbuf *v, struct varbuf *other)
 {
 	varbuf_set_buf(v, other->buf, other->used);
+}
+
+int
+varbuf_set_vfmt(struct varbuf *v, const char *fmt, va_list args)
+{
+	varbuf_reset(v);
+	return varbuf_add_vfmt(v, fmt, args);
+}
+
+int
+varbuf_set_fmt(struct varbuf *v, const char *fmt, ...)
+{
+	va_list args;
+	int n;
+
+	va_start(args, fmt);
+	n = varbuf_set_vfmt(v, fmt, args);
+	va_end(args);
+
+	return n;
 }
 
 void
@@ -235,7 +274,7 @@ varbuf_trim_char_prefix(struct varbuf *v, int prefix)
 }
 
 int
-varbuf_vprintf(struct varbuf *v, const char *fmt, va_list args)
+varbuf_add_vfmt(struct varbuf *v, const char *fmt, va_list args)
 {
 	va_list args_copy;
 	int needed, n;
@@ -259,13 +298,13 @@ varbuf_vprintf(struct varbuf *v, const char *fmt, va_list args)
 }
 
 int
-varbuf_printf(struct varbuf *v, const char *fmt, ...)
+varbuf_add_fmt(struct varbuf *v, const char *fmt, ...)
 {
 	va_list args;
 	int n;
 
 	va_start(args, fmt);
-	n = varbuf_vprintf(v, fmt, args);
+	n = varbuf_add_vfmt(v, fmt, args);
 	va_end(args);
 
 	return n;
@@ -294,7 +333,7 @@ varbuf_rollback_len(struct varbuf_state *vs)
 }
 
 const char *
-varbuf_rollback_start(struct varbuf_state *vs)
+varbuf_rollback_end(struct varbuf_state *vs)
 {
 	if (vs->v->buf == NULL) {
 		if (vs->used)

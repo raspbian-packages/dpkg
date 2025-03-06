@@ -106,7 +106,7 @@ Mostra a versão e termina.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.
+Define a arquitectura da máquina anfitriã.
 
 =item B<DPKG_COLORS>
 

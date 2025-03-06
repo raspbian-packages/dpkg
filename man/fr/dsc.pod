@@ -142,7 +142,7 @@ Le I<paquet> est le nom du paquet binaire.
 
 Le I<type-de-paquet> est le type du paquet binaire, habituellement B<deb> ; une autre valeur commune est B<udeb>.
 
-La I<section> et la I<priorité> correspondent aux champs du même nom du paquet binaire.
+The I<section> and I<priority> match the binary package fields of the same name, or if omitted default to B<unknown> and B<optional> respectively (since dpkg 1.22.13).
 
 La I<liste-clés-valeurs> est une liste de I<clés>B<=>I<valeurs> séparées par des espaces et les clés optionnelles actuellement reconnues sont :
 

@@ -158,9 +158,31 @@ Ignore I<répertoire-construction-paquet> lors de la recherche des fichiers shli
 
 Pas d'échec si l'information de dépendance ne peut pas être trouvée pour une bibliothèque partagée (depuis dpkg 1.14.8). L'utilisation de cette option est déconseillée, toutes les bibliothèques devraient fournir leurs informations de dépendance (que ce soit avec les fichiers shlibs, ou avec les fichiers symboles), même si elles ne sont pas encore utilisées par d'autres paquets.
 
-=item B<--warnings=>I<valeur>
+=item B<--warnings=>[I<value>|I<string>[,...]]
 
-I<valeur> est un champ de « bit » définissant l'ensemble des avertissements qui peuvent être émis par B<dpkg-shlibdeps> (depuis dpkg 1.14.17). Le bit B<0> (valeur = 1) active l'avertissement « symbole I<sym> utilisé par le I<binaire> trouvé dans aucune des bibliothèques ». Le bit B<1> (valeur = 2) active l'avertissement « le paquet pourrait éviter une dépendance inutile ». Le bit B<2> (valeur = 4) active l'avertissement « Le I<binaire> ne devrait pas être lié à I<bibliothèque> ». La I<valeur> par défaut est B<3> : les deux premières mises en garde sont actives par défaut, la dernière ne l'est pas. Positionnez la I<valeur> à 7 si vous souhaitez que tous les avertissements soient actifs.
+Select the set of warnings that can be emitted by B<dpkg-shlibdeps> (since dpkg 1.14.17).
+
+The warnings can be selected from a comma-separated list of symbolic names (since dpkg 1.22.12), or from a I<value> denoting a bit field for these warnings.
+
+=over 
+
+=item symbol-not-found (bit 0, value 1)
+
+Selects the warning “symbol I<sym> used by I<binary> found in none of the libraries”.
+
+Enabled by default.
+
+=item avoidable-dependency (bit 1, value 2)
+
+Selects the warning “package could avoid a useless dependency”.
+
+Enabled by default.
+
+=item useless-linkage (bit 2, value 4)
+
+Select the warning “I<binary> should not be linked against I<library>”.
+
+=back
 
 =item B<--admindir>=I<répertoire>
 

@@ -18,21 +18,21 @@ dpkg-buildpackage - bygg binär- eller källkodspaket från källkod
 
 =head1 SYNOPS
 
-B<dpkg-buildpackage> [I<option>...] [B<-->] [I<filename>.dsc|I<directory>]
+B<dpkg-buildpackage> [I<flagga>...] [B<-->] [I<filnamn>.dsc|I<katalog>]
 
 =head1 BESKRIVNING
 
-B<dpkg-buildpackage> is a program that automates the process of building a Debian package.
+B<dpkg-buildprogram> är ett program som automatiserar processen med att bygga ett Debianpaket.
 
-The I<filename>.dsc and I<directory> arguments are supported since dpkg 1.22.7.  Their semantics are experimental.
+Flagoorna I<filnamn>.dsc och I<katalog> stöds sedan dpkg 1.22.7. Semantiken för dessa flaggor är experimentella.
 
-It consists of the following steps:
+Det består av följande steg:
 
 =over 
 
 =item B<1.>
 
-It runs the B<preinit> hook before reading any source file.  If a B<.dsc> file has been specified it unpacks it anew and changes directory to it, if a I<directory> has been specified it changes directory to it, otherwise it expects the current directory to contain the source tree.  It prepares the build environment by setting various environment variables (see B<ENVIRONMENT>), runs the B<init> hook, and calls B<dpkg-source --before-build> (unless B<-T> or B<--target> has been used).
+Kroken B<preinit> körs innan några källkodsfiler läses. Om en B<.dsc>-fil anges packar programmet upp den på nytt och byter katalog till den, om en I<katalog> anges byter det katalog till den, annars förväntar det att den aktuella katalogen innehåller källkodsträdet. Byggmiljön förbereds genom att diverse miljövariabler sätts (se B<MILJÖ>), kroken B<init> körs och B<dpkg-source --before-build> anropas (såvida inte B<-T> eller B<--target> används).
 
 =item B<2.>
 
@@ -44,7 +44,7 @@ Om ett eller flera specifika mål har valts med flaggan B<-T> eller B<--target> 
 
 =item B<4.>
 
-It runs the B<source> hook and calls B<dpkg-source -b> to generate the source package (if a B<source> build has been requested with B<--build> or equivalent options, and if no B<.dsc> has been specified).
+Kör kroken B<source> och anropar B<dpkg-source -b> för att skapa källkodspaketet (om ett B<source>-bygge (källkod) har ombetts via B<--build> eller liknande flaggor, och om ingen B<.dsc> har angivits).
 
 =item B<5.>
 
@@ -52,7 +52,7 @@ Kör kroken B<build> och anropar B<debian/rules> I<byggmål>, därefter körs kr
 
 =item B<6.>
 
-It runs the B<buildinfo> hook and calls B<dpkg-genbuildinfo> to generate a B<.buildinfo> file.  Several B<dpkg-buildpackage> options are forwarded to B<dpkg-genbuildinfo>.  If a I<.dsc> has been specified, then it will be referenced in the generated B<.buildinfo> file, as we can ascertain the provenance of the source tree.
+Kör kroken B<buildinfo> och anropar B<dpkg-genbuildinfo> för att skapa en B<.buildinfo>-fil. Många av flaggorna till B<dpkg-buildpackage> vidaresänds till B<dpkg-genchanges>. Om en I<.dsc> har angivits kommer den att refereras till i den genererade B<.buildinfo>-filen, så att vi kan fastställa källkodsträdets ursprung.
 
 =item B<7.>
 
@@ -94,7 +94,7 @@ Kör kroken B<sign> och signerar med OpenPGP-programmet (såvida det inte är et
 
 =item B<12.>
 
-If a B<.dsc> file has been specified, it removes the extracted source directory.
+Om en B<.dsc>-fil har angivits tas den uppackade källkodskatalogen bort.
 
 =item B<13.>
 
@@ -262,7 +262,7 @@ Kontrollera inte inbyggda byggberoenden och -konflikter (sedan dpkg 1.18.2). Det
 
 =item B<--rules-requires-root>
 
-Följ inte fältet B<Rules-Requires-Root>, fall tillbaka på dess gamla förval (sedan dpkg 1.19.1).
+Do not honor the B<Rules-Requires-Root> field, falling back to its legacy default value B<binary-targets> (since dpkg 1.19.1).
 
 =item B<-nc>, B<--no-pre-clean>
 
@@ -324,7 +324,7 @@ Hämtar B<DPKG_BUILDPACKAGE_HOOK_SOURCE_OPTIONS> med den blankstegsavdelade list
 
 =item B<build>
 
-Gets B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> with the name of the B<debian/rules> build target called.  Before dpkg 1.22.7 the variable was only set if the target was called.
+Hämtar B<DPKG_BUILDPACKAGE_HOOK_BUILD_TARGET> med namnet på det byggmål i B<debian/rules> som anropades. Före dpkg 1.22.7 sattes bara variabeln om måket anropats.
 
 =item B<binary>
 
@@ -514,7 +514,7 @@ Om satt, används som kommandot för att kontrollera B<.changes>-filen (sedan dp
 
 =item B<DEB_SIGN_KEYID>
 
-Används för att signera filerna B<.changes>, B<.buildinfo> och B<.dsc>-filerna om satt (sedan dpkg 1.17.2). Överstyrs av flaggan B<--sign-key>.
+If set, it will be used to sign the B<.changes>, B<.buildinfo> and B<.dsc> files (since dpkg 1.17.2).  Overridden by the B<--sign-keyid> option.
 
 =item B<DEB_SIGN_KEYFILE>
 
@@ -632,7 +632,7 @@ Mellan dpkg 1.14.17 och 1.16.1 exporterade B<dpkg-buildpackage> kompilatorflaggo
 
 =head2 Förvalda byggmål
 
-B<dpkg-buildpackage> is using the B<build-arch> and B<build-indep> targets since dpkg 1.16.2.  Before dpkg 1.22.7, there was code to try to detect the missing targets and fallback on the B<build> target.  Those targets are thus mandatory.
+B<dpkg-buildpackage> använder målen B<build-arch> och B<build-indep> sedan dpkg 1.16.2. Före dpkg 1.22.7 fanns det kod för att försöka detektera de saknade målen och falla tillbaka på målet B<build>. Dessa mål är därför obligatoriska.
 
 =head1 SÄKERHET
 

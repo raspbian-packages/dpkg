@@ -693,7 +693,7 @@ Desde dpkg 1.21.10, a arquitectura é também tida em conta, o que torna possív
 
 Define um I<command> hook de invocação para ser corrido via “%DPKG_DEFAULT_SHELL% -c” antes ou depois de o B<dpkg> correr para as acções I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, e I<purge> (desde dpkg 1.15.4), e as acções I<add-architecture> e I<remove-architecture> (desde dpkg 1.17.19). Esta opção pode ser especificada várias vezes. A ordem que as opções são especificadas é preservada, com aquelas dos ficheiros de configuração a tomar precedência. A variável de ambiente B<DPKG_HOOK_ACTION> é definida para os hooks para a acção actual do B<dpkg>.
 
-The invoke hooks are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+Os hooks de invocação não são executados quando B<--no-act> é especificado, ou quando se corre como não-root sem B<--force-not-root>.
 
 B<Nota>: Front-ends podem chamar B<dpkg> várias vezes por invocação, o que pode fazer correr os hooks mais vezes do que o esperado.
 
@@ -705,7 +705,7 @@ Define I<glob-pattern> como um filtro de caminho, seja por excluir ou re-incluir
 
 I<Aviso>: Tenha em conta que ao depender de caminhos excluídos você pode danificar completamente o seu sistema, use com cuidado.
 
-Os padrões glob usam as mesmas wildcards usadas na shell, onde ‘*’ corresponde a qualquer sequência de caracteres, incluindo a string vazia e também ‘/’. Por exemplo, «I</usr/*/READ*>» corresponde a «I</usr/share/doc/package/README>».  Como normal, ‘?’ corresponde a qualquer caractere único (mais uma vez, incluindo ‘/’). E ‘[’ começa uma classe de caractere, o qual pode conter uma lista de caracteres, gamas e complementações. Veja L<glob(7)> para informação detalhada acerca de globbing. B<Nota>: A implementação actual pode re-incluir mais directivas e links simbólicos do que necessário, em particular quando existe uma re-inclusão mais específica. para estar no lado seguro e evitar possíveis falhas de desempacotamento, trabalho futuro poderá corrigir isto.
+Os padrões glob usam as mesmas wildcards usadas na shell, onde ‘*’ corresponde a qualquer sequência de caracteres, incluindo a string vazia e também ‘/’. Por exemplo, «I</usr/*/READ*>» corresponde a «I</usr/share/doc/package/README>».  Como normal, ‘?’ corresponde a qualquer caractere único (mais uma vez, incluindo ‘/’). E ‘[’ começa uma classe de caractere, o qual pode conter uma lista de caracteres, gamas e complementações. Veja L<glob(7)> para informação detalhada acerca de globbing. B<Nota>: A implementação actual pode re-incluir mais directivas e links simbólicos do que necessário, em particular quando existe uma re-inclusão mais específica, para estar no lado seguro e evitar possíveis falhas de desempacotamento; trabalho futuro poderá vir a corrigir isto.
 
 Isto pode ser usado para remover todos os caminhos excepto alguns particulares; um caso típico é:
 
@@ -811,7 +811,7 @@ Enviado apenas antes de um estado de processamento começar. I<stage> é um de B
 
 Envia o estado do pacote em linguagem de máquina e informação de progresso para a entrada standard de I<command> de shell, para ser corrido via “%DPKG_DEFAULT_SHELL% -c” (desde dpkg 1.16.0). Esta opção pode ser especificada várias vezes. O formato de resultados usado é o mesmo que em B<--status-fd>.
 
-The status loggers are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+Os registadores de estado não são executados quando B<--no-act> é especificado, ou quando se corre como não-root sem B<--force-not-root>.
 
 =item B<--log=>I<filename>
 
@@ -906,7 +906,9 @@ O programa que o B<dpkg> irá executar quando iniciar uma nova shell interactiva
 
 =item B<DPKG_PAGER>
 
-O programa que o B<dpkg> irá executar quando correr um paginador, o qual será executado com «B<$SHELL -c>», por exemplo quando mostrar as diferenças do conffile. Se B<SHELL> não estiver definida, será usado «B<%DPKG_DEFAULT_SHELL%>» em vez deste. O B<DPKG_PAGER> sobrepõe a variável de ambiente B<PAGER> (desde dpkg 1.19.2).
+The program B<dpkg> will execute when running a pager, which will be executed with «B<$SHELL -c>», for example when displaying the conffile differences.  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
+
+The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
 
 =item B<DPKG_COLORS>
 
@@ -914,7 +916,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.22.7). Os valores aceites são B<0> e B<1> (predefinição).
 
 =item B<DPKG_DEBUG>
 

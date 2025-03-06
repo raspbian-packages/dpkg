@@ -82,7 +82,7 @@ Het bestand buildinfo op de standaarduitvoer weergeven (of in I<bestandsnaam> al
 
 =item B<-u>I<map-upload-bestanden>
 
-De bestanden die geüpload moeten worden opzoeken in I<map-upload-bestanden> eerder dan in B<..> (B<dpkg-genbuildinfo> moet deze bestanden kunnen vinden, zodat het hun grootte en hun controlesom kan opnemen in het bestand B<.buildinfo>)
+De bestanden die geüpload moeten worden opzoeken in I<map-upload-bestanden> eerder dan in B<..> (B<dpkg-genbuildinfo> moet deze bestanden kunnen vinden, zodat het hun grootte en hun controlegetal kan opnemen in het bestand B<.buildinfo>)
 
 =item B<--always-include-kernel>
 
@@ -126,11 +126,11 @@ Deze variabele kan gebruikt worden via de optie B<buildinfo> voor het activeren 
 
 =item B<DEB_BUILD_ARCH>
 
-Sets the build architecture.  This affects the value for the B<Build-Architecture> field, and the check for the cross-compilation mode.
+Stelt de bouwarchitectuur in. Dit beïnvloedt de waarde van het veld B<build-architecture> en de controle op de cross-compilatiemodus.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the filename used for the .buildinfo file, and the check for the cross-compilation mode.
+Stelt de computerarchitectuur in. Dit beïnvloedt de bestandsnaam die gebruikt wordt voor het bestand .buildinfo en de controle op de cross-compilatiemodus.
 
 =item B<DPKG_COLORS>
 

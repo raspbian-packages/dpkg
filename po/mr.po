@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.17.0\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2024-08-01 12:38+0200\n"
+"POT-Creation-Date: 2025-02-03 12:00+0100\n"
 "PO-Revision-Date: 2015-04-07 09:51+0200\n"
 "Last-Translator: Priti Patil <prithisd@gmail.com>\n"
 "Language-Team: Marathi <janabhaaratii@cdacmumbai.in>\n"
@@ -1685,6 +1685,10 @@ msgstr ""
 msgid "warning"
 msgstr "धोक्याची सुचना"
 
+#: lib/dpkg/report.c
+msgid "hint"
+msgstr ""
+
 #: lib/dpkg/strwide.c
 #, c-format
 msgid "cannot convert multibyte string '%s' to a wide-character string"
@@ -2396,6 +2400,26 @@ msgstr "ताकिद, `%s'मध्ये वापरणा~यांनी 
 
 #: src/deb/build.c
 #, fuzzy, c-format
+msgid "cannot get root directory %s metadata"
+msgstr "उगम फाइल `%.250s' उघडता येत नाही"
+
+#: src/deb/build.c
+#, fuzzy, c-format
+msgid "root pathname %s is not a directory"
+msgstr "माहितीची डिरेक्टरी वाचू शकत नाही"
+
+#: src/deb/build.c
+#, c-format
+msgid "root directory %s has unusual owner or group %u:%u"
+msgstr ""
+
+#: src/deb/build.c
+#, c-format
+msgid "you might need to pass --root-owner-group, see <%s> for further details"
+msgstr ""
+
+#: src/deb/build.c
+#, fuzzy, c-format
 msgid "ignoring %d warning about the control file(s)"
 msgid_plural "ignoring %d warnings about the control file(s)"
 msgstr[0] "नियंत्रण फाइल(ली) बद्दलच्या %d धोक्याच्या सूचनांकडे दुर्लक्ष केले जातेय"
@@ -2870,8 +2894,9 @@ msgid ""
 "      --deb-format=<format>        Select archive format.\n"
 "                                     Allowed values: 0.939000, 2.0 "
 "(default).\n"
-"      --nocheck                    Suppress control file check (build bad\n"
-"                                     packages).\n"
+"      --no-check                   Suppress all checks (build bad "
+"packages).\n"
+"      --nocheck                    Alias for --no-check.\n"
 "      --root-owner-group           Forces the owner and groups to root.\n"
 "      --threads-max=<threads>      Use at most <threads> with compressor.\n"
 "      --[no-]uniform-compression   Use the compression params on all "
@@ -2903,8 +2928,8 @@ msgid ""
 "  A format is a string that will be output for each package. The format\n"
 "  can include the standard escape sequences \\n (newline), \\r (carriage\n"
 "  return) or \\\\ (plain backslash). Package information can be included\n"
-"  by inserting variable references to package fields using the ${var[;"
-"width]}\n"
+"  by inserting variable references to package fields using the $"
+"{var[;width]}\n"
 "  syntax. Fields will be right-aligned unless the width is negative in "
 "which\n"
 "  case left alignment will be used.\n"
@@ -4348,13 +4373,13 @@ msgstr "%s ... अधिष्ठापित पॅकेजमधील फा
 #: src/main/archives.c
 #, fuzzy, c-format
 msgid ""
-"trying to overwrite directory '%.250s' in package %.250s %.250s with "
+"trying to overwrite directory '%.250s' in package %.250s (%.250s) with "
 "nondirectory"
 msgstr "%.250s पॅकेजमधील `%.250s' निर्देशिकेवर नाॅननिर्देशिकेने पुनर्लेखन करण्याच्या प्रयत्नात"
 
 #: src/main/archives.c
 #, fuzzy, c-format
-msgid "trying to overwrite '%.250s', which is also in package %.250s %.250s"
+msgid "trying to overwrite '%.250s', which is also in package %.250s (%.250s)"
 msgstr "%.250s पॅकेजमधेही असल्याने, `%.250s' वर पुनर्लेखन करण्याच्या प्रयत्नात"
 
 #: src/main/archives.c
@@ -4591,18 +4616,18 @@ msgstr "निवड रद्द झालेल्या %s पॅकेज �
 #: src/main/archives.c
 #, fuzzy, c-format
 #| msgid "Version %.250s of %.250s already installed, skipping.\n"
-msgid "version %.250s of %.250s already installed, skipping"
+msgid "package %.250s (%.250s) with same version already installed, skipping"
 msgstr "%.250s ची %.250s आवृत्ती अगोदर स्थापन केलीली आहे, वगळत आहे.\n"
 
 #: src/main/archives.c
 #, fuzzy, c-format
-msgid "downgrading %.250s from %.250s to %.250s"
+msgid "downgrading %.250s (%.250s) to (%.250s)"
 msgstr "%s - ताकिद : %.250s हे %.250sला  %.250s वरून खाली आणते.\n"
 
 #: src/main/archives.c
 #, fuzzy, c-format
 #| msgid "Will not downgrade %.250s from version %.250s to %.250s, skipping.\n"
-msgid "will not downgrade %.250s from %.250s to %.250s, skipping"
+msgid "will not downgrade %.250s (%.250s) to (%.250s), skipping"
 msgstr "%.250s हे %.250sला  %.250s वरून खाली आणणार नाही, वगळत आहे.\n"
 
 #: src/main/cleanup.c
@@ -4892,10 +4917,16 @@ msgstr ""
 "जुळवणी शक्य नाही (सध्याची स्थिती `%.250s')"
 
 #: src/main/configure.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "package %.250s is not ready for configuration\n"
+#| " cannot configure (current status `%.250s')"
 msgid ""
-"package %s %s cannot be configured because %s is at a different version (%s)"
+"package %s (%s) cannot be configured because %s is at a different version "
+"(%s)"
 msgstr ""
+"पॅकेज %.250s हे जुळवणीसाठी तयार नाही\n"
+"जुळवणी शक्य नाही (सध्याची स्थिती `%.250s')"
 
 #: src/main/configure.c
 #, fuzzy, c-format

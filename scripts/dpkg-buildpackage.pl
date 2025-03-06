@@ -675,8 +675,8 @@ if ($checkbuilddep) {
     if (not WIFEXITED($?)) {
         subprocerr('dpkg-checkbuilddeps');
     } elsif (WEXITSTATUS($?)) {
-	warning(g_('build dependencies/conflicts unsatisfied; aborting'));
-	warning(g_('(Use -d flag to override.)'));
+        errormsg(g_('build dependencies/conflicts unsatisfied; aborting'));
+        hint(g_('satisfy build dependencies with your package manager frontend'));
 	exit 3;
     }
 }

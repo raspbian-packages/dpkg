@@ -190,7 +190,7 @@ Mostra a versão e termina.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture if the B<--arch> option has not be specified.
+Define a arquitectura da máquina anfitriã se a opção B<--arch> não foi especificada.
 
 =item B<DPKG_GENSYMBOLS_CHECK_LEVEL>
 

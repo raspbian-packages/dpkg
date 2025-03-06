@@ -190,7 +190,7 @@ De versie tonen en afsluiten.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture if the B<--arch> option has not be specified.
+Stelt de computerarchitectuur in als de optie B<--arch> niet werd gespecificeerd.
 
 =item B<DPKG_GENSYMBOLS_CHECK_LEVEL>
 

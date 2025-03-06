@@ -176,7 +176,7 @@ Visar version och avslutar.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.
+Anger värdarkitekturen.
 
 =item B<DPKG_COLORS>
 

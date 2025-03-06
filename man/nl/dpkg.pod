@@ -234,7 +234,7 @@ Zal triggers verwerken, tenzij B<--no-triggers> werd opgegeven.
 
 Controleert de integriteit van I<pakketnaam> of van alle pakketten indien er geen naam opgegeven werd. De controle gebeurt door een vergelijking te maken van informatie uit de bestanden die door een pakket geïnstalleerd worden met de metadata-informatie over die bestanden die in de database van B<dpkg> opgeslagen is (sinds dpkg 1.17.2). De metadata-informatie over die bestanden in de database is afkomstig van het binaire pakket zelf. Die metadata worden verzameld tijdens het installatieproces op het moment van het uitpakken van het pakket.
 
-Momenteel is de enige functionele toets die uitgevoerd wordt, een verificatie van de md5-controlesom van de inhoud van het bestand tegenover de opgeslagen waarde in de bestandsdatabase. De toets wordt enkel uitgevoerd als de database de md5-controlesom van het bestand bevat. Om na te gaan of er eventueel metadata ontbreken in de database, kan het commando B<--audit> gebruikt worden. Dit is slechts een integriteitscontrole en mag niet worden beschouwd als enige vorm van veiligheidsverificatie.
+Momenteel is de enige functionele toets die uitgevoerd wordt, een verificatie van het md5-controlegetal van de inhoud van het bestand tegenover de opgeslagen waarde in de bestandsdatabase. De toets wordt enkel uitgevoerd als de database het md5-controlegetal van het bestand bevat. Om na te gaan of er eventueel metadata ontbreken in de database, kan het commando B<--audit> gebruikt worden. Dit is slechts een integriteitscontrole en mag niet worden beschouwd als enige vorm van veiligheidsverificatie.
 
 De indeling van de uitvoer kan met de optie B<--verify-format> gekozen worden. Standaard wordt de indeling B<rpm> gebruikt, maar dit kan in de toekomst veranderen en om die reden zouden programma's die de uitvoer van dit commando ontleden, expliciet moeten aangeven welke indeling zij verwachten.
 
@@ -691,9 +691,9 @@ Sinds dpkg 1.21.10 wordt ook rekening gehouden met de architectuur, wat het moge
 
 =item B<--post-invoke=>I<commando>
 
-Instellen dat een uitbreiding (hook) I<commando> via "%DPKG_DEFAULT_SHELL% -c" moet uitgevoerd worden voor of na het uitvoeren van B<dpkg> bij de acties I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, I<purge> (sinds dpkg 1.15.4) en de acties I<add-architecture> en I<remove-architecture> (sinds dpkg 1.17.19) van B<dpkg>. Deze optie kan meermaals opgegeven worden. De volgorde waarin de opties opgegeven worden, wordt behouden, waarbij deze uit de configuratiebestanden voorrang hebben. De omgevingsvariabele B<DPKG_HOOK_ACTION> wordt ingesteld voor de uitbreidingen (hooks) bij de huidige actie van B<dpkg>.
+Instellen dat een aanroepuitbreiding (invoke hook) I<commando> via "%DPKG_DEFAULT_SHELL% -c" moet uitgevoerd worden voor of na het uitvoeren van B<dpkg> bij de acties I<unpack>, I<configure>, I<install>, I<triggers-only>, I<remove>, I<purge> (sinds dpkg 1.15.4) en de acties I<add-architecture> en I<remove-architecture> (sinds dpkg 1.17.19) van B<dpkg>. Deze optie kan meermaals opgegeven worden. De volgorde waarin de opties opgegeven worden, wordt behouden, waarbij deze uit de configuratiebestanden voorrang hebben. De omgevingsvariabele B<DPKG_HOOK_ACTION> wordt ingesteld voor de uitbreidingen (hooks) bij de huidige actie van B<dpkg>.
 
-The invoke hooks are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+De aanroepuitbreidingen worden niet uitgevoerd als B<--no-act> werd gespecificeerd, of wanneer dit uitgevoerd wordt als niet-root zonder without B<--force-not-root>.
 
 B<Opmerking>: frontends kunnen B<dpkg> meerdere keren per aanroep aanroepen, waardoor de uitbreidingen meer keren dan verwacht uitgevoerd kunnen worden.
 
@@ -727,8 +727,8 @@ Stelt de indeling in van de uitvoer van het commando B<--verify> (sinds dpkg 1.1
 De enige momenteel ondersteunde indeling van de uitvoer is B<rpm>, die bestaat uit een regel voor elk pad dat een controle niet doorstaan heeft. Deze regels hebben de volgende indeling:
 
 Z<>
- B<missing  > [B<c>] I<pathname> [B<(>I<error-message>B<)>]
- B<?M5??????> [B<c>] I<pathname>
+ B<missing  > [B<c>] I<padnaam> [B<(>I<foutmelding>B<)>]
+ B<?M5??????> [B<c>] I<padnaam>
 
 De eerste 9 tekens worden gebruikt om het resultaat van de controle te rapporteren, ofwel een letterlijke B<missing> wanneer het bestand niet aanwezig is of de metagegevens ervan niet kunnen worden opgehaald, ofwel een van de volgende speciale tekens die het resultaat voor elke controle aangeven:
 
@@ -811,7 +811,7 @@ Verzonden juist voor het begin van een verwerkingsfase. I<fase> is een van de vo
 
 Door een machine te lezen informatie over pakketstatus en voortgang versturen naar de standaardinvoer van het shell-commando I<commando> dat via "%DPKG_DEFAULT_SHELL% -c" moet uitgevoerd worden (sinds dpkg 1.16.0). Deze optie kan meermaals opgegeven worden. De indeling van de uitvoer is dezelfde als bij B<--status-fd>.
 
-The status loggers are not executed when B<--no-act> is specified, or when running as non-root without B<--force-not-root>.
+De statusloggers worden niet uitgevoerd wanneer B<--no-act> is opgegeven, of wanneer het commando wordt uitgevoerd als niet-root zonder B<--force-not-root>.
 
 =item B<--log=>I<bestandsnaam>
 
@@ -906,7 +906,9 @@ Het programma dat B<dpkg> zal uitvoeren bij het starten van een nieuwe interacti
 
 =item B<DPKG_PAGER>
 
-Het programma dat B<dpkg> zal uitvoeren als het gebruik maakt van een pagineringsprogramma, dat uitgevoerd zal worden met «B<$SHELL -c>», bijvoorbeeld voor het tonen van de verschillen tussen de configuratiebestanden. Indien B<SHELL> niet ingesteld is, dan zal «B<%DPKG_DEFAULT_SHELL%>» gebruikt worden. B<DPKG_PAGER> overschrijft de omgevingsvariabele B<PAGER> (sinds dpkg 1.19.2).
+The program B<dpkg> will execute when running a pager, which will be executed with «B<$SHELL -c>», for example when displaying the conffile differences.  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
+
+The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
 
 =item B<DPKG_COLORS>
 
@@ -914,7 +916,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.22.7). Geldige waarden zijn: B<0> and B<1> (standaard).
 
 =item B<DPKG_DEBUG>
 

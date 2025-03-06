@@ -1,3 +1,3064 @@
+commit afb41eb04222a40205a9b0b03bb69a2d449924ed
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 3 12:02:40 2025 +0100
+
+    Release 1.22.15
+
+ debian/changelog | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
+
+commit 81aab91fd2b97660d76314750009bd174c1c95f8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 3 12:01:24 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   2 +-
+ dselect/po/ca.po        |   2 +-
+ dselect/po/cs.po        |   2 +-
+ dselect/po/da.po        |   2 +-
+ dselect/po/de.po        |   2 +-
+ dselect/po/dselect.pot  |   4 +-
+ dselect/po/el.po        |   2 +-
+ dselect/po/es.po        |   2 +-
+ dselect/po/et.po        |   2 +-
+ dselect/po/eu.po        |   2 +-
+ dselect/po/fr.po        |   2 +-
+ dselect/po/gl.po        |   2 +-
+ dselect/po/hu.po        |   2 +-
+ dselect/po/id.po        |   2 +-
+ dselect/po/it.po        |   2 +-
+ dselect/po/ja.po        |   2 +-
+ dselect/po/ko.po        |   2 +-
+ dselect/po/nb.po        |   2 +-
+ dselect/po/nl.po        |   2 +-
+ dselect/po/nn.po        |   2 +-
+ dselect/po/pl.po        |   2 +-
+ dselect/po/pt.po        |   2 +-
+ dselect/po/pt_BR.po     |   2 +-
+ dselect/po/ro.po        |   2 +-
+ dselect/po/ru.po        |   2 +-
+ dselect/po/sk.po        |   2 +-
+ dselect/po/sv.po        |   2 +-
+ dselect/po/tl.po        |   2 +-
+ dselect/po/vi.po        |   2 +-
+ dselect/po/zh_CN.po     |   2 +-
+ dselect/po/zh_TW.po     |   2 +-
+ man/po/de.po            | 181 ++++++++++++++++++++++++++++++++++++++++--------
+ man/po/dpkg-man.pot     | 103 ++++++++++++++++++++++-----
+ man/po/es.po            | 121 +++++++++++++++++++++++++++-----
+ man/po/fr.po            | 155 ++++++++++++++++++++++++++++++++++++-----
+ man/po/hu.po            | 107 +++++++++++++++++++++++-----
+ man/po/it.po            | 125 ++++++++++++++++++++++++++++-----
+ man/po/ja.po            | 119 ++++++++++++++++++++++++++-----
+ man/po/nl.po            | 156 ++++++++++++++++++++++++++++++++++++-----
+ man/po/pl.po            | 119 ++++++++++++++++++++++++++-----
+ man/po/pt.po            | 157 ++++++++++++++++++++++++++++++++++++-----
+ man/po/pt_BR.po         | 107 +++++++++++++++++++++++-----
+ man/po/ru.po            | 107 +++++++++++++++++++++++-----
+ man/po/sv.po            | 156 ++++++++++++++++++++++++++++++++++++-----
+ man/po/zh_CN.po         | 103 ++++++++++++++++++++++-----
+ po/ast.po               |   2 +-
+ po/bs.po                |   2 +-
+ po/ca.po                |   2 +-
+ po/cs.po                |   2 +-
+ po/da.po                |   2 +-
+ po/de.po                |   2 +-
+ po/dpkg.pot             |   4 +-
+ po/dz.po                |   2 +-
+ po/el.po                |   2 +-
+ po/eo.po                |   2 +-
+ po/es.po                |   2 +-
+ po/et.po                |   2 +-
+ po/eu.po                |   2 +-
+ po/fr.po                |   2 +-
+ po/gl.po                |   2 +-
+ po/hu.po                |   2 +-
+ po/id.po                |   2 +-
+ po/it.po                |   2 +-
+ po/ja.po                |   2 +-
+ po/km.po                |   2 +-
+ po/ko.po                |   2 +-
+ po/ku.po                |   2 +-
+ po/lt.po                |   2 +-
+ po/mr.po                |   2 +-
+ po/nb.po                |   2 +-
+ po/ne.po                |   2 +-
+ po/nl.po                |   2 +-
+ po/nn.po                |   2 +-
+ po/oc.po                |   2 +-
+ po/pa.po                |   2 +-
+ po/pl.po                |   2 +-
+ po/pt.po                |   2 +-
+ po/pt_BR.po             |   2 +-
+ po/ro.po                |   2 +-
+ po/ru.po                |   2 +-
+ po/sk.po                |   2 +-
+ po/sv.po                |   2 +-
+ po/th.po                |   2 +-
+ po/tl.po                |   2 +-
+ po/tr.po                |   2 +-
+ po/vi.po                |   2 +-
+ po/zh_CN.po             |   2 +-
+ po/zh_TW.po             |   2 +-
+ scripts/po/ca.po        |   2 +-
+ scripts/po/de.po        |   2 +-
+ scripts/po/dpkg-dev.pot |   4 +-
+ scripts/po/es.po        |   2 +-
+ scripts/po/fr.po        |   2 +-
+ scripts/po/nl.po        |   2 +-
+ scripts/po/pl.po        |   2 +-
+ scripts/po/pt.po        |   2 +-
+ scripts/po/ru.po        |   2 +-
+ scripts/po/sv.po        |   2 +-
+ 98 files changed, 1639 insertions(+), 351 deletions(-)
+
+commit 87e50639754cc2b49e777f646ec39217054a24f4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 2 17:48:57 2025 +0100
+
+    doc: Fix typo in ChangeLog.old
+    
+    Warned-by: codespell
+    Changelog: silent
+
+ ChangeLog.old | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 274775ea8b9296650b6524182d723798ee9196e4
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Jan 27 05:23:40 2025 +0100
+
+    doc: Remove duplicate words across newlines
+    
+    [guillem@debian.org: Changed where to remove to reduce diff. ]
+    
+    Closes: #1093548
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ doc/spec/triggers.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 92dce1f2c56e048d5d7bb8f8bc9cd63f2161beaf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 27 05:21:14 2025 +0100
+
+    Dpkg::Substvars: Add new set_as_optional() and set_as_required() methods
+    
+    This expose the support for these types of substvars, which could only
+    be set previous manually by appending the substvars with the appropriate
+    operator.
+
+ scripts/Dpkg/Substvars.pm | 45 +++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 37 insertions(+), 8 deletions(-)
+
+commit af70f584a161df13489b94ad06c38df939be6678
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 27 05:18:53 2025 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Sign file with fixed up newline
+    
+    We made the workaround required by GnuPG, specific to this module so
+    that it would not affect others, but did not modify the code to use
+    the fixed up file instead of the input one.
+    
+    Fixes: commit 0274e3d358022ddd270c6c40a048a27d8f6b4eb8
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 797eb0595ba0ae52d734039d745b235b1ff4bd5d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 27 05:17:53 2025 +0100
+
+    Dpkg::BuildDriver::DebianRules: Remove unused Dpkg::BuildAPI import
+    
+    Fixes: commit ab26443e10c91bbd3365bd1a520dbdace26442e2c
+
+ scripts/Dpkg/BuildDriver/DebianRules.pm | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 7c4a3f74d8be80fe95d59b3b9025c30b666e414d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 23 02:44:59 2025 +0100
+
+    build: Add compiler hardening support
+
+ configure.ac        |  1 +
+ m4/dpkg-compiler.m4 | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 31 insertions(+)
+
+commit 11db5c053c4bde3f3c75d8b9f7ed6265d0e484a1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 23 02:44:59 2025 +0100
+
+    build: Add new dialect checks for strict flex array behavior and warnings
+
+ configure.ac        |  1 +
+ m4/dpkg-compiler.m4 | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+
+commit 85ad13d9c6d9e30c286680b988fca12ea2687638
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 23 02:44:59 2025 +0100
+
+    build: Add array bounds warning
+
+ m4/dpkg-compiler.m4 | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 8e160d71656bcfd5d575b8a541530a3175bef740
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 17 02:46:01 2025 +0100
+
+    man: Clarify that build and target are not usual variables to use
+    
+    Add a note for both the DEB_BUILD_ARCH and DEB_TARGET_ARCH variable
+    descriptions on what their main intended purpose it, and add a reference
+    back to the TERMS section.
+
+ man/dpkg-architecture.pod | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit d78d66a4e704684ed3f7d1507644d3c2c2aae8c4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 17 02:45:48 2025 +0100
+
+    man: Clarify architecture terms and the architecture forms
+
+ man/dpkg-architecture.pod | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+commit 1a1c88d3194c4fd09747b6929e7a2fa5c0b10374
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 17 02:45:20 2025 +0100
+
+    man: Split architecture examples into their own paragraphs
+
+ man/dpkg-architecture.pod | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 8e1bd89377e0d834c9f52cdd133d0c52848a574c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 17 00:40:26 2025 +0100
+
+    man: Add reference to buildtools and vendor make fragments to related tools
+    
+    These make fragments are related to the dpkg-buildflags and dpkg-vendor
+    tools, so it makes sense to add references to these packaging support
+    files as we do with other such files.
+
+ man/dpkg-buildflags.pod |  5 +++++
+ man/dpkg-vendor.pod     | 13 +++++++++++++
+ 2 files changed, 18 insertions(+)
+
+commit e9c3de8d225ff41d36cc67b6f1ecdb6e9fbd5609
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 3 02:28:51 2025 +0100
+
+    man: Document that buildapi.mk sets a variable
+
+ man/dpkg-buildapi.pod | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3d0c67f353073d9b1e281430a0fe06db423662f6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 3 02:26:11 2025 +0100
+
+    man: Change verb tense for Makefile fragment files descriptions
+
+ man/dpkg-buildapi.pod   | 2 +-
+ man/dpkg-buildflags.pod | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 3759003eda298b1ecbff3299f4f031ebee9ad6d7
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Thu Jan 16 17:43:37 2025 +0100
+
+    po: Update German programs translation
+    
+    Update to 1200t.
+
+ po/de.po | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+commit 259f792e90f727e497f94c4f0df23e62d9bd8b3a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 04:19:55 2025 +0100
+
+    Bump version to 1.22.15
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 70034dd074cb81a7a018b296924328a29d436288
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 03:58:26 2025 +0100
+
+    Release 1.22.14
+
+ debian/changelog | 35 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 32 insertions(+), 3 deletions(-)
+
+commit b929c4188cd1b4c6a84c51c48dbfeb3abde26cea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 03:56:38 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     | 35 +++++++++++++++++------------------
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/dpkg-man.pot     |  4 ++--
+ po/ast.po               |  9 ++++++---
+ po/bs.po                |  9 ++++++---
+ po/ca.po                |  9 ++++++---
+ po/cs.po                |  9 ++++++---
+ po/da.po                |  9 ++++++---
+ po/de.po                | 14 ++++++++++----
+ po/dpkg.pot             | 11 +++++++----
+ po/dz.po                |  9 ++++++---
+ po/el.po                |  9 ++++++---
+ po/eo.po                |  9 ++++++---
+ po/es.po                |  9 ++++++---
+ po/et.po                |  9 ++++++---
+ po/eu.po                |  9 ++++++---
+ po/fr.po                |  9 ++++++---
+ po/gl.po                |  9 ++++++---
+ po/hu.po                |  9 ++++++---
+ po/id.po                |  9 ++++++---
+ po/it.po                |  9 ++++++---
+ po/ja.po                |  9 ++++++---
+ po/km.po                |  9 ++++++---
+ po/ko.po                |  9 ++++++---
+ po/ku.po                |  9 ++++++---
+ po/lt.po                |  9 ++++++---
+ po/mr.po                |  9 ++++++---
+ po/nb.po                |  9 ++++++---
+ po/ne.po                |  9 ++++++---
+ po/nl.po                |  9 ++++++---
+ po/nn.po                |  9 ++++++---
+ po/oc.po                |  9 ++++++---
+ po/pa.po                |  9 ++++++---
+ po/pl.po                |  9 ++++++---
+ po/pt.po                |  9 ++++++---
+ po/pt_BR.po             |  9 ++++++---
+ po/ro.po                |  9 ++++++---
+ po/ru.po                |  9 ++++++---
+ po/sk.po                |  9 ++++++---
+ po/sv.po                |  9 ++++++---
+ po/th.po                |  9 ++++++---
+ po/tl.po                |  9 ++++++---
+ po/tr.po                |  9 ++++++---
+ po/vi.po                |  9 ++++++---
+ po/zh_CN.po             |  9 ++++++---
+ po/zh_TW.po             |  9 ++++++---
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        | 14 +++++++-------
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/nl.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/pt.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 85 files changed, 330 insertions(+), 199 deletions(-)
+
+commit 64e0ab9d674d5f80f0bf50c242d57b4dd6ada1f1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 03:10:38 2025 +0100
+
+    Dpkg::BuildDriver::DebianRules: Fix R³ namespace check to only refuse unknown dpkg keywords
+    
+    This was originally a problem in dpkg-buildpackage, which had been
+    fixed with commit dcfbe8b626cd6c3551afe7cd46500bdd38d4c200. When
+    refactoring the build driver, which lived in a parallel branch already
+    at the time of that fix, it was missed and not ported when that
+    branch got merged into main.
+    
+    Fixes: commit 197fa86fc71a2e46a5c70f99a594bf13ffb520f9
+    Closes: #1092653
+
+ scripts/Dpkg/BuildDriver/DebianRules.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 349e0d2f75cff33fdda9e6b8e09441af2696abae
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jan 13 02:07:48 2025 +0100
+
+    scripts/mk: Use flavor to avoid re-caching empty variables
+    
+    We were using the or function for the variable caches, but if the
+    variable is empty we might end up re-evaluating the contents, which
+    means we can end up executing the same command many times.
+    
+    This happened to work fine with GNU make 4.3 and earlier, but stopped
+    working correctly with GNU make 4.4, which incurs a significant slow
+    down due to excess execution of for example dpkg-buildflags. This change
+    alone does not restore the previous number of spawned processes, but
+    getting back to that, implies a semantics change that can break existing
+    code.
+    
+    Ref: #1092051
+
+ scripts/mk/architecture.mk | 2 +-
+ scripts/mk/buildflags.mk   | 2 +-
+ scripts/mk/pkg-info.mk     | 2 +-
+ scripts/mk/vendor.mk       | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 94a0287c015d27332cf7d7e95c7d47f2c31a507a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 5 02:08:26 2025 +0100
+
+    src/sh: Add support for notice(), info() and hint() functions
+
+ src/sh/dpkg-error.sh | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+commit bdb8781b45e2f01a97598f7db6cabec5b281fa70
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jan 7 00:41:24 2025 +0100
+
+    src/sh: Document library interface basics and the version when introduced
+    
+    This should help a bit with potential external users.
+
+ src/sh/dpkg-error.sh | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+commit f4c48fba33e02bcd053ba70e2d4ec5817be0fd81
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jan 7 00:46:51 2025 +0100
+
+    src/sh: Fix debug output format to print debug in lowercase after progname
+    
+    This follows the same convention as all other report functions output.
+
+ src/sh/dpkg-error.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 32295b87a26a9119681ced9d868c9c84ccbb85b9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 5 02:08:26 2025 +0100
+
+    src/sh: Lowercase and namespace private variables with _dpkg_
+    
+    This should make it more clear what is private and what is public,
+    to avoid accidental usage by external code.
+
+ src/sh/dpkg-error.sh | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+commit dd00f2a83e4368f0ac5e23b50b9db3e9461fa390
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 5 02:08:26 2025 +0100
+
+    src/sh: Abstract color clearing with a new variable
+    
+    This makes sure we are not losing the original value from COLOR_RESET,
+    in case we need to restore the color clearing later on.
+
+ src/sh/dpkg-error.sh | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+commit 617fc1c20757b32c96d9669f106eab447f73b4a4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 4 23:14:58 2025 +0100
+
+    dpkg-deb: Switch from info() to hint() for hint message
+    
+    This uses a semantic call so that we can perform unified formatting
+    on the output, and in the future potentially silence all hinting if
+    the users requests so.
+
+ src/deb/build.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 95cfaf475cfcf2c7efe754fdbb644cbd30527655
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 4 23:12:50 2025 +0100
+
+    libdpkg: Add support for hint printing
+    
+    This will make it possible to provide hints for the user so that they
+    can perform some action prompted by diagnostics printed by dpkg tools.
+    
+    We already have some hints printed, but they do not use a unified
+    interface and dedicated formatting and color.
+
+ lib/dpkg/color.h     |  1 +
+ lib/dpkg/libdpkg.map |  2 ++
+ lib/dpkg/report.c    | 28 ++++++++++++++++++++++++++++
+ lib/dpkg/report.h    |  4 ++++
+ 4 files changed, 35 insertions(+)
+
+commit 5d8a76769f6a6a121c52aecf436ddd172e892b4f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 8 04:31:08 2025 +0100
+
+    test: Remove redundant <cstdbool> include deprecated in C++17
+    
+    Warned-by: gcc-15
+
+ lib/dpkg/t/t-headers-cpp.cc | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit 3be442cc1b16f540c12ce3784f95a6063ef78f99
+Author: Paulo Henrique de Lima Santana (phls) <phls@debian.org>
+Date:   Thu Jan 16 03:03:40 2025 +0100
+
+    po: Update Brazilian Portuguese dselect translations
+    
+    Closes: #1092593
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/pt_BR.po | 585 ++++++++++++----------------------------------------
+ 1 file changed, 127 insertions(+), 458 deletions(-)
+
+commit 1a903a72404ab9e2d994ac50f3bd2cf5ed7faf3e
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Sun Jan 5 08:35:21 2025 +0100
+
+    po: Update German programs translation
+    
+    Update to 1199t.
+
+ po/de.po | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+commit 8525ed5907aeae11412ab8a639e2094c2f3fc74a
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Jan 4 21:46:37 2025 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.add |   2 +-
+ man/po/de.po  | 122 +++++++++++++++-------------------------------------------
+ 2 files changed, 32 insertions(+), 92 deletions(-)
+
+commit 35c4d3a4ef3751ae29a84e015388e8b758a4fa81
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sat Jan 4 21:46:11 2025 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 69 ++++++++++++++++++++------------------------------------
+ 1 file changed, 24 insertions(+), 45 deletions(-)
+
+commit c54c8f09be71d13d1e719abdba59b6a072b3cf68
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 12:05:19 2025 +0100
+
+    Bump version to 1.22.14
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 66a5a61d279558aae34283244ba6e1cecb0de72b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 11:48:03 2025 +0100
+
+    Release 1.22.13
+
+ debian/changelog | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+
+commit e1efb5eaf092a49b836303cf7ce92039e3660f07
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 11:47:15 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 +--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 86 +++++++++++++++++++++++++++++++++++++++----------
+ man/po/dpkg-man.pot     | 41 ++++++++++++-----------
+ man/po/es.po            | 50 ++++++++++++++++++----------
+ man/po/fr.po            | 71 ++++++++++++++++++++++++++++++----------
+ man/po/hu.po            | 46 ++++++++++++++++----------
+ man/po/it.po            | 50 ++++++++++++++++++----------
+ man/po/ja.po            | 48 +++++++++++++++++----------
+ man/po/nl.po            | 86 +++++++++++++++++++++++++++++++++++++++----------
+ man/po/pl.po            | 49 ++++++++++++++++++----------
+ man/po/pt.po            | 86 +++++++++++++++++++++++++++++++++++++++----------
+ man/po/pt_BR.po         | 41 +++++++++++++----------
+ man/po/ru.po            | 46 ++++++++++++++++----------
+ man/po/sv.po            | 85 ++++++++++++++++++++++++++++++++++++++----------
+ man/po/zh_CN.po         | 41 +++++++++++++----------
+ po/ast.po               | 24 +++++++++++++-
+ po/bs.po                | 28 +++++++++++++++-
+ po/ca.po                | 25 +++++++++++++-
+ po/cs.po                | 25 +++++++++++++-
+ po/da.po                | 25 +++++++++++++-
+ po/de.po                | 25 +++++++++++++-
+ po/dpkg.pot             | 25 ++++++++++++--
+ po/dz.po                | 23 ++++++++++++-
+ po/el.po                | 23 ++++++++++++-
+ po/eo.po                | 25 +++++++++++++-
+ po/es.po                | 25 +++++++++++++-
+ po/et.po                | 23 ++++++++++++-
+ po/eu.po                | 25 +++++++++++++-
+ po/fr.po                | 25 +++++++++++++-
+ po/gl.po                | 23 ++++++++++++-
+ po/hu.po                | 23 ++++++++++++-
+ po/id.po                | 25 +++++++++++++-
+ po/it.po                | 25 +++++++++++++-
+ po/ja.po                | 25 +++++++++++++-
+ po/km.po                | 23 ++++++++++++-
+ po/ko.po                | 25 +++++++++++++-
+ po/ku.po                | 23 ++++++++++++-
+ po/lt.po                | 23 ++++++++++++-
+ po/mr.po                | 23 ++++++++++++-
+ po/nb.po                | 25 +++++++++++++-
+ po/ne.po                | 23 ++++++++++++-
+ po/nl.po                | 25 +++++++++++++-
+ po/nn.po                | 23 ++++++++++++-
+ po/oc.po                | 25 +++++++++++++-
+ po/pa.po                | 23 ++++++++++++-
+ po/pl.po                | 25 +++++++++++++-
+ po/pt.po                | 25 +++++++++++++-
+ po/pt_BR.po             | 25 +++++++++++++-
+ po/ro.po                | 38 +++++++++++++++++++++-
+ po/ru.po                | 25 +++++++++++++-
+ po/sk.po                | 25 +++++++++++++-
+ po/sv.po                | 25 +++++++++++++-
+ po/th.po                | 25 +++++++++++++-
+ po/tl.po                | 23 ++++++++++++-
+ po/tr.po                | 25 +++++++++++++-
+ po/vi.po                | 25 +++++++++++++-
+ po/zh_CN.po             | 25 +++++++++++++-
+ po/zh_TW.po             | 25 +++++++++++++-
+ scripts/po/ca.po        |  9 +++---
+ scripts/po/de.po        |  9 +++---
+ scripts/po/dpkg-dev.pot |  8 ++---
+ scripts/po/es.po        |  9 +++---
+ scripts/po/fr.po        |  9 +++---
+ scripts/po/nl.po        |  9 +++---
+ scripts/po/pl.po        |  9 +++---
+ scripts/po/pt.po        |  9 +++---
+ scripts/po/ru.po        |  9 +++---
+ scripts/po/sv.po        |  9 +++---
+ 98 files changed, 1688 insertions(+), 355 deletions(-)
+
+commit afaaebaf331d5ce0cb99611884c91782ced040f4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 11:38:33 2025 +0100
+
+    test: Update dpkg-buildtree test case for R³ default change
+    
+    Fixes: commit b26443e10c91bbd3365bd1a520dbdace26442e2c
+    Changelog: silent
+
+ scripts/t/dpkg_buildtree.t | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit b26443e10c91bbd3365bd1a520dbdace26442e2c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Nov 11 13:24:21 2024 +0100
+
+    Dpkg::BuildDriver::DebianRules: Change default R³ value to «no»
+    
+    The transition to rootless builds in Debian has been going on for
+    years now, with increasing steady adoption, although there is still
+    a long tail of packages that need to be adapted.
+    
+    The main reason the default was never changed before, was to avoid
+    potential mass build breakage, and potential silent breakage in
+    successful builds. The former is being handled in Debian through a
+    normal transition (which only affects a subset of the remaining
+    non-transitioned packages), and the latter is helped by the new
+    dpkg-deb warning that will trigger when the root directory is owned
+    by a non-root user/group, which should catch also third party builds.
+    
+    Changing the default is also the better option, and friendlier for the
+    packaging ecosystem to avoid requiring to set the R³ field to «no» for
+    every package. It also removes the need for fakeroot, while a very
+    helpful tool, it introduces a layer of run-time interposition that can
+    affect builds and introduce regressions of its own, and needs to be
+    kept in sync with the system libc.
+    
+    Proposed-by: Niels Thykier <niels@thykier.net>
+
+ doc/spec/rootless-builds.txt                          | 6 ++++--
+ man/deb-src-control.pod                               | 5 +++--
+ man/dpkg-build-api.pod                                | 4 ++--
+ man/dpkg-buildpackage.pod                             | 4 ++--
+ scripts/Dpkg/BuildDriver/DebianRules.pm               | 6 +-----
+ scripts/t/dpkg_buildpackage/test-source_0_all.hook    | 2 +-
+ scripts/t/dpkg_buildpackage/test-source_0_any.hook    | 2 +-
+ scripts/t/dpkg_buildpackage/test-source_0_binary.hook | 2 +-
+ scripts/t/dpkg_buildpackage/test-source_0_full.hook   | 2 +-
+ 9 files changed, 16 insertions(+), 17 deletions(-)
+
+commit 916fa148466cec6f47793d47177bd32dfb05e489
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 02:18:47 2024 +0100
+
+    dpkg-deb: Add support for filesystem metadata checks
+    
+    This adds checks for unusual and/or unexpected ownership of the root
+    directory for the to be built package.
+    
+    This will help catch invocations where the resulting filesystem metadata
+    would be wrong and potentially a security issue, as the build has not
+    been made with a root-equivalent runner, such as fakeroot, or preferably
+    by passing the --root-owner-group option. This is part of the effort to
+    default to rootless builds, and to try to help external packaging efforts
+    that might not be using Debian tooling update their build scaffolding.
+
+ src/at/deb-content.at | 26 +++++++++++++-------------
+ src/at/deb-fields.at  |  6 +++---
+ src/deb/build.c       | 25 +++++++++++++++++++++++++
+ 3 files changed, 41 insertions(+), 16 deletions(-)
+
+commit e42b5003266ab83676373b891ab85b4c6f2bfc55
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 10:19:48 2025 +0100
+
+    Dpkg::OpenPGP::Backend: Add missing imports
+    
+    Fixes: commit 74a66a38ad4f84e228f86b335c63e58a76e3f717
+    Closes: #1091990
+
+ scripts/Dpkg/OpenPGP/Backend.pm | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 95775dd3ea65e8282af6ed6687f7c7002ed67f18
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 00:42:39 2025 +0100
+
+    man: Refer to --sign-keyid instead of --sign-key in DEB_SIGN_KEYID description
+    
+    When documenting the environment variable, use the preferred form for
+    the option.
+
+ man/dpkg-buildpackage.pod | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1cb940072b486d2af754f8b9277b51f30c5733c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 00:26:34 2025 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Check whether we can use the key
+    
+    With newer sq, we can always use its keystore. So we need to check
+    whether the key is usable with a keystore, instead of erroring out
+    in case it requires one.
+    
+    Closes: #1091915
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 8eaf5f4502c279ee6d58a35a2918f321f3d6c31b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 00:34:42 2025 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Handle all KeyHandle types in inline_sign()
+    
+    We need to handle all different KeyHandle types, and pass them to «sq»
+    using the appropriate option for each type.
+    
+    Ref: #1091915
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit a5f7fdad4ed22e81ca03ff45e555d3f5c81528ea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 3 00:50:06 2025 +0100
+
+    man: Bump version since Section and Priority fields have defaults
+    
+    The version listed was buggy and did not really properly support the
+    missing fields. Bump the version to the current one which should support
+    these defaults and the omission of these fields.
+    
+    Fixes: commit c6e27f5f27f73346509176ec83b3f11343685ba9
+    Changelog: silent
+
+ man/deb-changes.pod     | 2 +-
+ man/deb-src-control.pod | 4 ++--
+ man/dsc.pod             | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+commit acccaa648c1c02e9c29f41938c38661b29ea5721
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 19:54:17 2025 +0100
+
+    dpkg-genchanges: Set Section and Priority defaults even with no fields
+    
+    When we have no fields, that is precisely where setting the defaults is
+    most important, and the initial purpose of these changes.
+    
+    Fixes: commit a365789d463aadaf6870abcb149a90e54cef988e
+    Closes: #1091941
+    Changelog: internal
+
+ scripts/dpkg-genchanges.pl | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 264b61081122c6724b27c93d3d6aadb99b112f1a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 19:52:22 2025 +0100
+
+    dpkg-gencontrol: Add missing field name to warning message
+    
+    This was causing a Perl undefined variable usage diagnostic.
+    
+    Fixes: commit 0d472ec1751fe6b2e14eab3e6c691fc14deb8d02
+    Ref: #1091941
+    Changelog: internal
+
+ scripts/dpkg-gencontrol.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 34893d4bb845bef152d0f245331ba21386c8419e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 23:44:26 2025 +0100
+
+    scripts: When printing a field value quote it with double quotes
+    
+    If the value happens to be an empty string, or a word that could be
+    confused for a part of the sentence, it makes the printed message
+    very hard to parse. Quote the values so that it's more clear what's
+    going on.
+
+ scripts/dpkg-genchanges.pl | 4 ++--
+ scripts/dpkg-source.pl     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 32feead3450bc3d1f3b2cbd343fa87c75aeca702
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 14:40:22 2025 +0100
+
+    dselect: Fix formatting for return in keybindings::find()
+    
+    Fixes: commit 5ab30303e4d1aa99aaef75790321bdce65a9505c
+    Changelog: internal
+
+ dselect/bindings.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 78814a4dec2b0c974dc822ca39637c5920356ce0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 13:11:22 2025 +0100
+
+    dselect: Fix logic inversion in repeat search keybinding
+    
+    This was making the repeat search not work at all.
+    
+    Fixes: commit c11a69207d031b7d2260dd0108b91b27b22dea1e
+    Changelog: internal
+
+ dselect/basecmds.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 728281829adbcb7c7ae4320d68140c13da2c64ed
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 12:55:26 2025 +0100
+
+    dselect: Update the search varbuf to account for the used size
+    
+    We pass the varbuf to an ncurses library function that will fill it up
+    with user typed content, so we need to update its used size, so that
+    subsequent functions are aware that the varbuf has content.
+    
+    Fixes: commit c11a69207d031b7d2260dd0108b91b27b22dea1e
+    Closes: #1091898
+    Changelog: internal
+
+ dselect/basecmds.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit abdca470d2cdcdc2cc0b244d75adb3a96f411a6c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 12:55:26 2025 +0100
+
+    dselect: Make sure the search varbuf always has allocated space
+    
+    We need to pass this buffer to the ncurses library functions, which
+    expect an allocated buffer. Make sure we allocate some space for it.
+    
+    Fixes: commit c11a69207d031b7d2260dd0108b91b27b22dea1e
+    Ref: #1091898
+    Changelog: internal
+
+ dselect/basecmds.cc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit c5d3093cffc47424984e28671d5a0d4661f28128
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 14:00:18 2025 +0100
+
+    libdpkg: Do not call varbuf_init() from operator=()
+    
+    This can be called multiple times, and the varbuf_init() function is
+    intended to be called only once, otherwise we will leak memory.
+    
+    Fixes: commit 19777c0f7fe274e7fdee3da7e428b63e3465dbc3
+
+ lib/dpkg/varbuf.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 70729b2125226a2481540009b6a17ea09c48370e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 14:21:15 2025 +0100
+
+    libdpkg: Add test cases for varbuf C++ operators
+
+ lib/dpkg/t/t-varbuf-cpp.cc | 43 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
+
+commit f99d5ebe3d3ff8c6a9363aacaa28d71bd6964e16
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 12:14:02 2025 +0100
+
+    man: Clarify Section and Priority values usage tied to distribution policies
+    
+    Move the note about these fields being specified by distribution
+    specific policies into each field description, instead of an out of
+    list paragraph, which might not even render correctly, and seems a bit
+    distracting and out of place.
+
+ man/deb-control.pod     | 11 +++--------
+ man/deb-src-control.pod |  9 +++------
+ 2 files changed, 6 insertions(+), 14 deletions(-)
+
+commit 75db309d923ef8dafb840168f16b04d610f1e110
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 12:14:02 2025 +0100
+
+    man: Clarify Priority values by mentioned known important and unknown ones
+    
+    The known important value was not mentioned in the field documentation,
+    and clarify that besides the known values, other unknown ones can be
+    used as well.
+
+Notes:
+    Changelog: s/by mentioned/by mentioning/
+
+ man/deb-control.pod     | 6 ++----
+ man/deb-src-control.pod | 4 ++--
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+commit c6e27f5f27f73346509176ec83b3f11343685ba9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 04:25:41 2025 +0100
+
+    man: Document the version since the Section and Priority fields have defaults
+    
+    Fixes: commit 0d472ec1751fe6b2e14eab3e6c691fc14deb8d02
+
+ man/deb-changes.pod     | 3 ++-
+ man/deb-src-control.pod | 6 ++++--
+ man/dsc.pod             | 3 ++-
+ 3 files changed, 8 insertions(+), 4 deletions(-)
+
+commit 46312b630a1bef66567bc88e598894eeaad29edf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 2 00:04:02 2025 +0100
+
+    Bump version to 1.22.13
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 8637a76982aa1cf74c4be188b10a1ed1843fc858
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 1 23:44:12 2025 +0100
+
+    Release 1.22.12
+
+ debian/changelog | 175 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 172 insertions(+), 3 deletions(-)
+
+commit 7309f27209fb193b0df20f85c7c01113346ab848
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 1 23:27:27 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   19 +-
+ dselect/po/ca.po        |   37 +-
+ dselect/po/cs.po        |   34 +-
+ dselect/po/da.po        |   38 +-
+ dselect/po/de.po        |    2 +-
+ dselect/po/dselect.pot  |   21 +-
+ dselect/po/el.po        |   35 +-
+ dselect/po/es.po        |   38 +-
+ dselect/po/et.po        |   23 +-
+ dselect/po/eu.po        |   42 +-
+ dselect/po/fr.po        |   41 +-
+ dselect/po/gl.po        |   38 +-
+ dselect/po/hu.po        |   23 +-
+ dselect/po/id.po        |   42 +-
+ dselect/po/it.po        |   50 +-
+ dselect/po/ja.po        |   34 +-
+ dselect/po/ko.po        |   34 +-
+ dselect/po/nb.po        |   42 +-
+ dselect/po/nl.po        |   34 +-
+ dselect/po/nn.po        |   38 +-
+ dselect/po/pl.po        |   42 +-
+ dselect/po/pt.po        |   40 +-
+ dselect/po/pt_BR.po     |   43 +-
+ dselect/po/ro.po        |   35 +-
+ dselect/po/ru.po        |   34 +-
+ dselect/po/sk.po        |   38 +-
+ dselect/po/sv.po        |   34 +-
+ dselect/po/tl.po        |   34 +-
+ dselect/po/vi.po        |   38 +-
+ dselect/po/zh_CN.po     |   34 +-
+ dselect/po/zh_TW.po     |   34 +-
+ man/po/de.po            | 1384 +++++++++++++++++++-------------------
+ man/po/dpkg-man.pot     |  636 +++++++-----------
+ man/po/es.po            | 1191 ++++++++++++++++-----------------
+ man/po/fr.po            | 1705 ++++++++++++++++++++++++++---------------------
+ man/po/hu.po            |  904 +++++++++++--------------
+ man/po/it.po            | 1122 ++++++++++++++-----------------
+ man/po/ja.po            | 1270 +++++++++++++++++------------------
+ man/po/nl.po            | 1390 ++++++++++++++++++++------------------
+ man/po/pl.po            | 1239 ++++++++++++++++------------------
+ man/po/pt.po            | 1353 +++++++++++++++++++------------------
+ man/po/pt_BR.po         |  901 +++++++++++--------------
+ man/po/ru.po            |  905 +++++++++++--------------
+ man/po/sv.po            | 1558 +++++++++++++++++++++++++------------------
+ man/po/zh_CN.po         |  896 +++++++++++--------------
+ po/ast.po               |   47 +-
+ po/bs.po                |   24 +-
+ po/ca.po                |   54 +-
+ po/cs.po                |   78 ++-
+ po/da.po                |   50 +-
+ po/de.po                |    6 +-
+ po/dpkg.pot             |   26 +-
+ po/dz.po                |   43 +-
+ po/el.po                |   39 +-
+ po/eo.po                |   50 +-
+ po/es.po                |   58 +-
+ po/et.po                |   31 +-
+ po/eu.po                |   53 +-
+ po/fr.po                |   50 +-
+ po/gl.po                |   43 +-
+ po/hu.po                |   33 +-
+ po/id.po                |   47 +-
+ po/it.po                |   50 +-
+ po/ja.po                |   46 +-
+ po/km.po                |   47 +-
+ po/ko.po                |   47 +-
+ po/ku.po                |   24 +-
+ po/lt.po                |   31 +-
+ po/mr.po                |   31 +-
+ po/nb.po                |   51 +-
+ po/ne.po                |   43 +-
+ po/nl.po                |   82 ++-
+ po/nn.po                |   39 +-
+ po/oc.po                |   37 +-
+ po/pa.po                |   40 +-
+ po/pl.po                |   54 +-
+ po/pt.po                |   50 +-
+ po/pt_BR.po             |   70 +-
+ po/ro.po                |   82 ++-
+ po/ru.po                |   58 +-
+ po/sk.po                |   46 +-
+ po/sv.po                |   74 +-
+ po/th.po                |   46 +-
+ po/tl.po                |   35 +-
+ po/tr.po                |   46 +-
+ po/vi.po                |   50 +-
+ po/zh_CN.po             |   54 +-
+ po/zh_TW.po             |   50 +-
+ scripts/po/ca.po        |  175 +++--
+ scripts/po/de.po        |  167 +++--
+ scripts/po/dpkg-dev.pot |   95 ++-
+ scripts/po/es.po        |  143 ++--
+ scripts/po/fr.po        |  195 +++---
+ scripts/po/nl.po        |  179 +++--
+ scripts/po/pl.po        |  164 +++--
+ scripts/po/pt.po        |  177 +++--
+ scripts/po/ru.po        |  148 ++--
+ scripts/po/sv.po        |  187 ++++--
+ 98 files changed, 10783 insertions(+), 10387 deletions(-)
+
+commit 0d472ec1751fe6b2e14eab3e6c691fc14deb8d02
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 14 05:10:19 2024 +0100
+
+    scripts: Change and inject default value for Section and Priority fields
+    
+    When generating a DEBIAN/control, .dsc, .changes or a Sources repository
+    metaindex, set the default values for the Section and Priority fields to
+    «unknown» and «optional» respectively.
+    
+    For the Priority field, this means that the package maintainer does not
+    longer need to add that field if it uses the default value, and only
+    need to add it to override it.
+    
+    For the Section field, currently this only unifies its value when unset
+    so that it always is «unknown» instead of sometimes being that and
+    others being «-». In the future this makes way to be able to add some
+    heuristics to auto-generate some more useful defaults.
+    
+    Proposed-by: Niels Thykier <niels@thykier.net> (for Priority)
+    Proposed-by: Guillem Jover <guillem@debian.org> (for Section)
+
+ man/deb-changes.pod                |  3 +++
+ man/deb-src-control.pod            |  6 ++++++
+ man/dsc.pod                        |  3 ++-
+ scripts/Dpkg/Control/FieldsCore.pm |  4 ++--
+ scripts/dpkg-genchanges.pl         | 10 ----------
+ scripts/dpkg-gencontrol.pl         | 12 +++++++++++-
+ scripts/dpkg-scansources.pl        |  9 +++++----
+ scripts/dpkg-source.pl             |  3 ++-
+ scripts/t/Dpkg_Control_Fields.t    |  4 ++--
+ 9 files changed, 33 insertions(+), 21 deletions(-)
+
+commit 6290e30ac07cb81c959a633e1bb22e29930cb998
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 14 05:08:26 2024 +0100
+
+    scripts: Switch to use the default per field value for Section and Priority
+    
+    This centralizes the default value for these fields into the
+    Dpkg::Control::FieldsCore module. Although we cannot yet use that
+    default from dpkg-source as that currently uses a different value.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 2 ++
+ scripts/dpkg-genbuildinfo.pl       | 2 +-
+ scripts/dpkg-genchanges.pl         | 6 +++---
+ scripts/dpkg-gencontrol.pl         | 2 +-
+ scripts/t/Dpkg_Control_Fields.t    | 8 ++++----
+ 5 files changed, 11 insertions(+), 9 deletions(-)
+
+commit 0286be37b54cb43263e9f0065ce76db1d005dc26
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 14 03:32:29 2024 +0100
+
+    Dpkg::Control::FieldsCore: Add new field_get_default_value() function
+    
+    This function will make it possible to centralize default values for
+    fields, so that we can change it in one place instead of every place
+    where the field is being used.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 21 ++++++++++++++++++++-
+ scripts/t/Dpkg_Control_Fields.t    |  9 ++++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+
+commit a365789d463aadaf6870abcb149a90e54cef988e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 14 04:37:34 2024 +0100
+
+    scripts: Unify handling of default Priority and Section values
+    
+    Track and handle these fields in a single hash, so that we can apply
+    similar logic to both of them without having to repeat the same code
+    for each field.
+
+ scripts/dpkg-genbuildinfo.pl |  8 ++++---
+ scripts/dpkg-genchanges.pl   | 52 ++++++++++++++++++++------------------------
+ scripts/dpkg-gencontrol.pl   |  9 +++++---
+ 3 files changed, 34 insertions(+), 35 deletions(-)
+
+commit cae0d73b2eddbeb958f02f0e98d46d92af162319
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 14 04:39:27 2024 +0100
+
+    dpkg-source: Generalize Package-List field attributes handling
+    
+    Instead of storing each attribute into its own variable, use a hash and
+    then format the attribute list from that. This means adding new
+    attributes in the future will only be a matter of formatting the value
+    and assigning it to the key name to use on the output.
+
+Notes:
+    Changelog: internal
+
+ scripts/dpkg-source.pl | 38 ++++++++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
+
+commit 0b90ad017637f945b1e2d78c626e94a1020d6487
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 1 21:20:51 2025 +0100
+
+    build: Remove reference to removed debian/bug-script
+    
+    Fixes: commit 7633a469d6b8bb48b419091ff1b4fb1e45a4e24e
+    Changelog: silent
+
+ Makefile.am | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 12e3bc2991ac27f73545a246bb95b84fb8d262c9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 6 02:07:53 2024 +0100
+
+    scripts: Remove dpkg-fsys-usrunmess program
+    
+    This program has been moved elsewhere.
+
+ debian/README.bug-usertags     |   2 -
+ debian/dpkg.lintian-overrides  |   2 -
+ debian/rules                   |  20 --
+ man/Makefile.am                |   2 -
+ man/dpkg-fsys-usrunmess.pod    | 190 -------------
+ man/po/po4a.cfg                |   1 -
+ scripts/.gitignore             |   1 -
+ scripts/Makefile.am            |   5 -
+ scripts/dpkg-fsys-usrunmess.pl | 631 -----------------------------------------
+ 9 files changed, 854 deletions(-)
+
+commit 2ee46ac3a0de739a399f06175bc8b449f1d02eaf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 1 19:04:54 2025 +0100
+
+    Dpkg::Vendor::Debian: Remove merged-/usr taint logic
+    
+    Now that Debian has done more or less a "proper" /usr-move, where the
+    symlinks are actually provided by a package, and all packages install
+    on the canonical location, where the packaging system should not incur
+    in aliasing, the warning does no longer serve much of a purpose, as
+    any derivative will be picking up the same changes.
+    
+    Aliasing from external packages can still occur, but banning that will
+    be implemented via filesystem metadata tracking, once those changes can
+    be deployed and are not guaranteed to fail due to file type conflicts
+    due to the previous /usr-merge approach.
+    
+    Aliasing from the filesystem is still problematic, but that should now
+    be either a UI issue or a reliability issue for other tools to deal
+    with.
+
+ man/deb-buildinfo.pod         | 13 -------------
+ scripts/Dpkg/Vendor/Debian.pm | 10 ----------
+ 2 files changed, 23 deletions(-)
+
+commit 7633a469d6b8bb48b419091ff1b4fb1e45a4e24e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 6 04:27:31 2024 +0100
+
+    debian: Remove merged-/usr warning logic
+    
+    Now that Debian has done more or less a "proper" /usr-move, where the
+    symlinks are actually provided by a package, and all packages install
+    on the canonical location, where the packaging system should not incur
+    in aliasing, the warning does no longer serve much of a purpose, as
+    any derivative will be picking up the same changes.
+    
+    Aliasing from external packages can still occur, but banning that will
+    be implemented via filesystem metadata tracking, once those changes can
+    be deployed and are not guaranteed to fail due to file type conflicts
+    due to the previous /usr-merge approach.
+    
+    Aliasing from the filesystem is still problematic, but that should now
+    be either a UI issue or a reliability issue for other tools to deal
+    with.
+    
+    Closes: #1061718
+
+ debian/bug-script    | 47 -----------------------------------------------
+ debian/dpkg.postinst | 45 ---------------------------------------------
+ 2 files changed, 92 deletions(-)
+
+commit 3b0915de68e4b3c6cbc425b0df1cab2d91cddfc9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 6 02:03:37 2024 +0100
+
+    Remove dpkg-error.sh boilerplate
+    
+    We do not need the program and color setup boilerplate which is now
+    handled automatically by the script itself.
+    
+    Changelog: internal
+
+ debian/dpkg.postinst           | 2 --
+ src/dpkg-db-backup.sh          | 3 ---
+ src/dpkg-db-keeper.sh          | 3 ---
+ src/dpkg-maintscript-helper.sh | 3 ---
+ 4 files changed, 11 deletions(-)
+
+commit 7a897c1df718c93ff8cfaccfca17b24f1ca083f5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 6 01:55:05 2024 +0100
+
+    src/sh: Move setup_colors() contents into dpkg-error.sh script scope
+    
+    The function was not written to handle being called multiple times to
+    perform different setups based on different inputs. Any script sourcing
+    this file was required to call this function as it setups variables
+    used by the various functions, which is unnecessary boilerplate that
+    we can get rid of.
+    
+    Preserve an empty setup_colors() function for backwards compatibility
+    with code calling it.
+
+ src/sh/dpkg-error.sh | 56 ++++++++++++++++++++++++++++------------------------
+ 1 file changed, 30 insertions(+), 26 deletions(-)
+
+commit 5d8b343237767391f451d32b5eea0160506305ed
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 6 01:54:26 2024 +0100
+
+    src/sh: Add a default PROGNAME to dpkg-error.sh
+    
+    We require a program name for the various functions to work correctly.
+    Make sure we have something available at all times.
+
+ src/sh/dpkg-error.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit d816ddf670e215baf9a4c94e23f50f521fa7241c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 19 01:27:38 2024 +0100
+
+    build: Add a new changelog section for the shell library
+
+ build-aux/gen-changelog | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit feb1fef88bc93d37640298416147c5ec3e96af99
+Author: Paulo Henrique de Lima Santana <phls@debian.org>
+Date:   Tue Dec 31 23:42:58 2024 +0100
+
+    po: Update Brazilian Portuguese programs translation
+    
+    Closes: #1091450
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ po/pt_BR.po | 6337 ++++++++++++++++++-----------------------------------------
+ 1 file changed, 1901 insertions(+), 4436 deletions(-)
+
+commit c6464c6fce3f36cf5f1361b0a9848c523439d727
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 1 18:57:40 2025 +0100
+
+    dpkg-buildpackage: Fix typo in hint
+    
+    Fixes: commit 80c5c9d43896eef795a988cb080ff31ed8776172
+    Spotted-by: Matthias Urlichs <matthias@urlichs.de>
+    Changelog: silent
+
+ scripts/dpkg-buildpackage.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 4f909455d054eca03e8f09da34ae6b7c2aa5e8a4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Dec 16 04:09:18 2024 +0100
+
+    Dpkg::OpenPGP::Backend::SOP: Use the parent class armor/dearmor implementations
+    
+    We cannot use the SOP armor/dearmor interfaces, because concatenated
+    ASCII Armor is not a well supported construct, which not all SOP
+    implementations support. But we still need to handle this given the
+    data we are managing. Remove these implementations for now and use
+    the generic parent implementations. Once we can guarantee that our
+    data has been sanitized, then we could switch back to use pure SOP
+    interfaces.
+
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm | 22 +++++++---------------
+ 1 file changed, 7 insertions(+), 15 deletions(-)
+
+commit 74a66a38ad4f84e228f86b335c63e58a76e3f717
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Dec 16 04:03:09 2024 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Move armor/dearmor implementation to base class
+    
+    This is generic OpenPGP code, which we need for other backends to be
+    able to support concatenated ASCII Armor blocks.
+
+ scripts/Dpkg/OpenPGP/Backend.pm       |  97 ++++++++++++++++++++++++++++-
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 111 +---------------------------------
+ 2 files changed, 98 insertions(+), 110 deletions(-)
+
+commit a7061477631804f808dc77e91a1e34585f2f71fd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Dec 16 04:14:15 2024 +0100
+
+    Revert "Dpkg::OpenPGP::Backend::GnuPG: Fallback to use «gpg dearmor» if present"
+    
+    This reverts commit b698489dbe1ce237089038f6fd61138aa1638c43.
+    
+    Now that we support concatenated ASCII Armor, we can stop calling gpg
+    for its dearmor support.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+commit 0264c870f8e338f2c049ca79912745b55e1ce5f2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 12 04:09:44 2024 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Handle and warn on concatenated ASCII Armor blocks
+    
+    There are many "keyrings" in Debian source packages that contain
+    concatenated ASCII Armor blocks, which are problematic for interop,
+    but not supporting them now is a clear regression.
+    
+    For now adapt the code to cope with those, and emit a warning and
+    hint on how that can be fixed. We cannot use SOP in the hint example,
+    precisely due to the interop concerns, we use «sq» because that's
+    the easiest and more ergonomic way to merge the certificates.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 25 ++++++++++++++++++-------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
+
+commit 8c7737461b990ae1b4db5cfc6f5df9087c976343
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 13 04:21:58 2024 +0100
+
+    dpkg-buildpackage: Switch unmet dependency abort message from warning to error
+    
+    This is an error condition, do not emit it as if it was just a warning,
+    which seems confusing.
+
+ scripts/dpkg-buildpackage.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 04e4a8129e62a058951f53ff5c349071bab96c95
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 13 04:13:15 2024 +0100
+
+    dpkg-checkbuilddeps: Improve unmet dependency error messages
+    
+    Lower case them to conform to the overall project error messages style,
+    and expand the error for build conflicts to also mention these are
+    unmet.
+
+ scripts/dpkg-checkbuilddeps.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 80c5c9d43896eef795a988cb080ff31ed8776172
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 28 03:43:05 2024 +0100
+
+    dpkg-buildpackage: Reword hint on unsatisfied dependencies
+    
+    Guiding unsuspecting users to disable the dependency checks will in most
+    cases not do what people expect, when what they should be doing instead
+    is to install missing dependencies and remove conflicting ones.
+    
+    Closes: #817955
+
+ scripts/dpkg-buildpackage.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c107aecd663dc142398407636b4936ce15085401
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 13 00:23:02 2024 +0100
+
+    scripts: Switch messages to be hints
+    
+    This makes the function calls provide a unified output, and will make it
+    possible to disable hints, if the users does not want to see them.
+
+ scripts/Dpkg/Source/Package/V2.pm |  4 ++--
+ scripts/dpkg-buildpackage.pl      |  2 +-
+ scripts/dpkg-shlibdeps.pl         | 11 ++++++-----
+ 3 files changed, 9 insertions(+), 8 deletions(-)
+
+commit 621de6ecfa78a1380f6d8b9d39453f91b9df80a7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 12 04:08:38 2024 +0100
+
+    Dpkg::ErrorHandling: Add support for hint printing
+    
+    This will make it possible to provide hints for the user so that they
+    can perform some action prompted by diagnostics printed by dpkg tools.
+
+ scripts/Dpkg/ErrorHandling.pm | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+commit 310da86e14d6c1659a808c3fc6299a6ecef93f4e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 12 04:04:17 2024 +0100
+
+    Dpkg::OpenPGP::Backend: Remove references to fixed gosop issues
+    
+    These were blockers for the gosop inclusion, but were already fixed
+    when the gosop support was added here. Remove the references.
+    
+    Fixes: commit 589485b1242da5debca487307759783511456d9b
+    Changelog: silent
+
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm | 4 ----
+ 1 file changed, 4 deletions(-)
+
+commit 8b37608eae29018ce88c8f1f9021f914c5f99bdc
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 13 04:22:59 2024 +0100
+
+    man: Use «must» instead of «should» for mandatory behavior
+    
+    The behavior described is mandatory, as the tools currently will fail
+    hard when not following them.
+    
+    Ref: https://bugs.debian.org/1089794
+    Requested-by: Niels Thykier <niels@thykier.net>
+
+ man/deb-src-control.pod | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 1a06485a77983e2471ec761a0f9bf02a921a8761
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 31 19:40:17 2024 +0200
+
+    dpkg-buildtree: Add new command is-rootless
+    
+    This new command can be used to query whether the build tree requires
+    root to build or can be built with no root privileges.
+    
+    This is useful for build frontends that might need to know whether they
+    have to install additional gain-root-command packages to be able to
+    build the sources.
+    
+    Suggested-by: Niels Thykier <niels@thykier.net>
+
+ man/dpkg-buildtree.pod                             |  9 +++
+ scripts/Dpkg/BuildTree.pm                          | 18 ++++++
+ scripts/Makefile.am                                |  6 ++
+ scripts/dpkg-buildtree.pl                          | 12 +++-
+ scripts/t/dpkg_buildtree.t                         | 71 ++++++++++++++++++++++
+ .../dpkg_buildtree/src-build-api-v0/debian/control |  6 ++
+ .../dpkg_buildtree/src-build-api-v1/debian/control |  6 ++
+ .../src-rrr-binary-targets/debian/control          |  5 ++
+ .../dpkg_buildtree/src-rrr-missing/debian/control  |  4 ++
+ scripts/t/dpkg_buildtree/src-rrr-no/debian/control |  5 ++
+ 10 files changed, 140 insertions(+), 2 deletions(-)
+
+commit 2d4d2f8e3ad4aeb9758774745b70f28b46c9f57f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 31 19:40:17 2024 +0200
+
+    Dpkg::BuildDriver::DebianRules: Handle missing root_cmd option
+    
+    Initialize the root_cmd option as an empty list if it did not get passed
+    into the constructor.
+
+ scripts/Dpkg/BuildDriver/DebianRules.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 60135413d1cb5f176716101a4f3263fb8792f2e2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 28 02:47:30 2024 +0100
+
+    Cast char to unsigned char for ctype functions
+    
+    Whether char is signed or unsigned is platform specific. The ctype
+    functions take an int, but passing a negative number other than EOF
+    is undefined. Thus we cannot simply pass an element from a «char *»,
+    we need to cast it to «unsigned char» to make sure we are only ever
+    passing valid values.
+    
+    Warned-by: gcc on NetBSD
+    Changelog: internal
+
+ lib/dpkg/t/t-path.c         | 2 +-
+ utils/start-stop-daemon.c   | 4 ++--
+ utils/update-alternatives.c | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+commit bf3667add80e91bbdb2f4f2f6fe378f397ce1673
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Dec 27 18:23:21 2024 +0100
+
+    dselect: Mark assignment inside baselist::kd_search() as a move assignment
+    
+    Warned-by: coverity
+    Cangelog: internal
+
+Notes:
+    Changelog: internal
+
+ dselect/basecmds.cc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 661c242acdd65180d5b82eaf111bbdf121f2d3c2
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Wed Dec 25 09:07:52 2024 +0100
+
+    po: Update German dselect translation
+    
+    Update to 264t.
+
+ dselect/po/de.po | 43 ++++++++++++++++++++-----------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
+
+commit 3d832406dc767d00b2a0c05b0c5ef1527e44e41a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 25 03:50:52 2024 +0100
+
+    dselect: Do not pass non-POD types to functions with variadic arguments
+    
+    This is supported by some compilers but not all of them, and the C++
+    standard specifies that the behavior is implementation defined.
+    
+    Fixes: commit 8d628d3e86b78c35795f39f5a7b40f3b91281114
+    Fixes: commit a7936e01f2ef3e566d17c9e1cdf3eb6da80044b6
+    Warned-by: clang-19
+    Changelog: silent
+
+ dselect/method.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 322971e3caf1c0ab5e37ef0d7e19e196126bcf30
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 18 13:13:10 2024 +0100
+
+    scripts/mk: Add support for new DEB_VERSION_EPOCH and DEB_VERSION_REVISION
+    
+    This completes the parts of the source variable we are exposing via
+    variables. This should make it possible to use these variables without
+    having to call dpkg-parsechangelog directly.
+    
+    Closes: #1088244
+
+ scripts/mk/pkg-info.mk   | 12 ++++++++++++
+ scripts/t/mk/pkg-info.mk |  4 ++++
+ 2 files changed, 16 insertions(+)
+
+commit c3eef3de424b3981aee23d31f0d00faa7a58213c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 17 04:21:48 2024 +0100
+
+    scripts/mk: Clarify format for version variables from pkg-info.mk
+    
+    Describe more clearly what kind of value each variable will contain,
+    with the generic format and a concrete example.
+    
+    Ref: #1088244
+
+ scripts/mk/pkg-info.mk | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+commit 2c9d5c31e96a90ab28e4c34119b8ff84236f8991
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 18 12:55:14 2024 +0100
+
+    scripts/mk: Capitalize variable descriptions
+    
+    These are sentences ending with a dot, so they should be capitalized.
+
+ scripts/mk/buildflags.mk | 40 ++++++++++++++++++++--------------------
+ scripts/mk/buildopts.mk  |  2 +-
+ scripts/mk/buildtools.mk | 16 ++++++++--------
+ scripts/mk/pkg-info.mk   | 16 ++++++++--------
+ scripts/mk/vendor.mk     |  4 ++--
+ 5 files changed, 39 insertions(+), 39 deletions(-)
+
+commit a7936e01f2ef3e566d17c9e1cdf3eb6da80044b6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Aug 14 19:00:01 2024 +0200
+
+    dselect: Use varbuf instead of strcpy()
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: silent
+
+ dselect/methlist.cc  | 14 +++++++-------
+ dselect/method.h     |  7 ++++---
+ dselect/methparse.cc | 28 +++++++++++-----------------
+ 3 files changed, 22 insertions(+), 27 deletions(-)
+
+commit 8d628d3e86b78c35795f39f5a7b40f3b91281114
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 05:12:00 2024 +0200
+
+    dselect: Switch to use varbufs instead of sprintf for method parser
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: internal
+
+ dselect/method.cc    |  12 ++++--
+ dselect/method.h     |   2 +-
+ dselect/methparse.cc | 117 ++++++++++++++++++++++++++-------------------------
+ 3 files changed, 68 insertions(+), 63 deletions(-)
+
+commit e68366c95ff6b1cc5b489d319795a98160168cfa
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Aug 14 02:44:35 2024 +0200
+
+    dselect: Use file_slurp() instead of open-coding it
+    
+    We are slurping the download method description file, and can use the
+    existing file_slurp() function for that.
+    
+    Changelog: internal
+
+ dselect/methparse.cc | 29 ++++++++++++-----------------
+ 1 file changed, 12 insertions(+), 17 deletions(-)
+
+commit fe44a3010b2b88d28bc79a233ddbc094d8c1ac7e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 05:12:00 2024 +0200
+
+    dselect: Switch to use varbufs instead of sprintf for describemany()
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: internal
+
+ dselect/pkglist.h |  2 +-
+ dselect/pkgtop.cc | 64 ++++++++++++++++++++++++-------------------------------
+ 2 files changed, 29 insertions(+), 37 deletions(-)
+
+commit c11a69207d031b7d2260dd0108b91b27b22dea1e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 05:12:00 2024 +0200
+
+    dselect: Switch to use varbufs instead of sprintf for searchstring
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: internal
+
+ dselect/basecmds.cc | 27 +++++++++++++++------------
+ dselect/baselist.cc |  4 ++--
+ dselect/dselect.h   |  4 ++--
+ dselect/pkglist.cc  | 16 ++++++++--------
+ dselect/pkglist.h   |  2 +-
+ 5 files changed, 28 insertions(+), 25 deletions(-)
+
+commit 5ab30303e4d1aa99aaef75790321bdce65a9505c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 05:12:00 2024 +0200
+
+    dselect: Switch to use varbufs instead of sprintf in keybindings
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: internal
+
+ dselect/baselist.cc |  4 ++--
+ dselect/bindings.cc | 17 +++++++++++------
+ dselect/bindings.h  |  2 +-
+ 3 files changed, 14 insertions(+), 9 deletions(-)
+
+commit 7f320dfdfd802bab9e35099845dd1560d141b3d9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 04:52:30 2024 +0200
+
+    libdpkg: Add new varbuf_array() and C++ operator[] methods
+    
+    We want to be able to replace current raw pointer usage, which accesses
+    those pointers as arrays. We add these methods so that we can switch the
+    code to use varbuf, while at the same time, making it safer to use, as
+    the new code will have built-in range checks.
+
+ lib/dpkg/libdpkg.map |  1 +
+ lib/dpkg/varbuf.c    | 10 ++++++++++
+ lib/dpkg/varbuf.h    | 16 ++++++++++++++++
+ 3 files changed, 27 insertions(+)
+
+commit 73f77c972f5709bbccdf8fba137f021b7ce09bf2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 11 05:00:25 2024 +0200
+
+    libdpkg: Add new varbuf C++ move constructors
+
+ lib/dpkg/varbuf.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+commit 19777c0f7fe274e7fdee3da7e428b63e3465dbc3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 15:01:49 2024 +0200
+
+    libdpkg: Add new varbuf C++ copy constructors
+
+ lib/dpkg/varbuf.h | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+commit 179b96cb180894e3cc7169fb2ed454e445e5f8c7
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 10 22:09:37 2024 +0200
+
+    libdpkg: Add new varbuf_swap() function
+    
+    This will be used mainly to implement the C++ move semantics.
+
+ lib/dpkg/libdpkg.map | 1 +
+ lib/dpkg/varbuf.c    | 9 +++++++++
+ lib/dpkg/varbuf.h    | 1 +
+ 3 files changed, 11 insertions(+)
+
+commit 4edca4ad5f69c7be1ef178248e6d95bfb04e6875
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:56:07 2024 +0200
+
+    libdpkg: Add new varbuf C++ len() method
+
+ lib/dpkg/varbuf.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 9fa852980593e27c9e66720df235125940e447bb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:46:00 2024 +0200
+
+    libdpkg: Remove varbuf C++ operator() methods
+    
+    These are very confusing as they resemble constructors. We have switched
+    the code to use operator+= methods instead which make the code and
+    intention way more clear.
+
+ lib/dpkg/varbuf.h | 14 --------------
+ 1 file changed, 14 deletions(-)
+
+commit 3ed7438c4c9f8180774e5b4fbefe7d3fc4483b18
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:45:43 2024 +0200
+
+    dselect: Switch from operator() to operator+=
+    
+    These are very confusing as they resemble constructors.
+    
+    Changelog: internal
+
+ dselect/baselist.cc   |  2 +-
+ dselect/methlist.cc   |  2 +-
+ dselect/methparse.cc  |  6 +++---
+ dselect/pkgdepcon.cc  |  4 ++--
+ dselect/pkginfo.cc    | 11 +++++------
+ dselect/pkgsublist.cc | 34 +++++++++++++++++-----------------
+ 6 files changed, 29 insertions(+), 30 deletions(-)
+
+commit f259b414d701c4d5996227a1612a56c94e90585c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:34:46 2024 +0200
+
+    libdpkg: Add new varbuf C++ operator+= methods
+
+ lib/dpkg/varbuf.h | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit 7fd5d9c99f50cb9eec402aeff5870ad63193db73
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:34:29 2024 +0200
+
+    libdpkg: Add new varbuf C++ constructor initialized from a C string
+    
+    This will make it more ergonomic to declare varbufs in C++ code.
+
+ lib/dpkg/varbuf.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit ccf4acac49f9c499670ff33cb7132b17934a97cf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 15:57:33 2024 +0200
+
+    test: Add tests for varbuf C++ API
+
+ lib/dpkg/Makefile.am       |   5 +
+ lib/dpkg/t/.gitignore      |   1 +
+ lib/dpkg/t/t-varbuf-cpp.cc | 558 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 564 insertions(+)
+
+commit 35449494e0fe370edf745d4d8eaa8513d28970fa
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 10 02:37:50 2024 +0200
+
+    libdpkg: Add new varbuf_state C++ methods for all functions
+    
+    This should make using varbuf_state from a C++ codebase more ergonomic.
+
+ lib/dpkg/varbuf.h | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+
+commit 4471092c0dda1320424ab60692960c6b2a61dfaf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 8 04:20:33 2024 +0200
+
+    libdpkg: Add new varbuf C++ methods for all functions
+    
+    This should make using varbuf from a C++ codebase more ergonomic.
+
+ lib/dpkg/varbuf.h | 162 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 162 insertions(+)
+
+commit 2fecaf7cbf3824fffd6f880f3f28d6120acf011e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:35:28 2024 +0200
+
+    libdpkg: Rename varbuf::string() to varbuf::str()
+    
+    Makes the function shorter, and as easy to understand given the context.
+
+ dselect/baselist.cc   |  2 +-
+ dselect/main.cc       |  4 ++--
+ dselect/methparse.cc  | 12 ++++++------
+ dselect/pkgdepcon.cc  |  2 +-
+ dselect/pkginfo.cc    | 14 +++++++-------
+ dselect/pkgsublist.cc |  6 +++---
+ lib/dpkg/varbuf.h     |  4 ++--
+ 7 files changed, 22 insertions(+), 22 deletions(-)
+
+commit d12ebb1f159c0aeeffa943ad8b5329607f3b934e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 23 02:33:51 2024 +0200
+
+    libdpkg: Switch varbuf::reset() to use varbuf_reset()
+    
+    Instead of open-coding the implementation (even if it's trivial), reuse
+    the C one, which we do for all other methods.
+
+ lib/dpkg/varbuf.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 7ecc6ad0be8c9ec957fb6f7cbe1ddff08d53a0e0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jul 24 15:57:06 2024 +0200
+
+    test: Mark variables around longjmp() as volatile
+    
+    The longjmp() function might change CPU registers, and if the compiler
+    assumes it can take the values for these local variables directly from
+    the registers, they might end up being wrong.
+
+ lib/dpkg/t/t-varbuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 72805baa9dd49fee62b757e5225d78d90966c08e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 21:03:08 2024 +0200
+
+    Use snprintf() instead of sprintf()
+    
+    For many of the callers, the current usage is supposed to be safe
+    already, but some could be problematic either due to translated strings
+    being longer than expected, or data types growing in size in the future
+    and taking more output space.
+    
+    Warned-by: gcc on OpenBSD and macOS
+    Changelog: internal
+
+ lib/compat/strerror.c     |  2 +-
+ lib/compat/strsignal.c    |  2 +-
+ lib/dpkg/buffer.c         |  2 +-
+ lib/dpkg/execname.c       |  8 ++++----
+ lib/dpkg/path.c           |  2 +-
+ src/deb/build.c           |  6 +++---
+ src/main/enquiry.c        |  4 ++--
+ utils/start-stop-daemon.c | 10 +++++-----
+ 8 files changed, 18 insertions(+), 18 deletions(-)
+
+commit c4cdb5e104120d3cb70699d122a9c22ea065b2de
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 20:20:38 2024 +0200
+
+    dpkg: Replace sprintf() usage with a varbuf in depisok()
+    
+    This removes a statically sized stack variable.
+    
+    Changelog: internal
+
+ src/main/depcon.c | 149 +++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 80 insertions(+), 69 deletions(-)
+
+commit 2a51fb01f16f6687c63e5c7e07e054348dc43d18
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 10 02:40:30 2024 +0200
+
+    libdpkg: Rename varbuf C++ *fmt() methods to add_*fmt()
+    
+    Also rename the _fmt arguments to fmt, and va to args.
+
+ dselect/main.cc   | 10 +++++-----
+ lib/dpkg/varbuf.h | 26 +++++++++++++++-----------
+ 2 files changed, 20 insertions(+), 16 deletions(-)
+
+commit a57f686211868fc7c734dfe78e0a8f56943991e4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 20:19:56 2024 +0200
+
+    Replace varbuf_*printf() with varbuf_add_*fmt()
+    
+    Changelog: internal
+
+ lib/dpkg/compress.c   |  4 +--
+ lib/dpkg/dbmodify.c   |  4 +--
+ lib/dpkg/error.c      |  4 +--
+ lib/dpkg/log.c        |  2 +-
+ lib/dpkg/parsehelp.c  |  4 +--
+ lib/dpkg/pkg-format.c |  4 +--
+ lib/dpkg/t/t-varbuf.c | 10 +++---
+ lib/dpkg/varbuf.h     |  2 --
+ src/deb/build.c       |  4 +--
+ src/main/depcon.c     | 28 ++++++++--------
+ src/main/packages.c   | 88 +++++++++++++++++++++++++--------------------------
+ 11 files changed, 76 insertions(+), 78 deletions(-)
+
+commit bdfd3133c7eff5d51a5543448c9df76f59b64c15
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 20:17:52 2024 +0200
+
+    Replace varbuf_reset()+varbuf_*printf() with varbuf_set_*fmt()
+    
+    Changelog: internal
+
+ lib/dpkg/log.c       |  3 +--
+ lib/dpkg/parsehelp.c | 12 +++++-------
+ src/deb/build.c      |  6 ++----
+ src/deb/info.c       |  9 +++------
+ src/divert/main.c    | 22 +++++++++-------------
+ src/split/split.c    | 23 ++++++++++-------------
+ 6 files changed, 30 insertions(+), 45 deletions(-)
+
+commit 01cf8c303c3f786ea059eb0eb217397d966e0c29
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 19:57:26 2024 +0200
+
+    dpkg: Switch from varbuf_reset()+varbuf_add_str() to varbuf_set_str()
+    
+    We can simplify the calls by using the set function.
+    
+    Changelog: internal
+
+ src/main/archives.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+commit 2294b1ae6f0b47d000105f3d677d7b16341a1e7a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 16:00:07 2024 +0200
+
+    libdpkg: Add new varbuf_set_*fmt() functions
+
+ lib/dpkg/libdpkg.map |  2 ++
+ lib/dpkg/varbuf.c    | 20 ++++++++++++++++++++
+ lib/dpkg/varbuf.h    |  4 ++++
+ 3 files changed, 26 insertions(+)
+
+commit 6f0c6d88b6c0c59e4f2a16369685beba21c0e2b0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jul 22 15:24:00 2024 +0200
+
+    libdpkg: Rename varbuf_*printf() to varbuf_add_*fmt()
+    
+    The new function names make it clear that we are adding the formatted
+    strings into the varbuf, which will give room to add formatted set
+    variants, without using confusing names.
+
+ lib/dpkg/libdpkg.map |  4 ++--
+ lib/dpkg/varbuf.c    |  6 +++---
+ lib/dpkg/varbuf.h    | 14 ++++++++------
+ 3 files changed, 13 insertions(+), 11 deletions(-)
+
+commit 0746b6a92482f55b16310e519ed4773399775e65
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 10 06:39:08 2024 +0200
+
+    libdpkg: Rename varbuf_rollback_start() to varbuf_rollback_end()
+    
+    This returns a pointer to the end of the string after a rollback, not
+    the start.
+
+ lib/dpkg/dbmodify.c   |  4 ++--
+ lib/dpkg/libdpkg.map  |  2 +-
+ lib/dpkg/t/t-varbuf.c | 14 +++++++-------
+ lib/dpkg/varbuf.c     |  2 +-
+ lib/dpkg/varbuf.h     |  2 +-
+ 5 files changed, 12 insertions(+), 12 deletions(-)
+
+commit 1afce6eeff287c7d50412b34fd02b3d8bed8c3c2
+Author: Santiago Vila <sanvila@debian.org>
+Date:   Tue Dec 17 04:33:11 2024 +0100
+
+    Dpkg::BuildInfo: Add GNUMAKEFLAGS as an allowed environment variable
+    
+    This variable affects the make(1) behavior, so it's important to track
+    it for reproducible purposes.
+    
+    [guillem@debian.org: Update test suite. ]
+    
+    Closes: #1090337
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/Dpkg/BuildInfo.pm  | 1 +
+ scripts/t/Dpkg_BuildInfo.t | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit 42a5742fc7e8bdc713788afd97ef84de0f1f8e6e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 5 00:09:11 2024 +0100
+
+    Dpkg::Vendor: Remove backwards compatibility module and origin name mangling
+    
+    The naming for origin files and vendor Perl modules was rationalized
+    during the 1.21.x release cycle, and was slated for removal in the
+    1.22.x release cycle (the current one).
+    
+    The code has been emitting warnings when using the affected names, and
+    the documentation has mentioned this as well.
+    
+    It seems safe to remove the backwards compatibility code.
+
+ man/deb-origin.pod     | 11 ----------
+ scripts/Dpkg/Vendor.pm | 57 ++++++--------------------------------------------
+ 2 files changed, 6 insertions(+), 62 deletions(-)
+
+commit 4d12a2ebbc861398b43b069667497fdfec112100
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 21 06:10:34 2024 +0100
+
+    Dpkg::Archive::Ar: Copy only the number of bytes we have read
+    
+    When copying from filehandle to filehandle, we should only write the
+    amount of bytes we have read in the previous call.
+
+ scripts/Dpkg/Archive/Ar.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 4af26951f2753c4a50a838342bfe881d8265e3f2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Dec 4 23:53:20 2024 +0100
+
+    build: Do not use an obsolete x prefix for shell test checks
+    
+    We are expecting a conformant POSIX shell to be available in the
+    system, coping with broken system shells at configure only delays
+    the point where breakage will be detected.
+    
+    In any case all currently supported ports have POSIX compliant
+    shells, and that's the minimum to expect from new ones.
+
+ configure.ac         |  8 ++++----
+ doc/coding-style.txt |  4 ++--
+ m4/dpkg-arch.m4      |  6 +++---
+ m4/dpkg-build.m4     |  6 +++---
+ m4/dpkg-compiler.m4  | 24 ++++++++++++------------
+ m4/dpkg-coverage.m4  |  4 ++--
+ m4/dpkg-funcs.m4     | 18 +++++++++---------
+ m4/dpkg-libs.m4      | 44 ++++++++++++++++++++++----------------------
+ m4/dpkg-linker.m4    |  6 +++---
+ m4/dpkg-progs.m4     |  8 ++++----
+ m4/dpkg-types.m4     |  4 ++--
+ 11 files changed, 66 insertions(+), 66 deletions(-)
+
+commit d5abe57f15d2c04acff60ff12d04a9aa41c41a36
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Wed Dec 4 17:35:16 2024 +0100
+
+    po: Update German programs translation
+    
+    Update to 1195t.
+
+ po/de.po | 47 +++++++++++++++++++++++++----------------------
+ 1 file changed, 25 insertions(+), 22 deletions(-)
+
+commit 91c8d603ccb915cfe18e05e6635a80fe48a9a27f
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed Dec 4 08:41:19 2024 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 67 +++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 60 insertions(+), 7 deletions(-)
+
+commit caab36482c43f8990a543ba4abd6e71ff848788b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 3 23:49:37 2024 +0100
+
+    man: Document purpose of origin files and how they tie to packages
+    
+    The documentation was not exactly clear on what the purpose of these
+    files was, nor how the files tie with packages.
+    
+    Ref: https://github.com/grml/grml-debian-keyring/issues/7
+
+ man/deb-origin.pod  | 11 +++++++++--
+ man/dpkg-vendor.pod | 15 +++++++++++++++
+ 2 files changed, 24 insertions(+), 2 deletions(-)
+
+commit 6cb80e4dea0b50d532ae94f7b051270168a4e69c
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Tue Dec 3 17:56:08 2024 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 52 +++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 21 deletions(-)
+
+commit d3195b7f618ce0aa8c6b09178c6175460742c22d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 3 06:03:37 2024 +0100
+
+    dpkg-trigger: Initialize opt_act to 1
+    
+    After inverting the sense of the boolean variable, we should have
+    initialized it to 1, from the previous implicit 0, otherwise we default
+    to dry-run mode.
+    
+    Fixes: commit faebdfb31c2f354562c348760aa38539d5c948a4
+    Changelog: silent
+
+ src/trigger/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 6214b53074a40b8da0a4e82e553a71819522e9e9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 3 02:38:58 2024 +0100
+
+    dpkg: Unify package and version printing format to «package (version)»
+    
+    This follows the same pattern as with other progress and informational
+    messages, so that it is visually easier to recognize this pattern.
+
+ src/main/archives.c  | 14 +++++++-------
+ src/main/configure.c |  2 +-
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+commit a9b22de4db4d42417c4cac74e7e537f48284e731
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 21 02:46:08 2024 +0100
+
+    perl: Remove function prototypes
+    
+    These have many issues, perform implicit context coercion which can
+    be rather surprising for callers, and are incompatible with function
+    signatures, which we'll be using once the minimum Perl version
+    supporting them has been bumped in our coding style baseline.
+
+ dselect/methods/Dselect/Method.pm  |  2 +-
+ dselect/methods/ftp/install.pl     | 12 +++++------
+ dselect/methods/ftp/setup.pl       |  2 +-
+ scripts/Dpkg/Arch.pm               | 44 +++++++++++++++++++-------------------
+ scripts/Dpkg/Checksums.pm          |  6 +++---
+ scripts/Dpkg/Control/FieldsCore.pm | 28 ++++++++++++------------
+ scripts/Dpkg/ErrorHandling.pm      | 16 +++++++-------
+ scripts/Dpkg/Lock.pm               |  2 +-
+ scripts/Dpkg/Package.pm            |  2 +-
+ scripts/Dpkg/Path.pm               | 18 ++++++++--------
+ scripts/Dpkg/Source/Functions.pm   |  4 ++--
+ scripts/Dpkg/Vendor.pm             | 10 ++++-----
+ scripts/Dpkg/Version.pm            | 14 ++++++------
+ scripts/dpkg-ar.pl                 |  4 ++--
+ scripts/dpkg-architecture.pl       |  2 +-
+ scripts/dpkg-buildapi.pl           |  4 ++--
+ scripts/dpkg-checkbuilddeps.pl     |  2 +-
+ scripts/dpkg-fsys-usrunmess.pl     |  2 +-
+ scripts/dpkg-mergechangelogs.pl    | 19 ++++++----------
+ scripts/dpkg-name.pl               | 18 ++++++++--------
+ 20 files changed, 102 insertions(+), 109 deletions(-)
+
+commit 6d1fd404f3161599d9e0aae8b2fef9a0f4ed6cea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 02:18:47 2024 +0100
+
+    dpkg-deb: Fix doxygen comment to match function argument
+    
+    Changelog: internal
+
+ src/deb/build.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 962a267818613ef595901a7e636d2b94419be17b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 02:17:47 2024 +0100
+
+    dpkg-deb: Rename check_control_area() to check_build_files()
+    
+    This describes the function in better terms, and gives room to expand
+    its functionality to checks for the filesystem area of the to be built
+    package.
+    
+    Changelog: internal
+
+ src/deb/build.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 7640aae4a08c871496748cc68bc9e79646ac895e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 02:15:56 2024 +0100
+
+    dpkg-deb: Rename control area functions to check_ctrl_*()
+    
+    Changelog: internal
+
+ src/deb/build.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit fb1f1507ed399c3efcdc0594f7def7deb40232f3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 01:51:15 2024 +0100
+
+    dpkg-deb: Add --no-check option and keep --nocheck as an alias
+    
+    The preferred form will be --no-check. For now we keep the alias but
+    will start to phase it out. This unifies the option name in line with
+    the other --no-<thing> options in the codebase.
+
+ man/dpkg-deb.pod                              | 12 +++++++++---
+ src/deb/main.c                                |  5 +++--
+ tests/t-conffile-declarative-removal/Makefile |  2 +-
+ tests/t-control-bogus/Makefile                | 10 +++++-----
+ tests/t-control-no-arch/Makefile              |  2 +-
+ tests/t-multiarch/Makefile                    |  2 +-
+ tests/t-provides/Makefile                     |  2 +-
+ 7 files changed, 21 insertions(+), 14 deletions(-)
+
+commit faebdfb31c2f354562c348760aa38539d5c948a4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 7 01:41:37 2024 +0100
+
+    src: Do not name option variables as no<thing>
+    
+    This makes following the defaults, and code flow harder. Use the
+    positive form instead.
+
+ src/deb/build.c      |  4 ++--
+ src/deb/dpkg-deb.h   |  2 +-
+ src/deb/main.c       |  4 ++--
+ src/main/archives.c  |  2 +-
+ src/main/configure.c |  2 +-
+ src/main/main.c      | 19 ++++++++++++-------
+ src/main/main.h      |  9 +++++++--
+ src/main/packages.c  |  2 +-
+ src/main/remove.c    |  4 ++--
+ src/main/select.c    |  4 ++--
+ src/main/trigproc.c  |  2 +-
+ src/main/unpack.c    |  8 ++++----
+ src/main/update.c    |  4 ++--
+ src/trigger/main.c   |  6 +++---
+ 14 files changed, 41 insertions(+), 31 deletions(-)
+
+commit 68b9387e63ba09f97ffa34d66c71b3895ec174bd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Nov 3 18:29:34 2024 +0100
+
+    build: Undefine _TIME_BITS when checking for the base off_t size
+    
+    On glibc systems the off_t definition depends on whether
+    _FILE_OFFSET_BITS is defined and to what, which we undefine to get
+    the base type, but if _TIME_BITS is defined to 64, then it is expected
+    to match the _FILE_OFFSET_BITS size, otherwise the compilation fails
+    and we get a 0 as the off_t type size.
+
+ m4/dpkg-arch.m4 | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit f6ce5b0960b5b31033152d56e33c3a1390e37a34
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Nov 21 02:12:53 2024 +0100
+
+    Dpkg::Shlibs: Improve code comments
+
+ scripts/Dpkg/Shlibs/Symbol.pm     | 100 +++++++++++++++++++-------------------
+ scripts/Dpkg/Shlibs/SymbolFile.pm |  53 ++++++++++----------
+ 2 files changed, 78 insertions(+), 75 deletions(-)
+
+commit 17309e15bbe78ac627cf6a66c318d1603b99c202
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 3 02:41:53 2024 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Add keystore support
+    
+    Newer sq versions have keystore support, either through a keystore
+    server, or if that is not running from their builtin in-process
+    support. Which includes at least the native Sequoia keystore, and
+    the GnuPG one via gpg-agent.
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit fc7bda93992086e01b62d08fa5ca2b70a69b62aa
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Dec 3 02:40:48 2024 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Adapt to new CLI 0.40.0 API
+    
+    As the API is not yet stable (but it is getting closer to be), we
+    need to adapt it to the current version.
+
+ debian/control                          |  4 ++--
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 11 ++++++-----
+ 2 files changed, 8 insertions(+), 7 deletions(-)
+
+commit 589485b1242da5debca487307759783511456d9b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat May 27 14:32:03 2023 +0200
+
+    Dpkg::OpenPGP::Backend::SOP: Add gosop as an alternative SOP implementation
+    
+    The new version fixes the remaining issue that allows the code to use it
+    as a backend.
+
+ debian/control                      | 12 ++++++++----
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm |  2 +-
+ scripts/Test/Dpkg.pm                |  3 +++
+ 3 files changed, 12 insertions(+), 5 deletions(-)
+
+commit 7fb6f6a1a35b0da36dd1c5c0c05d7692e0391ebb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Oct 7 13:21:56 2024 +0200
+
+    Dpkg::OpenPGP::Backend::SOP: Add rsop as an alternative SOP implementation
+    
+    Starting with rsop 0.4.0, its implementation provides everything that we
+    require from SOP.
+
+ debian/control                      | 12 ++++++++----
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm |  2 +-
+ scripts/Test/Dpkg.pm                |  3 +++
+ 3 files changed, 12 insertions(+), 5 deletions(-)
+
+commit ae08079b4eaa45152700c1beb73a5a786ceed06a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Oct 16 03:08:10 2024 +0200
+
+    Dpkg::Vendor: Simplify module loading logic
+    
+    If we cannot load the module, skip this loop iteration, so that it is
+    clear what we intend, and we can reduce an indentation level as a side
+    effect.
+
+ scripts/Dpkg/Vendor.pm | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit 78cdc923b56bf37fd97ada6bf80030448616b586
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Sep 27 05:34:15 2024 +0200
+
+    scripts: Fix module loading
+    
+    Load the module, and if that does not fail, then construct the object.
+    Otherwise we get very confusing errors.
+    
+    Prompted-by: Holger Levsen <holger@debian.org>
+    Prompted-by: Niels Thykier <niels@thykier.net>
+
+ scripts/Dpkg/BuildDriver.pm     | 7 +++----
+ scripts/Dpkg/Changelog/Parse.pm | 5 +++--
+ scripts/Dpkg/Vendor.pm          | 9 +++++----
+ 3 files changed, 11 insertions(+), 10 deletions(-)
+
+commit 2c8939544fed8de058695a129e72c1228a6d86f8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Sep 8 14:55:00 2024 +0200
+
+    test: Enable ValuesAndExpressions::ProhibitMagicNumbers except for octals
+    
+    Warned-by: perlcritic
+
+ t/critic/perlcriticrc | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit e2cbd84d34db56c986684baa5cfe5a6a4160b82c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Oct 16 03:15:04 2024 +0200
+
+    Dpkg::OpenPGP::Backend::GnuPG: Ignore ValuesAndExpressions::ProhibitMagicNumbers
+    
+    The function needs these hex constants, and they are mostly used via
+    variables, but because «use constants» is a module scoped pragma, it
+    would pollute the entire module.
+    
+    Warned-by: perlcritic
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit e87c9387af84628107d3bbb5194b1b719110275b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Sep 27 05:29:17 2024 +0200
+
+    debian: Inline sequoia-chameleon-gnupg dependencies depending on context
+    
+    Instead of depending on the meta-package, explicitly depend on either of
+    the gpg-sq or gpgv-sq packages depending on the context.
+
+ debian/control | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 6c304121b82d43d2e9968fa6cc59c2b2a8563e2f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Sep 13 06:15:44 2024 +0200
+
+    s-s-d: Try to use close_range() if present to implement closefrom()
+    
+    If the system has close_range() use it, and fallback to the open coded
+    closing, in case the function was present at build time but not
+    implemented at run-time, or it failed for whatever reason.
+    
+    Proposed-by: Mix <mnixry@outlook.com>
+    Changelog: internal
+
+ configure.ac              | 1 +
+ utils/start-stop-daemon.c | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+commit 394a55833f1e3a25cf1720cf811d44dfde65893a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Sep 13 06:15:44 2024 +0200
+
+    s-s-d: Refactor closefrom() and use it only if the system lacks it
+    
+    Move the code into a function that behaves like the BSD system one,
+    and use if the system does not provide it.
+    
+    Changelog: internal
+
+ configure.ac              |  1 +
+ utils/start-stop-daemon.c | 19 ++++++++++++++-----
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+commit d53fb1752e4bef2c2fe088009ee976b28fc9cd88
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Sep 5 02:28:48 2024 +0200
+
+    debian: Add a trailing comma to debian/tests/control dependency
+
+ debian/tests/control | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c16aaf670d567238c6a2d7c4bb06e77f833de2be
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Oct 16 03:09:52 2024 +0200
+
+    doc: Fix typos in ChangeLog.old
+    
+    Warned-by: codespell
+
+ ChangeLog.old | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 440a1273e23356111dc23f3bdc0c6c1c939ba667
+Author: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>
+Date:   Tue Dec 3 03:58:35 2024 +0100
+
+    po: Update Romanian programs translation
+    
+    Closes: #1080212
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ po/ro.po | 144 ++++++++++++++++++++++-----------------------------------------
+ 1 file changed, 51 insertions(+), 93 deletions(-)
+
+commit 82f64c00c9c5ba2a6564cf35cf5cd5d4871bcd91
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Tue Dec 3 03:51:01 2024 +0100
+
+    po: Update Swedish translations
+    
+    Closes: #1083116
+    Signed-off-by: Peter Krefting <peter@softwolves.pp.se>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/sv.po     | 365 +++++++++++++++++--------------------------------------
+ po/sv.po         | 103 +++++-----------
+ scripts/po/sv.po | 186 +++++++++++-----------------
+ 3 files changed, 214 insertions(+), 440 deletions(-)
+
+commit 793121bc845da7ef13fb41712032201dadd83430
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Tue Dec 3 03:43:31 2024 +0100
+
+    po: Update Portuguese man pages translation
+    
+    Closes: #1086160
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/pt.po | 646 +++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 345 insertions(+), 301 deletions(-)
+
+commit ce31f0e70d6835788b632deab7544b8dbe09d70f
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Tue Dec 3 03:29:30 2024 +0100
+
+    po: Update Dutch translations
+    
+    Closes: #1087459, #1087595
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/nl.po | 701 +++++++++++++++++++++++++++++++----------------------------
+ po/nl.po     | 175 +++++----------
+ 2 files changed, 423 insertions(+), 453 deletions(-)
+
+commit ac3c2b3151859e18b143bd56da1bb64079b797b3
+Author: Miroslav Kure <kurem@upcase.inf.upol.cz>
+Date:   Tue Dec 3 03:25:47 2024 +0100
+
+    po: Update Czech translations
+    
+    Closes: #1087219
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/cs.po |  18 ++-----
+ po/cs.po         | 151 +++++++++++++++++++------------------------------------
+ 2 files changed, 56 insertions(+), 113 deletions(-)
+
+commit a45d7abfa0284ce82fdff68ed7f4d982eac12c50
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Sun Aug 18 07:51:38 2024 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 127 +++++++++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 84 insertions(+), 43 deletions(-)
+
+commit 6cc764c357957ee3085492658a0013fa9e2cbf69
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 18 02:51:50 2024 +0200
+
+    scripts/mk: Document public API and expected directory to include from
+    
+    We should be explicit about what we consider the public API for these
+    files, and what is the expected directory to include the fragments from.
+    
+    Prompted-by: Helmut Grohne <helmut@subdivi.de>
+
+ scripts/mk/architecture.mk | 4 ++++
+ scripts/mk/buildapi.mk     | 4 ++++
+ scripts/mk/buildflags.mk   | 3 +++
+ scripts/mk/buildopts.mk    | 4 ++++
+ scripts/mk/buildtools.mk   | 4 ++++
+ scripts/mk/default.mk      | 4 ++++
+ scripts/mk/pkg-info.mk     | 4 ++++
+ scripts/mk/vendor.mk       | 4 ++++
+ 8 files changed, 31 insertions(+)
+
+commit 18c6c80b006caff0eb7a3cb37ad0be6546c16f9f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 18 02:48:25 2024 +0200
+
+    scripts/mk: Document DPKG_BUILD_API in buildapi.mk
+    
+    The variable was not documented explicitly, which we should do so that
+    only documented variables can be considered public interfaces.
+
+ scripts/mk/buildapi.mk | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit a8aa7e2d96f99c795d3e37e8e9f8272526137e70
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 11 16:52:03 2024 +0200
+
+    man: Use modern architectures for manual page examples
+    
+    When giving examples, use architectures that are modern, and less prone
+    to bit rot or even potential removal, also ones that might be more
+    familiar to users.
+
+ man/deb-src-symbols.pod   |  4 ++--
+ man/dpkg-architecture.pod | 10 +++++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+commit ed8cef98c69955f5259411dfd67d97036bb88677
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 11 16:40:30 2024 +0200
+
+    man: Use arch-bits in deb-src-symbols(5) example dependent on bitness
+    
+    Do not promote use of explicit arch lists when we are giving an example
+    that changes symbols based on bitness. Instead use the arch-bits tag
+    that was added precisely for this purpose.
+
+ man/deb-src-symbols.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 59f8612ef4f47b04be549f605fb9b6808e8e5071
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 10 17:01:43 2024 +0200
+
+    man: Update debian/control example in deb-src-control(5)
+    
+    Use better folding and trailing comma format that reduces diff on
+    changes, and avoids having to reflow the entire field value on
+    additions. Cleanup comments, and add one in the middle of a field
+    value. Bump some versions.
+
+ man/deb-src-control.pod | 42 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 11 deletions(-)
+
+commit 552a090dc1c08449e873d70958dc79ab1ab3c79e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Aug 17 20:35:30 2024 +0200
+
+    libdpkg: Use size_t instead of unsigned int for nargs
+
+ lib/dpkg/ehandle.c | 6 +++---
+ lib/dpkg/ehandle.h | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+commit 8fb188d0af5c5a153c2881bb179711834c6d3941
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Aug 7 21:11:03 2024 +0200
+
+    libdpkg: Remove const from execname
+    
+    This variable is used as an intermediate pointer that we end up
+    returning, and the function prototype returns a non-const pointer.
+    
+    Warned-by: gcc on NetBSD and OpenBSD
+
+ lib/dpkg/execname.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit de0914fe86dfcd6b53b45542001336a964b7d7a1
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed Aug 7 18:49:58 2024 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 137 +++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 106 insertions(+), 31 deletions(-)
+
+commit 81c069e9a4c3a85305427a84a9f3cb992b54368f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Aug 7 00:32:26 2024 +0200
+
+    Update URLs
+    
+    Use preferred URL forms (such as ending with «/»). Update dead links to
+    their current location. Use https instead of http when possible
+    (exception for files imported from elsewhere, URLs where https is not
+    available, or for xmlns in ITS file as the standard mandates it).
+
+ doc/coding-style.txt                | 2 +-
+ scripts/Dpkg/BuildInfo.pm           | 2 +-
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm | 2 +-
+ scripts/t/Dpkg_Changelog/shadow     | 2 +-
+ scripts/t/origins/gnewsense         | 2 +-
+ utils/update-alternatives.polkit.in | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 78af3f6b5e7cd1f1dfe8a1fbaa9fad9937df7cee
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 03:35:36 2024 +0200
+
+    Dpkg::Control: Deprecate the backwards compatibility type aliases
+    
+    These are the old name for the types. These are deprecated, that is,
+    they are discourage to be used, but will still be supported for a while,
+    because all users will not have been updated yet.
+
+ scripts/Dpkg/Control.pm | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+commit 9cf0594cf5739f0335bf11ab0900fa9130e92d73
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 05:53:03 2024 +0200
+
+    scripts: Unify constructor and function options documentation
+    
+    Consistently use "Options:" as a header when introducing the options.
+    Itemize them to make it easier to find each one, instead of describing
+    them in long paragraphs. Mark up the option names in bold. Reorder
+    options by expected common usage. Document whether an option is required
+    after the item itself in parenthesis.
+
+ scripts/Dpkg/Arch.pm                   | 24 +++++++++--
+ scripts/Dpkg/Archive/Ar.pm             |  6 +--
+ scripts/Dpkg/BuildDriver.pm            |  2 +-
+ scripts/Dpkg/BuildFlags.pm             | 12 +++++-
+ scripts/Dpkg/BuildOptions.pm           | 14 ++++++-
+ scripts/Dpkg/BuildTree.pm              |  5 ++-
+ scripts/Dpkg/Changelog.pm              | 31 +++++++++++---
+ scripts/Dpkg/Changelog/Parse.pm        | 45 ++++++++++++++++----
+ scripts/Dpkg/Checksums.pm              | 75 ++++++++++++++++++++++++++--------
+ scripts/Dpkg/Compression/FileHandle.pm | 25 ++++++++++--
+ scripts/Dpkg/Compression/Process.pm    | 29 ++++++++++++-
+ scripts/Dpkg/Conf.pm                   | 37 ++++++++++++++---
+ scripts/Dpkg/Control.pm                | 62 ++++++++++++++++++++++++----
+ scripts/Dpkg/Control/HashCore.pm       | 27 ++++++------
+ scripts/Dpkg/Control/Info.pm           | 19 ++++++---
+ scripts/Dpkg/Control/Tests.pm          |  2 +
+ scripts/Dpkg/Control/Tests/Entry.pm    |  2 +
+ scripts/Dpkg/Deps/Simple.pm            | 12 +++---
+ scripts/Dpkg/IPC.pm                    | 28 ++++++-------
+ scripts/Dpkg/Index.pm                  | 54 ++++++++++++++++++------
+ scripts/Dpkg/Source/Format.pm          | 19 +++++++--
+ scripts/Dpkg/Source/Package.pm         | 36 +++++++++++-----
+ scripts/Dpkg/Substvars.pm              | 23 +++++++++--
+ scripts/Dpkg/Version.pm                | 18 ++++++--
+ t/pod-spell.t                          |  1 +
+ 25 files changed, 471 insertions(+), 137 deletions(-)
+
+commit 0e7694ceb00248516048fd54caa72fd9e4b4eb6d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Aug 5 23:29:39 2024 +0200
+
+    scripts: Rename changelog options in programs to %changelog_opts
+    
+    This should make it clear these are not general program options.
+
+ scripts/dpkg-genbuildinfo.pl | 12 ++++++------
+ scripts/dpkg-genchanges.pl   | 16 ++++++++--------
+ scripts/dpkg-gencontrol.pl   | 12 ++++++------
+ 3 files changed, 20 insertions(+), 20 deletions(-)
+
+commit 1918794cd85029445add5005dda55c524ba825ec
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 03:02:09 2024 +0200
+
+    scripts: Use %opts instead of %args for function and method options
+    
+    Use the same pattern as the rest of the code base.
+
+ scripts/Dpkg/Compression/FileHandle.pm | 18 +++++++++---------
+ scripts/Dpkg/Compression/Process.pm    |  6 +++---
+ scripts/Dpkg/Shlibs/Symbol.pm          |  8 ++++----
+ scripts/Dpkg/Source/Package.pm         | 14 +++++++-------
+ 4 files changed, 23 insertions(+), 23 deletions(-)
+
+commit a21e044b7e9c992d4e748adb447db00e902826df
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 05:53:03 2024 +0200
+
+    Dpkg::Changelog::Parse: Use %opts instead of %opt in function POD
+    
+    Use the same pattern as the rest of the code base.
+
+ scripts/Dpkg/Changelog/Parse.pm | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit a63918513103c313c668b3d1b6d4da697a7f730c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 03:15:28 2024 +0200
+
+    Dpkg::Deps::Multiple: Document that the constructor takes @deps not %opts
+    
+    The documented constructor signature was wrong, as it takes a list of
+    dependencies and not an options hash.
+
+ scripts/Dpkg/Deps/Multiple.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit e41f7de0f9e4b02f564cc045fa3cfcf7a45133e8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Aug 5 23:26:20 2024 +0200
+
+    scripts: Document when constructors take %opts
+    
+    A couple of constructors that take %opts had no documentation of this.
+
+ scripts/Dpkg/BuildFlags.pm          | 2 +-
+ scripts/Dpkg/Control/Tests/Entry.pm | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 587fbdbefc4896f58186fb6db9df540a93f7a6fb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Aug 5 23:25:44 2024 +0200
+
+    scripts: Use %opts instead of %options for constructor and function options
+    
+    This uses the same convention as other constructors and functions taking
+    an options hash, and we'll reserve the %options name for program options.
+
+ scripts/Dpkg/Arch.pm            |  4 +-
+ scripts/Dpkg/Changelog.pm       |  2 +-
+ scripts/Dpkg/Changelog/Parse.pm | 38 +++++++++----------
+ scripts/Dpkg/Deps.pm            | 84 ++++++++++++++++++++---------------------
+ scripts/Dpkg/ErrorHandling.pm   | 14 +++----
+ scripts/Dpkg/Version.pm         |  2 +-
+ scripts/t/Dpkg_Deps.t           |  6 +--
+ scripts/t/dpkg_buildpackage.t   |  4 +-
+ scripts/t/dpkg_source.t         | 10 ++---
+ 9 files changed, 82 insertions(+), 82 deletions(-)
+
+commit ba0b8701392e5468570cbafdf8f223948b2105b5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Aug 6 13:47:02 2024 +0200
+
+    dpkg-shlibdeps: Add symbolic name alternative to --warnings bits
+    
+    Make selecting the warnings to use more user friendly for both the
+    caller, and whoever comes next and reads the command line calling the
+    tool, by adding support for symbolic warning names.
+
+ man/dpkg-shlibdeps.pod    | 41 +++++++++++++++++++++++++++++------------
+ scripts/dpkg-shlibdeps.pl | 10 +++++++++-
+ 2 files changed, 38 insertions(+), 13 deletions(-)
+
+commit 0802cf6f4ed444b377cd68dd0a85cd36e8c88143
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 4 14:08:01 2024 +0200
+
+    libdpkg: Check for pager presence and fallback to less, more and cat
+    
+    If the PAGER pointed by the environment variable is not present,
+    fallback to use DPKG_DEFAULT_PAGER («pager»), otherwise try «less»,
+    then «more», and finally fallback to «cat».
+    
+    This should cover the cases where these programs are either not present
+    or they are a dangling symlink during an upgrade.
+    
+    Closes: #856216
+
+ lib/dpkg/dpkg.h    |  2 ++
+ lib/dpkg/pager.c   | 28 +++++++++++++++++++++-------
+ man/dpkg-query.pod |  7 +++++++
+ man/dpkg.pod       |  7 +++++++
+ 4 files changed, 37 insertions(+), 7 deletions(-)
+
+commit 29684731af629e9103306b7716663e44224e6cab
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Aug 2 01:45:17 2024 +0200
+
+    lib: Remove compatibility code for C++ earlier than C++11
+    
+    We have made the build system require this at configure time, so there
+    is no point in supporting earlier versions in the library and headers.
+
+ lib/compat/compat.h | 13 -------------
+ lib/dpkg/macros.h   |  5 +----
+ 2 files changed, 1 insertion(+), 17 deletions(-)
+
+commit d074d813759d88671a746dd8c11565722472440d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Aug 2 01:44:42 2024 +0200
+
+    build: Check for C++11 __func__ availability
+    
+    We are relying on it in the code, so make sure it works during
+    configure.
+
+ m4/dpkg-compiler.m4 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 11e34c9640dc1c3a906e2b98344b366c2eb3e6c0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Aug 2 00:23:39 2024 +0200
+
+    build: Warn on C++17, C++20, C++23 and C++26 extensions usage
+    
+    If we are using an older C++ standard, we should not be using extensions
+    from later standard versions. Regardless of the default compiler
+    standard version supported.
+
+ m4/dpkg-compiler.m4 | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit ec57799ae0f62738f343ddd119c27ad3d700ee15
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 04:26:38 2024 +0200
+
+    build: Bump minimum required C++ standard to C++14
+    
+    Most major compilers support C++14, and if the platform has a compiler
+    that does not support it, using gcc or clang to build the project is
+    always an option which does not seem unreasonable.
+    
+    This new version of C++ provides several important features, among
+    other things move semantics.
+
+ configure.ac         |  2 +-
+ doc/coding-style.txt |  6 ++----
+ m4/dpkg-compiler.m4  | 37 +++++++++++++++++++++++++++++++++----
+ 3 files changed, 36 insertions(+), 9 deletions(-)
+
+commit 1688ee77b50a67e9e1a6833758a4e77961b1b181
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jul 25 04:44:57 2024 +0200
+
+    build: Generalize C/C++ check macros to select the version as an argument
+    
+    This should reduce the amount of changes needed when bumping the
+    versions.
+
+ configure.ac        |   4 +-
+ m4/dpkg-compiler.m4 | 211 +++++++++++++++++++++++++++++++++++-----------------
+ 2 files changed, 143 insertions(+), 72 deletions(-)
+
+commit 2ef49c60a8425e4078528ffcfda1b296124cd6c9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jul 28 05:30:35 2024 +0200
+
+    build: Make C++ baseline version a hard requirement
+
+ m4/dpkg-compiler.m4 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 0f9d76c33c69981fed8b7f782bf152501ebab65d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 21:59:29 2024 +0200
+
+    debian: Bump Standards-Version to 4.7.0 (no changes needed)
+
+ debian/control | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2b5081ffd061658d90dcf94dd3a5d6e6816c71ba
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Thu Aug 1 19:34:59 2024 +0200
+
+    po: Update German man pages translation
+
+ man/po/de.po | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
+
+commit 2b56bcec9e9faa60e1f800e3d53195dc40bc6888
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 13:25:25 2024 +0200
+
+    debian: Fix bug closure
+    
+    Fixes: commit 3e2046ecd9ecc4e6b8116ff2fb06d6e6e7ed9bfe
+    Changelog: silent
+
+ debian/changelog | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 83acfc8ab1f1de597db7edc581ae41e2717ebf16
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Aug 1 13:03:01 2024 +0200
+
+    Bump version to 1.22.12
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit ee7e9118d0a9581cb00c5ce02dccd561b3096387
 Author: Guillem Jover <guillem@debian.org>
 Date:   Thu Aug 1 12:44:43 2024 +0200
@@ -139,6 +3200,9 @@ Date:   Sun Jul 28 16:14:43 2024 +0200
     we turn them into invalid syntax.
     
     Closes: #1076067
+
+Notes:
+    Changelog: s/#1076067/#1076892/
 
  scripts/Dpkg/Shlibs/Cppfilt.pm              |  2 +
  scripts/Makefile.am                         | 10 ++++

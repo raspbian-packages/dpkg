@@ -64,7 +64,7 @@ Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido)
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
 
 =back
 
@@ -76,7 +76,7 @@ If set, it will be used to decide whether to activate Native Language Support, a
 
 =item B<%PKGDATADIR%/buildapi.mk>
 
-Trecho do Makefile que irá analisar o nível API de compilação.
+Makefile snippet that parses the build API level into a variable.
 
 =back
 

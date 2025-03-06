@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg-dev 1.17.23\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2024-08-01 12:38+0200\n"
+"POT-Creation-Date: 2025-02-03 12:01+0100\n"
 "PO-Revision-Date: 2015-04-07 07:02+0200\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -700,8 +700,8 @@ msgid "build dependencies/conflicts unsatisfied; aborting"
 msgstr "неудовлетворительные зависимости/конфликты при сборке; прерываемся"
 
 #: scripts/dpkg-buildpackage.pl
-msgid "(Use -d flag to override.)"
-msgstr "(Используйте параметр -d, чтобы продолжить сборку.)"
+msgid "satisfy build dependencies with your package manager frontend"
+msgstr ""
 
 #: scripts/dpkg-buildpackage.pl
 msgid ""
@@ -811,6 +811,7 @@ msgstr "закачка всего (с пакетом оригинального 
 msgid ""
 "Commands:\n"
 "  clean              clean dpkg generated artifacts from the build tree.\n"
+"  is-rootless        checks whether the build tree needs root to build.\n"
 "  --help             show this help message.\n"
 "  --version          show the version.\n"
 msgstr ""
@@ -898,13 +899,13 @@ msgstr "не удалось открыть %s"
 #: scripts/dpkg-checkbuilddeps.pl
 #, fuzzy, perl-format
 #| msgid "%s: Unmet build dependencies: "
-msgid "Unmet build dependencies: %s"
+msgid "unmet build dependencies: %s"
 msgstr "%s: Неудовлетворённые сборочные зависимости: "
 
 #: scripts/dpkg-checkbuilddeps.pl
 #, fuzzy, perl-format
 #| msgid "%s: Build conflicts: "
-msgid "Build conflicts: %s"
+msgid "unmet build conflicts: %s"
 msgstr "%s: Сборочные конфликты: "
 
 #: scripts/dpkg-checkbuilddeps.pl scripts/dpkg-genbuildinfo.pl
@@ -1101,14 +1102,6 @@ msgstr ""
 msgid "the current version (%s) is earlier than the previous one (%s)"
 msgstr "текущая версия (%s) меньше чем предыдущая (%s)"
 
-#: scripts/dpkg-genchanges.pl
-msgid "missing Section for source files"
-msgstr "отсутствует Section для файлов с исходным кодом"
-
-#: scripts/dpkg-genchanges.pl
-msgid "missing Priority for source files"
-msgstr "отсутствует Priority для файлов с исходным кодом"
-
 #: scripts/dpkg-genchanges.pl scripts/Dpkg/Source/Format.pm
 #: scripts/Dpkg/Vendor.pm
 #, perl-format
@@ -1164,24 +1157,11 @@ msgstr ""
 "пакет %s есть в файле со списком файлов, но его нет в управляющей информации"
 
 #: scripts/dpkg-genchanges.pl
-#, perl-format
-msgid "missing Section for binary package %s; using '-'"
-msgstr "отсутствует Section для двоичного пакета %s; используется «-»"
-
-#: scripts/dpkg-genchanges.pl
-#, perl-format
-msgid "package %s has section %s in control file but %s in files list"
+#, fuzzy, perl-format
+#| msgid "package %s has section %s in control file but %s in files list"
+msgid ""
+"package %s has value '%s' in %s field in control file but '%s' in files list"
 msgstr "пакет %s в секции %s в управляющем файле, но в %s в списке файлов"
-
-#: scripts/dpkg-genchanges.pl
-#, perl-format
-msgid "missing Priority for binary package %s; using '-'"
-msgstr "отсутствует Priority для двоичного пакета %s; используется «-»"
-
-#: scripts/dpkg-genchanges.pl
-#, perl-format
-msgid "package %s has priority %s in control file but %s in files list"
-msgstr "пакет %s имеет приоритет %s в управляющем файле, но %s в списке файлов"
 
 #: scripts/dpkg-genchanges.pl scripts/Dpkg/Source/Package.pm
 #, perl-format
@@ -1315,6 +1295,12 @@ msgid ""
 msgstr ""
 "поле %s содержит зависимость, которая есть только в определённой "
 "архитектуре, но пакет относится ко всем архитектурам"
+
+#: scripts/dpkg-gencontrol.pl
+#, fuzzy, perl-format
+#| msgid "missing information for output field %s"
+msgid "missing information for output field %s; using default value \"%s\""
+msgstr "отсутствует информация о поле вывода %s"
 
 #: scripts/dpkg-gencontrol.pl
 #, fuzzy, perl-format
@@ -2024,10 +2010,21 @@ msgid "%s has an unexpected SONAME (%s)"
 msgstr "%s имеет неожидаемый SONAME (%s)"
 
 #: scripts/dpkg-shlibdeps.pl
-#, perl-format
-msgid ""
-"no dependency information found for %s (used by %s)\n"
-"Hint: check if the library actually comes from a package."
+#, fuzzy, perl-format
+#| msgid ""
+#| "no dependency information found for %s (used by %s)\n"
+#| "Hint: check if the library actually comes from a package."
+msgid "no dependency information found for %s (used by %s)"
+msgstr ""
+"информация о зависимостях не найдена для %s (используется %s)\n"
+"Подсказка: проверьте, действительно ли библиотеки из этого пакета."
+
+#: scripts/dpkg-shlibdeps.pl
+#, fuzzy
+#| msgid ""
+#| "no dependency information found for %s (used by %s)\n"
+#| "Hint: check if the library actually comes from a package."
+msgid "check if the library actually comes from a package"
 msgstr ""
 "информация о зависимостях не найдена для %s (используется %s)\n"
 "Подсказка: проверьте, действительно ли библиотеки из этого пакета."
@@ -2145,8 +2142,8 @@ msgstr ""
 #| "  -p<varname-prefix>       set <varname-prefix>:* instead of shlibs:*.\n"
 #| "  -O[<file>]               write variable settings to stdout (or "
 #| "<file>).\n"
-#| "  -L<local-shlibs-file>    shlibs override file, not debian/shlibs."
-#| "local.\n"
+#| "  -L<local-shlibs-file>    shlibs override file, not debian/"
+#| "shlibs.local.\n"
 #| "  -T<substvars-file>       update variables here, not debian/substvars.\n"
 #| "  -t<type>                 set package type (default is deb).\n"
 #| "  -x<package>              exclude package from the generated "
@@ -2405,8 +2402,9 @@ msgid "test control %s is not a regular file"
 msgstr "%s не является простым файлом"
 
 #: scripts/dpkg-source.pl
-#, perl-format
-msgid "%s field contains value %s, but no tests control file %s"
+#, fuzzy, perl-format
+#| msgid "%s field contains value %s, but no tests control file %s"
+msgid "%s field contains value '%s', but no tests control file %s"
 msgstr "поле %s содержит значение %s, но не проверяется управляющим файлом %s"
 
 #: scripts/dpkg-source.pl
@@ -3358,6 +3356,10 @@ msgid "invalid filename %s"
 msgstr "неправильный флаг в %s: %s"
 
 #: scripts/Dpkg/ErrorHandling.pm
+msgid "hint"
+msgstr ""
+
+#: scripts/Dpkg/ErrorHandling.pm
 msgid "info"
 msgstr "инфо"
 
@@ -3469,6 +3471,18 @@ msgstr "не удалось открыть файл %s"
 #| msgid "unknown option or argument %s"
 msgid "unknown OpenPGP backend %s"
 msgstr "неизвестный параметр или аргумент %s"
+
+#: scripts/Dpkg/OpenPGP/Backend.pm
+#, perl-format
+msgid ""
+"multiple concatenated ASCII Armor blocks in %s, which is not an "
+"interoperable construct, see <%s>"
+msgstr ""
+
+#: scripts/Dpkg/OpenPGP/Backend.pm
+#, perl-format
+msgid "sq keyring merge --overwrite --output %s %s"
+msgstr ""
 
 #: scripts/Dpkg/OpenPGP/ErrorCodes.pm
 msgid "success"
@@ -4027,8 +4041,8 @@ msgstr "не удалось выполнить функцию stat для orig �
 #: scripts/Dpkg/Source/Package/V1.pm
 #, perl-format
 msgid ""
-"orig argument is unpacked but source handling style -s%s calls for packed (."
-"orig.tar.<ext>)"
+"orig argument is unpacked but source handling style -s%s calls for packed "
+"(.orig.tar.<ext>)"
 msgstr ""
 "orig параметр распакован, но вызываются методы -s%s как для упакованных "
 "исходников (.orig.tar.<расш>)"
@@ -4036,8 +4050,8 @@ msgstr ""
 #: scripts/Dpkg/Source/Package/V1.pm
 #, perl-format
 msgid ""
-"orig argument is packed but source handling style -s%s calls for unpacked (."
-"orig/)"
+"orig argument is packed but source handling style -s%s calls for unpacked "
+"(.orig/)"
 msgstr ""
 "orig параметр упакован, но вызываются методы -s%s как для распакованных "
 "исходников (.orig/)"
@@ -4050,8 +4064,8 @@ msgstr "orig параметр %s не является обычным файло
 #: scripts/Dpkg/Source/Package/V1.pm
 #, perl-format
 msgid ""
-"orig argument is empty (means no orig, no diff) but source handling style -"
-"s%s wants something"
+"orig argument is empty (means no orig, no diff) but source handling style "
+"-s%s wants something"
 msgstr ""
 "orig параметр пуст (то есть не orig и не diff), но указана команда что-то "
 "сделать -s%s"
@@ -4141,8 +4155,8 @@ msgid ""
 "orig directory '%s' already exists, not overwriting, giving up; use -sA, -sK "
 "or -sP to override"
 msgstr ""
-"каталог orig «%s» уже существует, не перезаписан, останов; используйте -sA, -"
-"sK или -sP для перезаписи"
+"каталог orig «%s» уже существует, не перезаписан, останов; используйте -sA, "
+"-sK или -sP для перезаписи"
 
 #: scripts/Dpkg/Source/Package/V1.pm
 #, fuzzy, perl-format
@@ -4300,8 +4314,7 @@ msgstr ""
 
 #: scripts/Dpkg/Source/Package/V2.pm
 msgid ""
-"Hint: make sure the version in debian/changelog matches the unpacked source "
-"tree"
+"make sure the version in debian/changelog matches the unpacked source tree"
 msgstr ""
 
 #: scripts/Dpkg/Source/Package/V2.pm
@@ -4370,8 +4383,8 @@ msgid ""
 "source directory is not the top directory of a bzr repository (%s/.bzr not "
 "present), but Format bzr was specified"
 msgstr ""
-"исходный каталог не является начальным каталогом репозитория bzr (нет %s/."
-"bzr), но указан Format bzr"
+"исходный каталог не является начальным каталогом репозитория bzr (нет "
+"%s/.bzr), но указан Format bzr"
 
 #: scripts/Dpkg/Source/Package/V3/Bzr.pm
 #, perl-format
@@ -4441,8 +4454,8 @@ msgid ""
 "source directory is not the top directory of a git repository (%s/.git not "
 "present), but Format git was specified"
 msgstr ""
-"исходный каталог не является начальным каталогом репозитория git (нет %s/."
-"git), но указан Format git"
+"исходный каталог не является начальным каталогом репозитория git (нет "
+"%s/.git), но указан Format git"
 
 #: scripts/Dpkg/Source/Package/V3/Git.pm
 #, perl-format
@@ -4865,20 +4878,6 @@ msgstr "устаревшая подстановочная переменная $
 msgid "substitution variable ${%s} unused, but is defined"
 msgstr "неиспользуемая подстановочная переменная ${%s}"
 
-#: scripts/Dpkg/Vendor.pm
-#, perl-format
-msgid ""
-"%s origin filename is deprecated; it should have only alphanumeric or dash "
-"characters"
-msgstr ""
-
-#: scripts/Dpkg/Vendor.pm
-#, perl-format
-msgid ""
-"%s module name is deprecated; it should be capitalized with only "
-"alphanumeric characters"
-msgstr ""
-
 #: scripts/Dpkg/Vendor/Debian.pm
 #, perl-format
 msgid "unknown host architecture '%s'"
@@ -4946,6 +4945,28 @@ msgstr "номер версии содержит недопустимый сим
 #, perl-format
 msgid "epoch part of the version number is not a number: '%s'"
 msgstr "часть эпохи в номере версии не является числом: «%s»"
+
+#~ msgid "(Use -d flag to override.)"
+#~ msgstr "(Используйте параметр -d, чтобы продолжить сборку.)"
+
+#~ msgid "missing Section for source files"
+#~ msgstr "отсутствует Section для файлов с исходным кодом"
+
+#~ msgid "missing Priority for source files"
+#~ msgstr "отсутствует Priority для файлов с исходным кодом"
+
+#, perl-format
+#~ msgid "missing Section for binary package %s; using '-'"
+#~ msgstr "отсутствует Section для двоичного пакета %s; используется «-»"
+
+#, perl-format
+#~ msgid "missing Priority for binary package %s; using '-'"
+#~ msgstr "отсутствует Priority для двоичного пакета %s; используется «-»"
+
+#, perl-format
+#~ msgid "package %s has priority %s in control file but %s in files list"
+#~ msgstr ""
+#~ "пакет %s имеет приоритет %s в управляющем файле, но %s в списке файлов"
 
 #, fuzzy, perl-format
 #~| msgid "cannot read timestamp from %s"

@@ -26,7 +26,7 @@ Jedes Debian-Quellpaket besteht aus einer .dsc-Steuerdatei, die eine Reihe von F
 
 Jedes Feld beginnt mit einer Markierung, wie B<Source> oder B<Binary> (Groß-/Kleinschreibung egal), gefolgt von einem Doppelpunkt und dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben). Felder werden nur durch die Feldmarkierungen abgegrenzt. Mit anderen Worten, Feldtexte können mehrere Zeilen überspannen, aber die Installationswerkzeuge werden im Allgemeinen die Zeilen bei der Verarbeitung des Feldinhaltes zusammenfassen (mit Ausnahme der mehrzeiligen Felder B<Package-List>, B<Files>, B<Checksums-Sha1> und B<Checksums-Sha256>, sehen Sie dazu unten).
 
-The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
+Die Steuerdaten können in eine Signatur mit einer wie in RFC 9580 spezifizierten OpenPGP-ASCII-Hülle eingeschlossen sein.
 
 =head1 FELDER
 
@@ -142,7 +142,7 @@ Das I<Paket> ist der Name des Binärpakets.
 
 Der I<Pakettyp> ist der binäre Pakettyp, normalerweise B<deb>, B<udeb> ist ein anderer häufig vorkommender Wert.
 
-I<Sektion> und I<Priorität> entsprechen den Feldern I<section> und I<priority> des Binärpakets.
+I<Sektion> und I<Priorität> entsprechen den Feldern I<section> und I<priority> des Binärpakets; falls sie fehlen, ist die Vorgabe B<unknown> bzw. B<optional> (seit Dpkg 1.22.13).
 
 Die I<Schlüssel-Wert-Liste> ist eine durch Leerzeichen getrennte I<Schlüssel>B<=>I<Wert>-Liste und die derzeit erkannten optionalen Schlüssel sind:
 
@@ -197,7 +197,7 @@ L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

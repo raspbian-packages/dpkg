@@ -568,7 +568,7 @@ deferred_configure(struct pkginfo *pkg)
 
 		if (dpkg_version_compare(&pkg->installed.version,
 		                         &otherpkg->installed.version))
-			ohshit(_("package %s %s cannot be configured because "
+			ohshit(_("package %s (%s) cannot be configured because "
 			         "%s is at a different version (%s)"),
 			       pkg_name(pkg, pnaw_always),
 			       versiondescribe(&pkg->installed.version,
@@ -626,7 +626,7 @@ deferred_configure(struct pkginfo *pkg)
 
 	trig_activate_packageprocessing(pkg);
 
-	if (f_noact) {
+	if (!f_act) {
 		pkg_set_status(pkg, PKG_STAT_INSTALLED);
 		ensure_package_clientdata(pkg);
 		pkg->clientdata->istobe = PKG_ISTOBE_NORMAL;

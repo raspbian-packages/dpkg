@@ -1,5 +1,5 @@
 # Translation of dpkg to Romanian
-# Copyright © 2005-2023 Dpkg Developers
+# Copyright © 2005-2024 Dpkg Developers
 # This file is distributed under the same license as the dpkg package.
 #
 # Rușeț Zeno <rzeno@cwazy.co.uk>, 2005.
@@ -7,7 +7,7 @@
 # Sorin Batariuc <sorin@bonbon.net>, 2005, 2006.
 # Andrei POPESCU <andreimpopescu@gmail.com>, 2010.
 # ioan-eugen STAN <stan.ieugen@gmail.com>, 2011 (dpkg 1.17.0).
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, feb-2023.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023-2024.
 #
 # Explicații legate de modul de traducere:
 # - la mesajele emise în urma acțiunilor programului se folosește forma impersonală,
@@ -21,10 +21,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dpkg 1.22.0\n"
+"Project-Id-Version: dpkg 1.22.11\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2024-08-01 12:38+0200\n"
-"PO-Revision-Date: 2023-10-04 11:08+0200\n"
+"POT-Creation-Date: 2025-02-03 12:00+0100\n"
+"PO-Revision-Date: 2024-12-03 03:57+0100\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
 "Language: ro\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.3\n"
 
 #: lib/dpkg/ar.c
 msgid "failed to fstat archive"
@@ -513,16 +513,14 @@ msgstr[1] "%d fișiere și directoare actualmente instalate.)\n"
 msgstr[2] "%d de fișiere și directoare actualmente instalate.)\n"
 
 #: lib/dpkg/db-fsys-load.c
-#, fuzzy, c-format
-#| msgid "cannot open %s"
+#, c-format
 msgid "cannot open %s file"
-msgstr "nu se poate deschide %s"
+msgstr "nu se poate deschide fișierul %s"
 
 #: lib/dpkg/db-fsys-load.c
-#, fuzzy, c-format
-#| msgid "unable to get file '%s%s' metadata"
+#, c-format
 msgid "cannot get %s file metadata"
-msgstr "nu se pot obține metadatele fișierului „%s%s”"
+msgstr "nu se pot obține metadatele fișierului %s"
 
 #: lib/dpkg/db-fsys-override.c
 #, c-format
@@ -1186,24 +1184,18 @@ msgstr ""
 "%s"
 
 #: lib/dpkg/file.c
-#, fuzzy, c-format
-#| msgid ""
-#| "%s was locked by another process with pid %d\n"
-#| "%s"
+#, c-format
 msgid ""
 "%s was locked by %s process with pid %d\n"
 "%s"
 msgstr ""
-"%s a fost blocată de un alt proces cu pid %d\n"
+"%s a fost blocată de procesul %s cu pid %d\n"
 "%s"
 
 #: lib/dpkg/file.c
-#, fuzzy
-#| msgctxt "architecture"
-#| msgid "<unknown>"
 msgctxt "process"
 msgid "<unknown>"
-msgstr "<necunoscută>"
+msgstr "<necunoscut>"
 
 #: lib/dpkg/file.c
 #, c-format
@@ -1274,7 +1266,7 @@ msgstr "nu se pot citi fanioanele descriptorului de fișier pentru %.250s"
 #: lib/dpkg/mustlib.c
 #, c-format
 msgid "unable to set close-on-exec flag for %.250s"
-msgstr "nu se poate activa fanionul close-on-exec pentru %.250s"
+msgstr "nu se poate activa fanionul „close-on-exec” pentru %.250s"
 
 #: lib/dpkg/options-parsers.c
 #, c-format
@@ -1726,6 +1718,10 @@ msgstr "%d%%"
 #: lib/dpkg/report.c utils/update-alternatives.c
 msgid "warning"
 msgstr "avertisment"
+
+#: lib/dpkg/report.c
+msgid "hint"
+msgstr ""
 
 #: lib/dpkg/strwide.c
 #, c-format
@@ -2325,10 +2321,8 @@ msgstr ""
 "nu se poate stabilii contextul de securitate pentru obiectul fișier „%s”"
 
 #: src/realpath/main.c
-#, fuzzy
-#| msgid "Type dpkg-trigger --help for help about this utility."
 msgid "Use --help for help about this utility."
-msgstr "Tastați «dpkg-trigger --help» pentru ajutor despre acest instrument."
+msgstr "Utilizați opțiunea „--help” pentru ajutor despre acest instrument."
 
 #: src/realpath/main.c src/divert/main.c src/statoverride/main.c
 #, c-format
@@ -2348,15 +2342,12 @@ msgstr ""
 "garanție.\n"
 
 #: src/realpath/main.c
-#, fuzzy, c-format
-#| msgid ""
-#| "Usage: %s [<option>...] <command>\n"
-#| "\n"
+#, c-format
 msgid ""
 "Usage: %s [<option>...] <pathname>\n"
 "\n"
 msgstr ""
-"Utilizare: %s [<opțiune>...] <comanda>\n"
+"Utilizare: %s [<opțiune>...] <nume-rută>\n"
 "\n"
 
 #: src/realpath/main.c
@@ -2370,33 +2361,37 @@ msgid ""
 "      --help                   show this help message.\n"
 "\n"
 msgstr ""
+"Opțiuni:\n"
+"  -z, --zero                   încheie linia de ieșire cu NUL, nu linie "
+"nouă\n"
+"      --instdir <director>     stabilește directorul rădăcină\n"
+"      --root <director>        stabilește directorul rădăcină\n"
+"      --version                afișează versiunea\n"
+"      --help                   afișează acest mesaj de ajutor\n"
+"\n"
 
 #: src/realpath/main.c
 msgid "too many levels of symbolic links"
-msgstr ""
+msgstr "prea multe niveluri de legături simbolice"
 
 #: src/realpath/main.c
-#, fuzzy, c-format
-#| msgid "cannot read %s"
+#, c-format
 msgid "cannot read link '%s'"
-msgstr "nu se poate scrie %s"
+msgstr "nu se poate citi legătura „%s”"
 
 #: src/realpath/main.c
-#, fuzzy, c-format
-#| msgid "symbolic link '%.250s' size has changed from %jd to %zd"
+#, c-format
 msgid "symbolic link '%s' size has changed from %jd to %zd"
-msgstr "dimensiunea legăturii simbolice „%.250s” s-a schimbat de la %jd la %zd"
+msgstr "dimensiunea legăturii simbolice „%s” s-a schimbat de la %jd la %zd"
 
 #: src/realpath/main.c
-#, fuzzy
-#| msgid "--%s needs a single argument"
 msgid "need a pathname argument"
-msgstr "„--%s” necesită un singur argument"
+msgstr "necesită un nume de rută ca argument"
 
 #: src/realpath/main.c
 #, c-format
 msgid "link '%s' includes root prefix '%s'"
-msgstr ""
+msgstr "legătura „%s” include prefixul rădăcină „%s”"
 
 #: src/deb/build.c
 #, c-format
@@ -2542,6 +2537,41 @@ msgstr "arhitectura pachetului lipsește sau este goală"
 #, c-format
 msgid "'%s' contains user-defined Priority value '%s'"
 msgstr "„%s” conține o valoare definită de utilizator pentru Priority „%s”"
+
+#: src/deb/build.c
+#, fuzzy, c-format
+#| msgid "cannot get %s file metadata"
+msgid "cannot get root directory %s metadata"
+msgstr "nu se pot obține metadatele fișierului %s"
+
+# R-GC, scrie:
+# complet ca la nebuni, asta e „găselnița”
+# ce-am putut inventa, pentru traducerea
+# acestui mesaj, situată pe undeva, pe la
+# jumătatea drumului între traducerea
+# acestui mesaj din engleză, respectiv
+# din catalană; n-am reușit să găsesc
+# ceva mai bun.
+# în catalană,
+# treewalk devine treewalker
+# ========================
+# într-o versiune anterioară, acest mesaj,
+# era: „control directory is not a directory”
+#: src/deb/build.c
+#, fuzzy, c-format
+#| msgid "treewalk root %s is not a directory"
+msgid "root pathname %s is not a directory"
+msgstr "rădăcina căutării în arbore %s nu este un director"
+
+#: src/deb/build.c
+#, c-format
+msgid "root directory %s has unusual owner or group %u:%u"
+msgstr ""
+
+#: src/deb/build.c
+#, c-format
+msgid "you might need to pass --root-owner-group, see <%s> for further details"
+msgstr ""
 
 #: src/deb/build.c
 #, c-format
@@ -2838,10 +2868,9 @@ msgid "'%.255s' contains no control component '%.255s'"
 msgstr "„%.255s” nu conține nicio componentă de control „%.255s”"
 
 #: src/deb/info.c
-#, fuzzy, c-format
-#| msgid "cannot open file %s"
+#, c-format
 msgid "cannot open file '%.255s'"
-msgstr "nu se poate deschide fișierul %s"
+msgstr "nu se poate deschide fișierul „%.255s”"
 
 #: src/deb/info.c
 #, c-format
@@ -2857,16 +2886,14 @@ msgid "cannot scan directory '%.255s'"
 msgstr "nu se poate examina directorul „%.255s”"
 
 #: src/deb/info.c
-#, fuzzy, c-format
-#| msgid "unable to get file '%s%s' metadata"
+#, c-format
 msgid "cannot get file '%.255s' metadata"
-msgstr "nu se pot obține metadatele fișierului „%s%s”"
+msgstr "nu se pot obține metadatele fișierului „%.255s”"
 
 #: src/deb/info.c
-#, fuzzy, c-format
-#| msgid "cannot read %s"
+#, c-format
 msgid "cannot read file '%.255s'"
-msgstr "nu se poate scrie %s"
+msgstr "nu se poate citi fișierul „%.255s”"
 
 #: src/deb/info.c
 #, c-format
@@ -2992,14 +3019,12 @@ msgstr ""
 #| "compressor.\n"
 #| "      --[no-]uniform-compression   Use the compression params on all "
 #| "members.\n"
-#| "  -z#                              Set the compression level when "
-#| "building.\n"
-#| "  -Z<type>                         Set the compression type used when "
-#| "building.\n"
+#| "  -Z, --compression=<compressor>   Set build compression type.\n"
 #| "                                     Allowed types: gzip, xz, zstd, "
 #| "none.\n"
-#| "  -S<strategy>                     Set the compression strategy when "
-#| "building.\n"
+#| "  -z, --compression-level=<level>  Set build compression level.\n"
+#| "  -S, --compression-strategy=<name>\n"
+#| "                                   Set build compression strategy.\n"
 #| "                                     Allowed values: none; extreme (xz);\n"
 #| "                                     filtered, huffman, rle, fixed "
 #| "(gzip).\n"
@@ -3012,8 +3037,9 @@ msgid ""
 "      --deb-format=<format>        Select archive format.\n"
 "                                     Allowed values: 0.939000, 2.0 "
 "(default).\n"
-"      --nocheck                    Suppress control file check (build bad\n"
-"                                     packages).\n"
+"      --no-check                   Suppress all checks (build bad "
+"packages).\n"
+"      --nocheck                    Alias for --no-check.\n"
 "      --root-owner-group           Forces the owner and groups to root.\n"
 "      --threads-max=<threads>      Use at most <threads> with compressor.\n"
 "      --[no-]uniform-compression   Use the compression params on all "
@@ -3030,8 +3056,8 @@ msgstr ""
 "Opțiuni:\n"
 "  -v|--verbose                      activează generarea de mesaje detaliate\n"
 "  -D|--debug                        activează informațiile de depanare\n"
-"     --showformat=<format>          folosește formatul alternativ pentru --"
-"show\n"
+"     --showformat=<format>          folosește formatul alternativ pentru „--"
+"show”\n"
 "     --deb-format=<format>          selectează formatul de arhivă\n"
 "                                    valori permise: 0,939000, 2,0 "
 "(implicit)\n"
@@ -3045,20 +3071,20 @@ msgstr ""
 "     --[no-]uniform-compression     utilizează parametrii de comprimare pe "
 "toți\n"
 "                                    membrii arhivei\n"
-"  -z#                               stabilește nivelul de comprimare atunci "
-"când\n"
-"                                    se construiește\n"
-"  -Z<tip>                           stabilește tipul de comprimare folosit "
+"  -Z, --compression=<comprimare>    stabilește tipul de comprimare folosit "
 "la\n"
 "                                    construire; valorile permise sunt: \n"
-"                                    gzip, xz, bzip2, lzma, none\n"
-"  -S<strategia>                     stabilește strategia de comprimare "
+"                                    gzip, xz, zstd, none\n"
+"  -z, --compression-level=<nivel>   stabilește nivelul de comprimare atunci "
+"când\n"
+"                                    se construiește\n"
+"  -S, --compression-strategy=<nume> \n"
+"                                    stabilește strategia de comprimare "
 "atunci\n"
 "                                    când se construiește;\n"
 "                                    valorile permise sunt: none; extreme "
 "(xz);\n"
 "                                    filtered, huffman, rle, fixed (gzip)\n"
-"\n"
 
 #: src/deb/main.c src/query/main.c
 #, c-format
@@ -3067,8 +3093,8 @@ msgid ""
 "  A format is a string that will be output for each package. The format\n"
 "  can include the standard escape sequences \\n (newline), \\r (carriage\n"
 "  return) or \\\\ (plain backslash). Package information can be included\n"
-"  by inserting variable references to package fields using the ${var[;"
-"width]}\n"
+"  by inserting variable references to package fields using the $"
+"{var[;width]}\n"
 "  syntax. Fields will be right-aligned unless the width is negative in "
 "which\n"
 "  case left alignment will be used.\n"
@@ -3105,8 +3131,8 @@ msgid ""
 "Type dpkg-deb --help for help about manipulating *.deb files;\n"
 "Type dpkg --help for help about installing and deinstalling packages."
 msgstr ""
-"Tastați «dpkg-deb --help» pentru ajutor despre manipularea fișierelor *."
-"deb;\n"
+"Tastați «dpkg-deb --help» pentru ajutor despre manipularea fișierelor "
+"*.deb;\n"
 "Tastați «dpkg --help» pentru ajutor despre instalarea și dezinstalarea "
 "pachetelor."
 
@@ -3146,10 +3172,9 @@ msgid "need an action option"
 msgstr "este necesară o opțiune de acțiune"
 
 #: src/deb/main.c
-#, fuzzy, c-format
-#| msgid "unsupported compression type '%s' with uniform compression"
+#, c-format
 msgid "unsupported deb format '%d.%d' with non-uniform compression"
-msgstr "tip de comprimare neacceptat „%s” cu comprimarea uniformă"
+msgstr "format deb neacceptat „%d.%d” cu comprimarea neuniformă"
 
 #: src/deb/main.c
 #, c-format
@@ -4559,17 +4584,21 @@ msgid "Replaced by files in installed package %s (%s) ...\n"
 msgstr "Înlocuite de fișierele din pachetul instalat %s (%s) ...\n"
 
 #: src/main/archives.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "trying to overwrite directory '%.250s' in package %.250s %.250s with "
+#| "nondirectory"
 msgid ""
-"trying to overwrite directory '%.250s' in package %.250s %.250s with "
+"trying to overwrite directory '%.250s' in package %.250s (%.250s) with "
 "nondirectory"
 msgstr ""
 "se încearcă suprascrierea directorului „%.250s” din pachetul %.250s %.250s "
 "cu un non-director"
 
 #: src/main/archives.c
-#, c-format
-msgid "trying to overwrite '%.250s', which is also in package %.250s %.250s"
+#, fuzzy, c-format
+#| msgid "trying to overwrite '%.250s', which is also in package %.250s %.250s"
+msgid "trying to overwrite '%.250s', which is also in package %.250s (%.250s)"
 msgstr ""
 "se încearcă suprascrierea lui „%.250s”, care este și în pachetul %.250s "
 "%.250s"
@@ -4810,18 +4839,21 @@ msgid "Skipping unselected package %s.\n"
 msgstr "Se omite pachetul neselectat %s.\n"
 
 #: src/main/archives.c
-#, c-format
-msgid "version %.250s of %.250s already installed, skipping"
+#, fuzzy, c-format
+#| msgid "version %.250s of %.250s already installed, skipping"
+msgid "package %.250s (%.250s) with same version already installed, skipping"
 msgstr "versiunea %.250s a lui %.250s este deja instalată, se omite"
 
 #: src/main/archives.c
-#, c-format
-msgid "downgrading %.250s from %.250s to %.250s"
+#, fuzzy, c-format
+#| msgid "downgrading %.250s from %.250s to %.250s"
+msgid "downgrading %.250s (%.250s) to (%.250s)"
 msgstr "se retrogradează %.250s de la %.250s la %.250s"
 
 #: src/main/archives.c
-#, c-format
-msgid "will not downgrade %.250s from %.250s to %.250s, skipping"
+#, fuzzy, c-format
+#| msgid "will not downgrade %.250s from %.250s to %.250s, skipping"
+msgid "will not downgrade %.250s (%.250s) to (%.250s), skipping"
 msgstr ""
 "nu se va retrograda %.250s de la versiunea %.250s la versiunea %.250s, se "
 "omite"
@@ -5082,9 +5114,13 @@ msgstr ""
 "„%s”)"
 
 #: src/main/configure.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "package %s %s cannot be configured because %s is at a different version "
+#| "(%s)"
 msgid ""
-"package %s %s cannot be configured because %s is at a different version (%s)"
+"package %s (%s) cannot be configured because %s is at a different version "
+"(%s)"
 msgstr ""
 "pachetul %s %s nu poate fi configurat deoarece versiunea de %s este diferită "
 "(%s)"
@@ -5935,8 +5971,8 @@ msgstr ""
 "Tastați «dpkg -Dhelp» pentru o listă a valorilor fanioanelor de depanare ale "
 "lui «dpkg»;\n"
 "Tastați «dpkg --force-help» pentru o listă a opțiunilor de forțare;\n"
-"Tastați «dpkg-deb --help» pentru ajutor privind manipularea fișierelor *."
-"deb;\n"
+"Tastați «dpkg-deb --help» pentru ajutor privind manipularea fișierelor "
+"*.deb;\n"
 "\n"
 "Opțiunile marcate cu [*] produc foarte mult text - redirectați prin «less» "
 "sau «more» !"
@@ -6824,10 +6860,9 @@ msgstr ""
 "curățate automat."
 
 #: utils/update-alternatives.c
-#, fuzzy, c-format
-#| msgid "Debian %s version %s.\n"
+#, c-format
 msgid "%s version %s.\n"
-msgstr "Debian %s versiunea %s.\n"
+msgstr "%s versiunea %s.\n"
 
 #: utils/update-alternatives.c
 #, c-format

@@ -496,6 +496,7 @@ parse_unsigned(const char *string, int base, int *value_r)
 	return 0;
 }
 
+#ifndef HAVE_CLOSEFROM
 static long
 get_open_fd_max(void)
 {
@@ -505,6 +506,22 @@ get_open_fd_max(void)
 	return sysconf(_SC_OPEN_MAX);
 #endif
 }
+
+static void
+closefrom(int lowfd)
+{
+	long maxfd = get_open_fd_max();
+	int i;
+
+#ifdef HAVE_CLOSE_RANGE
+	if (close_range(lowfd, maxfd, 0) == 0)
+		return;
+#endif
+
+	for (i = maxfd - 1; i >= lowfd; --i)
+		close(i);
+}
+#endif
 
 #ifndef HAVE_SETSID
 static void
@@ -1173,7 +1190,7 @@ parse_schedule_item(const char *string, struct schedule_item *item)
 
 	if (strcmp(string, "forever") == 0) {
 		item->type = sched_forever;
-	} else if (isdigit(string[0])) {
+	} else if (isdigit((unsigned char)string[0])) {
 		item->type = sched_timeout;
 		if (parse_unsigned(string, 10, &item->value) != 0)
 			badusage("invalid timeout value in schedule");
@@ -1603,7 +1620,7 @@ proc_status_field(pid_t pid, const char *field)
 	ssize_t line_len;
 	size_t field_len = strlen(field);
 
-	sprintf(filename, "/proc/%d/status", pid);
+	snprintf(filename, sizeof(filename), "/proc/%d/status", pid);
 	fp = fopen(filename, "r");
 	if (!fp)
 		return NULL;
@@ -1612,7 +1629,7 @@ proc_status_field(pid_t pid, const char *field)
 			line[line_len - 1] = '\0';
 
 			value = line + field_len;
-			while (isspace(*value))
+			while (isspace((unsigned char)*value))
 				value++;
 
 			break;
@@ -1629,7 +1646,7 @@ proc_get_psinfo(pid_t pid, struct psinfo *psinfo)
 	char filename[64];
 	FILE *fp;
 
-	sprintf(filename, "/proc/%d/psinfo", pid);
+	snprintf(filename, sizeof(filename), "/proc/%d/psinfo", pid);
 	fp = fopen(filename, "r");
 	if (!fp)
 		return false;
@@ -1732,7 +1749,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 	int nread;
 	struct stat sb;
 
-	sprintf(lname, "/proc/%d/exe", pid);
+	snprintf(lname, sizeof(lname), "/proc/%d/exe", pid);
 	nread = readlink(lname, lcontents, sizeof(lcontents) - 1);
 	if (nread < 0)
 		return false;
@@ -1760,7 +1777,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 	struct stat sb;
 	char filename[64];
 
-	sprintf(filename, "/proc/%d/object/a.out", pid);
+	snprintf(filename, sizeof(filename), "/proc/%d/object/a.out", pid);
 
 	if (stat(filename, &sb) != 0)
 		return false;
@@ -2030,7 +2047,7 @@ pid_is_user(pid_t pid, uid_t uid)
 	struct stat sb;
 	char buf[32];
 
-	sprintf(buf, "/proc/%d", pid);
+	snprintf(buf, sizeof(buf), "/proc/%d", pid);
 	if (stat(buf, &sb) != 0)
 		return false;
 	return (sb.st_uid == uid);
@@ -2660,13 +2677,10 @@ do_start(int argc, char **argv)
 		dup2(output_fd, 2); /* stderr */
 	}
 	if (background && close_io) {
-		int i;
-
 		dup2(devnull_fd, 0); /* stdin */
 
-		 /* Now close all extra fds. */
-		for (i = get_open_fd_max() - 1; i >= 3; --i)
-			close(i);
+		/* Now close all extra fds. */
+		closefrom(3);
 	}
 	execv(startas, argv);
 	fatale("unable to start %s", startas);

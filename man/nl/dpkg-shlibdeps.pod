@@ -108,15 +108,15 @@ De optie B<-d>I<afhankelijkheidsveld> heeft uitwerking voor alle programma's na 
 
 Indien hetzelfde afhankelijkheidsitem (of set van alternatieven) te vinden is in meer dan een van de herkende namen voor afhankelijkheidsvelden B<Pre-Depends>, B<Depends>, B<Recommends>, B<Enhances> of B<Suggests>, zal B<dpkg-shlibdeps> de afhankelijkheid automatisch uit alle velden verwijderen, behalve uit het veld dat de belangrijkste afhankelijkheid vertegenwoordigt.
 
-=item B<--package=>I<package>
+=item B<--package=>I<pakket>
 
-Define the package name.
+De pakketnaam definiëren.
 
-When specified, the package name will be used to change defaults based on the binary package metadata in F<debian/control>.
+Indie gespecificeerd, zal de pakketnaam worden gebruikt voor het wijzigen van standaardinstellingen op basis van de metadata van het binaire pakket in F<debian/control>.
 
-If the package is B<Essential: yes>, then the default dependency field is B<Pre-Depends>, otherwise B<Depends>.  The default package type is set from the B<Package-Type> field.  The package is added to the set of packages excluded by B<-x>.
+Als het pakket B<Essential: yes> is, dan is het standaard vereistenveld B<Pre-Depends>, ​​anders B<Depends>. Het standaard pakkettype wordt ingesteld vanuit het veld B<Package-Type>. Het pakket wordt toegevoegd aan de set pakketten die zijn uitgesloten door B<-x>.
 
-Option supported since dpkg 1.22.7.
+Optie ondersteund sinds dpkg 1.22.7.
 
 =item B<-p>I<variabelenaamprefix>
 
@@ -158,9 +158,31 @@ I<pakketbouwmap> overslaan bij het zoeken naar shlibs-, symbolen- en gedeelde bi
 
 Het niet als een mislukking beschouwen als voor een gedeelde bibliotheek geen afhankelijkheidsinformatie gevonden kan worden (sinds dpkg 1.14.8). Het wordt afgeraden om deze optie te gebruiken. Alle bibliotheken zouden afhankelijkheidsinformatie moeten verschaffen (ofwel via shlibs-bestanden of via symboolbestanden), zelfs als die nog niet door andere pakketten gebruikt wordt.
 
-=item B<--warnings=>I<waarde>
+=item B<--warnings=>[I<value>|I<string>[,...]]
 
-I<waarde> is een bit-veld dat aangeeft welke set waarschuwingen B<dpkg-shlibdeps> kan geven (sinds dpkg 1.14.17). Bit 0 (waarde=1) activeert de waarschuwing “symbool I<sym> dat door I<binair-bestand> gebruikt wordt, werd in geen enkele bibliotheek aangetroffen”, bit 1 (waarde=2) activeert de waarschuwing “pakket zou een nutteloze afhankelijkheid kunnen vermijden” en bit 2 (waarde=4) activeert de waarschuwing “I<binair-bestand> zou niet gelinkt moeten worden met I<bibliotheek>”. De standaard-I<waarde> is 3: standaard zijn de eerste twee waarschuwingen geactiveerd, de laatste niet. Stel de I<waarde> in op 7 indien u wilt dat alle waarschuwingen geactiveerd worden.
+Select the set of warnings that can be emitted by B<dpkg-shlibdeps> (since dpkg 1.14.17).
+
+The warnings can be selected from a comma-separated list of symbolic names (since dpkg 1.22.12), or from a I<value> denoting a bit field for these warnings.
+
+=over 
+
+=item symbol-not-found (bit 0, value 1)
+
+Selects the warning “symbol I<sym> used by I<binary> found in none of the libraries”.
+
+Enabled by default.
+
+=item avoidable-dependency (bit 1, value 2)
+
+Selects the warning “package could avoid a useless dependency”.
+
+Enabled by default.
+
+=item useless-linkage (bit 2, value 4)
+
+Select the warning “I<binary> should not be linked against I<library>”.
+
+=back
 
 =item B<--admindir=>I<map>
 
@@ -182,7 +204,7 @@ De versie tonen en afsluiten.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the objects and symbols files searched for and their default search pathnames.
+Stelt de computerarchitectuur in. Dit heeft invloed op het gezochte objecten- en symbolenbestand en hun standaard zoekpadnaam.
 
 =item B<DPKG_COLORS>
 

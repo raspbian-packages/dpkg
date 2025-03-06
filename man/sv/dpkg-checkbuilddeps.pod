@@ -76,7 +76,7 @@ Visar version och avslutar.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the dependency resolution logic, which might then not match what the system dpkg considers satisfiable.
+Anger målarkitekturen. Detta påverkar logiken för beroendelösning, vilken då kanske inte motsvarar var systemets dpkg anser vara tillräckligt.
 
 =item B<DEB_BUILD_PROFILES>
 

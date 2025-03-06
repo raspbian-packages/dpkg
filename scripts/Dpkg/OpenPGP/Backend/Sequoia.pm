@@ -1,4 +1,4 @@
-# Copyright © 2021-2022 Guillem Jover <guillem@debian.org>
+# Copyright © 2021-2024 Guillem Jover <guillem@debian.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,6 +45,14 @@ sub DEFAULT_CMD {
     return [ qw(sq) ];
 }
 
+sub has_keystore {
+    my $self = shift;
+
+    return 1 if $ENV{HOME} && -e "$ENV{HOME}/.local/share/sequoia/keystore";
+    return 1 if $ENV{HOME} && -e "$ENV{HOME}/.gnupg";
+    return 0;
+}
+
 sub _sq_exec
 {
     my ($self, @exec) = @_;
@@ -69,7 +77,7 @@ sub armor
     return OPENPGP_MISSING_CMD unless $self->{cmd};
 
     # We ignore the $type, and let "sq" handle this automatically.
-    my $rc = $self->_sq_exec(qw(toolbox armor --output), $out, $in);
+    my $rc = $self->_sq_exec(qw(packet armor --output), $out, $in);
     return OPENPGP_BAD_DATA if $rc;
     return OPENPGP_OK;
 }
@@ -81,7 +89,7 @@ sub dearmor
     return OPENPGP_MISSING_CMD unless $self->{cmd};
 
     # We ignore the $type, and let "sq" handle this automatically.
-    my $rc = $self->_sq_exec(qw(toolbox dearmor --output), $out, $in);
+    my $rc = $self->_sq_exec(qw(packet dearmor --output), $out, $in);
     return OPENPGP_BAD_DATA if $rc;
     return OPENPGP_OK;
 }
@@ -93,6 +101,7 @@ sub inline_verify
     return OPENPGP_MISSING_CMD unless $self->{cmd};
 
     my @opts;
+    push @opts, '--cleartext';
     push @opts, map { ('--signer-file', $_) } @certs;
     push @opts, '--output', $data if defined $data;
 
@@ -109,7 +118,7 @@ sub verify
 
     my @opts;
     push @opts, map { ('--signer-file', $_) } @certs;
-    push @opts, '--detached', $sig;
+    push @opts, '--signature-file', $sig;
 
     my $rc = $self->_sq_exec(qw(verify), @opts, $data);
     return OPENPGP_NO_SIG if $rc;
@@ -121,11 +130,17 @@ sub inline_sign
     my ($self, $data, $inlinesigned, $key) = @_;
 
     return OPENPGP_MISSING_CMD unless $self->{cmd};
-    return OPENPGP_NEEDS_KEYSTORE if $key->needs_keystore();
+    return OPENPGP_NEEDS_KEYSTORE if ! $self->can_use_key($key);
 
     my @opts;
-    push @opts, '--cleartext-signature';
-    push @opts, '--signer-file', $key->handle;
+    push @opts, '--cleartext';
+    if ($key->type eq 'keyfile') {
+        push @opts, '--signer-file', $key->handle;
+    } elsif ($key->type eq 'userid') {
+        push @opts, '--signer-userid', $key->handle;
+    } else {
+        push @opts, '--signer', $key->handle;
+    }
     push @opts, '--output', $inlinesigned;
 
     my $rc = $self->_sq_exec('sign', @opts, $data);

@@ -126,11 +126,11 @@ Esta variável pode ser usada para activar e desactivar várias funcionalidades 
 
 =item B<DEB_BUILD_ARCH>
 
-Sets the build architecture.  This affects the value for the B<Build-Architecture> field, and the check for the cross-compilation mode.
+Define a arquitectura de compilação. Isto afecta o valor para o campo B<Build-Architecture>, e a verificação para modo de compilação-cruzada.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the filename used for the .buildinfo file, and the check for the cross-compilation mode.
+Define a arquitectura anfitriã. Isto afecta o nome de ficheiro usado para o ficheiro .buildinfo, e a verificação para modo de compilação-cruzada.
 
 =item B<DPKG_COLORS>
 

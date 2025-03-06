@@ -164,7 +164,7 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.22.7). Os valores aceites são B<0> e B<1> (predefinição).
 
 =back
 

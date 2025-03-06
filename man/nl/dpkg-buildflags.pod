@@ -374,7 +374,7 @@ Deze instelling (sinds dpkg 1.17.14; standaard uitgeschakeld) voegt loze kanarie
 
 =head2 optimalisering
 
-Several compile-time options (detailed below) can be used to help optimize a resulting binary (since dpkg 1.21.0).  B<Note>: Enabling B<all> these options can result in unreproducible binary artifacts.
+Er kunnen verschillende compilatieopties (die hierna beschreven worden) gebruikt worden om een resulterend binair bestand te optimaliseren (sinds dpkg 1.21.0). B<Opmerking>: het inschakelen van B<al> deze opties kan resulteren in niet-reproduceerbare ongewenste bijverschijnselen in het binair bestand.
 
 =over 
 
@@ -386,7 +386,7 @@ Deze instelling (sinds dpkg 1.21.0; standaard uitgeschakeld) zet Link Time Optim
 
 =head2 sanering
 
-Several compile-time options (detailed below) can be used to help sanitize a resulting binary against memory corruptions, memory leaks, use after free, threading data races and undefined behavior bugs.  B<Note>: These options should B<not> be used for production builds as they can reduce reliability for conformant code, reduce security or even functionality.
+Er kunnen verschillende compilatie-opties (die hierna beschreven worden) gebruikt worden om te helpen bij het gezond houden van een resulterend binair pakket op het vlak van geheugenvervuiling, geheugenlekkage, geheugengebruik na vrijgave, dataraces bij threads en bugs door ongedefinieerd gedrag. B<Noot>: deze opties zouden B<niet> gebruikt mogen worden voor een bouw voor productiedoeleinden, aangezien ze een verminderde betrouwbaarheid bieden inzake codeconformiteit en de beveiliging en zelfs de functionaliteit reduceren.
 
 =over 
 
@@ -558,7 +558,7 @@ Deze variabele stelt in welk bouwpad (sinds dpkg 1.18.8) gebruikt moet worden bi
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the build flags that are emitted, which is typically relevant when cross-compiling, where B<DEB_HOST_ARCH> is different to B<DEB_BUILD_ARCH>.
+Stelt de computerarchitectuur in. Dit heeft invloed op de bouwvlaggen die worden uitgestuurd, wat doorgaans relevant is bij kruiscompilatie, waarbij B<DEB_HOST_ARCH> verschilt van B<DEB_BUILD_ARCH>.
 
 =item B<DPKG_COLORS>
 
@@ -594,7 +594,11 @@ Configuratiebestand dat gebruikersafhankelijk is.
 
 =item B<%PKGDATADIR%/buildflags.mk>
 
-Makefile-fragment dat alle vlaggen die door B<dpkg-buildflags> ondersteund worden, laadt in variabelen (en eventueel exporteert) (sinds dpkg 1.16.1).
+Makefile snippet that loads (and optionally export) all flags supported by B<dpkg-buildflags> into variables (since dpkg 1.16.1).
+
+=item B<%PKGDATADIR%/buildtools.mk>
+
+Makefile snippet that sets suitable host and build tools (and optionally export them) into variables (since dpkg 1.19.0).
 
 =back
 

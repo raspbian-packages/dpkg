@@ -38,7 +38,6 @@ use Dpkg::Gettext;
 use Dpkg::ErrorHandling;
 use Dpkg::Path qw(find_command);
 use Dpkg::BuildTypes;
-use Dpkg::BuildAPI qw(get_build_api);
 
 =head1 METHODS
 
@@ -58,7 +57,7 @@ sub new {
 
     my $self = {
         ctrl => $opts{ctrl},
-        root_cmd => $opts{root_cmd},
+        root_cmd => $opts{root_cmd} // [],
         as_root => $opts{as_root},
         debian_rules => $opts{debian_rules},
         rrr_override => $opts{rrr_override},
@@ -126,11 +125,7 @@ sub _parse_rules_requires_root {
     my $keywords_base;
     my $keywords_impl;
 
-    if (get_build_api($self->{ctrl}) >= 1) {
-        $rrr_default = 'no';
-    } else {
-        $rrr_default = 'binary-targets';
-    }
+    $rrr_default = 'no';
 
     my $ctrl_src = $self->{ctrl}->get_source();
     $rrr = $self->{rrr_override} // $ctrl_src->{'Rules-Requires-Root'} // $rrr_default;
@@ -140,7 +135,7 @@ sub _parse_rules_requires_root {
             if ($keyword =~ m{^dpkg/target/(.*)$}p and $target_official{$1}) {
                 error(g_('disallowed target in %s field keyword %s'),
                       'Rules-Requires-Root', $keyword);
-            } elsif ($keyword ne 'dpkg/target-subcommand') {
+            } elsif ($keyword =~ m{^dpkg/(.*)$} and $1 ne 'target-subcommand') {
                 error(g_('%s field keyword "%s" is unknown in dpkg namespace'),
                       'Rules-Requires-Root', $keyword);
             }

@@ -85,8 +85,8 @@ test_varbuf_grow(void)
 {
 	struct varbuf vb;
 	jmp_buf grow_jump;
-	size_t old_size;
-	bool grow_overflow;
+	volatile size_t old_size;
+	volatile bool grow_overflow;
 	int i;
 
 	varbuf_init(&vb, 10);
@@ -471,14 +471,14 @@ test_varbuf_trim(void)
 }
 
 static void
-test_varbuf_printf(void)
+test_varbuf_add_fmt(void)
 {
 	struct varbuf vb;
 
 	varbuf_init(&vb, 5);
 
 	/* Test normal format printing. */
-	varbuf_printf(&vb, "format %s number %d", "string", 10);
+	varbuf_add_fmt(&vb, "format %s number %d", "string", 10);
 	test_pass(vb.used == strlen("format string number 10"));
 	test_pass(vb.size >= vb.used);
 	test_str(vb.buf, ==, "format string number 10");
@@ -486,8 +486,8 @@ test_varbuf_printf(void)
 	varbuf_reset(&vb);
 
 	/* Test concatenated format printing. */
-	varbuf_printf(&vb, "format %s number %d", "string", 10);
-	varbuf_printf(&vb, " extra %s", "string");
+	varbuf_add_fmt(&vb, "format %s number %d", "string", 10);
+	varbuf_add_fmt(&vb, " extra %s", "string");
 	test_pass(vb.used == strlen("format string number 10 extra string"));
 	test_pass(vb.size >= vb.used);
 	test_str(vb.buf, ==, "format string number 10 extra string");
@@ -529,34 +529,34 @@ test_varbuf_snapshot(void)
 	test_pass(vb.used == 0);
 	test_pass(vb.used == vbs.used);
 	test_pass(varbuf_rollback_len(&vbs) == 0);
-	test_str(varbuf_rollback_start(&vbs), ==, "");
+	test_str(varbuf_rollback_end(&vbs), ==, "");
 
 	varbuf_add_buf(&vb, "1234567890", 10);
 	test_pass(vb.used == 10);
 	test_pass(varbuf_rollback_len(&vbs) == 10);
-	test_str(varbuf_rollback_start(&vbs), ==, "1234567890");
+	test_str(varbuf_rollback_end(&vbs), ==, "1234567890");
 	varbuf_rollback(&vbs);
 	test_pass(vb.used == 0);
 	test_pass(varbuf_rollback_len(&vbs) == 0);
-	test_str(varbuf_rollback_start(&vbs), ==, "");
+	test_str(varbuf_rollback_end(&vbs), ==, "");
 
 	varbuf_add_buf(&vb, "1234567890", 10);
 	test_pass(vb.used == 10);
 	test_pass(varbuf_rollback_len(&vbs) == 10);
-	test_str(varbuf_rollback_start(&vbs), ==, "1234567890");
+	test_str(varbuf_rollback_end(&vbs), ==, "1234567890");
 	varbuf_snapshot(&vb, &vbs);
 	test_pass(vb.used == 10);
 	test_pass(varbuf_rollback_len(&vbs) == 0);
-	test_str(varbuf_rollback_start(&vbs), ==, "");
+	test_str(varbuf_rollback_end(&vbs), ==, "");
 
 	varbuf_add_buf(&vb, "1234567890", 10);
 	test_pass(vb.used == 20);
 	test_pass(varbuf_rollback_len(&vbs) == 10);
-	test_str(varbuf_rollback_start(&vbs), ==, "1234567890");
+	test_str(varbuf_rollback_end(&vbs), ==, "1234567890");
 	varbuf_rollback(&vbs);
 	test_pass(vb.used == 10);
 	test_pass(varbuf_rollback_len(&vbs) == 0);
-	test_str(varbuf_rollback_start(&vbs), ==, "");
+	test_str(varbuf_rollback_end(&vbs), ==, "");
 
 	varbuf_destroy(&vb);
 }
@@ -621,7 +621,7 @@ TEST_ENTRY(test)
 	test_varbuf_str();
 	test_varbuf_has();
 	test_varbuf_trim();
-	test_varbuf_printf();
+	test_varbuf_add_fmt();
 	test_varbuf_reset();
 	test_varbuf_snapshot();
 	test_varbuf_detach();

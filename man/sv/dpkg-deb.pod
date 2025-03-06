@@ -38,13 +38,13 @@ För de flesta kommandon som tar ett indataarkiv som argument kan arkivet läsas
 
 Skapar ett Debianarkiv från filsystemsträdet som lagras i I<binärkatalog>. I<binärkatalog> måste innehålla underkatalogen B<DEBIAN>, vilken innehåller styrinformationsfiler såsom själv styrfilen control. Katalogen kommer I<inte> att visas i binärpaketets filsystemsarkiv, utan istället kommer filerna läggas i binärpaketets styrinformationsområde.
 
-Såvida du inte anger B<--nocheck> kommer dpkg-deb att läsa B<DEBIAN/control> och tolka den. Den kommer leta efter syntaxfel och andra problem i filen, och visa namnet på det binärpaket som byggs. B<dpkg-deb> kommer även att kontrollera behörigheten på paketskripten och andra filer som hittas i styrinformationskatalogen B<DEBIAN>.
+Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> control information directory.
 
 Om inget I<arkiv> anges kommer B<dpkg-deb> skriva paketet till filen I<binärkatalog>B<.deb>.
 
 Om arkivet som ska skapas redan finns kommer det skrivas över.
 
-Om den andra argumentet är en katalog kommer B<dpkg-deb> skriva till filen I<directory>B</>I<paket>B<_>I<version>B<_>I<arkitektur>B<.deb.> När en målkatalog anges, istället för en fil, kan inte flaggan B<--nocheck> användas (eftersom B<dpkg-deb> måste läsa och tolka paketets styrfil control för att ta reda på vilket filnamn som ska användas).
+If the second argument is a directory then B<dpkg-deb> will write to the file I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> When a target directory is specified, rather than a file, the B<--no-check> option may not be used (since B<dpkg-deb> needs to read and parse the package control file to determine which filename to use).
 
 =item B<-I>, B<--info> I<arkiv> [I<control-filnamn> ...]
 
@@ -130,17 +130,17 @@ Strängen kan referera till statusfält på formen ”${I<field-name>}”, en f�
 
 Förvalet för fältet är ”${Package}\t${Version}\n”.
 
-=item B<-z>, B<--compression-level=>I<compress-level>
+=item B<-z>, B<--compression-level>=I<komprimeringsnivå>
 
-Specify which compression level to use on the compressor backend, when building a package (default is 9 for gzip, 6 for xz, 3 for zstd; long option since dpkg 1.22.9).  The accepted values are compressor specific.  For gzip, from 0-9 with 0 being mapped to compressor none.  For xz from 0-9.  For zstd from 0-22, with levels from 20 to 22 enabling its ultra mode.  Before dpkg 1.16.2 level 0 was equivalent to compressor none for all compressors.
+Ange vilken komprimeringsnivå som ska användas i komprimeringsfunktionen när ett paket byggs (standard är 9 för gzip, 6 för xz, 3 för zstd; lång flagga sedan dpkg 1.22.9). Giltiga värden är specifika för packaren. För gzip, 0-9 där 0 mappas mot komprimeraren ingen. För xz 0-9. För zstd 0-22, där nivåerna 20 till 22 aktiverar dess ultraläge. Före dpkg 1.16.2 var nivå 0 komprimeraren ingen för alla komprimerare.
 
-=item B<-S>, B<--compression-strategy=>I<compress-strategy>
+=item B<-Z>, B<--compression>=I<komprimeringsstrategi>
 
-Specify which compression strategy to use on the compressor backend, when building a package (since dpkg 1.16.2, long option since dpkg 1.22.9). Allowed values are B<none> (since dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> and B<fixed> for gzip (since dpkg 1.17.0) and B<extreme> for xz.
+Anger vilken komprimeringsstrategi som ska användas i komprimeringsfunktionen när paketet byggs (sedan dpkg 1.16.2; lång flagga sedan dpkg 1.22.9). Tillåtet värde är B<none> (sedan dpkg 1.16.4), B<filtered>, B<huffman>, B<rle> och B<fixed> för gzip (sedan dpkg 1.17.0) och B<extreme> för xz.
 
-=item B<-Z>, B<--compression=>I<compress-type>
+=item B<-Z>, B<--compression>=I<komprimeringstyp>
 
-Specify which compression type to use when building a package (long option since dpkg 1.22.9).  Allowed values are B<gzip>, B<xz> (since dpkg 1.15.6), B<zstd> (since dpkg 1.21.18)  and B<none> (default is B<%DEB_DEFAULT_COMPRESSOR%>).
+Ange vilken komprimeringstyp som ska användas när ett paket byggs (lång flagga sedan dpkg 1.22.9). Tillåtna värden är B<gzip>, B<xz> (Sedan dpkg 1.15.6), B<zstd> (sedan dpkg 1.21.18) och B<none> (förval är B<%DEB_DEFAULT_COMPRESSOR%>).
 
 =item B<--[no-]uniform-compression>
 
@@ -162,9 +162,15 @@ Väljer vilket arkivformat som skal användas i bygget (sedan dpkg 1.17.0). Till
 
 Det gamla arkivformatet är mer svårtolkat av icke-Debianverktyg och är nu utgånget; dess enda användningsområde är för att bygga paket som ska tolkas av versioner av dpkg äldre än 0.93.76 (september 1995), vilka endast släpptes som i386-a.out.
 
-=item B<--nocheck>
+=item B<--no-check>
 
 Förhindrar B<dpkg-deb --build s> normala tester på det föreslagna innehållet i arkivet. Du kan bygga vilket arkiv du än vill, oavsett hur trasigt, på det här sätt.
+
+Option supported since dpkg 1.22.12.
+
+=item B<--nocheck>
+
+This is an alias for B<--no-check>.
 
 =item B<-v>, B<--verbose>
 
@@ -218,7 +224,7 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.22.7). Tillåtna värden är: B<0> och B<1> (förval).
 
 =item B<TMPDIR>
 

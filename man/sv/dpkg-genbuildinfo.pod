@@ -126,11 +126,11 @@ Den här variabeln kan aanvändas för att aktivera eller inaktivera olika funkt
 
 =item B<DEB_BUILD_ARCH>
 
-Sets the build architecture.  This affects the value for the B<Build-Architecture> field, and the check for the cross-compilation mode.
+Anger byggarkitekturen. Detta påverkar värdet för fältet B<Build-Architecture> och testet för korskompileringsläge.
 
 =item B<DEB_HOST_ARCH>
 
-Sets the host architecture.  This affects the filename used for the .buildinfo file, and the check for the cross-compilation mode.
+Anger värdarkitekturen. Detta påverkar värdet för fältet .buildinfo-filen och testet för korskompileringsläge.
 
 =item B<DPKG_COLORS>
 

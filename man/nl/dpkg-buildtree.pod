@@ -34,6 +34,12 @@ Dit programma werd geïntroduceerd in dpkg 1.22.3.
 
 Verwijdert alle artefacten die tijdens een build door de verschillende dpkg-gereedschappen zijn gegenereerd, en padnamen die worden gebruikt of beheerd door dpkg-gereedschappen en die veilig kunnen worden opgeschoond. Deze bestanden worden gebruikt om de status bij te houden tussen de verschillende doorlopen bij het bouwen van pakketten, en zijn in veel gevallen interne implementatiedetails waar de verpakker zich niet mee bezig moet houden, of zijn staging-mappen die bouwartefacten bevatten.
 
+=item B<is-rootless>
+
+Checks whether the build tree can be built with no root privileges (since dpkg 1.22.12).
+
+This command can be used safely even with versions where the command was not yet available as the default will then be the historic one where root was required.
+
 =item B<--help>
 
 Info tonen over het gebruik en afsluiten.
@@ -54,7 +60,7 @@ Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
 
 =back
 

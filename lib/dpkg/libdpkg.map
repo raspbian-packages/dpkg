@@ -68,6 +68,8 @@ LIBDPKG_PRIVATE {
 	warning;
 	notice;
 	info;
+	dpkg_set_hints_enable;
+	hint;
 
 	debug_set_output;
 	debug_set_mask;
@@ -114,13 +116,19 @@ LIBDPKG_PRIVATE {
 	# Variable buffer support
 	varbuf_new;
 	varbuf_init;
+	varbuf_swap;
 	varbuf_reset;
 	varbuf_grow;
 	varbuf_trunc;
 	varbuf_str;
+	varbuf_array;
 	varbuf_set_varbuf;
 	varbuf_set_buf;
+	varbuf_set_vfmt;
+	varbuf_set_fmt;
 	varbuf_add_varbuf;
+	varbuf_add_vfmt;
+	varbuf_add_fmt;
 	varbuf_add_char;
 	varbuf_dup_char;
 	varbuf_map_char;
@@ -130,13 +138,11 @@ LIBDPKG_PRIVATE {
 	varbuf_has_suffix;
 	varbuf_trim_varbuf_prefix;
 	varbuf_trim_char_prefix;
-	varbuf_printf;
-	varbuf_vprintf;
 	varbuf_detach;
 	varbuf_snapshot;
 	varbuf_rollback;
 	varbuf_rollback_len;
-	varbuf_rollback_start;
+	varbuf_rollback_end;
 	varbuf_destroy;
 	varbuf_free;
 

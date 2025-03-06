@@ -129,7 +129,7 @@ Het I<controlebestand> dat uit I<pakketnaam> op uw systeem geïnstalleerd werd, 
 
 De paden van controlebestanden opsommen die uit I<pakketnaam> op uw systeem geïnstalleerd werden (sinds dpkg 1.15.4). Indien I<controlebestand> opgegeven werd, toon dan enkel het pad voor dat controlebestand als het bestaat.
 
-B<Warning>: This command is deprecated as it gives direct access to the internal dpkg database, please switch to use B<--control-list> and B<--control-show> instead for all cases where those commands might give the same end result.  Although, as long as there is still at least one case where this command is needed (i.e. when having to remove a damaging postrm maintainer script), and while there is no good solution for that, this command will not get removed.
+B<Waarschuwing>: dit commando wordt uitgefaseerd, omdat het rechtstreekse toegang verleent tot de interne database van dpkg. Gelieve in plaats daarvan over te schakelen op het gebruik van B<--control-list> en B<--control-show> in alle gevallen waarin deze commando's hetzelfde eindresultaat kunnen geven. Dit commando zal evenwel niet verwijderd worden zolang er nog minstens één geval is waarin dit commando nodig is (d.w.z. als een schadelijk postrm-script van een beheerder verwijderd moet worden) en zolang daarvoor geen goede oplossing bestaat.
 
 =item B<-S>, B<--search> I<zoekpatroon-bestandsnaam>...
 
@@ -232,7 +232,7 @@ Pakketinformatie kan ingevoegd worden door variabeleverwijzingen naar pakketveld
 
 =item B<Description>
 
-=item B<Description-md5> (internal, front-end related)
+=item B<Description-md5> (intern, frontend gerelateerd)
 
 =item B<Enhances>
 
@@ -270,11 +270,11 @@ Pakketinformatie kan ingevoegd worden door variabeleverwijzingen naar pakketveld
 
 =item B<Section>
 
-=item B<SHA1> (internal, front-end related)
+=item B<SHA1> (intern, frontend gerelateerd)
 
-=item B<SHA256> (internal, front-end related)
+=item B<SHA256> (intern, frontend gerelateerd)
 
-=item B<SHA512> (internal, front-end related)
+=item B<SHA512> (intern, frontend gerelateerd)
 
 =item B<Size> (intern, frontend gerelateerd)
 
@@ -391,7 +391,9 @@ Stelt het uit te voeren programma in wanneer een commando via een shell voortgeb
 
 =item B<DPKG_PAGER>
 
-Stelt het te gebruiken pagineringscommando in (sinds dpkg 1.19.1), hetwelk uitgevoerd zal worden met «B<$SHELL -c>». Indien B<SHELL> niet ingesteld is, zal «B<%DPKG_DEFAULT_SHELL%>» gebruikt worden. B<DPKG_PAGER> overschrijft de omgevingsvariabele B<PAGER> (sinds dpkg 1.19.2).
+Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
+
+The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
 
 =item B<DPKG_ROOT>
 
@@ -411,7 +413,7 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.22.7). Geldige waarden zijn: B<0> and B<1> (standaard).
 
 =back
 

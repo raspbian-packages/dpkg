@@ -26,7 +26,7 @@ Jeder Bau eines Debian-Quellpakets kann die Bauinformationen in einer B<.buildin
 
 Jedes Feld beginnt mit einer Markierung, wie B<Source> oder B<Binary> (Groß-/Kleinschreibung ist egal), gefolgt von einem Doppelpunkt und dem Inhalt des Feldes (Groß-/Kleinschreibung ist relevant, außer anders angegeben). Felder werden nur durch Feldmarkierungen begrenzt. Mit anderen Worten, Felder können mehrere Zeilen umfassen, aber die Installationswerkzeuge werden im Allgemeinen die Zeilen bei der Verarbeitung des Feldinhaltes zusammenfassen (außer im Falle der mehrzeiligen Felder B<Binary-Only-Changes>, B<Installed-Build-Depends>, B<Environment>, B<Checksums-Md5>, B<Checksums-Sha1> und B<Checksums-Sha256>, siehe unten).
 
-The control data might be enclosed in an OpenPGP ASCII Armored signature, as specified in RFC9580.
+Die Steuerdaten können in eine Signatur mit einer wie in RFC 9580 spezifizierten OpenPGP-ASCII-Hülle eingeschlossen sein.
 
 Der Name der B<.buildinfo>-Datei wird von der Art des Baus abhängen und wird so spezifisch wie notwendig sein, aber nicht mehr; der Name wird
 
@@ -124,10 +124,6 @@ Unter Debian und abgeleiteten Distributionen können die folgenden Begründungsm
 
 =over 
 
-=item B<merged-usr-via-aliased-dirs>
-
-Das System hat ein mittels Alias-Verzeichnisse zusammengeführtes I</usr> (früher B<merged-usr-via-symlinks> benannt). Dies wird B<dpkg-query>, B<dpkg-statoverride>, B<dpkg-trigger>, B<update-alternatives> und weitere Werkzeuge, die Pfadnamen als Schlüssel in ihren Datenbanken verwenden, durcheinanderbringen, da es Dateisystem-Alias-Probleme erzeugt und bringt das Verständnis, das B<dpkg> in seiner Datenbank aufnotiert hat, durcheinander. Für Bausysteme, die Pfadnamen auf bestimmte Programme oder Bibliotheken auf den enstandenen Artefakten hartkodieren, kann dies auch zu Paketen führen, die mit nicht zusammengeführten /usr-Dateisystemen inkompatibel sind.
-
 =item B<usr-local-has-configs>
 
 Das System hat Konfigurationsdateien unter I</usr/local/etc>.
@@ -179,7 +175,7 @@ L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-genbuildinfo(1)>.
 
 =head1 ÜBERSETZUNG
 
-Die deutsche Übersetzung wurde 2004, 2006-2024 von Helge Kreutzmann
+Die deutsche Übersetzung wurde 2004, 2006-2025 von Helge Kreutzmann
 <debian@helgefjell.de>, 2007 von Florian Rehnisch <eixman@gmx.de> und
 2008 von Sven Joachim <svenjoac@gmx.de>
 angefertigt. Diese Übersetzung ist Freie Dokumentation; lesen Sie die

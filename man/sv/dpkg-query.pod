@@ -129,7 +129,7 @@ Visar den I<styrfil> som installerats på ditt system från I<paketnamn> på sta
 
 Visar sökvägarna till styrfilerna som installerats på ditt system för I<paketnamn> (sedan dpkg 1.15.4). Om I<styrfil> anges visas endast sökvägen för den styrfilen, om den finns.
 
-B<Warning>: This command is deprecated as it gives direct access to the internal dpkg database, please switch to use B<--control-list> and B<--control-show> instead for all cases where those commands might give the same end result.  Although, as long as there is still at least one case where this command is needed (i.e. when having to remove a damaging postrm maintainer script), and while there is no good solution for that, this command will not get removed.
+B<Varning>: Kommandot är avråds från eftersom det ger direkt tillgång till den interna dpkg-databasen, vi ber dig gå över till att istället använda B<--control-list> och B<--control-show> för alla tillfällen där dessa kommandon kan ge samma slutresultat. Så länge det finns åtminstone ett tillfälle där kommandot är nödvändigt (dvs. när man måste ta bort ett skadligt postrm-utvecklarskript), och det inte finns någon bra lösning för det, kommer kommandot inte att tas bort.
 
 =item B<-S>, B<--search> I<filnamnssökmönster> ...
 
@@ -231,7 +231,7 @@ Paketinformation kan läggas in genom att sätta in variabelreferenser till pake
 
 =item B<Description>
 
-=item B<Description-md5> (internal, front-end related)
+=item B<Description-md5> (internt, gäller skal)
 
 =item B<Enhances>
 
@@ -269,11 +269,11 @@ Paketinformation kan läggas in genom att sätta in variabelreferenser till pake
 
 =item B<Section>
 
-=item B<SHA1> (internal, front-end related)
+=item B<SHA1> (internt, gäller skal)
 
-=item B<SHA256> (internal, front-end related)
+=item B<SHA256> (internt, gäller skal)
 
-=item B<SHA512> (internal, front-end related)
+=item B<SHA512> (internt, gäller skal)
 
 =item B<Size> (internt, gäller skal)
 
@@ -390,7 +390,9 @@ Väljer program att köra när nya kommandon startas via ett skal (sedan dpkg 1.
 
 =item B<DPKG_PAGER>
 
-Väljer bläddrarprogram att använda (sedan dpkg 1.19.1),  vilket kommer startas med ”B<$SHELL -c>”. Om B<SHELL> inte har valts kommer ”B<%DPKG_DEFAULT_SHELL%>>” att användas istället. B<DPKG_PAGER> överstyr miljövariabeln B<PAGER> (sedan dpkg 1.19.2).
+Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
+
+The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
 
 =item B<DPKG_ROOT>
 
@@ -410,7 +412,7 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 
 =item B<DPKG_NLS>
 
-If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support (since dpkg 1.22.7).  The accepted values are: B<0> and B<1> (default).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.22.7). Tillåtna värden är: B<0> och B<1> (förval).
 
 =back
 

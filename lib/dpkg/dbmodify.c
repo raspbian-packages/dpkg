@@ -388,12 +388,12 @@ void modstatdb_checkpoint(void) {
 
   for (i=0; i<nextupdate; i++) {
     varbuf_rollback(&updatefn_state);
-    varbuf_printf(&updatefn, IMPORTANTFMT, i);
+    varbuf_add_fmt(&updatefn, IMPORTANTFMT, i);
 
     /* Have we made a real mess? */
     if (varbuf_rollback_len(&updatefn_state) > IMPORTANTMAXLEN)
       internerr("modstatdb update entry name '%s' longer than %d",
-                varbuf_rollback_start(&updatefn_state), IMPORTANTMAXLEN);
+                varbuf_rollback_end(&updatefn_state), IMPORTANTMAXLEN);
 
     if (unlink(updatefn.buf))
       ohshite(_("failed to remove my own update file %.255s"), updatefn.buf);
@@ -452,7 +452,7 @@ modstatdb_note_core(struct pkginfo *pkg)
     ohshite(_("unable to close updated status of '%.250s'"),
             pkg_name(pkg, pnaw_nonambig));
   varbuf_rollback(&updatefn_state);
-  varbuf_printf(&updatefn, IMPORTANTFMT, nextupdate);
+  varbuf_add_fmt(&updatefn, IMPORTANTFMT, nextupdate);
   if (rename(importanttmpfile, updatefn.buf))
     ohshite(_("unable to install updated status of '%.250s'"),
             pkg_name(pkg, pnaw_nonambig));
@@ -462,7 +462,7 @@ modstatdb_note_core(struct pkginfo *pkg)
   /* Have we made a real mess? */
   if (varbuf_rollback_len(&updatefn_state) > IMPORTANTMAXLEN)
     internerr("modstatdb update entry name '%s' longer than %d",
-              varbuf_rollback_start(&updatefn_state), IMPORTANTMAXLEN);
+              varbuf_rollback_end(&updatefn_state), IMPORTANTMAXLEN);
 
   nextupdate++;
 
