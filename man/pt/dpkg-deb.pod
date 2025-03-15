@@ -226,6 +226,18 @@ Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B
 
 Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.22.7). Os valores aceites são B<0> e B<1> (predefinição).
 
+=item B<DPKG_PATH_PASSWD>
+
+Sets the pathname for the system F<passwd> file.  This path is relative to the B<--root> directory.  The default is F</etc/passwd>.
+
+Since dpkg 1.22.16.
+
+=item B<DPKG_PATH_GROUP>
+
+Sets the pathname for the system F<group> file.  This path is relative to the B<--root> directory.  The default is F</etc/group>.
+
+Since dpkg 1.22.16.
+
 =item B<TMPDIR>
 
 Se definido, B<dpkg-deb> irá usa-lo como o directório onde criar ficheiros e directórios temporários.

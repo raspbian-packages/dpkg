@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.17.0\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2025-02-03 12:00+0100\n"
+"POT-Creation-Date: 2025-03-09 18:59+0100\n"
 "PO-Revision-Date: 2015-04-07 09:48+0200\n"
 "Last-Translator: Tshewang Norbu <bumthap2006@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -1099,6 +1099,12 @@ msgstr "ཐུམ་སྒྲིལ་ `%.250s' གི་དོན་ལུ་�
 
 #: lib/dpkg/file.c
 #, fuzzy, c-format
+#| msgid "cannot stat old name `%s': %s"
+msgid "cannot canonicalize pathname %s"
+msgstr "མིང་རྙིངམ་ `%s' སི་ཊེཊི་འབད་མ་ཚུགས: %s"
+
+#: lib/dpkg/file.c
+#, fuzzy, c-format
 msgid "unable to stat source file '%.250s'"
 msgstr "འབྱུང་ཁུངས་ཡིག་སྣོད་ `%.250s' ཁ་ཕྱེ་མ་ཚུགས།"
 
@@ -1704,6 +1710,11 @@ msgstr "ཉེན་བརྡ།"
 
 #: lib/dpkg/report.c
 msgid "hint"
+msgstr ""
+
+#: lib/dpkg/strvec.c
+#, c-format
+msgid "cannot grow strvec to size %zu; it would overflow"
 msgstr ""
 
 #: lib/dpkg/strwide.c

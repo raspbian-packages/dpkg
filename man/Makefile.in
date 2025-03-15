@@ -492,7 +492,7 @@ MANFIXUP = $(SED) \
 @BUILD_POD_DOC_TRUE@	  $(PODSUBST) $< | \
 @BUILD_POD_DOC_TRUE@	  $(POD2MAN) $(POD2MAN_OPTS) \
 @BUILD_POD_DOC_TRUE@	  --name="$$(basename $${filename%.*})" \
-@BUILD_POD_DOC_TRUE@	  --section="$${filename\#\#*.}" | \
+@BUILD_POD_DOC_TRUE@	  --section="$$($(PERL) -E 'say((split /\./, shift)[-1])' $$filename)" | \
 @BUILD_POD_DOC_TRUE@	  $(MANFIXUP) >$@
 
 all: all-am

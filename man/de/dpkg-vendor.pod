@@ -94,7 +94,7 @@ Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, au
 
 =item B<%PKGDATADIR%/vendor.mk>
 
-Makefile snippet that sets the current vendor and its parent into variables, and provides make macros to check for derivatives (since dpkg 1.16.1).
+Make-Steuerdateischnipsel, das den aktuelle Lieferanten und seine Eltern in Variablen setzt und Make-Makros bereitstellt, um auf Abgeleitete zu prüfen (seit Dpkg 1.16.1).
 
 =back
 

@@ -262,7 +262,7 @@ Ingebouwde bouwvereisten en tegenstrijdigheden niet controleren (sinds dpkg 1.18
 
 =item B<--rules-requires-root>
 
-Do not honor the B<Rules-Requires-Root> field, falling back to its legacy default value B<binary-targets> (since dpkg 1.19.1).
+Het veld B<Rules-Requires-Root> niet honoreren; er wordt teruggevallen op zijn verouderde standaardwaarde B<binary-targets> (since dpkg 1.19.1).
 
 =item B<-nc>, B<--no-pre-clean>
 
@@ -514,7 +514,7 @@ Indien dit ingesteld werd, zal het gebruikt worden als het commando waarmee het 
 
 =item B<DEB_SIGN_KEYID>
 
-If set, it will be used to sign the B<.changes>, B<.buildinfo> and B<.dsc> files (since dpkg 1.17.2).  Overridden by the B<--sign-keyid> option.
+Indien dit ingesteld werd, zal het gebruikt worden om de bestanden B<.changes>, B<.buildinfo> en B<.dsc> te ondertekenen (sinds dpkg 1.17.2). De optie B<--sign-keyid> heeft hierop voorrang.
 
 =item B<DEB_SIGN_KEYFILE>
 

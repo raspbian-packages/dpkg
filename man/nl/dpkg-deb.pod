@@ -38,13 +38,13 @@ De meeste commando's die als argument een invoerarchief verwachten, kunnen dit a
 
 Maakt een debian-archief van de bestandssysteemboom die in I<map-binair-pakket> staat. I<map-binair-pakket> moet een onderliggende map B<DEBIAN> hebben waarin de bestanden met controle-informatie opgeslagen zijn, zoals het bestand control zelf. Deze map zal I<niet> voorkomen in het bestandssysteemarchief van het binaire pakket, maar in de plaats daarvan zullen de bestanden daaruit in het conrole-informatiegebied van het binaire pakket geplaatst worden.
 
-Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> control information directory.
+Tenzij u B<--no-check> opgeeft, zal B<dpkg-deb> B<DEBIAN/control> lezen en het ontleden. Het zal het bestand controleren op syntaxisfouten en op andere problemen en de naam tonen van het binaire pakket dat gebouwd wordt. B<dpkg-deb> zal ook de toegangsrechten van de scripts van de beheerder nazien en van andere bestanden die te vinden zijn in de map B<DEBIAN> met controle-informatie.
 
 Indien geen I<archief> opgegeven werd, zal B<dpkg-deb> het pakket wegschrijven in het bestand I<map-binair-pakket>B<.deb>.
 
 Indien het te maken archief reeds bestaat, zal het overschreven worden.
 
-If the second argument is a directory then B<dpkg-deb> will write to the file I<directory>B</>I<package>B<_>I<version>B<_>I<arch>B<.deb.> When a target directory is specified, rather than a file, the B<--no-check> option may not be used (since B<dpkg-deb> needs to read and parse the package control file to determine which filename to use).
+Indien het tweede argument een map is, zal B<dpkg-deb> schrijven in het bestand I<map>B</>I<pakket>B<_>I<versie>B<_>I<arch>B<.deb>. Indien een doelmap opgegeven werd, eerder dan een bestand, kan de optie B<--no-check> niet gebruikt worden (aangezien B<dpkg-deb> het control-bestand van het pakket moet lezen en ontleden om te kunnen uitmaken welke bestandsnaam gebruikt moet worden).
 
 =item B<-I>, B<--info> I<archief> [I<naam-controlebestand>...]
 
@@ -166,11 +166,11 @@ De oude archiefindeling wordt door niet-Debian gereedschap minder gemakkelijk on
 
 Dit onderdrukt de gebruikelijke controles die door B<dpkg-deb --build> uitgevoerd worden op de voorgestelde inhoud van een archief. Op die manier kunt u gelijk welk archief bouwen, hoe onklaar het ook is.
 
-Option supported since dpkg 1.22.12.
+Optie ondersteund sinds dpkg 1.22.12.
 
 =item B<--nocheck>
 
-This is an alias for B<--no-check>.
+Dit is een alias voor B<--no-check>.
 
 =item B<-v>, B<--verbose>
 
@@ -225,6 +225,18 @@ Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen
 =item B<DPKG_NLS>
 
 Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.22.7). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+=item B<DPKG_PATH_PASSWD>
+
+Sets the pathname for the system F<passwd> file.  This path is relative to the B<--root> directory.  The default is F</etc/passwd>.
+
+Since dpkg 1.22.16.
+
+=item B<DPKG_PATH_GROUP>
+
+Sets the pathname for the system F<group> file.  This path is relative to the B<--root> directory.  The default is F</etc/group>.
+
+Since dpkg 1.22.16.
 
 =item B<TMPDIR>
 

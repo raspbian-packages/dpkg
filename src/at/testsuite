@@ -653,36 +653,41 @@ at_help_all="1;deb-format.at:1;dpkg-deb options;dpkg-deb command-line;
 40;divert.at:598;dpkg-divert db (read-only dir);dpkg-divert db;
 41;divert.at:613;dpkg-divert db (disk full);dpkg-divert db;
 42;divert.at:628;dpkg-divert db (pathname is dir);dpkg-divert db;
-43;chdir.at:5;dpkg chdir opts;dpkg command-line chdir;
-44;chdir.at:5;dpkg chdir env;dpkg command-line chdir;
-45;chdir.at:5;dpkg chdir env+opt admindir;dpkg command-line chdir;
-46;chdir.at:5;dpkg chdir env+opt root;dpkg command-line chdir;
-47;chdir.at:5;dpkg chdir env+opt root+admindir;dpkg command-line chdir;
-48;chdir.at:5;dpkg-divert chdir opts;dpkg-divert command-line chdir;
-49;chdir.at:5;dpkg-divert chdir env;dpkg-divert command-line chdir;
-50;chdir.at:5;dpkg-divert chdir env+opt admindir;dpkg-divert command-line chdir;
-51;chdir.at:5;dpkg-divert chdir env+opt root;dpkg-divert command-line chdir;
-52;chdir.at:5;dpkg-divert chdir env+opt root+admindir;dpkg-divert command-line chdir;
-53;chdir.at:5;dpkg-statoverride chdir opts;dpkg-statoverride command-line chdir;
-54;chdir.at:5;dpkg-statoverride chdir env;dpkg-statoverride command-line chdir;
-55;chdir.at:5;dpkg-statoverride chdir env+opt admindir;dpkg-statoverride command-line chdir;
-56;chdir.at:5;dpkg-statoverride chdir env+opt root;dpkg-statoverride command-line chdir;
-57;chdir.at:5;dpkg-statoverride chdir env+opt root+admindir;dpkg-statoverride command-line chdir;
-58;chdir.at:329;dpkg-split chdir opts;dpkg-split command-line chdir;
-59;chdir.at:329;dpkg-split chdir env;dpkg-split command-line chdir;
-60;chdir.at:329;dpkg-split chdir env+opt admindir;dpkg-split command-line chdir;
-61;chdir.at:329;dpkg-split chdir env+opt root;dpkg-split command-line chdir;
-62;chdir.at:329;dpkg-split chdir env+opt root+admindir;dpkg-split command-line chdir;
-63;chdir.at:329;dpkg-query chdir opts;dpkg-query command-line chdir;
-64;chdir.at:329;dpkg-query chdir env;dpkg-query command-line chdir;
-65;chdir.at:329;dpkg-query chdir env+opt admindir;dpkg-query command-line chdir;
-66;chdir.at:329;dpkg-query chdir env+opt root;dpkg-query command-line chdir;
-67;chdir.at:329;dpkg-query chdir env+opt root+admindir;dpkg-query command-line chdir;
-68;chdir.at:329;dpkg-trigger chdir opts;dpkg-trigger command-line chdir;
-69;chdir.at:329;dpkg-trigger chdir env;dpkg-trigger command-line chdir;
-70;chdir.at:329;dpkg-trigger chdir env+opt admindir;dpkg-trigger command-line chdir;
-71;chdir.at:329;dpkg-trigger chdir env+opt root;dpkg-trigger command-line chdir;
-72;chdir.at:329;dpkg-trigger chdir env+opt root+admindir;dpkg-trigger command-line chdir;
+43;chdir.at:5;dpkg chdir opts normalize;dpkg command-line chdir;
+44;chdir.at:5;dpkg chdir opts;dpkg command-line chdir;
+45;chdir.at:5;dpkg chdir env;dpkg command-line chdir;
+46;chdir.at:5;dpkg chdir env+opt admindir;dpkg command-line chdir;
+47;chdir.at:5;dpkg chdir env+opt root;dpkg command-line chdir;
+48;chdir.at:5;dpkg chdir env+opt root+admindir;dpkg command-line chdir;
+49;chdir.at:5;dpkg-divert chdir opts normalize;dpkg-divert command-line chdir;
+50;chdir.at:5;dpkg-divert chdir opts;dpkg-divert command-line chdir;
+51;chdir.at:5;dpkg-divert chdir env;dpkg-divert command-line chdir;
+52;chdir.at:5;dpkg-divert chdir env+opt admindir;dpkg-divert command-line chdir;
+53;chdir.at:5;dpkg-divert chdir env+opt root;dpkg-divert command-line chdir;
+54;chdir.at:5;dpkg-divert chdir env+opt root+admindir;dpkg-divert command-line chdir;
+55;chdir.at:5;dpkg-statoverride chdir opts normalize;dpkg-statoverride command-line chdir;
+56;chdir.at:5;dpkg-statoverride chdir opts;dpkg-statoverride command-line chdir;
+57;chdir.at:5;dpkg-statoverride chdir env;dpkg-statoverride command-line chdir;
+58;chdir.at:5;dpkg-statoverride chdir env+opt admindir;dpkg-statoverride command-line chdir;
+59;chdir.at:5;dpkg-statoverride chdir env+opt root;dpkg-statoverride command-line chdir;
+60;chdir.at:5;dpkg-statoverride chdir env+opt root+admindir;dpkg-statoverride command-line chdir;
+61;chdir.at:349;dpkg-split chdir opts;dpkg-split command-line chdir;
+62;chdir.at:349;dpkg-split chdir env;dpkg-split command-line chdir;
+63;chdir.at:349;dpkg-split chdir env+opt admindir;dpkg-split command-line chdir;
+64;chdir.at:349;dpkg-split chdir env+opt root;dpkg-split command-line chdir;
+65;chdir.at:349;dpkg-split chdir env+opt root+admindir;dpkg-split command-line chdir;
+66;chdir.at:349;dpkg-query chdir opts;dpkg-query command-line chdir;
+67;chdir.at:349;dpkg-query chdir env;dpkg-query command-line chdir;
+68;chdir.at:349;dpkg-query chdir env+opt admindir;dpkg-query command-line chdir;
+69;chdir.at:349;dpkg-query chdir env+opt root;dpkg-query command-line chdir;
+70;chdir.at:349;dpkg-query chdir env+opt root+admindir;dpkg-query command-line chdir;
+71;chdir.at:349;dpkg-trigger chdir opts;dpkg-trigger command-line chdir;
+72;chdir.at:349;dpkg-trigger chdir env;dpkg-trigger command-line chdir;
+73;chdir.at:349;dpkg-trigger chdir env+opt admindir;dpkg-trigger command-line chdir;
+74;chdir.at:349;dpkg-trigger chdir env+opt root;dpkg-trigger command-line chdir;
+75;chdir.at:349;dpkg-trigger chdir env+opt root+admindir;dpkg-trigger command-line chdir;
+76;dpkg-arch.at:5;dpkg native architecture support;dpkg native arch;
+77;dpkg-arch.at:18;dpkg foreign architecture support;dpkg foreign arch;
 "
 # List of the all the test groups.
 at_groups_all=`printf "%s\n" "$at_help_all" | sed 's/;.*//'`
@@ -696,7 +701,7 @@ at_fn_validate_ranges ()
   for at_grp
   do
     eval at_value=\$$at_grp
-    if test $at_value -lt 1 || test $at_value -gt 72; then
+    if test $at_value -lt 1 || test $at_value -gt 77; then
       printf "%s\n" "invalid test group: $at_value" >&2
       exit 1
     fi
@@ -1001,7 +1006,7 @@ fi
 # List of tests.
 if $at_list_p; then
   cat <<_ATEOF || at_write_fail=1
-dpkg 1.22.15 test suite: dpkg tools functional test suite test groups:
+dpkg 1.22.18 test suite: dpkg tools functional test suite test groups:
 
  NUM: FILE-NAME:LINE     TEST-GROUP-NAME
       KEYWORDS
@@ -1042,7 +1047,7 @@ _ATEOF
   exit $at_write_fail
 fi
 if $at_version_p; then
-  printf "%s\n" "$as_me (dpkg 1.22.15)" &&
+  printf "%s\n" "$as_me (dpkg 1.22.18)" &&
   cat <<\_ATEOF || at_write_fail=1
 
 Copyright (C) 2023 Free Software Foundation, Inc.
@@ -1074,6 +1079,9 @@ at_banner_text_4="Diversions"
 # Banner 5. testsuite.at:23
 # Category starts at test group 43.
 at_banner_text_5="Change directory options"
+# Banner 6. testsuite.at:25
+# Category starts at test group 76.
+at_banner_text_6="Architecture support"
 
 # Take any -C into account.
 if $at_change_dir ; then
@@ -1239,11 +1247,11 @@ exec 5>>"$at_suite_log"
 
 # Banners and logs.
 printf "%s\n" "## ---------------------------------------------------------- ##
-## dpkg 1.22.15 test suite: dpkg tools functional test suite. ##
+## dpkg 1.22.18 test suite: dpkg tools functional test suite. ##
 ## ---------------------------------------------------------- ##"
 {
   printf "%s\n" "## ---------------------------------------------------------- ##
-## dpkg 1.22.15 test suite: dpkg tools functional test suite. ##
+## dpkg 1.22.18 test suite: dpkg tools functional test suite. ##
 ## ---------------------------------------------------------- ##"
   echo
 
@@ -2103,7 +2111,7 @@ _ASBOX
   printf "%s\n" "Please send $at_msg and all information you think might help:
 
    To: <debian-dpkg@lists.debian.org>
-   Subject: [dpkg 1.22.15] $as_me: $at_msg1$at_msg2
+   Subject: [dpkg 1.22.18] $as_me: $at_msg1$at_msg2
 
 You may investigate any problem if you feel able to do so, in which
 case the test suite provides a good starting point.  Its output may
@@ -2499,7 +2507,7 @@ at_status=$? at_failed=false
 $at_check_filter
 at_fn_diff_devnull "$at_stderr" || at_failed=:
 echo >>"$at_stdout"; printf "%s\n" "drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -2523,7 +2531,7 @@ at_status=$? at_failed=false
 $at_check_filter
 at_fn_diff_devnull "$at_stderr" || at_failed=:
 echo >>"$at_stdout"; printf "%s\n" "drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -2547,7 +2555,7 @@ at_status=$? at_failed=false
 $at_check_filter
 at_fn_diff_devnull "$at_stderr" || at_failed=:
 echo >>"$at_stdout"; printf "%s\n" "drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -2571,7 +2579,7 @@ at_status=$? at_failed=false
 $at_check_filter
 at_fn_diff_devnull "$at_stderr" || at_failed=:
 echo >>"$at_stdout"; printf "%s\n" "drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3316,7 +3324,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3355,7 +3363,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar.gz
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3407,7 +3415,7 @@ data.tar.gz
  Architecture: all
  Description: test package - deb format support
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3613,7 +3621,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.xz
 data.tar.xz
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3652,7 +3660,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar.xz
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3830,7 +3838,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.zst
 data.tar.zst
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -3869,7 +3877,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar.zst
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -4045,7 +4053,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar.bz2
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -4193,7 +4201,7 @@ echo >>"$at_stdout"; printf "%s\n" "debian-binary
 control.tar.gz
 data.tar.lzma
 drwxr-xr-x root/root         0 1970-01-01 00:00 ./
--rw-r--r-- root/root    641345 1970-01-01 00:00 ./ChangeLog.old
+-rw-r--r-- root/root    641344 1970-01-01 00:00 ./ChangeLog.old
 -rw-r--r-- root/root         5 1970-01-01 00:00 ./file-templ
 " | \
   $at_diff - "$at_stdout" || at_failed=:
@@ -6665,8 +6673,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -6725,6 +6735,7 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   cat >dpkgdb/diversions <<'_ATEOF'
 /bin/sh
@@ -6737,6 +6748,7 @@ dash
 /usr/bin/nm.single
 binutils-multiarch
 _ATEOF
+
 
 
 
@@ -6931,6 +6943,7 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   cat >dpkgdb/diversions <<'_ATEOF'
 /bin/sh
@@ -6940,6 +6953,7 @@ dash
 /bin/true.coreutils
 :
 _ATEOF
+
 
 
 
@@ -7053,8 +7067,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7156,8 +7172,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7259,8 +7277,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7349,8 +7369,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -7429,8 +7451,10 @@ at_xfail=no
   mkdir -p "dpkginst//testdir"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7519,8 +7543,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7605,8 +7631,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7668,8 +7696,10 @@ at_xfail=no
   ln "dpkginst//testdir/foo" "dpkginst//testdir/foo.distrib"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -7762,8 +7792,10 @@ at_xfail=no
   : >dpkginst//testdir/foo.distrib
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -7822,8 +7854,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/zoo/foo
@@ -7896,8 +7930,10 @@ printf "%s\n" "divert.at:322" >"$at_check_line_file"
   chmod 500 "dpkginst//testdir/rodir"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -8001,8 +8037,10 @@ printf "%s\n" "divert.at:346" >"$at_check_line_file"
   chmod 000 "dpkginst//testdir/nadir"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -8095,8 +8133,10 @@ at_xfail=no
   mkdir -p "dpkginst//testdir"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -8334,8 +8374,10 @@ at_xfail=no
   mkdir -p "dpkginst//testdir"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -8465,6 +8507,7 @@ at_xfail=no
 
 # Only installed packages have their files list considered.
 
+
   mkdir -p "dpkgdb"
   cat >dpkgdb/status <<'_ATEOF'
 Package: coreutils
@@ -8477,6 +8520,7 @@ _ATEOF
 
 
 
+
   mkdir -p "dpkgdb/info"
   cat >dpkgdb/info/coreutils.list <<'_ATEOF'
 /testdir/foo
@@ -8484,8 +8528,10 @@ _ATEOF
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -8570,8 +8616,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
 { set +x
@@ -8631,8 +8679,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/bar
@@ -8825,8 +8875,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -8938,8 +8990,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/bar
@@ -9042,8 +9096,10 @@ at_xfail=no
   : >dpkginst//testdir/foo
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 cat >ref-diversions <<'_ATEOF'
 /testdir/foo
@@ -9218,8 +9274,10 @@ printf "%s\n" "divert.at:567" >"$at_check_line_file"
 # An inexistent diversions db file should not be considered a failure,
 # but a failure to open it should be.
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
   chmod 000 "dpkgdb/diversions"
@@ -9271,10 +9329,12 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   cat >dpkgdb/diversions <<'_ATEOF'
 /bin/sh
 _ATEOF
+
 
 
 
@@ -9306,11 +9366,13 @@ $at_traceon; }
 
 
 
+
   mkdir -p "dpkgdb"
   cat >dpkgdb/diversions <<'_ATEOF'
 /bin/sh
 bash
 _ATEOF
+
 
 
 
@@ -9361,8 +9423,10 @@ printf "%s\n" "divert.at:601" >"$at_check_line_file"
   && at_fn_check_skip 77 "$at_srcdir/divert.at:601"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 
   chmod 500 "dpkgdb/"
@@ -9434,8 +9498,10 @@ printf "%s\n" "divert.at:617" >"$at_check_line_file"
   && at_fn_check_skip 77 "$at_srcdir/divert.at:617"
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 ln -s /dev/full dpkgdb/diversions-new
 
@@ -9495,8 +9561,10 @@ at_xfail=no
 
 
 
+
   mkdir -p "dpkgdb"
   : >dpkgdb/diversions
+
 
 rm -f dpkgdb/diversions-new
 mkdir dpkgdb/diversions-old
@@ -9548,10 +9616,60 @@ read at_status <"$at_status_file"
 #AT_STOP_42
 #AT_START_43
 at_fn_group_banner 43 'chdir.at:5' \
-  "dpkg chdir opts" "                                " 5
+  "dpkg chdir opts normalize" "                      " 5
 at_xfail=no
 (
   printf "%s\n" "43. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg --version --root=/"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg --version --root=/
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg --version --root=//./..///../././..///"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg --version --root=//./..///../././..///
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_43
+#AT_START_44
+at_fn_group_banner 44 'chdir.at:5' \
+  "dpkg chdir opts" "                                " 5
+at_xfail=no
+(
+  printf "%s\n" "44. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -9729,13 +9847,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_43
-#AT_START_44
-at_fn_group_banner 44 'chdir.at:5' \
+#AT_STOP_44
+#AT_START_45
+at_fn_group_banner 45 'chdir.at:5' \
   "dpkg chdir env" "                                 " 5
 at_xfail=no
 (
-  printf "%s\n" "44. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "45. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -9799,13 +9917,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_44
-#AT_START_45
-at_fn_group_banner 45 'chdir.at:5' \
+#AT_STOP_45
+#AT_START_46
+at_fn_group_banner 46 'chdir.at:5' \
   "dpkg chdir env+opt admindir" "                    " 5
 at_xfail=no
 (
-  printf "%s\n" "45. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "46. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10005,13 +10123,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_45
-#AT_START_46
-at_fn_group_banner 46 'chdir.at:5' \
+#AT_STOP_46
+#AT_START_47
+at_fn_group_banner 47 'chdir.at:5' \
   "dpkg chdir env+opt root" "                        " 5
 at_xfail=no
 (
-  printf "%s\n" "46. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "47. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10211,13 +10329,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_46
-#AT_START_47
-at_fn_group_banner 47 'chdir.at:5' \
+#AT_STOP_47
+#AT_START_48
+at_fn_group_banner 48 'chdir.at:5' \
   "dpkg chdir env+opt root+admindir" "               " 5
 at_xfail=no
 (
-  printf "%s\n" "47. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "48. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10417,13 +10535,63 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_47
-#AT_START_48
-at_fn_group_banner 48 'chdir.at:5' \
+#AT_STOP_48
+#AT_START_49
+at_fn_group_banner 49 'chdir.at:5' \
+  "dpkg-divert chdir opts normalize" "               " 5
+at_xfail=no
+(
+  printf "%s\n" "49. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg-divert --version --root=/"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-divert --version --root=/
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg-divert --version --root=//./..///../././..///"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-divert --version --root=//./..///../././..///
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_49
+#AT_START_50
+at_fn_group_banner 50 'chdir.at:5' \
   "dpkg-divert chdir opts" "                         " 5
 at_xfail=no
 (
-  printf "%s\n" "48. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "50. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10601,13 +10769,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_48
-#AT_START_49
-at_fn_group_banner 49 'chdir.at:5' \
+#AT_STOP_50
+#AT_START_51
+at_fn_group_banner 51 'chdir.at:5' \
   "dpkg-divert chdir env" "                          " 5
 at_xfail=no
 (
-  printf "%s\n" "49. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "51. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10671,13 +10839,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_49
-#AT_START_50
-at_fn_group_banner 50 'chdir.at:5' \
+#AT_STOP_51
+#AT_START_52
+at_fn_group_banner 52 'chdir.at:5' \
   "dpkg-divert chdir env+opt admindir" "             " 5
 at_xfail=no
 (
-  printf "%s\n" "50. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "52. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -10877,13 +11045,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_50
-#AT_START_51
-at_fn_group_banner 51 'chdir.at:5' \
+#AT_STOP_52
+#AT_START_53
+at_fn_group_banner 53 'chdir.at:5' \
   "dpkg-divert chdir env+opt root" "                 " 5
 at_xfail=no
 (
-  printf "%s\n" "51. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "53. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11083,13 +11251,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_51
-#AT_START_52
-at_fn_group_banner 52 'chdir.at:5' \
+#AT_STOP_53
+#AT_START_54
+at_fn_group_banner 54 'chdir.at:5' \
   "dpkg-divert chdir env+opt root+admindir" "        " 5
 at_xfail=no
 (
-  printf "%s\n" "52. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "54. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11289,13 +11457,63 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_52
-#AT_START_53
-at_fn_group_banner 53 'chdir.at:5' \
+#AT_STOP_54
+#AT_START_55
+at_fn_group_banner 55 'chdir.at:5' \
+  "dpkg-statoverride chdir opts normalize" "         " 5
+at_xfail=no
+(
+  printf "%s\n" "55. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg-statoverride --version --root=/"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-statoverride --version --root=/
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:5: DPKG_DEBUG=1 dpkg-statoverride --version --root=//./..///../././..///"
+at_fn_check_prepare_trace "chdir.at:5"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-statoverride --version --root=//./..///../././..///
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:5"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_55
+#AT_START_56
+at_fn_group_banner 56 'chdir.at:5' \
   "dpkg-statoverride chdir opts" "                   " 5
 at_xfail=no
 (
-  printf "%s\n" "53. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "56. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11473,13 +11691,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_53
-#AT_START_54
-at_fn_group_banner 54 'chdir.at:5' \
+#AT_STOP_56
+#AT_START_57
+at_fn_group_banner 57 'chdir.at:5' \
   "dpkg-statoverride chdir env" "                    " 5
 at_xfail=no
 (
-  printf "%s\n" "54. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "57. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11543,13 +11761,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_54
-#AT_START_55
-at_fn_group_banner 55 'chdir.at:5' \
+#AT_STOP_57
+#AT_START_58
+at_fn_group_banner 58 'chdir.at:5' \
   "dpkg-statoverride chdir env+opt admindir" "       " 5
 at_xfail=no
 (
-  printf "%s\n" "55. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "58. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11749,13 +11967,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_55
-#AT_START_56
-at_fn_group_banner 56 'chdir.at:5' \
+#AT_STOP_58
+#AT_START_59
+at_fn_group_banner 59 'chdir.at:5' \
   "dpkg-statoverride chdir env+opt root" "           " 5
 at_xfail=no
 (
-  printf "%s\n" "56. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "59. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -11955,13 +12173,13 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_56
-#AT_START_57
-at_fn_group_banner 57 'chdir.at:5' \
+#AT_STOP_59
+#AT_START_60
+at_fn_group_banner 60 'chdir.at:5' \
   "dpkg-statoverride chdir env+opt root+admindir" "  " 5
 at_xfail=no
 (
-  printf "%s\n" "57. $at_setup_line: testing $at_desc ..."
+  printf "%s\n" "60. $at_setup_line: testing $at_desc ..."
   $at_traceon
 
 
@@ -12161,251 +12379,10 @@ $at_traceon; }
   $at_times_p && times >"$at_times_file"
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
-#AT_STOP_57
-#AT_START_58
-at_fn_group_banner 58 'chdir.at:329' \
-  "dpkg-split chdir opts" "                          " 5
-at_xfail=no
-(
-  printf "%s\n" "58. $at_setup_line: testing $at_desc ..."
-  $at_traceon
-
-
-
-  DPKG_ROOT=
-  DPKG_ADMINDIR=
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-    set +x
-  $at_times_p && times >"$at_times_file"
-) 5>&1 2>&1 7>&- | eval $at_tee_pipe
-read at_status <"$at_status_file"
-#AT_STOP_58
-#AT_START_59
-at_fn_group_banner 59 'chdir.at:329' \
-  "dpkg-split chdir env" "                           " 5
-at_xfail=no
-(
-  printf "%s\n" "59. $at_setup_line: testing $at_desc ..."
-  $at_traceon
-
-
-
-  DPKG_ROOT=
-  DPKG_ADMINDIR=
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-split --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-split --version
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-    set +x
-  $at_times_p && times >"$at_times_file"
-) 5>&1 2>&1 7>&- | eval $at_tee_pipe
-read at_status <"$at_status_file"
-#AT_STOP_59
-#AT_START_60
-at_fn_group_banner 60 'chdir.at:329' \
-  "dpkg-split chdir env+opt admindir" "              " 5
-at_xfail=no
-(
-  printf "%s\n" "60. $at_setup_line: testing $at_desc ..."
-  $at_traceon
-
-
-
-  DPKG_ROOT=
-  DPKG_ADMINDIR=
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-    set +x
-  $at_times_p && times >"$at_times_file"
-) 5>&1 2>&1 7>&- | eval $at_tee_pipe
-read at_status <"$at_status_file"
 #AT_STOP_60
 #AT_START_61
-at_fn_group_banner 61 'chdir.at:329' \
-  "dpkg-split chdir env+opt root" "                  " 5
+at_fn_group_banner 61 'chdir.at:349' \
+  "dpkg-split chdir opts" "                          " 5
 at_xfail=no
 (
   printf "%s\n" "61. $at_setup_line: testing $at_desc ..."
@@ -12417,11 +12394,9 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12429,33 +12404,31 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12463,16 +12436,15 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12480,7 +12452,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12491,8 +12463,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_61
 #AT_START_62
-at_fn_group_banner 62 'chdir.at:329' \
-  "dpkg-split chdir env+opt root+admindir" "         " 5
+at_fn_group_banner 62 'chdir.at:349' \
+  "dpkg-split chdir env" "                           " 5
 at_xfail=no
 (
   printf "%s\n" "62. $at_setup_line: testing $at_desc ..."
@@ -12504,70 +12476,55 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-split --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-split --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
 ( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
+     DPKG_DEBUG=1 dpkg-split --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12578,8 +12535,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_62
 #AT_START_63
-at_fn_group_banner 63 'chdir.at:329' \
-  "dpkg-query chdir opts" "                          " 5
+at_fn_group_banner 63 'chdir.at:349' \
+  "dpkg-split chdir env+opt admindir" "              " 5
 at_xfail=no
 (
   printf "%s\n" "63. $at_setup_line: testing $at_desc ..."
@@ -12591,9 +12548,11 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12601,15 +12560,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12617,15 +12577,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/adm
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12633,15 +12594,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12649,7 +12611,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12660,8 +12622,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_63
 #AT_START_64
-at_fn_group_banner 64 'chdir.at:329' \
-  "dpkg-query chdir env" "                           " 5
+at_fn_group_banner 64 'chdir.at:349' \
+  "dpkg-split chdir env+opt root" "                  " 5
 at_xfail=no
 (
   printf "%s\n" "64. $at_setup_line: testing $at_desc ..."
@@ -12673,55 +12635,70 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-query --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
 ( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-query --version
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12732,8 +12709,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_64
 #AT_START_65
-at_fn_group_banner 65 'chdir.at:329' \
-  "dpkg-query chdir env+opt admindir" "              " 5
+at_fn_group_banner 65 'chdir.at:349' \
+  "dpkg-split chdir env+opt root+admindir" "         " 5
 at_xfail=no
 (
   printf "%s\n" "65. $at_setup_line: testing $at_desc ..."
@@ -12745,11 +12722,11 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12757,33 +12734,33 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12791,16 +12768,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-split --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12808,7 +12785,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12819,8 +12796,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_65
 #AT_START_66
-at_fn_group_banner 66 'chdir.at:329' \
-  "dpkg-query chdir env+opt root" "                  " 5
+at_fn_group_banner 66 'chdir.at:349' \
+  "dpkg-query chdir opts" "                          " 5
 at_xfail=no
 (
   printf "%s\n" "66. $at_setup_line: testing $at_desc ..."
@@ -12832,11 +12809,9 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12844,33 +12819,31 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12878,16 +12851,15 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -12895,7 +12867,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12906,8 +12878,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_66
 #AT_START_67
-at_fn_group_banner 67 'chdir.at:329' \
-  "dpkg-query chdir env+opt root+admindir" "         " 5
+at_fn_group_banner 67 'chdir.at:349' \
+  "dpkg-query chdir env" "                           " 5
 at_xfail=no
 (
   printf "%s\n" "67. $at_setup_line: testing $at_desc ..."
@@ -12919,70 +12891,55 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-query --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-query --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
 ( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
+     DPKG_DEBUG=1 dpkg-query --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -12993,8 +12950,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_67
 #AT_START_68
-at_fn_group_banner 68 'chdir.at:329' \
-  "dpkg-trigger chdir opts" "                        " 5
+at_fn_group_banner 68 'chdir.at:349' \
+  "dpkg-query chdir env+opt admindir" "              " 5
 at_xfail=no
 (
   printf "%s\n" "68. $at_setup_line: testing $at_desc ..."
@@ -13006,9 +12963,11 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13016,15 +12975,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13032,15 +12992,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/adm
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13048,15 +13009,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_trace "chdir.at:329"
-( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13064,7 +13026,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -13075,8 +13037,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_68
 #AT_START_69
-at_fn_group_banner 69 'chdir.at:329' \
-  "dpkg-trigger chdir env" "                         " 5
+at_fn_group_banner 69 'chdir.at:349' \
+  "dpkg-query chdir env+opt root" "                  " 5
 at_xfail=no
 (
   printf "%s\n" "69. $at_setup_line: testing $at_desc ..."
@@ -13088,55 +13050,70 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
-
-
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
 ( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -13147,8 +13124,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_69
 #AT_START_70
-at_fn_group_banner 70 'chdir.at:329' \
-  "dpkg-trigger chdir env+opt admindir" "            " 5
+at_fn_group_banner 70 'chdir.at:349' \
+  "dpkg-query chdir env+opt root+admindir" "         " 5
 at_xfail=no
 (
   printf "%s\n" "70. $at_setup_line: testing $at_desc ..."
@@ -13160,11 +13137,11 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13172,33 +13149,33 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13206,16 +13183,16 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-query --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13223,7 +13200,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -13234,8 +13211,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_70
 #AT_START_71
-at_fn_group_banner 71 'chdir.at:329' \
-  "dpkg-trigger chdir env+opt root" "                " 5
+at_fn_group_banner 71 'chdir.at:349' \
+  "dpkg-trigger chdir opts" "                        " 5
 at_xfail=no
 (
   printf "%s\n" "71. $at_setup_line: testing $at_desc ..."
@@ -13247,11 +13224,9 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13259,33 +13234,31 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13293,16 +13266,15 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindi
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_trace "chdir.at:349"
+( $at_check_trace; DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
@@ -13310,7 +13282,7 @@ echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -13321,8 +13293,8 @@ $at_traceon; }
 read at_status <"$at_status_file"
 #AT_STOP_71
 #AT_START_72
-at_fn_group_banner 72 'chdir.at:329' \
-  "dpkg-trigger chdir env+opt root+admindir" "       " 5
+at_fn_group_banner 72 'chdir.at:349' \
+  "dpkg-trigger chdir env" "                         " 5
 at_xfail=no
 (
   printf "%s\n" "72. $at_setup_line: testing $at_desc ..."
@@ -13334,70 +13306,55 @@ at_xfail=no
   DPKG_ADMINDIR=
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
+
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/rootdir_env$DEFAULT_ADMINDIR
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
-  { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
-( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
-) >>"$at_stdout" 2>>"$at_stderr" 5>&-
-at_status=$? at_failed=false
-$at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
-" | \
-  $at_diff - "$at_stderr" || at_failed=:
-echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
-$at_failed && at_fn_log_failure
-$at_traceon; }
 
   { set +x
-printf "%s\n" "$at_srcdir/chdir.at:329: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
-at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:329"
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
 ( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
-     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+     DPKG_DEBUG=1 dpkg-trigger --version
 ) >>"$at_stdout" 2>>"$at_stderr" 5>&-
 at_status=$? at_failed=false
 $at_check_filter
-echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_env
 " | \
   $at_diff - "$at_stderr" || at_failed=:
 echo stdout:; cat "$at_stdout"
-at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:329"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
 $at_failed && at_fn_log_failure
 $at_traceon; }
 
@@ -13407,3 +13364,382 @@ $at_traceon; }
 ) 5>&1 2>&1 7>&- | eval $at_tee_pipe
 read at_status <"$at_status_file"
 #AT_STOP_72
+#AT_START_73
+at_fn_group_banner 73 'chdir.at:349' \
+  "dpkg-trigger chdir env+opt admindir" "            " 5
+at_xfail=no
+(
+  printf "%s\n" "73. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=$DEFAULT_ROOTDIR admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_73
+#AT_START_74
+at_fn_group_banner 74 'chdir.at:349' \
+  "dpkg-trigger chdir env+opt root" "                " 5
+at_xfail=no
+(
+  printf "%s\n" "74. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_74
+#AT_START_75
+at_fn_group_banner 75 'chdir.at:349' \
+  "dpkg-trigger chdir env+opt root+admindir" "       " 5
+at_xfail=no
+(
+  printf "%s\n" "75. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+  DPKG_ROOT=
+  DPKG_ADMINDIR=
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_env admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --root=/rootdir_opt --admindir=/admindir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/admindir_opt
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+  { set +x
+printf "%s\n" "$at_srcdir/chdir.at:349: DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \\
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt"
+at_fn_check_prepare_notrace 'an embedded newline' "chdir.at:349"
+( $at_check_trace; DPKG_ROOT=/rootdir_env DPKG_ADMINDIR=/admindir_env \
+     DPKG_DEBUG=1 dpkg-trigger --version --admindir=/admindir_opt --root=/rootdir_opt
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+echo >>"$at_stderr"; printf "%s\n" "D000001: root=/rootdir_opt admindir=/rootdir_opt$DEFAULT_ADMINDIR
+" | \
+  $at_diff - "$at_stderr" || at_failed=:
+echo stdout:; cat "$at_stdout"
+at_fn_check_status 0 $at_status "$at_srcdir/chdir.at:349"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+    set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_75
+#AT_START_76
+at_fn_group_banner 76 'dpkg-arch.at:5' \
+  "dpkg native architecture support" "               " 6
+at_xfail=no
+(
+  printf "%s\n" "76. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+
+  mkdir -p "dpkgdb"
+  cat >dpkgdb/arch <<'_ATEOF'
+arm64
+_ATEOF
+
+
+
+  mkdir -p "dpkgdb"
+  cat >dpkgdb/arch-native <<'_ATEOF'
+arm64
+_ATEOF
+
+
+{ set +x
+printf "%s\n" "$at_srcdir/dpkg-arch.at:12:   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-architecture"
+at_fn_check_prepare_trace "dpkg-arch.at:12"
+( $at_check_trace;   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-architecture
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+at_fn_diff_devnull "$at_stderr" || at_failed=:
+echo >>"$at_stdout"; printf "%s\n" "arm64
+" | \
+  $at_diff - "$at_stdout" || at_failed=:
+at_fn_check_status 0 $at_status "$at_srcdir/dpkg-arch.at:12"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+{ set +x
+printf "%s\n" "$at_srcdir/dpkg-arch.at:14:   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-foreign-architectures"
+at_fn_check_prepare_trace "dpkg-arch.at:14"
+( $at_check_trace;   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-foreign-architectures
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+at_fn_diff_devnull "$at_stderr" || at_failed=:
+at_fn_diff_devnull "$at_stdout" || at_failed=:
+at_fn_check_status 0 $at_status "$at_srcdir/dpkg-arch.at:14"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+  set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_76
+#AT_START_77
+at_fn_group_banner 77 'dpkg-arch.at:18' \
+  "dpkg foreign architecture support" "              " 6
+at_xfail=no
+(
+  printf "%s\n" "77. $at_setup_line: testing $at_desc ..."
+  $at_traceon
+
+
+
+
+  mkdir -p "dpkgdb"
+  cat >dpkgdb/arch <<'_ATEOF'
+arm64
+_ATEOF
+
+
+
+  mkdir -p "dpkgdb"
+  cat >dpkgdb/arch-native <<'_ATEOF'
+riscv64
+_ATEOF
+
+
+{ set +x
+printf "%s\n" "$at_srcdir/dpkg-arch.at:25:   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-architecture"
+at_fn_check_prepare_trace "dpkg-arch.at:25"
+( $at_check_trace;   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-architecture
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+at_fn_diff_devnull "$at_stderr" || at_failed=:
+echo >>"$at_stdout"; printf "%s\n" "riscv64
+" | \
+  $at_diff - "$at_stdout" || at_failed=:
+at_fn_check_status 0 $at_status "$at_srcdir/dpkg-arch.at:25"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+{ set +x
+printf "%s\n" "$at_srcdir/dpkg-arch.at:27:   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-foreign-architectures"
+at_fn_check_prepare_trace "dpkg-arch.at:27"
+( $at_check_trace;   dpkg   --admindir=dpkgdb  --instdir=dpkginst  --print-foreign-architectures
+) >>"$at_stdout" 2>>"$at_stderr" 5>&-
+at_status=$? at_failed=false
+$at_check_filter
+at_fn_diff_devnull "$at_stderr" || at_failed=:
+echo >>"$at_stdout"; printf "%s\n" "arm64
+" | \
+  $at_diff - "$at_stdout" || at_failed=:
+at_fn_check_status 0 $at_status "$at_srcdir/dpkg-arch.at:27"
+$at_failed && at_fn_log_failure
+$at_traceon; }
+
+
+  set +x
+  $at_times_p && times >"$at_times_file"
+) 5>&1 2>&1 7>&- | eval $at_tee_pipe
+read at_status <"$at_status_file"
+#AT_STOP_77

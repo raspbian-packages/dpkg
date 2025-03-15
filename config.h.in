@@ -100,6 +100,12 @@
 /* Define to 1 if you have the 'fallocate' function. */
 #undef HAVE_FALLOCATE
 
+/* Define to 1 if you have the 'fgetgrent' function. */
+#undef HAVE_FGETGRENT
+
+/* Define to 1 if you have the 'fgetpwent' function. */
+#undef HAVE_FGETPWENT
+
 /* Define to 1 if the 'fsync' function works on directories */
 #undef HAVE_FSYNC_DIR
 

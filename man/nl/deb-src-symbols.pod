@@ -66,11 +66,11 @@ Deze tags laten iemand toe om de set architecturen waarvoor het symbool veronder
 
 Als in de standaardmodus (niet-sjabloonmodus) gewerkt wordt, worden van de architectuurspecifieke symbolen enkel die in het symboolbestand opgeschreven die overeenkomen met de huidige hostarchitectuur. Als daarentegen in de sjabloonmodus gewerkt wordt, worden steeds alle architectuurspecifieke symbolen (ook die voor vreemde architecturen) opgeschreven in het symboolbestand.
 
-The format of I<architecture-list> is the same as the one used in the B<Build-Depends> field of I<debian/control> (except the enclosing square brackets []).  For example, the first symbol from the list below will be considered only on arm64, any-amd64 and riscv64 architectures, the second only on linux architectures, while the third one anywhere except on armel.
+De indeling voor de I<architectuurlijst> is dezelfde als die welke gebruikt wordt voor het veld B<Build-Depends> van I<debian/control> (behalve de omsluitende vierkante haakjes []). Met het eerste symbool uit de onderstaande lijst zal bijvoorbeeld enkel rekening gehouden worden bij de architecturen arm64, any-amd64 en riscv64, met het tweede enkel op linux-architecturen en met het derde overal behalve op armel.
 
-  (arch=arm64 any-amd64 riscv64)arch_specific_symbol@Base 1.0
-  (arch=linux-any)linux_specific_symbol@Base 1.0
-  (arch=!armel)symbol_armel_does_not_have@Base 1.0
+  (arch=arm64 any-amd64 riscv64)arch_specifiek_symbool@Base 1.0
+  (arch=linux-any)linux_specifiek_symbool@Base 1.0
+  (arch=!armel)symbool_dat_armel_niet_heeft@Base 1.0
 
 De waarde van I<architectuur-bits> is ofwel B<32> of B<64>.
 
@@ -192,10 +192,10 @@ Net zoals om het even welk symbool kan ook een include-opdracht tags krijgen:
 
 Als gevolg daarvan zal er standaard van uitgegaan worden dat alle symbolen die uit I<in-te-voegen-bestand> opgenomen worden, gemarkeerd zijn met I<tag> ... I<tagN>. U kunt van deze functionaliteit gebruik maken om een gemeenschappelijk bestand I<pakket>.symbols te maken waarin architectuurspecifieke symboolbestanden opgenomen worden:
 
-  common_symbol1@Base 1.0
- (arch-bits=64)#include "package.symbols.64-bit"
- (arch-bits=32)#include "package.symbols.32-bit"
-  common_symbol2@Base 1.0
+  gemeenschappelijk_symbool1@Base 1.0
+ (arch-bits=64)#invoegen van "pakket.symbolen.64-bit"
+ (arch-bits=32)#invoegen van "pakket.symbolen.32-bit"
+  gemeenschappelijk_symbool2@Base 1.0
 
 =back
 

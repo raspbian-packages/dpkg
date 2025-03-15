@@ -24,11 +24,11 @@ B<dpkg-vendor> [I<optie>...] I<commando>
 
 B<dpkg-vendor> is gereedschap om informatie op te vragen over leveranciers die opgesomd worden in B<%PKGCONFDIR%/origins>. B<%PKGCONFDIR%/origins/default> bevat informatie over de huidige leverancier.
 
-The origin files provide metadata about specific vendors, such as their URL or where to file bug reports, and are usually used both to determine the behavior of tools and resulting contents during package builds targeting a specific vendor, and to describe the provenance of packages.
+De bestanden origin bevatten metagegevens over specifieke leveranciers, zoals hun URL of waar bugrapporten kunnen worden ingediend. Ze worden doorgaans gebruikt om zowel het gedrag van hulpmiddelen te bepalen als de resulterende inhoud tijdens het bouwen van een pakket dat gericht is op een specifieke leverancier, en om de herkomst van het pakket te beschrijven.
 
-Packages can explicitly declare their vendor by including an B<Origin> field, otherwise the vendor for a package without such field is assumed to be the one pointed to by the F<default> origin symbolic link.
+In pakketten kan de leverancier ervan expliciet aangeven worden door een veld B<Origin> op te nemen. Anders wordt aangenomen dat de leverancier van een pakket zonder een dergelijk veld de leverancier is waarnaar wordt verwezen door de F<default> symbolische koppeling origin.
 
-The F<default> symbolic link is also used to denote the origin of the current installation managed by B<dpkg>, be that a full distribution or an overlay on top of an existing base system that contains either no packaging system or a native one.
+De symbolische koppeling F<default> wordt ook gebruikt om de oorsprong aan te duiden van de huidige installatie die wordt beheerd door B<dpkg>. Dit kan een volledige distributie zijn of een laag bovenop een bestaand basissysteem dat geen pakketsysteem bevat of een specifiek eigen pakketsysteem.
 
 Dit programma werd geïntroduceerd in dpkg 1.15.1.
 

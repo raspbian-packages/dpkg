@@ -391,9 +391,9 @@ Stelt het uit te voeren programma in wanneer een commando via een shell voortgeb
 
 =item B<DPKG_PAGER>
 
-Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
+Stelt het te gebruiken pagineringscommando in (sinds dpkg 1.19.1), hetwelk uitgevoerd zal worden met «B<$SHELL -c>». Indien B<SHELL> niet ingesteld is, zal «B<%DPKG_DEFAULT_SHELL%>» gebruikt worden.
 
-The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
+De B<DPKG_PAGER> overschrijft de omgevingsvariabele B<PAGER> (sinds dpkg 1.19.2). Als geen van de programma's waarnaar wordt verwezen door B<DPKG_PAGER> of B<PAGER> aanwezig is, worden de volgende programma's in volgorde geprobeerd (sinds dpkg 1.22.12): het standaardpagineringsprogramma B<%DPKG_DEFAULT_PAGER%>, vervolgens B<less>, B<more> en ten slotte B<cat>.
 
 =item B<DPKG_ROOT>
 

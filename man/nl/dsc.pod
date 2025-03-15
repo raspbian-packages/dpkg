@@ -143,7 +143,7 @@ Het element I<pakket> is de naam van het binaire pakket.
 
 Het element I<pakket-type> is het type van het binaire pakket, meestal B<deb>; een andere gebruikelijke waarde is B<udeb>.
 
-The I<section> and I<priority> match the binary package fields of the same name, or if omitted default to B<unknown> and B<optional> respectively (since dpkg 1.22.13).
+De elementen I<sectie> (section) en I<prioriteit> (priority) komen overeen met de velden met dezelfde naam van het binaire pakket. Als ze worden weggelaten, worden ze standaard ingesteld op B<unknown> en B<optional> (sinds dpkg 1.22.13).
 
 Het element I<trefwoord-waarde-lijst> is een lijst van door spaties gescheiden I<trefwoord>B<=>I<waarde> en de momenteel herkende optionele trefwoorden zijn:
 

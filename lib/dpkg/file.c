@@ -27,6 +27,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <dpkg/dpkg.h>
@@ -34,6 +35,7 @@
 #include <dpkg/pager.h>
 #include <dpkg/fdio.h>
 #include <dpkg/buffer.h>
+#include <dpkg/path.h>
 #include <dpkg/file.h>
 #include <dpkg/execname.h>
 
@@ -49,6 +51,68 @@ file_getcwd(struct varbuf *cwd)
 	while (getcwd(cwd->buf, cwd->size) == NULL)
 		varbuf_grow(cwd, cwd->size * 2);
 	varbuf_trunc(cwd, strlen(cwd->buf));
+}
+
+/*
+ * Handle pre-POSIX-1.2008 realpath() semantics, by using a fixed size buffer
+ * based on PATH_MAX, which we expect to be defined on the systems that have
+ * no proper behavior for this function.
+ */
+#ifdef PATH_MAX
+static char *
+file_realpath_legacy(const char *pathname)
+{
+	char resolved_path_buf[PATH_MAX];
+	char *resolved_path;
+
+	resolved_path = realpath(pathname, resolved_path_buf);
+	if (resolved_path == NULL && errno != ENOENT)
+		ohshite(_("cannot canonicalize pathname %s"), pathname);
+
+	if (resolved_path)
+		return m_strdup(resolved_path);
+	return NULL;
+}
+#endif
+
+char *
+file_realpath(const char *pathname)
+{
+	char *resolved_path;
+
+	resolved_path = realpath(pathname, NULL);
+	if (resolved_path == NULL && errno != ENOENT) {
+#ifdef PATH_MAX
+		if (errno == EINVAL)
+			return file_realpath_legacy(pathname);
+#endif
+		ohshite(_("cannot canonicalize pathname %s"), pathname);
+	}
+
+	return resolved_path;
+}
+
+/**
+ * Canonicalize a pathname (physically or lexically).
+ *
+ * Try to canonicalize a pathname based on what is on the filesystem. If
+ * the pathname does not exist, then try a lexical canonicalization.
+ *
+ * @param pathname The pathname to canonicalize.
+ *
+ * @return The allocated canonicalized pathname.
+ */
+char *
+file_canonicalize(const char *pathname)
+{
+	char *canon_path;
+
+	errno = 0;
+	canon_path = file_realpath(pathname);
+	if (canon_path == NULL)
+		canon_path = path_canonicalize(pathname);
+
+	return canon_path;
 }
 
 /**

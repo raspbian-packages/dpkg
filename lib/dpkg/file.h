@@ -51,6 +51,12 @@ struct file_stat {
 void
 file_getcwd(struct varbuf *cwd);
 
+char *
+file_realpath(const char *pathname);
+
+char *
+file_canonicalize(const char *pathname);
+
 ssize_t
 file_readlink(const char *slink, struct varbuf *content, size_t content_len);
 

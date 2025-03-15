@@ -158,29 +158,29 @@ I<pakketbouwmap> overslaan bij het zoeken naar shlibs-, symbolen- en gedeelde bi
 
 Het niet als een mislukking beschouwen als voor een gedeelde bibliotheek geen afhankelijkheidsinformatie gevonden kan worden (sinds dpkg 1.14.8). Het wordt afgeraden om deze optie te gebruiken. Alle bibliotheken zouden afhankelijkheidsinformatie moeten verschaffen (ofwel via shlibs-bestanden of via symboolbestanden), zelfs als die nog niet door andere pakketten gebruikt wordt.
 
-=item B<--warnings=>[I<value>|I<string>[,...]]
+=item B<--warnings=>[I<waarde>|I<tekenreeks>[,...]]
 
-Select the set of warnings that can be emitted by B<dpkg-shlibdeps> (since dpkg 1.14.17).
+De set waarschuwingen selecteren die door B<dpkg-shlibdeps> kunnen worden uitgezonden (sinds dpkg 1.14.17).
 
-The warnings can be selected from a comma-separated list of symbolic names (since dpkg 1.22.12), or from a I<value> denoting a bit field for these warnings.
+De waarschuwingen kunnen worden geselecteerd uit een door komma's gescheiden lijst met symbolische namen (sinds dpkg 1.22.12) of uit een I<waarde> die een bitveld voor deze waarschuwingen aangeeft.
 
 =over 
 
-=item symbol-not-found (bit 0, value 1)
+=item symbol-not-found (bit 0, waarde 1)
 
-Selects the warning “symbol I<sym> used by I<binary> found in none of the libraries”.
+Selecteert de waarschuwing “symbool I<sym>, gebruikt door I<binair-bestand>, niet gevonden in een van de bibliotheken”.
 
-Enabled by default.
+Standaard ingeschakeld.
 
-=item avoidable-dependency (bit 1, value 2)
+=item avoidable-dependency (bit 1, waarde 2)
 
-Selects the warning “package could avoid a useless dependency”.
+Selecteert de waarschuwing “pakket kan een nutteloze vereiste vermijden”.
 
-Enabled by default.
+Standaard ingeschakeld.
 
-=item useless-linkage (bit 2, value 4)
+=item useless-linkage (bit 2, waarde 4)
 
-Select the warning “I<binary> should not be linked against I<library>”.
+Selecteer de waarschuwing “I<binair-bestand> mag niet worden gelinkt met I<bibliotheek>”.
 
 =back
 

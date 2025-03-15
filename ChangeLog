@@ -1,3 +1,1097 @@
+commit 0d1bb5dcac1f2efb59308514c396c42653fcea01
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 9 19:01:08 2025 +0100
+
+    Release 1.22.18
+
+ debian/changelog | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+commit bdbf7e14e74accce10ef879b5c043cf684de1e35
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 9 19:00:01 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        | 2 +-
+ dselect/po/ca.po        | 2 +-
+ dselect/po/cs.po        | 2 +-
+ dselect/po/da.po        | 2 +-
+ dselect/po/de.po        | 2 +-
+ dselect/po/dselect.pot  | 4 ++--
+ dselect/po/el.po        | 2 +-
+ dselect/po/es.po        | 2 +-
+ dselect/po/et.po        | 2 +-
+ dselect/po/eu.po        | 2 +-
+ dselect/po/fr.po        | 2 +-
+ dselect/po/gl.po        | 2 +-
+ dselect/po/hu.po        | 2 +-
+ dselect/po/id.po        | 2 +-
+ dselect/po/it.po        | 2 +-
+ dselect/po/ja.po        | 2 +-
+ dselect/po/ko.po        | 2 +-
+ dselect/po/nb.po        | 2 +-
+ dselect/po/nl.po        | 2 +-
+ dselect/po/nn.po        | 2 +-
+ dselect/po/pl.po        | 2 +-
+ dselect/po/pt.po        | 2 +-
+ dselect/po/pt_BR.po     | 2 +-
+ dselect/po/ro.po        | 2 +-
+ dselect/po/ru.po        | 2 +-
+ dselect/po/sk.po        | 2 +-
+ dselect/po/sv.po        | 2 +-
+ dselect/po/tl.po        | 2 +-
+ dselect/po/vi.po        | 2 +-
+ dselect/po/zh_CN.po     | 2 +-
+ dselect/po/zh_TW.po     | 2 +-
+ man/po/dpkg-man.pot     | 4 ++--
+ po/ast.po               | 2 +-
+ po/bs.po                | 2 +-
+ po/ca.po                | 2 +-
+ po/cs.po                | 2 +-
+ po/da.po                | 2 +-
+ po/de.po                | 2 +-
+ po/dpkg.pot             | 4 ++--
+ po/dz.po                | 2 +-
+ po/el.po                | 2 +-
+ po/eo.po                | 2 +-
+ po/es.po                | 2 +-
+ po/et.po                | 2 +-
+ po/eu.po                | 2 +-
+ po/fr.po                | 2 +-
+ po/gl.po                | 2 +-
+ po/hu.po                | 2 +-
+ po/id.po                | 2 +-
+ po/it.po                | 2 +-
+ po/ja.po                | 2 +-
+ po/km.po                | 2 +-
+ po/ko.po                | 2 +-
+ po/ku.po                | 2 +-
+ po/lt.po                | 2 +-
+ po/mr.po                | 2 +-
+ po/nb.po                | 2 +-
+ po/ne.po                | 2 +-
+ po/nl.po                | 2 +-
+ po/nn.po                | 2 +-
+ po/oc.po                | 2 +-
+ po/pa.po                | 2 +-
+ po/pl.po                | 2 +-
+ po/pt.po                | 2 +-
+ po/pt_BR.po             | 2 +-
+ po/ro.po                | 2 +-
+ po/ru.po                | 2 +-
+ po/sk.po                | 2 +-
+ po/sv.po                | 2 +-
+ po/th.po                | 2 +-
+ po/tl.po                | 2 +-
+ po/tr.po                | 2 +-
+ po/vi.po                | 2 +-
+ po/zh_CN.po             | 2 +-
+ po/zh_TW.po             | 2 +-
+ scripts/po/ca.po        | 2 +-
+ scripts/po/de.po        | 2 +-
+ scripts/po/dpkg-dev.pot | 4 ++--
+ scripts/po/es.po        | 2 +-
+ scripts/po/fr.po        | 2 +-
+ scripts/po/nl.po        | 2 +-
+ scripts/po/pl.po        | 2 +-
+ scripts/po/pt.po        | 2 +-
+ scripts/po/ru.po        | 2 +-
+ scripts/po/sv.po        | 2 +-
+ 85 files changed, 89 insertions(+), 89 deletions(-)
+
+commit 613695f741bb06fcb16a906de506ac3cb1d3321d
+Author: Yuri Konotopov <ykonotopov@gnome.org>
+Date:   Sun Mar 9 18:47:32 2025 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Add missing Dpkg::Gettext import
+    
+    Closes: #1099866
+    Fixes: commit d231432f71925be6c6b31f47c397c6d2a8ac9f1d
+    Signed-off-by: Yuri Konotopov <ykonotopov@gnome.org>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit f75a257025ff77b7df64d8cb2a0fd149cfce1328
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 8 01:55:42 2025 +0100
+
+    debian: Bump Standards-Version to 4.7.2 (no changes needed)
+
+ debian/control | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 319aad1d38878fba14c6ba366b7c9b00b1f9d638
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Fri Mar 7 16:47:04 2025 +0100
+
+    po: Update German scripts translation
+
+ scripts/po/de.po | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+commit b7e1487bd6d6f34dafd72ef0d5afb79e421f9eb3
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Fri Mar 7 16:46:29 2025 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+commit e793a47d31cc195248eb8d2e82551f8537f90bf4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 12:22:55 2025 +0100
+
+    Bump version to 1.22.18
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit e50a4ff7f8614e76345fe07824441c5ad7833154
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 12:08:31 2025 +0100
+
+    Release 1.22.17
+
+ debian/changelog | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+commit ac2ddc2c7cb43056684f6fd35f519c528d8ce769
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 12:07:23 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        | 2 +-
+ dselect/po/ca.po        | 2 +-
+ dselect/po/cs.po        | 2 +-
+ dselect/po/da.po        | 2 +-
+ dselect/po/de.po        | 2 +-
+ dselect/po/dselect.pot  | 4 ++--
+ dselect/po/el.po        | 2 +-
+ dselect/po/es.po        | 2 +-
+ dselect/po/et.po        | 2 +-
+ dselect/po/eu.po        | 2 +-
+ dselect/po/fr.po        | 2 +-
+ dselect/po/gl.po        | 2 +-
+ dselect/po/hu.po        | 2 +-
+ dselect/po/id.po        | 2 +-
+ dselect/po/it.po        | 2 +-
+ dselect/po/ja.po        | 2 +-
+ dselect/po/ko.po        | 2 +-
+ dselect/po/nb.po        | 2 +-
+ dselect/po/nl.po        | 2 +-
+ dselect/po/nn.po        | 2 +-
+ dselect/po/pl.po        | 2 +-
+ dselect/po/pt.po        | 2 +-
+ dselect/po/pt_BR.po     | 2 +-
+ dselect/po/ro.po        | 2 +-
+ dselect/po/ru.po        | 2 +-
+ dselect/po/sk.po        | 2 +-
+ dselect/po/sv.po        | 2 +-
+ dselect/po/tl.po        | 2 +-
+ dselect/po/vi.po        | 2 +-
+ dselect/po/zh_CN.po     | 2 +-
+ dselect/po/zh_TW.po     | 2 +-
+ man/po/dpkg-man.pot     | 4 ++--
+ po/ast.po               | 2 +-
+ po/bs.po                | 2 +-
+ po/ca.po                | 2 +-
+ po/cs.po                | 2 +-
+ po/da.po                | 2 +-
+ po/de.po                | 2 +-
+ po/dpkg.pot             | 4 ++--
+ po/dz.po                | 2 +-
+ po/el.po                | 2 +-
+ po/eo.po                | 2 +-
+ po/es.po                | 2 +-
+ po/et.po                | 2 +-
+ po/eu.po                | 2 +-
+ po/fr.po                | 2 +-
+ po/gl.po                | 2 +-
+ po/hu.po                | 2 +-
+ po/id.po                | 2 +-
+ po/it.po                | 2 +-
+ po/ja.po                | 2 +-
+ po/km.po                | 2 +-
+ po/ko.po                | 2 +-
+ po/ku.po                | 2 +-
+ po/lt.po                | 2 +-
+ po/mr.po                | 2 +-
+ po/nb.po                | 2 +-
+ po/ne.po                | 2 +-
+ po/nl.po                | 2 +-
+ po/nn.po                | 2 +-
+ po/oc.po                | 2 +-
+ po/pa.po                | 2 +-
+ po/pl.po                | 2 +-
+ po/pt.po                | 2 +-
+ po/pt_BR.po             | 2 +-
+ po/ro.po                | 2 +-
+ po/ru.po                | 2 +-
+ po/sk.po                | 2 +-
+ po/sv.po                | 2 +-
+ po/th.po                | 2 +-
+ po/tl.po                | 2 +-
+ po/tr.po                | 2 +-
+ po/vi.po                | 2 +-
+ po/zh_CN.po             | 2 +-
+ po/zh_TW.po             | 2 +-
+ scripts/po/ca.po        | 2 +-
+ scripts/po/de.po        | 2 +-
+ scripts/po/dpkg-dev.pot | 4 ++--
+ scripts/po/es.po        | 2 +-
+ scripts/po/fr.po        | 2 +-
+ scripts/po/nl.po        | 2 +-
+ scripts/po/pl.po        | 2 +-
+ scripts/po/pt.po        | 2 +-
+ scripts/po/ru.po        | 2 +-
+ scripts/po/sv.po        | 2 +-
+ 85 files changed, 89 insertions(+), 89 deletions(-)
+
+commit 6f494470644fbedac6242de053af27d520d9928a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 12:02:43 2025 +0100
+
+    libdpkg: Do not crash on missing sysuser or sysgroup system database files
+    
+    The check for a NULL out of the file open was lost during a last minute
+    refactoring. This causes dpkg to crash when the system does not have yet
+    a sysuser (by default /etc/passwd) or sysgroup (by default /etc/group)
+    database files on disk yet.
+    
+    Fixes: commit 850bef3ef2817227ecea47370ee124f9f3bfcf82
+    Reported-by: Marc Haber <mh+debian-packages@zugschlus.de>
+
+ lib/dpkg/sysuser.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit ba9a2ccf035cc54655e917df29546d1eafe11c25
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 03:51:19 2025 +0100
+
+    Bump version to 1.22.17
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 238f25f813c8de3f8325aab5248c55b6decba66f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 03:06:42 2025 +0100
+
+    Release 1.22.16
+
+ debian/changelog | 74 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 71 insertions(+), 3 deletions(-)
+
+commit 8b97325da669b04a142cc0910bb702cc79ae9a14
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 7 03:03:54 2025 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 44 +++++++++++++++++++++++++++++++++++++++-----
+ man/po/dpkg-man.pot     | 33 +++++++++++++++++++++++++++++++--
+ man/po/es.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/fr.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/hu.po            | 35 ++++++++++++++++++++++++++++++++++-
+ man/po/it.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/ja.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/nl.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/pl.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/pt.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/pt_BR.po         | 36 +++++++++++++++++++++++++++++++++++-
+ man/po/ru.po            | 36 +++++++++++++++++++++++++++++++++++-
+ man/po/sv.po            | 37 ++++++++++++++++++++++++++++++++++++-
+ man/po/zh_CN.po         | 33 ++++++++++++++++++++++++++++++++-
+ po/ast.po               | 13 ++++++++++++-
+ po/bs.po                | 12 +++++++++++-
+ po/ca.po                | 15 ++++++++++++++-
+ po/cs.po                | 14 +++++++++++++-
+ po/da.po                | 13 ++++++++++++-
+ po/de.po                |  2 +-
+ po/dpkg.pot             | 14 ++++++++++++--
+ po/dz.po                | 13 ++++++++++++-
+ po/el.po                | 13 ++++++++++++-
+ po/eo.po                | 13 ++++++++++++-
+ po/es.po                | 14 +++++++++++++-
+ po/et.po                | 13 ++++++++++++-
+ po/eu.po                | 13 ++++++++++++-
+ po/fr.po                | 14 +++++++++++++-
+ po/gl.po                | 13 ++++++++++++-
+ po/hu.po                | 13 ++++++++++++-
+ po/id.po                | 13 ++++++++++++-
+ po/it.po                | 13 ++++++++++++-
+ po/ja.po                | 13 ++++++++++++-
+ po/km.po                | 13 ++++++++++++-
+ po/ko.po                | 13 ++++++++++++-
+ po/ku.po                | 12 +++++++++++-
+ po/lt.po                | 13 ++++++++++++-
+ po/mr.po                | 13 ++++++++++++-
+ po/nb.po                | 13 ++++++++++++-
+ po/ne.po                | 13 ++++++++++++-
+ po/nl.po                | 14 +++++++++++++-
+ po/nn.po                | 12 +++++++++++-
+ po/oc.po                | 13 ++++++++++++-
+ po/pa.po                | 13 ++++++++++++-
+ po/pl.po                | 15 ++++++++++++++-
+ po/pt.po                | 14 +++++++++++++-
+ po/pt_BR.po             | 14 +++++++++++++-
+ po/ro.po                | 16 +++++++++++++++-
+ po/ru.po                | 15 ++++++++++++++-
+ po/sk.po                | 13 ++++++++++++-
+ po/sv.po                | 14 +++++++++++++-
+ po/th.po                | 14 +++++++++++++-
+ po/tl.po                | 12 +++++++++++-
+ po/tr.po                | 13 ++++++++++++-
+ po/vi.po                | 13 ++++++++++++-
+ po/zh_CN.po             | 14 +++++++++++++-
+ po/zh_TW.po             | 14 +++++++++++++-
+ scripts/po/ca.po        | 10 +++++++++-
+ scripts/po/de.po        | 10 +++++++++-
+ scripts/po/dpkg-dev.pot | 12 ++++++++++--
+ scripts/po/es.po        | 10 +++++++++-
+ scripts/po/fr.po        | 10 +++++++++-
+ scripts/po/nl.po        | 10 +++++++++-
+ scripts/po/pl.po        | 10 +++++++++-
+ scripts/po/pt.po        | 10 +++++++++-
+ scripts/po/ru.po        | 10 +++++++++-
+ scripts/po/sv.po        | 10 +++++++++-
+ 98 files changed, 1137 insertions(+), 106 deletions(-)
+
+commit 2f630a6b42037e822f808df0f27acc7c9aee7921
+Author: Paulo Henrique de Lima Santana <phls@debian.org>
+Date:   Fri Mar 7 02:59:16 2025 +0100
+
+    po: Update Brazilian Portuguese programs translation
+    
+    Closes: #1099687
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ po/pt_BR.po | 840 ++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 391 insertions(+), 449 deletions(-)
+
+commit 4c53f1805c849be2f9bed6f3a5d3c55ce00bf5dd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Oct 14 04:31:22 2024 +0200
+
+    Dpkg::OpenPGP::Backend::Sequoia: Refactor cmd and cmdv handling
+    
+    This is a preparatory refactoring to make it trivial to add «sqv»
+    support once version 1.3.0 is available, which has changed its API
+    to match the «sq verify» one, and implemented inline-verify support.
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 38 ++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
+
+commit a352fcbf81de9b65f4eaf9f85c417fb480b4523a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 6 14:23:15 2025 +0100
+
+    build: Add missing file for distribution
+    
+    Fixes: commit 96abda633cdf2e606592e503684b33abce2ef735
+    Changelog: silent
+
+ Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 850bef3ef2817227ecea47370ee124f9f3bfcf82
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 27 04:30:15 2023 +0200
+
+    libdpkg: Add support for sysuser/sysgroup specific to each chroot
+    
+    When operating on a chroot via --root, we should always parse the
+    passwd and group files from within that chroot, and not from the
+    host system.
+    
+    We now parse the passwd and group files explicitly, so that we can
+    use the pathname of our choosing. The defaults are /etc/passwd and
+    /etc/group which can be overridden with the new environment variables
+    DPKG_PATH_PASSWD and DPKG_PATH_GROUP, all relative to the --root
+    pathname. Although we currently hardcode these paths, which we
+    previously delegated to the libc, these are pretty standard locations
+    and this was not working for chroots anyway. We might eventually make
+    this selectable at configure time, but for now the defaults and the
+    environment variables should be good enough.
+    
+    Closes: #1033051
+
+ debian/copyright          |   2 +-
+ lib/dpkg/Makefile.am      |   1 +
+ lib/dpkg/sysuser.c        | 119 ++++++++++++++++++++++++++++++++--
+ lib/dpkg/t/.gitignore     |   1 +
+ lib/dpkg/t/t-sysuser.c    | 162 ++++++++++++++++++++++++++++++++++++++++++++++
+ man/dpkg-deb.pod          |  16 +++++
+ man/dpkg-statoverride.pod |  16 +++++
+ man/dpkg.pod              |  16 +++++
+ 8 files changed, 325 insertions(+), 8 deletions(-)
+
+commit 4dd216f377bee166fe6326e5f2d16db20a4ad188
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 16 15:09:39 2025 +0100
+
+    libcompat: Add compatibility functions for fgetpwent() and fgetgrent()
+    
+    These functions are missing on some systems such as FreeBSD, NetBSD,
+    OpenBSD, macOS or AIX.
+    
+    We add the unit tests into the libdpkg, because that's what contains the
+    required infrastructure for the test suite.
+
+ configure.ac                        |   2 +
+ lib/compat/Makefile.am              |   9 ++
+ lib/compat/compat.h                 |  24 ++++
+ lib/compat/getent.c                 | 226 ++++++++++++++++++++++++++++++++++++
+ lib/dpkg/Makefile.am                |  11 ++
+ lib/dpkg/t/.gitignore               |   1 +
+ lib/dpkg/t/data/sysuser/group.base  |   8 ++
+ lib/dpkg/t/data/sysuser/group.nis   |  10 ++
+ lib/dpkg/t/data/sysuser/passwd.base |   8 ++
+ lib/dpkg/t/data/sysuser/passwd.nis  |  10 ++
+ lib/dpkg/t/t-compat-getent.c        | 191 ++++++++++++++++++++++++++++++
+ 11 files changed, 500 insertions(+)
+
+commit d01550dc4ab0357583ba2b35fc3de7c558af2892
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 5 23:17:30 2025 +0100
+
+    test: Pass --root-owner-group to dpkg-deb in functional tests
+    
+    Recent dpkg-deb emits warnings when the root directory for the package
+    being built has unexpected owners.
+
+ tests/Test.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 96abda633cdf2e606592e503684b33abce2ef735
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 6 13:55:25 2025 +0100
+
+    debian: Add a NEWS entry to dpkg-dev for Rules-Requires-Root default change
+    
+    Add a brief entry mentioning the change with a reference to the wiki
+    page that will explain what to do in case the build fails or the package
+    needs root privileges.
+
+ debian/dpkg-dev.NEWS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit d231432f71925be6c6b31f47c397c6d2a8ac9f1d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 20 03:44:43 2025 +0100
+
+    Dpkg::OpenPGP::Backend::Sequoia: Add a hint about authorizing own keys
+    
+    These would ideally be emitted by sq itself, but for now this hint is
+    better than nothing, and might direct users to a solution that might not
+    be obvious.
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit e8fbdd6c9ebd99f99c8f2f5128f6c9fde5f8cd1a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 5 14:09:28 2025 +0100
+
+    test: Update ChangeLog.old file size after typo fix
+    
+    Fixes: commit 59869f1ca492a67800ff429d9d36699676990657
+    Changelog: silent
+
+ src/at/deb-format.at | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+commit 6075bce9794d63c6fa1a9d9ddbf311feb1f698f8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 5 10:17:29 2025 +0100
+
+    s-s-d: Reformat license/copyright comment header
+    
+    Make the header easier to parse, by placing author entries per line,
+    with intended comments for the license grants, and the changes.
+    
+    While keeping the changelog here does not follow the project style,
+    we leave this in for now, until the general license situation of the
+    file gets clarified, where ideally it would get a proper license, then
+    the changelog can simply be removed.
+    
+    Changelog: internal
+
+ utils/start-stop-daemon.c | 35 +++++++++++++++++++----------------
+ 1 file changed, 19 insertions(+), 16 deletions(-)
+
+commit 821646e39d33c0c5c5d386cf386bab033af53bdb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 5 10:15:43 2025 +0100
+
+    doc: Split and sort copyright statements
+    
+    Place one copyright statement per author, instead of coalescing them
+    together for different ones even if they share the same time span,
+    sort by year, and remove unnecessary provenance information.
+
+ man/deb-changelog.pod          | 3 ++-
+ man/deb-control.pod            | 4 +++-
+ man/deb-version.pod            | 4 ++--
+ src/dpkg-maintscript-helper.sh | 4 ++--
+ 4 files changed, 9 insertions(+), 6 deletions(-)
+
+commit 59869f1ca492a67800ff429d9d36699676990657
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Mar 5 09:58:09 2025 +0100
+
+    doc: Remove trailing angle bracket
+
+ ChangeLog.old    | 2 +-
+ debian/changelog | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 3c5724a6fb37b7fb82b04c128c17dbc003f8e072
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 2 04:21:13 2025 +0100
+
+    test: Update cppcheck to request C++14 to match expected baseline
+    
+    This is the baseline specified in the coding style, and selected in
+    configure, so we should make the check match.
+
+ t/cppcheck.t | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3564a77869dca55a84835cca5e20f9f448a713c2
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 2 04:19:26 2025 +0100
+
+    dselect, test: Mark C++ destructors on derived classes as override
+    
+    We are overriding a virtual destructor from virtual base class, so we
+    need to mark the destructor as an override.
+    
+    Warned-by: cppcheck
+    Changelog: internal
+
+ dselect/method.h                   | 2 +-
+ dselect/pkglist.h                  | 2 +-
+ scripts/t/Dpkg_Shlibs/patterns.cpp | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 756f4a4d7bba830a0e2d920756a5c6d3c0c60c41
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Feb 28 02:13:21 2025 +0100
+
+    dpkg-db-keeper: Fix pathname in example dpkg.cfg snippet
+    
+    These tools are namespaced within a dpkg subdirectory, we should at
+    least make the example look like a more realistic example to use.
+
+ src/dpkg-db-keeper.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9292e0994c7397df34ddb77273e641abfd32e41a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 25 05:25:47 2025 +0100
+
+    s-s-d: Move Solaris _FILE_OFFSET_BITS undef after other header setup macros
+    
+    These belong together.
+    
+    Changelog: internal
+
+ utils/start-stop-daemon.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit ab5a555339f51d823fead64d9e740a31099e4011
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 25 05:21:26 2025 +0100
+
+    s-s-d: Move <compat.h> and <dpkg/macros.h> after OS and header setup macros
+    
+    We are setting several macros to change the behavior of headers we are
+    including, and because we might end up including multiple of them
+    depending on the compatibility code enabled or for types from the
+    <dpkg/macros.h> header, these might end up not taking effect, later
+    on due to header re-inclusion protection.
+    
+    So we need to define those as early as possible, which means just after
+    <config.h> and before anything else.
+    
+    This fixes a build failure on NetBSD 10.1, where the _KMEMUSER was not
+    taking effect and the <proc.h> was missing definitions for the vaddr_t
+    type.
+    
+    Changelog: porting
+
+ utils/start-stop-daemon.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit 3894c29f419bbbcd059d2a694ed8d0b6b0221a28
+Author: Paulo Henrique de Lima Santana <phls@debian.org>
+Date:   Tue Feb 25 05:29:20 2025 +0100
+
+    po: Update Brazilian Portuguese dselect translations
+    
+    Closes: #1098464
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/pt_BR.po | 32 +++++++++-----------------------
+ 1 file changed, 9 insertions(+), 23 deletions(-)
+
+commit 54d65b032f24a6ea9d24f610dbf9f618e2f100ff
+Author: Sven Joachim <svenjoac@gmx.de>
+Date:   Thu Feb 20 17:57:52 2025 +0100
+
+    po: Update German programs translation
+    
+    Update to 1202t.
+
+ po/de.po | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+commit e91038dc7b20923c7bffb8ec6afd4faa6ee0770b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 16 13:14:00 2025 +0100
+
+    libdpkg: Update missing symbols to the version map
+    
+    Changelog: internal
+
+Notes:
+    Changelog: silent
+
+ lib/dpkg/libdpkg.map | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+commit b0c744b238d5fe8c8f8b5cc61f111b4d995fcaff
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Oct 14 13:13:35 2024 +0200
+
+    libdpkg: Cache root user/group to UID/GID mapping to speed up unpacking
+    
+    On glibc systems, each time we need to resolve from a user/group name to
+    their uid/gid, which happens for most unpacked files, we end up opening,
+    parsing and closing the passwd and group databases. If we cache the UID
+    mapping for the "root" user and group, even though on some systems the
+    root group is called either "wheel" (on macOS) or "system" (on AIX), we
+    should skip a bunch of repeated and unnecessary work for every unpack.
+
+ lib/dpkg/sysuser.c | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+
+commit 15b738f17ad253cef005a440f208b306eba89ab1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 27 03:52:23 2023 +0200
+
+    libdpkg: Refactor passwd and group fetching into functions
+    
+    These are necessary for --root operation and to add support for
+    sysusers and sysgroups.
+
+ lib/dpkg/Makefile.am        |  2 ++
+ lib/dpkg/db-fsys-override.c |  5 ++--
+ lib/dpkg/sysuser.c          | 56 +++++++++++++++++++++++++++++++++++++++++++++
+ lib/dpkg/sysuser.h          | 45 ++++++++++++++++++++++++++++++++++++
+ lib/dpkg/tarfn.c            |  5 ++--
+ po/POTFILES.in              |  1 +
+ src/statoverride/main.c     |  5 ++--
+ 7 files changed, 113 insertions(+), 6 deletions(-)
+
+commit 0bee4fa4a8798d2b5637420ea9e9bc0185c9a0fb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Aug 27 03:49:03 2023 +0200
+
+    libdpkg: Remove unused pwd.h and grp.h header includes
+
+ lib/dpkg/db-fsys-divert.c | 2 --
+ lib/dpkg/db-fsys-files.c  | 2 --
+ 2 files changed, 4 deletions(-)
+
+commit 25634a0099f388a4c72f689c66a7f5b9cfe1c6dd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Nov 18 13:39:46 2023 +0100
+
+    Add support for native arch definition for chroots
+    
+    When operating over a non-default root directory, we need to switch the
+    native architecture and use the one from the dpkg installed in that
+    chroot, instead of our current one.
+    
+    This information is available in the status database, but that would
+    require parsing it and hardcoding the package name dpkg is shipped,
+    which might not match the one used inside that chroot.
+    
+    We could also ship a file with the native architecture, that then we can
+    load. But that implies hardcoding the pathname for a filesystem file
+    (in contrast to the database pathname which we need anyway and can
+    specify via --admindir), which is a distribution specific policy, and
+    might end up not being loaded if the appropriate pathname is not passed,
+    making the native architecture become out of sync with the one in the
+    database.
+    
+    The approach selected as the better one is to generate a file in the
+    database directory during package installation, so that we also cover
+    cross-grades. In the future we might provide a new action or helper to
+    populate a chroot directory for foreign installations, so that this does
+    not need to be done by bootstrapping programs.
+    
+    Closes: #825385, #1020533
+
+ debian/dpkg.postinst |  8 ++++++++
+ lib/dpkg/arch.c      | 37 +++++++++++++++++++++++++++++++++++++
+ lib/dpkg/arch.h      |  1 +
+ src/Makefile.am      |  1 +
+ src/at/dpkg-arch.at  | 30 ++++++++++++++++++++++++++++++
+ src/at/testsuite.at  |  2 ++
+ src/main/enquiry.c   |  2 ++
+ 7 files changed, 81 insertions(+)
+
+commit 17292a4568a86cd8644dc540b063568038a1440f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 10 00:42:22 2025 +0100
+
+    test: Refactor database files creation into new DPKG_GEN_DB_FILE macro
+
+ src/at/local.at | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+commit d45709fa74a9a0fc9ed550d2cf79d0cc643662c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Nov 18 14:28:56 2023 +0100
+
+    libdpkg: Normalize root dir setting
+    
+    We should not assign the root directory if it is referring to the actual
+    root of the system, to avoid bypassing some of the code assumptions.
+
+ lib/dpkg/dbdir.c    |  5 +++--
+ lib/dpkg/fsys-dir.c | 21 +++++++++++++++++----
+ src/at/chdir.at     | 20 ++++++++++++++++++++
+ 3 files changed, 40 insertions(+), 6 deletions(-)
+
+commit 2ef72befaa2ff1a93cc9e90d202f54ecefeafcad
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed May 15 20:17:54 2024 +0200
+
+    libdpkg: Add new file_canonicalize() function
+    
+    Try to canonicalize a pathname based on what is on the filesystem. If
+    the pathname does not exist, then try a lexical canonicalization.
+
+ lib/dpkg/file.c     | 24 ++++++++++++++++++++++++
+ lib/dpkg/file.h     |  3 +++
+ lib/dpkg/t/t-file.c | 39 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 65 insertions(+), 1 deletion(-)
+
+commit a47530f1649b81d9feb85fefff1e96ee468bd768
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Apr 20 02:06:05 2024 +0200
+
+    libdpkg: Add new file_realpath() function
+    
+    This function wraps the system realpath(3) function and handles whether
+    it supports the POSIX.1-2008 semantics where passing a NULL argument for
+    the resolved pathname makes the function allocate the necessary memory.
+    
+    We key this legacy fallback on whether PATH_MAX is defined, as the
+    systems that might not have the required semantics do define that macro,
+    even if POSIX specifies that defining it is optional.
+
+ lib/dpkg/file.c      | 40 ++++++++++++++++++++++++++++++++++++++++
+ lib/dpkg/file.h      |  3 +++
+ lib/dpkg/libdpkg.map |  1 +
+ lib/dpkg/t/t-file.c  | 21 ++++++++++++++++++++-
+ 4 files changed, 64 insertions(+), 1 deletion(-)
+
+commit b76d83a803fa2ba649a3398fac1e851cd730da30
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed May 15 20:07:33 2024 +0200
+
+    libdpkg: Add new path_canonicalize() function
+    
+    This function perform lexical canonicalization of a pathname.
+
+ lib/dpkg/path.c     | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/dpkg/path.h     |  2 ++
+ lib/dpkg/t/t-path.c | 33 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 82 insertions(+), 1 deletion(-)
+
+commit b234e83ba333a5b86e562e89e095858dcb8ee2dd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Apr 22 23:07:40 2024 +0200
+
+    libdpkg: Add new strvec module
+    
+    This module implements a string vector type.
+
+ lib/dpkg/Makefile.am  |   3 +
+ lib/dpkg/strvec.c     | 145 +++++++++++++++++++++++++++++
+ lib/dpkg/strvec.h     |  78 ++++++++++++++++
+ lib/dpkg/t/.gitignore |   1 +
+ lib/dpkg/t/t-strvec.c | 252 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ po/POTFILES.in        |   1 +
+ 6 files changed, 480 insertions(+)
+
+commit 01a8c8205ce4f0dd6f5576b9a8bdc4b7671423cd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 16 11:37:35 2025 +0100
+
+    Test::Dpkg: Handle missing cmdv definitions
+    
+    For SOP commands that currently do not have a matching cmdv, we removed
+    their definition (which was set to "none"), but the code checking
+    whether this was present on disk did not get updated.
+    
+    Fixes: commit 5a6f12663d04d5b688ff23088eecbd5767c74438
+    Changelog: silent
+
+ scripts/Test/Dpkg.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 1aeeff1cce128cef371045fb62437f7072c9d095
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Sun Feb 9 17:05:03 2025 +0100
+
+    po: Update Dutch man pages translations
+    
+    Closes: #1095412
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/nl.po | 676 +++++++++++------------------------------------------------
+ 1 file changed, 127 insertions(+), 549 deletions(-)
+
+commit 876a113fed8b194a9c79e0a04383c62ca7d15f4f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 9 17:03:42 2025 +0100
+
+    man: Remove trailing space
+    
+    Closes: #1095542
+
+ man/deb-triggers.pod | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 39dcfdbe8e0664569afc6e6570dd1184065a2a7c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 01:49:27 2025 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Do not add the newline workaround for gpg-sq
+    
+    This is an issue specific to GnuPG, and for the Sequoia Chameleon this
+    causes a duplicate newline on the signed file.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 0d366f052da26b99fdc72c71dae8500ccfd833d5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 9 00:15:09 2025 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Refactor newline workaround into a function
+    
+    Turn the logic and its effects into a function so that then we can later
+    on conditionally call it only when necessary.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 28 ++++++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 8 deletions(-)
+
+commit 1f9a47a35c456a84e1bba9aa7f5fd806c66701ea
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 01:39:16 2025 +0100
+
+    debian: Move gnupg and gpgv as the last alternatives
+    
+    The GnuPG project has opted out of the OpenPGP standardization process,
+    and will not be adopting new OpenPGP RFCs going forward, instead trying
+    to advance its own specification that had no consensus within the IETF
+    working group. This poses a very concerning schism in the OpenPGP
+    ecosystem.
+    
+    Given that these are either Recommends or Suggests, and that if the
+    GnuPG packages are already installed the dependencies will also be
+    already satisfied, it seems safe to flip the order.
+
+ debian/control | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit a3dbcb32fcc9264013006cbe974ba0ee2aa2f2ad
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 16 01:44:20 2025 +0100
+
+    debian: Add OpenPGP tools to Build-Depends as pkg.dpkg.author-testing build profile
+    
+    We should be testing all light weight dependency-wise OpenPGP
+    implementations that we support sq during our author tests, more so
+    if some of these are to become the primary recommended OpenPGP
+    implementation in the future.
+
+ debian/control | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 46540393144883ba08e1997c875aa25aa76ae2c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 10 00:48:44 2025 +0100
+
+    build: Avoid explicitly escaped hash characters in automake files
+    
+    Warned-by: automake
+
+ build-aux/subst.am | 3 ++-
+ man/Makefile.am    | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 5a6f12663d04d5b688ff23088eecbd5767c74438
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 15 00:40:28 2025 +0100
+
+    Dpkg::OpenPGP::Backend::SOP: Add sopv support
+    
+    This is the verification-only stable subset from SOP, where the
+    commands only implement the minimum required for verification, which
+    is one of the most common operations when dealing with packaging
+    artifacts.
+
+ debian/control                      |  4 ++--
+ scripts/Dpkg/OpenPGP/Backend/SOP.pm | 22 +++++++++++++++++-----
+ scripts/Test/Dpkg.pm                | 11 +++++++----
+ 3 files changed, 26 insertions(+), 11 deletions(-)
+
+commit 1109fdfd00d3881ee0adcffdc66095a540b08ee4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 6 10:36:42 2025 +0100
+
+    test: Add OpenPGP cmdv testing support
+    
+    List the cmdv programs to use for each backend, and generate
+    combinations to test for with cmd and cmdv.
+
+ scripts/Test/Dpkg.pm     | 29 ++++++++++++++++++++++++++---
+ scripts/t/Dpkg_OpenPGP.t | 15 ++++++++++-----
+ 2 files changed, 36 insertions(+), 8 deletions(-)
+
+commit 0284e2a346c13ea7912af9549f061fbdcc285a0c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 6 10:36:05 2025 +0100
+
+    test: Rework OpenPGP backend selection to prepare for cmdv support
+    
+    Unify all backend information into a single list, and use that to select
+    the various variants of the backends.
+
+ scripts/Test/Dpkg.pm     | 59 +++++++++++++++++++++++++++++++-----------------
+ scripts/t/Dpkg_OpenPGP.t | 23 +++++++++++--------
+ 2 files changed, 51 insertions(+), 31 deletions(-)
+
+commit 32323130dab7e1e5ee1a58ed58aef33d7d32898c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 6 10:36:05 2025 +0100
+
+    test: Skip OpenPGP backend tests based on available cmd and cmdv programs
+    
+    This is a requirement for when we add better cmd vs cmdv support.
+
+ scripts/t/Dpkg_OpenPGP.t | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+commit 6839c8346115dcf1f5fe1a7fd26a360512725972
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 8 14:10:03 2025 +0100
+
+    Dpkg::OpenPGP::Backend: Support disabling cmd and cmdv via 'none' value
+    
+    For testing purposes, to be able to exercise different code paths,
+    it is desirable to be able to disable either cmd or cmdv with a value
+    that we can be certain will never match on the filesystem. Instead of
+    hoping that «none» will not exist on disk, handle it explicitly in the
+    detection code.
+
+ scripts/Dpkg/OpenPGP/Backend.pm | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit a0829640d9cc6b1ac020bd1e2a913ba7deb51696
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 6 10:44:31 2025 +0100
+
+    Dpkg::OpenPGP::Backend: Generalize has_verify_cmd()
+    
+    We can extend the implementation to automatically support backends that
+    have support for cmdv and ones that do not based on whether they have a
+    DEFAULT_CMDV list.
+    
+    This makes it possible to remove the GnuPG backend specific implementation.
+
+ scripts/Dpkg/OpenPGP/Backend.pm       | 4 +++-
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 6 ------
+ 2 files changed, 3 insertions(+), 7 deletions(-)
+
+commit aae249823e350c348471b03f0e8b104297b9f08b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 8 16:50:03 2025 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Do not require cmdstore for backend command
+    
+    We do not require the cmdstore to be present whenever we do many of the
+    cmd operations, and when we require it we have a dedicated function to
+    check whether we can use secret material.
+    
+    This means we can now use the gpg backend command even when gpg-agent is
+    not installed.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit 1de5941990566e5e8d94c9f82c0ae38945e9e9be
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed Feb 5 17:49:00 2025 +0100
+
+    po: Update German man pages translation
+
+ man/po/de.po | 106 ++++++++++++++++++++---------------------------------------
+ 1 file changed, 35 insertions(+), 71 deletions(-)
+
+commit a7b3d785c3abac9d6659294badd071cdcf63d31b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 3 12:43:30 2025 +0100
+
+    Bump version to 1.22.16
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit afb41eb04222a40205a9b0b03bb69a2d449924ed
 Author: Guillem Jover <guillem@debian.org>
 Date:   Mon Feb 3 12:02:40 2025 +0100

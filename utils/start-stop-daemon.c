@@ -2,32 +2,28 @@
  * A rewrite of the original Debian's start-stop-daemon Perl script
  * in C (faster - it is executed many times during system startup).
  *
- * Written by Marek Michalkiewicz <marekm@i17linuxb.ists.pwr.wroc.pl>,
- * public domain.  Based conceptually on start-stop-daemon.pl, by Ian
- * Jackson <ijackson@gnu.ai.mit.edu>.  May be used and distributed
- * freely for any purpose.  Changes by Christian Schwarz
- * <schwarz@monet.m.isar.de>, to make output conform to the Debian
- * Console Message Standard, also placed in public domain.  Minor
- * changes by Klee Dienes <klee@debian.org>, also placed in the Public
- * Domain.
- *
- * Changes by Ben Collins <bcollins@debian.org>, added --chuid, --background
- * and --make-pidfile options, placed in public domain as well.
- *
- * Port to OpenBSD by Sontri Tomo Huynh <huynh.29@osu.edu>
- *                 and Andreas Schuldei <andreas@schuldei.org>
- *
- * Changes by Ian Jackson: added --retry (and associated rearrangements).
+ * Based conceptually on start-stop-daemon.pl, by
+ *   Ian Jackson <ijackson@chiark.greenend.org.uk>.
+ * Written by:
+ *   1999 Marek Michalkiewicz <marekm@i17linuxb.ists.pwr.wroc.pl>,
+ *     public domain. May be used and distributed freely for any purpose.
+ * Changes by:
+ *   1999 Christian Schwarz <schwarz@monet.m.isar.de>,
+ *     to make output conform to the Debian Console Message Standard,
+ *     also placed in public domain.
+ *   1999 Klee Dienes <klee@debian.org>,
+ *     minor changes, also placed in the Public Domain.
+ *   1999 Ben Collins <bcollins@debian.org>,
+ *     added --chuid, --background and --make-pidfile options,
+ *     placed in public domain as well.
+ *   2001 Sontri Tomo Huynh <huynh.29@osu.edu> and
+ *   2001 Andreas Schuldei <andreas@schuldei.org>
+ *     port to OpenBSD.
+ *   2001 Ian Jackson
+ *     added --retry (and associated rearrangements).
  */
 
 #include <config.h>
-/* On at least Solaris <= 11.3 procfs is not compatible with LFS. */
-#if !DPKG_STRUCTURED_PROCFS_SUPPORTS_LFS
-#undef _FILE_OFFSET_BITS
-#endif
-#include <compat.h>
-
-#include <dpkg/macros.h>
 
 #if defined(__linux__)
 #  define OS_Linux
@@ -60,6 +56,15 @@
 /* Solaris needs this to expose the new structured procfs API. */
 #define _STRUCTURED_PROC 1
 #endif
+
+/* On at least Solaris <= 11.3 procfs is not compatible with LFS. */
+#if !DPKG_STRUCTURED_PROCFS_SUPPORTS_LFS
+#undef _FILE_OFFSET_BITS
+#endif
+
+#include <compat.h>
+
+#include <dpkg/macros.h>
 
 #ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>

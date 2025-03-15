@@ -934,6 +934,18 @@ Falls gesetzt und die Option B<--admindir> oder B<--root> nicht verwandt wurde, 
 
 Wird von einer Paketverwalterprogrammoberfläche gesetzt, um Dpkg zu informieren, dass es nicht die Sperre der Oberfläche erlangen soll (seit Dpkg 1.19.1).
 
+=item B<DPKG_PATH_PASSWD>
+
+Setzt den Pfadnamen für die F<passwd>-Datei des Systems. Dieser Pfad ist relativ zum Verzeichnis B<--root>. Die Vorgabe ist F</etc/passwd>.
+
+Seit Dpkg 1.22.16.
+
+=item B<DPKG_PATH_GROUP>
+
+Setzt den Pfadnamen für die F<group>-Datei des Systems. Dieser Pfad ist relativ zum Verzeichnis B<--root>. Die Vorgabe ist F</etc/group>.
+
+Seit Dpkg 1.22.16.
+
 =back
 
 =head2 Interne Umgebung

@@ -6,7 +6,7 @@ Uploaders: Guillem Jover <guillem@debian.org>
 Homepage: https://wiki.debian.org/Teams/Dpkg
 Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
 Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
-Standards-Version: 4.7.0
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
@@ -37,6 +37,14 @@ Build-Depends:
  libmodule-build-perl <pkg.dpkg.author-release>,
 # Needed for the test suite in author mode.
  fakeroot <pkg.dpkg.author-testing>,
+ sq <pkg.dpkg.author-testing>,
+ sqop <pkg.dpkg.author-testing>,
+ sqopv <pkg.dpkg.author-testing>,
+ rsop <pkg.dpkg.author-testing>,
+ rsopv <pkg.dpkg.author-testing>,
+ gosop <pkg.dpkg.author-testing>,
+ gpg-sq <pkg.dpkg.author-testing>,
+ gpgv-sq <pkg.dpkg.author-testing>,
  gnupg <pkg.dpkg.author-testing>,
  cppcheck <pkg.dpkg.author-testing>,
  shellcheck <pkg.dpkg.author-testing>,
@@ -122,8 +130,8 @@ Recommends:
  build-essential,
  gcc | c-compiler,
  fakeroot,
- gnupg | sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq,
- gpgv | sq | sqop | rsop | gosop | pgpainless-cli | gpgv-sq,
+ sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq | gnupg,
+ sq | sqopv | rsopv | sopv | gosop | pgpainless-cli | gpgv-sq | gpgv,
 # Used by dpkg-mergechangelogs.
  libalgorithm-merge-perl,
 Suggests:
@@ -172,8 +180,8 @@ Recommends:
  xz-utils (>= 5.4.0),
 Suggests:
  debian-keyring,
- gnupg | sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq,
- gpgv | sq | sqop | rsop | gosop | pgpainless-cli | gpgv-sq,
+ sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq | gnupg,
+ sq | sqopv | rsopv | sopv | gosop | pgpainless-cli | gpgv-sq | gpgv,
  gcc | c-compiler,
  binutils,
  patch,

@@ -76,7 +76,7 @@ Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, au
 
 =item B<%PKGDATADIR%/buildapi.mk>
 
-Makefile snippet that parses the build API level into a variable.
+Makefile-Schnippsel, das die Bau-API-Stufe in eine Variable auswertet.
 
 =back
 

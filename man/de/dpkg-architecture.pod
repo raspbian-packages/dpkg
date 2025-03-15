@@ -132,19 +132,19 @@ Die Maschine, für die das Paket gebaut ist.
 
 =item Ziel-Maschine
 
-The machine the compiler is building for, or the emulator will run code for.  This is only needed when building a cross-toolchain (or emulator), one that will be built on the build architecture, to be run on the host architecture, and that itself will build (or run emulated) code for the target architecture.
+Die Maschine, für die der Compiler baut oder dem Emulator, für den Code ausgeführt wird. Dies wird nur beim Bau einer Cross-Toolchain (oder einem Emulator) und zum Bau von Code für die Ziel-Architektur benötigt. Die Cross-Toolchain wird auf der Bauarchitektur gebaut (oder emuliert ausgeführt) und läuft dann auf der Host-Architektur und baut (oder emuliert) dann selbst Code für die Ziel-Architektur.
 
 =item Debian-Architektur
 
-The Debian architecture string, used in binary packages, which specifies the binary tree in a package repository.
+Die in Binärpaketen verwandte Debian-Architektur-Zeichenkette, die den binären Baum in einem Paket-Depot spezifiziert.
 
-Examples: i386, sparc, hurd-i386.
+Beispiele: i386, sparc, hurd-i386.
 
 =item Debian-Architekturtupel
 
-A Debian architecture tuple is the fully qualified architecture with all its components spelled out.  This differs with Debian architectures in that at least the I<cpu> component does not embed the I<abi>.  The current tuple has the form I<abi>-I<libc>-I<os>-I<cpu>.
+Ein Debian-Architekturtupel ist eine vollqualifizierte Architektur mit allen Komponenten ausgeschrieben. Dies unterscheidet sich von der Debian-Architektur zumindest in der Weise, dass das I<ABI> nicht eingebettet ist. Das aktuelle Tupel hat die Form I<ABI>-I<Libc>-I<OS>-I<CPU>.
 
-Examples: base-gnu-linux-amd64, eabihf-musl-linux-arm.
+Beispiele: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
 =item Debian-Architektur-Platzhalter
 
@@ -164,17 +164,17 @@ Beispiele: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item GNU-Systemtyp
 
-An architecture specification string consisting of two parts separated by a hyphen: CPU and system.
+Eine Architekturspezifikationszeichenkette besteht aus zwei, durch einen Bindestrich getrennten Teilen: CPU und System.
 
-The CPU part never contains a hyphen, while the system part might itself contain a hyphen to separate a kernel from its general ABI, where the general ABI might contain both runtime (such as libc) and executable ABI specifiers joined without a hyphen.
+Der CPU-Anteil enthält niemals einen Bindestrich, während der Systemanteil einen Bindestrich enthalten könnte, um einen Kernel von seiner allgemeinen ABI zu trennen, wobei die allgemeine ABI sowohl Laufzeit- (wie Libc) als auch Ausführungs-ABI-Kennzeichner enthalten kann, die ohne Bindestrich aneinandergefügt sind.
 
-Examples: i586-linux-gnu, sparc-linux-gnu, i686-gnu, x86_64-netbsd.
+Beispiele: i586-linux-gnu, sparc-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item Multiarch-Tripel
 
-The clarified GNU system type, used for filesystem paths.  This triplet does not change even when the baseline ISA gets bumped, so that the resulting paths are stable over time.  The only current difference with the GNU system type is that the CPU part for i386 based systems is always i386.
+Der bereinigte GNU-Systemtyp; wird für Dateipfade verwandt. Dieses Tripel ändert sich auch nicht, wenn das zugrundeliegende ISA erhöht wird, so dass die daraus resultierenden Pfade dauerhaft stabil bleiben. Derzeit ist der einzige Unterschied zum GNU-Sytemtyp, dass der CPU-Anteil für i386-basierte Systeme immer „i386“ lautet.
 
-Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/.
+Beispiele: i386-linux-gnu, x86_64-linux-gnu. Beispielpfade: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/.
 
 =back
 
@@ -188,7 +188,7 @@ Die folgenden Variablen werden von der Umgebung gelesen (außer B<--force> wurde
 
 Die Debian-Architektur der Baumaschine.
 
-B<Note>: If you are not building tools that need to run during the build, these are probably not the variables you are looking for.  Please see L</TERMS> section for the meanings of these terms.
+B<Hinweis>: Falls Sie kein Werkzeug bauen, das während des Baus ausgeführt werden muss, sind dies wahrscheinlich nicht die Variablen, die Sie suchen. Lesen Sie den Abschnitt L</AUSDRÜCKE> für die Bedeutung dieser Ausdrücke.
 
 =item B<DEB_BUILD_ARCH_ABI>
 
@@ -278,7 +278,7 @@ Der klargestellte GNU-Systemtyp der Host-Maschine, wird für Dateisystempfade be
 
 Die Debian-Architektur der Ziel-Maschine (seit Dpkg 1.17.14).
 
-B<Note>: If you are not building cross-toolchains (or emulators), these are probably not the variables you are looking for.  Please see L</TERMS> section for the meanings of these terms.
+B<Hinweis>: Falls keine keine Cross-Werkzeugketten (oder Emulatoren) bauen, sind dies wahrscheinlich nicht die Variablen, die Sie suchen. Bitte lesen Sie den Abschnitt L</AUSDRÜCKE> für die Bedeutung dieser Ausdrücke.
 
 =item B<DEB_TARGET_ARCH_ABI>
 

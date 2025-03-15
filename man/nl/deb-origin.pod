@@ -22,9 +22,9 @@ B<%PKGCONFDIR%/origins/>I<bestandsnaam>
 
 =head1 BESCHRIJVING
 
-The files in B<%PKGCONFDIR%/origins> can provide information about various vendors that are providing Debian packages.  These files are usually used both to determine the behavior of tools and resulting contents during package builds targeting a specific vendor, and to describe the provenance of packages.
+De bestanden in B<%PKGCONFDIR%/origins> kunnen informatie verschaffen over verschillende leveranciers die Debian-pakketten leveren. Deze bestanden worden doorgaans gebruikt om het gedrag van hulpmiddelen en de resulterende inhoud te bepalen tijdens het bouwen van pakketten gericht op een specifieke leverancier, en om de herkomst van pakketten te beschrijven.
 
-Packages can explicitly declare their vendor by including an B<Origin> field, otherwise the vendor for a package without such field is assumed to be the one pointed to by the F<default> origin symbolic link.
+In pakketten kan de leverancier ervan expliciet aangeven worden door een veld B<Origin> op te nemen. Anders wordt aangenomen dat de leverancier van een pakket zonder een dergelijk veld de leverancier is waarnaar wordt verwezen door de F<default> symbolische koppeling origin.
 
 Ze bevatten een aantal velden, of commentaar in het geval de regel begint met een ‘B<#>’. Elk veld begint met een markering, zoals B<Vendor> of B<Parent>, gevolgd door een dubbele punt en het tekstgedeelte van het veld. Velden zijn enkel van elkaar gescheiden door de veldmarkeringen. Met andere woorden de tekst van een veld mag meerdere regels lang zijn, maar de gereedschappen zullen de regels samenvoegen bij het verwerken van het tekstgedeelte van het veld.
 

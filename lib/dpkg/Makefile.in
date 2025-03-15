@@ -146,9 +146,10 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = libdpkg.pc
 CONFIG_CLEAN_VPATH_FILES =
 am__EXEEXT_1 = t/t-test$(EXEEXT) t/t-test-skip$(EXEEXT) \
-	t/t-macros$(EXEEXT) t/t-headers-cpp$(EXEEXT) \
-	t/t-c-ctype$(EXEEXT) t/t-namevalue$(EXEEXT) \
-	t/t-ehandle$(EXEEXT) t/t-error$(EXEEXT) t/t-string$(EXEEXT) \
+	t/t-macros$(EXEEXT) t/t-compat-getent$(EXEEXT) \
+	t/t-headers-cpp$(EXEEXT) t/t-c-ctype$(EXEEXT) \
+	t/t-namevalue$(EXEEXT) t/t-ehandle$(EXEEXT) t/t-error$(EXEEXT) \
+	t/t-string$(EXEEXT) t/t-strvec$(EXEEXT) t/t-sysuser$(EXEEXT) \
 	t/t-file$(EXEEXT) t/t-buffer$(EXEEXT) t/t-meminfo$(EXEEXT) \
 	t/t-path$(EXEEXT) t/t-progname$(EXEEXT) t/t-subproc$(EXEEXT) \
 	t/t-command$(EXEEXT) t/t-pager$(EXEEXT) t/t-varbuf$(EXEEXT) \
@@ -207,9 +208,9 @@ am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	path-remove.lo pkg.lo pkg-array.lo pkg-files.lo pkg-format.lo \
 	pkg-hash.lo pkg-list.lo pkg-namevalue.lo pkg-queue.lo \
 	pkg-show.lo pkg-spec.lo progname.lo program.lo progress.lo \
-	report.lo string.lo strhash.lo strwide.lo subproc.lo tarfn.lo \
-	treewalk.lo trigname.lo trignote.lo triglib.lo trigdeferred.lo \
-	utils.lo varbuf.lo version.lo
+	report.lo string.lo strhash.lo strvec.lo strwide.lo subproc.lo \
+	sysuser.lo tarfn.lo treewalk.lo trigname.lo trignote.lo \
+	triglib.lo trigdeferred.lo utils.lo varbuf.lo version.lo
 libdpkg_la_OBJECTS = $(am_libdpkg_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -268,6 +269,10 @@ t_t_command_OBJECTS = t/t-command.$(OBJEXT)
 t_t_command_LDADD = $(LDADD)
 t_t_command_DEPENDENCIES = libdpkg.la $(am__DEPENDENCIES_1) \
 	../compat/libcompat.la
+t_t_compat_getent_SOURCES = t/t-compat-getent.c
+t_t_compat_getent_OBJECTS = t/t-compat-getent.$(OBJEXT)
+am__DEPENDENCIES_4 = $(am__DEPENDENCIES_2) ../compat/libcompat-test.la
+t_t_compat_getent_DEPENDENCIES = $(am__DEPENDENCIES_4)
 t_t_deb_version_SOURCES = t/t-deb-version.c
 t_t_deb_version_OBJECTS = t/t-deb-version.$(OBJEXT)
 t_t_deb_version_LDADD = $(LDADD)
@@ -373,10 +378,20 @@ t_t_string_OBJECTS = t/t-string.$(OBJEXT)
 t_t_string_LDADD = $(LDADD)
 t_t_string_DEPENDENCIES = libdpkg.la $(am__DEPENDENCIES_1) \
 	../compat/libcompat.la
+t_t_strvec_SOURCES = t/t-strvec.c
+t_t_strvec_OBJECTS = t/t-strvec.$(OBJEXT)
+t_t_strvec_LDADD = $(LDADD)
+t_t_strvec_DEPENDENCIES = libdpkg.la $(am__DEPENDENCIES_1) \
+	../compat/libcompat.la
 t_t_subproc_SOURCES = t/t-subproc.c
 t_t_subproc_OBJECTS = t/t-subproc.$(OBJEXT)
 t_t_subproc_LDADD = $(LDADD)
 t_t_subproc_DEPENDENCIES = libdpkg.la $(am__DEPENDENCIES_1) \
+	../compat/libcompat.la
+t_t_sysuser_SOURCES = t/t-sysuser.c
+t_t_sysuser_OBJECTS = t/t-sysuser.$(OBJEXT)
+t_t_sysuser_LDADD = $(LDADD)
+t_t_sysuser_DEPENDENCIES = libdpkg.la $(am__DEPENDENCIES_1) \
 	../compat/libcompat.la
 t_t_tar_SOURCES = t/t-tar.c
 t_t_tar_OBJECTS = t/t-tar.$(OBJEXT)
@@ -460,7 +475,8 @@ am__depfiles_remade = ./$(DEPDIR)/ar.Plo ./$(DEPDIR)/arch.Plo \
 	./$(DEPDIR)/progname.Plo ./$(DEPDIR)/program.Plo \
 	./$(DEPDIR)/progress.Plo ./$(DEPDIR)/report.Plo \
 	./$(DEPDIR)/strhash.Plo ./$(DEPDIR)/string.Plo \
-	./$(DEPDIR)/strwide.Plo ./$(DEPDIR)/subproc.Plo \
+	./$(DEPDIR)/strvec.Plo ./$(DEPDIR)/strwide.Plo \
+	./$(DEPDIR)/subproc.Plo ./$(DEPDIR)/sysuser.Plo \
 	./$(DEPDIR)/tarfn.Plo ./$(DEPDIR)/treewalk.Plo \
 	./$(DEPDIR)/trigdeferred.Plo ./$(DEPDIR)/triglib.Plo \
 	./$(DEPDIR)/trigname.Plo ./$(DEPDIR)/trignote.Plo \
@@ -470,21 +486,23 @@ am__depfiles_remade = ./$(DEPDIR)/ar.Plo ./$(DEPDIR)/arch.Plo \
 	t/$(DEPDIR)/c-treewalk.Po t/$(DEPDIR)/c-trigdeferred.Po \
 	t/$(DEPDIR)/t-ar.Po t/$(DEPDIR)/t-arch.Po \
 	t/$(DEPDIR)/t-buffer.Po t/$(DEPDIR)/t-c-ctype.Po \
-	t/$(DEPDIR)/t-command.Po t/$(DEPDIR)/t-deb-version.Po \
-	t/$(DEPDIR)/t-ehandle.Po t/$(DEPDIR)/t-error.Po \
-	t/$(DEPDIR)/t-file.Po t/$(DEPDIR)/t-fsys-dir.Po \
-	t/$(DEPDIR)/t-fsys-hash.Po t/$(DEPDIR)/t-headers-cpp.Po \
-	t/$(DEPDIR)/t-macros.Po t/$(DEPDIR)/t-meminfo.Po \
-	t/$(DEPDIR)/t-mod-db.Po t/$(DEPDIR)/t-namevalue.Po \
-	t/$(DEPDIR)/t-pager.Po t/$(DEPDIR)/t-path.Po \
-	t/$(DEPDIR)/t-pkg-format.Po t/$(DEPDIR)/t-pkg-hash.Po \
-	t/$(DEPDIR)/t-pkg-list.Po t/$(DEPDIR)/t-pkg-queue.Po \
-	t/$(DEPDIR)/t-pkg-show.Po t/$(DEPDIR)/t-pkginfo.Po \
-	t/$(DEPDIR)/t-progname.Po t/$(DEPDIR)/t-string.Po \
-	t/$(DEPDIR)/t-subproc.Po t/$(DEPDIR)/t-tar.Po \
-	t/$(DEPDIR)/t-test-skip.Po t/$(DEPDIR)/t-test.Po \
-	t/$(DEPDIR)/t-trigger.Po t/$(DEPDIR)/t-varbuf-cpp.Po \
-	t/$(DEPDIR)/t-varbuf.Po t/$(DEPDIR)/t-version.Po
+	t/$(DEPDIR)/t-command.Po t/$(DEPDIR)/t-compat-getent.Po \
+	t/$(DEPDIR)/t-deb-version.Po t/$(DEPDIR)/t-ehandle.Po \
+	t/$(DEPDIR)/t-error.Po t/$(DEPDIR)/t-file.Po \
+	t/$(DEPDIR)/t-fsys-dir.Po t/$(DEPDIR)/t-fsys-hash.Po \
+	t/$(DEPDIR)/t-headers-cpp.Po t/$(DEPDIR)/t-macros.Po \
+	t/$(DEPDIR)/t-meminfo.Po t/$(DEPDIR)/t-mod-db.Po \
+	t/$(DEPDIR)/t-namevalue.Po t/$(DEPDIR)/t-pager.Po \
+	t/$(DEPDIR)/t-path.Po t/$(DEPDIR)/t-pkg-format.Po \
+	t/$(DEPDIR)/t-pkg-hash.Po t/$(DEPDIR)/t-pkg-list.Po \
+	t/$(DEPDIR)/t-pkg-queue.Po t/$(DEPDIR)/t-pkg-show.Po \
+	t/$(DEPDIR)/t-pkginfo.Po t/$(DEPDIR)/t-progname.Po \
+	t/$(DEPDIR)/t-string.Po t/$(DEPDIR)/t-strvec.Po \
+	t/$(DEPDIR)/t-subproc.Po t/$(DEPDIR)/t-sysuser.Po \
+	t/$(DEPDIR)/t-tar.Po t/$(DEPDIR)/t-test-skip.Po \
+	t/$(DEPDIR)/t-test.Po t/$(DEPDIR)/t-trigger.Po \
+	t/$(DEPDIR)/t-varbuf-cpp.Po t/$(DEPDIR)/t-varbuf.Po \
+	t/$(DEPDIR)/t-version.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -525,23 +543,25 @@ am__v_CXXLD_1 =
 SOURCES = $(libdpkg_la_SOURCES) t/b-fsys-hash.c t/b-pkg-hash.c \
 	t/c-tarextract.c t/c-treewalk.c t/c-trigdeferred.c t/t-ar.c \
 	t/t-arch.c t/t-buffer.c t/t-c-ctype.c t/t-command.c \
-	t/t-deb-version.c t/t-ehandle.c t/t-error.c t/t-file.c \
-	t/t-fsys-dir.c t/t-fsys-hash.c $(t_t_headers_cpp_SOURCES) \
-	t/t-macros.c t/t-meminfo.c t/t-mod-db.c t/t-namevalue.c \
-	t/t-pager.c t/t-path.c t/t-pkg-format.c t/t-pkg-hash.c \
-	t/t-pkg-list.c t/t-pkg-queue.c t/t-pkg-show.c t/t-pkginfo.c \
-	t/t-progname.c t/t-string.c t/t-subproc.c t/t-tar.c t/t-test.c \
+	t/t-compat-getent.c t/t-deb-version.c t/t-ehandle.c \
+	t/t-error.c t/t-file.c t/t-fsys-dir.c t/t-fsys-hash.c \
+	$(t_t_headers_cpp_SOURCES) t/t-macros.c t/t-meminfo.c \
+	t/t-mod-db.c t/t-namevalue.c t/t-pager.c t/t-path.c \
+	t/t-pkg-format.c t/t-pkg-hash.c t/t-pkg-list.c t/t-pkg-queue.c \
+	t/t-pkg-show.c t/t-pkginfo.c t/t-progname.c t/t-string.c \
+	t/t-strvec.c t/t-subproc.c t/t-sysuser.c t/t-tar.c t/t-test.c \
 	t/t-test-skip.c t/t-trigger.c t/t-varbuf.c \
 	$(t_t_varbuf_cpp_SOURCES) t/t-version.c
 DIST_SOURCES = $(libdpkg_la_SOURCES) t/b-fsys-hash.c t/b-pkg-hash.c \
 	t/c-tarextract.c t/c-treewalk.c t/c-trigdeferred.c t/t-ar.c \
 	t/t-arch.c t/t-buffer.c t/t-c-ctype.c t/t-command.c \
-	t/t-deb-version.c t/t-ehandle.c t/t-error.c t/t-file.c \
-	t/t-fsys-dir.c t/t-fsys-hash.c $(t_t_headers_cpp_SOURCES) \
-	t/t-macros.c t/t-meminfo.c t/t-mod-db.c t/t-namevalue.c \
-	t/t-pager.c t/t-path.c t/t-pkg-format.c t/t-pkg-hash.c \
-	t/t-pkg-list.c t/t-pkg-queue.c t/t-pkg-show.c t/t-pkginfo.c \
-	t/t-progname.c t/t-string.c t/t-subproc.c t/t-tar.c t/t-test.c \
+	t/t-compat-getent.c t/t-deb-version.c t/t-ehandle.c \
+	t/t-error.c t/t-file.c t/t-fsys-dir.c t/t-fsys-hash.c \
+	$(t_t_headers_cpp_SOURCES) t/t-macros.c t/t-meminfo.c \
+	t/t-mod-db.c t/t-namevalue.c t/t-pager.c t/t-path.c \
+	t/t-pkg-format.c t/t-pkg-hash.c t/t-pkg-list.c t/t-pkg-queue.c \
+	t/t-pkg-show.c t/t-pkginfo.c t/t-progname.c t/t-string.c \
+	t/t-strvec.c t/t-subproc.c t/t-sysuser.c t/t-tar.c t/t-test.c \
 	t/t-test-skip.c t/t-trigger.c t/t-varbuf.c \
 	$(t_t_varbuf_cpp_SOURCES) t/t-version.c
 am__can_run_installinfo = \
@@ -881,8 +901,10 @@ libdpkg_la_SOURCES = \
 	report.c \
 	string.c \
 	strhash.c \
+	strvec.c \
 	strwide.c \
 	subproc.c \
+	sysuser.c \
 	tarfn.c \
 	test.h \
 	treewalk.c \
@@ -938,7 +960,9 @@ pkginclude_HEADERS = \
 	progress.h \
 	report.h \
 	string.h \
+	strvec.h \
 	subproc.h \
+	sysuser.h \
 	tarfn.h \
 	treewalk.h \
 	trigdeferred.h \
@@ -961,12 +985,15 @@ test_programs = \
 	t/t-test \
 	t/t-test-skip \
 	t/t-macros \
+	t/t-compat-getent \
 	t/t-headers-cpp \
 	t/t-c-ctype \
 	t/t-namevalue \
 	t/t-ehandle \
 	t/t-error \
 	t/t-string \
+	t/t-strvec \
+	t/t-sysuser \
 	t/t-file \
 	t/t-buffer \
 	t/t-meminfo \
@@ -1011,6 +1038,10 @@ test_data = \
 	t/data/meminfo-no-info \
 	t/data/meminfo-no-unit \
 	t/data/meminfo-ok \
+	t/data/sysuser/group.base \
+	t/data/sysuser/group.nis \
+	t/data/sysuser/passwd.base \
+	t/data/sysuser/passwd.nis \
 	# EOL
 
 BENCHMARK_LDADD_FLAGS = \
@@ -1018,8 +1049,14 @@ BENCHMARK_LDADD_FLAGS = \
 	$(LDADD) \
 	# EOL
 
+LIBCOMPAT_TEST_LDADD_FLAGS = \
+	$(LDADD) \
+	../compat/libcompat-test.la \
+	# EOL
+
 t_b_fsys_hash_LDADD = $(BENCHMARK_LDADD_FLAGS)
 t_b_pkg_hash_LDADD = $(BENCHMARK_LDADD_FLAGS)
+t_t_compat_getent_LDADD = $(LIBCOMPAT_TEST_LDADD_FLAGS)
 TEST_ENV_VARS = \
 	DPKG_PROGTAR=$(TAR) \
 	# EOL
@@ -1159,6 +1196,12 @@ t/t-command.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
 t/t-command$(EXEEXT): $(t_t_command_OBJECTS) $(t_t_command_DEPENDENCIES) $(EXTRA_t_t_command_DEPENDENCIES) t/$(am__dirstamp)
 	@rm -f t/t-command$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(t_t_command_OBJECTS) $(t_t_command_LDADD) $(LIBS)
+t/t-compat-getent.$(OBJEXT): t/$(am__dirstamp) \
+	t/$(DEPDIR)/$(am__dirstamp)
+
+t/t-compat-getent$(EXEEXT): $(t_t_compat_getent_OBJECTS) $(t_t_compat_getent_DEPENDENCIES) $(EXTRA_t_t_compat_getent_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/t-compat-getent$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_t_compat_getent_OBJECTS) $(t_t_compat_getent_LDADD) $(LIBS)
 t/t-deb-version.$(OBJEXT): t/$(am__dirstamp) \
 	t/$(DEPDIR)/$(am__dirstamp)
 
@@ -1267,11 +1310,21 @@ t/t-string.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
 t/t-string$(EXEEXT): $(t_t_string_OBJECTS) $(t_t_string_DEPENDENCIES) $(EXTRA_t_t_string_DEPENDENCIES) t/$(am__dirstamp)
 	@rm -f t/t-string$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(t_t_string_OBJECTS) $(t_t_string_LDADD) $(LIBS)
+t/t-strvec.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
+
+t/t-strvec$(EXEEXT): $(t_t_strvec_OBJECTS) $(t_t_strvec_DEPENDENCIES) $(EXTRA_t_t_strvec_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/t-strvec$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_t_strvec_OBJECTS) $(t_t_strvec_LDADD) $(LIBS)
 t/t-subproc.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
 
 t/t-subproc$(EXEEXT): $(t_t_subproc_OBJECTS) $(t_t_subproc_DEPENDENCIES) $(EXTRA_t_t_subproc_DEPENDENCIES) t/$(am__dirstamp)
 	@rm -f t/t-subproc$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(t_t_subproc_OBJECTS) $(t_t_subproc_LDADD) $(LIBS)
+t/t-sysuser.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
+
+t/t-sysuser$(EXEEXT): $(t_t_sysuser_OBJECTS) $(t_t_sysuser_DEPENDENCIES) $(EXTRA_t_t_sysuser_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/t-sysuser$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_t_sysuser_OBJECTS) $(t_t_sysuser_LDADD) $(LIBS)
 t/t-tar.$(OBJEXT): t/$(am__dirstamp) t/$(DEPDIR)/$(am__dirstamp)
 
 t/t-tar$(EXEEXT): $(t_t_tar_OBJECTS) $(t_t_tar_DEPENDENCIES) $(EXTRA_t_t_tar_DEPENDENCIES) t/$(am__dirstamp)
@@ -1380,8 +1433,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/report.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strhash.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strvec.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strwide.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/subproc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysuser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tarfn.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/treewalk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/trigdeferred.Plo@am__quote@ # am--include-marker
@@ -1401,6 +1456,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-buffer.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-c-ctype.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-command.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-compat-getent.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-deb-version.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-ehandle.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-error.Po@am__quote@ # am--include-marker
@@ -1422,7 +1478,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-pkginfo.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-progname.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-string.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-strvec.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-subproc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-sysuser.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-tar.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-test-skip.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@t/$(DEPDIR)/t-test.Po@am__quote@ # am--include-marker
@@ -1730,8 +1788,10 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/report.Plo
 	-rm -f ./$(DEPDIR)/strhash.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
+	-rm -f ./$(DEPDIR)/strvec.Plo
 	-rm -f ./$(DEPDIR)/strwide.Plo
 	-rm -f ./$(DEPDIR)/subproc.Plo
+	-rm -f ./$(DEPDIR)/sysuser.Plo
 	-rm -f ./$(DEPDIR)/tarfn.Plo
 	-rm -f ./$(DEPDIR)/treewalk.Plo
 	-rm -f ./$(DEPDIR)/trigdeferred.Plo
@@ -1751,6 +1811,7 @@ distclean: distclean-am
 	-rm -f t/$(DEPDIR)/t-buffer.Po
 	-rm -f t/$(DEPDIR)/t-c-ctype.Po
 	-rm -f t/$(DEPDIR)/t-command.Po
+	-rm -f t/$(DEPDIR)/t-compat-getent.Po
 	-rm -f t/$(DEPDIR)/t-deb-version.Po
 	-rm -f t/$(DEPDIR)/t-ehandle.Po
 	-rm -f t/$(DEPDIR)/t-error.Po
@@ -1772,7 +1833,9 @@ distclean: distclean-am
 	-rm -f t/$(DEPDIR)/t-pkginfo.Po
 	-rm -f t/$(DEPDIR)/t-progname.Po
 	-rm -f t/$(DEPDIR)/t-string.Po
+	-rm -f t/$(DEPDIR)/t-strvec.Po
 	-rm -f t/$(DEPDIR)/t-subproc.Po
+	-rm -f t/$(DEPDIR)/t-sysuser.Po
 	-rm -f t/$(DEPDIR)/t-tar.Po
 	-rm -f t/$(DEPDIR)/t-test-skip.Po
 	-rm -f t/$(DEPDIR)/t-test.Po
@@ -1890,8 +1953,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/report.Plo
 	-rm -f ./$(DEPDIR)/strhash.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
+	-rm -f ./$(DEPDIR)/strvec.Plo
 	-rm -f ./$(DEPDIR)/strwide.Plo
 	-rm -f ./$(DEPDIR)/subproc.Plo
+	-rm -f ./$(DEPDIR)/sysuser.Plo
 	-rm -f ./$(DEPDIR)/tarfn.Plo
 	-rm -f ./$(DEPDIR)/treewalk.Plo
 	-rm -f ./$(DEPDIR)/trigdeferred.Plo
@@ -1911,6 +1976,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f t/$(DEPDIR)/t-buffer.Po
 	-rm -f t/$(DEPDIR)/t-c-ctype.Po
 	-rm -f t/$(DEPDIR)/t-command.Po
+	-rm -f t/$(DEPDIR)/t-compat-getent.Po
 	-rm -f t/$(DEPDIR)/t-deb-version.Po
 	-rm -f t/$(DEPDIR)/t-ehandle.Po
 	-rm -f t/$(DEPDIR)/t-error.Po
@@ -1932,7 +1998,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f t/$(DEPDIR)/t-pkginfo.Po
 	-rm -f t/$(DEPDIR)/t-progname.Po
 	-rm -f t/$(DEPDIR)/t-string.Po
+	-rm -f t/$(DEPDIR)/t-strvec.Po
 	-rm -f t/$(DEPDIR)/t-subproc.Po
+	-rm -f t/$(DEPDIR)/t-sysuser.Po
 	-rm -f t/$(DEPDIR)/t-tar.Po
 	-rm -f t/$(DEPDIR)/t-test-skip.Po
 	-rm -f t/$(DEPDIR)/t-test.Po

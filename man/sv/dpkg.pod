@@ -934,6 +934,18 @@ Om satt, och flaggorna B<--admindir> och B<-root> inte har angivits, används v�
 
 Ställer in ett pakethanterarskal att meddela dpkg att det inte ska ta skal-låset (sedan dpkg 1.19.1).
 
+=item B<DPKG_PATH_PASSWD>
+
+Sets the pathname for the system F<passwd> file.  This path is relative to the B<--root> directory.  The default is F</etc/passwd>.
+
+Since dpkg 1.22.16.
+
+=item B<DPKG_PATH_GROUP>
+
+Sets the pathname for the system F<group> file.  This path is relative to the B<--root> directory.  The default is F</etc/group>.
+
+Since dpkg 1.22.16.
+
 =back
 
 =head2 Intern miljö

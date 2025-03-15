@@ -166,6 +166,18 @@ Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värde
 
 Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.22.7). Tillåtna värden är: B<0> och B<1> (förval).
 
+=item B<DPKG_PATH_PASSWD>
+
+Sets the pathname for the system F<passwd> file.  This path is relative to the B<--root> directory.  The default is F</etc/passwd>.
+
+Since dpkg 1.22.16.
+
+=item B<DPKG_PATH_GROUP>
+
+Sets the pathname for the system F<group> file.  This path is relative to the B<--root> directory.  The default is F</etc/group>.
+
+Since dpkg 1.22.16.
+
 =back
 
 =head1 FILER
