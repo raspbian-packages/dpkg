@@ -1,3 +1,298 @@
+commit 8d2fd28d0862254e0eb52977cdb8abd19f5c2d4c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon May 19 00:05:16 2025 +0200
+
+    Release 1.22.19
+
+ debian/changelog | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
+
+commit 386ae8ea10f5f1acd85de3f262605afb12840eb4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon May 19 00:00:43 2025 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/dpkg-man.pot     |  4 ++--
+ po/ast.po               |  2 +-
+ po/bs.po                |  2 +-
+ po/ca.po                |  2 +-
+ po/cs.po                |  2 +-
+ po/da.po                |  2 +-
+ po/de.po                |  2 +-
+ po/dpkg.pot             |  4 ++--
+ po/dz.po                |  2 +-
+ po/el.po                |  2 +-
+ po/eo.po                |  2 +-
+ po/es.po                |  2 +-
+ po/et.po                |  2 +-
+ po/eu.po                |  2 +-
+ po/fr.po                |  2 +-
+ po/gl.po                |  2 +-
+ po/hu.po                |  2 +-
+ po/id.po                |  2 +-
+ po/it.po                |  2 +-
+ po/ja.po                |  2 +-
+ po/km.po                |  2 +-
+ po/ko.po                |  2 +-
+ po/ku.po                |  2 +-
+ po/lt.po                |  2 +-
+ po/mr.po                |  2 +-
+ po/nb.po                |  2 +-
+ po/ne.po                |  2 +-
+ po/nl.po                |  2 +-
+ po/nn.po                |  2 +-
+ po/oc.po                |  2 +-
+ po/pa.po                |  2 +-
+ po/pl.po                |  2 +-
+ po/pt.po                |  2 +-
+ po/pt_BR.po             |  2 +-
+ po/ro.po                |  2 +-
+ po/ru.po                |  2 +-
+ po/sk.po                |  2 +-
+ po/sv.po                | 10 +++++-----
+ po/th.po                |  2 +-
+ po/tl.po                |  2 +-
+ po/tr.po                |  2 +-
+ po/vi.po                |  2 +-
+ po/zh_CN.po             |  2 +-
+ po/zh_TW.po             |  2 +-
+ scripts/po/ca.po        | 14 +++++++++++++-
+ scripts/po/de.po        | 14 +++++++++++++-
+ scripts/po/dpkg-dev.pot | 10 ++++++++--
+ scripts/po/es.po        | 14 +++++++++++++-
+ scripts/po/fr.po        | 14 +++++++++++++-
+ scripts/po/nl.po        | 14 +++++++++++++-
+ scripts/po/pl.po        | 13 ++++++++++++-
+ scripts/po/pt.po        | 14 +++++++++++++-
+ scripts/po/ru.po        | 14 +++++++++++++-
+ scripts/po/sv.po        | 46 +++++++++++++++++++++++++++++-----------------
+ 85 files changed, 222 insertions(+), 109 deletions(-)
+
+commit f089a3c89956e5a1ff2b96361c4e0201c27d598b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun May 18 23:33:30 2025 +0200
+
+    debian: Document OpenPGP implementation dependencies
+    
+    Clarify that the ones are for full implementations, and the others are
+    for at least verification-only implementations.
+    
+    Prompted-by: Paul Gevers <elbrus@debian.org>
+
+ debian/control | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 37bec03dc8ec79e8adcf05c13975faabe8f44b1c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Oct 14 04:31:22 2024 +0200
+
+    Dpkg::OpenPGP::Backend::Sequoia: Add sqv support for verification
+    
+    This adds support for the verification-only command from Sequoia-PGP,
+    which is the one currently used by apt to perform OpenPGP verification,
+    so that we can get back for example to source package verification with
+    dpkg-source in minimal installations.
+    
+    This is possible due to the new sqv 1.3.0 API changes, which makes it
+    somewhat more compatible with «sq verify», in addition to supporting
+    inline-verify style signatures, which is required for the artifacts
+    that we need to handle.
+
+ debian/control                          |  9 +++++--
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 46 ++++++++++++++++++++++++++++-----
+ scripts/Test/Dpkg.pm                    |  2 +-
+ 3 files changed, 48 insertions(+), 9 deletions(-)
+
+commit f1533b552a14d60be1e02ec978c385f278e8b434
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 31 15:35:11 2025 +0000
+
+    Test::Dpkg: Fix OpenPGP backend commands detection
+    
+    We were not properly checking the backends as they could end up being
+    undefined and thus the checks would fail, thus not testing all the
+    expected combinations.
+
+ scripts/Test/Dpkg.pm | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 301d53a993d73fb92534539d8157f3c74f804a25
+Author: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Date:   Wed Apr 16 03:51:33 2025 +0200
+
+    Dpkg::Vendor::PureOS: Add new vendor module
+    
+    [guillem@debian.org:
+     - Add file to POTFILES.in.
+     - Add stopword to t/pod-spell.t. ]
+    
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/Dpkg/Vendor/PureOS.pm | 84 +++++++++++++++++++++++++++++++++++++++++++
+ scripts/Makefile.am           |  1 +
+ scripts/po/POTFILES.in        |  1 +
+ t/pod-spell.t                 |  1 +
+ 4 files changed, 87 insertions(+)
+
+commit 6e9917da2297714ce7ff194f7fc739d6d8ba68f0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon May 5 01:55:26 2025 +0200
+
+    Dpkg::Vendor::Debian: Add tag2upload OpenPGP keyring to package-keyrings
+    
+    This keyring is part of the dgit infrastructure integration, and new
+    source packages will be signed by certificates from this keyring.
+
+ debian/control                | 2 ++
+ scripts/Dpkg/Vendor/Debian.pm | 1 +
+ 2 files changed, 3 insertions(+)
+
+commit 936c32b9308be7674384b55d4766634586668f8c
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Sun May 18 23:26:58 2025 +0200
+
+    po: Update Portuguese scripts translations
+    
+    Closes: #1105126
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/po/pt.po | 470 ++++++++++++++++---------------------------------------
+ 1 file changed, 139 insertions(+), 331 deletions(-)
+
+commit 6d2008502a10248dc0f3b10f6604c7f3b2138b69
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Apr 24 12:44:41 2025 +0200
+
+    libcompat: Handle allocation failures in fgetpwent() and fgetgrent()
+    
+    If we fail the allocation while parsing a field, we need to return NULL
+    with errno set to ENOMEM (which should have been done by realloc()).
+    
+    Based-on-patch-by: Simon Richter <sjr@debian.org>
+
+ lib/compat/getent.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+commit 9df57b5305295cd571bc5ebbf90d9ab4d9244221
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Wed Apr 16 04:04:28 2025 +0200
+
+    po: Update Dutch translations
+    
+    Closes: #1101574, #1101582, #1101583
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/nl.po |  25 +++--------
+ man/po/nl.po     | 130 +++++++++++++++++++------------------------------------
+ po/nl.po         | 107 +++++++++++++++------------------------------
+ 3 files changed, 87 insertions(+), 175 deletions(-)
+
+commit 93bbd66881f83f524995e9eaf1667867fabe3c00
+Author: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>
+Date:   Wed Apr 16 04:01:26 2025 +0200
+
+    po: Update Romanian translations
+    
+    Closes: #1101549, #1101550
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/ro.po |  15 ++++----
+ po/ro.po         | 108 ++++++++++++++++++++-----------------------------------
+ 2 files changed, 45 insertions(+), 78 deletions(-)
+
+commit 0282d274de5c2426d313706f2aa733179ec98310
+Author: Paulo Henrique de Lima Santana <phls@debian.org>
+Date:   Wed Apr 16 03:55:41 2025 +0200
+
+    po: Update Brazilian Portuguese programs translation
+    
+    Closes: #1100999
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ po/pt_BR.po | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+commit 369d227866bff440664b2f6f9feb16dab8985705
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Apr 24 13:08:20 2025 +0200
+
+    po: Remove stray previous msgid from Portuguese man pages translation
+    
+    Fixes: commit 0d46da4f60c7c0b0466de14625c844ea4f9c524f
+    Changelog: silent
+
+ man/po/pt.po | 274 +++++++++--------------------------------------------------
+ 1 file changed, 39 insertions(+), 235 deletions(-)
+
+commit e0b338251141e7af236783b5422b09c90fa49861
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Mon Mar 10 22:53:14 2025 +0100
+
+    po: Update Swedish translations
+    
+    Closes: #1100068
+    Signed-off-by: Peter Krefting <peter@softwolves.pp.se>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/sv.po |   27 +-
+ man/po/sv.po     | 1206 +++++++++++++++++-------------------------------------
+ po/sv.po         |  111 ++---
+ scripts/po/sv.po |  157 ++-----
+ 4 files changed, 464 insertions(+), 1037 deletions(-)
+
+commit 0d46da4f60c7c0b0466de14625c844ea4f9c524f
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Wed Mar 19 11:05:48 2025 +0100
+
+    po: Update Portuguese man pages translation
+    
+    Closes: #1100064
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/pt.po | 298 +++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 167 insertions(+), 131 deletions(-)
+
+commit cbc069f9a292bf15900a57140a6aa0db2fc7292d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Mar 9 19:17:33 2025 +0100
+
+    Bump version to 1.22.19
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 0d1bb5dcac1f2efb59308514c396c42653fcea01
 Author: Guillem Jover <guillem@debian.org>
 Date:   Sun Mar 9 19:01:08 2025 +0100
