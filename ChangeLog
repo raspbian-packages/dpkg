@@ -1,3 +1,214 @@
+commit 8243233fc5173110798cbc22711fb4675a356d02
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jun 4 02:14:02 2025 +0200
+
+    Release 1.22.20
+
+ debian/changelog | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+commit 08247f1060dd4268f36b0f723f89c0615c37a799
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jun 4 02:12:28 2025 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        | 2 +-
+ dselect/po/ca.po        | 2 +-
+ dselect/po/cs.po        | 2 +-
+ dselect/po/da.po        | 2 +-
+ dselect/po/de.po        | 2 +-
+ dselect/po/dselect.pot  | 4 ++--
+ dselect/po/el.po        | 2 +-
+ dselect/po/es.po        | 2 +-
+ dselect/po/et.po        | 2 +-
+ dselect/po/eu.po        | 2 +-
+ dselect/po/fr.po        | 2 +-
+ dselect/po/gl.po        | 2 +-
+ dselect/po/hu.po        | 2 +-
+ dselect/po/id.po        | 2 +-
+ dselect/po/it.po        | 2 +-
+ dselect/po/ja.po        | 2 +-
+ dselect/po/ko.po        | 2 +-
+ dselect/po/nb.po        | 2 +-
+ dselect/po/nl.po        | 2 +-
+ dselect/po/nn.po        | 2 +-
+ dselect/po/pl.po        | 2 +-
+ dselect/po/pt.po        | 2 +-
+ dselect/po/pt_BR.po     | 2 +-
+ dselect/po/ro.po        | 2 +-
+ dselect/po/ru.po        | 2 +-
+ dselect/po/sk.po        | 2 +-
+ dselect/po/sv.po        | 2 +-
+ dselect/po/tl.po        | 2 +-
+ dselect/po/vi.po        | 2 +-
+ dselect/po/zh_CN.po     | 2 +-
+ dselect/po/zh_TW.po     | 2 +-
+ man/po/dpkg-man.pot     | 4 ++--
+ po/ast.po               | 2 +-
+ po/bs.po                | 2 +-
+ po/ca.po                | 2 +-
+ po/cs.po                | 2 +-
+ po/da.po                | 2 +-
+ po/de.po                | 2 +-
+ po/dpkg.pot             | 4 ++--
+ po/dz.po                | 2 +-
+ po/el.po                | 2 +-
+ po/eo.po                | 2 +-
+ po/es.po                | 2 +-
+ po/et.po                | 2 +-
+ po/eu.po                | 2 +-
+ po/fr.po                | 2 +-
+ po/gl.po                | 2 +-
+ po/hu.po                | 2 +-
+ po/id.po                | 2 +-
+ po/it.po                | 2 +-
+ po/ja.po                | 2 +-
+ po/km.po                | 2 +-
+ po/ko.po                | 2 +-
+ po/ku.po                | 2 +-
+ po/lt.po                | 2 +-
+ po/mr.po                | 2 +-
+ po/nb.po                | 2 +-
+ po/ne.po                | 2 +-
+ po/nl.po                | 2 +-
+ po/nn.po                | 2 +-
+ po/oc.po                | 2 +-
+ po/pa.po                | 2 +-
+ po/pl.po                | 2 +-
+ po/pt.po                | 2 +-
+ po/pt_BR.po             | 2 +-
+ po/ro.po                | 2 +-
+ po/ru.po                | 2 +-
+ po/sk.po                | 2 +-
+ po/sv.po                | 2 +-
+ po/th.po                | 2 +-
+ po/tl.po                | 2 +-
+ po/tr.po                | 2 +-
+ po/vi.po                | 2 +-
+ po/zh_CN.po             | 2 +-
+ po/zh_TW.po             | 2 +-
+ scripts/po/ca.po        | 2 +-
+ scripts/po/de.po        | 2 +-
+ scripts/po/dpkg-dev.pot | 4 ++--
+ scripts/po/es.po        | 2 +-
+ scripts/po/fr.po        | 2 +-
+ scripts/po/nl.po        | 2 +-
+ scripts/po/pl.po        | 2 +-
+ scripts/po/pt.po        | 2 +-
+ scripts/po/ru.po        | 2 +-
+ scripts/po/sv.po        | 2 +-
+ 85 files changed, 89 insertions(+), 89 deletions(-)
+
+commit 974591cc12fdc7ef18591cd8122fcf384bc33b0e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jun 4 01:28:19 2025 +0200
+
+    po: Update Swedish scripts translation
+    
+    This restores the translation to the previous 100% coverage, after a
+    last minute commit was added for a derivative.
+    
+    (cherry picked from commit 5140ed1c6396350ea26f1a9593cb1443304141fd)
+
+ scripts/po/sv.po | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit 7f89aacc22853c2bf09b2694e04ca14d236e0113
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jun 4 01:27:43 2025 +0200
+
+    po: Update Portuguese scripts translation
+    
+    This restores the translation to the previous 100% coverage, after a
+    last minute commit was added for a derivative.
+    
+    (cherry picked from commit 56319665113a0cf33c61288620d5408a1e7f6821)
+
+ scripts/po/pt.po | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit 8c7d3a83726058d0d9da55549201e0f1ca15dcd4
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jun 4 00:54:58 2025 +0200
+
+    po: Update Catalan translations
+    
+    (cherry picked from commit fc7f1c3bfae24ec6ccc64b88ef75e3176f55ddcc)
+
+ dselect/po/ca.po |   7 ++--
+ po/ca.po         | 122 +++++++++++++++++++------------------------------------
+ scripts/po/ca.po |  87 ++++++++++++++++-----------------------
+ 3 files changed, 79 insertions(+), 137 deletions(-)
+
+commit c3b62f2d1a50757c713a95c4497f4eeb27a409f0
+Author: Helge Kreutzmann <debian@helgefjell.de>
+Date:   Wed May 21 19:12:15 2025 +0200
+
+    po: Update German scripts translation
+    
+    (cherry picked from commit 06e920a1c89e9d5d40034f1d3f56a06e5cb8f06a)
+
+ scripts/po/de.po | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+commit c34cec5c57d4b74972538894f65de192b73e8943
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed May 21 09:56:07 2025 +0200
+
+    Dpkg::OpenPGP::Backend::Sequoia: Run sq in stateless mode for verification
+    
+    For verification and for every other OpenPGP command we always run in
+    stateless mode, by for example creating a temporary home directory to
+    avoid the tools (such as GnuPG), to use any implicit keyrings that we
+    have not explicitly passed.
+    
+    But for sq we have not been doing that, which changes this specific
+    backend command semantics compared to the others.
+    
+    Explicitly pass «--home=none» to enable stateless mode.
+    
+    Suggested-by: Neal H. Walfield <neal@sequoia-pgp.org>
+    Stable-Candidate: 1.22.x
+    (cherry picked from commit 3ba0bd72d906c4bc56b7b86e63bc20198eababb1)
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit cdf3ac27cddf4657d62ca165b0f157b46e5a6298
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed May 21 09:50:56 2025 +0200
+
+    Dpkg::OpenPGP::Backend::Sequoia: Do not run sq/sqv to verify with no keyrings
+    
+    Both sq and sqv support expect a keyring to be able to verify the
+    signatures, and produce rather confusing and alarming diagnostics,
+    which by default are emitted as warnings.
+    
+    In case we have no keyrings to pass (because they are not present on
+    disk for example), skip the commands invocation, and return an error
+    to the effect that no valid signatures could be found. In the future
+    we should instead print the keyrings that we are using and the ones we
+    are skipping, and print a specific error message for this condition,
+    to make the error condition more clear, but for now this is the minimal
+    change that gives a less confusing UI.
+    
+    Closes: #1106148
+    Stable-Candidate: 1.22.x
+    (cherry picked from commit 6efc85c783b7a1b3aa4f18bb3a9be5faa2989dea)
+
+ scripts/Dpkg/OpenPGP/Backend/Sequoia.pm | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 02d198aeece75f930187ff8f31079b285ebd8a88
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon May 19 00:42:14 2025 +0200
+
+    Bump version to 1.22.20
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 8d2fd28d0862254e0eb52977cdb8abd19f5c2d4c
 Author: Guillem Jover <guillem@debian.org>
 Date:   Mon May 19 00:05:16 2025 +0200
