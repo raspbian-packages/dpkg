@@ -1,3 +1,247 @@
+commit d72b038fd2113cb62972e4071db03dd1388394d8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 1 01:34:37 2025 +0200
+
+    Release 1.22.21
+
+ debian/changelog | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+commit 6895685708cbfd2fd084e4a98a116992b8ecae0b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 1 01:32:04 2025 +0200
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/dpkg-man.pot     |  4 ++--
+ po/ast.po               | 12 ++++++------
+ po/bs.po                | 12 ++++++------
+ po/ca.po                | 12 ++++++------
+ po/cs.po                | 12 ++++++------
+ po/da.po                | 12 ++++++------
+ po/de.po                | 12 ++++++------
+ po/dpkg.pot             | 14 +++++++-------
+ po/dz.po                | 12 ++++++------
+ po/el.po                | 12 ++++++------
+ po/eo.po                | 12 ++++++------
+ po/es.po                | 12 ++++++------
+ po/et.po                | 12 ++++++------
+ po/eu.po                | 12 ++++++------
+ po/fr.po                | 12 ++++++------
+ po/gl.po                | 12 ++++++------
+ po/hu.po                | 12 ++++++------
+ po/id.po                | 12 ++++++------
+ po/it.po                | 12 ++++++------
+ po/ja.po                | 12 ++++++------
+ po/km.po                | 12 ++++++------
+ po/ko.po                | 12 ++++++------
+ po/ku.po                | 12 ++++++------
+ po/lt.po                | 12 ++++++------
+ po/mr.po                | 12 ++++++------
+ po/nb.po                | 12 ++++++------
+ po/ne.po                | 12 ++++++------
+ po/nl.po                | 12 ++++++------
+ po/nn.po                | 12 ++++++------
+ po/oc.po                | 12 ++++++------
+ po/pa.po                | 12 ++++++------
+ po/pl.po                | 12 ++++++------
+ po/pt.po                | 12 ++++++------
+ po/pt_BR.po             | 12 ++++++------
+ po/ro.po                | 12 ++++++------
+ po/ru.po                | 12 ++++++------
+ po/sk.po                | 12 ++++++------
+ po/sv.po                | 12 ++++++------
+ po/th.po                | 12 ++++++------
+ po/tl.po                | 12 ++++++------
+ po/tr.po                | 12 ++++++------
+ po/vi.po                | 12 ++++++------
+ po/zh_CN.po             | 12 ++++++------
+ po/zh_TW.po             | 12 ++++++------
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/nl.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/pt.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 85 files changed, 304 insertions(+), 304 deletions(-)
+
+commit 98c623c8d6814ae46a3b30ca22e584c77d47d86b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jun 7 14:17:07 2025 +0200
+
+    dpkg-deb: Fix cleanup for control member with restricted directories
+    
+    When extracting a control member into a temporary directory, which is
+    documented as being a safe operation even on untrusted data, the code
+    in charge of the temporary directory cleanup does not sanitize the
+    directory permissions, which is then unable to perform the «rm -rf»
+    when running as a non-root user, leaving temporary files behind.
+    
+    Given automated and repeated execution of dpkg-deb commands on
+    adversarial .deb packages or with well compressible files, placed
+    inside a directory with permissions not allowing removal by a non-root
+    user, this can end up with a DoS scenario due to causing disk quota
+    exhaustion or disk full conditions.
+    
+    This is considered a minor issue, given the required conditions to
+    trigger a problem with it, but an issue non the less given the
+    documented security guarantees of the command. This has been an
+    issue since the initial commit introducing dpkg-deb in C.
+    
+    We use an existing string for the error message to avoid new strings
+    needing translation for stable branches, which make the error message
+    less descriptive than what would be ideal. This will be improved in
+    git HEAD.
+    
+    Reported-by: zhutyra on HackerOne
+    Fixes: CVE-2025-6297
+    Stable-Candidate: 1.20.x 1.21.x 1.22.x
+    (cherry picked from commit ed6bbd445dd8800308c67236ba35d08004c98e82)
+    (cherry picked from commit 02ad0532bd490cbc95b344f670e622a38eecfbf6)
+    (cherry picked from commit d8a76551e22abe76eefd7fef5c7f51f4118eb40e)
+
+ src/at/deb-content.at | 32 ++++++++++++++++++++++++++++++++
+ src/deb/info.c        | 20 ++++++++++++++++++++
+ 2 files changed, 52 insertions(+)
+
+commit 897285ae3246309be39dbfeb343bfd4f23f82d10
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Jun 23 19:18:43 2025 +0200
+
+    libdpkg: Do not segfault when adding triggers in no-act mode
+    
+    When we activate a trigger by calling the dpkg-trigger command with
+    deferred triggers in place in no-act mode, the code was not opening
+    the deferred triggers file for writing, but continued with the
+    processing, and then the subsequent attempt to write into it caused
+    a segmentation fault.
+    
+    The root problem is that in no-act mode, we should not even attempt
+    to write anything. So we make the print into the file conditional on
+    whether the file handle is not-NULL.
+    
+    Closes: #1108192
+    Stable-Candidate: 1.20.x 1.21.x 1.22.x
+    (cherry picked from commit b7389d6fef8d27e1cabc76b3035db0d575d26b31)
+
+ lib/dpkg/trigdeferred.c |  3 +++
+ src/Makefile.am         |  1 +
+ src/at/local.at         |  6 ++++++
+ src/at/testsuite.at     |  4 ++++
+ src/at/trigger.at       | 22 ++++++++++++++++++++++
+ 5 files changed, 36 insertions(+)
+
+commit 435c1c34bc53ffd0f96b0a63c580bbcccb25f29e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jun 22 17:04:40 2025 +0200
+
+    Dpkg::BuildTree: Fix needs_root() for R³ with implementation specific keywords
+    
+    The «dpkg-buildtree is-rootless» action was implemented on top of
+    existing logic used by the dpkg Perl modules, but those were only
+    concerned about dpkg specific keywords in R³.
+    
+    According to the specification, any implementation specific keyword
+    implies that some form of root is necessary. And given that
+    «dpkg-buildtree is-rootless» is now being used for example by sbuild to
+    decide whether to install fakeroot, giving a wrong result can result in
+    build failures.
+    
+    Ref: #1107971
+    Fixes: commit 1a06485a77983e2471ec761a0f9bf02a921a8761
+    Stable-Candidate: 1.22.x
+    (cherry picked from commit bdf018b3448d9977e9dc1920d2a07ae5ccb23d04)
+
+ scripts/Dpkg/BuildTree.pm                                |  3 ++-
+ scripts/Makefile.am                                      |  5 +++++
+ scripts/t/dpkg_buildtree.t                               | 16 +++++++++++++---
+ .../src-rrr-dpkg-target-binary/debian/control            |  5 +++++
+ .../src-rrr-dpkg-target-custom/debian/control            |  5 +++++
+ .../src-rrr-dpkg-target-subcommand/debian/control        |  5 +++++
+ .../src-rrr-dpkg-unknown-keyword/debian/control          |  5 +++++
+ .../src-rrr-impl-specific-keyword/debian/control         |  5 +++++
+ 8 files changed, 45 insertions(+), 4 deletions(-)
+
+commit aff87e743ac1a6acfd260bf040ddcc68cdf1bbef
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jun 22 17:03:42 2025 +0200
+
+    Dpkg::BuildDriver::DebianRules: Fix R³ dpkg/target/<target> values handling
+    
+    The if branch validating the dpkg/target/<target> was only checking
+    whether the value was a bogus official target, otherwise it was falling
+    through to the next check which considered any non dpkg/target-subcommand
+    value to be unknown, catching the valid dpkg/target/<target> values and
+    emitting an error as if they were invalid.
+    
+    Stable-Candidate: 1.20.x 1.21.x 1.22.x
+    (cherry picked from commit 1c6651ca90c3981bf8a417a33f61eaf25244181d)
+
+ scripts/Dpkg/BuildDriver/DebianRules.pm | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 983153966d8b81a5396afd9b0597d19014cabcde
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jun 22 17:02:54 2025 +0200
+
+    Dpkg::BuildDriver::DebianRules: Fix uninitialized Perl variables
+    
+    This causes Perl warnings due to the uninitialized variables, when using
+    implementation specific keyword namespaces in the Rules-Requires-Root
+    field, such as the «debhelper/upstream-make-install» listed in the
+    specification.
+    
+    Closes: #1107971
+    Stable-Candidate: 1.20.x 1.21.x 1.22.x
+    (cherry picked from commit 1cccf86adaefc2dabd8b3efc8afb100238b352c1)
+
+ scripts/Dpkg/BuildDriver/DebianRules.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit a9afb152df4c51f5050b35784a6a940a9a447357
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Jul 1 01:07:17 2025 +0200
+
+    Bump version to 1.22.21
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 8243233fc5173110798cbc22711fb4675a356d02
 Author: Guillem Jover <guillem@debian.org>
 Date:   Wed Jun 4 02:14:02 2025 +0200
