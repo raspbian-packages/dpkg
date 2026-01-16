@@ -146,7 +146,7 @@ ensure_statoverrides(enum statdb_parse_flags flags)
 	loaded_list_end = loaded_list + db.st.st_size;
 
 	if (fd_read(fileno(db.file), loaded_list, db.st.st_size) < 0)
-		ohshite(_("reading statoverride file '%.250s'"), db.pathname);
+		ohshite(_("reading statoverride file '%s'"), db.pathname);
 
 	thisline = loaded_list;
 	while (thisline < loaded_list_end) {
@@ -176,7 +176,8 @@ ensure_statoverrides(enum statdb_parse_flags flags)
 		if (fso->uid == (uid_t)-1 && !(flags & STATDB_PARSE_LAX))
 			ohshit(_("unknown system user '%s' in statoverride file; the system user got removed\n"
 			         "before the override, which is most probably a packaging bug, to recover you\n"
-			         "can remove the override manually with %s"), thisline, DPKGSTAT);
+			         "can remove the override manually with %s"),
+			       thisline, DPKGSTAT);
 
 		/* Move to the next bit */
 		thisline = ptr + 1;
@@ -198,7 +199,8 @@ ensure_statoverrides(enum statdb_parse_flags flags)
 		if (fso->gid == (gid_t)-1 && !(flags & STATDB_PARSE_LAX))
 			ohshit(_("unknown system group '%s' in statoverride file; the system group got removed\n"
 			         "before the override, which is most probably a packaging bug, to recover you\n"
-			         "can remove the override manually with %s"), thisline, DPKGSTAT);
+			         "can remove the override manually with %s"),
+			       thisline, DPKGSTAT);
 
 		/* Move to the next bit */
 		thisline = ptr + 1;
@@ -220,7 +222,7 @@ ensure_statoverrides(enum statdb_parse_flags flags)
 
 		fnn = fsys_hash_find_node(thisline, FHFF_NONE);
 		if (fnn->statoverride)
-			ohshit(_("multiple statoverrides present for file '%.250s'"),
+			ohshit(_("multiple statoverrides present for file '%s'"),
 			       thisline);
 		fnn->statoverride = fso;
 

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dselect_1.22.15\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2025-07-01 01:31+0200\n"
+"POT-Creation-Date: 2025-12-20 02:18+0100\n"
 "PO-Revision-Date: 2025-02-23 18:00-0300\n"
 "Last-Translator: Paulo Henrique de Lima Santana (phls) <phls@debian.org>\n"
 "Language-Team: Brazilian Portuguese <debian-l10n-"
@@ -116,11 +116,16 @@ msgid "%s to go back"
 msgstr "%s para voltar"
 
 #: dselect/bindings.cc
+#, fuzzy
+#| msgid "[not bound]"
+msgctxt "keybinding"
 msgid "[not bound]"
 msgstr "[não atribuído]"
 
 #: dselect/bindings.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "[unk: %d]"
+msgctxt "keybinding"
 msgid "[unk: %d]"
 msgstr "[des: %d]"
 
@@ -433,6 +438,41 @@ msgid "Introduction to conflict/dependency resolution sub-list"
 msgstr "Introdução à sub-lista de resolução de conflitos/dependências"
 
 #: dselect/helpmsgs.cc
+#, fuzzy
+#| msgid ""
+#| "Dependency/conflict resolution - introduction.\n"
+#| "\n"
+#| "One or more of your choices have raised a conflict or dependency problem "
+#| "-\n"
+#| "some packages should only be installed in conjunction with certain "
+#| "others, and\n"
+#| "some combinations of packages may not be installed together.\n"
+#| "\n"
+#| "You will see a sub-list containing the packages involved.  The bottom "
+#| "half of\n"
+#| "the display shows relevant conflicts and dependencies; use 'i' to cycle "
+#| "between\n"
+#| "that, the package descriptions and the internal control information.\n"
+#| "\n"
+#| "A set of 'suggested' packages has been calculated, and the initial "
+#| "markings in\n"
+#| "this sub-list have been set to match those, so you can just hit Return "
+#| "to\n"
+#| "accept the suggestions if you wish.  You may abort the change(s) which "
+#| "caused\n"
+#| "the problem(s), and go back to the main list, by pressing capital 'X'.\n"
+#| "\n"
+#| "You can also move around the list and change the markings so that they "
+#| "are more\n"
+#| "like what you want, and you can 'reject' my suggestions by using the "
+#| "capital\n"
+#| "'D' or 'R' keys (see the keybindings help screen).  You can use capital "
+#| "'Q' to\n"
+#| "force to accept the situation currently displayed, in case you want to\n"
+#| "override a recommendation or think that the program is mistaken.\n"
+#| "\n"
+#| "Press <space> to leave help and enter the sub-list; remember: press '?' "
+#| "for help.\n"
 msgid ""
 "Dependency/conflict resolution - introduction.\n"
 "\n"
@@ -445,7 +485,7 @@ msgid ""
 "of\n"
 "the display shows relevant conflicts and dependencies; use 'i' to cycle "
 "between\n"
-"that, the package descriptions and the internal control information.\n"
+"that, the package descriptions and the internal package metadata.\n"
 "\n"
 "A set of 'suggested' packages has been calculated, and the initial markings "
 "in\n"
@@ -902,9 +942,10 @@ msgid "<attr> is:"
 msgstr "<atributo> é:"
 
 #: dselect/main.cc
-#, c-format
-msgid "couldn't open debug file '%.255s'\n"
-msgstr "não foi possível abrir arquivo de depuração '%.255s'\n"
+#, fuzzy, c-format
+#| msgid "couldn't open debug file '%s'\n"
+msgid "cannot open debug file '%s'\n"
+msgstr "não foi possível abrir arquivo de depuração '%s'\n"
 
 #: dselect/main.cc
 #, c-format
@@ -949,11 +990,19 @@ msgid "terminal lacks necessary features, giving up"
 msgstr "terminal não possui alguns recursos necessários, desistindo"
 
 #: dselect/main.cc
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "Move around with ^P and ^N, cursor keys, initial letters, or digits;\n"
+#| "Press <enter> to confirm selection.   ^L redraws screen.\n"
+#| "\n"
 msgid ""
 "\n"
 "\n"
-"Move around with ^P and ^N, cursor keys, initial letters, or digits;\n"
-"Press <enter> to confirm selection.   ^L redraws screen.\n"
+"Move around with Ctrl+P and Ctrl+N, cursor keys, initial letters, or "
+"digits;\n"
+"Press <enter> to confirm selection. Ctrl+L redraws screen.\n"
 "\n"
 msgstr ""
 "\n"
@@ -986,8 +1035,8 @@ msgstr "falhou ao executar \"getch\" no menu principal"
 
 #: dselect/main.cc
 #, c-format
-msgid "unknown action string '%.50s'"
-msgstr "string de ação desconhecida '%.50s'"
+msgid "unknown action string '%s'"
+msgstr "string de ação desconhecida '%s'"
 
 #: dselect/methlist.cc
 msgid "Abbrev."
@@ -1091,33 +1140,33 @@ msgstr "script de pesquisa/configuração"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "syntax error in method options file '%.250s' -- %s"
-msgstr "erro de sintaxe no arquivo de opções de método '%.250s' -- %s"
+msgid "syntax error in method options file '%s' -- %s"
+msgstr "erro de sintaxe no arquivo de opções de método '%s' -- %s"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "error reading options file '%.250s'"
-msgstr "erro lendo arquivo de opções '%.250s'"
+msgid "error reading options file '%s'"
+msgstr "erro lendo arquivo de opções '%s'"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "unable to read '%.250s' directory for reading methods"
-msgstr "não é possível ler diretório '%.250s' para métodos de leitura"
+msgid "unable to read '%s' directory for reading methods"
+msgstr "não é possível ler diretório '%s' para métodos de leitura"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "method '%.250s' has name that is too long (%d > %d characters)"
-msgstr "método '%.250s' possui um nome muito longo (%d > %d caracteres)"
+msgid "method '%s' has name that is too long (%d > %d characters)"
+msgstr "método '%s' possui um nome muito longo (%d > %d caracteres)"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "unable to access method script '%.250s'"
-msgstr "não é possível acessar script de método '%.250s'"
+msgid "unable to access method script '%s'"
+msgstr "não é possível acessar script de método '%s'"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "unable to read method options file '%.250s'"
-msgstr "não é possível ler arquivo de opções de método '%.250s'"
+msgid "unable to read method options file '%s'"
+msgstr "não é possível ler arquivo de opções de método '%s'"
 
 #: dselect/methparse.cc
 msgid "non-digit where digit wanted"
@@ -1170,18 +1219,18 @@ msgstr "não é possível carregar o arquivo de descrição da opção '%s'"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "error during read of method options file '%.250s'"
-msgstr "erro durante a leitura do arquivo de opções de método '%.250s'"
+msgid "error during read of method options file '%s'"
+msgstr "erro durante a leitura do arquivo de opções de método '%s'"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "unable to open current option file '%.250s'"
-msgstr "não é possível abrir arquivo de opção atual '%.250s'"
+msgid "unable to open current option file '%s'"
+msgstr "não é possível abrir arquivo de opção atual '%s'"
 
 #: dselect/methparse.cc
 #, c-format
-msgid "unable to write new option to '%.250s'"
-msgstr "não é possível escrever nova opção para '%.250s'"
+msgid "unable to write new option to '%s'"
+msgstr "não é possível escrever nova opção para '%s'"
 
 #: dselect/pkgdisplay.cc
 msgid "new package"
@@ -1203,10 +1252,6 @@ msgstr "remover"
 msgid "purge"
 msgstr "expurgar"
 
-#. TRANSLATORS: The space is a trick to work around gettext which uses
-#. * the empty string to store information about the translation. DO NOT
-#. * CHANGE THAT IN A TRANSLATION! The code really relies on that being
-#. * a single space.
 #: dselect/pkgdisplay.cc
 msgid " "
 msgstr " "

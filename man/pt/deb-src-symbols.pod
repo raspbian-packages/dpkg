@@ -90,10 +90,6 @@ Múltiplas restrições podem ser ligadas em corrente.
 
 O dpkg-gensymbols tem uma lista interna de símbolos que não devem aparecer em ficheiros de símbolos pois eles são geralmente apenas efeitos secundários de detalhes de implementação da ferramenta-cadeia (desde dpkg 1.20.1). Se por alguma razão, você querer realmente que um desses símbolos seja incluído no ficheiro de símbolos, você deve etiquetar o símbolo com B<allow-internal>. Pode ser necessário para algumas ferramentas-cadeia de baixo nível como “libgcc”.
 
-=item B<ignore-blacklist>
-
-Um alias descontinuado para B<allow-internal> (desde dpkg 1.20.1, suportado desde dpkg 1.15.3).
-
 =item B<c++>
 
 indica o padrão de símbolos I<c++> . Veja a sub-secção L</Usar padrões de símbolos> em baixo.

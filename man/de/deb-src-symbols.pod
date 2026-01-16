@@ -89,10 +89,6 @@ Mehrere Einschränkungen können aneinandergehängt werden.
 
 dpkg-gensymbols verfügt über eine interne Liste von Symbolen, die nicht in Symboldateien auftauchen sollten, da sie normalerweise nur Nebeneffekte von Implementierungsdetails in der Werkzeugkette darstellen (seit Dpkg 1.20.1). Falls Sie aus irgendeinem Grund wollen, dass diese Symbole in der Symboldatei aufgenommen werden, sollten Sie das Symbol mit B<allow-internal> kennzeichnen. Dies kann für einige grundlegende Bibliotheken der Werkzeugkette wie „libgcc“ notwendig sein.
 
-=item B<ignore-blacklist>
-
-Ein veralteter Alias für B<allow-internal> (seit Dpkg 1.20.1, unterstützt seit Dpkg 1.15.3).
-
 =item B<c++>
 
 Gibt I<c++>-Symbolmuster an. Lesen Sie den nachfolgenden Unterabschnitt L</Verwendung von Symbolmustern>.

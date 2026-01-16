@@ -124,7 +124,7 @@ Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het active
 
 =item B<debian/control>
 
-Het belangrijkste controle-informatiebestand van de broncode, waarin versieonafhankelijke informatie over het broncodepakket gegeven wordt en over de binaire pakketten die eruit gebouwd kunnen worden.
+The source package template control file, giving version-independent information about the source package and the binary packages it can produce.
 
 =item B<debian/files>
 

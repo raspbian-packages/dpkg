@@ -49,7 +49,7 @@ pkg_infodb_has_file(struct pkginfo *pkg, struct pkgbin *pkgbin,
 	else if (errno == ENOENT)
 		return false;
 	else
-		ohshite(_("unable to check existence of '%.250s'"), filename);
+		ohshite(_("unable to check existence of '%s'"), filename);
 }
 
 void
@@ -83,7 +83,7 @@ pkg_infodb_foreach(struct pkginfo *pkg, struct pkgbin *pkgbin,
 	while ((db_de = readdir(db_dir)) != NULL) {
 		const char *filename, *filetype, *dot;
 
-		debug(dbg_veryverbose, "infodb foreach info file '%s'",
+		debug(dbg_veryverbose, "infodb foreach metadata file '%s'",
 		      db_de->d_name);
 
 		/* Ignore dotfiles, including ‘.’ and ‘..’. */

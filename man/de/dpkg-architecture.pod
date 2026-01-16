@@ -136,9 +136,15 @@ Die Maschine, für die der Compiler baut oder dem Emulator, für den Code ausgef
 
 =item Debian-Architektur
 
-Die in Binärpaketen verwandte Debian-Architektur-Zeichenkette, die den binären Baum in einem Paket-Depot spezifiziert.
+A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
 
-Beispiele: i386, sparc, hurd-i386.
+The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+
+A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+
+An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+
+Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Debian-Architekturtupel
 
@@ -148,7 +154,9 @@ Beispiele: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
 =item Debian-Architektur-Platzhalter
 
-Ein Debian-Architektur-Platzhalter ist eine spezielle Architektur-Zeichenkette, die auf jede reale Architektur, die ein Teil davon ist, passt. Die allgemeine Form ist ein Debian-Architektur-Tupel mit vier oder weniger Elementen und bei dem mindestens eines B<any> ist. Fehlende Elemente des Tupels werden implizit als B<any> vorangestellt und daher sind die folgenden Tupel äquivalent:
+A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+
+The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
 
 =over 
 
@@ -164,17 +172,17 @@ Beispiele: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item GNU-Systemtyp
 
-Eine Architekturspezifikationszeichenkette besteht aus zwei, durch einen Bindestrich getrennten Teilen: CPU und System.
+A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
 
 Der CPU-Anteil enthält niemals einen Bindestrich, während der Systemanteil einen Bindestrich enthalten könnte, um einen Kernel von seiner allgemeinen ABI zu trennen, wobei die allgemeine ABI sowohl Laufzeit- (wie Libc) als auch Ausführungs-ABI-Kennzeichner enthalten kann, die ohne Bindestrich aneinandergefügt sind.
 
-Beispiele: i586-linux-gnu, sparc-linux-gnu, i686-gnu, x86_64-netbsd.
+Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item Multiarch-Tripel
 
 Der bereinigte GNU-Systemtyp; wird für Dateipfade verwandt. Dieses Tripel ändert sich auch nicht, wenn das zugrundeliegende ISA erhöht wird, so dass die daraus resultierenden Pfade dauerhaft stabil bleiben. Derzeit ist der einzige Unterschied zum GNU-Sytemtyp, dass der CPU-Anteil für i386-basierte Systeme immer „i386“ lautet.
 
-Beispiele: i386-linux-gnu, x86_64-linux-gnu. Beispielpfade: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/.
+Beispiele: i386-linux-gnu, x86_64-linux-gnu. Beispielpfade: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

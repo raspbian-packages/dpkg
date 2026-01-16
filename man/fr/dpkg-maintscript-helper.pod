@@ -161,7 +161,7 @@ Détails de la mise en œuvre actuelle : dans le script B<preinst>, il est vér
 
 When using a packaging helper, please check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
 
-Comme B<dpkg-maintscript-helper> est utilisé dans le script B<preinst>, l'utiliser sans conditions impose une pré-dépendance afin de garantir que la version minimale nécessaire de B<dpkg> ait bien été préalablement configurée. La version minimale dépend de la commande utilisée : ainsi pour B<rm_conffile> et B<mv_conffile>, cette version est 1.15.7.2, pour B<symlink_to_dir> et B<dir_to_symlink>, c'est 1.17.14 :
+Given that B<dpkg-maintscript-helper> is used in the B<preinst>, using it unconditionally requires a versioned pre-dependency to ensure that the required version of B<dpkg> has been unpacked before, unless we know we are upgrading from a release where the required dpkg version is going to be satisfied.  The required version depends on the command used, for B<rm_conffile> and B<mv_conffile> it is 1.15.7.2, for B<symlink_to_dir> and B<dir_to_symlink> it is 1.17.14.  For example, if we required support for B<symlink_to_dir> when upgrading from a release that had a dpkg version earlier than 1.17.14, we would need to add:
 
 =over 
 

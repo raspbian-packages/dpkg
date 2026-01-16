@@ -5,22 +5,37 @@
  * Based conceptually on start-stop-daemon.pl, by
  *   Ian Jackson <ijackson@chiark.greenend.org.uk>.
  * Written by:
- *   1999 Marek Michalkiewicz <marekm@i17linuxb.ists.pwr.wroc.pl>,
- *     public domain. May be used and distributed freely for any purpose.
+ *   1999 Marek Michalkiewicz <marekm@i17linuxb.ists.pwr.wroc.pl>
+ *     Public Domain. May be used and distributed freely for any purpose.
  * Changes by:
  *   1999 Christian Schwarz <schwarz@monet.m.isar.de>,
- *     to make output conform to the Debian Console Message Standard,
- *     also placed in public domain.
- *   1999 Klee Dienes <klee@debian.org>,
- *     minor changes, also placed in the Public Domain.
- *   1999 Ben Collins <bcollins@debian.org>,
- *     added --chuid, --background and --make-pidfile options,
- *     placed in public domain as well.
- *   2001 Sontri Tomo Huynh <huynh.29@osu.edu> and
+ *     Make output conform to the Debian Console Message Standard,
+ *     also placed in Public Domain.
+ *   1999 Klee Dienes <klee@debian.org>
+ *     Minor changes, also placed in the Public Domain.
+ *   1999 Ben Collins <bcollins@debian.org>
+ *     Added --chuid, --background and --make-pidfile options,
+ *     placed in Public Domain as well.
+ *   1999-2002 Wichert Akkerman <wakkerma@debian.org>
+ *   2000 Marcus Brinkmann <brinkmd@debian.org>
+ *   2000-2003 Adam Heath <doogie@debian.org>
+ *   2001 Sontri Tomo Huynh <huynh.29@osu.edu>
+ *     Port to OpenBSD.
  *   2001 Andreas Schuldei <andreas@schuldei.org>
- *     port to OpenBSD.
+ *     Port to OpenBSD.
  *   2001 Ian Jackson
- *     added --retry (and associated rearrangements).
+ *     Added --retry (and associated rearrangements).
+ *   2004-2005 Scott James Remnant <keybuk@debian.org>
+ *   2006-2025 Guillem Jover <guillem@debian.org>
+ *   2008 Samuel Thibault <samuel.thibault@ens-lyon.org> (tiny change)
+ *   2008 Andreas Påhlsson <andreas.pahlsson@xcerion.com>
+ *   2008 Justin Pryzby <jpryzby+d@quoininc.com> (tiny change)
+ *   2008 Erast Benson <erast@gnusolaris.org> (tiny change)
+ *   2009 Chris Coulson <chrisccoulson@googlemail.com>
+ *   2009 Raphaël Hertzog <hertzog@debian.org>
+ *   2012 Carsten Hey <carsten@debian.org> (tiny change)
+ *   2015 Christos Trochalakis <yatiohi@ideopolis.gr> (tiny change)
+ *   2015 Sven Joachim <svenjoac@gmx.de> (tiny change)
  */
 
 #include <config.h>
@@ -403,14 +418,14 @@ bug(const char *file, int line, const char *func, const char *format, ...)
 }
 
 static void *
-xmalloc(int size)
+xmalloc(size_t size)
 {
 	void *ptr;
 
 	ptr = malloc(size);
 	if (ptr)
 		return ptr;
-	fatale("malloc(%d) failed", size);
+	fatale("malloc(%zu) failed", size);
 }
 
 static char *
@@ -684,6 +699,7 @@ create_notify_socket(void)
 	return fd;
 }
 
+/* TODO: Refactor to reduce nesting levels. */
 static void
 wait_for_notify(int fd)
 {
@@ -952,7 +968,7 @@ usage(void)
 "  -m, --make-pidfile            create the pidfile before starting\n"
 "      --remove-pidfile          delete the pidfile after stopping\n"
 "  -R, --retry <schedule>        check whether processes die, and retry\n"
-"  -t, --test                    test mode, don't do anything\n"
+"  -t, --test                    test mode, do not do anything\n"
 "  -o, --oknodo                  exit status 0 (not 1) if nothing done\n"
 "  -q, --quiet                   be more quiet\n"
 "  -v, --verbose                 be more verbose\n"
@@ -1062,6 +1078,7 @@ parse_signal(const char *sig_str, int *sig_num)
 			return 0;
 		}
 	}
+
 	return -1;
 }
 
@@ -1512,8 +1529,12 @@ parse_options(int argc, char * const *argv)
 		badusage("need one of --start or --stop or --status");
 
 	if (match_mode == MATCH_NONE ||
-	    (!execname && !cmdname && !userspec &&
-	     !pid_str && !ppid_str && !pidfile))
+	    (!execname &&
+	     !cmdname &&
+	     !userspec &&
+	     !pid_str &&
+	     !ppid_str &&
+	     !pidfile))
 		badusage("need at least one of --exec, --pid, --ppid, --pidfile, --user or --name");
 
 #ifdef PROCESS_NAME_SIZE
@@ -1843,6 +1864,7 @@ pid_is_exec(pid_t pid, const struct stat *esb)
 
 	if (pstat_getproc(&pst, sizeof(pst), (size_t)0, (int)pid) < 0)
 		return false;
+
 	return ((dev_t)pst.pst_text.psf_fsid.psfs_id == esb->st_dev &&
 	        (ino_t)pst.pst_text.psf_fileid == esb->st_ino);
 }
@@ -2055,6 +2077,7 @@ pid_is_user(pid_t pid, uid_t uid)
 	snprintf(buf, sizeof(buf), "/proc/%d", pid);
 	if (stat(buf, &sb) != 0)
 		return false;
+
 	return (sb.st_uid == uid);
 }
 #elif defined(OS_Hurd)
@@ -2064,6 +2087,7 @@ pid_is_user(pid_t pid, uid_t uid)
 	struct proc_stat *ps;
 
 	ps = get_proc_stat(pid, PSTAT_OWNER_UID);
+
 	return ps && (uid_t)proc_stat_owner_uid(ps) == uid;
 }
 #elif defined(OS_Darwin)
@@ -2096,6 +2120,7 @@ pid_is_user(pid_t pid, uid_t uid)
 
 	if (pstat_getproc(&pst, sizeof(pst), (size_t)0, (int)pid) < 0)
 		return false;
+
 	return ((uid_t)pst.pst_uid == uid);
 }
 #elif defined(OS_FreeBSD)
@@ -2221,6 +2246,7 @@ pid_is_cmd(pid_t pid, const char *name)
 
 	if (pstat_getproc(&pst, sizeof(pst), (size_t)0, (int)pid) < 0)
 		return false;
+
 	return (strcmp(pst.pst_ucomm, name) == 0);
 }
 #elif defined(OS_Darwin)
@@ -2327,6 +2353,7 @@ pid_check(pid_t pid)
 	return STATUS_OK;
 }
 
+/* TODO: Refactor to reduce nesting levels. */
 static enum status_code
 do_pidfile(const char *name)
 {
@@ -2418,6 +2445,7 @@ static int
 check_proc_stat(struct proc_stat *ps)
 {
 	pid_check(proc_stat_pid(ps));
+
 	return 0;
 }
 
@@ -2579,6 +2607,7 @@ do_findprocs(void)
 		return do_procinit();
 }
 
+/* TODO: Refactor to reduce nesting levels. */
 static int
 do_start(int argc, char **argv)
 {
@@ -2593,6 +2622,7 @@ do_start(int argc, char **argv)
 		info("%s already running.\n", execname ? execname : "process");
 		return exitnodo;
 	}
+
 	if (testmode && quietmode <= 0) {
 		printf("Would start %s ", startas);
 		while (argc-- > 0)
@@ -2618,6 +2648,7 @@ do_start(int argc, char **argv)
 	}
 	if (testmode)
 		return 0;
+
 	debug("Starting %s...\n", startas);
 	*--argv = startas;
 	if (umask_value >= 0)
@@ -2877,6 +2908,7 @@ run_stop_schedule(void)
 			info("%d pids were not killed\n", ctx.n_notkilled);
 		if (ctx.n_killed)
 			ctx.anykilled = true;
+
 		return finish_stop_schedule(&ctx);
 	}
 

@@ -124,6 +124,10 @@ Afficher le numéro de version puis quitter.
 
 Cette variable peut être utilisée pour activer ou désactiver diverses fonctions qui affectent les informations comprises dans le fichier .buildinfo au moyen de l'option B<buildinfo> (depuis dpkg 1.18.19). Cette option fournit une liste, séparée par des virgules, de fonctionnalités, préfixées par les modificateurs « B<+> » ou « B<-> » pour indiquer s'il faut les activer ou les désactiver. La fonction spéciale « B<all> » peut être utilisée pour activer ou désactiver toutes les autres fonctions. La fonction « B<path> » contrôle l'inclusion sans condition du champ B<Build-Path>.
 
+=item B<DEB_BUILD_PROFILES>
+
+If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names.
+
 =item B<DEB_BUILD_ARCH>
 
 Sets the build architecture.  This affects the value for the B<Build-Architecture> field, and the check for the cross-compilation mode.

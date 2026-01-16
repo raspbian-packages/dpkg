@@ -18,7 +18,6 @@ nobase_dist_perllib_DATA = \
 	Dpkg/BuildProfiles.pm \
 	Dpkg/BuildTree.pm \
 	Dpkg/BuildTypes.pm \
-	Dpkg/Build/Info.pm \
 	Dpkg/Changelog.pm \
 	Dpkg/Changelog/Debian.pm \
 	Dpkg/Changelog/Entry.pm \
@@ -87,6 +86,7 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Source/Patch.pm \
 	Dpkg/Source/Quilt.pm \
 	Dpkg/Substvars.pm \
+	Dpkg/SysInfo.pm \
 	Dpkg/Vendor.pm \
 	Dpkg/Vendor/Debian.pm \
 	Dpkg/Vendor/Default.pm \
@@ -248,6 +248,7 @@ test_scripts = \
 	t/Dpkg_Conf.t \
 	t/Dpkg_Deps.t \
 	t/Dpkg_Path.t \
+	t/Dpkg_SysInfo.t \
 	t/Dpkg_Interface_Storable.t \
 	t/Dpkg_OpenPGP_KeyHandle.t \
 	t/Dpkg_OpenPGP.t \
@@ -369,6 +370,7 @@ test_data = \
 	t/Dpkg_Source_Package/package_1.0.orig.tar \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.asc \
 	t/Dpkg_Source_Package/package_1.0.orig.tar.sig \
+	t/Dpkg_Substvars/substvars-impl \
 	t/Dpkg_Substvars/substvars-req \
 	t/Dpkg_Substvars/substvars1 \
 	t/Dpkg_Substvars/substvars2 \

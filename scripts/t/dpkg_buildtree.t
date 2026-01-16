@@ -13,10 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use strict;
-use warnings;
+use v5.36;
 
-use Test::More;
+use Test::More tests => 10;
 use Test::Dpkg qw(:paths);
 
 use POSIX;
@@ -24,8 +23,6 @@ use File::Spec::Functions qw(rel2abs);
 
 use Dpkg::IPC;
 use Dpkg::BuildTree;
-
-plan tests => 10;
 
 my $srcdir = rel2abs($ENV{srcdir} || '.');
 my $datadir = "$srcdir/t/dpkg_buildtree";
@@ -61,7 +58,7 @@ sub test_is_rootless
         ],
         error_to_string => \$stderr,
         wait_child => 1,
-        nocheck => 1,
+        no_check => 1,
     );
     if (POSIX::WIFEXITED($?) && POSIX::WEXITSTATUS($?) == 255) {
         $res = 255;

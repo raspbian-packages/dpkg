@@ -176,10 +176,10 @@ statdb_node_apply(const char *filename, struct file_stat *filestat)
 
 	rc = chown(filename, filestat->uid, filestat->gid);
 	if (forcible_nonroot_error(rc) < 0)
-		ohshite(_("error setting ownership of '%.255s'"), filename);
+		ohshite(_("error setting ownership of '%s'"), filename);
 	rc = chmod(filename, filestat->mode & ~S_IFMT);
 	if (forcible_nonroot_error(rc) < 0)
-		ohshite(_("error setting permissions of '%.255s'"), filename);
+		ohshite(_("error setting permissions of '%s'"), filename);
 
 	dpkg_selabel_load();
 	dpkg_selabel_set_context(filename, filename, filestat->mode);
@@ -407,7 +407,8 @@ main(int argc, const char *const *argv)
 	set_force_default(FORCE_STATCMD_MASK);
 	dpkg_options_parse(&argv, cmdinfos, printforhelp);
 
-	debug(dbg_general, "root=%s admindir=%s", dpkg_fsys_get_dir(), dpkg_db_get_dir());
+	debug(dbg_general, "root=%s admindir=%s",
+	      dpkg_fsys_get_dir(), dpkg_db_get_dir());
 
 	if (!cipaction)
 		badusage(_("need an action option"));

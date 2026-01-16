@@ -124,7 +124,7 @@ Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, au
 
 =item B<debian/control>
 
-Die Hauptsteuerinformationsdatei für die Quellen. Sie gibt versionsunabhängige Informationen über das Quellpaket und die Binärpakete, die sie erstellen kann, an.
+The source package template control file, giving version-independent information about the source package and the binary packages it can produce.
 
 =item B<debian/files>
 

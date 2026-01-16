@@ -50,15 +50,17 @@ Fältet har nu ersatts av fältet B<Package-List>, som ger tillräcklig informat
 
 =item B<Architecture:> I<arkitekturlista> (rekommenderas)
 
-En lista över arkitekturer och arkitekturmönster avdelade med blanksteg som anger vilken typ av maskinvara paketet kan kompileras för. Vanliga arkitekturnamn och arkitekturmönster är B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, osv.
+The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
 
-Observar att värdet B<all> är tänkt för paket som är plattformsoberoende, och B<any> för paket som är arkitekturberoende. Listan kan innehålla (eller enbart bestå av) specialvärdet B<all>. När listan innehåller arkitekturmönstret B<any> är det enda andra tillåtna värdet i listan B<all>.
+Common architecture names and architecture wildcards are B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, etc.  Note that the B<all> value is meant for packages that are architecture independent, and B<any> for packages that are architecture dependent.  The list may include (or consist solely of) the special value B<all>.  When the list contains the architecture wildcard B<any>, the only other value allowed in the list is B<all>.
 
 Fältvärdet genereras normalt från fälten B<Architecture> i filen I<debian/control> i källkodspaketet.
 
 =item B<Version:> I<versionssträng> (krävs)
 
 Vanligtvis är detta det ursprungliga paketets versionsnummer på den form programmets författare använder. Den kan även innehålla ett Debianuppdateringsnummer (för paket vars källa är utanför Debian). Exakt format och sorteringsalgoritm beskrivs i L<deb-version(7)>.
+
+B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
 
 =item B<Origin:> I<namn>
 
@@ -154,7 +156,15 @@ Arkitekturbegränsning från binärpaketets fält B<Architecture>, med blanksteg
 
 =item B<profile>
 
-Den normaliserade byggprofil-begränsningsformeln från binärpaketets fält B<Build-Profile>, med OR (eller) ersatt med ”+” och AND (och) med ”,”.
+The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘,’, and ORs (whitespace between enclosing angle brackets) to ‘+’.  All angle brackets get removed during normalization.
+
+Deprecated since dpkg 1.23.0, superseded by B<profile:v1>.
+
+=item B<profile:v1>
+
+The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘&’, and ORs (whitespace between enclosing angle brackets) to ‘|’.  All angle brackets get removed during normalization.
+
+Supported since dpkg 1.23.0.
 
 =item B<protected>
 

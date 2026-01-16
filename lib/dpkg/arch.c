@@ -55,7 +55,7 @@
  * @param name The architecture name to verify.
  */
 const char *
-dpkg_arch_name_is_illegal(const char *name)
+dpkg_arch_name_is_invalid(const char *name)
 {
 	static char buf[150];
 	const char *p = name;
@@ -66,6 +66,7 @@ dpkg_arch_name_is_illegal(const char *name)
 		return _("may not be empty string");
 	if (!c_isalnum(*p))
 		return _("must start with an alphanumeric");
+
 	while (*++p != '\0')
 		if (!c_isalnum(*p) && *p != '-')
 			break;
@@ -75,6 +76,7 @@ dpkg_arch_name_is_illegal(const char *name)
 	snprintf(buf, sizeof(buf), _("character '%c' not allowed (only "
 	                             "letters, digits and characters '%s')"),
 	         *p, "-");
+
 	return buf;
 }
 
@@ -128,7 +130,7 @@ dpkg_arch_new(const char *name, enum dpkg_arch_type type)
  *
  * Create a new structure for the architecture if it is not yet known from
  * the system, in that case it will have type == DPKG_ARCH_UNKNOWN, if the
- * architecture is illegal it will have type == DPKG_ARCH_ILLEGAL, if name
+ * architecture is invalid it will have type == DPKG_ARCH_INVALID, if name
  * is an empty string it will have type == DPKG_ARCH_EMPTY, and if it is
  * NULL then it will have type == DPKG_ARCH_NONE.
  *
@@ -151,8 +153,8 @@ dpkg_arch_find(const char *name)
 		last_arch = arch;
 	}
 
-	if (dpkg_arch_name_is_illegal(name))
-		type = DPKG_ARCH_ILLEGAL;
+	if (dpkg_arch_name_is_invalid(name))
+		type = DPKG_ARCH_INVALID;
 	else
 		type = DPKG_ARCH_UNKNOWN;
 
@@ -182,7 +184,7 @@ dpkg_arch_get(enum dpkg_arch_type type)
 		return &arch_item_all;
 	case DPKG_ARCH_NATIVE:
 		return &arch_item_native;
-	case DPKG_ARCH_ILLEGAL:
+	case DPKG_ARCH_INVALID:
 	case DPKG_ARCH_FOREIGN:
 	case DPKG_ARCH_UNKNOWN:
 		internerr("architecture type %d is not unique", type);

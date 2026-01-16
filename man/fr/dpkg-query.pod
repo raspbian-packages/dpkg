@@ -248,9 +248,9 @@ L'information relative à un paquet peut être indiquée en insérant des appels
 
 =item B<MD5sum> (interne, lié au programme frontal)
 
-=item B<MSDOS-Filename> (interne, lié au programme frontal)
-
 =item B<Maintainer>
+
+=item B<Multi-Arch>
 
 =item B<Origin>
 
@@ -393,7 +393,7 @@ Définit le programme à exécuter lors du lancement d'une commande avec un shel
 
 Sets the pager command to use (since dpkg 1.19.1), which will be executed with «B<$SHELL -c>».  If B<SHELL> is not set, «B<%DPKG_DEFAULT_SHELL%>» will be used instead.
 
-The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and finally B<cat>.
+The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg 1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are present, the following programs will be tried in order (since dpkg 1.22.12): the default pager B<%DPKG_DEFAULT_PAGER%>, then L<less(1)>, L<more(1)>, and finally L<cat(1)>.
 
 =item B<DPKG_ROOT>
 

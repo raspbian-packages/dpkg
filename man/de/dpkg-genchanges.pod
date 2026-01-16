@@ -178,6 +178,10 @@ Gibt die Version aus und beendet das Programm.
 
 Setzt die Host-Architektur.
 
+=item B<DEB_BUILD_PROFILES>
+
+Falls gesetzt, wird es als aktive(s) Bau-Profil(e) zur Verwendung beim Erstellen der Datei .changes verwandt. Es ist eine durch Leerzeichen getrennte Liste von Profilnamen.
+
 =item B<DPKG_COLORS>
 
 Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.

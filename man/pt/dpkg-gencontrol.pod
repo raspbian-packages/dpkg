@@ -124,7 +124,7 @@ Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nati
 
 =item B<debian/control>
 
-O ficheiro de informação de controle de fonte principal, que fornece informação independente da versão acerca do pacote fonte e dos pacotes binários que pode gerar.
+The source package template control file, giving version-independent information about the source package and the binary packages it can produce.
 
 =item B<debian/files>
 

@@ -89,10 +89,6 @@ Flera begränsningar kan kedjas samman
 
 dpkg-gensymbols har en intern svartlista över symboler som inte ska förekomma i symbolfiler eftersom de oftast bara är sidoeffekter från implementationsdetaljer i verktygskedjan (sedan dpkg 1.20.1). Om du, av någon orsak, verkligen vill att en av dessa symboler ska tas med i symbolfilen måste du tagga symbolen med B<allow-internal>. Det kan vara nödvändigt för lågnivå-verktygskedjebibliotek som ”libgcc”.
 
-=item B<ignore-blacklist>
-
-Ett alias för B<allow-internal> som avråds från (sedan dpkg 1.20.1, stöds sedan dpkg 1.15.3).
-
 =item B<c++>
 
 Betecknar I<c++>-symbolmönster. Se stycket L</Använda symbolmönster> nedan.

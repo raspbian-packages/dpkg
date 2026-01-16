@@ -22,7 +22,7 @@ B<dpkg-gensymbols> [I<option>...]
 
 =head1 DESCRIPTION
 
-B<dpkg-gensymbols> analyse un répertoire temporaire de construction (par défaut debian/tmp), y recherche les bibliothèques et crée un fichier I<symbols> qui les décrit. Si ce fichier n'est pas vide, il est installé dans le sous-répertoire DEBIAN du répertoire de construction afin de pouvoir être inclus dans les informations de contrôle du paquet.
+B<dpkg-gensymbols> scans a temporary build tree (debian/tmp by default) looking for libraries and generates a I<symbols> file describing them.  This file, if non-empty, is then installed in the DEBIAN subdirectory of the build tree so that it ends up included in the package metadata.
 
 Lors de la création de ces fichiers, il utilise en entrée certains fichiers de symboles fournis par le responsable. Il recherche les fichiers suivants (en utilisant le premier trouvé) :
 

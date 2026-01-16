@@ -52,11 +52,17 @@ Dieses gefaltete Feld ist eine durch Leerzeichen getrennte Liste von hochzuladen
 
 =item B<Architecture:> I<Architekturliste>
 
-Listet die Architekturen der derzeit hochgeladenen Dateien auf. Geläufige Architekturen sind B<amd64>, B<armel>, B<i386>, usw. Beachten Sie, dass der Wert B<all> für Pakete gedacht ist, die Architektur-unabhängig sind. Falls die Quellen für das Paket auch hochgeladen werden, ist der besondere Eintrag B<source> auch vorhanden. Architektur-Platzhalter dürfen in der Liste niemals auftauchen.
+Lists the architectures of the files currently being uploaded.
+
+Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being uploaded, the special entry B<source> is also present.
+
+B<Note:> Architecture wildcards are not allowed in this context.
 
 =item B<Version:> I<Versionszeichenkette> (verpflichtend)
 
 Typischerweise ist das die Original-Paketversionsnummer, in der Form, die der Programmautor verwendet. Es kann auch eine Debian-Revisionsnummer enthalten (für nicht aus Debian stammende Pakete). Das genaue Format und der Sortieralgorithmus sind in L<deb-version(7)> beschrieben.
+
+B<Hinweis>: Bei einigen Lieferanten wurde L<dpkg> so gebaut, dass native Quellen mit nichtnativen Versionen erlaubt sind. Dadurch wird dies inkohärent und fügt Verwirrung zum Konzept hinzu, wo schon so dies eine Falle für versehentliche Fehler ist.
 
 =item B<Distribution:> I<Distribution>en (verpflichtend)
 
@@ -106,7 +112,9 @@ Das mehrzeilige Feld enthält eine Liste der Dateien mit Md5sum, Größe, Sektio
 
 Die erste Zeile des Feldwertes (dem Teil auf der gleichen Zeile wie der von einem Doppelpunkt gefolgte Feldname) ist immer leer. Der Inhalt des Feldes wird durch Fortsetzungszeilen ausgedrückt, eine Zeile pro Datei. Jede Zeile besteht aus durch Leerzeichen getrennten Einträgen, die die Datei beschreiben: die Md5sum, die Dateigröße, die Datei-Sektion, die Datei-Priorität und der Dateiname.
 
-Falls I<Sektion> und I<Priorität> im Paket fehlen, ist die Vorgabe B<unknown> bzw. B<optional> (seit Dpkg 1.22.13).
+If the section is omitted in the source package template control file, it defaults to B<unknown> (since dpkg 1.22.13).
+
+If the priority is omitted in the source package template control file, it defaults to B<optional> (since dpkg 1.22.13).
 
 Dieses Feld führt alle Dateien, die den Upload bilden, auf. Die Liste der Dateien in diesem Feld muss auf die Liste der Dateien in den anderen zugehörigen B<Checksums>-Feldern passen.
 

@@ -178,6 +178,10 @@ Afficher le numéro de version puis quitter.
 
 Sets the host architecture.
 
+=item B<DEB_BUILD_PROFILES>
+
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+
 =item B<DPKG_COLORS>
 
 Définit le mode de couleur (depuis dpkg 1.18.5). Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.

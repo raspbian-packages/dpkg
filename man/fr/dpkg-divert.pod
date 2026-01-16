@@ -90,7 +90,7 @@ Met en fait le fichier de côté. Quand le fichier de destination existe, B<dpkg
 
 =item B<--no-rename>
 
-Indique que le fichier ne doit pas être renommé lors de l'ajout ou du retrait d'un détournement de la base de données (depuis dpkg 1.19.1). Cela est destiné au détournement de fichiers de l'ensemble de paquets B<essential>, où la disparition temporaire du fichier original n'est pas acceptable, car il rend non fonctionnel le système. C'est le comportement par défaut, mais cela changera durant le cycle de dpkg 1.20.x.
+Specifies that the file should not be renamed while adding or removing the diversion into the database (since dpkg 1.19.1).  This is intended for diversions of files from the B<Essential> package set, where the temporary disappearance of the original file is not acceptable, as it can render the system non-functional.  This is the default behavior, which will change once there are no known users, but not before the dpkg 1.23.x release cycle.
 
 =item B<--test>
 

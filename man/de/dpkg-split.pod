@@ -126,11 +126,7 @@ Falls Sie ein automatisches Einreihen oder Wiederzusammenbauen durchführen, gib
 
 =item B<--msdos>
 
-Erzwingt, dass die von B<--split> erzeugten Ausgabe-Dateinamen MSDOS-kompatibel sind.
-
-Dies verstümmelt das Präfix - entweder das voreingestellten aus dem Eingabe-Dateinamen abgeleitete oder das als Argument übergebene: alphanumerische Zeichen werden klein geschrieben, Pluszeichen werden durch B<x> ersetzt und alle anderen Zeichen werden entfernt.
-
-Das Ergebnis wird dann soweit wie nötig abgeschnitten, und Dateinamen der Form I<PräfixN>B<of>I<M>B<.deb> werden generiert.
+Obsolete option without effect (since dpkg 1.23.0).
 
 =back
 

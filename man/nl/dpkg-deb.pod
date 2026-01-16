@@ -36,9 +36,9 @@ De meeste commando's die als argument een invoerarchief verwachten, kunnen dit a
 
 =item B<-b>, B<--build> I<map-binair-pakket> [I<archief>|I<map>]
 
-Maakt een debian-archief van de bestandssysteemboom die in I<map-binair-pakket> staat. I<map-binair-pakket> moet een onderliggende map B<DEBIAN> hebben waarin de bestanden met controle-informatie opgeslagen zijn, zoals het bestand control zelf. Deze map zal I<niet> voorkomen in het bestandssysteemarchief van het binaire pakket, maar in de plaats daarvan zullen de bestanden daaruit in het conrole-informatiegebied van het binaire pakket geplaatst worden.
+Creates a debian archive from the filesystem tree stored in I<binary-directory>.  I<binary-directory> must have a B<DEBIAN> subdirectory, which contains the package metadata files such as the binary package control file.  This directory will I<not> appear in the binary package's filesystem archive, but instead the files in it will be put in the binary package's control information area.
 
-Tenzij u B<--no-check> opgeeft, zal B<dpkg-deb> B<DEBIAN/control> lezen en het ontleden. Het zal het bestand controleren op syntaxisfouten en op andere problemen en de naam tonen van het binaire pakket dat gebouwd wordt. B<dpkg-deb> zal ook de toegangsrechten van de scripts van de beheerder nazien en van andere bestanden die te vinden zijn in de map B<DEBIAN> met controle-informatie.
+Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> package metadata directory.
 
 Indien geen I<archief> opgegeven werd, zal B<dpkg-deb> het pakket wegschrijven in het bestand I<map-binair-pakket>B<.deb>.
 
@@ -86,7 +86,7 @@ Is zoals B<--extract> (B<-x>) met B<--verbose> (B<-v>), hetgeen een lijst van de
 
 =item B<-R>, B<--raw-extract> I<archief> I<map>
 
-Extraheert de boom met het bestandssysteem uit een pakketarchief en plaatst die in de opgegeven map en de bestanden met de controle-informatie in een daaronder liggende map B<DEBIAN> (sinds dpkg 1.16.1).
+Extracts the filesystem tree from a package archive into a specified directory, and the package metadata files into a B<DEBIAN> subdirectory of the specified directory (since dpkg 1.16.1).
 
 Indien nodig zal de doelmap (maar niet de erboven liggende mappen) aangemaakt worden.
 
@@ -102,7 +102,7 @@ Extraheert de gegevens van de bestandssysteemboom uit een binair pakket en stuur
 
 =item B<-e>, B<--control> I<archief> [I<map>]
 
-Extraheert de bestanden met controle-informatie uit een pakketarchief en plaatst ze in de opgegeven map.
+Extracts the package metadata files from a package archive into the specified directory.
 
 Indien geen map opgegeven werd, wordt een onder de huidige map liggende map B<DEBIAN> gebruikt.
 

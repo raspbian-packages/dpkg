@@ -13,8 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use strict;
-use warnings;
+use v5.36;
 
 use Test::More tests => 12;
 use Test::Dpkg qw(:paths);
@@ -50,8 +49,11 @@ sub test_makefile {
 
     $desc //= 'default';
 
-    spawn(exec => [ $Dpkg::PROGMAKE, '-C', $datadir, '-f', $makefile ],
-          wait_child => 1, nocheck => 1);
+    spawn(
+        exec => [ $Dpkg::PROGMAKE, '-C', $datadir, '-f', $makefile ],
+        wait_child => 1,
+        no_check => 1,
+    );
     ok($? == 0, "makefile $makefile computes all values correctly ($desc)");
 }
 

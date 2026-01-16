@@ -90,10 +90,6 @@ Meerdere beperkingen kunnen aaneengeregen worden.
 
 dpkg-gensymbols hanteert een lijst van interne symbolen die niet zouden mogen voorkomen in symboolbestanden omdat ze gewoonlijk slechts een neveneffect zijn van details in de wijze waarop de gereedschapsketen (toolchain) geïmplementeerd wordt. Indien u om een of andere reden echt wilt dat een van deze symbolen opgenomen wordt in het symboolbestand, moet u het symbool markeren met de tag B<allow-internal>. Dit kan nodig zijn voor sommige gereedschapsketenbibliotheken van lagere orde zoals “libgcc”.
 
-=item B<ignore-blacklist>
-
-Een verouderde alias voor B<allow-internal> (sinds dpkg 1.20.1, ondersteund sinds dpkg 1.15.3).
-
 =item B<c++>
 
 Geeft een I<c++>-symboolpatroon aan. Zie hierna in de subsectie L</Het gebruik van symboolpatronen>.

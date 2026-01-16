@@ -159,9 +159,23 @@ Ne vérifie pas les signatures et les sommes de contrôle avant de dépaqueter(d
 
 Ne pas remplacer le répertoire d'extraction s'il existe déjà (depuis dpkg 1.18.8)
 
+=item B<--no-vendor-certs>
+
+Do not use the vendor specific certificate keyrings.
+
+Supported since dpkg 1.23.0.
+
+=item B<--signer-certs=>I<keyring>
+
+Use this I<keyring> containing signer certificates during signature verification of source packages.
+
+The option may be repeated multiple times to add multiple keyrings.
+
+Supported since dpkg 1.23.0.
+
 =item B<--require-valid-signature>
 
-Refuse de décompresser le paquet source s'il ne contient pas de signature OpenPGP pouvant être vérifiée (depuis dpkg 1.15.0) soit avec le fichier de clés I<trustedkeys.gpg> de l'utilisateur, un des fichiers de clés propre à un distributeur ou un des fichiers de clés officiels de Debian (I</usr/share/keyrings/debian-keyring.gpg>, I</usr/share/keyrings/debian-nonupload.gpg> et I</usr/share/keyrings/debian-maintainers.gpg>).
+Refuse to unpack the source package if it doesn't contain an OpenPGP signature that can be verified (since dpkg 1.15.0) either with the user supplied B<--signer-certs> keyrings, or one of the vendor-specific keyrings, including any parent vendor keyrings if relevant.
 
 =item B<--require-strong-checksums>
 
@@ -194,6 +208,8 @@ Si vous ne savez pas quel format source utiliser, il est conseillé de choisir s
 =head2 Format : 1.0
 
 Un paquet source dans ce format se compose soit d'un B<.orig.tar.gz> associé à un B<.diff.gz> ou un simple B<.tar.gz> (dans ce cas, le paquet est appelé natif I<native>). L'archive tar originale pourrait être accompagnée de façon facultative d'une signature amont séparée B<.orig.tar.gz.asc>, extraction prise en charge depuis dpkg 1.18.5.
+
+B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
 
 B<Extraction>
 
@@ -287,13 +303,15 @@ Lors de la construction d'un nouveau paquet source, toute modification apportée
 
 Pris en charge depuis dpkg 1.14.17. Ce format est une extension du format de paquet natif tel que défini dans le format 1.0. Il gère toutes les méthodes de compression et ignore par défaut tout fichier et répertoire spécifique à VCS ainsi que de nombreux fichiers temporaires (voir la valeur par défaut associée à l'option B<-I> dans la sortie de B<--help>).
 
+B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+
 =head2 Format : 3.0 (quilt)
 
-Pris en charge depuis 1.14.17. Un paquet source dans ce format contient au moins une archive tar d'origine (B<.orig.tar.>I<ext> où I<ext> peut être B<gz>, B<bz2> B<lzma> et B<xz>) et une archive tar debian (B<.debian.tar.>I<ext>). Il peut également contenir d'autres archives tar d'origine (B<.orig->I<composant>B<.tar.>I<ext>). I<composant> ne peut être constitué que de caractères alphanumériques (« a-zA-Z0-9 ») et de tirets (« - »). Chaque archive tar originale peut être accompagnée de façon facultative d'une signature amont séparée (B<.orig.tar.>I<ext>B<.asc> et B<.orig->I<composant>B<.tar.>I<ext>B<.asc>), extraction prise en charge depuis dpkg 1.17.20, construction depuis dpkg 1.18.5.
+Supported since dpkg 1.14.17.  A source package in this format contains at least an original tarball (B<.orig.tar.>I<ext> where I<ext> can be B<gz>, B<bz2>, B<lzma> and B<xz>) and a debian tarball (B<.debian.tar.>I<ext>).  It can also contain additional original tarballs (B<.orig->I<addon>B<.tar.>I<ext>).  I<addon> can only contain alphanumeric (‘a-zA-Z0-9’) characters and hyphens (‘-’).  Optionally each original tarball can be accompanied by a detached upstream signature (B<.orig.tar.>I<ext>B<.asc> and B<.orig->I<addon>B<.tar.>I<ext>B<.asc>), extraction supported since dpkg 1.17.20, building supported since dpkg 1.18.5.
 
 B<Extraction>
 
-L'archive principale tar d'origine est extraite tout d'abord, puis toutes les autres archives tar d'origine sont extraites dans des sous-répertoires dont le nom est formé à partir de la partie I<composant> de leur nom. L'archive tar Debian est extraite du répertoire source, après la suppression de tout répertoire B<debian> existant. Notez que l'archive tar Debian doit contenir un sous-répertoire B<debian>, mais elle peut également contenir des fichiers binaires en dehors de ce répertoire (voir l'option B<--include-binaries>).
+The main original tarball is extracted first, then all additional original tarballs are extracted in subdirectories named after the I<addon> part of their filename (any pre-existing directory is replaced).  The debian tarball is extracted on top of the source directory after prior removal of any pre-existing B<debian> directory.  Note that the debian tarball must contain a B<debian> sub-directory but it can also contain binary files outside of that directory (see B<--include-binaries> option).
 
 Toutes les modifications figurant dans B<debian/patches/>I<distributeur>B<.series> ou B<debian/patches/series> sont alors appliquées, où I<distributeur> sera le nom en minuscules du distributeur actuel, ou Debian s'il n'y a pas de distributeur défini. Si l'ancien fichier est utilisé et qu'il n'y en a pas de plus récent (ou si c'est un lien symbolique), alors celui-ci est remplacé par un lien symbolique vers l'ancien. Cette disposition vise à simplifier l'utilisation de B<quilt> pour gérer l'ensemble des correctifs. Les fichiers de séries propres au distributeur sont destinés à permettre de sérialiser plusieurs branches de développement en se basant sur le distributeur, d'une manière déclarative, de préférence au codage ouvert de cette gestion dans B<debian/rules>. Cela est particulièrement utile quand le source à besoin de correctifs de manière conditionnelle, car les fichiers affectés n’ont pas de gestion interne d’inclusion conditionnelle. Notez toutefois que si B<dpkg-source> analyse correctement les fichiers de séries avec les options utilisées pour l'application du correctif (stockées sur chaque ligne après le nom du correctif et une ou plusieurs espaces), il ignore ces options et s'attendra toujours à ce que les correctifs puissent être appliqués avec l'option B<-p1> de B<patch>. Il va donc émettre un avertissement lorsqu'il rencontrera ces options, et la construction est susceptible d'échouer.
 

@@ -124,7 +124,7 @@ Si cette variable est définie, elle sera utilisée pour décider l'activation d
 
 =item B<debian/control>
 
-Le principal fichier d'information sur les sources ; il donne des renseignements qui ne dépendent pas d'une version concernant le paquet source et les paquets binaires qui peuvent être créés.
+The source package template control file, giving version-independent information about the source package and the binary packages it can produce.
 
 =item B<debian/files>
 

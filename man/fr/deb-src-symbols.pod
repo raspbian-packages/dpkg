@@ -90,10 +90,6 @@ Plusieurs restrictions peuvent être chaînées.
 
 B<dpkg-gensymbols> comporte une liste de symboles internes qui ne devraient pas apparaître dans les fichiers de symboles, car ils sont en général uniquement des effets de bord de détails de mise en œuvre de la chaîne d'outils de construction (depuis dpkg 1.20.1). Si, pour une raison précise, vous voulez vraiment inclure un de ces symboles dans le fichier, vous pouvez imposer qu'il soit ignoré, avec B<allow-internal>. Cela peut être utile pour certaines bibliothèques de bas niveau telles que B<libgcc>.
 
-=item B<ignore-blacklist>
-
-Un alias obsolète pour B<allow-internal> (depuis dpkg 1.20.1, pris en charge depuis dpkg 1.15.3).
-
 =item B<c++>
 
 Denotes I<c++> symbol pattern.  See L</Using symbol patterns> subsection below.

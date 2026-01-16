@@ -178,6 +178,10 @@ De versie tonen en afsluiten.
 
 Stelt de computerarchitectuur in.
 
+=item B<DEB_BUILD_PROFILES>
+
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+
 =item B<DPKG_COLORS>
 
 Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.

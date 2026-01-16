@@ -20,8 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use strict;
-use warnings;
+use v5.36;
 
 use File::Path qw(remove_tree);
 use File::Copy;
@@ -31,6 +30,9 @@ use POSIX qw(:sys_wait_h);
 use Dpkg ();
 use Dpkg::Gettext;
 use Dpkg::ErrorHandling;
+use Dpkg::SysInfo qw(
+    get_num_processors
+);
 use Dpkg::BuildTypes;
 use Dpkg::BuildOptions;
 use Dpkg::BuildProfiles qw(set_build_profiles);
@@ -240,17 +242,17 @@ while (@ARGV) {
     $_ = shift @ARGV;
 
     if (/^(?:--help|-\?)$/) {
-	usage;
-	exit 0;
+        usage;
+        exit 0;
     } elsif (/^--version$/) {
-	showversion;
-	exit 0;
+        showversion;
+        exit 0;
     } elsif (/^--admindir$/) {
         $admindir = shift @ARGV;
     } elsif (/^--admindir=(.*)$/) {
-	$admindir = $1;
+        $admindir = $1;
     } elsif (/^--source-option=(.*)$/) {
-	push @source_opts, $1;
+        push @source_opts, $1;
     } elsif (/^--buildinfo-file=(.*)$/) {
         $buildinfo_file = $1;
         usageerr(g_('missing .buildinfo filename')) if not length $buildinfo_file;
@@ -276,79 +278,80 @@ while (@ARGV) {
             push @changes_opts, $changes_opt;
         }
     } elsif (/^--jobs(?:-try)?$/) {
-	$parallel = '';
-	$parallel_force = 0;
+        $parallel = '';
+        $parallel_force = 0;
     } elsif (/^(?:-[jJ]|--jobs(?:-try)?=)(\d*|auto)$/) {
-	$parallel = $1 || '';
-	$parallel_force = 0;
+        $parallel = $1 || '';
+        $parallel_force = 0;
     } elsif (/^--jobs-force(?:=(\d*|auto))?$/) {
         $parallel = $1 || '';
         $parallel_force = 1;
     } elsif (/^(?:-r|--root-command=)(.*)$/) {
-	my $arg = $1;
-	@rootcommand = split ' ', $arg;
+        my $arg = $1;
+        @rootcommand = split ' ', $arg;
     } elsif (/^--check-command=(.*)$/) {
-	$check_command = $1;
+        $check_command = $1;
     } elsif (/^--check-option=(.*)$/) {
-	push @check_opts, $1;
+        push @check_opts, $1;
     } elsif (/^--hook-([^=]+)=(.*)$/) {
-	my ($hook_name, $hook_cmd) = ($1, $2);
-	usageerr(g_('unknown hook name %s'), $hook_name)
-	    if not exists $hook{$hook_name};
-	usageerr(g_('missing hook %s command'), $hook_name)
-	    if not defined $hook_cmd;
-	$hook{$hook_name} = $hook_cmd;
+        my ($hook_name, $hook_cmd) = ($1, $2);
+        usageerr(g_('unknown hook name %s'), $hook_name)
+            if not exists $hook{$hook_name};
+        usageerr(g_('missing hook %s command'), $hook_name)
+            if not defined $hook_cmd;
+        $hook{$hook_name} = $hook_cmd;
     } elsif (/^(--buildinfo-id)=.*$/) {
-	# Deprecated option
-	warning(g_('%s is deprecated; it is without effect'), $1);
+        # Deprecated option.
+        warning(g_('%s is deprecated; it is without effect'), $1);
     } elsif (/^--sign-backend=(.*)$/) {
-	$signbackend = $1;
+        $signbackend = $1;
     } elsif (/^(?:-p|--sign-command=)(.*)$/) {
-	$signcommand = $1;
+        $signcommand = $1;
     } elsif (/^--sign-keyfile=(.*)$/) {
-	$signkeyfile = $1;
+        $signkeyfile = $1;
     } elsif (/^(?:-k|--sign-keyid=|--sign-key=)(.*)$/) {
-	$signkeyid = $1;
+        $signkeyid = $1;
     } elsif (/^--(no-)?check-builddeps$/) {
-	$checkbuilddep = !(defined $1 and $1 eq 'no-');
+        $checkbuilddep = ! (defined $1 and $1 eq 'no-');
     } elsif (/^-([dD])$/) {
-	$checkbuilddep = ($1 eq 'D');
+        $checkbuilddep = ($1 eq 'D');
     } elsif (/^--ignore-builtin-builddeps$/) {
-	$check_builtin_builddep = 0;
+        $check_builtin_builddep = 0;
     } elsif (/^-s(gpg|pgp)$/) {
-	# Deprecated option
-	warning(g_('-s%s is deprecated; always using gpg style interface'), $1);
+        # Deprecated option.
+        warning(g_('-s%s is deprecated; always using gpg style interface'), $1);
     } elsif (/^--force-sign$/) {
-	$signforce = 1;
+        $signforce = 1;
     } elsif (/^--no-sign$/) {
-	$signforce = 0;
-	$signsource = 0;
-	$signbuildinfo = 0;
-	$signchanges = 0;
+        $signforce = 0;
+        $signsource = 0;
+        $signbuildinfo = 0;
+        $signchanges = 0;
     } elsif (/^-us$/ or /^--unsigned-source$/) {
-	$signsource = 0;
+        $signsource = 0;
     } elsif (/^-ui$/ or /^--unsigned-buildinfo$/) {
-	$signbuildinfo = 0;
+        $signbuildinfo = 0;
     } elsif (/^-uc$/ or /^--unsigned-changes$/) {
-	$signbuildinfo = 0;
-	$signchanges = 0;
+        $signbuildinfo = 0;
+        $signchanges = 0;
     } elsif (/^-ap$/ or /^--sign-pausa$/) {
-	$signpause = 1;
+        $signpause = 1;
     } elsif (/^-a$/ or /^--host-arch$/) {
-	$host_arch = shift;
+        $host_arch = shift;
     } elsif (/^-a(.*)$/ or /^--host-arch=(.*)$/) {
-	$host_arch = $1;
+        $host_arch = $1;
     } elsif (/^-P(.*)$/ or /^--build-profiles=(.*)$/) {
-	my $arg = $1;
-	@build_profiles = split /,/, $arg;
+        my $arg = $1;
+        @build_profiles = split /,/, $arg;
     } elsif (/^-s[iad]$/) {
-	push @changes_opts, $_;
+        push @changes_opts, $_;
     } elsif (/^--(?:compression-level|compression)=.+$/) {
-	push @source_opts, $_;
+        push @source_opts, $_;
     } elsif (/^--(?:diff-ignore|tar-ignore)(?:=.+)?$/) {
-	push @source_opts, $_;
+        push @source_opts, $_;
     } elsif (/^-(?:s[nsAkurKUR]|[zZ].*|i.*|I.*)$/) {
-	push @source_opts, $_; # passed to dpkg-source
+        # Passed to dpkg-source.
+        push @source_opts, $_;
     } elsif (/^-tc$/ or /^--post-clean$/) {
         $postclean = 1;
     } elsif (/^--no-post-clean$/) {
@@ -356,17 +359,19 @@ while (@ARGV) {
     } elsif (/^--sanitize-env$/) {
         $sanitize_env = 1;
     } elsif (/^-t$/ or /^--host-type$/) {
-	$host_type = shift; # Order DOES matter!
+        # Order DOES matter!
+        $host_type = shift;
     } elsif (/^-t(.*)$/ or /^--host-type=(.*)$/) {
-	$host_type = $1; # Order DOES matter!
+        # Order DOES matter!
+        $host_type = $1;
     } elsif (/^--target-arch$/) {
-	$target_arch = shift;
+        $target_arch = shift;
     } elsif (/^--target-arch=(.*)$/) {
-	$target_arch = $1;
+        $target_arch = $1;
     } elsif (/^--target-type$/) {
-	$target_type = shift;
+        $target_type = shift;
     } elsif (/^--target-type=(.*)$/) {
-	$target_type = $1;
+        $target_type = $1;
     } elsif (/^(?:--target|--rules-target|-T)$/) {
         push @call_target, split /,/, shift @ARGV;
     } elsif (/^(?:--target=|--rules-target=|-T)(.+)$/) {
@@ -383,38 +388,38 @@ while (@ARGV) {
     } elsif (/^--build=(.*)$/) {
         set_build_type_from_options($1, $_);
     } elsif (/^-b$/) {
-	set_build_type(BUILD_BINARY, $_);
+        set_build_type(BUILD_BINARY, $_);
     } elsif (/^-B$/) {
-	set_build_type(BUILD_ARCH_DEP, $_);
+        set_build_type(BUILD_ARCH_DEP, $_);
     } elsif (/^-A$/) {
-	set_build_type(BUILD_ARCH_INDEP, $_);
+        set_build_type(BUILD_ARCH_INDEP, $_);
     } elsif (/^-S$/) {
-	set_build_type(BUILD_SOURCE, $_);
+        set_build_type(BUILD_SOURCE, $_);
     } elsif (/^-G$/) {
-	set_build_type(BUILD_SOURCE | BUILD_ARCH_DEP, $_);
+        set_build_type(BUILD_SOURCE | BUILD_ARCH_DEP, $_);
     } elsif (/^-g$/) {
-	set_build_type(BUILD_SOURCE | BUILD_ARCH_INDEP, $_);
+        set_build_type(BUILD_SOURCE | BUILD_ARCH_INDEP, $_);
     } elsif (/^-F$/) {
-	set_build_type(BUILD_FULL, $_);
+        set_build_type(BUILD_FULL, $_);
     } elsif (/^-v(.*)$/) {
-	$since = $1;
+        $since = $1;
     } elsif (/^-m(.*)$/ or /^--(?:source|build)-by=(.*)$/) {
-	$maint = $1;
+        $maint = $1;
     } elsif (/^-e(.*)$/ or /^--(?:changed|release)-by=(.*)$/) {
-	$changedby = $1;
+        $changedby = $1;
     } elsif (/^-C(.*)$/) {
-	$desc = $1;
+        $desc = $1;
     } elsif (m/^-[EW]$/) {
-	# Deprecated option
-	warning(g_('%s is deprecated; it is without effect'), $_);
+        # Deprecated option.
+        warning(g_('%s is deprecated; it is without effect'), $_);
     } elsif (/^-R(.*)$/ or /^--rules-file=(.*)$/) {
-	my $arg = $1;
-	@debian_rules = split ' ', $arg;
+        my $arg = $1;
+        @debian_rules = split ' ', $arg;
     } elsif ($_ eq '--') {
         $source = shift @ARGV;
         last;
     } elsif (/^-/) {
-	usageerr(g_('unknown option or argument %s'), $_);
+        usageerr(g_('unknown option or argument %s'), $_);
     } else {
         $source = $_;
         last;
@@ -423,7 +428,7 @@ while (@ARGV) {
 
 if (@call_target) {
     my $targets = join ',', @call_target;
-    set_build_type_from_targets($targets, '--rules-target', nocheck => 1);
+    set_build_type_from_targets($targets, '--rules-target', no_check => 1);
 }
 
 if (build_has_all(BUILD_BINARY)) {
@@ -438,9 +443,9 @@ if (build_has_all(BUILD_BINARY)) {
 }
 
 if (not $preclean) {
-    # -nc without -b/-B/-A/-S/-F implies -b
+    # -nc without -b/-B/-A/-S/-F implies -b.
     set_build_type(BUILD_BINARY) if build_has_any(BUILD_DEFAULT);
-    # -nc with -S implies no dependency checks
+    # -nc with -S implies no dependency checks.
     $checkbuilddep = 0 if build_is(BUILD_SOURCE);
 }
 
@@ -470,14 +475,7 @@ run_hook('preinit');
 
 if (defined $parallel) {
     if ($parallel eq 'auto') {
-        # Most Unices.
-        $parallel = qx(getconf _NPROCESSORS_ONLN 2>/dev/null);
-        # Fallback for at least Irix.
-        $parallel = qx(getconf _NPROC_ONLN 2>/dev/null) if $?;
-        # Fallback to serial execution if cannot infer the number of online
-        # processors.
-        $parallel = '1' if $?;
-        chomp $parallel;
+        $parallel = get_num_processors();
     }
     if ($parallel_force) {
         $ENV{MAKEFLAGS} //= '';
@@ -652,7 +650,7 @@ my $build_driver = Dpkg::BuildDriver->new(
 );
 
 #
-# Preparation of environment stops here
+# Preparation of environment stops here.
 #
 
 run_hook('init');
@@ -677,7 +675,7 @@ if ($checkbuilddep) {
     } elsif (WEXITSTATUS($?)) {
         errormsg(g_('build dependencies/conflicts unsatisfied; aborting'));
         hint(g_('satisfy build dependencies with your package manager frontend'));
-	exit 3;
+        exit 3;
     }
 }
 
@@ -814,7 +812,10 @@ if ($signsource) {
     $buildinfo->load($buildinfo_file);
     my $checksums = Dpkg::Checksums->new();
     $checksums->add_from_control($buildinfo);
-    $checksums->add_from_file("../$pv.dsc", update => 1, key => "$pv.dsc");
+    $checksums->add_from_file("../$pv.dsc",
+        update => 1,
+        key => "$pv.dsc",
+    );
     $checksums->export_to_control($buildinfo);
     $buildinfo->save($buildinfo_file);
 }
@@ -856,7 +857,7 @@ sub mustsetvar {
     my ($var, $text) = @_;
 
     error(g_('unable to determine %s'), $text)
-	unless defined($var);
+        unless defined($var);
 
     info("$text $var");
     return $var;
@@ -962,7 +963,7 @@ sub describe_build {
     my $ext = compression_get_file_extension_regex();
 
     if (fileomitted($files, qr/\.deb/)) {
-        # source-only upload
+        # source-only upload.
         if (fileomitted($files, qr/\.diff\.$ext/) and
             fileomitted($files, qr/\.debian\.tar\.$ext/)) {
             return g_('source-only upload: Debian-native package');

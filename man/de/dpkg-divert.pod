@@ -90,7 +90,7 @@ Schiebt die Dateien tatsächlich beiseite (oder zurück). B<dpkg-divert> wird de
 
 =item B<--no-rename>
 
-Legt fest, dass die Datei beim Hinzufügen oder Entfernen der Umleitung in die Datenbank nicht umbenannt werden soll (seit Dpkg 1.19.1). Dies ist für Umleitungen von Dateien aus der Paketgruppe B<Essential> gedacht, bei der das vorübergehende Verschwinden der ursprünglichen Datei nicht akzeptiert werden kann, da es zu einem nicht funktionalen System führen kann. Dies ist das Standardverhalten, was sich allerdings im Dpkg 1.20.x-Zyklus ändern wird.
+Legt fest, dass die Datei beim Hinzufügen oder Entfernen der Umleitung in die Datenbank nicht umbenannt werden soll (seit Dpkg 1.19.1). Dies ist für Umleitungen von Dateien aus der Paketgruppe B<Essential> gedacht, bei der das vorübergehende Verschwinden der ursprünglichen Datei nicht akzeptiert werden kann, da es zu einem nicht funktionalen System führen kann. Dies ist das Standardverhalten. Dies wird sich ändern, sobald es keine bekannten Nutzer mehr gibt, aber nicht vor dem Dpkg 1.23.x-Veröffentlichungszyklus.
 
 =item B<--test>
 

@@ -55,11 +55,13 @@ dist_docspec_DATA = \
 	# EOL
 
 EXTRA_DIST = \
+	.editorconfig \
 	ChangeLog.old \
 	README.l10n \
 	autogen \
 	build-aux/gen-changelog \
 	build-aux/gen-release \
+	build-aux/get-make-jobs \
 	build-aux/get-vcs-id \
 	build-aux/get-version \
 	build-aux/lcov-inject \

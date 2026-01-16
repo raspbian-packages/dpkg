@@ -22,8 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use strict;
-use warnings;
+use v5.36;
 
 use List::Util qw(any);
 use Cwd;
@@ -151,9 +150,11 @@ sub append_deps {
     foreach my $dep_str (@deps) {
         next unless $dep_str;
 
-        my $deps = deps_parse($dep_str, reduce_restrictions => 1,
-                              build_dep => 1,
-                              build_profiles => \@build_profiles);
+        my $deps = deps_parse($dep_str,
+            reduce_restrictions => 1,
+            build_dep => 1,
+            build_profiles => \@build_profiles,
+        );
 
         # We add every sub-dependencies as we cannot know which package in
         # an OR dependency has been effectively used.
@@ -205,7 +206,7 @@ sub collect_installed_builddeps {
         my $pkg;
         my $qualified_pkg_name;
         foreach my $installed_pkg (@{$facts->{pkg}->{$pkg_name}}) {
-            if (!defined $required_architecture ||
+            if (! defined $required_architecture ||
                 $required_architecture eq $installed_pkg->{architecture}) {
                 $pkg = $installed_pkg;
                 $qualified_pkg_name = $pkg_name . ':' . $installed_pkg->{architecture};
@@ -217,7 +218,7 @@ sub collect_installed_builddeps {
             my $architecture = $pkg->{architecture};
             my $new_deps_str = defined $depends->{$qualified_pkg_name} ? deps_concat(@{$depends->{$qualified_pkg_name}}) : '';
             my $new_deps = deps_parse($new_deps_str);
-            if (!defined $required_architecture) {
+            if (! defined $required_architecture) {
                 $installed_deps->add(Dpkg::Deps::Simple->new("$pkg_name (= $version)"));
             } else {
                 $installed_deps->add(Dpkg::Deps::Simple->new("$qualified_pkg_name (= $version)"));
@@ -243,13 +244,13 @@ sub collect_installed_builddeps {
                 1
             });
         } elsif (defined $facts->{virtualpkg}->{$pkg_name}) {
-            # virtual package: we cannot know for sure which implementation
-            # is the one that has been used, so let's add them all...
+            # Virtual package: we cannot know for sure which implementation
+            # is the one that has been used, so let us add them all.
             foreach my $provided (@{$facts->{virtualpkg}->{$pkg_name}}) {
                 push @unprocessed_pkgs, $provided->{provider};
             }
         }
-        # else: it is a package in an OR dependency that has been otherwise
+        # Else: it is a package in an OR dependency that has been otherwise
         # satisfied.
     }
     $installed_deps->simplify_deps(Dpkg::Deps::KnownFacts->new());
@@ -288,7 +289,7 @@ sub is_cross_executable {
         to_string => \$stdout,
         error_to_string => \$stderr,
         wait_child => 1,
-        nocheck => 1,
+        no_check => 1,
     );
     if ($?) {
         print { *STDOUT } $stdout;
@@ -305,7 +306,7 @@ sub is_cross_executable {
         error_to_file => '/dev/null',
         to_string => \$stdout,
         wait_child => 1,
-        nocheck => 1,
+        no_check => 1,
     );
 
     return 1 if $? == 0 && $stdout eq 'ok';
@@ -400,7 +401,7 @@ while (@ARGV) {
     } elsif (m/^-O(.*)$/) {
         $outputfile = $1;
     } elsif (m/^(--buildinfo-id)=.*$/) {
-        # Deprecated option
+        # Deprecated option.
         warning(g_('%s is deprecated; it is without effect'), $1);
     } elsif (m/^--always-include-kernel$/) {
         $use_feature{kernel} = 1;
@@ -424,7 +425,9 @@ my $fields = Dpkg::Control->new(type => CTRL_FILE_BUILDINFO);
 my $dist = Dpkg::Dist::Files->new();
 
 # Retrieve info from the current changelog entry.
-my %changelog_opts = (file => $changelogfile);
+my %changelog_opts = (
+    filename => $changelogfile,
+);
 $changelog_opts{changelogformat} = $changelogformat if $changelogformat;
 my $changelog = changelog_parse(%changelog_opts);
 
@@ -564,7 +567,7 @@ if ($stdout) {
     }
 
     # Obtain a lock on debian/control to avoid simultaneous updates
-    # of debian/files when parallel building is in use
+    # of debian/files when parallel building is in use.
     my $lockfh;
     my $lockfile = 'debian/control';
     $lockfile = $controlfile if not -e $lockfile;
@@ -593,7 +596,7 @@ if ($stdout) {
     rename "$fileslistfile.new", $fileslistfile
         or syserr(g_('install new files list file'));
 
-    # Release the lock
+    # Release the lock.
     close $lockfh or syserr(g_('cannot close %s'), $lockfile);
 
     $fields->save("$outputfile.new");

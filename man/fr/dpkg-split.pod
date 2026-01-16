@@ -126,11 +126,7 @@ Pour une recomposition ou une mise en file automatiques, B<dpkg-split> affiche h
 
 =item B<--msdos>
 
-Oblige le nom des fichiers produits par B<--split> à se conformer à MS-DOS.
-
-Cela supprime le préfixe, soit celui par défaut dérivé du nom du fichier d'entrée, soit celui donné comme argument : les caractères alphanumériques sont en minuscules, les signes plus sont remplacés par des B<x> et tous les autres caractères sont abandonnés.
-
-Le résultat est alors tronqué autant que nécessaire et des fichiers de la forme : I<prefixN>B<of>I<M>B<.deb> sont créés.
+Obsolete option without effect (since dpkg 1.23.0).
 
 =back
 

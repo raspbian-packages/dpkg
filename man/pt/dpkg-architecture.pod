@@ -136,9 +136,15 @@ A maquina para a qual o compilador foi construído, ou o que emulador que irá c
 
 =item Arquitectura Debian
 
-A string de arquitectura Debian, usada em pacotes binário, a qual especifica a árvore binária num repositório de pacotes.
+A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
 
-Exemplos: i386, sparc, hurd-i386.
+The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+
+A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+
+An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+
+Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Tuple de arquitectura Debian
 
@@ -148,7 +154,9 @@ Exemplos: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
 =item Wildcard de arquitectura Debian
 
-Um wildcard de arquitectura Debian é uma string especial de arquitectura que irá corresponder a qualquer arquitectura real que faça parte dela. O formato geral é um tuple de arquitectura Debian com quatro ou menos elementos, e com pelo menos um deles a ser B<any>. Elementos em falta no tuple são prefixados implicitamente como B<any>, e assim os seguintes pares são equivalentes:
+A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+
+The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
 
 =over 
 
@@ -164,17 +172,17 @@ Exemplos: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item Tipo de sistema GNU
 
-Uma string de especificação de arquitectura consiste de duas partes separadas por um hífen: CPU e sistema.
+A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
 
 A parte da CPU nunca contém um hífen, enquanto a parte do sistema pode ela própria conter um hífen para separar um kernel da sua ABI geral, onde a ABI geral pode conter ambos especificadores de tempo-de-execução (como a libc) e ABI executável juntos sem um hífen.
 
-Exemplos: i586-linux-gnu, sparc-linux-gnu, i686-gnu, x86_64-netbsd.
+Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item multiarch triplet
 
 O tipo de sistema GNU clarificado, usado para caminhos do sistema de ficheiros. Este triplet não altera mesmo quando a linha base ISA entra em colisão, para que os caminhos resultantes fiquem estáveis com o tempo. A única diferença actual com o tipo de sistema GNU é que a parte de CPU para os sistemas baseados em i386 é sempre i386.
 
-Exemplos: i386-linux-gnu, x86_64-linux-gnu.  Caminhos exemplo: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/.
+Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

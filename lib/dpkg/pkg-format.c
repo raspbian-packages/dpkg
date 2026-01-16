@@ -227,9 +227,9 @@ virt_status_abbrev(struct varbuf *vb,
 	if (pkgbin != &pkg->installed)
 		return;
 
-	varbuf_add_char(vb, pkg_abbrev_want(pkg));
-	varbuf_add_char(vb, pkg_abbrev_status(pkg));
-	varbuf_add_char(vb, pkg_abbrev_eflag(pkg));
+	varbuf_add_str(vb, pkg_abbrev_want(pkg));
+	varbuf_add_str(vb, pkg_abbrev_status(pkg));
+	varbuf_add_str(vb, pkg_abbrev_eflag(pkg));
 }
 
 static void
@@ -352,8 +352,10 @@ virt_source_version(struct varbuf *vb,
 
 static void
 virt_source_upstream_version(struct varbuf *vb,
-                             const struct pkginfo *pkg, const struct pkgbin *pkgbin,
-                             enum fwriteflags flags, const struct fieldinfo *fip)
+                             const struct pkginfo *pkg,
+                             const struct pkgbin *pkgbin,
+                             enum fwriteflags flags,
+                             const struct fieldinfo *fip)
 {
 	struct dpkg_version version;
 
@@ -404,6 +406,7 @@ pkg_format_item(struct varbuf *vb,
 		varbuf_add_fmt(vb, "%*s", node->width, str);
 }
 
+/* TODO: Refactor to reduce nesting levels. */
 void
 pkg_format_print(struct varbuf *vb, const struct pkg_format_node *head,
                  struct pkginfo *pkg, struct pkgbin *pkgbin)

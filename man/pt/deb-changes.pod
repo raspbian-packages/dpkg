@@ -52,11 +52,17 @@ Este campo dobrado é uma lista de pacotes binários separados por espaços para
 
 =item B<Architecture:> I<arch-list>
 
-Lista as arquitecturas dos ficheiros actualmente a serem enviados ao arquivo. Arquitecturas comuns são B<amd64>, B<armel>, B<i386>, etc.  Note que o valor B<all> destina-se a pacotes que são independentes da arquitectura. Se a fonte do pacote estiver também a ser enviada, a entrada especial B<source> está também presente. Wildcards de arquitectura nunca devem estar presentes na lista.
+Lists the architectures of the files currently being uploaded.
+
+Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being uploaded, the special entry B<source> is also present.
+
+B<Note:> Architecture wildcards are not allowed in this context.
 
 =item B<Version:>I< string-de-versão> (obrigatório)
 
 Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa. Pode também incluir um número de revisão Debian (para pacotes não-nativos). O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
+
+B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
 
 =item B<Distribution:> I<distribution>s (necessário)
 
@@ -106,7 +112,9 @@ Este campo multi-linha contem uma lista de ficheiros com um md5sum, tamanho, sec
 
 A primeira linha do campo valor (a parte na mesma linha que tem o campo nome seguido de dois pontos) é sempre vazia. O conteúdo do campo é expressado como linhas de continuação, uma linha por ficheiro. Cada linha consiste de entradas separadas por espaços que descrevem o ficheiro: o md5sum, o tamanho do ficheiro, a secção do ficheiro, a prioridade do ficheiro, e o nome do ficheiro.
 
-Se a secção ou prioridade forem omitidos do pacote, estes usam por predefinição B<unknown> e B<optional> respetivamente (desde dpkg 1.22.13).
+If the section is omitted in the source package template control file, it defaults to B<unknown> (since dpkg 1.22.13).
+
+If the priority is omitted in the source package template control file, it defaults to B<optional> (since dpkg 1.22.13).
 
 Este campo lista todos os ficheiros que fizeram o envio. A lista de ficheiros neste campo tem de corresponder à lista de ficheiros nos outros campos B<Checksums> relacionados.
 

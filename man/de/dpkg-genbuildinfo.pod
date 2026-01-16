@@ -124,6 +124,10 @@ Gibt die Version aus und beendet das Programm.
 
 Diese Variable kann dazu verwandt werden, verschiedene Funktionalitäten, die die in der .buildinfo-Datei enthaltenen Informationen betreffen, über die Option B<buildinfo> (seit Dpkg 1.18.19) ein- oder auszuschalten. Diese Option enthält eine Kommata-getrennte Liste von Funktionalitäten, denen die Modifikatoren ‚B<+>’ oder ‚B<->’ vorangestellt sind, um anzuzeigen, ob sie ein- oder ausgeschaltet werden soll. Die besondere Funktionalität „B<all>“ kann zum Ein- bzw. Ausschalten aller anderen Funktionalitäten verwandt werden. Die Funktionalität „B<path>“ steuert, ob das Feld B<Build-Path> bedingungslos aufgenommen werden soll.
 
+=item B<DEB_BUILD_PROFILES>
+
+Falls gesetzt, wird es als aktive(s) Bau-Profil(e) zur Verwendung bei der Erstellung von der Datei .buildinfo verwandt. Es ist eine durch Leerzeichen getrennte Liste von Profilnamen.
+
 =item B<DEB_BUILD_ARCH>
 
 Setzt die Host-Architektur. Dies betrifft den Wert des Feldes B<Build-Architecture> und die Überprüfung auf den Cross-Kompliierungs-Modus.

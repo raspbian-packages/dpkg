@@ -136,9 +136,15 @@ De machine waarvoor de compiler bouwt of waar de emulator code voor zal uitvoere
 
 =item Debian-architectuur
 
-De tekenreeks waarmee de Debian-architectuur aangeduid wordt, welke gebruikt wordt in binaire pakketten, en die de binaire boomstructuur specificeert in een pakketarchief.
+A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
 
-Voorbeelden: i386, sparc, hurd-i386.
+The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+
+A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+
+An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+
+Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Debian-architectuurtupel
 
@@ -148,7 +154,9 @@ Een Debian-architectuurtupel is de volledige unieke architectuurnaam met de expl
 
 =item Debian-architectuurjokerteken
 
-Een Debian-architectuurjokerteken is een speciale architectuurtekenreeks die een overeenkomst oplevert met elke echte architectuur die er onder hoort. De algemene vorm is een Debian-architectuurtupel met vier of minder elementen en waarvan er minstens een B<any> is. Ontbrekende elementen van de tupel worden impliciet als B<any> voorgevoegd, en dus zijn de volgende koppels equivalent:
+A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+
+The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
 
 =over 
 
@@ -164,17 +172,17 @@ Voorbeelden: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item GNU-systeemtype
 
-Een tekenreeks die een architectuurspecificatie inhoudt en bestaat uit twee delen met daartussen een koppelteken: CPU en systeem.
+A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
 
 Het CPU gedeelte bevat nooit een koppelteken, terwijl het systeemgedeelte zelf een koppelteken kan bevatten om een kernel te scheiden van de algemene ABI, waarbij de algemene ABI zowel runtime (zoals libc) als uitvoerbare ABI-specificaties kan bevatten die zonder koppelteken zijn samengevoegd.
 
-Voorbeelden: i586-linux-gnu, sparc-linux-gnu, i686-gnu, x86_64-netbsd.
+Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item multiarch-triplet
 
 Het uitgezuiverde GNU-systeemtype dat voor bestandssysteempaden gebruikt wordt. Dit triplet verandert zelfs niet wanneer het referentie-ISA verhoogd wordt, waardoor de resulterende paden stabiel blijven door de tijd. Het enige verschil met het GNU-systeemtype is momenteel dat voor op i386 gebaseerde systemen het CPU-gedeelte steeds i386 is.
 
-Voorbeelden: i386-linux-gnu, x86_64-linux-gnu. Voorbeelden van paden: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/.
+Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

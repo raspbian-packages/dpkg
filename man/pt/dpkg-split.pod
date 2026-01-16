@@ -126,11 +126,7 @@ quando faz fila ou remontagem automática o B<dpkg-split> geralmente escreve uma
 
 =item B<--msdos>
 
-Impõe que os nomes de ficheiros gerados pelo B<--split> sejam compatíveis com MSDOS.
-
-Isto mutila o prefixo - ou a predefinição derivada do nome de ficheiro introduzido ou aquele fornecido como um argumento: alfanuméricos são minúsculas, sinais mais são substituídos por B<x>s e todos os outros caracteres são descartados.
-
-O resultado é então truncado o quanto necessário, e são gerados nomes de ficheiros no formato I<prefixoN>B<de>I<M>B<.deb>.
+Obsolete option without effect (since dpkg 1.23.0).
 
 =back
 

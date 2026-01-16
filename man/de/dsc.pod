@@ -50,15 +50,17 @@ Dieses Feld wurde jetzt durch das Feld B<Package-List> ersetzt, das genug Inform
 
 =item B<Architecture:> I<Architekturliste> (empfohlen)
 
-Eine durch Leerzeichen getrennte Liste von Architekturen und Architekturplatzhaltern, die den Typ der Hardware festlegen, für die das Paket übersetzt werden kann. Typische Architekturnamen und Architekturplatzhalter sind B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64> usw.
+The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
 
-Beachten Sie, dass der Wert B<all> für Pakete gedacht ist, die unabhängig von der Architektur sind und B<any> für Pakete, die architekturabhängig sind. Die Liste kann den Wert B<all> enthalten oder aus ihm alleine bestehen. Wenn die Liste den Architekturplatzhalter B<any> enthält, ist der einzig andere in der Liste erlaubte Wert B<all>.
+Common architecture names and architecture wildcards are B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, etc.  Note that the B<all> value is meant for packages that are architecture independent, and B<any> for packages that are architecture dependent.  The list may include (or consist solely of) the special value B<all>.  When the list contains the architecture wildcard B<any>, the only other value allowed in the list is B<all>.
 
 Der Feldwert wird im Allgemeinen aus den B<Architecture>-Feldern aus der I<debian/control> des Quellpaketes erstellt.
 
 =item B<Version:> I<Versionszeichenkette> (verpflichtend)
 
 Typischerweise ist das die Original-Paketversionsnummer, in der Form, die der Programmautor verwendet. Es kann auch eine Debian-Revisionsnummer enthalten (für nicht aus Debian stammende Pakete). Das genaue Format und der Sortieralgorithmus sind in L<deb-version(7)> beschrieben.
+
+B<Hinweis>: Bei einigen Lieferanten wurde L<dpkg> so gebaut, dass native Quellen mit nichtnativen Versionen erlaubt sind. Dadurch wird dies inkohärent und fügt Verwirrung zum Konzept hinzu, wo schon so dies eine Falle für versehentliche Fehler ist.
 
 =item B<Origin:> I<Name>
 
@@ -154,7 +156,15 @@ Die Architektureinschränkungen aus dem Feld B<Architecture> des Binärpakets, w
 
 =item B<profile>
 
-Die normalisierte Bauprofileinschränkungsformel aus dem Feld B<Build-Profile> des Binärpakets, wobei „OR“ in ‚+’ und „AND“ in ‚,’ umgewandelt wurden.
+The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘,’, and ORs (whitespace between enclosing angle brackets) to ‘+’.  All angle brackets get removed during normalization.
+
+Deprecated since dpkg 1.23.0, superseded by B<profile:v1>.
+
+=item B<profile:v1>
+
+The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘&’, and ORs (whitespace between enclosing angle brackets) to ‘|’.  All angle brackets get removed during normalization.
+
+Supported since dpkg 1.23.0.
 
 =item B<protected>
 

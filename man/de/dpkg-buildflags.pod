@@ -329,9 +329,9 @@ Wenn diese Funktionalität aktiviert ist, wird sie den Wert aus der gleichen Fun
 
 =item B<time64>
 
-Diese Einstellung (seit Dpkg 1.22.0; seit Dpkg 1.22.5 standardmäßig aktiviert außer für i386, hurd-i386 und kfreebsd-i386) aktiviert die Unterstützung von 64-bit time_t auf 32-bit-Architekturen bei denen das ABI dies nicht standardmäßig enthält, indem B<-D_TIME_BITS=64> zu B<CPPFLAGS> hinzugefügt wird. Diese Einstellung aktiviert automatisch die Funktionalität B<lfs> von dem Funktionsbereich B<abi>.
+Diese Einstellung (seit Dpkg 1.22.0; seit Dpkg 1.22.5 standardmäßig aktiviert außer für i386 und hurd-i386) aktiviert die Unterstützung von 64-bit time_t auf 32-bit-Architekturen bei denen das ABI dies nicht standardmäßig enthält, indem B<-D_TIME_BITS=64> zu B<CPPFLAGS> hinzugefügt wird. Diese Einstellung aktiviert automatisch die Funktionalität B<lfs> von dem Funktionsbereich B<abi>.
 
-Falls diese Einstellung explizit aktiviert ist, dann wird sie auf allen Architekturen einschließlich i386 aktiviert, aber nicht auf hurd-i386 oder kfreebsd-i386 (wo der Kernel nicht über die Schnittstelle time64 verfügt) und die standardmäßige binäre Rückwärtskompatibilität wird ignoriert.
+Falls diese Einstellung explizit aktiviert ist, dann wird sie auf allen Architekturen einschließlich i386 aktiviert, aber nicht auf hurd-i386 (wo der Kernel nicht über die Schnittstelle time64 verfügt) und die standardmäßige binäre Rückwärtskompatibilität wird ignoriert.
 
 Sie wird standardmäßig durch GCC auch auf den Debian-Architekturen Armel, Armhf, HPPA, M68k, Mips, Mipsel, Powerpc und Sh4 aktiviert, bei denen die Deaktivierung der Funktionalität stattdessen B<-U_LARGEFILE_SOURCE -U_FILE_OFFSET_BITS -U_TIME_BITS> zu B<CPPFLAGS> hinzfügt.
 
@@ -455,7 +455,7 @@ Diese Einstellung (seit Dpkg 1.16.1; standardmäßig deaktiviert) fügt B<-Wl,-z
 
 =item B<pie>
 
-Diese Einstellung (seit Dpkg 1.16.1; seit Dpkg 1.18.23 ohne globale Vorgabe, da sie jetzt standardmäßig durch GCC auf den Debian-Architekturen Amd64, Arm64, Armel, Armhf, Hurd-i386, I386, Kfreebsd-amd64, Kfreebsd-i386, Mips, Mipsel, Mips64el, Powerpc, PPC64, PPC64el, Riscv64, S390x, Sparc und Sparc64 aktiviert ist) fügt, falls benötigt, die benötigten Optionen, um PIE zu aktivieren oder zu deaktivieren, über GCC-Spezifikationsdateien hinzu, abhängig davon, ob GCC auf diesen Architekturen die Schalter selbst einspeist oder nicht. Wenn die Einstellung aktiviert ist und GCC den Schalter einspeist, fügt dies nichts hinzu. Wenn die Einstellung aktiviert ist und GCC den Schalter nicht einspeist, dann fügt es B<-fPIE> (mittels I<%PKGDATADIR%/pie-compiler.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fPIE -pie> (mittels I<%PKGDATADIR%/pie-link.specs>) zu B<LDFLAGS> hinzu.  Wenn die Einstellung deaktiviert ist und GCC den Schalter einspeist, dann fügt es B<-fno-PIE> (mittels I<%PKGDATADIR%/no-pie-compile.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fno-PIE -no-pie> (mittels I<%PKGDATADIR%/no-pie-link.specs>) zu B<LDFLAGS> hinzu.
+Diese Einstellung (seit Dpkg 1.16.1; seit Dpkg 1.18.23 ohne globale Vorgabe, da sie jetzt standardmäßig durch GCC auf den Debian-Architekturen Amd64, Arm64, Armel, Armhf, Hurd-i386, I386, Mips, Mipsel, Mips64el, Powerpc, PPC64, PPC64el, Riscv64, S390x, Sparc und Sparc64 aktiviert ist) fügt, falls benötigt, die benötigten Optionen, um PIE zu aktivieren oder zu deaktivieren, über GCC-Spezifikationsdateien hinzu, abhängig davon, ob GCC auf diesen Architekturen die Schalter selbst einspeist oder nicht. Wenn die Einstellung aktiviert ist und GCC den Schalter einspeist, fügt dies nichts hinzu. Wenn die Einstellung aktiviert ist und GCC den Schalter nicht einspeist, dann fügt es B<-fPIE> (mittels I<%PKGDATADIR%/pie-compiler.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fPIE -pie> (mittels I<%PKGDATADIR%/pie-link.specs>) zu B<LDFLAGS> hinzu.  Wenn die Einstellung deaktiviert ist und GCC den Schalter einspeist, dann fügt es B<-fno-PIE> (mittels I<%PKGDATADIR%/no-pie-compile.specs>) zu B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> und B<FCFLAGS> und B<-fno-PIE -no-pie> (mittels I<%PKGDATADIR%/no-pie-link.specs>) zu B<LDFLAGS> hinzu.
 
 „Position Independent Executable“ (positionsunabhängige Programme) (PIE) ist benötigt, um „Address Space Layout Randomization“ (Bereitstellung eines zufälligen Adressbereichlayouts) (ASLR) auszunutzen, der von einigen Kernelversionen bereitgestellt wird. Während ASLR bereits für Datenbereiche auf dem Stapel (Stack) und Heap erzwungen werden kann (brk und mmap), müssen die Codebereiche positionsunabhängig übersetzt werden. Laufzeitbibliotheken machen dies bereits (B<-fPIC>), so dass sie ASLR automatisch erhalten, aber Programm-.text-Regionen müssen als PIE gebaut werden, um ASLR zu erhalten. Wenn dies passiert, sind ROP- (Return Oriented Programming) Angriffe sehr viel schwerer durchzuführen, da es keine statischen Orte mehr gibt, zu denen während eines Speicherverfälschungsangriffs hingesprungen werden könnte.
 
@@ -546,6 +546,8 @@ Diese Variable kann zum Voranstellen ergänzender Optionen zum Wert, der von I<S
 =item B<DEB_BUILD_MAINT_OPTIONS> (seit Dpkg 1.16.1)
 
 Diese Variablen können von Benutzern oder Betreuern zum Deaktivieren oder Aktivieren verschiedener Bereichsfunktionalitäten benutzt werden, die Bauschalter beeinflussen. Die Variable B<DEB_BUILD_MAINT_OPTIONS> setzt jede Einstellung in den Funktionalitätsbereichen B<DEB_BUILD_OPTIONS> außer Kraft. Lesen Sie den Abschnitt L</FUNKTIONALITÄTSBEREICHE> für weitere Details.
+
+Einige Bauprofile können aktuell benötigen, dass ihr Gegenstück auch in die Bauoptionen eingeschlossen ist. Die Liste solcher Bauprofile ist lieferantenabhängig. Weitere Informationen zu Bauprofilen finden Sie in L<dpkg-buildpackage(1)>.
 
 =item B<DEB_VENDOR>
 

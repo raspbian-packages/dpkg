@@ -52,11 +52,17 @@ Dit gevouwen veld is een lijst, met spatie als scheidingsteken, van binaire pakk
 
 =item B<Architecture:> I<arch-lijst>
 
-Somt de architecturen op van de bestanden die momenteel geüpload worden. Gebruikelijke architecturen zijn B<amd64>, B<armel>, B<i386>, enz. Merk op dat de waarde B<all> bedoeld is voor pakketten die architectuuronafhankelijk zijn. Indien ook de broncode voor het pakket geüpload wordt, wordt tevens de bijzondere vermelding B<source> toegevoegd. Jokertekens voor architecturen mogen nooit voorkomen in de lijst.
+Lists the architectures of the files currently being uploaded.
+
+Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being uploaded, the special entry B<source> is also present.
+
+B<Note:> Architecture wildcards are not allowed in this context.
 
 =item B<Version:> I<versie-tekenreeks> (verplicht)
 
 Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook voor gebruikt. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in L<deb-version(7)>.
+
+B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
 
 =item B<Distribution:> I<distributie>s (verplicht)
 
@@ -106,7 +112,9 @@ Dit multiregel-veld bevat een bestandslijst met voor elk bestand de vermelding v
 
 De eerste regel van de veldwaarde (het deel dat op dezelfde regel staat als de door een dubbele punt gevolgde veldnaam) is steeds leeg. De inhoud van het veld wordt in de vervolgregels verwoord, één regel per bestand. Elke regel bestaat uit elementen die onderling gescheiden zijn door een spatie en het bestand beschrijven: zijn md5som, zijn bestandsgrootte, zijn sectie, zijn prioriteit en zijn naam.
 
-Als de sectie of prioriteit worden weggelaten uit het pakket, worden deze standaard ingesteld op respectievelijk B<unknown> en B<optional> (sinds dpkg 1.22.13).
+If the section is omitted in the source package template control file, it defaults to B<unknown> (since dpkg 1.22.13).
+
+If the priority is omitted in the source package template control file, it defaults to B<optional> (since dpkg 1.22.13).
 
 Dit veld somt alle bestanden op die deel uitmaken van de upload. De lijst van bestanden uit dit veld moet overeenkomen met de bestandslijst in de andere gerelateerde B<Checksums>-velden.
 
