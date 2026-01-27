@@ -180,7 +180,7 @@ Stelt de computerarchitectuur in.
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+Indien dit ingesteld is, zal dit gebruikt worden als het/de actieve te gebruiken bouwprofiel(en) bij het genereren van het bestand .changes. Het is een lijst van profielnamen die onderling door spaties gescheiden worden.
 
 =item B<DPKG_COLORS>
 

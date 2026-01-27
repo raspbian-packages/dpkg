@@ -50,9 +50,9 @@ Dit veld is nu vervangen door het veld B<Package-List> dat voldoende informatie 
 
 =item B<Architecture:> I<arch-lijst> (aanbevolen)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
+De architectuurlijst geeft aan op welk type machine dit pakket draait. De waarde moet een lijst zijn van architectuurnamen en/of wildcards, gescheiden door spaties.
 
-Common architecture names and architecture wildcards are B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, etc.  Note that the B<all> value is meant for packages that are architecture independent, and B<any> for packages that are architecture dependent.  The list may include (or consist solely of) the special value B<all>.  When the list contains the architecture wildcard B<any>, the only other value allowed in the list is B<all>.
+Merk op dat de waarde B<all> bedoeld is voor pakketten die architectuuronafhankelijk zijn en B<any> voor pakketten die architectuurafhankelijk zijn. De lijst mag de speciale waarde  B<all> bevatten (of er uitsluitend uit bestaan). Wanneer de lijst de architectuurwildcard B<any> bevat, is B<all> de enige andere toegelaten waarde in de lijst.
 
 De waarde van dit veld wordt gewoonlijk gegenereerd op basis van de B<Architecture>-velden in het bestand I<debian/control> van het broncodepakket.
 
@@ -60,7 +60,7 @@ De waarde van dit veld wordt gewoonlijk gegenereerd op basis van de B<Architectu
 
 Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook voor gebruikt. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Opmerking>: Bij sommige leveranciers is dpkg zo aangepast dat authentieke bronnen samen met niet-authentieke versies zijn toegestaan. Dit maakt het inconsistent en draagt ​​bij aan de verwarring rond het concept. Bovendien vormt dit een valkuil voor onbedoelde fouten.
 
 =item B<Origin:> I<naam>
 
@@ -157,15 +157,15 @@ De architectuurrestrictie uit het veld B<Architecture> van het binaire pakket, w
 
 =item B<profile>
 
-The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘,’, and ORs (whitespace between enclosing angle brackets) to ‘+’.  All angle brackets get removed during normalization.
+De genormaliseerde bouwprofiel-restrictieformule uit het veld B<Build-Profile> van het binaire pakket, waarbij AND's (spaties binnen punthaken) worden omgezet in ',' en OR's (spaties tussen punthaken) in '+'. Alle punthaken worden verwijderd tijdens de normalisatie.
 
-Deprecated since dpkg 1.23.0, superseded by B<profile:v1>.
+Niet meer beschikbaar sinds dpkg 1.23.0, vervangen door B<profile:v1>.
 
 =item B<profile:v1>
 
-The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘&’, and ORs (whitespace between enclosing angle brackets) to ‘|’.  All angle brackets get removed during normalization.
+De genormaliseerde bouwprofiel-restrictieformule uit het veld B<Build-Profile> van het binaire pakket, waarbij AND's (spaties binnen de punthaken) worden omgezet in '&' en OR's (spaties tussen de punthaken) in '|'. Alle punthaken worden verwijderd tijdens de normalisatie.
 
-Supported since dpkg 1.23.0.
+Ondersteund sinds dpkg 1.23.0.
 
 =item B<protected>
 

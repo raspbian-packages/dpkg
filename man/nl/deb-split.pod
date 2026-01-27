@@ -28,13 +28,13 @@ De meerdelige B<.deb>-indeling wordt gebruikt om grote pakketten op te splitsen 
 
 Het bestand is een B<ar>-archief met een magische waarde van B<!E<lt>archE<gt>>. De bestandsnaam mag aan het einde een slash bevatten (sinds dpkg 1.15.6).
 
-The B<ar> archive is composed of multiple members in a specific order:
+Het B<ar>-archief is samengesteld uit meerdere elementen in een specifieke volgorde:
 
 =over 
 
 =item B<debian-split>
 
-The first required member contains a series of lines, separated by newlines.  Currently eight lines are present:
+Het eerste verplichte element bevat een reeks regels, onderling gescheiden door regeleinden. Momenteel gaat het om acht regels:
 
 =over 
 
@@ -78,7 +78,7 @@ Indien het hoofdversienummer van de indeling gewijzigd werd, werd een niet-compa
 
 =item B<data.>I<N>
 
-The second, last required member, where I<N> denotes the part number.  It contains the raw part data.
+Het tweede en laatste verplichte element, waarbij I<N> het volgnummer van het deel aangeeft. Het bevat de ruwe data van dat deel.
 
 =back
 

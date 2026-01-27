@@ -174,9 +174,9 @@ Um nome qualificador de arquitectura pode ser um nome de arquitectura real Debia
 
 Um número de versão pode começar com um ‘B<E<gt>E<gt>>’, nesse caso qualquer versão posterior irá corresponder, e pode especificar ou omitir a revisão de empacotamento Debian (separada por um hífen). Relacionamentos de versão aceites são ‘B<E<gt>E<gt>>’ para maior que, ‘B<E<lt>E<lt>>’ para menor que, ‘B<E<gt>=>’ para maior ou igual a, ‘B<E<lt>=>’ para menor ou igual a, e ‘B<=>’ para igual a.
 
-An architecture specification consists of one or more architecture names, separated by whitespace.  Exclamation marks (B<!>) may be prepended to each of the names, meaning “NOT”.
+Uma especificação de arquitectura consiste em um ou mais nomes de arquitectura, separados por espaços em branco. Pode ser adicionado no inicio de cada nome um ponto de exclamação (B<!>), o que significa "NÃO".
 
-A restriction formula consists of one or more restriction lists, separated by whitespace.  Each restriction list is enclosed in angle brackets (B<E<lt>> and B<E<gt>>).  Items in the restriction list are build profile names, separated by whitespace and can be prefixed with an exclamation mark (B<!>), meaning “NOT”.  A restriction formula represents a disjunctive normal form expression, that is whitespace inside enclosed angle brackets is read as “AND”, and whitespace between enclosing angle brackets is read as “OR“, such as “B<E<lt>>foo AND barB<E<gt>> OR B<E<lt>>quux AND bazB<E<gt>>”.
+Uma fórmula de restrição consiste em uma ou mais listas de restrições, separadas por espaços em branco. Cada lista de restrição fica dentro de colchetes angulares (B<E<lt>> e B<E<gt>>).  os itens na lista de restrição são nomes de perfis de compilação, separados por espaços em branco e pode ser prefixados com um ponto de exclamação, que significa “NÃO”. Uma fórmula de restrição representa uma expressão de forma normal disjuntiva, que é um espaço em branco dentro de colchetes angulares fechados é lida como “E”, e espaço em branco entre colchetes angulares a fechar é lido como “OU“, tal como “B<E<lt>>foo E barB<E<gt>> OU B<E<lt>>quux E bazB<E<gt>>”.
 
 Note que as dependências de pacotes no conjunto B<build-essential> podem ser omitidas e que declarar conflitos de compilação contra elas é impossível. Uma lista desses pacotes está no pacote build-essential.
 
@@ -194,13 +194,13 @@ Este campo define o tipo de pacote. B<udeb> é para pacotes de tamanho reduzido 
 
 =item B<Architecture:> I<arch-list> (necessário)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
+A lista de arquitecturas especifica em que tipo de máquina este pacote corre.  O valor deve ser uma lista de nomes de arquitectura e/ou wildcards separados por espaços.
 
-The special B<all> value, by itself, is meant for packages that are architecture independent (such as shell and Perl scripts or documentation), the special B<any> wildcard value, by itself, is meant for packages that are architecture dependent but run on all architectures (which matches on all specific architecture names, excluding B<all>).  Most packages will use either B<all> or B<any>.  To restrict the packages to a certain set of architectures, specify one or more architecture names and/or architecture wildcards, separated by spaces.
+O valor especial B<all>, por ele próprio, destina-se a pacotes que são independentes da arquitectura (tais como scripts de shell e Perl ou documentação), o valor wildcard especial B<any>, por ele próprio, destina-se a pacotes que são dependentes da arquitectura mas correm em todas as arquitecturas (o que corresponde a todos os nomes de arquitectura específicos, excluindo B<all>).  A maioria dos pacotes vão usar ou B<all> ou B<any>.  Para restringir os pacotes a um certo conjunto de arquitecturas, especifique um ou mais nomes de arquitecturas e/ou wildcards de arquitecturas, separados por espaços.
 
-An architecture name or wildcard must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric and dash (”-”) characters.
+Um nome de arquitectura ou wildcard tem de começar com um caractere alfanumérico (“0-9a-zA-Z”), e depois seguido por caracteres alfanuméricos e traço (‘-’).
 
-For more information about architecture names and wildcards, see L<dpkg-architecture(1)>.
+Para mais informação sobre nomes de arquitecturas e wildcards, veja L<dpkg-architecture(1)>.
 
 =item B<Build-Profiles:> I<restriction-formula>
 
@@ -226,19 +226,19 @@ Estes campos estão descritos no manual do L<deb-control(5)>, pois eles são lit
 
 =item B<Section:> I<section>
 
-Overrides the value from the same field in the source package stanza.
+Sobrepõe o valor do mesmo campo na estrofe do pacote fonte.
 
-If there is no field in the binary or source stanza, then the it defaults to B<unknown> (since dpkg 1.22.13).
+Se não existir nenhum campo na estrofe de binário ou fonte, então predefine para B<unknown> (desde dpkg 1.22.13).
 
 =item B<Priority:> I<priority>
 
-Overrides the value from the same field in the source package stanza.
+Sobrepõe o valor do mesmo campo na estrofe do pacote fonte.
 
-If there is no field in the binary or source stanza, then the it defaults to B<optional> (since dpkg 1.22.13).
+Se não existir nenhum campo na estrofe de binário ou fonte, então predefine para B<optional> (desde dpkg 1.22.13).
 
 =item B<Homepage:> I<url>
 
-Overrides the value from the same field in the source package stanza.
+Sobrepõe o valor do mesmo campo na estrofe do pacote fonte.
 
 =item B<Depends:> I<package-list>
 
@@ -284,19 +284,19 @@ Estes campos são usados pelo instalador de debian em B<udeb>s e geralmente não
 
 O campo irá aparecer no ficheiro de controle do pacote fonte, veja L<dsc(5)>.
 
-Only expected in the source package stanza.
+Apenas esperado na estrofe do pacote fonte.
 
 =item B<B>
 
 O campo irá aparecer no ficheiro de controle do pacote binário, veja L<deb-control(5)>.
 
-Allowed in the source package stanza or any binary package stanza.
+Permitido na estrofe do pacote fonte ou qualquer estrofe de pacote binário.
 
 =item B<C>
 
 O campo irá aparecer no ficheiro de controle de envio (.changes), veja L<deb-changes(5)>.
 
-Only expected in the source package stanza.
+Apenas esperado na estrofe do pacote fonte.
 
 =back
 
@@ -316,7 +316,7 @@ Tenha em conta que estes campos definidos pelo utilizador irão usar o espaço d
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
  Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
- Standards-Version: 4.7.2
+ Standards-Version: 4.7.3
  Build-Depends:
   dpkg-build-api (= 1),
   debhelper-compat (= 13),

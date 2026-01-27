@@ -1,3 +1,703 @@
+commit 89f266325cc8b5b7fd1ee417b78d498ee189565b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 01:47:06 2026 +0100
+
+    Release 1.23.5
+
+ debian/changelog | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+commit c52e1e0e38adda5fe7f75bdff0120bda49d3bb66
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 01:41:44 2026 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/de.po            | 25 ++++++++++++++++++++-----
+ man/po/dpkg-man.pot     | 14 ++++++++------
+ man/po/es.po            | 12 +++++++-----
+ man/po/fr.po            | 12 +++++++-----
+ man/po/hu.po            | 12 +++++++-----
+ man/po/it.po            | 12 +++++++-----
+ man/po/ja.po            | 12 +++++++-----
+ man/po/nl.po            | 25 ++++++++++++++++++++-----
+ man/po/pl.po            | 12 +++++++-----
+ man/po/pt.po            | 25 ++++++++++++++++++++-----
+ man/po/pt_BR.po         | 12 +++++++-----
+ man/po/ru.po            | 12 +++++++-----
+ man/po/sv.po            | 25 ++++++++++++++++++++-----
+ man/po/zh_CN.po         | 12 +++++++-----
+ po/ast.po               |  2 +-
+ po/bs.po                |  2 +-
+ po/ca.po                |  2 +-
+ po/cs.po                |  2 +-
+ po/da.po                |  2 +-
+ po/de.po                |  2 +-
+ po/dpkg.pot             |  4 ++--
+ po/dz.po                |  2 +-
+ po/el.po                |  2 +-
+ po/en.po                |  2 +-
+ po/eo.po                |  2 +-
+ po/es.po                |  2 +-
+ po/et.po                |  2 +-
+ po/eu.po                |  2 +-
+ po/fr.po                |  2 +-
+ po/gl.po                |  2 +-
+ po/hu.po                |  2 +-
+ po/id.po                |  2 +-
+ po/it.po                |  2 +-
+ po/ja.po                |  2 +-
+ po/km.po                |  2 +-
+ po/ko.po                |  2 +-
+ po/ku.po                |  2 +-
+ po/lt.po                |  2 +-
+ po/mr.po                |  2 +-
+ po/nb.po                |  2 +-
+ po/ne.po                |  2 +-
+ po/nl.po                |  2 +-
+ po/nn.po                |  2 +-
+ po/oc.po                |  2 +-
+ po/pa.po                |  2 +-
+ po/pl.po                |  2 +-
+ po/pt.po                |  2 +-
+ po/pt_BR.po             |  2 +-
+ po/ro.po                |  2 +-
+ po/ru.po                |  2 +-
+ po/sk.po                |  2 +-
+ po/sv.po                |  2 +-
+ po/th.po                |  2 +-
+ po/tl.po                |  2 +-
+ po/tr.po                |  2 +-
+ po/vi.po                |  2 +-
+ po/zh_CN.po             |  2 +-
+ po/zh_TW.po             |  2 +-
+ scripts/po/ca.po        | 16 ++++++++++++++--
+ scripts/po/de.po        | 16 ++++++++++++++--
+ scripts/po/dpkg-dev.pot | 16 +++++++++++++---
+ scripts/po/en.po        | 16 ++++++++++++++--
+ scripts/po/es.po        | 16 ++++++++++++++--
+ scripts/po/fr.po        | 16 ++++++++++++++--
+ scripts/po/nl.po        | 16 ++++++++++++++--
+ scripts/po/pl.po        | 16 ++++++++++++++--
+ scripts/po/pt.po        | 16 ++++++++++++++--
+ scripts/po/ru.po        | 16 ++++++++++++++--
+ scripts/po/sv.po        | 16 ++++++++++++++--
+ 100 files changed, 381 insertions(+), 171 deletions(-)
+
+commit 66531572cf9f89b40df153a483cd033957afbb62
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 00:47:07 2026 +0100
+
+    Dpkg::Control::FieldsCore: Improve Maintainer and Uploader field parse errors
+    
+    Instead of letting the email address modules error themselves, where
+    they do not have enough context to print in their error message, catch
+    those errors and completely replace them with ones containing a bit
+    more context, including the affect field.
+    
+    In the future we should be moving to throw exception objects instead,
+    which should make it possible to bubble up these messages in a more
+    ergonomic way.
+
+ scripts/Dpkg/Control/FieldsCore.pm | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+commit 655b87ff07fd137f657d0d47db02127582656f56
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 00:42:39 2026 +0100
+
+    Dpkg::Email::Address: Do not construct invalid objects
+    
+    We should simply die when we cannot construct a correct object,
+    otherwise the semantics of the object are hard to deal with, and we
+    would need to either make every method check whether the object is in
+    a valid state, or the caller would need to do that, which are both
+    unergonomic and error prone.
+
+ scripts/Dpkg/Email/Address.pm     | 20 +++++---------------
+ scripts/Dpkg/Email/AddressList.pm | 11 +++++++----
+ 2 files changed, 12 insertions(+), 19 deletions(-)
+
+commit 69b05bf23ca28f2ea99ac3c395206c434e3fa068
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 00:27:36 2026 +0100
+
+    dpkg-source: Do not error out on empty fields
+    
+    The documentation for debian/control states that empty fields are
+    ignored there, which makes sense for fields that contain substvars,
+    but not so much for other fields. But as this is a long standing
+    documented behavior, it should be considered a regression, given
+    that it is making other packages unintentionally fail to build.
+    
+    Fixes: commit a77d00af63a2c8084df991c360d84280e52428c5
+    Closes: #1125985
+
+ scripts/dpkg-source.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 0273b0298dd33534dbdabb6f851ec34c8c8e43bd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 00:25:53 2026 +0100
+
+    man: Improve dpkg-buildpackage --sign-backend description
+    
+    Do not use parenthesis for the item descriptions, and list the currently
+    supported SOP implementations.
+
+ man/dpkg-buildpackage.pod | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+commit 4619e220fd938236832e516db9fd302058405253
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 01:19:39 2026 +0100
+
+    test: Add known exception sources for ProhibitCaptureWithoutTest
+    
+    This perlcritic tests can be told what other code can generated
+    exceptions or terminate the program.
+    
+    Warned-by: perlcritic
+
+ t/critic/perlcriticrc | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 60eed4c512837ef2381cc1d2cd6cba5da2339faf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 00:22:59 2026 +0100
+
+    build: Move the dist artifacts to the release directory
+    
+    Instead of only copying the autotools dist tarball, move both the
+    autotools and CPAN dist tarballs into the temporary release directory,
+    to avoid tarball mismatches, to get them out of the way and avoid
+    having to clean them up later on.
+
+ build-aux/gen-release | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 27f0316c311fda2181c4812773d4b7286637905b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 18:52:42 2026 +0100
+
+    Bump version to 1.23.5
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit bde9ad0412976661f59e7788fec7f8fb038ff0d6
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 18:33:02 2026 +0100
+
+    Release 1.23.4
+
+ debian/changelog | 49 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 46 insertions(+), 3 deletions(-)
+
+commit 25e4ff7d17be6667320de93df38271a7ca31ec16
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 18:29:22 2026 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |   2 +-
+ dselect/po/ca.po        |   2 +-
+ dselect/po/cs.po        |   2 +-
+ dselect/po/da.po        |   2 +-
+ dselect/po/de.po        |   2 +-
+ dselect/po/dselect.pot  |   4 +-
+ dselect/po/el.po        |   2 +-
+ dselect/po/es.po        |   2 +-
+ dselect/po/et.po        |   2 +-
+ dselect/po/eu.po        |   2 +-
+ dselect/po/fr.po        |   2 +-
+ dselect/po/gl.po        |   2 +-
+ dselect/po/hu.po        |   2 +-
+ dselect/po/id.po        |   2 +-
+ dselect/po/it.po        |   2 +-
+ dselect/po/ja.po        |   2 +-
+ dselect/po/ko.po        |   2 +-
+ dselect/po/nb.po        |   2 +-
+ dselect/po/nl.po        |   2 +-
+ dselect/po/nn.po        |   2 +-
+ dselect/po/pl.po        |   2 +-
+ dselect/po/pt.po        |   2 +-
+ dselect/po/pt_BR.po     |   2 +-
+ dselect/po/ro.po        |   2 +-
+ dselect/po/ru.po        |   2 +-
+ dselect/po/sk.po        |   2 +-
+ dselect/po/sv.po        |   2 +-
+ dselect/po/tl.po        |   2 +-
+ dselect/po/vi.po        |   2 +-
+ dselect/po/zh_CN.po     |   2 +-
+ dselect/po/zh_TW.po     |   2 +-
+ man/po/de.po            | 194 +++++++++++++++++++++++++++++++++++++++++-------
+ man/po/dpkg-man.pot     | 104 +++++++++++++++++++++-----
+ man/po/es.po            | 163 +++++++++++++++++++++++++++++++---------
+ man/po/fr.po            | 176 ++++++++++++++++++++++++++++++++++---------
+ man/po/hu.po            | 104 +++++++++++++++++++++-----
+ man/po/it.po            | 106 +++++++++++++++++++++-----
+ man/po/ja.po            | 163 +++++++++++++++++++++++++++++++---------
+ man/po/pl.po            | 163 +++++++++++++++++++++++++++++++---------
+ man/po/pt_BR.po         | 104 +++++++++++++++++++++-----
+ man/po/ru.po            | 104 +++++++++++++++++++++-----
+ man/po/sv.po            | 168 ++++++++++++++++++++++++++++++++++-------
+ man/po/zh_CN.po         | 106 +++++++++++++++++++++-----
+ po/ast.po               |   4 +-
+ po/bs.po                |   4 +-
+ po/ca.po                |   4 +-
+ po/cs.po                |   4 +-
+ po/da.po                |   4 +-
+ po/de.po                |   4 +-
+ po/dpkg.pot             |   6 +-
+ po/dz.po                |   4 +-
+ po/el.po                |   4 +-
+ po/en.po                |   4 +-
+ po/eo.po                |   4 +-
+ po/es.po                |   4 +-
+ po/et.po                |   4 +-
+ po/eu.po                |   4 +-
+ po/fr.po                |   4 +-
+ po/gl.po                |   4 +-
+ po/hu.po                |   4 +-
+ po/id.po                |   4 +-
+ po/it.po                |   4 +-
+ po/ja.po                |   4 +-
+ po/km.po                |   4 +-
+ po/ko.po                |   4 +-
+ po/ku.po                |   4 +-
+ po/lt.po                |   4 +-
+ po/mr.po                |   4 +-
+ po/nb.po                |   4 +-
+ po/ne.po                |   4 +-
+ po/nl.po                |   2 +-
+ po/nn.po                |   4 +-
+ po/oc.po                |   4 +-
+ po/pa.po                |   4 +-
+ po/pl.po                |   4 +-
+ po/pt.po                |   2 +-
+ po/pt_BR.po             |   4 +-
+ po/ro.po                |   4 +-
+ po/ru.po                |   4 +-
+ po/sk.po                |   4 +-
+ po/sv.po                |   4 +-
+ po/th.po                |   4 +-
+ po/tl.po                |   4 +-
+ po/tr.po                |   4 +-
+ po/vi.po                |   4 +-
+ po/zh_CN.po             |   4 +-
+ po/zh_TW.po             |   4 +-
+ scripts/po/ca.po        |  23 +++++-
+ scripts/po/de.po        |  23 +++++-
+ scripts/po/dpkg-dev.pot |  24 +++++-
+ scripts/po/en.po        |  23 +++++-
+ scripts/po/es.po        |  23 +++++-
+ scripts/po/fr.po        |  23 +++++-
+ scripts/po/nl.po        |   2 +-
+ scripts/po/pl.po        |  23 +++++-
+ scripts/po/pt.po        |   2 +-
+ scripts/po/ru.po        |  23 +++++-
+ scripts/po/sv.po        |  23 +++++-
+ 98 files changed, 1676 insertions(+), 429 deletions(-)
+
+commit 7273e62b2a3875262d9cddd34798e4003619a619
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Sun Jan 18 18:13:33 2026 +0100
+
+    po: Update Dutch translations
+    
+    Closes: #1125463, #1125465, #1125466
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/nl.po |   75 +--
+ man/po/nl.po     | 1513 +++++++++++++++++++-----------------------------------
+ po/nl.po         |  397 +++++---------
+ scripts/po/nl.po |   23 +-
+ 4 files changed, 675 insertions(+), 1333 deletions(-)
+
+commit 407b4847d9fbd557cd764d572380bbbde3b1b771
+Author: Américo Monteiro <a_monteiro@gmx.com>
+Date:   Sun Jan 18 18:10:26 2026 +0100
+
+    po: Update Portuguese translations
+    
+    Closes: #1124138, #1124412, #1124439, #1124636
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/pt.po |  413 ++++++-----------
+ man/po/pt.po     | 1294 +++++++++++++++++++++---------------------------------
+ po/pt.po         | 1007 +++++++++++++++++-------------------------
+ scripts/po/pt.po |  198 ++++-----
+ 4 files changed, 1105 insertions(+), 1807 deletions(-)
+
+commit e8f2411f02456d10d4d5f7e040ff5693589724c9
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 17:38:11 2026 +0100
+
+    debian: Bump Standards-Version to 4.7.3 (no changes needed)
+
+ debian/control          | 2 +-
+ man/deb-src-control.pod | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 20991537a3188ecafe1ddc46322c44687969214f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 05:39:28 2026 +0100
+
+    test: Update cppcheck suppressions for 2.19.0
+    
+    Warned-by: cppcheck
+
+ t/cppcheck/cppcheck.supp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 6a762c1cd8e74060129e30a864b3c935b6f902da
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 05:38:42 2026 +0100
+
+    test: Undefine _LIBC for cppcheck
+    
+    We are not building a libc, so we should not be letting cppcheck try
+    these code paths, which then trigger on missing macros such as
+    SHLIB_COMPAT().
+    
+    Warned-by: cppcheck
+
+ t/cppcheck.t | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 7e115ae168dcf2735644b247b024b00b0e17f20b
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 05:35:31 2026 +0100
+
+    libcompat: Define __has_attribute() if not already defined in gettext.h
+    
+    Otherwise cppcheck cannot properly parse the code. And we might fail in
+    older compilers that do not support this built-in.
+    
+    Warned-by: cppcheck
+
+ lib/compat/gettext.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit f82cdda4ccf7dc71ab8024b64eb725cbf4ef57b3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 05:34:51 2026 +0100
+
+    dpkg-deb: Reduce pid variable scope
+    
+    Warned-by: cppcheck
+    Changelog: internal
+
+ src/deb/extract.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit ea257afcf0671e828d15292f1d3d931a0a26c5e8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 05:33:24 2026 +0100
+
+    dselect: Mark keybindings methods only accessing static members as static
+    
+    Warned-by: cppcheck
+    Changelog: internal
+
+ dselect/bindings.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 309fa5573291d9c2862b1e389d6273ae0e33d9c8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 20 20:10:22 2025 +0100
+
+    Dpkg::Shlibs::SymbolFile: Add support for #CURVER#
+    
+    This new metavariable can be used for internal symbols with unstable
+    ABIs, that require a strict dependency against the current package
+    version. But without the need to hardcode that variable version in
+    the symbols file, or having to pre-process it during the build.
+    
+    Closes: #615940
+
+ man/deb-src-symbols.pod              | 13 +++++++++++++
+ scripts/Dpkg/Shlibs/SymbolFile.pm    |  3 +++
+ scripts/Makefile.am                  |  1 +
+ scripts/dpkg-gensymbols.pl           |  4 ++++
+ scripts/t/Dpkg_Shlibs.t              | 32 +++++++++++++++++++++++++++++++-
+ scripts/t/Dpkg_Shlibs/symbols.fake-4 |  5 +++++
+ 6 files changed, 57 insertions(+), 1 deletion(-)
+
+commit de456fb055d3de4c0bee2369406b2931e1c6b001
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 20 20:09:13 2025 +0100
+
+    man: Refactor explanation about deb-symbols metavariables
+    
+    Explain the general metavariable mechanics, then use a section for
+    each specific metavariable (currently only #PACKAGE#), which should
+    make adding new metavariables easier.
+
+ man/deb-src-symbols.pod | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+commit 38c1e43897ae9f4647b94bc55625a1f4eeff3936
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 20 19:56:34 2025 +0100
+
+    Dpkg::Shlibs::SymbolFile: Refactor metavariable substitution into a function
+    
+    We are repeating the same handling in multiple places. Refactor so that
+    we can add new metavariables and only modify a single place for it.
+
+ scripts/Dpkg/Shlibs/SymbolFile.pm | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+
+commit 12056af50df1bab7d524043aec5257df11186b17
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 25 21:36:11 2025 +0100
+
+    dpkg-source: Warn when the Uploaders field contains the Maintainer
+    
+    This duplication, while not a fatal issue, is something unusual. The
+    check has been performed by lintian, but as we are now validating
+    these fields, it makes sense to perform this check as well.
+
+ scripts/dpkg-source.pl | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit a77d00af63a2c8084df991c360d84280e52428c5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Dec 28 04:56:52 2025 +0100
+
+    scripts: Parse and validate Maintainer and Uploaders email addresses
+    
+    Make sure the data that we ingest follows the expected format, and that
+    the data that we produce has been sanitized if necessary.
+
+ scripts/dpkg-genchanges.pl |  5 +++++
+ scripts/dpkg-gencontrol.pl |  5 +++++
+ scripts/dpkg-source.pl     | 11 +++++++++++
+ 3 files changed, 21 insertions(+)
+
+commit 51ea7223fb05e5b8b7a6ad6f77b5c67dc25ed74d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Dec 28 04:55:00 2025 +0100
+
+    Dpkg::Control::FieldsCore: Add new email address field parsing functions
+    
+    These new functions are going to be used to parse the Maintainer and
+    Uploaders fields in deb822 data.
+
+ scripts/Dpkg/Control/FieldsCore.pm |  47 +++++++++++++-
+ scripts/t/Dpkg_Control_Fields.t    | 128 ++++++++++++++++++++++++++++++++++++-
+ t/pod-spell.t                      |   1 +
+ 3 files changed, 173 insertions(+), 3 deletions(-)
+
+commit 5c8d7c5c2df15468b2cce3f852fcf700ae253fe0
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Dec 28 04:38:05 2025 +0100
+
+    Dpkg::Email::Address: New module
+    
+    These modules implement email address objects, and methods to parse and
+    handle them.
+
+ scripts/Dpkg/Email/Address.pm     | 211 ++++++++++++++++++++++++++++++++++++++
+ scripts/Dpkg/Email/AddressList.pm | 194 +++++++++++++++++++++++++++++++++++
+ scripts/Makefile.am               |   3 +
+ scripts/po/POTFILES.in            |   2 +
+ scripts/t/Dpkg_Email_Address.t    | 207 +++++++++++++++++++++++++++++++++++++
+ 5 files changed, 617 insertions(+)
+
+commit d69617a242d7e6cb91702832543d3e8f1ea83f2e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 17 14:54:42 2026 +0100
+
+    Dpkg::Source::Package::V2: Print Bug-<Vendor> in patch template instead of vendor specific ones
+    
+    There is no need to list possible vendors, where we are currently
+    not being exhaustive anyway, when we can simply put a template for
+    the field. The vendor code is already filling this field if it finds
+    any match.
+
+ scripts/Dpkg/Source/Package/V2.pm | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 20bb8fee081adcedfd1f7ce46688d2df3d66f484
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 17 14:52:18 2026 +0100
+
+    Dpkg::Source::Package::V2: Switch generated patch to be git formatted
+    
+    Instead of generating a patch with the deb822 header, generate them
+    following the git format (even though the hunks will still contain «diff»
+    instead of «diff --git» markers, for example).
+
+ scripts/Dpkg/Source/Package/V2.pm | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+commit f89d1e70123eb4aac10cc2484e5f52c9497bde43
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 17 14:50:05 2026 +0100
+
+    Dpkg::Shlibs::Symbol: Emit a warning for the deprecated wildcard syntax
+    
+    This syntax has been documented as being deprecated for a long time,
+    but the code did never emit deprecation warnings, so it is still being
+    used in the wild.
+    
+    Closes: #1125722
+
+ scripts/Dpkg/Shlibs/Symbol.pm | 2 ++
+ scripts/t/Dpkg_Shlibs.t       | 6 ++++++
+ 2 files changed, 8 insertions(+)
+
+commit 752cd4339fdd90a8144112bc4d69054f7f8fc313
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 11 02:41:19 2026 +0100
+
+    dpkg: Fix typo for «metadata» in error message
+    
+    Closes: #1125128
+
+ src/main/unpack.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 55529a094e8a8b847f140b9d5c7ab6d6745d4dbd
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 4 21:57:33 2026 +0100
+
+    s-s-d: Check for invalid combinations of --notify-await options
+    
+    The --notify-await option only makes sense with --background, and the
+    --notify-timeout option only makes sense with --notify-await. Check
+    that and error out otherwise.
+    
+    Closes: #1124643
+
+ utils/start-stop-daemon.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 351900813acc447eaa212602b387ffb724821ed8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 11 02:40:12 2026 +0100
+
+    s-s-d(8): Clarify relationship between --notify-await and --background
+    
+    Switch from a warning to a note admonition for --background, given that
+    --notify-await makes it a reliable operation to perform. And document
+    that the latter requires the former.
+    
+    Ref: #1124643
+
+ man/start-stop-daemon.pod | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+commit 5b18d31bc6a13d7728423b917d83461d34b22069
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Jan 18 02:35:51 2026 +0100
+
+    Revert "Dpkg::Vendor: Add branch hardening flags to LDFLAGS"
+    
+    This reverts commit cdf5f5da0e0cb6f9f4d51e93fd9583bd578c252f.
+    
+    These flags are not supposed to be passed during linking. This is
+    causing fallout for direct ld(1) invocations, and for other languages
+    such as D, where these end up being passed to its linker which then
+    fails.
+    
+    Closes: #1125323, #1125715
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/Dpkg/Vendor/Debian.pm | 1 -
+ scripts/Dpkg/Vendor/Ubuntu.pm | 1 -
+ 2 files changed, 2 deletions(-)
+
+commit 93f84e68f8883384414726a18a251c84954609cf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 17 15:04:54 2026 +0100
+
+    dpkg-buildflags(1): Clarify that LDFLAGS are not safe for direct ld(1) use
+    
+    The options in the LDFLAGS variable are not safe to be passed to direct
+    ld(1) calls, as these might have been escaped with -Wl, or might contain
+    options that conflict with the ld(1) options, but are recognized by the
+    compiler.
+    
+    If such use is to be done anyway, then only options known to work should
+    be passed through, and any -Wl escaped options should get unescaped.
+    
+    Ref: #1125323
+
+ man/dpkg-buildflags.pod | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
+
+commit 68403847844bfb5cb118334ae384c360a7e6871d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Dec 25 00:39:38 2025 +0100
+
+    Dpkg::BuildProfiles: Remove the parser workaround now that dh-exec is fixed
+    
+    This was added in commit 1901b52bb8d6fbd2479232fe8fc91fe47b1235c1,
+    but we can revert it now.
+    
+    Add a versioned Breaks on the dh-exec versions that the stricter parser
+    makes no longer work.
+
+ debian/control                | 3 +++
+ scripts/Dpkg/BuildProfiles.pm | 6 ------
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+commit ade559fe4e357d7885f1f154abd531fcc90fbcab
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 20 03:24:40 2025 +0100
+
+    debian: Fix bug closure
+    
+    Fixes: commit d27981e420519b23f126f80efd37dacb8cde8f62
+    Changelog: silent
+
+ debian/changelog | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 24a3a698475ee73a81d035e466d03ed94261b7bf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Dec 20 02:45:15 2025 +0100
+
+    Bump version to 1.23.4
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit f3ad53337eaee92cbeb1a7c73e98d552c3a8186f
 Author: Guillem Jover <guillem@debian.org>
 Date:   Sat Dec 20 02:21:43 2025 +0100
@@ -127,6 +827,9 @@ Date:   Fri Dec 19 23:45:47 2025 +0100
     
     Fixes: commit 91f68ddf6537e28bf2283a983d64f42494652b96
     Closes: #1123630
+
+Notes:
+    Changelog: s/Closes: #1123630/Closes: #1123652/
 
  scripts/Dpkg/Source/Package/V1.pm | 14 ++++++++++++++
  1 file changed, 14 insertions(+)

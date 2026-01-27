@@ -30,39 +30,39 @@ A substituição de variável tem o formato B<${>I<variable-name>B<}>.  Nomes de
 
 =head2 Sintaxe de Ficheiro
 
-Substitution variables can be specified in a file.  These files consist of lines with variable assignments, that start with the variable name, immediately followed by an assignment operator, and then the value.  Each operator gives the variable specific attributes.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+Variáveis de substituição podem ser especificadas num ficheiro.  Estes ficheiros consistem de linhas com atribuições de variável, que começam com o nome da variável, imediatamente seguido dum operador de atribuição, e depois o valor.  Cada operador dá os atributos específicos da variável.  Espaços em branco atrás de cada linha, linhas vazias, e linhas começadas com um símbolo B<#>(comentários) são ignorados.
 
-The following operators are supported:
+Os seguintes operadores são suportados:
 
 =over 
 
 =item B<=>
 
-Assigns a normal substitution variable.
+Atribui uma variável de substituição normal.
 
 =item B<?=>
 
-Assigns an optional substitution variable which will emit no warnings even if unused.
+Atribui uma variável de substituição opcional que não vai emitir avisos mesmo que não usada.
 
-Supported since dpkg 1.21.8.
+Suportado desde dpkg 1.21.8.
 
 =item B<!=>
 
-Assigns a required substitution variable which will error out if unused.
+Atribui uma variável de substituição requerida que irá dar erro se não for usada.
 
-Supported since dpkg 1.22.7.
+Suportado desde dpkg 1.22.7
 
 =item B<$=>
 
-Assigns an implicit substitution variable which will get automatically instantiated as a field, if that field is not defined for B<.dsc> and B<.deb> control files.
+Atribui uma variável de substituição implícita que vai ser automaticamente instanciada como um campo, se esse campo não estiver definido para ficheiros de controle B<.dsc> e B<.deb>.
 
-The variable name needs to be formed as a namespace followed by a colon (‘B<:>’) and then the field name, such as B<tool:Depends>.  All implicit variables for any namespace matching the same field will get concatenated using a known field separator, or a space if the field separator is unknown.
+O nome da variável precisa de ser formado como um espaço de nome seguido por dois pontos (‘B<:>’) e depois o nome do campo, tal como B<tool:Depends>. Todas as variáveis implícitas para qualquer espaço de nome que corresponda ao mesmo campo irão ser concatenadas usando um separador de campo conhecido; ou um espaço se o separador de campo for desconhecido.
 
-Supported since dpkg 1.23.0.
+Suportado desde dpkg 1.23.0.
 
 =back
 
-For example C<some-package:Depends?=other-package (= 1.0), the-package>.
+Por exemplo C<algum-pacote:Depends?=outro-pacote (= 1.0), o-pacote>.
 
 =head2 Substituição
 

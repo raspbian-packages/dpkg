@@ -64,17 +64,17 @@ Este campo dobrado é uma lista de pacotes binários compilados separados por es
 
 =item B<Architecture:> I<arch-list> (necessário)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names separated by spaces.
+A lista de arquitecturas especifica em que tipo de máquina este pacote corre.  O valor deve ser uma lista de nomes de arquitectura separados por espaços.
 
-Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being built, the special entry B<source> is also present.
+Arquitecturas comuns são B<amd64>, B<armel>, B<i386>, etc.  Note que o valor especial B<all> destina-se a pacotes que são independentes da arquitectura (tais como scripts de shell e Perl ou documentação). Se a fonte do pacote estiver também a ser compilada, a entrada especial B<source> está também presente.
 
-B<Note:> Architecture wildcards are not allowed in this context.
+B<Nota:> Os wildcards de arquitectura não são permitidos neste contexto.
 
 =item B<Version:>I< string-de-versão> (obrigatório)
 
-Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa. Pode também incluir um número de revisão Debian (para pacotes não-nativos). O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
+Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa.  Pode também incluir um número de revisão Debian (para pacotes não-nativos).  O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Nota>: Em alguns fornecedores, o dpkg foi feito para permitir fontes nativas com versões não-nativas, tornando isto incoerente e adicional à confusão do conceito, onde adicionalmente isto tende a ser uma armadilha para enganos acidentais.
 
 =item B<Binary-Only-Changes:>
 

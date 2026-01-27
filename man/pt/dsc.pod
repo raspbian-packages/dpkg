@@ -50,17 +50,17 @@ Este campo está agora a ser suplantado pelo campo B<Package-List>, o qual forne
 
 =item B<Architecture:> I<arch-list> (recomendado)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
+A lista de arquitecturas especifica em que tipo de máquina este pacote corre.  O valor deve ser uma lista de nomes de arquitectura e/ou wildcards separados por espaços.
 
-Common architecture names and architecture wildcards are B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, etc.  Note that the B<all> value is meant for packages that are architecture independent, and B<any> for packages that are architecture dependent.  The list may include (or consist solely of) the special value B<all>.  When the list contains the architecture wildcard B<any>, the only other value allowed in the list is B<all>.
+Nomes de arquitectura comuns e wildcards de arquitectura são B<amd64>, B<armel>, B<i386>, B<linux-any>, B<any-amd64>, etc.  Note que o valor B<all> destina-se a pacote independentes da arquitectura, e B<any> a pacotes que são dependentes da arquitectura. A lista pode incluir (ou consistir apenas de) o valor especial B<all>.  Quando a lista contem a wildcard de arquitectura B<any>, o outro único valor permitido na lista é B<all>.
 
 O valor do campo é geralmente gerado a partir de campos B<Architecture> a partir de I<debian/control> no pacote fonte.
 
 =item B<Version:>I< string-de-versão> (obrigatório)
 
-Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa. Pode também incluir um número de revisão Debian (para pacotes não-nativos). O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
+Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa.  Pode também incluir um número de revisão Debian (para pacotes não-nativos).  O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Nota>: Em alguns fornecedores, o dpkg foi feito para permitir fontes nativas com versões não-nativas, tornando isto incoerente e adicional à confusão do conceito, onde adicionalmente isto tende a ser uma armadilha para enganos acidentais.
 
 =item B<Origin:> I<name>
 
@@ -146,7 +146,7 @@ O I<package-type> é o tipo de pacote binário, normalmente B<deb>, outro valor 
 
 I<section> e I<priority> correspondem aos campos do pacote binário do mesmo nome, ou se omitidos são predefinidos para B<unknown> e B<optional> respetivamente (desde dpkg 1.22.13).
 
-A I<key-value-list> é uma lista is de I<key>B<=>I<value> separados por espaços, a as chaves opcionais actualmente conhecidas são:
+A I<key-value-list> é uma lista is de I<chave>B<=>I<valor> separados por espaços, a as chaves opcionais actualmente conhecidas são:
 
 =over 
 
@@ -156,15 +156,15 @@ A restrição de arquitectura do campo B<Architecture> do pacote binário, com e
 
 =item B<profile>
 
-The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘,’, and ORs (whitespace between enclosing angle brackets) to ‘+’.  All angle brackets get removed during normalization.
+A fórmula de restrição do perfil-de-compilação normalizada a partir do campo B<Build-Profile> do pacote binário, com Es (espaço em branco dentro de colchetes angulares fechados) convertidos para ‘,’, e OUs (espaço em branco entre colchetes angulares a fechar) para ‘+’.  Todos as colchetes angulares são removidos durante a normalização.
 
-Deprecated since dpkg 1.23.0, superseded by B<profile:v1>.
+Descontinuado desde dpkg 1.23.0, substituído por B<profile:v1>.
 
 =item B<profile:v1>
 
-The normalized build-profile restriction formula from the binary package B<Build-Profile> field, with ANDs (whitespace inside enclosed angle brackets) converted to ‘&’, and ORs (whitespace between enclosing angle brackets) to ‘|’.  All angle brackets get removed during normalization.
+A fórmula de restrição do perfil-de-compilação normalizada a partir do campo B<Build-Profile> do pacote binário, com Es (espaço em branco dentro de colchetes angulares fechados) convertidos para ‘&’, e OUs (espaço em branco entre colchetes angulares a fechar) para ‘|’.  Todos as colchetes angulares são removidos durante a normalização.
 
-Supported since dpkg 1.23.0.
+Suportado desde dpkg 1.23.0.
 
 =item B<protected>
 

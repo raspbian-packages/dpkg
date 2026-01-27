@@ -40,9 +40,9 @@ Este campo define o tipo de pacote. B<udeb> é para pacotes de tamanho reduzido 
 
 =item B<Version:>I< string-de-versão> (obrigatório)
 
-Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa. Pode também incluir um número de revisão Debian (para pacotes não-nativos). O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
+Tipicamente, isto é o número de versão do pacote original seja em que formato o autor do programa usa.  Pode também incluir um número de revisão Debian (para pacotes não-nativos).  O formato exacto e algoritmo de ordenação estão descritos em L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Nota>: Em alguns fornecedores, o dpkg foi feito para permitir fontes nativas com versões não-nativas, tornando isto incoerente e adicional à confusão do conceito, onde adicionalmente isto tende a ser uma armadilha para enganos acidentais.
 
 =item B<Maintainer:> I<fullname-email> (recomendado)
 
@@ -84,15 +84,15 @@ Este campo normalmente não é necessário quando a resposta é B<sim>. Ele indi
 
 Este campo geralmente não é necessário quando a resposta é B<sim>, e é injetado de modo comum pelo software do arquivo. Denota um pacote que é requerido quando se compila outros pacotes.
 
-=item B<Architecture:> B<all>|I<arch> (required)
+=item B<Architecture:> B<all>|I<arch> (requerido)
 
-The architecture specifies on which type of machine this package runs.
+A arquitectura especifica em qual tipo de máquina este pacote corre.
 
-Common architectures are B<amd64>, B<armel>, B<i386>, B<powerpc>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).
+Arquitecturas comuns são B<amd64>, B<armel>, B<i386>, B<powerpc>, etc. Note que o valor especial B<all> é destinado a pacotes que são independentes da arquitectura. (tal como scripts de shell e Perl ou documentação).
 
-B<Note:> Architecture wildcards are not allowed in this context.
+B<Nota:> Os wildcards de arquitectura não são permitidos neste contexto.
 
-An architecture name must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric and dash (‘-’) characters.
+Um nome de arquitectura tem de começar com um caractere alfanumérico (“0-9a-zA-Z”), e depois seguido por caracteres alfanuméricos e traço (‘-’).
 
 =item B<Origin:> I<name>
 

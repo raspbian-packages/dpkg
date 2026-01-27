@@ -38,11 +38,11 @@ De omgevingsvariabelen weergeven, één per regel, volgens de indeling I<VARIABE
 
 =item B<-e>, B<--equal> I<architectuur>
 
-Nagaan of de architecturen gelijk zijn (sinds dpkg 1.13.13). Het vergelijkt de huidige of opgegeven Debian host-architectuur met I<architectuur> om na te gaan of ze gelijk zijn. Deze actie zal geen architectuurjokertekens verwerken. Het commando sluit af met een afsluitstatus 0 bij gelijkheid en 1 bij ongelijkheid.
+Nagaan of de architecturen gelijk zijn (sinds dpkg 1.13.13). Het vergelijkt de huidige of opgegeven Debian host-architectuur met I<architectuur> om na te gaan of ze gelijk zijn. Deze actie zal geen architectuurwildcards verwerken. Het commando sluit af met een afsluitstatus 0 bij gelijkheid en 1 bij ongelijkheid.
 
-=item B<-i>, B<--is> I<architectuurjokerteken>
+=item B<-i>, B<--is> I<architectuurwildcard>
 
-Nagaan of de architecturen gelijk zijn (sinds dpkg 1.13.13). Het vergelijkt de huidige of opgegeven Debian host-architectuur met I<architectuurjokerteken>, nadat dit als een architectuurjokerteken verwerkt werd, om na te gaan of beide gelijk zijn. Het commando sluit af met een afsluitstatus 0 bij gelijkheid en 1 bij ongelijkheid.
+Nagaan of de architecturen gelijk zijn (sinds dpkg 1.13.13). Het vergelijkt de huidige of opgegeven Debian host-architectuur met I<architectuurwildcard>, nadat dit als een architectuurwildcard verwerkt werd, om na te gaan of beide gelijk zijn. Het commando sluit af met een afsluitstatus 0 bij gelijkheid en 1 bij ongelijkheid.
 
 =item B<-q>, B<--query> I<variabelenaam>
 
@@ -96,9 +96,9 @@ De Debian-architectuur instellen voor het doel (sinds dpkg 1.17.14).
 
 Het GNU-systeemtype instellen voor het doel (sinds dpkg 1.17.14).
 
-=item B<-W>, B<--match-wildcard> I<architectuurjokerteken>
+=item B<-W>, B<--match-wildcard> I<architectuurwildcard>
 
-De architecturen die door B<--list-known> weergegeven worden, beperken tot die welke beantwoorden aan het opgegeven architectuurjokerteken (sinds dpkg 1.17.14).
+De architecturen die door B<--list-known> weergegeven worden, beperken tot die welke beantwoorden aan de opgegeven architectuurwildcard (sinds dpkg 1.17.14).
 
 =item B<-B>, B<--match-bits> I<architectuur-bits>
 
@@ -136,27 +136,27 @@ De machine waarvoor de compiler bouwt of waar de emulator code voor zal uitvoere
 
 =item Debian-architectuur
 
-A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
+Een Debian-architectuur beschrijft een “machine” (waarbij deze wordt beschouwd als een abstractie, niet noodzakelijkerwijs gekoppeld aan een fysiek apparaat) die een specifieke uitvoeringsomgeving vertegenwoordigt, inclusief de CPU en attributen (zoals endianness en bits), een besturingssysteem (meestal een kernel, maar andere paradigma's die gebruikmaken van gebruikerslandservices zijn mogelijk) en de interfaces naar gebruikersland, inclusief het uitvoerbare bestandsformaat en de bijbehorende ABI, en een libc-bibliotheek en de bijbehorende ABI.
 
-The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+De speciale architectuur B<all> duidt op een architectuuronafhankelijke uitvoeringsomgeving, die gebruikt wordt voor zaken als shell- en Perl-scripts of documentatie.
 
-A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+Een Debian-architectuur wordt gebruikt in metadata en bestandsnamen van binaire pakketten (die de binaire boomstructuur specificeert in een pakketarchief) en kan voorkomen in pakketrelaties.
 
-An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+Een architectuur moet beginnen met een alfanumeriek teken (“0-9a-zA-Z”) en wordt vervolgens gevolgd door alfanumerieke tekens of streepjes (“-”).
 
-Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
+Voorbeelden: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Debian-architectuurtupel
 
 Een Debian-architectuurtupel is de volledige unieke architectuurnaam met de expliciete  vermelding van alle componenten. Dit verschilt minstens daarin van een Debian architectuur dat de component I<cpu> niet de I<abi> impliceert. Het huidige tupel heeft als vorm I<abi>-I<libc>-I<os>-I<cpu>.
 
- Voorbeelden: base-gnu-linux-amd64, eabihf-musl-linux-arm.
+Voorbeelden: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
-=item Debian-architectuurjokerteken
+=item Debian-architectuurwildcard
 
-A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+Een Debian-architectuurwildcard is een speciale architectuur die als een patroon fungeert en overeenkomt met elke ”machine”-architectuur die er deel van uitmaakt (behalve B<all>).
 
-The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
+Een Debian-architectuurwildcard is een speciale architectuurtekenreeks die een overeenkomst oplevert met elke echte architectuur die er onder hoort. De algemene vorm is een Debian-architectuurtupel met vier of minder elementen en waarvan er minstens een B<any> is. Ontbrekende elementen van de tupel worden impliciet als B<any> voorgevoegd, en dus zijn de volgende koppels equivalent:
 
 =over 
 
@@ -172,17 +172,17 @@ Voorbeelden: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item GNU-systeemtype
 
-A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
+Een GNU-architectuurspecificatietekenreeks die een architectuurspecificatie inhoudt en bestaat uit twee delen met daartussen een koppelteken: CPU en systeem.
 
 Het CPU gedeelte bevat nooit een koppelteken, terwijl het systeemgedeelte zelf een koppelteken kan bevatten om een kernel te scheiden van de algemene ABI, waarbij de algemene ABI zowel runtime (zoals libc) als uitvoerbare ABI-specificaties kan bevatten die zonder koppelteken zijn samengevoegd.
 
-Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
+Voorbeelden: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item multiarch-triplet
 
 Het uitgezuiverde GNU-systeemtype dat voor bestandssysteempaden gebruikt wordt. Dit triplet verandert zelfs niet wanneer het referentie-ISA verhoogd wordt, waardoor de resulterende paden stabiel blijven door de tijd. Het enige verschil met het GNU-systeemtype is momenteel dat voor op i386 gebaseerde systemen het CPU-gedeelte steeds i386 is.
 
-Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
+Voorbeelden: i386-linux-gnu, x86_64-linux-gnu. Voorbeelden van paden: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

@@ -136,15 +136,15 @@ A maquina para a qual o compilador foi construído, ou o que emulador que irá c
 
 =item Arquitectura Debian
 
-A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
+Uma arquitectura Debian descreve uma "máquina" (considerando-a como uma abstração não necessariamente ligada a um dispositivo físico real) representando um ambiente de execução específico, incluindo a sua CPU e atributos (tais como a endianidade e os bits), um sistema operativo (geralmente um kernel, mas são possíveis outros paradigmas que usem serviços para o utilizador) e as suas interfaces viradas ao utilizador incluindo o formato executável e a sua ABI, e uma biblioteca libc e a sua ABI.
 
-The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+A arquitectura especial B<all> denota um ambiente de execução independente da arquitectura, usada para coisas como scripts de shell e Perl ou documentação.
 
-A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+Uma arquitectura Debian é usada em metadados de pacote binário e nomes de ficheiros (a qual especifica a árvore binária num repositório de pacotes), e pode aparecer em relacionamentos do pacote.
 
-An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+Uma arquitectura tem de começar com um caractere alfanumérico (“0-9a-zA-Z”), e depois seguido por caracteres alfanuméricos ou traço ("-").
 
-Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
+Exemplos: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Tuple de arquitectura Debian
 
@@ -154,9 +154,9 @@ Exemplos: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
 =item Wildcard de arquitectura Debian
 
-A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+Um wildcard de arquitectura Debian é uma arquitectura especial que age como um padrão e vai corresponder a qualquer arquitectura de "máquina" que seja partem dela (excepto para B<all>).
 
-The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
+O formato geral é um tuple de arquitectura Debian com quatro ou menos elementos, e com pelo menos um deles a ser B<any>. Elementos em falta no tuple são prefixados implicitamente como B<any>, e assim os seguintes pares são equivalentes:
 
 =over 
 
@@ -172,17 +172,17 @@ Exemplos: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item Tipo de sistema GNU
 
-A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
+Uma string de especificação de arquitectura GNU consiste de duas partes separadas por um hífen: CPU e sistema.
 
 A parte da CPU nunca contém um hífen, enquanto a parte do sistema pode ela própria conter um hífen para separar um kernel da sua ABI geral, onde a ABI geral pode conter ambos especificadores de tempo-de-execução (como a libc) e ABI executável juntos sem um hífen.
 
-Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
+Exemplos: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item multiarch triplet
 
 O tipo de sistema GNU clarificado, usado para caminhos do sistema de ficheiros. Este triplet não altera mesmo quando a linha base ISA entra em colisão, para que os caminhos resultantes fiquem estáveis com o tempo. A única diferença actual com o tipo de sistema GNU é que a parte de CPU para os sistemas baseados em i386 é sempre i386.
 
-Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
+Exemplos: i386-linux-gnu, x86_64-linux-gnu.  Caminhos exemplo: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

@@ -126,7 +126,7 @@ Bij het uitvoeren van een automatische hersamenstelling of in-de-wachtrij-plaats
 
 =item B<--msdos>
 
-Obsolete option without effect (since dpkg 1.23.0).
+Verouderde optie zonder effect (sinds dpkg 1.23.0).
 
 =back
 

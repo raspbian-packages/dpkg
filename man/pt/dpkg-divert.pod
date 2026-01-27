@@ -90,7 +90,7 @@ Actualmente mete o ficheiro de lado (ou para trás). B<dpkg-divert> irá abortar
 
 =item B<--no-rename>
 
-Specifies that the file should not be renamed while adding or removing the diversion into the database (since dpkg 1.19.1).  This is intended for diversions of files from the B<Essential> package set, where the temporary disappearance of the original file is not acceptable, as it can render the system non-functional.  This is the default behavior, which will change once there are no known users, but not before the dpkg 1.23.x release cycle.
+Especifica que o ficheiro não deve ser renomeado enquanto se adiciona ou remove o desvio na base de dados (desde dpkg 1.19.1). Isto destina-se a desvios de ficheiros do conjunto de pacotes B<Essential>, onde o desaparecimento temporário do ficheiro original não é aceitável, pois pode tornar o sistema não-funcional. Este é o comportamento predefinido, que irá mudar assim que não existirem utilizadores conhecidos, mas não antes do ciclo de lançamento do dpkg 1.23.x.
 
 =item B<--test>
 

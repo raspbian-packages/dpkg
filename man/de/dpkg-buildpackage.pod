@@ -398,15 +398,15 @@ Die Vorgabe ist B<auto>, bei der das beste derzeit verfügbare Backend verwandt 
 
 =item B<sop>
 
-(jede normgerechte zustandslose OpenPGP-Implementierung)
+Any conforming Stateless OpenPGP (SOP) implementation, such as sqop, rsop, gosop or pgpainless-cli.
 
 =item B<sq>
 
-(von Sequoia-PGP)
+From Sequoia-PGP.
 
 =item B<gpg>
 
-(von GnuPG)
+From GnuPG.
 
 =back
 
@@ -644,7 +644,7 @@ Es sollte möglich sein, Leerzeichen und Metazeichen der Shell und Anfangsargume
 
 =head1 SIEHE AUCH
 
-I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(1)>, L<dpkg-buildflags(1)>, L<dpkg-genbuildinfo(1)>, L<dpkg-genchanges(1)>, L<fakeroot(1)>, L<lintian(1)>, L<https://datatracker.ietf.org/doc/draft-dkg-openpgp-stateless-cli/>, L<sq(1)>, L<gpg(1)>.
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(1)>, L<dpkg-buildflags(1)>, L<dpkg-genbuildinfo(1)>, L<dpkg-genchanges(1)>, L<fakeroot(1)>, L<lintian(1)>, L<SOP|https://datatracker.ietf.org/doc/draft-dkg-openpgp-stateless-cli/>, L<sq(1)>, L<gpg(1)>.
 
 
 =head1 ÜBERSETZUNG

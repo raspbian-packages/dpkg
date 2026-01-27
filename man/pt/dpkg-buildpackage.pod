@@ -398,15 +398,15 @@ A predefinição é B<auto>, onde o melhor backend actual disponível irá ser u
 
 =item B<sop>
 
-(qualquer implementação em conformidade com Stateless OpenPGP)
+Any conforming Stateless OpenPGP (SOP) implementation, such as sqop, rsop, gosop or pgpainless-cli.
 
 =item B<sq>
 
-(de Sequoia-PGP)
+From Sequoia-PGP.
 
 =item B<gpg>
 
-(de GnuPG)
+From GnuPG.
 
 =back
 
@@ -644,7 +644,7 @@ Deverá ser possível especificar espaços e meta-caracteres de shell e argument
 
 =head1 VEJA TAMBÉM
 
-I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(1)>, L<dpkg-buildflags(1)>, L<dpkg-genbuildinfo(1)>, L<dpkg-genchanges(1)>, L<fakeroot(1)>, L<lintian(1)>, L<https://datatracker.ietf.org/doc/draft-dkg-openpgp-stateless-cli/>, L<sq(1)>, L<gpg(1)>.
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<dpkg-source(1)>, L<dpkg-architecture(1)>, L<dpkg-buildflags(1)>, L<dpkg-genbuildinfo(1)>, L<dpkg-genchanges(1)>, L<fakeroot(1)>, L<lintian(1)>, L<SOP|https://datatracker.ietf.org/doc/draft-dkg-openpgp-stateless-cli/>, L<sq(1)>, L<gpg(1)>.
 
 
 =head1 TRADUÇÃO

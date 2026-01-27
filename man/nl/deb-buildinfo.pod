@@ -64,17 +64,17 @@ Dit samengevouwen veld is een met een spatie gescheiden lijst van gebouwde binai
 
 =item B<Architecture:> I<arch-lijst> (verplicht)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names separated by spaces.
+De architectuurlijst geeft aan op welk type machine dit pakket draait. De waarde moet een lijst met architectuurnamen zijn, gescheiden door spaties.
 
-Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being built, the special entry B<source> is also present.
+Gebruikelijke architecturen zijn B<amd64>, B<armel>, B<i386>, enz. Merk op dat de bijzondere waarde B<all> bedoeld is voor pakketten die architectuuronafhankelijk zijn (zoals shell- en Perlscripts of documentatie). Indien ook de broncode voor het pakket gebouwd wordt, is tevens de bijzondere vermelding B<source> aanwezig.
 
-B<Note:> Architecture wildcards are not allowed in this context.
+B<Opmerking:> Architectuurwildcards zijn in deze context niet toegestaan.
 
 =item B<Version:> I<versie-tekenreeks> (verplicht)
 
 Gewoonlijk is dit het originele versienummer van het pakket, welke vorm de auteur van het programma er ook voor gebruikt. Het kan ook een Debian-revisienummer bevatten (voor niet uit Debian stammende pakketten). De exacte indeling en het sorteringsalgoritme worden beschreven in L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Opmerking>: Bij sommige leveranciers is dpkg zo aangepast dat authentieke bronnen samen met niet-authentieke versies zijn toegestaan. Dit maakt het inconsistent en draagt ​​bij aan de verwarring rond het concept. Bovendien vormt dit een valkuil voor onbedoelde fouten.
 
 =item B<Binary-Only-Changes:>
 

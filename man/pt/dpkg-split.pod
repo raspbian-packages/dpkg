@@ -122,11 +122,11 @@ Isto sobrepõe a predefinição para uma remontagem manual (B<--join>)  e é obr
 
 =item B<-Q>, B<--npquiet>
 
-quando faz fila ou remontagem automática o B<dpkg-split> geralmente escreve uma mensagem se lhe for dada uma I<part> que não é uma parte de um pacote binário. Esta opção suprime esta mensagem, para permitir a programas como o B<dpkg> lidar com ambos pacotes divididos e não-divididos sem produzir mensagens espúrias.
+Quando faz fila ou remontagem automática o B<dpkg-split> geralmente escreve uma mensagem se lhe for dada uma I<part> que não é uma parte de um pacote binário. Esta opção suprime esta mensagem, para permitir a programas como o B<dpkg> lidar com ambos pacotes divididos e não-divididos sem produzir mensagens espúrias.
 
 =item B<--msdos>
 
-Obsolete option without effect (since dpkg 1.23.0).
+Opção obsoleta sem efeito (desde dpkg 1.23.0).
 
 =back
 

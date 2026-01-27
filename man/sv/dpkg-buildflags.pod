@@ -242,7 +242,11 @@ Flaggor för värd-Fortran 9x-kompilatorn. Samma som B<FFLAGS>. Sedan dpkg 1.17.
 
 =item B<LDFLAGS>
 
-Flaggor som sänds till värdkompilatorn vid länkning av binärer eller delade objekt (om länkaren anropas direkt måste B<-Wl> och B<,> tas bort från dessa flaggor). Standardvärde: tomt.
+Options passed to the host compiler when linking executables or shared objects.
+
+B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+
+Default value: empty.
 
 =item B<ASFLAGS_FOR_BUILD>
 
@@ -282,7 +286,13 @@ Flaggor för bygg-Fortran 9x-kompilatorn. Samma som B<FFLAGS_FOR_BUIDL>. Sedan d
 
 =item B<LDFLAGS_FOR_BUILD>
 
-Flaggor som sänds till bygg-kompilatorn vid länkning av binärer eller delade objekt (om länkaren anropas direkt måste B<-Wl> och B<,> tas bort från dessa flaggor). Standardvärde: tomt. Sedan dpkg 1.22.1.
+Options passed to the build compiler when linking executables or shared objects.
+
+B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+
+Default value: empty.
+
+Since dpkg 1.22.1.
 
 =back
 

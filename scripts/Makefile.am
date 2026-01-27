@@ -47,6 +47,8 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Deps/Simple.pm \
 	Dpkg/Deps/Union.pm \
 	Dpkg/Dist/Files.pm \
+	Dpkg/Email/Address.pm \
+	Dpkg/Email/AddressList.pm \
 	Dpkg/ErrorHandling.pm \
 	Dpkg/Exit.pm \
 	Dpkg/File.pm \
@@ -226,6 +228,7 @@ test_tmpdir = t.tmp
 test_scripts = \
 	t/Dpkg_Version.t \
 	t/Dpkg_Arch.t \
+	t/Dpkg_Email_Address.t \
 	t/Dpkg_Package.t \
 	t/Dpkg_Shlibs_Cppfilt.t \
 	t/Dpkg_Shlibs.t \
@@ -352,6 +355,7 @@ test_data = \
 	t/Dpkg_Shlibs/symbols.fake-1 \
 	t/Dpkg_Shlibs/symbols.fake-2 \
 	t/Dpkg_Shlibs/symbols.fake-3 \
+	t/Dpkg_Shlibs/symbols.fake-4 \
 	t/Dpkg_Shlibs/symbols.include-1 \
 	t/Dpkg_Shlibs/symbols.include-2 \
 	t/Dpkg_Shlibs/symbols.include-3 \

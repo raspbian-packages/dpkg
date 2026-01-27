@@ -36,9 +36,9 @@ Para a maioria dos comandos que recebem uma entrada de argumento de arquivo, o a
 
 =item B<-b>, B<--build> I<binary-directory> [I<archive>|I<directory>]
 
-Creates a debian archive from the filesystem tree stored in I<binary-directory>.  I<binary-directory> must have a B<DEBIAN> subdirectory, which contains the package metadata files such as the binary package control file.  This directory will I<not> appear in the binary package's filesystem archive, but instead the files in it will be put in the binary package's control information area.
+Cria um arquivo debian para a árvore de sistema de ficheiros armazenada em I<binary-directory>.  I<binary-directory> tem de ter um sub-directório de B<DEBIAN>, o qual contém os ficheiros de metadados tais como o ficheiro de controle do pacote binário.  Este directório I<não> irá aparecer no arquivo de sistema de ficheiros do pacote binários, mas em vez disso os ficheiros nele serão postos na área de informação de controlo do pacote binário.
 
-Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> package metadata directory.
+A menos que você especifique B<--no-check>, B<dpkg-deb> irá ler B<DEBIAN/control> e analisa-lo. Irá verificar o ficheiro por erros de sintaxe e outros problemas, e mostrar o nome do pacote binário a ser compilado. B<dpkg-deb> irá também verificar as permissões dos scripts do maintainer e outros ficheiros encontrados no directório B<DEBIAN> de metadados do pacote.
 
 Se não for especificado nenhum I<archive> então o B<dpkg-deb> irá escrever o pacote no ficheiro I<binary-directory>B<.deb>.
 
@@ -86,7 +86,7 @@ I<directory> (mas não os seus parentes) será criada se necessário, e as suas 
 
 =item B<-R>, B<--raw-extract> I<archive> I<directory>
 
-Extracts the filesystem tree from a package archive into a specified directory, and the package metadata files into a B<DEBIAN> subdirectory of the specified directory (since dpkg 1.16.1).
+Extrai a árvore do sistema de ficheiros de um arquivo pacote para um directório especificado, e os ficheiros de metadados do pacote para um sub-directório B<DEBIAN> do directório especificado (desde dpkg 1.16.1).
 
 O directório alvo (mas não os seus parentes) será criado se necessário.
 
@@ -102,7 +102,7 @@ Extrai os dados de árvore de sistema de ficheiros de um pacote binário e envia
 
 =item B<-e>, B<--control> I<archive> [I<directory>]
 
-Extracts the package metadata files from a package archive into the specified directory.
+Extrai ficheiros de metadados do pacote a partir de um arquivo de pacote para o directório especificado.
 
 Se nenhum directório for especificado, então é usado um sub-directório B<DEBIAN> no directório actual.
 

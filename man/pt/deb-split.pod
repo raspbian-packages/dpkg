@@ -28,13 +28,13 @@ I<filename>B<.deb>
 
 O ficheiro é um arquivo B<ar> com um valor mágico de B<!E<lt>archE<gt>>. Os nomes dos ficheiros podem conter uma barra à direita (desde o dpkg 1.15.6).
 
-The B<ar> archive is composed of multiple members in a specific order:
+O arquivo B<ar> é composto de múltiplos membros numa ordem específica:
 
 =over 
 
 =item B<debian-split>
 
-The first required member contains a series of lines, separated by newlines.  Currently eight lines are present:
+O primeiro membro requerido contém uma série de linhas, separadas por caracteres de nova-linha. Actualmente estão presentes oito linhas:
 
 =over 
 
@@ -78,7 +78,7 @@ Se o maior número de versão de formato tiver alterado, foi criada uma mudança
 
 =item B<data.>I<N>
 
-The second, last required member, where I<N> denotes the part number.  It contains the raw part data.
+O segundo, último membro requerido, onde I<N> denota o número de parte. Contém a parte crua dos dados.
 
 =back
 

@@ -126,7 +126,7 @@ Esta variável pode ser usada para activar e desactivar várias funcionalidades 
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names.
+Se definido, será usado como perfil(es) de compilação activos para usar quando se gera o ficheiro .buildinfo.  É uma lista separada por espaços de nomes de perfis. 
 
 =item B<DEB_BUILD_ARCH>
 

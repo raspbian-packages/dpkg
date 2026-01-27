@@ -180,7 +180,7 @@ Define a arquitectura da máquina anfitriã.
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+Se definido, será usado como perfil(es) de compilação activos para usar quando se gera o ficheiro .changes.  É uma lista separada por espaços de nomes de perfis.
 
 =item B<DPKG_COLORS>
 
