@@ -46,7 +46,7 @@ Räknar upp namn och e-postadresser till med-underhållare av paketet, i samma f
 
 Dokumenterar den senaste versionen av distributionens policystandard som paketet uppfyller.
 
-=item B<Description:> I<kort-beskrivning>)
+=item B<Description:> I<kort-beskrivning>
 
 =item S< >I<lång-beskrivning>
 
@@ -174,9 +174,9 @@ Ett arkitekturkvalificeringsnamn kan vara ett existerande Debianarkitekturnamn (
 
 Ett versionsnummer kan börja med ”B<E<gt>E<gt>>”, vilket betyder att vilken som helst senare version matchar, där det är valfritt att ange Debianuppdateringen (avdelad med bindestreck).  Tillåtna versionrelationer är ”B<E<gt>E<gt>>” för större än, ”B<E<lt>E<lt>>” för mindre än, ”B<E<gt>=>” för större än eller lika med, ”B<E<lt>=>” för mindre än eller lika med, och ”B<=>” för lika med.
 
-An architecture specification consists of one or more architecture names, separated by whitespace.  Exclamation marks (B<!>) may be prepended to each of the names, meaning “NOT”.
+En arkitekturangivelse består av ett eller flera arkitekturnamn, avdelade med blanktecken. Varje namn kan föregås av ett utropstecken (B<!>), vilket betyder ”ICKE”.
 
-A restriction formula consists of one or more restriction lists, separated by whitespace.  Each restriction list is enclosed in angle brackets (B<E<lt>> and B<E<gt>>).  Items in the restriction list are build profile names, separated by whitespace and can be prefixed with an exclamation mark (B<!>), meaning “NOT”.  A restriction formula represents a disjunctive normal form expression, that is whitespace inside enclosed angle brackets is read as “AND”, and whitespace between enclosing angle brackets is read as “OR“, such as “B<E<lt>>foo AND barB<E<gt>> OR B<E<lt>>quux AND bazB<E<gt>>”.
+En begränsningsformel består av en eller flera begränsningslistor, avdelade med blanksteg. Varje begränsningslista skrivs inom vinkelparenteser (B<E<lt>> och B<E<gt>>). Poster i begränsningslistan är namn på byggprofiler, avdelade av blanksteg och kan föregås av ett utropstecken (B<!>), vilket betyder ”ICKE”. En begränsningsformel representerar ett uttryck i disjunktiv normalform, vilket innebär att blanksteg inuti omslutande vinkelparenteser läses som ”OCH”, och blanksteg mellan omslutande vinkelparenteser läses som ”ELLER”, till exempel ”B<E<lt>>foo AND barB<E<gt>> OR B<E<lt>>quux AND bazB<E<gt>>”.
 
 Observera att beroenden på paket i B<build-essential>-uppsättningen kan utelämnas och att det är omöjligt att deklarera byggkonflikter mot dem. En lista över dessa paket finns i paketet build-essential.
 
@@ -194,13 +194,13 @@ Detta fält anger paketets typ. B<udeb> används för storleksbegränsade paket 
 
 =item B<Architecture:> I<ark-lista> (krävs)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names and/or wildcards separated by spaces.
+Arkitekturlistan anger på vilken typ av maskiner paketet kan köras. Värdet ska vara en lista över arkitekturnamn och/eller sökmönster avdelade med blanksteg.
 
-The special B<all> value, by itself, is meant for packages that are architecture independent (such as shell and Perl scripts or documentation), the special B<any> wildcard value, by itself, is meant for packages that are architecture dependent but run on all architectures (which matches on all specific architecture names, excluding B<all>).  Most packages will use either B<all> or B<any>.  To restrict the packages to a certain set of architectures, specify one or more architecture names and/or architecture wildcards, separated by spaces.
+Det speciella värdet B<all>, när det anges ensamt, är avsett för paket som är oberoende av arkitektur (såsom Perl-skript eller dokumentation), det speciella jokermönstret B<any>, när det anges ensamt, är avsett för paket som är arkitekturberoende men som kan köras på alla arkitekturer (det träffar på alla specifika arkitekturnamn, förutom B<all>). De flesta paket kommer att använda antingen B<all> eller B<any>. För att begränsa paketen till en specifik uppsättning arkitekturer anger du ett eller flera arkitekturnamn och/eller arkitektursökmönster, avdelade med blanksteg.
 
-An architecture name or wildcard must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric and dash (”-”) characters.
+Ett arkitekturnamn eller sökmönster måste inledas med ett alfanumeriskt tecken (”0-9a-zA-Z”), som sedan följs av alfanumeriska tecken och bindestreck (”-”).
 
-For more information about architecture names and wildcards, see L<dpkg-architecture(1)>.
+För mer information om arkitekturnamn och sökmönster, se L<dpkg-architecture(1)>.
 
 =item B<Build-Profiles:> I<begränsningsformel>
 
@@ -226,19 +226,19 @@ Dessa fält beskrivs i manualsidan L<deb-control(5)>, eftersom de kopieras ordag
 
 =item B<Section:> I<sektion>
 
-Overrides the value from the same field in the source package stanza.
+Överstyr värdet från samma fält i källkodspaketstrofen.
 
-If there is no field in the binary or source stanza, then the it defaults to B<unknown> (since dpkg 1.22.13).
+Om fältet saknas i binär- eller källkodsstrofen sätts det till förvalet B<unknown> (sedan dpkg 1.22.13).
 
 =item B<Priority:> I<prioritet>
 
-Overrides the value from the same field in the source package stanza.
+Överstyr värdet från samma fält i källkodspaketstrofen.
 
-If there is no field in the binary or source stanza, then the it defaults to B<optional> (since dpkg 1.22.13).
+Om fältet saknas i binär- eller källkodsstrofen sätts det till förvalet B<optional> (sedan dpkg 1.22.13).
 
 =item B<Homepage:> I<url>
 
-Overrides the value from the same field in the source package stanza.
+Överstyr värdet från samma fält i källkodspaketstrofen.
 
 =item B<Depends:> I<paketlista>
 
@@ -284,19 +284,19 @@ Det är tillåtet att lägga till ytterligare användardefinierade fält till st
 
 Fältet kommer tas med i styrfilen för källkodspaket, se L<dsc(5)>.
 
-Only expected in the source package stanza.
+Förväntas endast i källkodspaketstrofen.
 
 =item B<B>
 
 Fältet kommer tas med i styrfilen för binärpaketet, se L<deb-control(5)>.
 
-Allowed in the source package stanza or any binary package stanza.
+Tillåtet i källkodspaketstrofen eller valfri binärpaketstrof.
 
 =item B<C>
 
 Fältet kommer tas med i styrfilen för insändningen (.changes), se L<deb-changes(5)>.
 
-Only expected in the source package stanza.
+Förväntas endast i källkodspaketstrofen.
 
 =back
 
@@ -306,12 +306,12 @@ Tänk på att dess användardefinierade fält använder den globala namnrymden, 
 
 =head1 EXEMPEL
 
- # Comment.
+ # Kommentar.
  Source: dpkg
  Section: admin
  Priority: required
  Maintainer: Dpkg Developers <debian-dpkg@lists.debian.org>
- # This field is copied to the binary and source packages.
+ # Det här fältet kopieras till binär- och källkodspaketen.
  XBS-Upstream-Release-Status: stable
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
@@ -328,7 +328,7 @@ Tänk på att dess användardefinierade fält använder den globala namnrymden, 
  Section: utils
  Priority: optional
  Architecture: all
- # This is a custom field in the binary package.
+ # Det här är ett skräddarsytt fält i binärpaketet.
  XB-Mentoring-Contact: Raphael Hertzog <hertzog@debian.org>
  Depends:
   libdpkg-perl (= ${source:Version}),
@@ -336,7 +336,7 @@ Tänk på att dess användardefinierade fält använder den globala namnrymden, 
   binutils,
   bzip2,
   xz-utils,
- # This is a comment in the middle of a field value.
+ # Det här är en kommentar mitt i ett fältvärde.
   make,
   patch (>= 2.2-1),
   perl-modules,

@@ -224,7 +224,7 @@ Ange Debianarkitekturen binärerna som byggs bygger för (sedan dpkg 1.17.17). S
 
 Ange GNU-systemtyp vi binärerna vi som byggs bygger för (sedan dpkg 1.17.17). Den kan användas i stället för B<--target-arch> eller som ett komplement för att överstyra standard-GNU-systemtypen för Debian-målarkitekturen.
 
-=item B<-P>, B<--build-profile=>I<profil>[B<,>...]
+=item B<-P>, B<--build-profiles=>I<profil>[B<,>...]
 
 Ange profil(er) vi bygger, som en kommaavdelad lista (sedan dpkg 1.17.2, lång flagga sedan dpkg 1.18.8). Standardbeteendet är att inte bygga för någon specifik profil. Lägger även till dem (som en blankstegsavdelad lista) till miljövariabeln B<DEB_BUILD_PROFILES> vilket, till exempel, gör det möjligt för B<debian/rules>-filer att använda informationen för villkorliga byggen.
 
@@ -282,7 +282,7 @@ Städa inte upp byggträdet efter bygget (sedan dpkg 1.19.1). Detta är standard
 
 =item B<--sanitize-env>
 
-Sanera byggmiljön (sedan dpkg 1.20.0). Detta återställer eller tar bort miljövariabler, umask, och eventuella andra processattribut som annars kan påverka paketbygget ogynnsamt. Eftersom den officiella startpunkten för att bygga paket är B<debian/rules> kan inte paket vara beroende av att de här inställningarna är på plats, och bör därför fungera även när de inte är det. Vad som saneras är återförsäljarspecifikt.
+Sanera byggmiljön (sedan dpkg 1.20.0). Detta återställer eller tar bort miljövariabler, umask, och eventuella andra processattribut som annars kan påverka paketbygget ogynnsamt. Eftersom den officiella startpunkten för att bygga paket är B<debian/rules> kan inte paket vara beroende av att de här inställningarna är på plats, och bör därför fungera även när de inte är det. Vad som saneras är leverantörspecifikt.
 
 =item B<-r>, B<--root-command=>I<gain-root-command>
 
@@ -398,15 +398,15 @@ Förvalet är B<auto>, där det bästa för närvarande tillgängliga funktionen
 
 =item B<sop>
 
-Any conforming Stateless OpenPGP (SOP) implementation, such as sqop, rsop, gosop or pgpainless-cli.
+Valfri korrekt implementation av ”Stateless OpenPGP” (SOP), såsom sqop, rsop, gosop eller pgpainless-cli.
 
 =item B<sq>
 
-From Sequoia-PGP.
+Från Sequoia-PGP.
 
 =item B<gpg>
 
-From GnuPG.
+Från GnuPG.
 
 =back
 

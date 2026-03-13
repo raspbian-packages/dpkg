@@ -48,7 +48,13 @@ Sonda o I<file> para encontrar sobreposições suplementares (o ficheiro pode se
 
 =item B<-a>, B<--arch> I<arch>
 
-Usa um padrão que consistem de I<*_all.deb> e I<*_arch.deb> em vez de examinar todos os debs.
+Use a pattern consisting of I<*_all.deb> and I<*_arch.deb>, or I<*_arch.deb> if B<--no-implicit-arch> has been specified, instead of scanning for all debs.
+
+=item B<--no-implicit-arch>
+
+Do not implicitly add architecture B<all> binary packages when specifying B<--arch>.
+
+Supported since dpkg 1.23.6.
 
 =item B<-h>, B<--hash> I<hash-list>
 

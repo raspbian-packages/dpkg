@@ -50,22 +50,6 @@
 
 #include "dpkg-deb.h"
 
-static void
-movecontrolfiles(const char *dir, const char *thing)
-{
-	char *cmd;
-	pid_t pid;
-
-	cmd = str_fmt("mv %s/%s/* %s/ && rmdir %s/%s",
-	              dir, thing, dir, dir, thing);
-	pid = subproc_fork();
-	if (pid == 0) {
-		command_shell(cmd, _("shell command to move files"));
-	}
-	subproc_reap(pid, _("shell command to move files"), 0);
-	free(cmd);
-}
-
 static void DPKG_ATTR_NORET
 read_fail(int rc, const char *filename, const char *what)
 {
@@ -135,16 +119,24 @@ extracthalf(const char *debar, const char *dir,
 		read_fail(rc, debar, _("archive magic version number"));
 
 	if (strcmp(versionbuf, DPKG_AR_MAGIC) == 0) {
+		off_t ar_pos = 0;
 		int adminmember = -1;
 		bool header_done = false;
+
+		ar_pos += strlen(DPKG_AR_MAGIC);
+
+		dpkg_ar_check_size(ar);
 
 		ctrllennum = 0;
 		for (;;) {
 			struct dpkg_ar_hdr arh;
+			off_t ar_member_size;
 
 			rc = fd_read(ar->fd, &arh, sizeof(arh));
 			if (rc != sizeof(arh))
 				read_fail(rc, debar, _("archive member header"));
+
+			ar_pos += sizeof(arh);
 
 			if (dpkg_ar_member_is_invalid(&arh))
 				ohshit(_("file '%s' is corrupt - bad archive header magic"),
@@ -153,6 +145,7 @@ extracthalf(const char *debar, const char *dir,
 			dpkg_ar_normalize_name(&arh);
 
 			memberlen = dpkg_ar_member_get_size(ar, &arh);
+			ar_member_size = memberlen + (memberlen & 1);
 			if (!header_done) {
 				char *infobuf;
 
@@ -160,11 +153,12 @@ extracthalf(const char *debar, const char *dir,
 					ohshit(_("file '%s' is not a Debian binary archive (try dpkg-split?)"),
 					       debar);
 				infobuf = m_malloc(memberlen + 1);
-				rc = fd_read(ar->fd, infobuf,
-				             memberlen + (memberlen & 1));
-				if (rc != (memberlen + (memberlen & 1)))
+				rc = fd_read(ar->fd, infobuf, ar_member_size);
+				if (rc != ar_member_size)
 					read_fail(rc, debar, _("archive information header member"));
 				infobuf[memberlen] = '\0';
+
+				ar_pos += ar_member_size;
 
 				if (strchr(infobuf, '\n') == NULL)
 					ohshit(_("archive has no newlines in header"));
@@ -182,9 +176,11 @@ extracthalf(const char *debar, const char *dir,
 			} else if (arh.ar_name[0] == '_') {
 				/* Members with ‘_’ are noncritical, and if we
 				 * don't understand them we skip them. */
-				if (fd_skip(ar->fd, memberlen + (memberlen & 1), &err) < 0)
+				if (fd_skip(ar->fd, ar_member_size, &err) < 0)
 					ohshit(_("cannot skip archive member from '%s': %s"),
 					       ar->name, err.str);
+
+				ar_pos += ar_member_size;
 			} else {
 				if (strncmp(arh.ar_name, ADMINMEMBER, strlen(ADMINMEMBER)) == 0) {
 					const char *extension = arh.ar_name + strlen(ADMINMEMBER);
@@ -203,6 +199,10 @@ extracthalf(const char *debar, const char *dir,
 						ohshit(_("archive '%s' contains two control members, giving up"),
 						       debar);
 					ctrllennum = memberlen;
+
+					if (memberlen == 0)
+						ohshit(_("archive '%s' has zero sized tar member %.*s"),
+						       ar->name, (int)sizeof(arh.ar_name), arh.ar_name);
 				} else {
 					if (adminmember != 1)
 						ohshit(_("archive '%s' has premature member '%.*s' before '%s', "
@@ -218,6 +218,10 @@ extracthalf(const char *debar, const char *dir,
 							ohshit(_("archive '%s' uses unknown compression for member '%.*s', "
 							         "giving up"),
 							       debar, (int)sizeof(arh.ar_name), arh.ar_name);
+
+						if (memberlen == 0)
+							ohshit(_("archive '%s' has zero sized tar member %.*s"),
+							       ar->name, (int)sizeof(arh.ar_name), arh.ar_name);
 					} else {
 						ohshit(_("archive '%s' has premature member '%.*s' before '%s', "
 						         "giving up"),
@@ -225,11 +229,22 @@ extracthalf(const char *debar, const char *dir,
 					}
 				}
 				if (!adminmember != !admininfo) {
-					if (fd_skip(ar->fd, memberlen + (memberlen & 1), &err) < 0)
+					if (fd_skip(ar->fd, ar_member_size, &err) < 0)
 						ohshit(_("cannot skip archive member from '%s': %s"),
 						       ar->name, err.str);
+
+					ar_pos += ar_member_size;
 				} else {
 					/* Yes! - found it. */
+					off_t ar_new_pos = ar_pos + ar_member_size;
+
+					if (ar_new_pos < ar_pos)
+						ohshit(_("archive '%s' contains an overflowing member '%.*s' size"),
+						       ar->name, (int)sizeof(arh.ar_name), arh.ar_name);
+					if (ar_new_pos > ar->size)
+						ohshit(_("archive '%s' is truncated or corrupt, "
+						         "expected more data than available (%jd > %jd)"),
+						       ar->name, ar_new_pos, ar->size);
 					break;
 				}
 			}
@@ -254,6 +269,9 @@ extracthalf(const char *debar, const char *dir,
 		if (errstr)
 			ohshit(_("archive has invalid format version: %s"),
 			       errstr);
+		if (version.minor < 939000)
+			ohshit(_("archive '%s' has unsupported format version: %d.%d"),
+			       debar, version.major, version.minor);
 
 		rc = read_line(ar->fd, ctrllenbuf, 1, sizeof(ctrllenbuf) - 1);
 		if (rc <= 0)
@@ -382,19 +400,6 @@ extracthalf(const char *debar, const char *dir,
 	subproc_reap(c2, _("<decompress>"), SUBPROC_NOPIPE);
 	if (c1 >= 0)
 		subproc_reap(c1, _("paste"), 0);
-	if (version.major == 0 && admininfo) {
-		/* Handle the version as a float to preserve the behavior of
-		 * old code, because even if the format is defined to be
-		 * padded by 0's that might not have been always true for
-		 * really ancient versions... */
-		while (version.minor && (version.minor % 10) == 0)
-			version.minor /= 10;
-
-		if (version.minor == 931)
-			movecontrolfiles(dir, OLDOLDDEBDIR);
-		else if (version.minor == 932 || version.minor == 933)
-			movecontrolfiles(dir, OLDDEBDIR);
-	}
 }
 
 int

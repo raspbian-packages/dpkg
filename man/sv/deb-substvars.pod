@@ -30,39 +30,39 @@ En variabelsubstitution har formen B<${>I<variabelnamn>B<}>. Variabelnamn bestå
 
 =head2 Filsyntax
 
-Substitution variables can be specified in a file.  These files consist of lines with variable assignments, that start with the variable name, immediately followed by an assignment operator, and then the value.  Each operator gives the variable specific attributes.  Trailing whitespace on each line, blank lines, and lines starting with a B<#> symbol (comments) are ignored.
+Substitueringsvariabler kan anges i en fil. En sådan fil består av rader med variabeltilldelningar, vilka börjar med ett variabelknamn som omedelbart följs av en tilldelningsoperator, och sedan värdet. Varje operator ger värdet specifika attribut. Avslutande blanksteg på en rad, blanka rader och rader som börjar med en B<#>-symbol (kommentarer) ignoreras.
 
-The following operators are supported:
+Följande operatörer stöds:
 
 =over 
 
 =item B<=>
 
-Assigns a normal substitution variable.
+Tilldelar en normal substitueringsvariabel.
 
 =item B<?=>
 
-Assigns an optional substitution variable which will emit no warnings even if unused.
+Tilldelar en valfri substitutionsvariabel som inte skriver ut någon varning även om den inte används.
 
-Supported since dpkg 1.21.8.
+Stöds sedan dpkg 1.21.8.
 
 =item B<!=>
 
-Assigns a required substitution variable which will error out if unused.
+Tilldelar en krävd substitueringsvariabel som kommer orsaka ett felavslut om den inte används.
 
-Supported since dpkg 1.22.7.
+Stöds sedan dpkg 1.22.7.
 
 =item B<$=>
 
-Assigns an implicit substitution variable which will get automatically instantiated as a field, if that field is not defined for B<.dsc> and B<.deb> control files.
+Tilldelar en implicit substitutionsvariabel som automatiskt Instansieras som ett fält, om det fältet inte har definierats för styrfilerna B<.dsc> och B<.deb>.
 
-The variable name needs to be formed as a namespace followed by a colon (‘B<:>’) and then the field name, such as B<tool:Depends>.  All implicit variables for any namespace matching the same field will get concatenated using a known field separator, or a space if the field separator is unknown.
+Variabelnamnet måste anges på formen namnrymd följt av ett kolon (”B<:>”) och sedan fältnamnet, så som B<tool:Depends>. Alla implicita variabler för namnrymder som motsvarar samma fält kommer slås ihop med en känd fältseparator, eller ett blanksteg om fältseparatorn är okänd.
 
-Supported since dpkg 1.23.0.
+Stöds sedan dpkg 1.23.0.
 
 =back
 
-For example C<some-package:Depends?=other-package (= 1.0), the-package>.
+Till exampel C<något-package:Depends?=annat-paket (= 1.0), själva-paketet>.
 
 =head2 Substituering
 
@@ -101,11 +101,11 @@ Aktuell värdarkitektur (dvs., arkitekturen paketet byggs för, motsvarigheten t
 
 =item B<vendor:Name>
 
-Aktuellt återförsäljarnamn (sedan dpkg 1.20.0). Värdet kommer från fältet B<Vendor> för aktuell återförsäljares origin-fil, så som L<dpkg-vendor(1)> skulle hämta det.
+Aktuellt leverantörsnamn (sedan dpkg 1.20.0). Värdet kommer från fältet B<Vendor> för aktuell leverantörs origin-fil, så som L<dpkg-vendor(1)> skulle hämta det.
 
 =item B<vendor:Id>
 
-Aktuellt återförsäljar-ID (sedan dpkg 1.20.0). Det här bara en variant av B<vendor:Name> skriven med små bokstäver.
+Aktuellt leverantör-ID (sedan dpkg 1.20.0). Det här bara en variant av B<vendor:Name> skriven med små bokstäver.
 
 =item B<source:Version>
 

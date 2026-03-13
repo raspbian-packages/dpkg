@@ -180,7 +180,7 @@ Anger värdarkitekturen.
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+Om satt, används som aktiv(a) byggprofil(er) till generering av filen .changes. Det är en blankstegsavdelad lista med profilnamn.
 
 =item B<DPKG_COLORS>
 

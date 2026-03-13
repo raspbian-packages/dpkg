@@ -345,6 +345,11 @@ sub finish {
     return not *$self->{errors};
 }
 
+sub has_errors($self)
+{
+    return *$self->{errors};
+}
+
 sub register_error {
     my $self = shift;
     *$self->{errors}++;
@@ -408,11 +413,12 @@ sub _intuit_file_patched {
     # where patch picks the one with the fewest directories to create
     # since dpkg-source will pre-create the required directories.
 
-    # Precalculate metrics used by patch.
+    # Pre-calculate metrics used by patch.
     my ($tmp_o, $tmp_n) = ($old, $new);
     my ($len_o, $len_n) = (length($old), length($new));
-    $tmp_o =~ s{[/\\]+}{/}g;
-    $tmp_n =~ s{[/\\]+}{/}g;
+    $tmp_o =~ tr{/\\}{/}s;
+    $tmp_n =~ tr{/\\}{/}s;
+    # Count the number of / in the strings.
     my $nb_comp_o = ($tmp_o =~ tr{/}{/});
     my $nb_comp_n = ($tmp_n =~ tr{/}{/});
     $tmp_o =~ s{^.*/}{};

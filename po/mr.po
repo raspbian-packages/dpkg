@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.17.0\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2026-01-23 01:41+0100\n"
+"POT-Creation-Date: 2026-03-07 00:40+0100\n"
 "PO-Revision-Date: 2015-04-07 09:51+0200\n"
 "Last-Translator: Priti Patil <prithisd@gmail.com>\n"
 "Language-Team: Marathi <janabhaaratii@cdacmumbai.in>\n"
@@ -30,6 +30,11 @@ msgstr "आर्काइव `%s' वाचता आले नाही"
 #, c-format
 msgid "unable to create '%s'"
 msgstr "`%s' ची रचना करता येत नाही"
+
+#: lib/dpkg/ar.c
+#, c-format
+msgid "archive %s is truncated or corrupt, it has a non-even byte size"
+msgstr ""
 
 #: lib/dpkg/ar.c lib/dpkg/dir.c src/split/join.c src/split/queue.c
 #: src/divert/main.c utils/update-alternatives.c
@@ -2523,10 +2528,6 @@ msgstr "`%s' लिहिताना त्रुटी"
 msgid "cannot copy '%s' into archive '%s': %s"
 msgstr "जुनी नावे `%s': %s स्टॅट करता येत नाहीत"
 
-#: src/deb/extract.c
-msgid "shell command to move files"
-msgstr ""
-
 #: src/deb/extract.c src/split/main.c
 #, c-format
 msgid "unexpected end of file in %s in %s"
@@ -2603,9 +2604,28 @@ msgstr "फाइल `%s' मधे दोन नियंत्रण सदस
 
 #: src/deb/extract.c
 #, fuzzy, c-format
+#| msgid "archive has malformed control length `%s'"
+msgid "archive '%s' has zero sized tar member %.*s"
+msgstr "आर्काइवमधील नियंत्रण लांबी `%s' चे फॉरमॅट चुकीचे आहे"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
 #| msgid "file `%s' contains ununderstood data member %.*s, giving up"
 msgid "archive '%s' has premature member '%.*s' before '%s', giving up"
 msgstr "फाइल `%s' मधे न समजणारा डेटा सदस्य %.*s आहे, सोडुन देत आहे"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "file `%s' contains two control members, giving up"
+msgid "archive '%s' contains an overflowing member '%.*s' size"
+msgstr "फाइल `%s' मधे दोन नियंत्रण सदस्य आहेत, सोडुन देत आहे"
+
+#: src/deb/extract.c
+#, c-format
+msgid ""
+"archive '%s' is truncated or corrupt, expected more data than available (%jd "
+"> %jd)"
+msgstr ""
 
 #: src/deb/extract.c
 #, fuzzy, c-format
@@ -2618,6 +2638,12 @@ msgid ""
 msgstr ""
 "नवीन डेबियन पॅकेज, आवृत्ती %s.\n"
 "आकार %ld बाइट्स: नियंत्रण आर्काइव= %zi बाइट्स.\n"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "archive has no dot in version number"
+msgid "archive '%s' has unsupported format version: %d.%d"
+msgstr "आर्काइव मधील आवृत्ती क्रमांकात बिंदू नाही"
 
 #: src/deb/extract.c
 msgid "archive control member size"

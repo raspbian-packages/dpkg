@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.17.0\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2026-01-23 01:41+0100\n"
+"POT-Creation-Date: 2026-03-07 00:40+0100\n"
 "PO-Revision-Date: 2015-06-26 16:12+0200\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <debian-l10n-korean@lists.debian.org>\n"
@@ -33,6 +33,11 @@ msgstr "`%s' 아카이브를 읽는데 실패했습니다"
 #, c-format
 msgid "unable to create '%s'"
 msgstr "`%s'을(를) 만들 수 없습니다"
+
+#: lib/dpkg/ar.c
+#, c-format
+msgid "archive %s is truncated or corrupt, it has a non-even byte size"
+msgstr ""
 
 #: lib/dpkg/ar.c lib/dpkg/dir.c src/split/join.c src/split/queue.c
 #: src/divert/main.c utils/update-alternatives.c
@@ -2624,10 +2629,6 @@ msgstr "`%s' 파일을 쓰는데 오류가 발생했습니다"
 msgid "cannot copy '%s' into archive '%s': %s"
 msgstr "'%s' 파일의 이름을 '%s'(으)로 바꿀 수 없습니다"
 
-#: src/deb/extract.c
-msgid "shell command to move files"
-msgstr ""
-
 #: src/deb/extract.c src/split/main.c
 #, c-format
 msgid "unexpected end of file in %s in %s"
@@ -2707,9 +2708,28 @@ msgstr "`%s' 파일에 두 개의 컨트롤 멤버가 있습니다. 포기합니
 
 #: src/deb/extract.c
 #, fuzzy, c-format
+#| msgid "archive has malformed control length `%s'"
+msgid "archive '%s' has zero sized tar member %.*s"
+msgstr "아카이브의 컨트롤 길이 `%s'의 형식이 틀렸습니다"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
 #| msgid "file `%s' contains ununderstood data member %.*s, giving up"
 msgid "archive '%s' has premature member '%.*s' before '%s', giving up"
 msgstr "`%s' 파일에 이해할 수 없는 데이터 멤버(%.*s)가 있습니다. 포기합니다"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "file `%s' contains two control members, giving up"
+msgid "archive '%s' contains an overflowing member '%.*s' size"
+msgstr "`%s' 파일에 두 개의 컨트롤 멤버가 있습니다. 포기합니다"
+
+#: src/deb/extract.c
+#, c-format
+msgid ""
+"archive '%s' is truncated or corrupt, expected more data than available (%jd "
+"> %jd)"
+msgstr ""
 
 #: src/deb/extract.c
 #, fuzzy, c-format
@@ -2722,6 +2742,12 @@ msgid ""
 msgstr ""
 " 새 데비안 패키지, 버전 %s.\n"
 " 크기 %ld바이트: 컨트롤 아카이브= %zi바이트\n"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "archive has no dot in version number"
+msgid "archive '%s' has unsupported format version: %d.%d"
+msgstr "아카이브의 버전 번호에 점이 없습니다"
 
 #: src/deb/extract.c
 msgid "archive control member size"

@@ -243,11 +243,11 @@ Opties voor de host-Fortran 9x compiler. Hetzelfde als B<FFLAGS>. Sinds dpkg 1.1
 
 =item B<LDFLAGS>
 
-Options passed to the host compiler when linking executables or shared objects.
+Opties die aan de host-compiler doorgegeven worden bij het linken van uitvoerbare programma's en gedeelde objecten.
 
-B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+B<Opmerking>: Het is niet veilig om deze variabele rechtstreeks aan L<ld(1)> door te geven, maar als de variabele toch moet worden doorgegeven, moeten deze opties worden gesaneerd zodat alleen opties worden toegestaan ​​waarvan bekend is dat ze werken. Over het algemeen zouden de opties B<-Wl>, B<-l> en B<-L> veilig moeten zijn, waarbij B<-Wl> wordt verwijderd en B<,> in de argumenten wordt vervangen door spaties. Of een gesaneerde optie veilig kan worden doorgegeven, hangt echter af van de beoogde semantiek van de L<ld(1)>-aanroep.
 
-Default value: empty.
+Standaardwaarde: leeg.
 
 =item B<ASFLAGS_FOR_BUILD>
 
@@ -287,13 +287,13 @@ Opties voor de bouw-Fortran 9x compiler. Hetzelfde als B<FFLAGS_FOR_BUILD>. Sind
 
 =item B<LDFLAGS_FOR_BUILD>
 
-Options passed to the build compiler when linking executables or shared objects.
+Opties die aan de bouw-compiler doorgegeven worden bij het linken van uitvoerbare programma's of gedeelde objecten.
 
-B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+B<Opmerking>: Het is niet veilig om deze variabele rechtstreeks aan L<ld(1)> door te geven, maar als de variabele toch moet worden doorgegeven, moeten deze opties worden gesaneerd zodat alleen opties worden toegestaan ​​waarvan bekend is dat ze werken. Over het algemeen zouden de opties B<-Wl>, B<-l> en B<-L> veilig moeten zijn, waarbij B<-Wl> wordt verwijderd en B<,> in de argumenten wordt vervangen door spaties. Of een gesaneerde optie veilig kan worden doorgegeven, hangt echter af van de beoogde semantiek van de L<ld(1)>-aanroep.
 
-Default value: empty.
+Standaardwaarde: leeg.
 
-Since dpkg 1.22.1.
+Sinds dpkg 1.22.1.
 
 =back
 

@@ -273,7 +273,8 @@ sub do_extract {
         my $analysis = $patch_obj->apply($newdirectory,
             force_timestamp => 1,
         );
-        my @files = grep { ! m{^\Q$newdirectory\E/debian/} }
+        my @files = grep { ! m{^debian/} }
+                    map { s{^\Q$newdirectory\E/+}{}r }
                     sort keys %{$analysis->{filepatched}};
         info(g_('upstream files that have been modified: %s'),
              "\n " . join("\n ", @files)) if scalar @files;
@@ -329,7 +330,9 @@ sub do_build {
 
     # Try to find a .orig tarball for the package.
     my $origdir = "$dir.orig";
-    my $origtargz = $self->get_basename() . '.orig.tar.gz';
+    my $origtargz = File::Spec->catfile(
+        $self->{basedir}, $self->get_basename() . '.orig.tar.gz'
+    );
     if (-e $origtargz) {
         unless (-f $origtargz) {
             error(g_("packed orig '%s' exists but is not a plain file"), $origtargz);
@@ -429,7 +432,10 @@ sub do_build {
         $tardirbase = $origdirbase;
         $tardirname = $origdirname;
 
-        $tarname = $origtargz || "$basename.orig.tar.gz";
+        $tarname = $origtargz;
+        $tarname ||= File::Spec->catfile(
+            $self->{basedir}, "$basename.orig.tar.gz"
+        );
         $tarsign = "$tarname.asc";
         unless ($tarname =~ /\Q$basename\E\.orig\.tar\.gz/) {
             warning(g_('.orig.tar name %s is not <package>_<upstreamversion>' .
@@ -519,7 +525,9 @@ sub do_build {
     # Unrepresentable changes.
     my $ur;
     if ($sourcestyle =~ m/[kpursKPUR]/) {
-        my $diffname = "$basenamerev.diff.gz";
+        my $diffname = File::Spec->catfile(
+            $self->{basedir}, "$basenamerev.diff.gz"
+        );
         info(g_('building %s in %s'),
              $sourcepackage, $diffname);
         my $newdiffgz = File::Temp->new(
@@ -546,7 +554,7 @@ sub do_build {
 
         my $analysis = $diff->analyze($origdir);
         my @files = grep { ! m{^debian/} }
-                    map { s{^[^/]+/+}{}r }
+                    map { s{^\Q$origdir\E/+}{}r }
                     sort keys %{$analysis->{filepatched}};
         if (scalar @files) {
             warning(g_('the diff modifies the following upstream files: %s'),

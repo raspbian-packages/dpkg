@@ -40,7 +40,7 @@ I<ny-version> sänds endast sedan dpkg 1.18.5.
 
 =item I<ny-preinst> B<upgrade> I<gammal-version> I<ny-version>
 
-Innan paketet uppgaderas.
+Innan paketet uppgraderas.
 
 I<ny-version> sänds endast sedan dpkg 1.18.5.
 

@@ -126,7 +126,7 @@ Den här variabeln kan aanvändas för att aktivera eller inaktivera olika funkt
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names.
+Om satt, används som aktiv(a) byggprofil(er) till generering av filen .buildinfo. Det är en blankstegsavdelad lista med profilnamn.
 
 =item B<DEB_BUILD_ARCH>
 

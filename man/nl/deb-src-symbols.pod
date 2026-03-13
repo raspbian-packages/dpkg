@@ -28,21 +28,21 @@ De symboolbestand-sjablonen worden geleverd met Debian bronpakketten en de indel
 
 Commentaar wordt ondersteund in sjabloonsymboolbestanden. Elke regel met ‘#’ als eerste teken is een commentaarregel, behalve als die regel begint met ‘#include’ (zie het onderdeel over L</Het gebruik van includes>). Regels die beginnen met ‘#MISSING:’ zijn een bijzondere vorm van commentaar waarin symbolen die verdwenen zijn, gedocumenteerd worden.
 
-=head2 Using metavariable substitutions
+=head2 Substituties voor metavariabelen gebruiken
 
-In some cases instead of hardcoding some variable text, we can use metavariables that will be replaced either when generating the symbols file shipped in the binary package, or during dependency generation.
+In sommige gevallen kunnen we, in plaats van variabele tekst hard te coderen, metavariabelen gebruiken die worden vervangen tijdens het genereren van het symbolenbestand dat in het binaire pakket wordt opgenomen, of tijdens het genereren van vereisten.
 
-Contrary to the I<#MINVER#> metavariable, the following metavariables will never appear in a symbols file inside a binary package.
+In tegenstelling tot de metavariabele I<#MINVER#>, zullen de volgende metavariabelen nooit te vinden zijn in een symboolbestand binnenin een binair pakket.
 
-=head3 Using the #PACKAGE# metavariable
+=head3 De metavariabele #PACKAGE# gebruiken
 
-In some rare cases, the name of the library varies between architectures. To avoid hardcoding the name of the package in the symbols file, you can use the I<#PACKAGE#> metavariable.  It will be replaced by the real package name during installation of the symbols files.
+In enkele zeldzame gevallen verschilt de naam van de bibliotheek naargelang de architectuur. Om de naam van het pakket niet rechtstreeks in het symboolbestand te moeten inschrijven, kunt u gebruik maken van de metavariabele I<#PACKAGE#>. Die zal tijdens de installatie van de symboolbestanden vervangen worden door de echte pakketnaam.
 
-=head2 Using the #CURVER# metavariable
+=head2 De metavariabele #CURVER# gebruiken
 
-In some cases, a symbol with an unstable ABI will require a strict dependency on the current package version.  To avoid hardcoding the current version in the symbols file, you can use the I<#CURVER#> metavariable.  It will be replaced by a dependency version constraint in the form of “(= I<binary-version>)”, where this would be generally be used in combination with I<#PACKAGE#>.
+In sommige gevallen vereist een symbool met een onstabiele ABI een strikte vereiste van de huidige pakketversie. Om te voorkomen dat de huidige versie hard gecodeerd wordt in het symbolenbestand, kunt u de metavariabele I<#CURVER#> gebruiken. Deze wordt vervangen door een vereistenversiebeperking in de vorm van “(= I<binair-versie>)”, waarbij dit over het algemeen wordt gebruikt in combinatie met I<#PACKAGE#>.
 
-Supported since dpkg 1.23.4.
+Ondersteund sinds dpkg 1.23.4.
 
 =head2 Symbooltags gebruiken
 

@@ -86,7 +86,7 @@ Skriv ut listan över flaggor som stöds av den aktuella leverantören (en per r
 
 =item B<--status>
 
-Visa information som kan vara användbar för att förklara B<dpkg-buildflags> beteende (sedan dpkg 1.16.5): relevanta miljövariabler, aktuell återförsäljare, status för alla funktionsflaggor. Skriv även ut slutgiltiga kompilatorflaggor och deras källa.
+Visa information som kan vara användbar för att förklara B<dpkg-buildflags> beteende (sedan dpkg 1.16.5): relevanta miljövariabler, aktuell leverantör, status för alla funktionsflaggor. Skriv även ut slutgiltiga kompilatorflaggor och deras källa.
 
 Detta är tänkt att köras från B<debian/rules> så att byggloggen innehåller ett tydligt spår över de använda byggflaggorna. Det kan vara användbart för att diagnostisera problem rörande dessa.
 
@@ -144,7 +144,7 @@ flaggan är satt/modifierad av en miljöspecifik konfiguration.
 
 =item B<--query>
 
-Srkiv ut information som kan vara användbar för att förklara programmets beteende: aktuell återförsäljare, relevanta miljövariabler, funktionsområden, status för alla funktionsflaggor, huruvida en funktion hanteras av ett inbyggt förval av kompilatorn (sedan dpkg 1.21.14) och kompilatorflaggorna med sina ursprung (sedan dpkg 1.19.0).
+Srkiv ut information som kan vara användbar för att förklara programmets beteende: aktuell leverantör, relevanta miljövariabler, funktionsområden, status för alla funktionsflaggor, huruvida en funktion hanteras av ett inbyggt förval av kompilatorn (sedan dpkg 1.21.14) och kompilatorflaggorna med sina ursprung (sedan dpkg 1.19.0).
 
 Till exempel:
 
@@ -242,11 +242,11 @@ Flaggor för värd-Fortran 9x-kompilatorn. Samma som B<FFLAGS>. Sedan dpkg 1.17.
 
 =item B<LDFLAGS>
 
-Options passed to the host compiler when linking executables or shared objects.
+Flaggor som sänds till värdkompilatorn vid länkning av binärer eller delade objekt.
 
-B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+B<Observera>: Den här variabeln kan inte sändas direkt till L<ld(1)> på ett säkert sätt, men om variabeln ändå måste sändas kan dessa flaggor städas så att de bara sänder flaggor det är känt att de fungerar. Generellt bör flaggorna B<-Wl>, B<-l> och B<-L> vara säkra, där B<-Wl> filtreras bort och B<,> i dess argument ersätts med blanksteg. Men om någon av de städade flaggorna är säkra att sändas vidare beror på den avsedda semantiken för L<ld(1)>-anropet.
 
-Default value: empty.
+Standarvärde: tomt.
 
 =item B<ASFLAGS_FOR_BUILD>
 
@@ -286,13 +286,13 @@ Flaggor för bygg-Fortran 9x-kompilatorn. Samma som B<FFLAGS_FOR_BUIDL>. Sedan d
 
 =item B<LDFLAGS_FOR_BUILD>
 
-Options passed to the build compiler when linking executables or shared objects.
+Flaggor som sänds till bygg-kompilatorn vid länkning av binärer eller delade objekt.
 
-B<Note>: It is not safe to pass this variable directly to L<ld(1)>, but if the variable needs to be passed anyway, then these options should be sanitized to allow only options known to work.  In general B<-Wl>, B<-l> and B<-L> options should be safe, with B<-Wl> getting stripped and B<,> in its arguments replaced with spaces.  But whether any sanitized option is safe to be passed through, will depend on the intended semantics of the L<ld(1)> invocation.
+B<Observera>: Den här variabeln kan inte sändas direkt till L<ld(1)> på ett säkert sätt, men om variabeln ändå måste sändas kan dessa flaggor städas så att de bara sänder flaggor det är känt att de fungerar. Generellt bör flaggorna B<-Wl>, B<-l> och B<-L> vara säkra, där B<-Wl> filtreras bort och B<,> i dess argument ersätts med blanksteg. Men om någon av de städade flaggorna är säkra att sändas vidare beror på den avsedda semantiken för L<ld(1)>-anropet.
 
-Default value: empty.
+Standarvärde: tomt.
 
-Since dpkg 1.22.1.
+Sedan dpkg 1.22.1.
 
 =back
 
@@ -300,7 +300,7 @@ Nya flaggor kan komma att läggas till i framtiden om behovet uppstår (till exe
 
 =head1 FUNKTIONSOMRÅDEN
 
-Funktionsområden är för närvarande återförsäljarspecifika, och de som beskrivs nedan är de enda som är kända på Debian och dess derivat.
+Funktionsområden är för närvarande leverantörspecifika, och de som beskrivs nedan är de enda som är kända på Debian och dess derivat.
 
 Varje områdesfunktion kan aktiveras och inaktiveras i miljövariablerna B<DEB_BUILD_OPTIONS> och B<DEB_BUILD_MAINT_OPTIONS>:s områdesvärde med ändringsvärdena ”B<+>” och ”B<->”. Genom att följa den allmänna syntaxen för dessa variabler (som beskriven i L<dpkg-buildpackage(1>) kan flera funktionsområden anges avdelade med blanksteg, där var och en får funktionsangivelser som nödvändiga parametrar efter ett likhetstecken (”B<=>”). Funktionsangivelserna är kommaavdelade och tolkas från vänster till höger, där inställningarna inom samma funktionsangivelse överskriver de tidigare, även om funktionsangivelserna delas över flera blankstegsavdelade funktionsområdeinställningar för samma område.
 
@@ -339,9 +339,9 @@ När funktionen är aktiverad kommer den överstyra värdet från samma funktion
 
 =item B<time64>
 
-This setting (since dpkg 1.22.0; enabled by default except for i386 and hurd-i386 since dpkg 1.22.5) enables 64-bit time_t support on 32-bit architectures where their ABI does not include it by default, by adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the B<lfs> feature from the B<abi> feature area.
+Den här inställningen (sedan dpkg 1.22.0; aktiverad som förval förutom för i386 och hurd-i386 sedan dpkg 1.22.5) aktiverar stöd för 64-bitars time_t på 32-bitars-arkitekturer där deras ABI inte som förval inkluderar det, genom att lägga till B<-D_TIME_BITS=64> till B<CPPFLAGS>. Inställningen aktiverar automatiskt funktionen L<lfs> från funktionsområdet B<abi>.
 
-If the setting is enabled explicitly then it gets enabled on all architectures including i386 but not hurd-i386 (where the kernel does not have time64 interfaces), ignoring the binary backwards compatibility default.
+Om inställningen aktiveras explicit aktiveras den för alla arkitekturer, inklusive i386, men inte hurd-i386 (där kärnan inte har ett gränssnitt för 64-bitarstid), och inkluderar förvalet för baklängeskompatibilitet.
 
 Det är också aktiverat som standard på gcc på Debianarkitekturerna armel, armhf, hppa, m68k, mips, mipsel, powerpc och sh4, där istället B<-U_LARGEFILE_SOURCE -U_FILE_OFFSET_BITS -U_TIME_BITS> läggs till B<CPPFLAGS> när den här funktionen inaktiveras.
 
@@ -465,7 +465,7 @@ Inställningen (sedan dpkg 1.16.1; inaktiverad som förval) lägger till B<-Wl,-
 
 =item B<pie>
 
-This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, hurd-i386, i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian architectures) adds the required options to enable or disable PIE via gcc specs files, if needed, depending on whether gcc injects on that architecture the flags by itself or not.  When the setting is enabled and gcc injects the flags, it adds nothing.  When the setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled and gcc injects the flags, it adds B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) to B<LDFLAGS>.
+Den här inställningen (sedan dpkg 1.16.1; utan globalt förval sedan dpkg 1.18.23, eftersom den aktiveras som förval numera av gcc på Debianarkitekturerna amd64, arm64, armel, armhf, hurd-i386, i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, s390x, sparc och sparc64) lägger till de flaggor som krävs för att aktivera eller inaktivera PIE via gcc-specifikationsfiler, om det behövs, beroende på om gcc lägger till flaggorna själv på arkitekturen eller inte. Om inställningen aktiveras och gcc injicerar flaggorna lägger den inte till någonting. Om inställningen är aktiverad och gcc inte injicerar flaggorna, lägger den till B<-fPIE> (via I<%PKGDATADIR%/pie-compiler.specs>) till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> och B<FCFLAGS>, samt B<-fPIE -pie> (via I<%PKGDATADIR%/pie-link.specs>) till B<LDFLAGS>. När inställningen är inaktiverad och gcc injicerar flaggorna, lägger den till B<-fno-PIE> (via I<%PKGDATADIR%/no-pie-compile.specs>) till B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, B<OBJCXXFLAGS>, B<FFLAGS> och B<FCFLAGS>, samt B<-fno-PIE -no-pie> (via I<%PKGDATADIR%/no-pie-link.specs>) till B<LDFLAGS>.
 
 Positionsoberoende exekverbara program (PIE) behövs för att dra fördel av slumpmässig adressrymd (ASLR), vilket stöds av vissa versioner av kärnan. Medan ASLR redan kan användas för datautrymmen i stacken och heap:en (brk och mmap), måste kodområden först kompileras som positionsoberoende. Delade bibliotek gör redan detta (-fPIC), så de drar automatiskt fördel av ASLR medan binära .text-regioner måste byggas med PIE för att uppnå ASLR. När detta sker är ROP-angrepp (Return Oriented Programming) mycket svårare eftersom det inte finns några statiska platser att studsa från i ett minnesfördärvningsangrepp.
 
@@ -557,11 +557,11 @@ Denna variabel kan användas för att lägga till ytterligare flaggor först i v
 
 De här variablerna kan användas av en användare eller utvecklare för att slå av/på olika områdesfunktioner som påverkar byggflaggorna. Variabeln B<DEB_BUILD_MAINT_OPTIONS>-variabeln överstyr alla inställningar i funktionsområden i B<DEB_BUILD_OPTIONS>. Se avsnittet L</FUNKTIONSOMRÅDEN> för mer information.
 
-Some build profiles might currently require their counterpart to also be included in the build options, the list of such build profiles is vendor specific.  For more information about build profiles, see L<dpkg-buildpackage(1)>.
+Några byggprofiler kan för närvarande kräva att deras motsvarighet och anges i byggflaggorna, listen över sådana byggprofiler är leverantörspecifik. För mer information om byggprofiler, se L<dpkg-buildpackage(1)>.
 
 =item B<DEB_VENDOR>
 
-Inställningen anger den aktuella återförsäljaren. Om den inte är satt kommer återförsäljaren att identifieras genom att läsa B<%PKGCONFDIR%/origins/default>.
+Inställningen anger den aktuella leverantören. Om den inte är satt kommer leverantören att identifieras genom att läsa B<%PKGCONFDIR%/origins/default>.
 
 =item B<DEB_BUILD_PATH>
 
@@ -605,11 +605,11 @@ Användarens konfigurationsfil.
 
 =item B<%PKGDATADIR%/buildflags.mk>
 
-Makefile snippet that loads (and optionally exports) all flags supported by B<dpkg-buildflags> into variables (since dpkg 1.16.1).
+Makefile-klipp som läser in (och eventuellt exporterar) alla flaggor som stöd av B<dpkg-buildflags> till variabler (sedan dpkg 1.16.1).
 
 =item B<%PKGDATADIR%/buildtools.mk>
 
-Makefile snippet that sets suitable host and build tools (and optionally exports them) into variables (since dpkg 1.19.0).
+Makefile-klipp som läser in lämplig värd och byggverktyg (och eventuellt exporterar dem) till variabler (sedan dpkg 1.19.0).
 
 =back
 

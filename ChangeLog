@@ -1,3 +1,772 @@
+commit ef4d59f5925661818484ac666014ee3e665aadcf
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 7 00:43:26 2026 +0100
+
+    Release 1.23.7
+
+ debian/changelog | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+commit 51d563fedb25d0db56f39da62a55e4ec1119369a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Mar 7 00:41:12 2026 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |  2 +-
+ dselect/po/ca.po        |  2 +-
+ dselect/po/cs.po        |  2 +-
+ dselect/po/da.po        |  2 +-
+ dselect/po/de.po        |  2 +-
+ dselect/po/dselect.pot  |  4 ++--
+ dselect/po/el.po        |  2 +-
+ dselect/po/es.po        |  2 +-
+ dselect/po/et.po        |  2 +-
+ dselect/po/eu.po        |  2 +-
+ dselect/po/fr.po        |  2 +-
+ dselect/po/gl.po        |  2 +-
+ dselect/po/hu.po        |  2 +-
+ dselect/po/id.po        |  2 +-
+ dselect/po/it.po        |  2 +-
+ dselect/po/ja.po        |  2 +-
+ dselect/po/ko.po        |  2 +-
+ dselect/po/nb.po        |  2 +-
+ dselect/po/nl.po        |  2 +-
+ dselect/po/nn.po        |  2 +-
+ dselect/po/pl.po        |  2 +-
+ dselect/po/pt.po        |  2 +-
+ dselect/po/pt_BR.po     |  2 +-
+ dselect/po/ro.po        |  2 +-
+ dselect/po/ru.po        |  2 +-
+ dselect/po/sk.po        |  2 +-
+ dselect/po/sv.po        |  2 +-
+ dselect/po/tl.po        |  2 +-
+ dselect/po/vi.po        |  2 +-
+ dselect/po/zh_CN.po     |  2 +-
+ dselect/po/zh_TW.po     |  2 +-
+ man/po/dpkg-man.pot     |  4 ++--
+ po/ast.po               | 12 +++++++-----
+ po/bs.po                | 11 ++++++-----
+ po/ca.po                | 15 ++++++++++-----
+ po/cs.po                | 15 ++++++++++-----
+ po/da.po                | 15 ++++++++++-----
+ po/de.po                | 15 ++++++++++-----
+ po/dpkg.pot             | 13 +++++++------
+ po/dz.po                | 12 +++++++-----
+ po/el.po                | 12 +++++++-----
+ po/en.po                | 15 ++++++++++-----
+ po/eo.po                | 15 ++++++++++-----
+ po/es.po                | 15 ++++++++++-----
+ po/et.po                | 12 +++++++-----
+ po/eu.po                | 15 ++++++++++-----
+ po/fr.po                | 15 ++++++++++-----
+ po/gl.po                | 12 +++++++-----
+ po/hu.po                | 12 +++++++-----
+ po/id.po                | 12 +++++++-----
+ po/it.po                | 15 ++++++++++-----
+ po/ja.po                | 15 ++++++++++-----
+ po/km.po                | 12 +++++++-----
+ po/ko.po                | 12 +++++++-----
+ po/ku.po                | 12 +++++++-----
+ po/lt.po                | 12 +++++++-----
+ po/mr.po                | 12 +++++++-----
+ po/nb.po                | 12 +++++++-----
+ po/ne.po                | 12 +++++++-----
+ po/nl.po                | 15 ++++++++++-----
+ po/nn.po                | 12 +++++++-----
+ po/oc.po                | 14 +++++++++-----
+ po/pa.po                | 11 ++++++-----
+ po/pl.po                | 15 ++++++++++-----
+ po/pt.po                | 15 ++++++++++-----
+ po/pt_BR.po             | 15 ++++++++++-----
+ po/ro.po                | 15 ++++++++++-----
+ po/ru.po                | 15 ++++++++++-----
+ po/sk.po                | 15 ++++++++++-----
+ po/sv.po                | 15 ++++++++++-----
+ po/th.po                | 15 ++++++++++-----
+ po/tl.po                | 12 +++++++-----
+ po/tr.po                | 15 ++++++++++-----
+ po/vi.po                | 15 ++++++++++-----
+ po/zh_CN.po             | 15 ++++++++++-----
+ po/zh_TW.po             | 15 ++++++++++-----
+ scripts/po/ca.po        |  2 +-
+ scripts/po/de.po        |  2 +-
+ scripts/po/dpkg-dev.pot |  4 ++--
+ scripts/po/en.po        |  2 +-
+ scripts/po/es.po        |  2 +-
+ scripts/po/fr.po        |  2 +-
+ scripts/po/nl.po        |  2 +-
+ scripts/po/pl.po        |  2 +-
+ scripts/po/pt.po        |  2 +-
+ scripts/po/ru.po        |  2 +-
+ scripts/po/sv.po        |  2 +-
+ 87 files changed, 426 insertions(+), 267 deletions(-)
+
+commit 805b52a1e24c0c76aa6b7d9d9b3313a78016f898
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 6 22:14:32 2026 +0100
+
+    Dpkg::Source::Package::V1: Fix building from within the source tree
+    
+    We need to prepend the base directory so that the code can find existing
+    artifacts, or create them where they belong.
+    
+    Fixes: commit c9f5b05e091b2fa97aacf4bceedd25b0f025876d
+    Warned-by: lintian testsuite
+
+ scripts/Dpkg/Source/Package/V1.pm | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+commit 3a8f5c01e7650e3bb5ecd6b7856b613f45bafbfb
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 6 22:10:56 2026 +0100
+
+    Dpkg::Source::Package::V1: Do not print source root on modified files list
+    
+    The output might be used in the packaging to deal with these modified
+    files, so including the source root means the packager will need to
+    strip that, or it might end up in the packaging where then those
+    pathnames will potential have no effect.
+    
+    This is the matching change that was done for the 2.0 and later source
+    formats in commit 5b82509ba1c95b1ba456a62a46147ad1c3bb8332.
+
+ scripts/Dpkg/Source/Package/V1.pm | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 2f00ae7418431cc71bc4bc91b90af81b9239d770
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Mar 6 21:48:30 2026 +0100
+
+    dpkg-deb: Remove ancient code to handle buggy old .deb format variants
+    
+    These old .deb versions were so ancient that not even Debian 0.93R6
+    contained such archives. The only earlier Debian release that can be
+    easily be found is Debian 0.91, which contains .deb packages that are
+    cpio archives.
+    
+    These old formats are also not even documented in deb-old(5). So there's
+    not much point to keep that around.
+
+ src/at/deb-format.at | 117 ++++-----------------------------------------------
+ src/deb/dpkg-deb.h   |   3 --
+ src/deb/extract.c    |  32 ++------------
+ 3 files changed, 12 insertions(+), 140 deletions(-)
+
+commit becf54d85d88d0bdccedd0f3b39ac3940b79fc96
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 5 07:11:11 2026 +0100
+
+    Bump version to 1.23.7
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 91c2348515166010927429adbd8eb8a50064b632
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 5 06:56:32 2026 +0100
+
+    Release 1.23.6
+
+ debian/changelog | 57 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 54 insertions(+), 3 deletions(-)
+
+commit 3ae8c3682c468bfe4ffddd6713292f6003978233
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 5 06:54:58 2026 +0100
+
+    po: Regenerate .pot files and merge .po files with them
+
+ dselect/po/bs.po        |    2 +-
+ dselect/po/ca.po        |    2 +-
+ dselect/po/cs.po        |    2 +-
+ dselect/po/da.po        |    2 +-
+ dselect/po/de.po        |    2 +-
+ dselect/po/dselect.pot  |    4 +-
+ dselect/po/el.po        |    2 +-
+ dselect/po/es.po        |    2 +-
+ dselect/po/et.po        |    2 +-
+ dselect/po/eu.po        |    2 +-
+ dselect/po/fr.po        |    2 +-
+ dselect/po/gl.po        |    2 +-
+ dselect/po/hu.po        |    2 +-
+ dselect/po/id.po        |    2 +-
+ dselect/po/it.po        |    2 +-
+ dselect/po/ja.po        |    2 +-
+ dselect/po/ko.po        |    2 +-
+ dselect/po/nb.po        |    2 +-
+ dselect/po/nl.po        |    2 +-
+ dselect/po/nn.po        |    2 +-
+ dselect/po/pl.po        |    2 +-
+ dselect/po/pt.po        |    2 +-
+ dselect/po/pt_BR.po     |    2 +-
+ dselect/po/ro.po        |    2 +-
+ dselect/po/ru.po        |    2 +-
+ dselect/po/sk.po        |    2 +-
+ dselect/po/sv.po        |    2 +-
+ dselect/po/tl.po        |    2 +-
+ dselect/po/vi.po        |    2 +-
+ dselect/po/zh_CN.po     |    2 +-
+ dselect/po/zh_TW.po     |    2 +-
+ man/po/de.po            |   32 +-
+ man/po/dpkg-man.pot     |   26 +-
+ man/po/es.po            |   32 +-
+ man/po/fr.po            |   32 +-
+ man/po/hu.po            |   26 +-
+ man/po/it.po            |   32 +-
+ man/po/ja.po            |   32 +-
+ man/po/nl.po            | 7200 ++++++++++++++++++++++++-----------------------
+ man/po/pl.po            |   32 +-
+ man/po/pt.po            |   32 +-
+ man/po/pt_BR.po         |   26 +-
+ man/po/ru.po            |   26 +-
+ man/po/sv.po            |  467 +--
+ man/po/zh_CN.po         |   28 +-
+ po/ast.po               |   26 +-
+ po/bs.po                |   24 +-
+ po/ca.po                |   27 +-
+ po/cs.po                |   26 +-
+ po/da.po                |   26 +-
+ po/de.po                |   26 +-
+ po/dpkg.pot             |   26 +-
+ po/dz.po                |   26 +-
+ po/el.po                |   26 +-
+ po/en.po                |   26 +-
+ po/eo.po                |   26 +-
+ po/es.po                |   26 +-
+ po/et.po                |   26 +-
+ po/eu.po                |   26 +-
+ po/fr.po                |   27 +-
+ po/gl.po                |   26 +-
+ po/hu.po                |   26 +-
+ po/id.po                |   26 +-
+ po/it.po                |   28 +-
+ po/ja.po                |   27 +-
+ po/km.po                |   26 +-
+ po/ko.po                |   26 +-
+ po/ku.po                |   24 +-
+ po/lt.po                |   25 +-
+ po/mr.po                |   26 +-
+ po/nb.po                |   26 +-
+ po/ne.po                |   26 +-
+ po/nl.po                |   28 +-
+ po/nn.po                |   25 +-
+ po/oc.po                |   24 +-
+ po/pa.po                |   24 +-
+ po/pl.po                |   26 +-
+ po/pt.po                |   26 +-
+ po/pt_BR.po             |   26 +-
+ po/ro.po                |   26 +-
+ po/ru.po                |   27 +-
+ po/sk.po                |   26 +-
+ po/sv.po                |   30 +-
+ po/th.po                |   26 +-
+ po/tl.po                |   26 +-
+ po/tr.po                |   26 +-
+ po/vi.po                |   26 +-
+ po/zh_CN.po             |   26 +-
+ po/zh_TW.po             |   26 +-
+ scripts/po/ca.po        |   86 +-
+ scripts/po/de.po        |   85 +-
+ scripts/po/dpkg-dev.pot |   66 +-
+ scripts/po/en.po        |   84 +-
+ scripts/po/es.po        |   66 +-
+ scripts/po/fr.po        |   83 +-
+ scripts/po/nl.po        |   83 +-
+ scripts/po/pl.po        |   66 +-
+ scripts/po/pt.po        |   84 +-
+ scripts/po/ru.po        |   66 +-
+ scripts/po/sv.po        |  122 +-
+ 100 files changed, 6187 insertions(+), 3937 deletions(-)
+
+commit 5f83a352a588d52191877ce4f6cc386c980c1504
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Mar 5 06:47:35 2026 +0100
+
+    test: Include dselect/methods directory into default taint import paths
+    
+    Fixes: commit 9cdb2952ae0899387ed14df84666ee98976e7fed
+    Changelog: silent
+
+ t/taint.t | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2930d747b859c5f0ebdd665c727a26dc52e98541
+Author: Peter Krefting <peter@softwolves.pp.se>
+Date:   Fri Feb 20 22:33:24 2026 +0100
+
+    po: Update Swedish translations
+    
+    [guillem@debian.org: Fix unterminated B<> sequence. ]
+    
+    Closes: #1128529
+    Signed-off-by: Peter Krefting <peter@softwolves.pp.se>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ dselect/po/sv.po |   68 +--
+ man/po/sv.po     | 1738 +++++++++++++++++++-----------------------------------
+ po/sv.po         |  357 ++++-------
+ scripts/po/sv.po |  209 +++----
+ 4 files changed, 808 insertions(+), 1564 deletions(-)
+
+commit 963ea263ad5345836bf82d8f24c41702ea3c293c
+Author: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>
+Date:   Thu Feb 19 03:48:34 2026 +0100
+
+    po: Update Dutch translations
+    
+    Closes: #1127882, #1127884
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ man/po/nl.po | 7320 ++++++++++++++++++++++++++++------------------------------
+ po/nl.po     |   15 +-
+ 2 files changed, 3539 insertions(+), 3796 deletions(-)
+
+commit 9bc7a1ba218eb6b9a09a63705dc6e66256305853
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 19 03:41:09 2026 +0100
+
+    dpkg-scanpackages: Add new --no-implicit-arch option
+    
+    This option makes --arch not include the implicit «all» architecture
+    when scanning for binary packages, so that callers can generate
+    separate architecture specific and architecture independent Packages
+    files.
+    
+    Closes: #1128325
+
+ man/dpkg-scanpackages.pod    | 12 ++++++++++--
+ scripts/dpkg-scanpackages.pl | 11 +++++++++--
+ 2 files changed, 19 insertions(+), 4 deletions(-)
+
+commit 947c752502ad12315f43cd3d6a63d4c188e33db8
+Author: Marko Zajc <marko@zajc.tel>
+Date:   Thu Feb 19 03:10:17 2026 +0100
+
+    dpkg-source: Fix format in maintainer error message
+    
+    %f was used instead of %s previously, resulting in errors such as:
+    
+       Argument "Uploaders" isn't numeric in sprintf at ...
+    
+    This commit just replaces %f with %s in the source file and all po files.
+    
+    Signed-off-by: Marko Zajc <marko@zajc.tel>
+    Signed-off-by: Guillem Jover <guillem@debian.org>
+
+ scripts/dpkg-source.pl  | 2 +-
+ scripts/po/ca.po        | 2 +-
+ scripts/po/de.po        | 2 +-
+ scripts/po/dpkg-dev.pot | 2 +-
+ scripts/po/en.po        | 2 +-
+ scripts/po/es.po        | 2 +-
+ scripts/po/fr.po        | 2 +-
+ scripts/po/nl.po        | 2 +-
+ scripts/po/pl.po        | 2 +-
+ scripts/po/pt.po        | 2 +-
+ scripts/po/ru.po        | 2 +-
+ scripts/po/sv.po        | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
+
+commit ea92bb298b51a6420ab0be1b6566f1ca06269884
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 10 00:36:26 2026 +0100
+
+    Dpkg::Archive::Ar: Check that no header field is empty
+    
+    Any such ar header is invalid, and indicative of corruption, be that
+    accidental or intentional, which we should refuse.
+
+ scripts/Dpkg/Archive/Ar.pm | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 9950d26f84616bb84522070148994f122ccf00c8
+Author: Guillem Jover <guillem@debian.org>
+Date:   Tue Feb 10 00:36:26 2026 +0100
+
+    Dpkg::Archive::Ar: Switch header variables into a hash
+    
+    This will make checking all of them trivial.
+
+ scripts/Dpkg/Archive/Ar.pm | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+commit c5e3d754352ea529d4f22193b491c533bf120d59
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Feb 9 22:58:15 2026 +0100
+
+    build: Add URL, Maintainer and License fields to .pc file
+    
+    These fields are documented in pkgconf's pc(5) specification, where
+    the URL field is marked as mandatory, and the Maintainer and License
+    fields are pkgconf extensions.
+
+ lib/dpkg/libdpkg.pc.in | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit be4b4377aed2f5638d537ceb463324d424ea6472
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 7 20:30:29 2026 +0100
+
+    dpkg-source: Support running --commit from within the source tree w/o «.»
+    
+    The normalization to handle running from within the source tree only
+    takes into account not specifying a directory or using «.», but it did
+    not handle correctly specifying a pathname (relative or absolute)
+    pointing to the current directory.
+    
+    Closes: #1127383
+
+ scripts/dpkg-source.pl | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit c9f5b05e091b2fa97aacf4bceedd25b0f025876d
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 7 19:01:55 2026 +0100
+
+    dpkg-source: Fix running from within the source tree
+    
+    When the program was executed from within the source tree root,
+    it was changing the current working directory to the parent directory,
+    but that did not adapt any passed argument that specified pathnames,
+    which meant these would be wrong, or would need to be specified relative
+    to the parent directory.
+    
+    Instead fix the code, to track the current directory as the base
+    directory and adapt the pathnames to be relative to that one.
+    
+    Reported-by: Umut <ue16@gmx.de> (on IRC)
+
+ scripts/Dpkg/Source/Package.pm           | 9 +++++----
+ scripts/Dpkg/Source/Package/V2.pm        | 4 ++--
+ scripts/Dpkg/Source/Package/V3/Bzr.pm    | 2 +-
+ scripts/Dpkg/Source/Package/V3/Native.pm | 2 +-
+ scripts/dpkg-source.pl                   | 8 +++++---
+ 5 files changed, 14 insertions(+), 11 deletions(-)
+
+commit 762dac1735debadd38275641497e1f0c93429382
+Author: Guillem Jover <guillem@debian.org>
+Date:   Mon Mar 2 04:13:09 2026 +0100
+
+    libdpkg, scripts: Detect corrupt ar archive with non-even byte sizes
+    
+    An ar archive always has an even bytes size, as the archive magic and
+    each file header is even-sized, and the file contents get padded to
+    an even size if necessary.
+    
+    If we find an ar archive with a non-even byte size, then that means
+    the archive is truncated or corrupt, where we should abort.
+
+ lib/dpkg/ar.c              | 8 ++++++++
+ lib/dpkg/ar.h              | 2 ++
+ lib/dpkg/libdpkg.map       | 1 +
+ scripts/Dpkg/Archive/Ar.pm | 4 ++++
+ src/deb/extract.c          | 2 ++
+ src/split/info.c           | 2 ++
+ 6 files changed, 19 insertions(+)
+
+commit f09d3fdddb35455a20518bc82ad8b6155cc9b72a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 7 00:57:55 2026 +0100
+
+    dpkg-deb: Reject ar archives with 0 sized tar members
+    
+    An empty tar archive is invalid, do not try to proceed any further if
+    we find such entries in an ar archive.
+    
+    Reported-by: Yashashree Gund <yash_gund@live.com>
+
+ src/deb/extract.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 7d54287521ac4e1b2061d4a92467c634525436d3
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 7 00:57:55 2026 +0100
+
+    dpkg-deb: Be more robust against truncated ar archives
+    
+    Track the current ar archive position and what we are expected to be
+    reading, and error out if we expect more data than what is available,
+    before trying to unpack anything.
+    
+    Reported-by: Yashashree Gund <yash_gund@live.com>
+
+ src/deb/extract.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+commit b968c8313bffb0b80a9687396e0e560635a6a994
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sun Feb 8 05:55:28 2026 +0100
+
+    dpkg-deb: Refactor ar member size into an intermediate variable
+    
+    The actual size on disk of an ar member depends on whether the member
+    length needs to be padded to the nearest even number. Compute this once
+    and reuse this instead of duplicating this all over the place.
+    
+    Changelog: internal
+
+ src/deb/extract.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+commit 6610297a62c0780dd0e80b0e302ef64fdcc9d313
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Feb 7 00:57:55 2026 +0100
+
+    libdpkg: Terminate zstd decompression when we have no more data
+    
+    We should be checking whether the input buffer is zero-sized, and then
+    mark the stream as finished. Otherwise the zstd implementation does not
+    detect that as an end of stream situation and we get stuck in an
+    infinite loop spinning the CPU. This means the decompression process
+    in dpkg-deb does not terminate, so no EPIPE gets generated and the
+    other processes that are part of the unpacking do not stop either.
+    
+    Reported-by: Yashashree Gund <yash_gund@live.com>
+    Fixes: commit 2c2f7066bd8c3209762762fa6905fa567b08ca5a
+    Fixes: CVE-2026-2219
+    Closes: #1129722
+    Stable-Candidate: 1.21.x 1.22.x
+
+ lib/dpkg/compress.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 122e0cfd9da9f9267cfae226907b627b41d9452e
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Feb 5 00:56:41 2026 +0100
+
+    Dpkg::Compression: Remove deprecated function compression_get_property()
+    
+    This function was deprecated in 1.21.14, and has been emitting
+    deprecation warnings since then, it should be safe to remove now.
+
+ scripts/Dpkg/Compression.pm | 32 +++++---------------------------
+ 1 file changed, 5 insertions(+), 27 deletions(-)
+
+commit 9cdb2952ae0899387ed14df84666ee98976e7fed
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Feb 4 00:01:03 2026 +0100
+
+    test: Add basic Perl taint mode checks
+    
+    This should cover the most egregious taint problems. While ideally we
+    would run all the unit tests in taint mode, that is going to be way
+    more invasive, so this is a good start for now.
+
+ Makefile.am |  1 +
+ t/taint.t   | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+)
+
+commit 94ba437c190cab5ca93b2efc6fd18e5ca441c2d5
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 29 00:02:47 2026 +0100
+
+    Dpkg::Vendor: Fix taint mode in get_vendor_object()
+    
+    While the current code is parsing the vendor name using a regex, Perl
+    does not recognize this as a way to safely untaint the input. Switch to
+    use a regex match to get the parts instead of using split().
+
+ scripts/Dpkg/Vendor.pm | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 47ef718194e36ed49615d310ffc6971aecfa5618
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 31 13:58:39 2026 +0100
+
+    Dpkg::Source::Package::V2: Delay unrepresentable error after local changes list
+    
+    Instead of erroring out early when we know what local modifications were
+    found, postpone the error due to unrepresentable changes after printing
+    the list of local detected changes, so that the user can try to report
+    or fix both, instead of requiring two iterations over the build.
+    
+    Closes: #1126665
+
+ scripts/Dpkg/Source/Package/V2.pm | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 0f470dbc8e3485f1bf0f21a174af5204faec9250
+Author: Guillem Jover <guillem@debian.org>
+Date:   Sat Jan 31 13:57:41 2026 +0100
+
+    Dpkg::Source::Patch: Add new has_errors() method
+    
+    This makes it possible to check whether there are registered errors,
+    independently from the finish() function, so that we can retrieve those
+    later in the code.
+
+ scripts/Dpkg/Source/Patch.pm | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 09226924d5eab22507bdadf250e2d3401f1e5a18
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 29 01:04:03 2026 +0100
+
+    Dpkg::Source::Patch: Fix code comment
+
+ scripts/Dpkg/Source/Patch.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 4dc9a4f764415d48d304c960bdbcfe4f2e9c5a8a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 30 02:56:15 2026 +0100
+
+    Dpkg::Email::Address: Warn on email domains with a single label
+    
+    Supposedly public TLDs are not allowed to have MX, but domains with
+    a single label might be found for localhost or other internal
+    addresses. Warn about them as suspect, but nothing more, as this
+    might be used in local or test/CI builds, which we should not be
+    making fail.
+    
+    Closes: #1126508
+
+ scripts/Dpkg/Email/Address.pm | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 6d89cd15ba8c92d2fed3a6869f6e4843d900697c
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 30 02:52:20 2026 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Detect and warn on LibrePGP artifacts
+    
+    The LibrePGP specification which is not interoperable with most other
+    implementations that support OpenPGP is a fork that has no IETF backing.
+    
+    Do not let the current OpenPGP schism get worse by letting this muddle
+    the ecosystem. Try to detect these unsupported artifacts and warn on
+    them for now. We'll switch that later on into errors.
+    
+    This check is currently not exhaustive, as it will only check the first
+    packet, so it will not match LibrePGP artifacts that are in the middle
+    of a keyring. But it is a good first approximation for single
+    certificates. This might get extended in the future, but that might not
+    be feasible due to performance reasons for big keyrings.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 71 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+commit d33a047e7da02a737cb5c75e540b1af9d11a9907
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 30 02:52:20 2026 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Refactor _file_read_header()
+    
+    Refactor this function from _file_is_keybox(), and improve its error
+    handling to be more informative.
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+commit 1d84728514f09a8c74cd1bdbc147f29864c4a85a
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 30 02:52:20 2026 +0100
+
+    Dpkg::OpenPGP::Backend::GnuPG: Add missing Dpkg::Gettext import
+    
+    Fixes: commit 0274e3d358022ddd270c6c40a048a27d8f6b4eb8
+    Closes: #1128406
+    Stable-Candidate: 1.22.x
+
+ scripts/Dpkg/OpenPGP/Backend/GnuPG.pm | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 43b89a1ea8dc92c2af8d03d2e70dbc8a6dfd6894
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 28 23:55:34 2026 +0100
+
+    Dpkg::Source::Patch: Add comment about the use of tr{}{} as char counter
+    
+    This can be confusing on a quick read of the code.
+
+ scripts/Dpkg/Source/Patch.pm | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit f59c4415b8a3b5d31df1c8ce0aee10d54430be61
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 28 23:55:34 2026 +0100
+
+    Dpkg::Source::Patch: Speed up patched filename retrieval in patches
+    
+    Use a tr{}{} instead of s{}{}, which can be up to 10 times faster.
+
+ scripts/Dpkg/Source/Patch.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 5b82509ba1c95b1ba456a62a46147ad1c3bb8332
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 28 23:53:41 2026 +0100
+
+    Dpkg::Source::Package::V2: Do not print source root on modified files list
+    
+    The output might be used in the packaging to deal with these modified
+    files, so including the source root means the packager will need to
+    strip that, or it might end up in the packaging where then those
+    pathnames will potential have no effect.
+    
+    Closes: #1126558
+
+ scripts/Dpkg/Source/Package/V2.pm | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 37cf54ce95bf274278b2eeb47a49a4b3b3840612
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 28 23:53:06 2026 +0100
+
+    scripts: Parse and validate all Changed-By and Maintainer field inputs
+    
+    We should not only validate the Maintainer field from the control and
+    changelog files, but also what comes from the command line for the
+    Maintainer field and the Changed-By field.
+    
+    Closes: #1126507
+
+ scripts/dpkg-buildpackage.pl | 16 +++++++++++++---
+ scripts/dpkg-genchanges.pl   | 10 +++++++---
+ 2 files changed, 20 insertions(+), 6 deletions(-)
+
+commit cc02b42f5edf562cbd973a009b44ceb570dfd1a1
+Author: Guillem Jover <guillem@debian.org>
+Date:   Wed Jan 28 23:51:34 2026 +0100
+
+    Dpkg::Shlibs::Objdump::Object: Clarify code comment
+    
+    Use synthetic instead of artificial.
+
+ scripts/Dpkg/Shlibs/Objdump/Object.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 5ff7c783b454b8c1175139b99b87ebabbb1548ba
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 29 01:04:15 2026 +0100
+
+    libdpkg: Use varbuf_str() instead of directly accessing buf
+
+ lib/dpkg/command.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 02641e1df280be77909b21850e1728e1a770fb34
+Author: Guillem Jover <guillem@debian.org>
+Date:   Thu Jan 29 00:43:26 2026 +0100
+
+    dpkg-query: Fix segfault with empty -S argument
+    
+    Fixes: https://bugs.launchpad.net/bugs/2092676
+    Stable-Candidate: 1.22.x
+
+ src/query/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 3426f4c9da9bfe36f129ce46efbe35dde50bd31f
+Author: Guillem Jover <guillem@debian.org>
+Date:   Fri Jan 23 02:09:18 2026 +0100
+
+    Bump version to 1.23.6
+
+ debian/changelog | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 commit 89f266325cc8b5b7fd1ee417b78d498ee189565b
 Author: Guillem Jover <guillem@debian.org>
 Date:   Fri Jan 23 01:47:06 2026 +0100

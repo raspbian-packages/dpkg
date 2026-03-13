@@ -90,7 +90,7 @@ Flytta faktiskt filen åt sidan (eller tillbaka). B<dpkg-divert> kommer att avbr
 
 =item B<--no-rename>
 
-Specifies that the file should not be renamed while adding or removing the diversion into the database (since dpkg 1.19.1).  This is intended for diversions of files from the B<Essential> package set, where the temporary disappearance of the original file is not acceptable, as it can render the system non-functional.  This is the default behavior, which will change once there are no known users, but not before the dpkg 1.23.x release cycle.
+Anger att filen inte ska få ett nytt namn när omdirigeringar läggs till eller tas bort i databasen (sedan dpkg 1.19.1). Detta är tänkt för omdirigeringar av filer från paketuppsättningen märkt B<Essential>, där det att originalfilen temporärt försvinner inte är acceptabelt, eftersom det kan göra så att systemet inte längre fungerar. Detta är standardbeteendet, vilket kommer att ändras så fort det inte finns några kända användare, men inte tidigare än dpkg 1.23.x-utgivningscykeln.
 
 =item B<--test>
 

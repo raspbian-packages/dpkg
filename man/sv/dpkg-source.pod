@@ -160,21 +160,21 @@ Skriv inte över uppackningskatalogen om den redan finns (sedan dpkg 1.18.8).
 
 =item B<--no-vendor-certs>
 
-Do not use the vendor specific certificate keyrings.
+Använd inte de leverantörspecifika certifikatnyckelringarna.
 
-Supported since dpkg 1.23.0.
+Stöds sedan dpkg 1.23.0.
 
-=item B<--signer-certs=>I<keyring>
+=item B<--signer-certs=>I<nyckelring>
 
-Use this I<keyring> containing signer certificates during signature verification of source packages.
+Använd denna I<nyckelring> som innnehåller signeringscertifikat under signaturverifiering av källkodspaket.
 
-The option may be repeated multiple times to add multiple keyrings.
+Flaggan kan repeteras flera gånger för att lägga till ytterligare nyckelringar.
 
-Supported since dpkg 1.23.0.
+Stöds sedan dpkg 1.23.0.
 
 =item B<--require-valid-signature>
 
-Refuse to unpack the source package if it doesn't contain an OpenPGP signature that can be verified (since dpkg 1.15.0) either with the user supplied B<--signer-certs> keyrings, or one of the vendor-specific keyrings, including any parent vendor keyrings if relevant.
+Vägra packa upp källkodspaketet om det inte innehåller en OpenPGP-signatur som kan verifieras (sedan dpkg 1.15.0) antingen med de av användaren angivna nyckelringarna från B<--signer-certs>, eller en av de leverantörspecifika nyckelringarna, inklusive föräldraleverantörers nyckelringar om relevant.
 
 =item B<--require-strong-checksums>
 
@@ -208,7 +208,7 @@ Om du inte vet vilket källkodspaketformat du ska använda, bör du antagligen v
 
 Ett källkodspaket i detta format består antingen av en B<.orig.tar.gz>, förbunden med en B<.diff.gz>, eller en ensam B<.tar.gz> (i så fall anses paketet vara I<eget>, ”I<native>”). Original-tarbollen kan också valfritt åtföljas av en friliggande uppströmssignatur B<.orig.tar.gz.asc>, uppackning stöds sedan dpkg 1.18.5.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Observera>: För några leverantörer har dpkg ändrats så att det tillåter egna källkoder med icke-egna versioner, vilket gör det här oklart och gör att konceptet blir ytterligare förvirrande, där det här dessutom ofta blir en fälla som orsakar ytterligare misstag.
 
 B<Uppackning>
 
@@ -302,19 +302,19 @@ När du bygger ett nytt källkodspaket kommer eventuella ändringar på uppströ
 
 Stöds sedan dpkg 1.14.17. Detta format är en utökning av det egna paketformatet som anges av 1.0-formatet. Det stöder alla komprimeringsmetoder och kommer att som standard ignorera alla VCS-specifika filer och kataloger, samt många temporärfiler (se standardvärdet som är knutet till flaggan B<-i> i texten för B<--help>).
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Observera>: För några leverantörer har dpkg ändrats så att det tillåter egna källkoder med icke-egna versioner, vilket gör det här oklart och gör att konceptet blir ytterligare förvirrande, där det här dessutom ofta blir en fälla som orsakar ytterligare misstag.
 
 =head2 Format: 3.0 (quilt)
 
-Supported since dpkg 1.14.17.  A source package in this format contains at least an original tarball (B<.orig.tar.>I<ext> where I<ext> can be B<gz>, B<bz2>, B<lzma> and B<xz>) and a debian tarball (B<.debian.tar.>I<ext>).  It can also contain additional original tarballs (B<.orig->I<addon>B<.tar.>I<ext>).  I<addon> can only contain alphanumeric (‘a-zA-Z0-9’) characters and hyphens (‘-’).  Optionally each original tarball can be accompanied by a detached upstream signature (B<.orig.tar.>I<ext>B<.asc> and B<.orig->I<addon>B<.tar.>I<ext>B<.asc>), extraction supported since dpkg 1.17.20, building supported since dpkg 1.18.5.
+Stöds sedan dpkg 1.14.17. Ett källkodspaket i detta format innehåller åtminstone en original-tarboll (B<.orig.tar.>I<ext>, där I<ext> kan vara B<gz>, B<bz2>, B<lzma> eller B<xz>) och en Debiantarboll (B<.debian.tar.>I<ext>). Den kan även innehålla ytterligare original-tarbollar (B<.orig->I<tillägg>B<.tar.>I<ext>). I<tillägg> kan endast innehålla alfanumeriska (”a-zA-Z0-9”) tecken och bindestreck (”-”). Varje original-tarboll kan också valfritt åtföljas av en friliggande uppströmssignatur (B<.orig.tar.>I<ext>B<.asc> och B<.orig->I<komponent>B<.tar.>I<ext>B<.asc>), uppackning stöds sedan dpkg 1.17.20, byggning stöds sedan dpkg 1.18.5.
 
 B<Uppackning>
 
-The main original tarball is extracted first, then all additional original tarballs are extracted in subdirectories named after the I<addon> part of their filename (any pre-existing directory is replaced).  The debian tarball is extracted on top of the source directory after prior removal of any pre-existing B<debian> directory.  Note that the debian tarball must contain a B<debian> sub-directory but it can also contain binary files outside of that directory (see B<--include-binaries> option).
+Huvud-originaltarbollen packas upp först, därefter packas alla ytterligare originaltarbollar upp i underkataloger med namn efter I<tillägg>-delen i sitt filnamn (eventuella redan befintliga kataloger ersätts). Debian-tarbollen packas sedan upp ovanpå källkodskatalogen efter att en redan befintlig B<debian>-katalog har tagits bort först. Observera att debian-tarbollen måste bestå av en B<debian>-underkatalog, men att den även kan innehålla binärfiler utanför den katalogen (se flaggan B<--include-binaries>).
 
-Alla patchar listade i B<debian/patches/>I<återförsäljare>B<.series> eller B<debian/patches/series> tillämpas sedan, där I<återförsäljare> är namnet på den aktuella återförsäljaren skrivet med små bokstäver, eller B<debian> om ingen har angivits. Om den förstnämnda filen används och den sistnämnda inte existerar (eller är en symbolisk länk), kommer den senare att ersättas av en symbolisk länk till den första. Tanken är att göra det enklare att använda B<quilt> till att hantera patchuppsättningen. Återförsäljarspecifika series-filer är tänkta att göra det möjligt att serialisera flera utvecklingsgrenar baserade på återförsäljaren, på ett deklarativt sätt, istället för att öppet koda den här hanteringen i B<debian/rules>. Detta är speciellt användbart när källkoden behöver patchas olika eftersom de rörda filerna inte stöder inbyggd villkorlig tillämpning. Observera att, även om B<dpkg-source> korrekt tolkar series-filer som använder explicita flaggor till patch-programmet (lagrade på kommandoraden efter patch-filnamnet och ett eller flera blanksteg), så ignoreras dessa flaggor och det förväntar sig att patchar kan tillämpas med flaggan B<-p1> till B<patch>. Det kommer därför visa en varning sådana flaggor upptäcks, och bygget kommer troligen att misslyckas.
+Alla patchar listade i B<debian/patches/>I<leverantör>B<.series> eller B<debian/patches/series> tillämpas sedan, där I<leverantör> är namnet på den aktuella leverantören skrivet med små bokstäver, eller B<debian> om ingen har angivits. Om den förstnämnda filen används och den sistnämnda inte existerar (eller är en symbolisk länk), kommer den senare att ersättas av en symbolisk länk till den första. Tanken är att göra det enklare att använda B<quilt> till att hantera patchuppsättningen. Återförsäljarspecifika series-filer är tänkta att göra det möjligt att serialisera flera utvecklingsgrenar baserade på leverantören, på ett deklarativt sätt, istället för att öppet koda den här hanteringen i B<debian/rules>. Detta är speciellt användbart när källkoden behöver patchas olika eftersom de rörda filerna inte stöder inbyggd villkorlig tillämpning. Observera att, även om B<dpkg-source> korrekt tolkar series-filer som använder explicita flaggor till patch-programmet (lagrade på kommandoraden efter patch-filnamnet och ett eller flera blanksteg), så ignoreras dessa flaggor och det förväntar sig att patchar kan tillämpas med flaggan B<-p1> till B<patch>. Det kommer därför visa en varning sådana flaggor upptäcks, och bygget kommer troligen att misslyckas.
 
-Oberbera att L<lintian(1)> kommer skapa ovillkorliga varningar när återförsäljarserier används på grund av en kontroversiell Debian-specifik dom, vilket inte bör påverka extern användning; för att tysta dessa kan dpkg:s lintianprofil användas genom att ge parametern ”B<--profile dpkg>” till L<lintian(1)>.
+Oberbera att L<lintian(1)> kommer skapa ovillkorliga varningar när leverantörserier används på grund av en kontroversiell Debian-specifik dom, vilket inte bör påverka extern användning; för att tysta dessa kan dpkg:s lintianprofil användas genom att ge parametern ”B<--profile dpkg>” till L<lintian(1)>.
 
 Tidsstämplarna för alla patchade filer nollställs till den tidpunkt då källkodspaketet extraherades (vilket undviker tidsstämpelförskjutningar som kunde leda till problem när autogenererade filer patchas).
 
@@ -573,11 +573,11 @@ Precis som B<debian/source/options> förutom att filen inte inkluderas i det gen
 
 Friformstext som läggs in på toppen av den automatiskt genererade patchen i formaten ”2.0” eller ”3.0 (quilt)”. B<local-patch-header> tas inte med i det genererade källkodspaketet medan B<patch-header> tas med.
 
-=head2 debian/patches/I<återförsäljare>.series
+=head2 debian/patches/I<leverantör>.series
 
 =head2 debian/patches/series
 
-Listar alla patchar som måste tillämpas (i den givna ordningen) ovanpå uppströmskällkodspaketet. Inledande och avslutande blanksteg tas bort. I<återförsäljare> är namnet på aktuell återförsäljare skrivet med små bokstäver. Om den återförsäljarspecifika series-filen inte existerar, kommer den återförsäljarlösa series-filen att användas istället. Rader som börjar med ”B<#>” är kommentarer och ignoreras. Tomma rader ignoreras. De rader som är kvar inleds med filnamnet på en patchfil (relativt till B<debian/patches/>-katalogen) upp till det första blankstegstecknet eller slutet på raden. Valfria flaggor till B<quilt> kan följa fram till slutet av raden eller det första ”B<#>” som följer på ett eller flera blanksteg (vilket anger början på en kommentar fram till slutet av raden).
+Listar alla patchar som måste tillämpas (i den givna ordningen) ovanpå uppströmskällkodspaketet. Inledande och avslutande blanksteg tas bort. I<leverantör> är namnet på aktuell leverantör skrivet med små bokstäver. Om den leverantörspecifika series-filen inte existerar, kommer den leverantörlösa series-filen att användas istället. Rader som börjar med ”B<#>” är kommentarer och ignoreras. Tomma rader ignoreras. De rader som är kvar inleds med filnamnet på en patchfil (relativt till B<debian/patches/>-katalogen) upp till det första blankstegstecknet eller slutet på raden. Valfria flaggor till B<quilt> kan följa fram till slutet av raden eller det första ”B<#>” som följer på ett eller flera blanksteg (vilket anger början på en kommentar fram till slutet av raden).
 
 =head1 SÄKERHET
 

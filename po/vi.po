@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.18.2\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2026-01-23 01:41+0100\n"
+"POT-Creation-Date: 2026-03-07 00:40+0100\n"
 "PO-Revision-Date: 2016-01-14 08:22+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <debian-l10n-vietnamese@lists.debian.org>\n"
@@ -35,6 +35,11 @@ msgstr "lỗi đọc kho lưu “%s”"
 #, c-format
 msgid "unable to create '%s'"
 msgstr "không thể tạo “%s”"
+
+#: lib/dpkg/ar.c
+#, c-format
+msgid "archive %s is truncated or corrupt, it has a non-even byte size"
+msgstr ""
 
 #: lib/dpkg/ar.c lib/dpkg/dir.c src/split/join.c src/split/queue.c
 #: src/divert/main.c utils/update-alternatives.c
@@ -2569,10 +2574,6 @@ msgstr "lỗi ghi “%s”"
 msgid "cannot copy '%s' into archive '%s': %s"
 msgstr "không sao chép “%s” vào kho “%s”: %s"
 
-#: src/deb/extract.c
-msgid "shell command to move files"
-msgstr "lệnh hệ vỏ dùng để di chuyển các tập tin"
-
 #: src/deb/extract.c src/split/main.c
 #, c-format
 msgid "unexpected end of file in %s in %s"
@@ -2638,9 +2639,28 @@ msgid "archive '%s' contains two control members, giving up"
 msgstr "kho lưu “%s” chứa hai thành viên điều khiển nên chịu thua"
 
 #: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "archive has malformed control member size '%s'"
+msgid "archive '%s' has zero sized tar member %.*s"
+msgstr "kho lưu có độ dài thành viên điều khiển sai “%s”"
+
+#: src/deb/extract.c
 #, c-format
 msgid "archive '%s' has premature member '%.*s' before '%s', giving up"
 msgstr "kho lưu “%s” chứa thành viên chết yểu %.*s trước “%s” nên chịu thua"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "archive '%s' contains two control members, giving up"
+msgid "archive '%s' contains an overflowing member '%.*s' size"
+msgstr "kho lưu “%s” chứa hai thành viên điều khiển nên chịu thua"
+
+#: src/deb/extract.c
+#, c-format
+msgid ""
+"archive '%s' is truncated or corrupt, expected more data than available (%jd "
+"> %jd)"
+msgstr ""
 
 #: src/deb/extract.c
 #, fuzzy, c-format
@@ -2653,6 +2673,12 @@ msgid ""
 msgstr ""
 " gói Debian mới, phiên bản %d.%d.\n"
 " kích cỡ %jd byte: kho lưu điều khiển= %jd byte.\n"
+
+#: src/deb/extract.c
+#, fuzzy, c-format
+#| msgid "archive has invalid format version: %s"
+msgid "archive '%s' has unsupported format version: %d.%d"
+msgstr "kho nén có phiên bản không đúng định dạng: %s"
 
 #: src/deb/extract.c
 msgid "archive control member size"
@@ -7599,6 +7625,9 @@ msgstr ""
 #: utils/update-alternatives.polkit.in
 msgid "Authentication is required to run update-alternatives"
 msgstr ""
+
+#~ msgid "shell command to move files"
+#~ msgstr "lệnh hệ vỏ dùng để di chuyển các tập tin"
 
 #, fuzzy, c-format
 #~| msgid "subprocess %s returned error exit status %d"

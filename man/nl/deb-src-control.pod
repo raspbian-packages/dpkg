@@ -306,12 +306,12 @@ Houd er rekening mee dat deze door de gebruiker gedefinieerde velden gebruik mak
 
 =head1 VOORBEELD
 
- # Comment.
+ # Commentaar
  Source: dpkg
  Section: admin
  Priority: required
  Maintainer: Dpkg Developers <debian-dpkg@lists.debian.org>
- # This field is copied to the binary and source packages.
+ # Dit veld wordt gekopieerd naar de binaire en broncodepakketten
  XBS-Upstream-Release-Status: stable
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
@@ -323,6 +323,7 @@ Houd er rekening mee dat deze door de gebruiker gedefinieerde velden gebruik mak
   debhelper (>= 13.10~),
   pkgconf,
   libselinux1-dev (>= 1.28-4) [!linux-any],
+
 
  Package: dpkg-dev
  Section: utils

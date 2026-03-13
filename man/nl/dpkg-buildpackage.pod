@@ -398,15 +398,15 @@ De standaardinstelling is B<auto>, waarbij de beste beschikbare backend wordt ge
 
 =item B<sop>
 
-Any conforming Stateless OpenPGP (SOP) implementation, such as sqop, rsop, gosop or pgpainless-cli.
+Elke conforme Stateless OpenPGP-implementatie (SOP), zoals sqop, rsop, gosop of pgpainless-cli.
 
 =item B<sq>
 
-From Sequoia-PGP.
+Van Sequoia-PGP.
 
 =item B<gpg>
 
-From GnuPG.
+Van GnuPG.
 
 =back
 

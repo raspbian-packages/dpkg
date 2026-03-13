@@ -42,7 +42,7 @@ Detta fält anger paketets typ. B<udeb> används för storleksbegränsade paket 
 
 Vanligtvis är detta det ursprungliga paketets versionsnummer på den form programmets författare använder. Den kan även innehålla ett Debianuppdateringsnummer (för paket vars källa är utanför Debian). Exakt format och sorteringsalgoritm beskrivs i L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Observera>: För några leverantörer har dpkg ändrats så att det tillåter egna källkoder med icke-egna versioner, vilket gör det här oklart och gör att konceptet blir ytterligare förvirrande, där det här dessutom ofta blir en fälla som orsakar ytterligare misstag.
 
 =item B<Maintainer:> I<fullt-namn-epost> (rekommenderas)
 
@@ -84,15 +84,15 @@ Fältet krävs normalt sett endast om svaret är B<yes> (ja), och betecknar att 
 
 Fältet krävs normalt sett endast om svaret är B<yes> (ja), och sätts vanligtvis in av arkivprogramvaran. Det betecknar ett paket som krävs för att bygga andra paket.
 
-=item B<Architecture:> B<all>|I<arch> (required)
+=item B<Architecture:> B<all>|I<ark> (krävs)
 
-The architecture specifies on which type of machine this package runs.
+Arkitekturen anger på vilken typ av maskiner paketet kan köras.
 
-Common architectures are B<amd64>, B<armel>, B<i386>, B<powerpc>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).
+Vanliga arkitekturer är B<amd64>, B<armel>, B<i386>, B<powerpc>, osv. Observera att värdet B<all> är avsett för paket som är oberoende av arkitektur (såsom skal- och Perlskript eller dokumentation).
 
-B<Note:> Architecture wildcards are not allowed in this context.
+B<Observera:> Arkitekturer med jokertecken tillåts inte i detta sammanhang.
 
-An architecture name must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric and dash (‘-’) characters.
+Ett arkitekturnamn måste inledas med ett alfanumeriskt tecken (”0-9a-zA-Z”), som sedan följs av alfanumeriska tecken och bindestreck (”-”).
 
 =item B<Origin:> I<namn>
 

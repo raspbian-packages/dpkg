@@ -48,7 +48,13 @@ Zoeken in het I<bestand> naar bijkomende vervangingen (het bestand mag gecomprim
 
 =item B<-a>, B<--arch> I<arch>
 
-Een patroon gebruiken dat bestaat uit I<*_all.deb> en I<*_arch.deb> in plaats van te zoeken naar alle deb-bestanden.
+Use a pattern consisting of I<*_all.deb> and I<*_arch.deb>, or I<*_arch.deb> if B<--no-implicit-arch> has been specified, instead of scanning for all debs.
+
+=item B<--no-implicit-arch>
+
+Do not implicitly add architecture B<all> binary packages when specifying B<--arch>.
+
+Supported since dpkg 1.23.6.
 
 =item B<-h>, B<--hash> I<hash-lijst>
 

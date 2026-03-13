@@ -363,7 +363,7 @@ sub _upstream_tarball_template {
         sort map {
             compression_get_file_extension($_)
         } compression_get_list()) . '}';
-    return File::Spec->catfile('..', $self->get_basename() . ".orig.tar.$ext");
+    return File::Spec->catfile($self->{basedir}, $self->get_basename() . ".orig.tar.$ext");
 }
 
 sub can_build {
@@ -554,17 +554,20 @@ sub _generate_patch {
         handle_binary_func => $opts{handle_binary},
         order_from => $opts{order_from},
     );
-    error(g_('unrepresentable changes to source')) if not $diff->finish();
+    $diff->finish();
 
     if (-s $tmpdiff) {
         info(g_('local changes detected, the modified files are:'));
         my $analysis = $diff->analyze($dir,
             verbose => 0,
         );
-        foreach my $fn (sort keys %{$analysis->{filepatched}}) {
+        foreach my $fullfn (sort keys %{$analysis->{filepatched}}) {
+            my $fn = ($fullfn =~ s{^\Q$dir\E/+}{}r);
             print " $fn\n";
         }
     }
+
+    error(g_('unrepresentable changes to source')) if $diff->has_errors();
 
     # Remove the temporary directory.
     erasedir($tmpdir);
@@ -648,7 +651,7 @@ sub do_build {
     pop_exit_handler();
 
     # Create the "debian.tar".
-    my $debianfile = "$basenamerev.debian.tar." . $self->{options}{comp_ext};
+    my $debianfile = File::Spec->catfile($self->{basedir}, "$basenamerev.debian.tar." . $self->{options}{comp_ext});
     info(g_('building %s in %s'), $sourcepackage, $debianfile);
     my $tar = Dpkg::Source::Archive->new(
         filename => $debianfile,

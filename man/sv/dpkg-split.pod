@@ -126,7 +126,7 @@ Vid automatisk köa-eller-sammanslå skriver B<dpkg-split> normalt ett meddeland
 
 =item B<--msdos>
 
-Obsolete option without effect (since dpkg 1.23.0).
+Föråldrad flagga utan effekt (sedan dpkg 1.23.0).
 
 =back
 

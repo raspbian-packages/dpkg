@@ -28,13 +28,13 @@ Det flerdelade B<.deb>-formatet används för att dela stora paket i mindre dela
 
 Filen är ett B<ar>-arkiv med det magiska numret B<!E<lt>archE<gt>>. Filnamnen kan innehålla ett avslutande snedstreck (sedan dpkg 1.15.6).
 
-The B<ar> archive is composed of multiple members in a specific order:
+B<ar>-arkivet består av flera delar i en specifik ordning:
 
 =over 
 
 =item B<debian-split>
 
-The first required member contains a series of lines, separated by newlines.  Currently eight lines are present:
+Den första nödvändiga posten innehåller en följd av rader, avdelade med nyradstecken. För närvarande finns åtta rader:
 
 =over 
 
@@ -78,7 +78,7 @@ Om huvudversionsnumret har ändrats har en inkompatibel ändring införts, och p
 
 =item B<data.>I<N>
 
-The second, last required member, where I<N> denotes the part number.  It contains the raw part data.
+Den andra och sista nödvändiga posten, där I<N> anger delnumret. Den innehåller rådata för delen.
 
 =back
 

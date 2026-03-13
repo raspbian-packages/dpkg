@@ -136,15 +136,15 @@ Maskinen kompilatorn bygger för, eller emulatorn kör kod för. Endast nödvän
 
 =item Debianarkitektur
 
-A Debian architecture describes a “machine” (considering it as an abstraction not necessarily tied to an actual physical device)  representing a specific execution environment, including its CPU and attributes (such as endianness and bits), an operating system (usually a kernel, but other paradigms using userland services are possible) and its interfaces towards userland including the executable format and their ABI, and a libc library and its ABI.
+En Debianarkitektur beskriver en ”maskin” (tänk på det som en abstraktion som inte nödvändigtvis motsvarar en fysisk enhet) som representerar en specifik exekveringsmiljö, däribland dess CPU (processor) och attribut (såsom byteordning och antal bitar), ett operativsystem (vanligtvis en kärna, men andra paradigmer som använder tjänster på användarnivå är möjliga) och dess gränssnitt mot användarprogram, såsom format på exekverbara filer och deras ABI, samt ett libc-bibliotek och dess ABI.
 
-The special architecture B<all> denotes an architecture independent execution environment, used for things such as shell and Perl scripts or documentation.
+Den speciella arkitekturen B<all> anger en arkitekturoberoende exekveringsmiljö, som används av saker såsom skal- och Perl-skript eller dokumentation.
 
-A Debian architecture is used in binary package metadata and filenames (which specifies the binary tree in a package repository), and can appear in package relationships.
+En Debianarkitektur används i binärpaketmetadata och -filnamn (och anger binärträdet i paketarkivet), och kan förekomma i paketberoenden.
 
-An architecture must start with an alphanumeric character (“0-9a-zA-Z”), and then gets followed by alphanumeric or dash (“-”) characters.
+Ett arkitektur måste inledas med ett alfanumeriskt tecken (”0-9a-zA-Z”), som sedan följs av alfanumeriska tecken och bindestreck (”-”).
 
-Examples: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
+Exempel: amd64, i386, sparc64, hurd-amd64, musl-linux-riscv64.
 
 =item Debianarkitektur-tupel
 
@@ -154,9 +154,9 @@ Exempel: base-gnu-linux-amd64, eabihf-musl-linux-arm.
 
 =item Debianarkitektursökmönster
 
-A Debian architecture wildcard is a special architecture that acts as a pattern and will match any ”machine” architecture being part of it (except for B<all>).
+Ett Debianarkitektursökmönster är en speciell arkitektursträng som fungerar som ett mönster som träffar alla ”maskin”-arkitekturer som är en del av den (bortsett från B<all>).
 
-The general form is a Debian architecture tuple with four or less elements, and with at least one of them being B<any>.  Missing elements of the tuple are prefixed implicitly as B<any>, and thus the following pairs are equivalent:
+Den genella formen är en Debianarkitektur-tupel med fyra eller färre element, och där åtminstone ett av dem är B<any>. Saknade element i tupeln läggs till i början implicit som B<any>, och följande par är därmed ekvivalenta:
 
 =over 
 
@@ -172,17 +172,17 @@ Exempel: linux-any, any-i386, hurd-any, eabi-any-any-arm, musl-any-any.
 
 =item GNU-systemtyp
 
-A GNU architecture specification string consisting of two parts separated by a hyphen: CPU and system.
+En GNU-arkitekturspecificeringssträng som består av två delar, avdelade med bindestreck: processor och system.
 
 Processordelen innehåller aldrig ett bindestreck, medan systemdelen kan i sig innehålla ett bindestreck för att skilja mellan en kärna och dess generella ABI, där det generella ABI:et kan innehålla både ABI-angivelser både för körtid (såsom libc) och program, sammanslagna utan bindestreck.
 
-Examples: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
+Exempel: i586-linux-gnu, sparc64-linux-gnu, i686-gnu, x86_64-netbsd.
 
 =item multiark-triplett
 
 Den förtydligade GNU-systemtypen, använd i filsystemssökväg. Tripletten förändras inte när baslinje-ISA:en uppdateras, vilket innebär att de resulterande sökvägarna är stabila över tid. De enda skillnaderna mot GNU-systemtypen är för närvarande att CPU-delen för i386-baserade system alltid är i386.
 
-Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
+Exempel: i386-linux-gnu, x86_64-linux-gnu. Exempel på sökvägar: /lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/.
 
 =back
 

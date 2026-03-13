@@ -28,21 +28,21 @@ Symbolfilmallar medföljer Debiankällkodspaket och dess format är en övermän
 
 Kommentarer stöds i symbolmallfilerna. Alla rader med ”#” som första tecken är kommentarer, såvida inte det börjar med ”#include” (se stycket L</Använda inkluderingar>). Rader som börjar med ”#MISSING:” är speciella kommentarer som dokumenterar symboler som har försvunnit.
 
-=head2 Using metavariable substitutions
+=head2 Använda metavariabelsubstituering
 
-In some cases instead of hardcoding some variable text, we can use metavariables that will be replaced either when generating the symbols file shipped in the binary package, or during dependency generation.
+I vissa fall kan vi använda metavariabler istället för att hårdkoda en del variabel text. De ersätts antingen när symbols-filen som ska skeppas i det binära paketet genereras, eller när beroenden genereras.
 
-Contrary to the I<#MINVER#> metavariable, the following metavariables will never appear in a symbols file inside a binary package.
+Till skillnad från metavariabeln I<#MINVER#> kommer följande metavariabler aldrig att dyka upp i en symbolfil i ett binärpaket.
 
-=head3 Using the #PACKAGE# metavariable
+=head3 Använda #PACKAGE#-metavariabeln
 
-In some rare cases, the name of the library varies between architectures. To avoid hardcoding the name of the package in the symbols file, you can use the I<#PACKAGE#> metavariable.  It will be replaced by the real package name during installation of the symbols files.
+I några sällsynta fall skiljer sig namnet på biblioteket mellan arkitekturer. För att undvika att hårdkoda namnet på paketet i symbolfilen kan du använda metavariabeln I<#PACKAGE#>. Den ersätts av det faktiska paketnamnet när symbolfilen installeras.
 
-=head2 Using the #CURVER# metavariable
+=head2 Använda metavariabeln #CURVER#
 
-In some cases, a symbol with an unstable ABI will require a strict dependency on the current package version.  To avoid hardcoding the current version in the symbols file, you can use the I<#CURVER#> metavariable.  It will be replaced by a dependency version constraint in the form of “(= I<binary-version>)”, where this would be generally be used in combination with I<#PACKAGE#>.
+I några fall kan en symbol med ett instabilt ABI kräva ett strikt beroende på den aktuella paketversionen. För att undvika att hårdkoda den aktuella versionen i symbolfilen kan du använda metavariabeln I<#CURVER#>. Den kommer att ersättas av en beroendeversionsrestriktion på formen ”(= I<binärversion>)”, där detta vanlitgvis skulle användas i kombination med I<#PACKAGE#>.
 
-Supported since dpkg 1.23.4.
+Stöds sedan dpkg 1.23.4.
 
 =head2 Använda symboltaggar
 

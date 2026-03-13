@@ -36,9 +36,9 @@ För de flesta kommandon som tar ett indataarkiv som argument kan arkivet läsas
 
 =item B<-b>, B<--build> I<binärkatalog> [I<arkiv>|I<katalog>]
 
-Creates a debian archive from the filesystem tree stored in I<binary-directory>.  I<binary-directory> must have a B<DEBIAN> subdirectory, which contains the package metadata files such as the binary package control file.  This directory will I<not> appear in the binary package's filesystem archive, but instead the files in it will be put in the binary package's control information area.
+Skapar ett Debianarkiv från filsystemsträdet som lagras i I<binärkatalog>. I<binärkatalog> måste innehålla underkatalogen B<DEBIAN>, vilken innehåller paketmetadatafiler såsom binärpaketets styrfil. Katalogen kommer I<inte> att visas i binärpaketets filsystemsarkiv, utan istället kommer filerna läggas i binärpaketets styrinformationsområde.
 
-Unless you specify B<--no-check>, B<dpkg-deb> will read B<DEBIAN/control> and parse it.  It will check the file for syntax errors and other problems, and display the name of the binary package being built.  B<dpkg-deb> will also check the permissions of the maintainer scripts and other files found in the B<DEBIAN> package metadata directory.
+Såvida du inte anger B<--no-check> kommer dpkg-deb att läsa B<DEBIAN/control> och tolka den. Den kommer leta efter syntaxfel och andra problem i filen, och visa namnet på det binärpaket som byggs. B<dpkg-deb> kommer även att kontrollera behörigheten på paketskripten och andra filer som hittas i paketmetadatakatalogen B<DEBIAN>.
 
 Om inget I<arkiv> anges kommer B<dpkg-deb> skriva paketet till filen I<binärkatalog>B<.deb>.
 
@@ -86,7 +86,7 @@ I<katalog> (men inte dess föräldrar) kommer skapas om nödvändigt, och dess b
 
 =item B<-R>, B<--raw-extract> I<arkiv> I<katalog>
 
-Extracts the filesystem tree from a package archive into a specified directory, and the package metadata files into a B<DEBIAN> subdirectory of the specified directory (since dpkg 1.16.1).
+Extraherar filsystemsträdet från ett paketarkiv till den angivna katalogen och paketmetadatafilerna till underkatalogen B<DEBIAN> i den angivna katalogen (sedan dpkg 1.16.1).
 
 Målkatalogen (men inte dess föräldrar) kommer att skapas om nödvändigt.
 
@@ -102,7 +102,7 @@ Extraherar filsystemsträdsdata från ett binärt paket och sänder det till sta
 
 =item B<-e>, B<--control> I<arkiv> [I<katalog>]
 
-Extracts the package metadata files from a package archive into the specified directory.
+Extraherar paketmetadatafilerna från paketarkivet till den angivna katalogen.
 
 Om ingen katalog anges kommer en underkatalog vid namn B<DEBIAN> i den aktuella katalogen att användas.
 

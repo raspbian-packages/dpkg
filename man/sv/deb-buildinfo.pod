@@ -64,17 +64,17 @@ Det här flerdelade fältet är en blankstegsavdelad lista över byggda binärpa
 
 =item B<Architecture:> I<ark-lista> (krävs)
 
-The architecture list specifies on which type of machine this package runs. The value should be a list of architecture names separated by spaces.
+Arkitekturlistan anger på vilken typ av maskiner paketet kan köras. Värdet ska vara en lista över arkitekturnamn avdelade med blanksteg.
 
-Common architectures are B<amd64>, B<armel>, B<i386>, etc.  Note that the special B<all> value is meant for packages that are architecture independent (such as shell and Perl scripts or documentation).  If the source for the package is also being built, the special entry B<source> is also present.
+Vanliga arkitekturer är B<amd64>, B<armel>, B<i386>, osv. Observera att värdet B<all> är avsett för paket som är oberoende av arkitektur (såsom Perl-skript eller dokumentation). Om källkoden för paketet också byggs inkluderas också specialvädet B<source>.
 
-B<Note:> Architecture wildcards are not allowed in this context.
+B<Observera:> Arkitekturer med jokertecken tillåts inte i detta sammanhang.
 
 =item B<Version:> I<versionssträng> (krävs)
 
 Vanligtvis är detta det ursprungliga paketets versionsnummer på den form programmets författare använder. Den kan även innehålla ett Debianuppdateringsnummer (för paket vars källa är utanför Debian). Exakt format och sorteringsalgoritm beskrivs i L<deb-version(7)>.
 
-B<Note>: On some vendors, dpkg has been made to permit native sources with non-native versions, making this incoherent and adding to the confusion of the concept, where in addition this tends to be a trap for accidental mistakes.
+B<Observera>: För några leverantörer har dpkg ändrats så att det tillåter egna källkoder med icke-egna versioner, vilket gör det här oklart och gör att konceptet blir ytterligare förvirrande, där det här dessutom ofta blir en fälla som orsakar ytterligare misstag.
 
 =item B<Binary-Only-Changes:>
 
@@ -116,7 +116,7 @@ Utgåva och version (i ett inte specificerat format) för kärnan som körs på 
 
 =item B<Build-Path:> I<byggsökväg>
 
-Absolut byggsökväg som motsvarar det uppackade källkodsträdet. Fältet kommer endast finnas om återförsäljaren tillåter det via en mönsterigenkänning för att undgå att läcka möjligt känslig information.
+Absolut byggsökväg som motsvarar det uppackade källkodsträdet. Fältet kommer endast finnas om leverantören tillåter det via en mönsterigenkänning för att undgå att läcka möjligt känslig information.
 
 På Debian och dess derivat tillåts bara byggsökvägar som börjar med I</build/> att ta med detta fält.
 
@@ -162,7 +162,7 @@ Listan över intallerade och konfigurerade paket som kan påverka paketets byggp
 
 Listan innehåller varje paketnamn, möjligen med en angiven arkitektur för oegna arkitekturer, med en exakt versionsbegränsning, avdelade med kommatecken.
 
-Listan innehåller alla systemkritiska paket, paket angivna i källkodens styrfält B<Build-Depends>, B<Build-Depends-Arch>, B<Build-Depends-Indep>, eventuella återförsäljarspecifika inbyggda beroenden och alla deras rekursiva beroenden. På Debian och dess derivat är det inbyggda beroendet B<build-essential>.
+Listan innehåller alla systemkritiska paket, paket angivna i källkodens styrfält B<Build-Depends>, B<Build-Depends-Arch>, B<Build-Depends-Indep>, eventuella leverantörspecifika inbyggda beroenden och alla deras rekursiva beroenden. På Debian och dess derivat är det inbyggda beroendet B<build-essential>.
 
 Alla beroendealternativ och alla försöjare av virtuella paketberoenden kommer tas med för beroenden som kommer från fält i källkodsstyrfilen.
 
