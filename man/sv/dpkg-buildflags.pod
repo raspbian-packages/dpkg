@@ -290,7 +290,7 @@ Den här inställningen (inaktiverad som förval) lägger till overksamma tjalla
 
 =head2 optimize
 
-Flera kommandoradsflaggor (beskrivna nedan) kan användas för att hjälpa till att optimera den skapade binären (sedan dpkg 1.21.0). B<Observera>: om B<all> aktiveras kan dessa flaggor leda till binärartifakter som inte kan reproduceras.
+Flera kommandoradsflaggor (beskrivna nedan) kan användas för att hjälpa till att optimera den skapade binären (sedan dpkg 1.21.0). B<Observera>: om B<all> aktiveras kan dessa flaggor leda till binärartefakter som inte kan reproduceras.
 
 =over 
 

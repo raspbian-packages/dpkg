@@ -1013,7 +1013,7 @@ Zusätzliche Funktionalität kann durch die Installation jedes der folgenden Pak
 
 =head1 SIEHE AUCH
 
-B<aptitude>(8), B<apt>(8), B<dselect>(1), B<dpkg-deb>(1), B<dpkg-query>(1), B<deb>(5), B<deb-control>(5), B<dpkg.cfg>(5), and B<dpkg-reconfigure>(8).
+B<aptitude>(8), B<apt>(8), B<dselect>(1), B<dpkg-deb>(1), B<dpkg-query>(1), B<deb>(5), B<deb-control>(5), B<dpkg.cfg>(5) und B<dpkg-reconfigure>(8).
 
 =head1 AUTOREN
 

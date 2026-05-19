@@ -130,7 +130,7 @@ Hintergrund: Dieses Feld wird benötigt, da andernfalls jedes Quellpaket entpack
 
 =item B<Build-Conflicts-Indep:> I<Paketliste>
 
-Diese Felder geben die Beziehungen zwischen dem Quellpaket und Paketen, die daraus gebaut werden, an. Sie werden in der Handbuchseite B<deb-control>(5) beschrieben.
+Diese Felder geben die Beziehungen zwischen dem Quellpaket und Paketen, die daraus gebaut werden, an. Sie werden in der Handbuchseite B<deb-src-control>(5) beschrieben.
 
 =item B<Package-List:>
 

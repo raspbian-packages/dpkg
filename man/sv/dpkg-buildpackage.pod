@@ -268,7 +268,7 @@ För att bygga ett Debianpaket körs normalt kommandot B<debian/rules> med flera
 
 =item B<--check-command=>I<kontrollkommando>
 
-Kommando som kontrollerar själva B<.changes>-filen och byggda artifakter som refereras i filen (sedan dpkg 1.17.6). Kommandot ska ta sökvägen till B<.changes> som argument. Kommandot är normalt B<lintian>.
+Kommando som kontrollerar själva B<.changes>-filen och byggda artefakter som refereras i filen (sedan dpkg 1.17.6). Kommandot ska ta sökvägen till B<.changes> som argument. Kommandot är normalt B<lintian>.
 
 =item B<--check-option=>I<val>
 
@@ -316,7 +316,7 @@ Uppströmsversionen.
 
 =item B<--buildinfo-file=>I<filnamn>
 
-Ange I<filnamn> att använda för den skapade B<.buildinfo>-filen (sedam dpkg 1.21.0).
+Ange I<filnamn> att använda för den skapade B<.buildinfo>-filen (sedan dpkg 1.21.0).
 
 =item B<--buildinfo-option=>I<val>
 
@@ -352,7 +352,7 @@ Ange en Open PGP-nyckel-id (antingen ett fingeravtryck eller ett användar-ID) f
 
 Ange en OpenPGP-I<nyckelfil> som innehåller den hemliga nyckeln att använda vid signering av paket (sedan dpkg 1.21-10).
 
-Observera: Av säkerhetsskäl är det bäst att håll I<nyckelfil> låst med ett lösenord.
+Observera: Av säkerhetsskäl är det bäst att hålla I<nyckelfil> låst med ett lösenord.
 
 =item B<-us>, B<--unsigned-source>
 
@@ -360,7 +360,7 @@ Signera inte källkodspaketet (lång flagga sedan dpkg 1.18.8).
 
 =item B<-ui>, B<--unsigned-buildinfo>
 
-Signera inte B<.buildinfo>-filen (sedam dpkg 1.18.19).
+Signera inte B<.buildinfo>-filen (sedan dpkg 1.18.19).
 
 =item B<-uc>, B<--unsigned-changes>
 
