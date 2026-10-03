@@ -61,7 +61,7 @@ enqueue_error_report(const char *arg)
 
 	nr = malloc(sizeof(*nr));
 	if (!nr) {
-		notice(_("failed to allocate memory for new entry "
+		notice(_("cannot allocate memory for new entry "
 		         "in list of failed packages: %s"),
 		       strerror(errno));
 		abort_processing = true;
@@ -134,12 +134,12 @@ skip_due_to_hold(struct pkginfo *pkg)
 
 	if (in_force(FORCE_HOLD)) {
 		notice(_("package %s was on hold, "
-		         "processing it anyway as you requested"),
+		         "processing it anyway as requested"),
 		       pkg_name(pkg, pnaw_nonambig));
 		return false;
 	}
 
-	printf(_("Package %s is on hold, not touching it.  "
+	printf(_("Package %s is on hold, not touching it. "
 	         "Use --force-hold to override.\n"),
 	       pkg_name(pkg, pnaw_nonambig));
 

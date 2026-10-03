@@ -333,6 +333,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -632,9 +633,12 @@ dpkg_trigger_SOURCES = \
 	# EOL
 
 dist_bashcompletions_DATA = \
+	completion/bash/dpkg \
+	completion/bash/dpkg-deb \
+	completion/bash/dpkg-query \
 	# EOL
 
-SUFFIXES = .sh .pl
+SUFFIXES = .sh .bash .pl
 subst_shell_rules = "\
 	s{^ADMINDIR=.*$$}{ADMINDIR='$(admindir)'}; \
 	s{^BACKUPSDIR=.*$$}{BACKUPSDIR='$(backupsdir)'}; \
@@ -666,9 +670,9 @@ subst_perl_file = $(PERL) -i -p -e $(subst_perl_rules)
 TESTSUITE_AT = $(srcdir)/at/testsuite.at $(srcdir)/at/local.at \
 	$(srcdir)/at/deb-format.at $(srcdir)/at/deb-fields.at \
 	$(srcdir)/at/deb-content.at $(srcdir)/at/deb-split.at \
-	$(srcdir)/at/realpath.at $(srcdir)/at/divert.at \
-	$(srcdir)/at/trigger.at $(srcdir)/at/chdir.at \
-	$(srcdir)/at/dpkg-arch.at
+	$(srcdir)/at/deb-streaming.at $(srcdir)/at/realpath.at \
+	$(srcdir)/at/divert.at $(srcdir)/at/trigger.at \
+	$(srcdir)/at/chdir.at $(srcdir)/at/dpkg-arch.at
 TESTSUITE = $(srcdir)/at/testsuite
 AUTOTEST_DEPS = at/atconfig at/atlocal $(TESTSUITE)
 TEST_VERBOSE_OPT = $(TEST_VERBOSE:0=)
@@ -677,7 +681,7 @@ AUTOTEST = $(AUTOM4TE) --language=autotest
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .sh .pl .c .lo .o .obj
+.SUFFIXES: .sh .bash .pl .c .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(top_srcdir)/build-aux/autotest.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -1419,7 +1423,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 .PRECIOUS: Makefile
 
 
-.sh: Makefile
+.sh .bash: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(AM_V_GEN) $(subst_shell_filter) <$< >$@
 	$(AM_V_at) chmod +x $@

@@ -14,6 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 set -e
+
 vardir="$1"
 method=$2
 option=$3
@@ -22,11 +23,11 @@ cd "$vardir/methods/file"
 
 . ./shvar.$option
 
-if [ -z "$p_main_packages" ] && [ -z "$p_ctb_packages" ] && \
+if [ -z "$p_main_packages" ] && [ -z "$p_ctb_packages" ] &&
    [ -z "$p_nf_packages" ] && [ -z "$p_lcl_packages" ]; then
   echo '
 No Packages files available, cannot update available packages list.
-Hit RETURN to continue.  '
+Press <Enter> to continue. '
   read response
   exit 0
 fi
@@ -74,11 +75,11 @@ for f in main ctb nf lcl; do
       updatetype=merge
       ;;
     esac
-  ;;
+    ;;
   esac
 done
 
-echo -n 'Update OK.  Hit RETURN.  '
+echo -n 'Update OK. Press <Enter>. '
 read response
 
 xit=0

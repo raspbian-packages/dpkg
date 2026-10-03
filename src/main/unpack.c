@@ -99,14 +99,14 @@ deb_reassemble(const char **filename, const char **pfilename)
 	if (!reasmbuf)
 		reasmbuf = dpkg_db_get_path(REASSEMBLETMP);
 	if (unlink(reasmbuf) && errno != ENOENT)
-		ohshite(_("error ensuring '%s' does not exist"), reasmbuf);
+		ohshite(_("cannot ensure '%s' does not exist"), reasmbuf);
 
 	push_cleanup(cu_pathname, ~0, 1, (void *)reasmbuf);
 
 	pid = subproc_fork();
 	if (!pid) {
 		execlp(SPLITTER, SPLITTER, "-Qao", reasmbuf, *filename, NULL);
-		ohshite(_("unable to execute %s (%s)"),
+		ohshite(_("cannot execute %s (%s)"),
 		        _("split package reassembly"), SPLITTER);
 	}
 	status = subproc_reap(pid, SPLITTER, SUBPROC_RETERROR);
@@ -148,7 +148,7 @@ deb_verify(const char *filename)
 	pid = subproc_fork();
 	if (!pid) {
 		execlp(DEBSIGVERIFY, DEBSIGVERIFY, "-q", filename, NULL);
-		ohshite(_("unable to execute %s (%s)"),
+		ohshite(_("cannot execute %s (%s)"),
 		        _("package signature verification"), DEBSIGVERIFY);
 	} else {
 		int status;
@@ -160,7 +160,7 @@ deb_verify(const char *filename)
 				       filename);
 			else
 				notice(_("verification on package %s failed; "
-				         "but installing anyway as you requested"),
+				         "but installing anyway as requested"),
 				       filename);
 		} else {
 			printf(_("passed\n"));
@@ -178,7 +178,7 @@ get_control_dir(char *cidir)
 
 		tmpdir = mkdtemp(path_make_temp_template("dpkg"));
 		if (tmpdir == NULL)
-			ohshite(_("unable to create temporary directory"));
+			ohshite(_("cannot create temporary directory"));
 
 		cidir = m_realloc(cidir, strlen(tmpdir) +
 		                         MAXCONTROLFILENAME + 10);
@@ -368,7 +368,7 @@ deb_parse_conffiles(const struct pkginfo *pkg, const char *control_conffiles,
 	if (conff == NULL) {
 		if (errno == ENOENT)
 			return;
-		ohshite(_("error trying to open %s"), control_conffiles);
+		ohshite(_("cannot open file '%s'"), control_conffiles);
 	}
 
 	push_cleanup(cu_closestream, ehflag_bombout, 1, conff);
@@ -478,10 +478,10 @@ deb_parse_conffiles(const struct pkginfo *pkg, const char *control_conffiles,
 	}
 
 	if (ferror(conff))
-		ohshite(_("read error in %s"), control_conffiles);
+		ohshite(_("cannot read '%s'"), control_conffiles);
 	pop_cleanup(ehflag_normaltidy); /* conff = fopen() */
 	if (fclose(conff))
-		ohshite(_("error closing %s"), control_conffiles);
+		ohshite(_("cannot close '%s'"), control_conffiles);
 }
 
 static struct pkg_queue conflictors = PKG_QUEUE_INIT;
@@ -496,7 +496,7 @@ static void
 pkg_infodb_remove_file(const char *filename, const char *filetype)
 {
 	if (unlink(filename))
-		ohshite(_("unable to delete package metadata file '%s'"),
+		ohshite(_("cannot delete package metadata file '%s'"),
 		        filename);
 
 	debug_at(dbg_scripts, "metadata file unlinked %s", filename);
@@ -547,12 +547,12 @@ pkg_infodb_update(struct pkginfo *pkg, char *cidir, char *cidirrest)
 		} else if (errno == ENOENT) {
 			/* Right, no new version. */
 			if (unlink(match_node->filename))
-				ohshite(_("unable to remove obsolete package metadata file '%s'"),
+				ohshite(_("cannot remove obsolete package metadata file '%s'"),
 				        match_node->filename);
 			debug_at(dbg_scripts, "metadata file unlinked %s",
 			         match_node->filename);
 		} else {
-			ohshite(_("unable to install (supposed) new package metadata file '%s'"),
+			ohshite(_("cannot install (supposed) new package metadata file '%s'"),
 			        cidir);
 		}
 		match_head = match_node->next;
@@ -563,7 +563,7 @@ pkg_infodb_update(struct pkginfo *pkg, char *cidir, char *cidirrest)
 	cidirrest[0] = '\0';
 	dsd = opendir(cidir);
 	if (!dsd)
-		ohshite(_("unable to open temp control directory"));
+		ohshite(_("cannot open temp control directory"));
 	push_cleanup(cu_closedir, ~0, 1, (void *)dsd);
 	while ((de = readdir(dsd))) {
 		const char *newinfofilename;
@@ -583,10 +583,11 @@ pkg_infodb_update(struct pkginfo *pkg, char *cidir, char *cidirrest)
 
 		/* First we check it's not a directory. */
 		if (rmdir(cidir) == 0)
-			ohshit(_("package metadata contained directory '%s'"),
+			ohshit(_("package metadata contains directory '%s'"),
 			       cidir);
 		else if (errno != ENOTDIR)
-			ohshite(_("package metadata rmdir of '%s' did not say not a dir"),
+			ohshite(_("package metadata contains directory '%s', "
+			          "but it cannot be removed"),
 			        de->d_name);
 
 		/* Ignore the control file. */
@@ -597,7 +598,7 @@ pkg_infodb_update(struct pkginfo *pkg, char *cidir, char *cidirrest)
 			continue;
 		}
 		if (strcmp(de->d_name, LISTFILE) == 0) {
-			warning(_("package %s contained '%s' as a metadata file"),
+			warning(_("package %s contains '%s' as a metadata file"),
 			        LISTFILE,
 			        pkgbin_name(pkg, &pkg->available, pnaw_nonambig));
 			continue;
@@ -606,7 +607,7 @@ pkg_infodb_update(struct pkginfo *pkg, char *cidir, char *cidirrest)
 		/* Right, install it. */
 		newinfofilename = pkg_infodb_get_file(pkg, &pkg->available, de->d_name);
 		if (rename(cidir, newinfofilename))
-			ohshite(_("unable to install new metadata file '%s' as '%s'"),
+			ohshite(_("cannot install new package file '%s' as '%s'"),
 			        cidir, newinfofilename);
 
 		debug_at(dbg_scripts,
@@ -666,6 +667,8 @@ pkg_remove_conffile_on_upgrade(struct pkginfo *pkg,
 		         "namenode '%s' owned by other %s, remove-on-upgrade ignored",
 		         namenode->name, pkg_name(otherpkg, pnaw_always));
 		fsys_node_pkgs_iter_free(iter);
+		varbuf_destroy(&cdrext);
+		varbuf_destroy(&cdr);
 		return;
 	}
 	fsys_node_pkgs_iter_free(iter);
@@ -675,23 +678,28 @@ pkg_remove_conffile_on_upgrade(struct pkginfo *pkg,
 	varbuf_add_str(&cdrext, DPKGDISTEXT);
 
 	if (unlink(cdrext.buf) < 0 && errno != ENOENT)
-		warning(_("%s: failed to remove '%s': %s"),
+		warning(_("%s: cannot remove '%s': %s"),
 		        pkg_name(pkg, pnaw_nonambig), cdrext.buf,
 		        strerror(errno));
 
 	md5hash(pkg, currenthash, cdr.buf);
 
 	/* Has it been already removed (e.g. by local admin)? */
-	if (strcmp(currenthash, NONEXISTENTFLAG) == 0)
+	if (strcmp(currenthash, NONEXISTENTFLAG) == 0) {
+		varbuf_destroy(&cdrext);
+		varbuf_destroy(&cdr);
 		return;
+	}
 
 	/* For unmodified conffiles, we just remove them. */
 	if (strcmp(currenthash, namenode->oldhash) == 0) {
 		printf(_("Removing obsolete conffile %s ...\n"), cdr.buf);
 		if (unlink(cdr.buf) < 0 && errno != ENOENT)
-			warning(_("%s: failed to remove '%s': %s"),
+			warning(_("%s: cannot remove '%s': %s"),
 			        pkg_name(pkg, pnaw_nonambig), cdr.buf,
 			        strerror(errno));
+		varbuf_destroy(&cdrext);
+		varbuf_destroy(&cdr);
 		return;
 	}
 
@@ -699,13 +707,16 @@ pkg_remove_conffile_on_upgrade(struct pkginfo *pkg,
 	varbuf_rollback(&cdrext_state);
 	varbuf_add_str(&cdrext, DPKGOLDEXT);
 
-	printf(_("Obsolete conffile '%s' has been modified by you.\n"),
+	printf(_("Obsolete conffile '%s' has been modified locally.\n"),
 	       cdr.buf);
 	printf(_("Saving as %s ...\n"), cdrext.buf);
 	if (rename(cdr.buf, cdrext.buf) < 0)
 		warning(_("%s: cannot rename obsolete conffile '%s' to '%s': %s"),
 		        pkg_name(pkg, pnaw_nonambig),
 		        cdr.buf, cdrext.buf, strerror(errno));
+
+	varbuf_destroy(&cdrext);
+	varbuf_destroy(&cdr);
 }
 
 /* TODO: Refactor to reduce nesting levels. */
@@ -761,7 +772,7 @@ pkg_remove_old_files(struct pkginfo *pkg,
 			if (!(errno == ENOENT ||
 			      errno == ELOOP ||
 			      errno == ENOTDIR))
-				warning(_("could not stat old file '%s' so not deleting it: %s"),
+				warning(_("cannot stat old file '%s' so not deleting it: %s"),
 				        varbuf_str(&fnamevb), strerror(errno));
 			continue;
 		}
@@ -773,7 +784,7 @@ pkg_remove_old_files(struct pkginfo *pkg,
 				continue;
 
 			if (rmdir(varbuf_str(&fnamevb))) {
-				warning(_("unable to delete old directory '%s': %s"),
+				warning(_("cannot delete old directory '%s': %s"),
 				        namenode->name, strerror(errno));
 			} else if ((namenode->flags & FNNF_OLD_CONFF)) {
 				warning(_("old conffile '%s' was an empty directory "
@@ -826,7 +837,7 @@ pkg_remove_old_files(struct pkginfo *pkg,
 						cfile->namenode->file_ondisk_id = file_ondisk_id;
 					} else {
 						if (!(errno == ENOENT || errno == ELOOP || errno == ENOTDIR))
-							ohshite(_("unable to stat other new file '%s'"),
+							ohshite(_("cannot stat other new file '%s'"),
 							        cfile->namenode->name);
 						cfile->namenode->file_ondisk_id = &empty_ondisk_id;
 						continue;
@@ -881,7 +892,7 @@ pkg_remove_old_files(struct pkginfo *pkg,
 			trig_path_activate(usenode, pkg);
 
 			if (secure_unlink_statted(varbuf_str(&fnamevb), &oldfs)) {
-				warning(_("unable to securely remove old file '%s': %s"),
+				warning(_("cannot securely remove old file '%s': %s"),
 				        namenode->name, strerror(errno));
 			}
 		} /* !S_ISDIR */
@@ -1213,7 +1224,7 @@ pkg_remove_files_from_others(struct pkginfo *pkg,
 			/* If !files_list_valid then it's one of the
 			 * disappeared packages above or we have already
 			 * updated the files list file, and we don't bother
-			 * with it here, clearly. */
+			 * with it here. */
 			if (!otherpkg->files_list_valid)
 				continue;
 
@@ -1290,8 +1301,7 @@ process_archive(const char *filename)
 	struct fsys_namenode_queue newconffiles, newfiles_queue;
 	struct stat stab;
 
-	cleanup_pkg_failed = 0;
-	cleanup_conflictor_failed = 0;
+	clear_cleanup_state();
 
 	pfilename = summarize_filename(filename);
 
@@ -1317,7 +1327,7 @@ process_archive(const char *filename)
 	if (pid == 0) {
 		cidirrest[-1] = '\0';
 		execlp(BACKEND, BACKEND, "--control", filename, cidir, NULL);
-		ohshite(_("unable to execute %s (%s)"),
+		ohshite(_("cannot execute %s (%s)"),
 		        _("package metadata files extraction"), BACKEND);
 	}
 	subproc_reap(pid, BACKEND " --control", 0);
@@ -1542,7 +1552,7 @@ process_archive(const char *filename)
 	 * There are several possibilities:
 	 *
 	 * + We are trying to install a non-directory ...
-	 *  - It doesn't exist. In this case we simply extract it.
+	 *  - It doesn't exist. In this case we extract it.
 	 *  - It is a plain file, device, symlink, &c. We do an ‘atomic
 	 *    overwrite’ using link() and rename(), but leave a backup copy.
 	 *    Later, when we delete the backup, we remove it from any other
@@ -1594,9 +1604,9 @@ process_archive(const char *filename)
 	 *    it's a plain file, device, pipe, &c, or a symlink to one, or a
 	 *    dangling symlink). We delete it.
 	 *
-	 * The removed packages' list becomes empty (of course, the new
-	 * version of the package we're installing will have a new list,
-	 * which replaces the old version's list).
+	 * The removed packages' list becomes empty (the new version of the
+	 * package we're installing will have a new list, which replaces the
+	 * old version's list).
 	 *
 	 * If at any stage we remove a file from a package's list, and the
 	 * package isn't one we're already processing, and the package's
@@ -1619,7 +1629,7 @@ process_archive(const char *filename)
 		close(p1[0]);
 		close(p1[1]);
 		execlp(BACKEND, BACKEND, "--fsys-tarfile", filename, NULL);
-		ohshite(_("unable to execute %s (%s)"),
+		ohshite(_("cannot execute %s (%s)"),
 		        _("package filesystem archive extraction"), BACKEND);
 	}
 	close(p1[1]);
@@ -1767,7 +1777,7 @@ process_archive(const char *filename)
 	/* Right, the package we've unpacked is now in a reasonable state.
 	 * The only thing that we have left to do with it is remove
 	 * backup files, and we can leave the user to fix that if and when
-	 * it happens (we leave the reinstall required flag, of course). */
+	 * it happens (we leave the reinstall required flag). */
 	pkg_set_status(pkg, PKG_STAT_UNPACKED);
 	modstatdb_note(pkg);
 

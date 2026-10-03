@@ -27,6 +27,7 @@ use File::Find;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Lock;
 use Dpkg::Arch qw(get_host_arch debarch_eq debarch_is debarch_list_parse);
@@ -61,37 +62,79 @@ my $substvars = Dpkg::Substvars->new();
 my $substvars_loaded = 0;
 
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...]')
-    . "\n\n" . g_(
-'Options:
-  -p<package>              print control file for package.
-  -c<control-file>         get control info from this file.
-  -l<changelog-file>       get per-version info from this file.
-  -F<changelog-format>     force changelog format.
-  -v<force-version>        set version of binary package.
-  -f<files-list-file>      write files here instead of debian/files.
-  -P<package-build-dir>    temporary build directory instead of debian/tmp.
-  -n<filename>             assume the package filename will be <filename>.
-  -O[<file>]               write to stdout (or <file>), not .../DEBIAN/control.
-  -is, -ip, -isp, -ips     deprecated, ignored for compatibility.
-  -D<field>=<value>        override or add a field and value.
-  -U<field>                remove a field.
-  -V<name>=<value>         set a substitution variable.
-  -T<substvars-file>       read variables here, not debian/substvars.
-  -?, --help               show this help message.
-      --version            show the version.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -p<package>\n" .
+"          Generate control file for package.\n" .
+    ''));
+    print_option(g_(
+"  -v<force-version>\n" .
+"          Set version of binary package.\n" .
+    ''));
+    print_option(g_(
+"  -P<package-build-dir>\n" .
+"          Set temporary build directory to use.\n" .
+    ''));
+    print_option_def('debian/tmp');
+    print_option(g_(
+"  -c<control-file>\n" .
+"          Get control information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -l<changelog-file>\n" .
+"          Get per-version changelog information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -F<changelog-format>\n" .
+"          Force changelog format.\n" .
+    ''));
+    print_option(g_(
+"  -f<files-list-file>\n" .
+"          Write built artifact entry to this file.\n" .
+    ''));
+    print_option_def('debian/files');
+    print_option(g_(
+"  -n<filename>\n" .
+"          Assume the package filename will be <filename>.\n" .
+    ''));
+    print_option(g_(
+"  -T<substvars-file>\n" .
+"          Read substitution variables from this file.\n" .
+    ''));
+    print_option_def('debian/substvars');
+    print_option(g_(
+"  -V<name>=<value>\n" .
+"          Set a substitution variable.\n" .
+    ''));
+    print_option(g_(
+"  -D<field>=<value>\n" .
+"          Override or add a field and value.\n" .
+    ''));
+    print_option(g_(
+"  -U<field>\n" .
+"          Remove a field.\n" .
+    ''));
+    print_option(g_(
+"  -O[<file>]\n" .
+"          Write to stdout (or <file>).\n" .
+    ''));
+    print_option_def(g_('<package-build-dir>/DEBIAN/control'));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 while (@ARGV) {
@@ -105,7 +148,7 @@ while (@ARGV) {
     } elsif (m/^-l/p) {
         $changelogfile = ${^POSTMATCH};
     } elsif (m/^-P/p) {
-        $packagebuilddir = ${^POSTMATCH};
+        $packagebuilddir = parse_option_dir('-P', ${^POSTMATCH});
     } elsif (m/^-f/p) {
         $fileslistfile = ${^POSTMATCH};
     } elsif (m/^-v(.+)$/) {
@@ -133,7 +176,7 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } else {
         usageerr(g_("unknown option '%s'"), $_);
@@ -345,11 +388,18 @@ my $pkg_type = $pkg->{'Package-Type'} ||
 
 if ($pkg_type eq 'udeb') {
     delete $fields->{'Package-Type'};
+    # Inherited automatically.
     delete $fields->{'Homepage'};
+    # Specified explicitly.
+    foreach my $f (qw(Multi-Arch)) {
+        warning(g_("package '%s' (type %s) contains irrelevant field %s"),
+                $oppackage, $pkg_type, $f)
+            if delete $fields->{$f};
+    }
 } else {
     for my $f (qw(Subarchitecture Kernel-Version Installer-Menu-Item)) {
-        warning(g_("%s package '%s' with udeb specific field %s"),
-                $pkg_type, $oppackage, $f)
+        warning(g_("package '%s' (type %s) with udeb specific field %s"),
+                $oppackage, $pkg_type, $f)
             if defined($fields->{$f});
     }
 }
@@ -455,7 +505,7 @@ if ($stdout) {
     $dist->save("$fileslistfile.new");
 
     rename "$fileslistfile.new", $fileslistfile
-        or syserr(g_('install new files list file'));
+        or syserr(g_('cannot install new files list file'));
 
     # Release the lock.
     close $lockfh or syserr(g_('cannot close %s'), $lockfile);

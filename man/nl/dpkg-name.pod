@@ -42,7 +42,7 @@ Bestaande bestanden zullen overschreven worden als ze dezelfde naam hebben als d
 
 =item B<-s>, B<--subdir> [I<map>]
 
-Bestanden zullen naar een onderliggende map verplaatst worden. Indien de als argument opgegeven map bestaat, zullen de bestanden naar die map verplaatst worden, anders wordt de naam van de doelmap geëxtraheerd uit het sectieveld uit het controlegedeelte van het pakket. De doelmap zal «unstable/binary-I<architectuur>/I<sectie>» zijn. Indien de sectie niet gevonden wordt in het controlebestand, dan wordt uitgegaan van B<no-section>. In dat geval en ook voor de secties B<non-free> en B<contrib> is de doelmap «I<sectie>/binary-I<architectuur>». Het veld sectie is niet verplicht, zodat veel pakketten terechtkomen in het gebied B<no-section>.
+Files will be moved into a subdirectory.  If the directory given as argument exists the files will be moved into that directory otherwise the name of the target directory is extracted from the section field in the control part of the package.  The target directory will be «unstable/binary-I<architecture>/I<section>».  If the section is not found in the control, then B<no-section> is assumed, and in this case, as well as for sections B<contrib>, B<non-free-firmware> and B<non-free> the target directory is «I<section>/binary-I<architecture>».  The section field is not required so a lot of packages will find their way to the B<no-section> area.
 
 B<Waarschuwing>: Gebruik deze optie met zorg, ze werkt rommelig.
 
@@ -72,11 +72,15 @@ Stelt de computerarchitectuur in. Dit heeft invloed op de architectuurnaam die w
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -108,5 +112,5 @@ Dit kan gebruikt worden bij het bouwen van nieuwe pakketten.
 
 =head1 ZIE OOK
 
-L<deb(5)>, L<deb-control(5)>, L<dpkg(1)>, L<dpkg-deb(1)>, L<find(1)>, L<xargs(1)>.
+L<deb(5)>, L<deb-control(5)>, L<dpkg(1)>, L<dpkg-deb(1)>.
 

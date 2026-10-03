@@ -14,6 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 set -e
+
 vardir="$1"
 method=$2
 option=$3
@@ -33,9 +34,10 @@ if ls -d "$tp.?" >/dev/null 2>&1; then
   rm $tp.?
 fi
 
-yesno () {
+yesno()
+{
   while true; do
-    echo -n "$2 [$1]  "
+    echo -n "$2 [$1] "
     read response
     if [ -z "$response" ]; then
       response="$1"
@@ -53,7 +55,8 @@ yesno () {
   done
 }
 
-outputparam () {
+outputparam()
+{
   echo "$2" | sed -e "s/'/'\\\\''/; s/^/$1='/; s/$/'/" >&3
 }
 
@@ -90,7 +93,7 @@ fi
 
 while true; do
   echo \
-"In order to make it easy to find the relevant files, it is preferred
+"To make it easy to find the relevant files, it is preferred
 to install from a straightforward copy of the Debian distribution.
 To use this, it is required to know where the top level of that copy of
 the distribution is (eg. 'debian/dists/stable') - this directory usually
@@ -124,7 +127,7 @@ since '$p_hierbase/main/binary-$iarch' doesn't seem to exist."
     fi
   fi
   echo -n \
-"Distribution top level ? [$defhierbase]  "
+"Distribution top level ? [$defhierbase] "
   read response
   if [ -z "$response" ]; then
     response="$defhierbase"
@@ -151,7 +154,8 @@ case "$hierbase" in
   ;;
 esac
 
-check_binary () {
+check_binary()
+{
   # args: area-in-messages directory
   # eg:   main             "$hierbase/main/binary-$iarch"
   # checks whether $2 contains *.deb
@@ -161,15 +165,16 @@ check_binary () {
   fi
 
   if ! ( find -L "$mountpoint$2/" -name '*.deb' -print \
-       | head -n 1 ) 2>/dev/null  | grep . >/dev/null; then
-    echo "'$2' does not contain any *.deb packages.  Hmmpf."
+       | head -n 1 ) 2>/dev/null | grep . >/dev/null; then
+    echo "'$2' does not contain any *.deb packages. Hmmpf."
     return
   fi
   echo "Using '$2' as $1 binary dir."
   this_binary="$2"
 }
 
-find_area () {
+find_area()
+{
   # args: area-in-messages area-in-vars subdirectory-in-hier
   #       last-time-binary last-time-packages
   # eg:   main             main         main
@@ -207,7 +212,7 @@ Say 'none' if this area is not available."
     fi
     echo -n \
 "Enter _$1_ binary dir. [$4]
- ?  "
+ ? "
     read response
     if [ -z "$response" ] && [ -n "$defaultbinary" ]; then
       response="$defaultbinary"
@@ -248,7 +253,7 @@ you wish to install.
 
 Where is the _$1_ 'Packages' file (if none is available, say 'none')
 [$5]
- ?  "
+ ? "
       read response
       if [ -z "$response" ] && [ -n "$5" ]; then
         response="$5"
@@ -283,7 +288,7 @@ find_area non-free nf non-free "$p_nf_binary" "$p_nf_packages"
 find_area local lcl local "$p_lcl_binary" "$p_lcl_packages"
 
 echo -n '
-Hit RETURN to continue.  '
+Press <Enter> to continue. '
 read response
 
 exec 3>shvar.$option.new

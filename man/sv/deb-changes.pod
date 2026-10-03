@@ -76,9 +76,13 @@ Hur brådskande insändningen är. De för närvarande kända värdena, sorteran
 
 Ska vara på formatet ”Joe Bloggs E<lt>jbloggs@example.orgE<gt>” och är normalt sett den person som skapat paketet, till skillnad från författaren av den programvara som paketerades.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Changed-By:> I<fullt-namn-epost>
 
 Ska vara på formatet ”Joe Bloggs E<lt>jbloggs@example.orgE<gt>” och är normalt sett den person som förberett paketändringarna för denna utgåva.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> (rekommenderas)
 
@@ -96,7 +100,7 @@ Det här fältet anger att insändningen är bestående av enbart binärer från
 
 =item B<Built-For-Profiles:> I<profillista>
 
-Det här fältet anger en blankstegsavdelad lista över byggprofiler som insändningen byggdes med.
+This field specifies a whitespace separated list of build profile names (without exclamation marks)  that this upload was built with.
 
 =item B<Changes:> (krävs)
 
@@ -142,7 +146,7 @@ Fältet B<Files> är inte konsistent med de andra B<Checksums>-fälten. Fälten 
 
 =head1 SE ÄVEN
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>.
 
 
 =head1 ÖVERSÄTTNING

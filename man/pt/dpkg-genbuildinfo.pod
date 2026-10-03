@@ -88,7 +88,9 @@ Procura pelos ficheiros a serem enviados em I<upload-files-dir> em vez de B<..> 
 
 Por predefinição, o campo B<Build-Kernel-Version> não será escrito.
 
-Especifica que esta opção (desde dpkg 1.19.0) deve sempre escrever um campo B<Build-Kernel-Version> quando gera o B<.buildinfo>.
+Specify this option to always write a B<Build-Kernel-Version> field when generating the B<.buildinfo>.
+
+Supported since dpkg 1.19.0.
 
 =item B<--always-include-path>
 
@@ -122,11 +124,13 @@ Mostra a versão e termina.
 
 =item B<DEB_BUILD_OPTIONS>
 
-Esta variável pode ser usada para activar e desactivar várias funcionalidades que afectam a informação incluída no ficheiro .buildinfo, via opção B<buildinfo> (desde dpkg 1.18.19). Esta opção contém uma lista separada por vírgulas de funcionalidades, prefixadas com os modificadores ‘B<+>’ ou ‘B<->’, para denotar se se os deve activar ou desactivar. A funcionalidade especial “B<all>” pode ser usada para activar ou desactivar todas as outras funcionalidades. A funcionalidade "B<path>” controla se se deve incluir incondicionalmente o campo B<Build-Path>.
+This variable can be used to enable or disable various features that affect the information included in the .buildinfo file, via the B<buildinfo> option.  This option contains a comma-separated list of features, prefixed with the ‘B<+>’ or ‘B<->’ modifiers, to denote whether to enable or disable them.  The special feature “B<all>” can be used to enable or disable all other features.  The feature “B<path>” controls whether to unconditionally include the B<Build-Path> field.
+
+Supported since dpkg 1.18.19.
 
 =item B<DEB_BUILD_PROFILES>
 
-Se definido, será usado como perfil(es) de compilação activos para usar quando se gera o ficheiro .buildinfo.  É uma lista separada por espaços de nomes de perfis. 
+If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DEB_BUILD_ARCH>
 
@@ -138,11 +142,15 @@ Define a arquitectura anfitriã. Isto afecta o nome de ficheiro usado para o fic
 
 =item B<DPKG_COLORS>
 
-Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.19.0). Os valores aceites são B<0> e B<1> (predefinição).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
+
+Supported since dpkg 1.19.0.
 
 =back
 

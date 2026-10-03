@@ -25,6 +25,7 @@ use File::Find;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Control;
 use Dpkg::Version;
@@ -49,7 +50,7 @@ my %options = (
         exit 0;
     },
     version         => sub {
-        version();
+        print_version();
         exit 0;
     },
     type            => undef,
@@ -73,26 +74,52 @@ my @options_spec = (
     'medium|M=s',
 );
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-}
-
 sub usage {
     printf g_(
-"Usage: %s [<option>...] <binary-path> [<override-file> [<path-prefix>]] > Packages
+"Usage: %s [<option>...] <binary-path> [<override-file> [<path-prefix>]] > Packages\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
 
-Options:
-  -t, --type <type>        scan for <type> packages (default is 'deb').
-  -a, --arch <arch>        architecture to scan for (with implicit arch all).
-      --no-implicit-arch   do not add implicit architecture all to --arch.
-  -h, --hash <hash-list>   only generate hashes for the specified list.
-  -m, --multiversion       allow multiple versions of a single package.
-  -e, --extra-override <file>
-                           use extra override file.
-  -M, --medium <medium>    add X-Medium field for dselect media access method
-  -?, --help               show this help message.
-      --version            show the version.
-"), $Dpkg::PROGNAME;
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -t, --type <type>\n" .
+"          Scan for <type> packages.\n" .
+    ''));
+    print_option_def('deb');
+    print_option(g_(
+"  -a, --arch <arch>\n" .
+"          Scan for <arch> packages (with implicit architecture 'all').\n" .
+    ''));
+    print_option(g_(
+"      --no-implicit-arch\n" .
+"          Do not add implicit architecture 'all' to --arch.\n" .
+    ''));
+    print_option(g_(
+"  -h, --hash <hash-list>\n" .
+"          Only generate hashes for the specified hashes list.\n" .
+    ''));
+    print_option(g_(
+"  -m, --multiversion\n" .
+"          Allow multiple versions of a single package.\n" .
+    ''));
+    print_option(g_(
+"  -e, --extra-override <file>\n" .
+"          Use extra override file.\n" .
+    ''));
+    print_option(g_(
+"  -M, --medium <medium>\n" .
+"          Add 'X-Medium' field for dselect media access method.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 sub load_override
@@ -172,14 +199,14 @@ sub process_deb {
 
     my $fields = Dpkg::Control->new(type => CTRL_REPO_PKG);
 
-    open my $output_fh, '-|', 'dpkg-deb', '-I', $fn, 'control'
-        or syserr(g_('cannot fork for %s'), 'dpkg-deb');
+    my @cmd = ('dpkg-deb', '--info', $fn, 'control');
+    open my $output_fh, '-|', @cmd
+        or syserr(g_('cannot create child process for %s'), "@cmd");
     $fields->parse($output_fh, $fn)
         or error(g_('cannot parse control information from %s'), $fn);
     close $output_fh;
     if ($?) {
-        warning(g_("'dpkg-deb -I %s control' exited with %d, skipping package"),
-                $fn, $?);
+        warning(g_("'%s' exited with %d, skipping package"), "@cmd", $?);
         return;
     }
 
@@ -292,11 +319,13 @@ for my $p (sort keys %packages) {
         push @missingover, $p;
     }
     for my $package (sort { $a->{Version} cmp $b->{Version} } @{$packages{$p}}) {
-        print("$package\n") or syserr(g_('failed when writing stdout'));
+        print("$package\n")
+            or syserr(g_('cannot write to %s'), g_('<standard output>'));
         $records_written++;
     }
 }
-close(STDOUT) or syserr(g_('cannot close stdout'));
+close(STDOUT)
+    or syserr(g_('cannot close %s'), g_('<standard output>'));
 
 if (@multi_instances) {
     warning(g_('Packages with multiple instances but no --multiversion specified:'));

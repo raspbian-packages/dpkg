@@ -24,6 +24,7 @@ use Fcntl;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Lock;
 use Dpkg::Dist::Files;
@@ -32,25 +33,28 @@ textdomain('dpkg-dev');
 
 my $fileslistfile = 'debian/files';
 
-
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] <filename> <section> <priority>
+"Usage: %s [<option>...] <filename> <section> <priority>\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
 
-Options:
-  -f<files-list-file>      write files here instead of debian/files.
-  -?, --help               show this help message.
-      --version            show the version.
-'), $Dpkg::PROGNAME;
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -f<files-list-file>\n" .
+"          Write built artifact entry to this file.\n" .
+    ''));
+    print_option_def('debian/files');
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 while (@ARGV && $ARGV[0] =~ m/^-/) {
@@ -61,7 +65,7 @@ while (@ARGV && $ARGV[0] =~ m/^-/) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } elsif (m/^--$/) {
         last;
@@ -90,7 +94,7 @@ $dist->add_file($filename, $section, $priority);
 $dist->save("$fileslistfile.new");
 
 rename("$fileslistfile.new", $fileslistfile)
-    or syserr(g_('install new files list file'));
+    or syserr(g_('cannot install new files list file'));
 
 # Release the lock.
 close($lockfh) or syserr(g_('cannot close %s'), $lockfile);

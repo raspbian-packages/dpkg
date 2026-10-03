@@ -34,6 +34,8 @@ use v5.36;
 
 use Errno qw(ENOENT);
 use Cwd;
+use Fcntl qw(:mode);
+use File::stat ();
 use File::Basename;
 use File::Temp;
 use File::Spec;
@@ -52,7 +54,9 @@ use Dpkg::Vendor qw(run_vendor_hook);
 
 use parent qw(Dpkg::Source::Package);
 
-our $CURRENT_MINOR_VERSION = '0';
+sub CURRENT_MINOR_VERSION {
+    '0';
+}
 
 sub init_options {
     my $self = shift;
@@ -90,55 +94,55 @@ sub init_options {
 my @module_cmdline = (
     {
         name => '-sa',
-        help => N_('auto select original source'),
+        help => N_('Auto select original source.'),
         when => 'build',
     }, {
         name => '-sk',
-        help => N_('use packed original source (unpack and keep)'),
+        help => N_('Use packed original source (unpack and keep).'),
         when => 'build',
     }, {
         name => '-sp',
-        help => N_('use packed original source (unpack and remove)'),
+        help => N_('Use packed original source (unpack and remove).'),
         when => 'build',
     }, {
         name => '-su',
-        help => N_('use unpacked original source (pack and keep)'),
+        help => N_('Use unpacked original source (pack and keep).'),
         when => 'build',
     }, {
         name => '-sr',
-        help => N_('use unpacked original source (pack and remove)'),
+        help => N_('Use unpacked original source (pack and remove).'),
         when => 'build',
     }, {
         name => '-ss',
-        help => N_('trust packed and unpacked original sources are same'),
+        help => N_('Trust packed and unpacked original sources are same.'),
         when => 'build',
     }, {
         name => '-sn',
-        help => N_('there is no diff, do main tarfile only'),
+        help => N_('There is no diff, do main tarfile only.'),
         when => 'build',
     }, {
         name => '-sA, -sK, -sP, -sU, -sR',
-        help => N_('like -sa, -sk, -sp, -su, -sr but may overwrite'),
+        help => N_('Like -sa, -sk, -sp, -su, -sr but may overwrite.'),
         when => 'build',
     }, {
         name => '--abort-on-upstream-changes',
-        help => N_('abort if generated diff has upstream files changes'),
+        help => N_('Abort if generated diff has upstream files changes.'),
         when => 'build',
     }, {
         name => '-sp',
-        help => N_('leave original source packed in current directory'),
+        help => N_('Leave original source packed in current directory.'),
         when => 'extract',
     }, {
         name => '-su',
-        help => N_('do not copy original source to current directory'),
+        help => N_('Do not copy original source to current directory.'),
         when => 'extract',
     }, {
         name => '-sn',
-        help => N_('unpack original source tree too'),
+        help => N_('Unpack original source tree too.'),
         when => 'extract',
     }, {
         name => '--skip-debianization',
-        help => N_('do not apply debian diff to upstream sources'),
+        help => N_('Do not apply debian diff to upstream sources.'),
         when => 'extract',
     },
 );
@@ -235,7 +239,7 @@ sub do_extract {
         }
         if (-e $expectprefix) {
             rename($expectprefix, "$newdirectory.tmp-keep")
-                or syserr(g_("unable to rename '%s' to '%s'"), $expectprefix,
+                or syserr(g_("cannot rename '%s' to '%s'"), $expectprefix,
                           "$newdirectory.tmp-keep");
         }
 
@@ -248,20 +252,20 @@ sub do_extract {
         if ($sourcestyle =~ /u/) {
             # -su: keep .orig directory unpacked.
             if (-e "$newdirectory.tmp-keep") {
-                error(g_('unable to keep orig directory (already exists)'));
+                error(g_('cannot keep orig directory (already exists)'));
             }
             system('cp', '-RPp', '--', $expectprefix, "$newdirectory.tmp-keep");
-            subprocerr("cp $expectprefix to $newdirectory.tmp-keep") if $?;
+            subprocerr("cp $expectprefix $newdirectory.tmp-keep") if $?;
         }
 
         rename($expectprefix, $newdirectory)
-            or syserr(g_('failed to rename newly-extracted %s to %s'),
+            or syserr(g_('cannot rename newly-extracted %s to %s'),
                       $expectprefix, $newdirectory);
 
         # Rename the copied .orig directory.
         if (-e "$newdirectory.tmp-keep") {
             rename("$newdirectory.tmp-keep", $expectprefix)
-                or syserr(g_('failed to rename saved %s to %s'),
+                or syserr(g_('cannot rename saved %s to %s'),
                           "$newdirectory.tmp-keep", $expectprefix);
         }
     }
@@ -283,11 +287,11 @@ sub do_extract {
         # make sure debian/rules is executable if it exists. Otherwise the
         # debian-rules build driver will take care of the warnings.
         my $rules = File::Spec->catfile($newdirectory, 'debian', 'rules');
-        my @s = lstat $rules;
-        if (not scalar @s) {
+        my $st = File::stat::lstat($rules);
+        if (! defined $st) {
             syserr(g_('cannot stat %s'), $rules) if $! != ENOENT;
-        } elsif (-f _) {
-            chmod $s[2] | 0o111, $rules
+        } elsif (-f $st) {
+            chmod S_IMODE($st->mode) | 0o111, $rules
                 or syserr(g_('cannot make %s executable'), $rules);
         } else {
             warning(g_('%s is not a plain file'), $rules);
@@ -392,7 +396,7 @@ sub do_build {
             # ".orig" directory.
             $sourcestyle =~ y/aA/rR/;
         } elsif ($! != ENOENT) {
-            syserr(g_("unable to stat putative unpacked orig '%s'"), $origdir);
+            syserr(g_("cannot stat putative unpacked orig '%s'"), $origdir);
         } else {
             # Native "tar.gz".
             $sourcestyle =~ y/aA/nn/;
@@ -455,7 +459,7 @@ sub do_build {
                          'giving up; use -sU or -sR to override'), $tarname);
             }
         } elsif ($! != ENOENT) {
-            syserr(g_("unable to check for existence of '%s'"), $tarname);
+            syserr(g_("cannot check for existence of '%s'"), $tarname);
         }
 
         info(g_('building %s in %s'),
@@ -478,10 +482,10 @@ sub do_build {
         $tar->add_directory($tardirname);
         $tar->finish();
         rename($newtar, $tarname)
-            or syserr(g_("unable to rename '%s' (newly created) to '%s'"),
+            or syserr(g_("cannot rename '%s' (newly created) to '%s'"),
                       $newtar, $tarname);
         chmod(0o666 &~ umask(), $tarname)
-            or syserr(g_("unable to change permission of '%s'"), $tarname);
+            or syserr(g_("cannot change permission of '%s'"), $tarname);
     } else {
         info(g_('building %s using existing %s'),
              $sourcepackage, $tarname);
@@ -514,7 +518,7 @@ sub do_build {
             }
             erasedir($origdir);
         } elsif ($! != ENOENT) {
-            syserr(g_("unable to check for existence of orig directory '%s'"),
+            syserr(g_("cannot check for existence of orig directory '%s'"),
                     $origdir);
         }
 
@@ -566,10 +570,10 @@ sub do_build {
         }
 
         rename($newdiffgz, $diffname)
-            or syserr(g_("unable to rename '%s' (newly created) to '%s'"),
+            or syserr(g_("cannot rename '%s' (newly created) to '%s'"),
                       $newdiffgz, $diffname);
         chmod(0o666 &~ umask(), $diffname)
-            or syserr(g_("unable to change permission of '%s'"), $diffname);
+            or syserr(g_("cannot change permission of '%s'"), $diffname);
 
         $self->add_file($diffname);
     }

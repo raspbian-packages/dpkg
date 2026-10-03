@@ -42,11 +42,13 @@ Sortiert die Index-Absätze nicht. Normalerweise werden sie nach Quellpaketnamen
 
 =item B<-e>, B<--extra-override> I<Datei>
 
-Durchsucht I<Datei>, um zusätzliche Overrides zu finden (seit Dpkg 1.15.4; die Datei kann seit Dpkg 1.15.5 komprimiert sein). Lesen Sie L<deb-extra-override(5)> für weitere Informationen über deren Format.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
+
+Supported since dpkg 1.15.4.
 
 =item B<-s>, B<--source-override> I<Datei>
 
-Verwenden Sie I<Datei> als Quell-Override-Datei (die Datei kann seit Dpkg 1.15.5 komprimiert sein). Die Standardeinstellung ist der Name der Override-Datei, die Sie angegeben haben, um I<.src> ergänzt.
+Use I<file> as the source override file.  The file can be compressed (since dpkg 1.15.5).  The default is the name of the override file you specified with I<.src> appended.
 
 Die Quell-Override-Datei hat ein anderes Format als die Binär-Override-Datei.Sie enthält nur zwei, durch Leerraumzeichen separierte Felder, der erste ist der Quellpaketname und der zweite die Sektion. Leerzeilen und Kommentarzeilen werden in normaler Art und Weise ignoriert. Falls ein Paket in beiden Dateien auftaucht, dann bekommt die Quell-Override Vorrang für die Einstellung der Sektion.
 
@@ -70,11 +72,15 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 

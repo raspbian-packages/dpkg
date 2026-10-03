@@ -103,7 +103,7 @@ read_info(struct dpkg_ar *ar, struct partinfo *ir)
 	rc = fd_read(ar->fd, magicbuf, sizeof(magicbuf));
 	if (rc != sizeof(magicbuf)) {
 		if (rc < 0)
-			ohshite(_("error reading %s"), ar->name);
+			ohshite(_("cannot read '%s'"), ar->name);
 		else
 			return NULL;
 	}
@@ -123,14 +123,14 @@ read_info(struct dpkg_ar *ar, struct partinfo *ir)
 	if (dpkg_ar_member_is_invalid(&arh))
 		ohshit(_("file '%s' is corrupt - bad magic at end of first header"),
 		       ar->name);
-	thisilen = dpkg_ar_member_get_size(ar, &arh);
+	thisilen = dpkg_ar_member_parse_size(ar, &arh);
 
 	varbuf_reset(&format_member);
 	varbuf_grow(&format_member, thisilen + 2);
 
 	rc = fd_read(ar->fd, format_member.buf, thisilen + (thisilen & 1));
 	if (rc != (ssize_t)(thisilen + (thisilen & 1)))
-		read_fail(rc, ar->name, _("reading header member"));
+		read_fail(rc, ar->name, _("header member"));
 	if (thisilen & 1) {
 		int c = format_member.buf[thisilen];
 
@@ -201,7 +201,7 @@ read_info(struct dpkg_ar *ar, struct partinfo *ir)
 
 	rc = fd_read(ar->fd, &arh, sizeof(arh));
 	if (rc != sizeof(arh))
-		read_fail(rc, ar->name, _("reading data part member ar header"));
+		read_fail(rc, ar->name, _("data part member ar header"));
 
 	dpkg_ar_normalize_name(&arh);
 
@@ -212,7 +212,7 @@ read_info(struct dpkg_ar *ar, struct partinfo *ir)
 		ohshit(_("file '%s' is corrupt - second member is not data member"),
 		       ar->name);
 
-	ir->thispartlen = dpkg_ar_member_get_size(ar, &arh);
+	ir->thispartlen = dpkg_ar_member_parse_size(ar, &arh);
 	ir->thispartoffset = (ir->thispartn - 1) * ir->maxpartlen;
 
 	if (ir->maxpartn != (ir->orglength + ir->maxpartlen - 1) / ir->maxpartlen)
@@ -269,7 +269,7 @@ print_info(const struct partinfo *pi)
 	         "    Part number:                    %d/%d\n"
 	         "    Part length:                    %jd bytes\n"
 	         "    Part offset:                    %jd bytes\n"
-	         "    Part file size (used portion):  %jd bytes\n\n"),
+	         "    Part file size (used portion):  %jd bytes\n"),
 	       pi->filename,
 	       pi->fmtversion.major, pi->fmtversion.minor,
 	       pi->package,
@@ -283,6 +283,10 @@ print_info(const struct partinfo *pi)
 	       (intmax_t)pi->thispartlen,
 	       (intmax_t)pi->thispartoffset,
 	       (intmax_t)pi->filesize);
+	/* FIXME: Needed to separate multiple entries, although ideally we
+	 * would only print it when we have to print multiple entries, and
+	 * not when we only print one entry. */
+	printf("\n");
 }
 
 int

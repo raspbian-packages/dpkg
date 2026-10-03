@@ -44,7 +44,7 @@ Nachdem das Upgrade des Pakets durchgeführt wurde.
 
 Falls der obige B<upgrade>-Aufruf fehlschlägt.
 
-Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<postrm> B<disappear> I<überschreibendes_Paket> I<überschreibende_Version>
 
@@ -58,13 +58,13 @@ Falls I<preinst> während B<install> fehlschlägt.
 
 Falls I<preinst> während B<install> für ein Upgrade eines entfernten Paketes fehlschlägt.
 
-Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<new-postrm> B<abort-upgrade> I<alte_Version> I<neue_Version>
 
 Falls I<preinst> während B<upgrade> fehlschlägt.
 
-Die I<neue_Version> wird erst seit Dpkg 1.18.5 übergeben.
+Support for I<new-version> since dpkg 1.18.5.
 
 =back
 

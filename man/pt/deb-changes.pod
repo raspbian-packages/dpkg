@@ -76,9 +76,13 @@ A urgência do envio. Os valores presentemente conhecidos, em ordem ascendente d
 
 Deverá estar no formato “Joe Bloggs E<lt>jbloggs@example.orgE<gt>”, e é tipicamente a pessoa que criou o pacote, e não o autor do software que foi empacotado.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Changed-By:> I<fullname-email>
 
 Deverá estar no formato “Joe Bloggs E<lt>jbloggs@example.orgE<gt>”, e é tipicamente a pessoa que preparou as alterações no pacote para este lançamento.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> (recomendado)
 
@@ -96,7 +100,7 @@ Este campo indica que o envio é uma compilação de não-maintainer apenas-bin�
 
 =item B<Built-For-Profiles:> I<profile-list>
 
-Este campo especifica uma lista de perfis de compilação separados por espaços em branco, do que com que este envio foi compilado.
+This field specifies a whitespace separated list of build profile names (without exclamation marks)  that this upload was built with.
 
 =item B<Changes:> (necessário)
 
@@ -142,7 +146,7 @@ O campo B<Files> é inconsistente com os outros campos B<Checksums>. Os campos B
 
 =head1 VEJA TAMBÉM
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>.
 
 
 =head1 TRADUÇÃO

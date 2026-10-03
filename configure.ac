@@ -107,7 +107,13 @@ DPKG_PROG_POD2MAN
 DPKG_CODE_COVERAGE
 
 # Checks for operating system services and capabilities.
-AC_SYS_LARGEFILE
+m4_ifdef([
+  AC_SYS_YEAR2038
+], [
+  AC_SYS_YEAR2038
+], [
+  AC_SYS_LARGEFILE
+])
 
 # Checks for libraries.
 DPKG_LIB_RT
@@ -185,6 +191,7 @@ DPKG_FUNC_VA_COPY
 DPKG_FUNC_C99_SNPRINTF
 DPKG_FUNC_FSYNC_DIR
 DPKG_CHECK_DECL([offsetof], [stddef.h])
+DPKG_CHECK_DECL([countof], [stdcountof.h])
 DPKG_CHECK_DECL([makedev], [sys/types.h])
 DPKG_CHECK_DECL([WCOREDUMP], [sys/wait.h])
 DPKG_CHECK_DECL([TIOCNOTTY], [sys/ioctl.h])
@@ -221,6 +228,7 @@ AC_CHECK_FUNCS([\
   getprogname \
   getexecname \
   lutimes \
+  utimensat \
   fallocate \
   posix_fallocate \
   posix_fadvise \

@@ -146,10 +146,11 @@ baselist::startdisplay()
 	    COLOR_PAIRS >= numscreenparts) {
 		int i;
 
-		printf("allocing\n");
+		debug(dbg_general, "baselist::startdisplay() color init");
 		for (i = 1; i < numscreenparts; i++) {
 			if (init_pair(i, color[i].fore, color[i].back) != OK)
-				ohshite(_("cannot allocate color pair"));
+				ohshite(_("cannot initialize color pair %d:%d"),
+				        color[i].fore, color[i].back);
 			part_attr[i] = COLOR_PAIR(i) | color[i].attr;
 		}
 	} else {
@@ -180,37 +181,37 @@ baselist::startdisplay()
 
 	titlewin = newwin(1, xmax, 0, 0);
 	if (!titlewin)
-		ohshite(_("failed to create title window"));
+		ohshite(_("cannot create '%s' window"), "title");
 	wattrset(titlewin, part_attr[title]);
 
 	whatinfowin = newwin(1, xmax, whatinfo_row, 0);
 	if (!whatinfowin)
-		ohshite(_("failed to create whatinfo window"));
+		ohshite(_("cannot create '%s' window"), "whatinfo");
 	wattrset(whatinfowin, part_attr[whatinfo]);
 
 	listpad = newpad(ymax, total_width);
 	if (!listpad)
-		ohshite(_("failed to create baselist pad"));
+		ohshite(_("cannot create '%s' screen pad"), "baselist");
 
 	colheadspad = newpad(1, total_width);
 	if (!colheadspad)
-		ohshite(_("failed to create heading pad"));
+		ohshite(_("cannot create '%s' screen pad"), "heading");
 	wattrset(colheadspad, part_attr[colheads]);
 
 	thisstatepad = newpad(1, total_width);
 	if (!thisstatepad)
-		ohshite(_("failed to create thisstate pad"));
+		ohshite(_("cannot create '%s' screen pad"), "thisstate");
 	wattrset(thisstatepad, part_attr[thisstate]);
 
 	infopad = newpad(MAX_DISPLAY_INFO, total_width);
 	if (!infopad)
-		ohshite(_("failed to create info pad"));
+		ohshite(_("cannot create '%s' screen pad"), "info");
 	wattrset(infopad, part_attr[info_body]);
 	wbkgdset(infopad, ' ' | part_attr[info_body]);
 
 	querywin = newwin(1, xmax, ymax - 1, 0);
 	if (!querywin)
-		ohshite(_("failed to create query window"));
+		ohshite(_("cannot create '%s' window"), "query");
 	wbkgdset(querywin, ' ' | part_attr[query]);
 
 	if (cursorline >= topofscreen + list_height)

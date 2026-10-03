@@ -280,6 +280,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -489,6 +490,7 @@ nobase_dist_perllib_DATA = \
 	Dpkg/Changelog/Entry/Debian.pm \
 	Dpkg/Changelog/Parse.pm \
 	Dpkg/Checksums.pm \
+	Dpkg/Color.pm \
 	Dpkg/Compression.pm \
 	Dpkg/Compression/FileHandle.pm \
 	Dpkg/Compression/Process.pm \
@@ -587,6 +589,7 @@ bin_SCRIPTS = \
 	# EOL
 
 dist_bashcompletions_DATA = \
+	completion/bash/dpkg-source \
 	# EOL
 
 dist_zshcompletions_DATA = \
@@ -597,7 +600,7 @@ dist_zshcompletions_DATA = \
 # Keep it even if empty to have man3dir correctly set
 man3_MANS = 
 man_perl_section = 3perl
-SUFFIXES = .sh .pl
+SUFFIXES = .sh .bash .pl
 subst_shell_rules = "\
 	s{^ADMINDIR=.*$$}{ADMINDIR='$(admindir)'}; \
 	s{^BACKUPSDIR=.*$$}{BACKUPSDIR='$(backupsdir)'}; \
@@ -872,7 +875,7 @@ test_data_objects = \
 all: all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .sh .pl
+.SUFFIXES: .sh .bash .pl
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(top_srcdir)/build-aux/tap.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -1353,7 +1356,7 @@ uninstall-man: uninstall-man3
 .PRECIOUS: Makefile
 
 
-.sh: Makefile
+.sh .bash: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(AM_V_GEN) $(subst_shell_filter) <$< >$@
 	$(AM_V_at) chmod +x $@
@@ -1463,11 +1466,11 @@ tap-check: $(test_data) $(test_programs) $(test_scripts)
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \
-	  CC=$(CC) \
-	  SHELL=$(SHELL) \
-	  PERL=$(PERL) \
+	  CC="$(CC)" \
+	  SHELL="$(SHELL)" \
+	  PERL="$(PERL)" \
 	  PERL_DL_NONLAZY=1 \
-	  PERL5OPT=$(TEST_COVERAGE) \
+	  PERL5OPT="$(TEST_COVERAGE)" \
 	  $(PERL) $(top_srcdir)/build-aux/test-runner \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))

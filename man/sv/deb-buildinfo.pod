@@ -124,7 +124,9 @@ På Debian och dess derivat tillåts bara byggsökvägar som börjar med I</buil
 
 =item S< >I<lista-fördärvelsesorsaker>
 
-Det här flerdelade fältet innehåller en blankstegsavdelad lista över ofullständiga orsagstaggar (bestående av alfanumeriska tecken och bindestreck) som anger varför aktuellt bygge har fördärvats (sedan dpkg 1.19.5).
+This folded field contains a space-separated list of non-exhaustive reason tags (formed by alphanumeric and dash characters) which identify why the current build has been tainted.
+
+Supported since dpkg 1.19.5.
 
 På Debian och dess derivat kan följande orsakstaggar skapas:
 

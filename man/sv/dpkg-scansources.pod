@@ -42,11 +42,13 @@ Sortera inte indexstyckena. De sorteras normalt efter namn på källkodspaketet.
 
 =item B<-e>, B<--extra-override> I<fil>
 
-Läs I<fil> för att hitta ytterligare överstyrningar (sedan dpkg 1.15.4; filen kan vara komprimerad sedan dpkg 1.15.5). Se L<deb-extra-override(5)> för mer information om dess format.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
+
+Supported since dpkg 1.15.4.
 
 =item B<-s>, B<--source-override> I<fil>
 
-Använd I<fil> som överstyrningsfil för källkoden (filen kan vara komprimerad sedan dpkg 1.15.5). Standardnamnet är namnet på den överstyrningsfil du angav, med tillägget I<.src>.
+Use I<file> as the source override file.  The file can be compressed (since dpkg 1.15.5).  The default is the name of the override file you specified with I<.src> appended.
 
 Källkodsöverstyrningsfilen har ett annat format än binäröverstyrningsfilen. Den innehåller endast två fält avdelade med blanktecken, där det första är namnet på källkodspaketet och det andra är sektionen. Tomma rader och kommentarer ignoreras på vanligt sätt. Om ett paket specificeras i båda filerna kommer källkodsöverstyrningsfilen först för att välja sektion.
 
@@ -70,11 +72,15 @@ Visar version och avslutar.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.19.0). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Supported since dpkg 1.19.0.
 
 =back
 

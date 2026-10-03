@@ -28,7 +28,7 @@ B<Observera>: Om du vill läsa den skapade Packages-filen med L<apt(8)> måste d
 
 I<binärsökväg> är namnet på trädet med binärpaketen som ska hanteras (till exempel B<contrib/binary-i386>). Det är bäst att skapa den relativt till roten på Debianarkivet eftersom alla Filename-fält i den skapade Packages-filen kommer inledas med strängen.
 
-I<överstyrningsfil> är namnet på en fil som ska läsas in och som innehåller information om hur paketet passar in i distributionen (filen kan vara komprimerad sedan dpkg 1.15.5); se L<deb-override(5)>.
+I<override-file> is the name of a file to read which contains information about how the package fits into the distribution.  The file can be compressed (since dpkg 1.15.5).  See L<deb-override(5)>.
 
 I<sökvägsprefix> är en frivillig sträng som läggs till i början i filnamnsfältet.
 
@@ -44,21 +44,23 @@ Sök efter *.I<typ>-paket, i stället för *.deb.
 
 =item B<-e>, B<--extra-override> I<fil>
 
-Läs I<fil> för att hitta ytterligare överstyrningar (filen kan vara komprimerad sedan dpkg 1.15.5). Se L<deb-extra-override(5)> för mer information om dess format.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
 
 =item B<-a>, B<--arch> I<arkitektur>
 
-Use a pattern consisting of I<*_all.deb> and I<*_arch.deb>, or I<*_arch.deb> if B<--no-implicit-arch> has been specified, instead of scanning for all debs.
+Använd ett mönster som består av I<*_all.deb> och I<*_arkitektur.deb>, eller I<*_arch.deb> om B<--no-implicit-arch> har angivits, istället för att söka efter alla deb-arkiv.
 
 =item B<--no-implicit-arch>
 
-Do not implicitly add architecture B<all> binary packages when specifying B<--arch>.
+Lägg inte implicit till binärpaket med arkitekturen B<all> när B<--arch> anges.
 
-Supported since dpkg 1.23.6.
+Stöds sedan dpkg 1.23.6.
 
 =item B<-h>, B<--hash> I<hashlista>
 
-Skapar bara filhashar för den angivna kommaavdelade listan (sedan dpkg 1.17.14). Förval är att generera alla hashar som stöds. Värden som stöds är: B<md5>, B<sha1>, B<sha256>.
+Only generate file hashes for the comma-specified list specified.  The default is to generate all currently supported hashes.  Supported values: B<md5>, B<sha1>, B<sha256>.
+
+Supported since dpkg 1.17.14.
 
 =item B<-m>, B<--multiversion>
 
@@ -66,7 +68,11 @@ Ta med alla paket som hittas i utdata.
 
 =item B<-M>, B<--medium> I<idsträng>
 
-Lägg till ett B<X-Medium>-fält som innehåller värdet I<idsträng> (sedan dpkg 1.15.5). Fältet är nödvändigt om du vill generera B<Packages.cd>-filer som kan användas med B<dselect>:s B<media>-åtkomstmetod.
+Add an B<X-Medium> field containing the value I<id-string>.
+
+This field is required if you want to generate B<Packages.cd> files for use by the B<media> access method of B<dselect>.
+
+Supported since dpkg 1.15.5.
 
 =item B<-?>, B<--help>
 
@@ -84,11 +90,15 @@ Visar version och avslutar.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.19.0). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Supported since dpkg 1.19.0.
 
 =back
 

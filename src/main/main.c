@@ -81,99 +81,305 @@ printversion(const char *const *argv)
 static int
 usage(const char *const *argv)
 {
+	char *def_force;
+
 	printf(_(
 "Usage: %s [<option>...] <command>\n"
-"\n"), DPKG);
+	), DPKG);
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  -i|--install       <.deb file name>... | -R|--recursive <directory>...\n"
-"  --unpack           <.deb file name>... | -R|--recursive <directory>...\n"
-"  -A|--record-avail  <.deb file name>... | -R|--recursive <directory>...\n"
-"  --configure        <package>... | -a|--pending\n"
-"  --triggers-only    <package>... | -a|--pending\n"
-"  -r|--remove        <package>... | -a|--pending\n"
-"  -P|--purge         <package>... | -a|--pending\n"
-"  -V|--verify [<package>...]       Verify the integrity of package(s).\n"
-"  --get-selections [<pattern>...]  Get list of selections to stdout.\n"
-"  --set-selections                 Set package selections from stdin.\n"
-"  --clear-selections               Deselect every non-essential package.\n"
-"  --update-avail [<Packages-file>] Replace available packages info.\n"
-"  --merge-avail [<Packages-file>]  Merge with info from file.\n"
-"  --clear-avail                    Erase existing available info.\n"
-"  -s|--status [<package>...]       Display package status details.\n"
-"  -p|--print-avail [<package>...]  Display available version details.\n"
-"  -L|--listfiles <package>...      List files 'owned' by package(s).\n"
-"  -l|--list [<pattern>...]         List packages concisely.\n"
-"  -S|--search <pattern>...         Find package(s) owning file(s).\n"
-"  -C|--audit [<package>...]        Check for broken package(s).\n"
-"  --yet-to-unpack                  Print packages selected for installation.\n"
-"  --predep-package                 Print pre-dependencies to unpack.\n"
-"  --add-architecture <arch>        Add <arch> to the list of architectures.\n"
-"  --remove-architecture <arch>     Remove <arch> from the list of architectures.\n"
-"  --print-architecture             Print dpkg architecture.\n"
-"  --print-foreign-architectures    Print allowed foreign architectures.\n"
-"  --assert-help                    Show help on assertions.\n"
-"  --assert-<feature>               Assert support for the specified feature.\n"
-"  --validate-<thing> <string>      Validate a <thing>'s <string>.\n"
-"  --compare-versions <a> <op> <b>  Compare version numbers - see below.\n"
-"  --force-help                     Show help on forcing.\n"
-"  -Dh|--debug=help                 Show help on debugging.\n"
-"\n"));
+	));
+	print_option(_(
+"  -i, --install <archive-spec>\n"
+"          Install the archives.\n"
+	));
+	print_option(_(
+"      --unpack <archive-spec>\n"
+"          Unpack the archives.\n"
+	));
+	print_option(_(
+"      --configure <package-spec>\n"
+"          Configure the packages.\n"
+	));
+	print_option(_(
+"      --triggers-only <package-spec>\n"
+"          Process triggers for the packages.\n"
+	));
+	print_option(_(
+"  -r, --remove <package-spec>\n"
+"          Remove the packages.\n"
+	));
+	print_option(_(
+"  -P, --purge <package-spec>\n"
+"          Purge the packages.\n"
+	));
+	print_option(_(
+"  -V, --verify [<package>...]\n"
+"          Verify the integrity of packages.\n"
+	));
+	print_option(_(
+"  -C, --audit [<package>...]\n"
+"          Check for broken packages.\n"
+	));
+	print_option(_(
+"  -s, --status [<package>...]\n"
+"          Show package status details.\n"
+	));
+	print_option(_(
+"  -l, --list [<pattern>...]\n"
+"          List packages concisely.\n"
+	));
+	print_option(_(
+"  -L, --listfiles <package>...\n"
+"          List files 'owned' by packages.\n"
+	));
+	print_option(_(
+"  -S, --search <pattern>...\n"
+"          Find packages owning files.\n"
+	));
+	print_option(_(
+"      --get-selections [<pattern>...]\n"
+"          Get list of selections to stdout.\n"
+	));
+	print_option(_(
+"      --set-selections\n"
+"          Set package selections from stdin.\n"
+	));
+	print_option(_(
+"      --clear-selections\n"
+"          Deselect every non-essential package.\n"
+	));
+	print_option(_(
+"  -p, --print-avail [<package>...]\n"
+"          Show available package version details.\n"
+	));
+	print_option(_(
+"  -A, --record-avail <archive-spec>\n"
+"          Record the archives in the available file.\n"
+	));
+	print_option(_(
+"      --update-avail [<Packages-file>]\n"
+"          Replace available packages information.\n"
+	));
+	print_option(_(
+"      --merge-avail [<Packages-file>]\n"
+"          Merge available package information.\n"
+	));
+	print_option(_(
+"      --clear-avail\n"
+"          Erase existing available package information.\n"
+	));
+	print_option(_(
+"      --add-architecture <arch>\n"
+"          Add <arch> to the list of architectures.\n"
+	));
+	print_option(_(
+"      --remove-architecture <arch>\n"
+"          Remove <arch> from the list of architectures.\n"
+	));
+	print_option(_(
+"      --print-architecture\n"
+"          Print native dpkg architecture.\n"
+	));
+	print_option(_(
+"      --print-foreign-architectures\n"
+"          Print allowed foreign architectures.\n"
+	));
+	print_option(_(
+"      --validate-<thing> <string>\n"
+"          Validate a <thing>'s <string>.\n"
+	));
+	print_option(_(
+"      --compare-versions <a> <op> <b>\n"
+"          Compare version numbers (see below).\n"
+	));
+	print_option(_(
+"      --predep-package\n"
+"          Print pre-dependencies to unpack.\n"
+	));
+	print_option(_(
+"      --assert-help\n"
+"          Show help on assertions.\n"
+	));
+	print_option(_(
+"      --assert-<feature>\n"
+"          Assert support for the specified feature.\n"
+	));
+	print_option(_(
+"      --force-help\n"
+"          Show help on forcing.\n"
+	));
+	print_option(_(
+"  -Dh, --debug=help\n"
+"          Show help on debugging.\n"
+	));
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+"<archive-spec> is: <.deb file name>... | (-R|--recursive) <directory>...\n"
+"<package-spec> is: <package>... | (-a|--pending)\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Validatable things: pkgname, archname, trigname, version.\n"
-"\n"));
+	));
+	print_option_sep();
 
 	printf(_(
 "Use dpkg with -b, --build, -c, --contents, -e, --control, -I, --info,\n"
 "  -f, --field, -x, --extract, -X, --vextract, --ctrl-tarfile, --fsys-tarfile\n"
 "on archives (type %s --help).\n"
-"\n"), BACKEND);
+	), BACKEND);
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --admindir=<directory>     Use <directory> instead of %s.\n"
-"  --root=<directory>         Install on a different root directory.\n"
-"  --instdir=<directory>      Change installation dir without changing admin dir.\n"
-"  --pre-invoke=<command>     Set a pre-invoke hook.\n"
-"  --post-invoke=<command>    Set a post-invoke hook.\n"
-"  --path-exclude=<pattern>   Do not install paths which match a shell pattern.\n"
-"  --path-include=<pattern>   Re-include a pattern after a previous exclusion.\n"
-"  -O|--selected-only         Skip packages not selected for install/upgrade.\n"
-"  -E|--skip-same-version     Skip packages with same installed version/arch.\n"
-"  -G|--refuse-downgrade      Skip packages with earlier version than installed.\n"
-"  -B|--auto-deconfigure      Install even if it would break some other package.\n"
-"  --[no-]triggers            Skip or force consequential trigger processing.\n"
-"  --verify-format=<format>   Verify output format (supported: 'rpm').\n"
-"  --no-pager                 Disables the use of any pager.\n"
-"  --no-debsig                Do not try to verify package signatures.\n"
-"  --no-act|--dry-run|--simulate\n"
-"                             Just say what we would do - do not do it.\n"
-"  -D|--debug=<octal>         Enable debugging (see -Dhelp or --debug=help).\n"
-"  --status-fd <n>            Send status change updates to file descriptor <n>.\n"
-"  --status-logger=<command>  Send status change updates to <command>'s stdin.\n"
-"  --log=<filename>           Log status changes and actions to <filename>.\n"
-"  --ignore-depends=<package>[,...]\n"
-"                             Ignore dependencies involving <package>.\n"
-"  --force-<thing>[,...]      Override problems (see --force-help).\n"
-"  --no-force-<thing>[,...]   Stop when problems encountered.\n"
-"  --refuse-<thing>[,...]     Ditto.\n"
-"  --abort-after <n>          Abort after encountering <n> errors.\n"
-"  --robot                    Use machine-readable output on some commands.\n"
-"\n"), ADMINDIR);
+	));
+	print_option(_(
+"  -O, --selected-only\n"
+"          Skip packages not selected for install/upgrade.\n"
+	));
+	print_option(_(
+"  -E, --skip-same-version\n"
+"          Skip packages with same installed version/arch.\n"
+	));
+	print_option(_(
+"  -G, --refuse-downgrade\n"
+"          Skip packages with earlier version than installed.\n"
+	));
+	print_option(_(
+"  -B, --auto-deconfigure\n"
+"          Install even if it would break some other package.\n"
+	));
+	print_option(_(
+"      --triggers\n"
+"          Force consequential trigger processing.\n"
+	));
+	print_option(_(
+"      --no-triggers\n"
+"          Skip consequential trigger processing.\n"
+	));
+	print_option(_(
+"      --verify-format=<format>\n"
+"          Verify output format (supported: 'rpm').\n"
+	));
+	print_option(_(
+"      --robot\n"
+"          Use machine-readable output on some commands.\n"
+	));
+	print_option(_(
+"      --no-pager\n"
+"          Disables the use of any pager.\n"
+	));
+	print_option(_(
+"      --no-debsig\n"
+"          Do not try to verify package signatures.\n"
+	));
+	print_option(_(
+"      --ignore-depends=<package>[,...]\n"
+"          Ignore dependencies involving <package>.\n"
+	));
+	print_option(_(
+"      --force-<thing>[,...]\n"
+"          Override problems (see --force-help).\n"
+	));
+	def_force = get_force_string();
+	print_option_def("%s", def_force);
+	free(def_force);
+	print_option_env("DPKG_FORCE");
+	print_option(_(
+"      --no-force-<thing>[,...]\n"
+"          Stop when problems encountered.\n"
+	));
+	print_option(_(
+"      --refuse-<thing>[,...]\n"
+"          Alias for --no-force.\n"
+	));
+	print_option(_(
+"      --abort-after <n>\n"
+"          Abort after encountering <n> errors.\n"
+	));
+	print_option(_(
+"      --no-act\n"
+"          Print what would be done, but perform no action.\n"
+	));
+	print_option(_(
+"      --dry-run\n"
+"          Alias for --no-act.\n"
+	));
+	print_option(_(
+"      --simulate\n"
+"          Alias for --no-act.\n"
+	));
+	print_option(_(
+"  -D, --debug=<octal>\n"
+"          Enable debugging output (see -Dhelp or --debug=help).\n"
+	));
+	print_option(_(
+"      --path-exclude=<pattern>\n"
+"          Do not install paths which match a shell pattern.\n"
+	));
+	print_option(_(
+"      --path-include=<pattern>\n"
+"          Re-include a pattern after a previous exclusion.\n"
+	));
+	print_option(_(
+"      --pre-invoke=<command>\n"
+"          Set a pre-invoke hook.\n"
+	));
+	print_option(_(
+"      --post-invoke=<command>\n"
+"          Set a post-invoke hook.\n"
+	));
+	print_option(_(
+"      --status-fd <n>\n"
+"          Send status change updates to file descriptor <n>.\n"
+	));
+	print_option(_(
+"      --status-logger=<command>\n"
+"          Send status change updates to <command>'s stdin.\n"
+	));
+	print_option(_(
+"      --log=<filename>\n"
+"          Log status changes and actions to <filename>.\n"
+	));
+	print_option(_(
+"      --admindir=<directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --instdir=<directory>\n"
+"          Change the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --root=<directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
+	print_option_sep();
 
 	printf(_(
 "Comparison operators for --compare-versions are:\n"
 "  lt le eq ne ge gt       (treat empty version as earlier than any version);\n"
 "  lt-nl le-nl ge-nl gt-nl (treat empty version as later than any version);\n"
 "  < << <= = >= >> >       (only for compatibility with control file syntax).\n"
-"\n"));
+	));
+	print_option_sep();
 
 	printf(_(
 "Use 'apt' or 'aptitude' for user-friendly package management.\n"));
@@ -331,6 +537,12 @@ set_pipe(const struct cmdinfo *cip, const char *value)
 	statusfd_add(v);
 }
 
+static void
+set_log(const struct cmdinfo *cip, const char *value)
+{
+	log_set_file(value);
+}
+
 static bool
 is_invoke_action(enum action action)
 {
@@ -409,7 +621,7 @@ run_invoke_hooks(const char *action, struct invoke_list *hook_list)
 		 * used “!$=&|\\`'"^~;<>{}[]()?*#”. */
 		status = system(hook->command);
 		if (status != 0)
-			ohshit(_("error executing hook '%s', exit code %d"),
+			ohshit(_("cannot execute hook '%s', exit code %d"),
 			       hook->command, status);
 	}
 
@@ -599,7 +811,7 @@ static const struct cmdinfo cmdinfos[] = {
 	{ "verify-format",     0,   1, NULL,          NULL,      set_verify_format },
 	{ "status-logger",     0,   1, NULL,          NULL,      set_invoke_hook, 0, &status_loggers },
 	{ "status-fd",         0,   1, NULL,          NULL,      set_pipe, 0 },
-	{ "log",               0,   1, NULL,          &log_file, NULL,    0 },
+	{ "log",               0,   1, NULL,          NULL,      set_log,  0 },
 	{ "pending",           'a', 0, &f_pending,    NULL,      NULL,    1 },
 	{ "recursive",         'R', 0, &f_recursive,  NULL,      NULL,    1 },
 	{ "no-act",            0,   0, &f_act,        NULL,      NULL,    0 },
@@ -663,7 +875,7 @@ commandfd(const char *const *argv)
 	const char **newargs = NULL, **endargs;
 	char *ptr, *endptr;
 	FILE *in;
-	long infd;
+	int infd;
 	int ret = 0;
 	int c, lno, i;
 	bool skipchar;
@@ -676,7 +888,7 @@ commandfd(const char *const *argv)
 	infd = dpkg_options_parse_arg_int(cipaction, pipein);
 	in = fdopen(infd, "r");
 	if (in == NULL)
-		ohshite(_("cannot open '%i' for stream"), (int)infd);
+		ohshite(_("cannot open '%i' for stream"), infd);
 
 	lno = 0;
 
@@ -716,7 +928,8 @@ commandfd(const char *const *argv)
 				argc++;
 		} while (c != EOF && c != '\n');
 		if (c == EOF)
-			ohshit(_("unexpected end of file before end of line %d"), lno);
+			ohshit(_("cannot read end of line after command at line %d: %s"),
+			       lno, _("unexpected end of file"));
 
 		if (!argc)
 			continue;
@@ -803,16 +1016,20 @@ main(int argc, const char *const *argv)
 
 	/* Always set environment, to avoid possible security risks. */
 	if (setenv("DPKG_ADMINDIR", dpkg_db_get_dir(), 1) < 0)
-		ohshite(_("unable to setenv for subprocesses"));
+		ohshite(_("cannot set environment for subprocesses"));
 	if (setenv("DPKG_ROOT", dpkg_fsys_get_dir(), 1) < 0)
-		ohshite(_("unable to setenv for subprocesses"));
+		ohshite(_("cannot set environment for subprocesses"));
 	force_string = get_force_string();
 	if (setenv("DPKG_FORCE", force_string, 1) < 0)
-		ohshite(_("unable to setenv for subprocesses"));
+		ohshite(_("cannot set environment for subprocesses"));
 	free(force_string);
 
-	if (!f_triggers)
-		f_triggers = (cipaction->arg_int == act_triggers && *argv) ? -1 : 1;
+	if (!f_triggers) {
+		if (cipaction->arg_int == act_triggers && *argv)
+			f_triggers = -1;
+		else
+			f_triggers = 1;
+	}
 
 	if (can_invoke_hooks(cipaction->arg_int)) {
 		run_invoke_hooks(cipaction->olong, &pre_invoke_hooks);

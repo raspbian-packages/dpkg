@@ -105,10 +105,16 @@ host_triplet = @host@
 sbin_PROGRAMS = $(am__EXEEXT_2)
 bin_PROGRAMS = $(am__EXEEXT_1)
 @BUILD_UPDATE_ALTERNATIVES_TRUE@am__append_1 = update-alternatives
-@BUILD_UPDATE_ALTERNATIVES_TRUE@am__append_2 = 
+@BUILD_UPDATE_ALTERNATIVES_TRUE@am__append_2 = \
+@BUILD_UPDATE_ALTERNATIVES_TRUE@	completion/bash/update-alternatives \
+@BUILD_UPDATE_ALTERNATIVES_TRUE@	# EOL
+
 @BUILD_UPDATE_ALTERNATIVES_TRUE@am__append_3 = org.dpkg.pkexec.update-alternatives.policy
 @BUILD_START_STOP_DAEMON_TRUE@am__append_4 = start-stop-daemon
-@BUILD_START_STOP_DAEMON_TRUE@am__append_5 = 
+@BUILD_START_STOP_DAEMON_TRUE@am__append_5 = \
+@BUILD_START_STOP_DAEMON_TRUE@	completion/bash/start-stop-daemon \
+@BUILD_START_STOP_DAEMON_TRUE@	# EOL
+
 subdir = utils
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
@@ -130,8 +136,8 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/build-to-host.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(dist_bashcompletions_DATA) \
-	$(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am \
+	$(am__dist_bashcompletions_DATA_DIST) $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -208,6 +214,9 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+am__dist_bashcompletions_DATA_DIST =  \
+	completion/bash/update-alternatives \
+	completion/bash/start-stop-daemon
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -282,6 +291,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -1008,11 +1018,11 @@ tap-check: $(test_data) $(test_programs) $(test_scripts)
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \
-	  CC=$(CC) \
-	  SHELL=$(SHELL) \
-	  PERL=$(PERL) \
+	  CC="$(CC)" \
+	  SHELL="$(SHELL)" \
+	  PERL="$(PERL)" \
 	  PERL_DL_NONLAZY=1 \
-	  PERL5OPT=$(TEST_COVERAGE) \
+	  PERL5OPT="$(TEST_COVERAGE)" \
 	  $(PERL) $(top_srcdir)/build-aux/test-runner \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))

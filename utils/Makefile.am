@@ -37,7 +37,9 @@ update_alternatives_LDADD = \
 	$(LIBINTL) \
 	# EOL
 
-dist_bashcompletions_DATA +=
+dist_bashcompletions_DATA += \
+	completion/bash/update-alternatives \
+	# EOL
 
 polkitactions_DATA += org.dpkg.pkexec.update-alternatives.policy
 endif
@@ -77,7 +79,9 @@ start_stop_daemon_LDADD = \
 	$(KVM_LIBS) \
 	# EOL
 
-dist_bashcompletions_DATA +=
+dist_bashcompletions_DATA += \
+	completion/bash/start-stop-daemon \
+	# EOL
 endif
 
 install-data-local:

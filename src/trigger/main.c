@@ -66,28 +66,55 @@ usage(const char *const *argv)
 	printf(_(
 "Usage: %s [<option>...] <trigger-name>\n"
 "       %s [<option>...] <command>\n"
-"\n"), dpkg_get_progname(), dpkg_get_progname());
+	), dpkg_get_progname(), dpkg_get_progname());
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  --check-supported                Check if the running dpkg supports triggers.\n"
-"\n"));
-
-	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+	));
+	print_option(_(
+"      --check-supported\n"
+"          Check if the running dpkg supports triggers.\n"
+	));
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --admindir=<directory>           Use <directory> instead of %s.\n"
-"  --root=<directory>               Use <directory> instead of %s.\n"
-"  --by-package=<package>           Override trigger awaiter (normally set\n"
-"                                     by dpkg).\n"
-"  --await                          Package needs to await the processing.\n"
-"  --no-await                       No package needs to await the processing.\n"
-"  --no-act                         Just test - do not actually change anything.\n"
-"\n"), ADMINDIR, "/");
+	));
+	print_option(_(
+"      --by-package=<package>\n"
+"          Override trigger awaiter package (normally set by dpkg).\n"
+	));
+	print_option(_(
+"      --await\n"
+"          Package needs to await the processing.\n"
+	));
+	print_option(_(
+"      --no-await\n"
+"          No package needs to await the processing.\n"
+	));
+	print_option(_(
+"      --no-act\n"
+"          Print what would be done, but perform no action.\n"
+	));
+	print_option(_(
+"      --admindir=<directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option(_(
+"      --root=<directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
 
 	m_output(stdout, _("<standard output>"));
 

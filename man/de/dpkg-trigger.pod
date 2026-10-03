@@ -60,7 +60,9 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<--root=>I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Administrationsverzeichnis auf „I<Verzeichnis>%ADMINDIR%“ gesetzt wird (seit Dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<--by-package=>I<Paket>
 
@@ -72,7 +74,9 @@ Diese Option arrangiert, dass das aufrufende Paket I<T> (falls zutreffend) nicht
 
 =item B<--await>
 
-Diese Option führt das Inverse von B<--no-await> aus (seit Dpkg 1.17.21). Falls das interessierte Paket eine Direktive „noawait“ angegeben hat, dann wird diese Option nicht wirksam sein. Derzeit ist sie die Voreinstellung.
+This option does the inverse of B<--no-await>.  If the interested package has declared a “noawait” directive, then this option will not be effective. It is currently the default behavior.
+
+Supported since dpkg 1.17.21.
 
 =item B<--no-act>
 
@@ -104,7 +108,9 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_ROOT>
 
-Falls gesetzt und die Option B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt (seit Dpkg 1.21.0).
+If set and the B<--root> option has not been specified, it will be used as the filesystem root directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
@@ -112,15 +118,21 @@ Falls gesetzt und die Option B<--admindir> nicht verwandt wurde, wird dies als D
 
 =item B<DPKG_DEBUG>
 
-Setzt die Fehlersuchmaske (seit Dpkg 1.21.10) aus einem oktalen Wert. Die derzeit akzeptierten Schalter werden in der Option B<dpkg --debug> beschrieben, aber nicht alle dieser Schalter könnten Auswirkungen auf dieses Programm haben.
+Sets the debug mask from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
+Supported since dpkg 1.21.10.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.22.7). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.22.7.
 
 =back
 

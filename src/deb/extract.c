@@ -54,10 +54,10 @@ static void DPKG_ATTR_NORET
 read_fail(int rc, const char *filename, const char *what)
 {
 	if (rc >= 0)
-		ohshit(_("unexpected end of file in %s in %s"),
-		       what, filename);
+		ohshit(_("cannot read %s from file %s: %s"),
+		       what, filename, _("unexpected end of file"));
 	else
-		ohshite(_("error reading %s from file %s"), what, filename);
+		ohshite(_("cannot read %s from file %s"), what, filename);
 }
 
 static ssize_t
@@ -144,7 +144,7 @@ extracthalf(const char *debar, const char *dir,
 
 			dpkg_ar_normalize_name(&arh);
 
-			memberlen = dpkg_ar_member_get_size(ar, &arh);
+			memberlen = dpkg_ar_member_parse_size(ar, &arh);
 			ar_member_size = memberlen + (memberlen & 1);
 			if (!header_done) {
 				char *infobuf;
@@ -241,7 +241,8 @@ extracthalf(const char *debar, const char *dir,
 					if (ar_new_pos < ar_pos)
 						ohshit(_("archive '%s' contains an overflowing member '%.*s' size"),
 						       ar->name, (int)sizeof(arh.ar_name), arh.ar_name);
-					if (ar_new_pos > ar->size)
+					if (ar->is_seekable &&
+					    ar_new_pos > ar->size)
 						ohshit(_("archive '%s' is truncated or corrupt, "
 						         "expected more data than available (%jd > %jd)"),
 						       ar->name, ar_new_pos, ar->size);
@@ -381,14 +382,14 @@ extracthalf(const char *debar, const char *dir,
 			if (dir) {
 				if (mkdir(dir, 0777) != 0) {
 					if (errno != EEXIST)
-						ohshite(_("failed to create directory"));
+						ohshite(_("cannot create directory '%s'"), dir);
 
 					if (taroption & DPKG_TAR_CREATE_DIR)
 						ohshite(_("unexpected pre-existing pathname %s"),
 						        dir);
 				}
 				if (chdir(dir) != 0)
-					ohshite(_("failed to chdir to directory"));
+					ohshite(_("cannot change directory to '%s'"), dir);
 			}
 
 			command_exec(&cmd);

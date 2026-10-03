@@ -42,11 +42,13 @@ Não ordena as estrofes do índice. Normalmente elas estão ordenadas pelo nome 
 
 =item B<-e>, B<--extra-override> I<file>
 
-Sonda o I<ficheiro> para encontrar sobreposições suplementares (desde dpkg 1.15.4; o ficheiro pode ser comprimido desde 1.15.5). Veja L<deb-extra-override(5)> para mais informação sobre este formato.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
+
+Supported since dpkg 1.15.4.
 
 =item B<-s>, B<--source-override> I<file>
 
-Usa I<file> como o ficheiro de sobreposição da fonte (o ficheiro pode ser comprimido desde dpkg 1.15.5). A predefinição é o nome do ficheiro de sobreposição que você especificou com I<.src> adicionado.
+Use I<file> as the source override file.  The file can be compressed (since dpkg 1.15.5).  The default is the name of the override file you specified with I<.src> appended.
 
 O ficheiro de sobreposição de fonte está num formato diferente do ficheiro de sobreposição de binário. Contém apenas dois campos separados por espaço em branco, o primeiro é o nome do pacote fonte e o segundo é a secção. Linhas vazias e comentários são ignorados no modo normal. Se um pacote aparece em ambos ficheiros a sobreposição de fonte toma precedência para definir a secção.
 
@@ -70,11 +72,15 @@ Mostra a versão e termina.
 
 =item B<DPKG_COLORS>
 
-Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.19.0). Os valores aceites são B<0> e B<1> (predefinição).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
+
+Supported since dpkg 1.19.0.
 
 =back
 

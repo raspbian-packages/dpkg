@@ -35,43 +35,55 @@
 #include <dpkg/dpkg.h>
 
 static inline void *
-must_alloc(void *ptr)
+must_alloc_size(void *ptr, size_t size)
 {
 	if (ptr)
 		return ptr;
 
-	onerr_abort++;
-	ohshite(_("failed to allocate memory"));
+	push_fatal_errors_section();
+	ohshite(_("cannot allocate memory (%zu bytes)"), size);
+}
+
+static inline void *
+must_alloc_string(void *ptr, const char *str)
+{
+	if (ptr)
+		return ptr;
+
+	push_fatal_errors_section();
+	ohshite(_("cannot allocate memory (%zu bytes) "
+	          "to duplicate string '%s'"),
+	        strlen(str), str);
 }
 
 void *
 m_malloc(size_t amount)
 {
-	return must_alloc(malloc(amount));
+	return must_alloc_size(malloc(amount), amount);
 }
 
 void *
 m_calloc(size_t nmemb, size_t size)
 {
-	return must_alloc(calloc(nmemb, size));
+	return must_alloc_size(calloc(nmemb, size), nmemb * size);
 }
 
 void *
 m_realloc(void *r, size_t amount)
 {
-	return must_alloc(realloc(r, amount));
+	return must_alloc_size(realloc(r, amount), amount);
 }
 
 char *
 m_strdup(const char *str)
 {
-	return must_alloc(strdup(str));
+	return must_alloc_string(strdup(str), str);
 }
 
 char *
 m_strndup(const char *str, size_t n)
 {
-	return must_alloc(strndup(str, n));
+	return must_alloc_string(strndup(str, n), str);
 }
 
 int
@@ -83,8 +95,8 @@ m_vasprintf(char **strp, const char *fmt, va_list args)
 	if (n >= 0)
 		return n;
 
-	onerr_abort++;
-	ohshite(_("failed to allocate memory"));
+	push_fatal_errors_section();
+	ohshite(_("cannot allocate memory (%zu bytes)"), (size_t)n);
 }
 
 int
@@ -109,22 +121,27 @@ m_dup(int oldfd)
 	if (newfd >= 0)
 		return newfd;
 
-	onerr_abort++;
-	ohshite(_("failed to dup for fd %d"), oldfd);
+	push_fatal_errors_section();
+	ohshite(_("cannot duplicate file descriptor %d"), oldfd);
 }
 
 void
 m_dup2(int oldfd, int newfd)
 {
-	const char *const stdstrings[] = { "in", "out", "err" };
+	const char *const stdstrings[] = {
+		N_("<standard input>"),
+		N_("<standard output>"),
+		N_("<standard error>"),
+	};
 
 	if (dup2(oldfd, newfd) == newfd)
 		return;
 
-	onerr_abort++;
+	push_fatal_errors_section();
 	if (newfd < 3)
-		ohshite(_("failed to dup for std%s"), stdstrings[newfd]);
-	ohshite(_("failed to dup for fd %d"), newfd);
+		ohshite(_("cannot duplicate file descriptor for %s"),
+		        gettext(stdstrings[newfd]));
+	ohshite(_("cannot duplicate file descriptor %d"), newfd);
 }
 
 void
@@ -132,8 +149,9 @@ m_pipe(int fds[2])
 {
 	if (!pipe(fds))
 		return;
-	onerr_abort++;
-	ohshite(_("failed to create pipe"));
+
+	push_fatal_errors_section();
+	ohshite(_("cannot create pipe"));
 }
 
 void
@@ -141,7 +159,7 @@ m_output(FILE *f, const char *name)
 {
 	fflush(f);
 	if (ferror(f) && errno != EPIPE)
-		ohshite(_("error writing to '%s'"), name);
+		ohshite(_("cannot write to '%s'"), name);
 }
 
 void
@@ -151,7 +169,7 @@ setcloexec(int fd, const char *fn)
 
 	f = fcntl(fd, F_GETFD);
 	if (f < 0)
-		ohshite(_("unable to read filedescriptor flags for %s"), fn);
+		ohshite(_("cannot get file descriptor flags for %s"), fn);
 	if (fcntl(fd, F_SETFD, (f | FD_CLOEXEC)) < 0)
-		ohshite(_("unable to set close-on-exec flag for %s"), fn);
+		ohshite(_("cannot set close-on-execute flag for %s"), fn);
 }

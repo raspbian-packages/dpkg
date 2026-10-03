@@ -299,7 +299,7 @@ trk_explicit_start(const char *trig)
 	trk_explicit_f = fopen(trk_explicit_fn.buf, "r");
 	if (!trk_explicit_f) {
 		if (errno != ENOENT)
-			ohshite(_("failed to open trigger interest list file '%s'"),
+			ohshite(_("cannot open trigger interest list file '%s'"),
 			        trk_explicit_fn.buf);
 	}
 }
@@ -326,7 +326,7 @@ trk_explicit_activate_awaiter(struct pkginfo *aw)
 		return;
 
 	if (fseek(trk_explicit_f, 0, SEEK_SET))
-		ohshite(_("failed to rewind trigger interest file '%s'"),
+		ohshite(_("cannot rewind trigger interest file '%s'"),
 		        trk_explicit_fn.buf);
 
 	while (trk_explicit_fgets(buf, sizeof(buf)) >= 0) {
@@ -338,7 +338,7 @@ trk_explicit_activate_awaiter(struct pkginfo *aw)
 
 		pend = pkg_spec_parse_pkg(buf, &err);
 		if (pend == NULL)
-			ohshit(_("trigger interest file '%s' syntax error; "
+			ohshit(_("invalid syntax in trigger interest file '%s'; "
 			         "invalid package name '%s': %s"),
 			       trk_explicit_fn.buf, buf, err.str);
 
@@ -369,7 +369,7 @@ trk_explicit_interest_change(const char *trig,  struct pkginfo *pkg,
 
 		pkg_parsed = pkg_spec_parse_pkg(buf, &err);
 		if (pkg_parsed == NULL)
-			ohshit(_("trigger interest file '%s' syntax error; "
+			ohshit(_("invalid syntax in trigger interest file '%s'; "
 			         "invalid package name '%s': %s"),
 			       trk_explicit_fn.buf, buf, err.str);
 
@@ -542,7 +542,7 @@ trig_file_interests_ensure(void)
 	if (!f) {
 		if (errno == ENOENT)
 			goto ok;
-		ohshite(_("unable to read file triggers file '%s'"),
+		ohshite(_("cannot read file triggers file '%s'"),
 		        triggersfilefile);
 	}
 
@@ -553,7 +553,7 @@ trig_file_interests_ensure(void)
 
 		space = strchr(linebuf, ' ');
 		if (!space || linebuf[0] != '/')
-			ohshit(_("syntax error in file triggers file '%s'"),
+			ohshit(_("invalid syntax in file triggers file '%s'"),
 			       triggersfilefile);
 		*space++ = '\0';
 
@@ -726,7 +726,7 @@ trig_parse_ci(const char *file, trig_parse_cicb *interest,
 		if (errno == ENOENT)
 			/* No file is just like an empty one. */
 			return;
-		ohshite(_("unable to open triggers package metadata file '%s'"),
+		ohshite(_("cannot open triggers package metadata file '%s'"),
 		        file);
 	}
 	push_cleanup(cu_closestream, ~0, 1, f);
@@ -833,8 +833,8 @@ trig_incorporate(enum modstatdb_rw cstatus)
 	if (ur == TDUS_ERROR_NO_DIR && cstatus >= msdbrw_write) {
 		if (mkdir(triggersdir, 0755)) {
 			if (errno != EEXIST)
-				ohshite(_("unable to create triggers state"
-				          " directory '%s'"), triggersdir);
+				ohshite(_("cannot create triggers state "
+				          "directory '%s'"), triggersdir);
 		}
 		ur = trigdef_update_start(tduf);
 	}

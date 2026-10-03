@@ -58,14 +58,18 @@ See also L</CHANGELOG FORMATS>.
 
 =item B<-L> I<libdir>
 
-Obsolete option without effect (since dpkg 1.18.8).
+Obsolete since dpkg 1.18.8,
+it has no effect.
+
 Setting the perl environment variables B<PERL5LIB> or B<PERLLIB>
 has a similar effect when looking for the parser perl modules.
 
 =item B<-S>, B<--show-field> I<field>
 
-Specifies the name of the field to show (since dpkg 1.17.0).
+Specifies the name of the field to show.
 The field name is not printed, only its value.
+
+Supported since dpkg 1.17.0.
 
 =item B<-?>, B<--help>
 
@@ -125,6 +129,8 @@ The name and email address of the person who prepared these changes,
 they are B<not> necessarily those of the uploader or the usual package
 maintainer.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Date:> I<date>
 
 The date of the entry as a string, as it appears in the changelog.
@@ -137,8 +143,9 @@ map it back to the exact value in this field.
 
 =item B<Timestamp:> I<timestamp>
 
-The date of the entry as a timestamp in seconds since the epoch
-(since dpkg 1.18.8).
+The date of the entry as a timestamp in seconds since the epoch.
+
+Supported since dpkg 1.18.8.
 
 =item B<Closes:> I<bug-number>
 
@@ -167,10 +174,12 @@ metadata for each entry is preserved.
 
 =item B<--reverse>
 
-Include all changes in reverse order (since dpkg 1.19.1).
+Include all changes in reverse order.
 
 B<Note>: For the B<dpkg> format the first entry will be the most ancient
 entry.
+
+Supported since dpkg 1.19.1.
 
 =item B<--all>
 
@@ -214,7 +223,7 @@ Change the starting point for B<--count>, counted from the top
 It is possible to use a different format to the standard one, by providing
 a parser for that alternative format.
 
-In order to have B<dpkg-parsechangelog> run the new parser, a line must
+To have B<dpkg-parsechangelog> run the new parser, a line must
 be included within the last 40 lines of the changelog file, matching the Perl
 regular expression: “B<\schangelog-format:\s+([0-9a-z]+)\W>”.
 The part in parentheses should be the name of the format.
@@ -267,15 +276,19 @@ Short option parsing with non-bundled values available only since dpkg 1.18.0.
 
 =item B<DPKG_COLORS>
 
-Sets the color mode (since dpkg 1.18.5).
+Sets the color mode.
 The currently accepted values are: B<auto> (default), B<always> and
 B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
 If set, it will be used to decide whether to activate Native Language Support,
-also known as internationalization (or i18n) support (since dpkg 1.19.0).
+also known as internationalization (or i18n) support.
 The accepted values are: B<0> and B<1> (default).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -301,4 +314,5 @@ name used in the F<.changes> file.
 
 =head1 SEE ALSO
 
+L<deb-email(7)>,
 L<deb-changelog(5)>.

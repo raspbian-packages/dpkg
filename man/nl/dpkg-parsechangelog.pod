@@ -38,11 +38,15 @@ Geeft de indeling van het changelog-bestand aan. Standaard wordt die indeling ge
 
 =item B<-L> I<bibliotheekmap>
 
-Een uitgefaseerde optie zonder effect (sinds dpkg 1.18.8). Het instellen van de perl omgevingsvariabelen B<PERL5LIB> of B<PERLLIB> heeft een gelijkaardig effect bij het zoeken naar de perl-modules van de ontleder (parser).
+Obsolete since dpkg 1.18.8, it has no effect.
+
+Setting the perl environment variables B<PERL5LIB> or B<PERLLIB> has a similar effect when looking for the parser perl modules.
 
 =item B<-S>, B<--show-field> I<veld>
 
-Geeft de naam op van het te tonen veld (sinds dpkg 1.17.0). De naam van het veld wordt niet weergegeven, enkel de inhoud ervan.
+Specifies the name of the field to show.  The field name is not printed, only its value.
+
+Supported since dpkg 1.17.0.
 
 =item B<-?>, B<--help>
 
@@ -86,13 +90,17 @@ Van alle opgenomen items wordt de hoogste urgentie gebruikt, gevolgd door de sam
 
 De naam en het e-mailadres van de persoon die deze wijzigingen heeft voorbereid, dit zijn B<niet> noodzakelijkerwijs die van de uploader of de gebruikelijke pakketbeheerder.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Date:> I<datum>
 
 De datum van het item als een tekenreeks, zoals die voorkomt in het changelog-bestand. Met een L<strptime(3)>-opmaak "B<%a, %d %b %Y %T %z>", maar waarbij het kan zijn dat de dag van de week niet echt overeenkomt met de werkelijke dag die bekomen wordt uit de rest van de datumtekenreeks. Indien u een meer accurate representatie van de datum nodig heeft, moet u gebruik maken van het B<Timestamp>-veld, maar u moet er rekening mee houden dat het mogelijk is dat het niet meer exact terug omgezet kan worden naar de waarde van dat veld.
 
 =item B<Timestamp:> I<tijdsaanduiding>
 
-De datum van het item, uitgedrukt als een tijdstempel in aantal seconden sinds de epoch (sinds dpkg 1.18.8).
+The date of the entry as a timestamp in seconds since the epoch.
+
+Supported since dpkg 1.18.8.
 
 =item B<Closes:> I<bug-nummer>
 
@@ -112,9 +120,11 @@ De indeling volgens B<rfc822> maakt gebruik van dezelfde velden, maar gebruikt i
 
 =item B<--reverse>
 
-Alle wijzigingen in omgekeerde volgorde opnemen (sinds dpkg 1.19.1).
+Include all changes in reverse order.
 
 B<Opmerking>: voor de indeling B<dpkg> zal het eerste item het oudste item zijn.
+
+Supported since dpkg 1.19.1.
 
 =item B<--all>
 
@@ -154,7 +164,7 @@ Het beginpunt voor B<--count> aanpassen, te rekenen vanaf het begin (of het eind
 
 Het is mogelijk om een andere indeling te gebruiken dan de standaardindeling door te voorzien in een ontleedprogramma voor die alternatieve indeling.
 
-Om er voor te zorgen dat B<dpkg-parsechangelog> dat nieuw ontleedprogramma uitvoert, moet binnen de laatste 40 regels van het changelog-bestand een regel toegevoegd worden die voldoet aan de Perl reguliere expressie: “B<\schangelog-format:\s+([0-9a-z]+)\W>”. Het deel tussen haakjes moet de naam van de indeling zijn. Bijvoorbeeld:
+To have B<dpkg-parsechangelog> run the new parser, a line must be included within the last 40 lines of the changelog file, matching the Perl regular expression: “B<\schangelog-format:\s+([0-9a-z]+)\W>”.  The part in parentheses should be the name of the format.  For example:
 
 =over 
 
@@ -188,11 +198,15 @@ Het voor ontleeddoeleinden gebruiken van opties in verkorte notatie met niet-sam
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -212,5 +226,5 @@ Het veld B<Maintainer> heeft een verwarrende naam die overeenkomt met het veld i
 
 =head1 ZIE OOK
 
-L<deb-changelog(5)>.
+L<deb-email(7)>, L<deb-changelog(5)>.
 

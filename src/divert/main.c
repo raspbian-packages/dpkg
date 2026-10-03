@@ -81,33 +81,91 @@ usage(const char *const *argv)
 {
 	printf(_(
 "Usage: %s [<option>...] <command>\n"
-"\n"), dpkg_get_progname());
+	), dpkg_get_progname());
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  [--add] <file>           add a diversion.\n"
-"  --remove <file>          remove the diversion.\n"
-"  --list [<glob-pattern>]  show file diversions.\n"
-"  --listpackage <file>     show what package diverts the file.\n"
-"  --truename <file>        return the diverted file.\n"
-"\n"));
+	));
+	print_option(_(
+"      [--add] <file>\n"
+"          Add a diversion.\n"
+	));
+	print_option(_(
+"      --remove <file>\n"
+"          Remove a diversion.\n"
+	));
+	print_option(_(
+"      --list [<glob-pattern>]\n"
+"          Show file diversions.\n"
+	));
+	print_option(_(
+"      --listpackage <file>\n"
+"          Show what package diverts the file.\n"
+	));
+	print_option(_(
+"      --truename <file>\n"
+"          Show the diverted file.\n"
+	));
+	print_option(_(
+"      --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --package <package>      name of the package whose copy of <file> will not\n"
-"                             be diverted.\n"
-"  --local                  all packages' versions are diverted.\n"
-"  --divert <divert-to>     the name used by other packages' versions.\n"
-"  --rename                 actually move the file aside (or back).\n"
-"  --no-rename              do not move the file aside (or back) (default).\n"
-"  --admindir <directory>   set the directory with the diversions file.\n"
-"  --instdir <directory>    set the root directory, but not the admin dir.\n"
-"  --root <directory>       set the directory of the root filesystem.\n"
-"  --test                   do not do anything, just demonstrate.\n"
-"  --quiet                  quiet operation, minimal output.\n"
-"  --help                   show this help message.\n"
-"  --version                show the version.\n"
-"\n"));
+	));
+	print_option(_(
+"      --package <package>\n"
+"          Name of the package whose copy of <file> will not be diverted.\n"
+	));
+	print_option(_(
+"      --local\n"
+"          All packages' versions are diverted.\n"
+	));
+	print_option(_(
+"      --divert <divert-to>\n"
+"          The name used by other packages' versions.\n"
+	));
+	print_option(_(
+"      --rename\n"
+"          Move the file aside or back.\n"
+	));
+	print_option(_(
+"      --no-rename\n"
+"          Do not move the file aside or back (default behavior).\n"
+	));
+	print_option(_(
+"      --test\n"
+"          Print what would be done, but perform no action.\n"
+	));
+	print_option(_(
+"      --quiet\n"
+"          Enable quiet mode, minimal output.\n"
+	));
+	print_option(_(
+"      --admindir <directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --instdir <directory>\n"
+"          Change the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --root <directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
+	print_option_sep();
 
 	printf(_(
 "When adding, default is --local and --divert <original>.distrib.\n"
@@ -126,7 +184,7 @@ opt_rename_setup(void)
 		return;
 
 	opt_rename = 0;
-	warning(_("please specify --no-rename explicitly, the default "
+	warning(_("specify --no-rename explicitly, the default "
 	          "will change to --rename not before 1.23.x"));
 }
 
@@ -186,7 +244,8 @@ check_writable_dir(struct file *f)
 
 	tmpfd = creat(tmpname, 0600);
 	if (tmpfd < 0)
-		ohshite(_("error checking '%s'"), f->name);
+		ohshite(_("cannot check whether '%s' is within a writable directory"),
+		        f->name);
 	close(tmpfd);
 	(void)unlink(tmpname);
 
@@ -237,12 +296,12 @@ file_copy(const char *src, const char *dst)
 
 	srcfd = open(src, O_RDONLY);
 	if (srcfd < 0)
-		ohshite(_("unable to open file '%s'"), src);
+		ohshite(_("cannot open file '%s'"), src);
 
 	tmp = str_fmt("%s%s", dst, ".dpkg-divert.tmp");
 	dstfd = creat(tmp, 0600);
 	if (dstfd < 0)
-		ohshite(_("unable to create file '%s'"), tmp);
+		ohshite(_("cannot create file '%s'"), tmp);
 
 	push_cleanup(cu_filename, ~ehflag_normaltidy, 1, tmp);
 
@@ -252,9 +311,9 @@ file_copy(const char *src, const char *dst)
 	close(srcfd);
 
 	if (fsync(dstfd))
-		ohshite(_("unable to sync file '%s'"), tmp);
+		ohshite(_("cannot sync file '%s'"), tmp);
 	if (close(dstfd))
-		ohshite(_("unable to close file '%s'"), tmp);
+		ohshite(_("cannot close file '%s'"), tmp);
 
 	file_copy_perms(src, tmp);
 
@@ -284,7 +343,7 @@ file_rename(struct file *src, struct file *dst)
 		file_copy(src->name, dst->name);
 
 		if (unlink(src->name))
-			ohshite(_("unable to remove copied source file '%s'"),
+			ohshite(_("cannot remove copied source file '%s'"),
 			        src->name);
 	}
 }

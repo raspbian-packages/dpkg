@@ -42,21 +42,21 @@ my $addr_name_regex = qr{
     # Composed of possibly multiple quoted and not-quoted parts.
     (?:
         # Either non-quoted name, without comma.
-        [^<>"\cK,]+
+        [^<>"[:cntrl:],]+
     |
         # Or quoted name, with optional comma.
-        " [^<>"\cK]+ "
+        " [^<>"[:cntrl:]]+ "
     )*
-}x;
+}xa;
 
 my $addr_email_regex = qr{
     # Local part.
-    [^@<>"\s\cK]+
+    [^@<>"\s[:cntrl:],]+
     # Separator.
     @
     # Domain part.
-    [^@<>"\s\cK]+
-}x;
+    [^@<>"\s[:cntrl:],]+
+}xa;
 
 my $addr_regex = qr{
     \s*

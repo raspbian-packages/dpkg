@@ -38,7 +38,7 @@ In tegenstelling tot de metavariabele I<#MINVER#>, zullen de volgende metavariab
 
 In enkele zeldzame gevallen verschilt de naam van de bibliotheek naargelang de architectuur. Om de naam van het pakket niet rechtstreeks in het symboolbestand te moeten inschrijven, kunt u gebruik maken van de metavariabele I<#PACKAGE#>. Die zal tijdens de installatie van de symboolbestanden vervangen worden door de echte pakketnaam.
 
-=head2 De metavariabele #CURVER# gebruiken
+=head3 De metavariabele #CURVER# gebruiken
 
 In sommige gevallen vereist een symbool met een onstabiele ABI een strikte vereiste van de huidige pakketversie. Om te voorkomen dat de huidige versie hard gecodeerd wordt in het symbolenbestand, kunt u de metavariabele I<#CURVER#> gebruiken. Deze wordt vervangen door een vereistenversiebeperking in de vorm van “(= I<binair-versie>)”, waarbij dit over het algemeen wordt gebruikt in combinatie met I<#PACKAGE#>.
 
@@ -74,7 +74,7 @@ Deze tag is nuttig voor private symbolen waarvan de verdwijning geen ABI-breuk v
 
 =item B<arch-endian=>I<architectuur-endianness>
 
-Deze tags laten iemand toe om de set architecturen waarvoor het symbool verondersteld wordt te bestaan, te beperken. De tags B<arch-bits> en B<arch-endian> worden sinds dpkg 1.18.0 ondersteund. Als de symbolenlijst bijgewerkt wordt met de symbolen die in de bibliotheek gevonden worden, worden alle architectuurspecifieke symbolen die van geen belang zijn voor de huidige hostarchitectuur, behandeld alsof ze niet bestaan. Indien een architectuurspecifiek symbool dat betrekking heeft op de huidige hostarchitectuur, ontbreekt in de bibliotheek, zijn de normale procedures die gelden voor ontbrekende symbolen, van toepassing en dit kan het mislukken van B<dpkg-gensymbols> tot gevolg hebben. Anderzijds, indien het architectuurspecifieke symbool aangetroffen wordt als het er niet verondersteld wordt te zijn (omdat de huidige hostarchitectuur niet vermeld wordt in de tag of niet overeenkomt met de endianness of de bits), dan wordt het architectuurneutraal gemaakt (d.w.z. dat de tags arch, arch-bits en arch-endian weggelaten worden en het symbool omwille van deze verandering in de diff (weergave van de veranderingen) opgenomen zal worden), maar het wordt niet als nieuw beschouwd.
+These tags allow one to restrict the set of architectures where the symbol is supposed to exist.  When the symbols list is updated with the symbols discovered in the library, all arch-specific symbols which do not concern the current host architecture are treated as if they did not exist.  If an arch-specific symbol matching the current host architecture does not exist in the library, normal procedures for missing symbols apply and it may cause B<dpkg-gensymbols> to fail.  On the other hand, if the arch-specific symbol is found when it was not supposed to exist (because the current host architecture is not listed in the tag or does not match the endianness and bits), it is made arch neutral (i.e. the arch, arch-bits and arch-endian tags are dropped and the symbol will appear in the diff due to this change), but it is not considered as new.
 
 Als in de standaardmodus (niet-sjabloonmodus) gewerkt wordt, worden van de architectuurspecifieke symbolen enkel die in het symboolbestand opgeschreven die overeenkomen met de huidige hostarchitectuur. Als daarentegen in de sjabloonmodus gewerkt wordt, worden steeds alle architectuurspecifieke symbolen (ook die voor vreemde architecturen) opgeschreven in het symboolbestand.
 
@@ -98,9 +98,13 @@ Meerdere beperkingen kunnen aaneengeregen worden.
 
   (arch-bits=32|arch-endian=little)32bit_le_symbool@Base 1.0
 
+Support for tags B<arch-bits> and B<arch-endian> since dpkg 1.18.0.
+
 =item B<allow-internal>
 
-dpkg-gensymbols hanteert een lijst van interne symbolen die niet zouden mogen voorkomen in symboolbestanden omdat ze gewoonlijk slechts een neveneffect zijn van details in de wijze waarop de gereedschapsketen (toolchain) geïmplementeerd wordt. Indien u om een of andere reden echt wilt dat een van deze symbolen opgenomen wordt in het symboolbestand, moet u het symbool markeren met de tag B<allow-internal>. Dit kan nodig zijn voor sommige gereedschapsketenbibliotheken van lagere orde zoals “libgcc”.
+dpkg-gensymbols has a list of internal symbols that should not appear in symbols files as they are usually only side-effects of implementation details of the toolchain.  If for some reason, you really want one of those symbols to be included in the symbols file, you should tag the symbol with B<allow-internal>.  It can be necessary for some low level toolchain libraries like “libgcc”.
+
+Ondersteund sinds dpkg 1.20.1.
 
 =item B<c++>
 
@@ -120,9 +124,9 @@ Geeft een I<regex>-symboolpatroon aan. Zie hierna in de subsectie L</Het gebruik
 
 Anders dan een standaardbeschrijving van een symbool, kan een patroon meerdere echte symbolen uit de bibliotheek dekken. B<dpkg-gensymbols> zal proberen om elk patroon te vergelijken met elk reëel symbool waarvoor in het symboolbestand I<geen> specifiek symbooltegenhanger gedefinieerd werd. Telkens wanneer een eerste overeenkomst met een patroon gevonden wordt, worden alle tags en eigenschappen ervan gebruikt als basisspecificatie voor het symbool. Indien er met geen enkel patroon een overeenkomst gevonden wordt, zal het symbool als nieuw beschouwd worden.
 
-Een patroon wordt als verloren beschouwd als het met geen enkel symbool uit de bibliotheek overeenkomt. Standaard zal dit onder B<-c1> of een hoger niveau een mislukking van B<dpkg-gensymbols> uitlokken. Indien een dergelijke mislukking echter onwenselijk is, kan het patroon gemarkeerd worden met de tag I<optional>. Als het patroon in dat geval geen overeenkomst oplevert, zal het enkel in de diff (weergave van de wijzigingen) als MISSING (ontbrekend) vermeld worden. Zoals elk ander symbool kan ook een patroon beperkt worden tot specifieke architecturen met de tag I<arch>. Raadpleeg het onderdeel L</Standaard symbooltags> hierboven voor meer informatie.
+A pattern is considered lost if it does not match any symbol in the library.  By default this will trigger a B<dpkg-gensymbols> failure under B<-c1> or higher level.  However, if the failure is undesired, the pattern may be marked with the I<optional> tag.  Then if the pattern does not match anything, it will only appear in the diff as MISSING.  Moreover, like any symbol, the pattern may be limited to the specific architectures with the I<arch> tag.  See the L</Standard symbol tags> subsection above for more information.
 
-Patronen vormen een uitbreiding van het L<deb-symbols(5)>-systeem en zijn daarom enkel geldig in symboolbestand-sjablonen. De syntaxis voor het opgeven van patronen verschilt niet van die voor een specifiek symbool. Het onderdeel symboolnaam van de specificatie fungeert echter als een expressie die vergeleken wordt met I<naam@versie> van het echte symbool. Om het onderscheid te maken tussen verschillende types patronen, wordt een patroon doorgaans gemarkeerd met een speciale tag.
+Patterns are an extension of the L<deb-symbols(5)> format hence they are only valid in symbol file templates.  Pattern specification syntax is not any different from the one of a specific symbol.  However, symbol name part of the specification serves as an expression to be matched against I<name@version> of the real symbol.  To distinguish among different pattern types, a pattern will typically be tagged with a special tag.
 
 Op dit ogenblik ondersteunt B<dpkg-gensymbols> drie fundamentele patroontypes:
 
@@ -141,7 +145,7 @@ De bovenstaande ontwarde naam kan verkregen worden door het volgende commando ui
 
   $ echo '_ZThn8_N3NSB6ClassDD1Ev@Base' | c++filt
 
-Merk op dat een verhaspelde naam per definitie uniek is in de bibliotheek, maar dat dit niet noodzakelijk het geval is voor ontwarde namen. Een aantal verschillende echte symbolen kan dezelfde ontwarde naam hebben. Dat is bijvoorbeeld het geval met niet-virtuele thunk-symbolen in complexe overervingsconfiguraties of met de meeste constructors en destructors (vermits g++ voor hen doorgaans twee echte symbolen genereert). Vermits deze collisies zich op het ABI-niveau voordoen, verminderen zij evenwel niet de kwaliteit van het symboolbestand.
+Note that while mangled name is unique in the library by definition, this is not necessarily true for demangled names.  A couple of distinct real symbols may have the same demangled name.  For example, that's the case with non-virtual thunk symbols in complex inheritance configurations or with most constructors and destructors (since g++ typically generates two real symbols for them).  However, as these collisions happen on the ABI level, they should not degrade quality of the symbol file.
 
 =item B<symver>
 
@@ -155,7 +159,7 @@ Dit patroon wordt door de tag I<symver> aangegeven. Goed onderhouden bibliotheke
 
 Alle symbolen die horen bij de versies GLIBC_2.0 en GLIBC_2.7 zullen resulteren in de respectieve minimale versies 2.0 en 2.7, met uitzondering van het symbool access@GLIBC_2.0. Dit laatste zal resulteren in een minimale vereiste van libc6 versie 2.2 en dit ondanks het feit dat het valt binnen het bereik van het patroon "(symver)GLIBC_2.0". De reden hiervoor is dat specifieke symbolen voorrang hebben op patronen.
 
-Merk op dat hoewel wildcardpatronen volgens de oude stijl (in het veld symboolnaam aangegeven door "*@version") nog steeds ondersteund worden, zij vervangen werden door een syntaxis volgens de nieuwe stijl "(symver|optional)version". Als hetzelfde effect gewenst wordt moet bijvoorbeeld "*@GLIBC_2.0 2.0" geschreven worden als "(symver|optional)GLIBC_2.0 2.0".
+Note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version".  For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 
@@ -178,7 +182,7 @@ zullen de symbolen "_ZN3NSA6ClassA7Private11privmethod1Ei@Base" en "_ZN3NSA6Clas
 
 Over het algemeen genomen kunnen alle patronen in twee groepen onderverdeeld worden: aliassen (basale I<c++>- en I<symver>-patronen) en generieke patronen (I<regex>, alle combinaties van meerdere basale patronen). Het vergelijken met basale patronen van het alias-type verloopt snel (O(1)), terwijl dat bij generieke patronen voor elk symbool O(N) is (waarbij N het aantal generieke patronen is). Daarom wordt aangeraden om geen overdadig gebruik te maken van generieke patronen.
 
-Indien meerdere patronen een overeenkomst opleveren met hetzelfde echte symbool, krijgen aliassen (eerst I<c++>, dan I<symver>) de voorkeur boven generieke patronen. Generieke patronen worden vergeleken in de volgorde waarin zij aangetroffen worden in het symboolbestand-sjabloon tot er een eerste succes volgt. Merk nochtans op dat het manueel herordenen van items uit het sjabloonbestand niet aangeraden wordt, aangezien B<dpkg-gensymbols> diffs (weergave van de veranderingen) genereert op basis van de alfanumerieke volgorde van hun namen.
+When multiple patterns match the same real symbol, aliases (first I<c++>, then I<symver>) are preferred over generic patterns.  Generic patterns are matched in the order they are found in the symbol file template until the first success.  Note, however, that manual reordering of template file entries is not recommended because B<dpkg-gensymbols> generates diffs based on the alphanumerical order of their names.
 
 =head2 Het gebruik van includes
 

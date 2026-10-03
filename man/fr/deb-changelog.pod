@@ -56,7 +56,7 @@ With a B<yes> value, it is used to denote that this changelog entry is for a bin
 
 =back
 
-Les détails de modification peuvent être en fait une série de lignes démarrant par au moins deux espaces (U+0020 B<ESPACE>), mais par convention, chaque modification débute par un astérisque et une espace de séparation et les lignes de continuation sont indentées de telle manière qu'elles s'alignent sur le début du texte au-dessus. Des lignes blanches peuvent être utilisées pour séparer des groupes de modifications, si désiré.
+The change details may be any series of lines starting with at least two spaces (U+0020 B<SPACE>), but conventionally each change starts with an asterisk and a separating space and continuation lines are indented so as to bring them in line with the start of the text above.  Blank lines may be used here to separate groups of changes, if desired.
 
 Si cet envoi résout des bogues enregistrés dans le système de suivi de bogues de la distribution, ceux-ci peuvent être automatiquement fermés lors de l'inclusion de ce paquet dans l'archive de la distribution en incluant la chaîne :
 
@@ -78,7 +78,7 @@ C'est-à-dire que la chaîne devrait être composée du mot B<closes:> suivi par
 
 Cette information est transmise à travers le champ B<Closes> dans le fichier I<.changes>, où, selon le logiciel d'entretien de l'archive, tous les numéros de bogue listés devraient être fermés automatiquement.
 
-Le nom du responsable et l'adresse électronique utilisés dans le changelog seront les détails sur la personne qui a préparé cette version du paquet. Ce ne sont B<pas> nécessairement ceux de celui ou celle qui fait l'envoi ou du responsable habituel du paquet. Ces informations seront copiées dans le champ B<Changed-By> du fichier I<.changes>, et pourront plus tard être utilisées pour envoyer une confirmation lorsque l'envoi a été installé dans l'archive de la distribution.
+The maintainer name and email address used in the changelog should be the details of the person who prepared this release of the package.  They are B<not> necessarily those of the uploader or usual package maintainer.  The format for the name and email address is described in L<deb-email(7)>.  The information here will be copied to the B<Changed-By> field in the I<.changes> file, and then later might be used to send an acknowledgment when the upload has been installed in the distribution archive.
 
 La I<date> est au format suivant (compatible et avec la même sémantique que RFC2822 et RFC5322, ou avec ce que crée « date -R ») :
 
@@ -162,7 +162,7 @@ La totalité du journal des modifications doit être encodé en UTF-8.
 
 =head1 VOIR AUSSI
 
-L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
+L<deb822(5)>, L<deb-changes(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 TRADUCTION

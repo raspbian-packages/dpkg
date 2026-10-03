@@ -32,6 +32,7 @@ use POSIX qw(:fcntl_h :locale_h strftime);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::Checksums;
 use Dpkg::ErrorHandling;
 use Dpkg::IPC;
@@ -349,34 +350,65 @@ sub cleansed_environment {
                       sort keys %env;
 }
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...]')
-    . "\n\n" . g_(
-"Options:
-  --build=<type>[,...]     specify the build <type>: full, source, binary,
-                             any, all (default is \'full\').
-  -c<control-file>         get control info from this file.
-  -l<changelog-file>       get per-version info from this file.
-  -f<files-list-file>      get .deb files list from this file.
-  -F<changelog-format>     force changelog format.
-  -O[<buildinfo-file>]     write to stdout (or <buildinfo-file>).
-  -u<upload-files-dir>     directory with files (default is '..').
-  --always-include-kernel  always include Build-Kernel-Version.
-  --always-include-path    always include Build-Path.
-  --admindir=<directory>   change the administrative directory.
-  -?, --help               show this help message.
-      --version            show the version.
-"), $Dpkg::PROGNAME;
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"      --build=<type>[,...]\n" .
+"          Specify the build <type>: full, source, binary, any, all.\n" .
+    ''));
+    print_option_def('full');
+    print_option(g_(
+"  -c<control-file>\n" .
+"          Get control information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -l<changelog-file>\n" .
+"          Get per-version changelog information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -F<changelog-format>\n" .
+"          Force changelog format.\n" .
+    ''));
+    print_option(g_(
+"  -f<files-list-file>\n" .
+"          Get list of built artifacts from this file.\n" .
+    ''));
+    print_option(g_(
+"  -u<upload-files-dir>\n" .
+"          Directory with built artifacts.\n" .
+    ''));
+    print_option_def('..');
+    print_option(g_(
+"  -O[<buildinfo-file>]\n" .
+"          Write to stdout (or <buildinfo-file>).\n" .
+    ''));
+    print_option(g_(
+"      --always-include-kernel\n" .
+"          Always include Build-Kernel-Version field.\n" .
+    ''));
+    print_option(g_(
+"      --always-include-path\n" .
+"          Always include Build-Path field.\n" .
+    ''));
+    print_option(g_(
+"      --admindir=<directory>\n" .
+"          Change the administrative directory.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 my $build_opts = Dpkg::BuildOptions->new();
@@ -413,7 +445,7 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } else {
         usageerr(g_("unknown option '%s'"), $_);
@@ -594,7 +626,7 @@ if ($stdout) {
     $dist->save("$fileslistfile.new");
 
     rename "$fileslistfile.new", $fileslistfile
-        or syserr(g_('install new files list file'));
+        or syserr(g_('cannot install new files list file'));
 
     # Release the lock.
     close $lockfh or syserr(g_('cannot close %s'), $lockfile);

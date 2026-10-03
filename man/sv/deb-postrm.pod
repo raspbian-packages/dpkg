@@ -44,7 +44,7 @@ Efter att paketet har uppgraderats.
 
 Om ovanstående B<upgrade>-anrop misslyckas.
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<postrm> B<disappear> I<överskrivande-paket> I<överskrivande-version>
 
@@ -58,13 +58,13 @@ Om I<preinst> misslyckas under B<install> (installation).
 
 Om I<preinst> misslyckas B<install> (installation) vid uppgradering av borttagna paket.
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<ny-postrm> B<abort-upgrade> I<gammal-version> I<ny-version>
 
 Om I<preinst> misslycas vid B<upgrade> (uppgradering).
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =back
 

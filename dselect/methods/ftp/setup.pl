@@ -93,8 +93,7 @@ Eg:      ftp site: ftp.debian.org
     distributions: dists/stable/main dists/stable/contrib
      download dir: debian
 
-You may have to use an authenticated FTP proxy in order to reach the
-FTP site:
+You may have to use an authenticated FTP proxy to reach the FTP site:
 
 Eg:  use auth proxy: y
               proxy: proxy.isp.com
@@ -111,7 +110,7 @@ edit_config('ftp', $methdir);
 my $ftp;
 sub download {
     foreach my $site (@{$CONFIG{site}}) {
-        $ftp = do_connect(
+        $ftp = Dselect::Method::Ftp->new(
             ftpsite => $site->[0],
             ftpdir => $site->[1],
             passive => $site->[3],
@@ -129,8 +128,7 @@ sub download {
             my $dir = "$dist/binary-$arch";
             print "Checking $dir...\n";
 #           if (! $ftp->pasv()) {
-#               print $ftp->message . "\n";
-#               die 'error';
+#               error($ftp->message);
 #           }
             my @dirlst = $ftp->ls("$dir/");
             my $got_pkgfile = 0;
@@ -141,8 +139,8 @@ sub download {
                 }
             }
             if (! $got_pkgfile) {
-                print "warning: could not find a Packages file in $dir\n",
-                      "This may not be a problem if the directory is a symbolic link\n";
+                warning("cannot find a Packages file in '%s'", $dir);
+                hint('this may not be a problem if the directory is a symbolic link');
                 $problem = 1;
             }
         }
@@ -152,21 +150,22 @@ sub download {
 }
 
 # Download stuff (protect from Ctrl+C).
-print "\nUsing FTP to check directories... (use Ctrl+C to stop)\n\n";
+print "\nUsing FTP to check directories... (press Ctrl+C to stop)\n\n";
 eval {
     local $SIG{INT} = sub {
-        die "interrupted!\n";
+        error('interrupted!');
     };
     download();
 };
 if ($@) {
     $ftp->quit();
-    print 'FTP ERROR - ';
+    my $reason;
     if ($@ eq 'connect') {
-        print "config was untested\n";
+        $reason = 'config was untested';
     } else {
-        print "$@\n";
+        $reason = "$@";
     }
+    errormsg('cannot download with FTP: %s', $reason);
     $exit = 1;
 }
 
@@ -176,7 +175,7 @@ store_config("$methdir/vars");
 chmod 0o600, "$methdir/vars";
 
 if ($exit || $problem) {
-    print "Press <enter> to continue\n";
+    print "Press <Enter> to continue\n";
     <STDIN>;
 }
 

@@ -56,7 +56,7 @@ Wird mit einem Wert von B<yes> verwandt, um anzuzeigen, dass dieser Changelog-Ei
 
 =back
 
-Die Änderungsdetails können tatsächlich eine Reihe von Zeilen, die mindestens mit zwei Leerzeichen (U+0020 B<LEERZEICHEN>) beginnen, sein, aber üblicherweise beginnt jede Änderung mit einem Stern und einem trennenden Leerzeichen und Folgezeilen werden so eingerückt, dass sie bündig mit dem obigen Text formatiert sind. Leerzeilen können hier verwandt weden, um Gruppen von Änderungen, falls gewünscht, zu trennen.
+The change details may be any series of lines starting with at least two spaces (U+0020 B<SPACE>), but conventionally each change starts with an asterisk and a separating space and continuation lines are indented so as to bring them in line with the start of the text above.  Blank lines may be used here to separate groups of changes, if desired.
 
 Falls dieser Upload Fehler aus der Fehlerdatenbank behebt, können diese automatisch geschlossen werden, falls der Changlog bei der Aufnahme in das Distributionsarchiv die folgende Zeichenkette enthält:
 
@@ -78,7 +78,7 @@ Das bedeutet, die Zeichenkette sollte aus dem Wort B<closes:>, gefolgt von einer
 
 Diese Information wird über das Feld B<Closes> in der Datei I<.changes> übermittelt. Hierbei werden, abhängig von der Archivverwaltungssoftware, alle aufgeführten Fehlernummern automatisch geschlossen werden können.
 
-Der im Changelog verwandte Name des Betreuers und die E-Mail-Adresse sollten die Details der Person sein, die diese Veröffentlichung des Pakets erstellt hat. Sie stimmen B<nicht> notwendigerweise mit denen des Hochladenden oder des normalen Paketbetreuers überein. Die Informationen werden von hier in das Feld B<Changed-By> in der I<.changes>-Datei kopiert und könnten dann später zum Versand der Bestätigung verwandt werden, wenn der Upload im Archiv der Distribution aufgenommen wurde.
+The maintainer name and email address used in the changelog should be the details of the person who prepared this release of the package.  They are B<not> necessarily those of the uploader or usual package maintainer.  The format for the name and email address is described in L<deb-email(7)>.  The information here will be copied to the B<Changed-By> field in the I<.changes> file, and then later might be used to send an acknowledgment when the upload has been installed in the distribution archive.
 
 Das I<Datum> hat das folgende Format (kompatibel zu und mit der gleichen Semantik von RFC2822 und RFC5322 bzw. der Ausgabe von „date -R“):
 
@@ -162,7 +162,7 @@ Der gesamte Changelog muss in UTF-8 kodiert sein.
 
 =head1 SIEHE AUCH
 
-L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
+L<deb822(5)>, L<deb-changes(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 ÜBERSETZUNG

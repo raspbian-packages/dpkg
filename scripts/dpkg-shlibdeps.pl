@@ -29,6 +29,7 @@ use File::Basename qw(dirname);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::IPC;
 use Dpkg::Path qw(relative_to_pkg_root guess_pkg_root_dir
@@ -99,9 +100,9 @@ foreach (@ARGV) {
     } elsif (m/^-l(.*)$/) {
         push @priv_lib_dirs, $1;
     } elsif (m/^-S(.*)$/) {
-        push @pkg_dir_to_search, $1;
+        push @pkg_dir_to_search, parse_option_dir('-S', $1);
     } elsif (m/^-I(.*)$/) {
-        push @pkg_dir_to_ignore, $1;
+        push @pkg_dir_to_ignore, parse_option_dir('-I', $1);
     } elsif (m/^-O$/) {
         $stdout = 1;
     } elsif (m/^-O(.+)$/) {
@@ -110,7 +111,7 @@ foreach (@ARGV) {
         usage();
         exit 0;
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit 0;
     } elsif (m/^--admindir=(.*)$/) {
         $admindir = $1;
@@ -639,52 +640,112 @@ $substvars->save($varlistfilenew);
 # Replace old file by new one.
 if (! $stdout) {
     rename $varlistfilenew, $varlistfile
-        or syserr(g_("install new varlist file '%s'"), $varlistfile);
+        or syserr(g_("cannot install new substvars file '%s'"), $varlistfile);
 }
 
 ## Functions.
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] <executable>|-e<executable> [<option>...]')
-    . "\n\n" . g_(
-"Positional options (order is significant):
-  <executable>             include dependencies for <executable>,
-  -e<executable>           (use -e if <executable> starts with '-')
-  -d<dependency-field>     next executable(s) set shlibs:<dependency-field>.")
-    . "\n\n" . g_(
-'Options:
-  --package=<package>      generate substvars for <package> (default is unset).
-  -l<library-dir>          add directory to private shared library search list.
-  -p<varname-prefix>       set <varname-prefix>:* instead of shlibs:*.
-  -O[<file>]               write variable settings to stdout (or <file>).
-  -L<local-shlibs-file>    shlibs override file, not debian/shlibs.local.
-  -T<substvars-file>       update variables here, not debian/substvars.
-  -t<type>                 set package type (default is deb).
-  -x<package>              exclude package from the generated dependencies.
-  -S<package-build-dir>    search needed libraries in the given
-                             package build directory first.
-  -I<package-build-dir>    ignore needed libraries, shlibs and symbols files
-                             in the given build directory.
-  -v                       enable verbose mode (can be used multiple times).
-  --ignore-missing-info    do not fail on missing dependency information.
-  --warnings=<value>       define set of active warnings (see manual page).
-  --admindir=<directory>   change the administrative directory.
-  -?, --help               show this help message.
-      --version            show the version.')
-    . "\n\n" . g_(
-'Dependency fields recognized are:
-  %s
-'), $Dpkg::PROGNAME, join('/', @depfields);
+"Usage: %s [<option>...] [-e]<executable> [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Positional options (order is significant):\n" .
+    '');
+    print_option(g_(
+"  <executable>\n" .
+"          Include dependencies for <executable>.\n" .
+    ''));
+    print_option(g_(
+"  -e<executable>\n" .
+"          Alias for <executable> when it starts with '-'.\n" .
+    ''));
+    print_option(g_(
+"  -d<dependency-field>\n" .
+"          Next executables set shlibs:<dependency-field>.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"      --package=<package>\n" .
+"          Generate substitution variables for <package>.\n" .
+    ''));
+    print_option(g_(
+"  -t<type>\n" .
+"          Set package type.\n" .
+    ''));
+    print_option_def('deb');
+    print_option(g_(
+"  -p<varname-prefix>\n" .
+"          Set <varname-prefix>:*.\n" .
+    ''));
+    print_option_def('shlibs:*');
+    print_option(g_(
+"  -x<package>\n" .
+"          Exclude package from the generated dependencies.\n" .
+    ''));
+    print_option(g_(
+"  -S<package-build-dir>\n" .
+"          Search needed libraries in the given package build directory first.\n" .
+    ''));
+    print_option(g_(
+"  -I<package-build-dir>\n" .
+"          Ignore needed libraries, shlibs and symbols files in the given build\n" .
+"          directory.\n" .
+    ''));
+    print_option(g_(
+"  -l<library-dir>\n" .
+"          Add directory to private shared library search list.\n" .
+    ''));
+    print_option(g_(
+"  -L<local-shlibs-file>\n" .
+"          Specify shlibs override file to use.\n" .
+    ''));
+    print_option_def('debian/shlibs.local');
+    print_option(g_(
+"  -T<substvars-file>\n" .
+"          Update substitution variables from this file.\n" .
+    ''));
+    print_option_def('debian/substvars');
+    print_option(g_(
+"  -O[<file>]\n" .
+"          Write variable settings to stdout (or <file>).\n" .
+    ''));
+    print_option(g_(
+"      --ignore-missing-info\n" .
+"          Do not fail on missing dependency information.\n" .
+    ''));
+    print_option(g_(
+"      --warnings=<value>\n" .
+"          Define set of active warnings (see manual page).\n" .
+    ''));
+    print_option(g_(
+"  -v\n" .
+"          Enable verbose mode; can be used multiple times.\n" .
+    ''));
+    print_option(g_(
+"      --admindir=<directory>\n" .
+"          Change the administrative directory.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Dependency fields recognized are:\n" .
+"  %s\n" .
+    ''), join('/', @depfields);
 }
 
 sub get_min_version_from_deps {
@@ -814,14 +875,14 @@ sub extract_from_shlibs {
     }
     # Open shlibs file.
     open(my $shlibs_fh, '<', $shlibfile)
-        or syserr(g_("unable to open shared libs metadata file '%s'"), $shlibfile);
+        or syserr(g_("cannot open shared library metadata file '%s'"), $shlibfile);
     my $dep;
     while (<$shlibs_fh>) {
         s/\s*\n$//;
         next if m/^\#/;
         ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
         if (! m/$shlibs_regex/) {
-            warning(g_("shared libs metadata file '%s' line %d: bad line '%s'"),
+            warning(g_("shared libraries metadata file '%s' line %d: bad line '%s'"),
                     $shlibfile, $., $_);
             next;
         }
@@ -919,7 +980,7 @@ sub my_find_library {
                 $path =~ s/\$\{ORIGIN\}/$origin/g;
             } else {
                 warning(g_('$ORIGIN is used in RPATH of %s and the corresponding ' .
-                'directory could not be identified due to lack of DEBIAN ' .
+                'directory cannot be identified due to lack of DEBIAN ' .
                 "sub-directory in the root of package's build tree"), $execfile);
             }
         }
@@ -988,7 +1049,8 @@ sub find_packages {
         if (m/^local diversion |^diversion by/) {
             warning(g_('diversions involved - output may be incorrect'));
             print { *STDERR } " $_\n"
-                or syserr(g_('write diversion info to stderr'));
+                or syserr(g_('cannot write diversion info to %s'),
+                          g_('<standard error>'));
         } elsif (m/^([-a-z0-9+.:, ]+): (\/.*)$/) {
             my ($pkgs, $path) = ($1, $2);
             my $realpath = realpath($path);

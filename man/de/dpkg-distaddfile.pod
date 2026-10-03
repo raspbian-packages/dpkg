@@ -52,11 +52,15 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 

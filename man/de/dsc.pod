@@ -70,9 +70,13 @@ Der Name der Distribution, aus der dieses Paket ursprünglich stammt.
 
 Sollte in dem Format „Joe Bloggs E<lt>jbloggs@foo.comE<gt>“ sein und ist typischerweise die Person, die das Paket erstellt hat, im Gegensatz zum Autor der Software, die paketiert wurde.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<Vollständiger-Name-und-E-Mail-Liste>
 
 Listet die Namen und E-Mail-Adressen der Ko-Betreuer des Pakets auf, im gleichen Format wie das Feld B<Maintainer>. Mehrere Ko-Betreuer sollten durch Kommata getrennt werden.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description> I<Kurzbeschreibung>
 
@@ -202,7 +206,7 @@ Das Feld B<Format> fügt das Format für die Datei B<.dsc> und das Format des en
 
 =head1 SIEHE AUCH
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>.
 
 
 =head1 ÜBERSETZUNG

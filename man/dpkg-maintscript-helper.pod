@@ -52,7 +52,7 @@ design decisions or due to current limitations.
 Many of those tasks require coordinated actions from several maintainer
 scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>).
 To
-avoid mistakes the same call simply needs to be put in all scripts and the
+avoid mistakes the same call needs to be put in all scripts and the
 program will automatically adapt its behavior based on the environment
 variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments
 that you have to forward after a double hyphen.
@@ -294,7 +294,7 @@ I<pathname>B<.dpkg-backup> back to I<pathname> if required.
 
 =head1 INTEGRATION IN PACKAGES
 
-When using a packaging helper, please check if it has native
+When using a packaging helper, check if it has native
 B<dpkg-maintscript-helper> integration, which might make your life
 easier.
 See for example L<dh_installdeb(1)>.
@@ -351,9 +351,11 @@ If set, it will be used as the B<dpkg> data directory.
 
 =item B<DPKG_COLORS>
 
-Sets the color mode (since dpkg 1.19.1).
+Sets the color mode.
 The currently accepted values are: B<auto> (default), B<always> and
 B<never>.
+
+Supported since dpkg 1.19.1.
 
 =back
 

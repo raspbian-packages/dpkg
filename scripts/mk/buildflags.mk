@@ -1,15 +1,15 @@
 # This Makefile fragment (since dpkg 1.16.1) defines the following host
 # variables:
 #
-#   ASFLAGS: Flags for the host assembler (since 1.21.0).
+#   ASFLAGS: Flags for the host assembler (since dpkg 1.21.0).
 #   CFLAGS: Flags for the host C compiler.
 #   CPPFLAGS: Flags for the host C preprocessor.
 #   CXXFLAGS: Flags for the host C++ compiler.
-#   OBJCFLAGS: Flags for the host Objective C compiler.
-#   OBJCXXFLAGS: Flags for the host Objective C++ compiler.
-#   DFLAGS: Flags for the host D compiler.
+#   OBJCFLAGS: Flags for the host Objective C compiler (since dpkg 1.17.7).
+#   OBJCXXFLAGS: Flags for the host Objective C++ compiler (since dpkg 1.17.7).
+#   DFLAGS: Flags for the host D compiler (since dpkg 1.20.6).
 #   FFLAGS: Flags for the host Fortran 77 compiler.
-#   FCFLAGS: Flags for the host Fortran 9x compiler.
+#   FCFLAGS: Flags for the host Fortran 9x compiler (since dpkg 1.17.7).
 #   LDFLAGS: Flags for the host linker.
 #
 # And the following variables for the build tools (since dpkg 1.22.1):

@@ -36,13 +36,13 @@ Antes do pacote ser instalado.
 
 Antes de um pacote removido ser actualizado.
 
-A I<new-version> é passada apenas desde o dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<new-preinst> B<upgrade> I<old-version> I<new-version>
 
 Antes do pacote ser actualizado.
 
-A I<new-version> é passada apenas desde o dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<old-preinst> B<abort-upgrade> I<new-version>
 

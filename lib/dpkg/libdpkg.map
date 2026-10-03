@@ -44,6 +44,9 @@ LIBDPKG_PRIVATE {
 	color_get;
 	color_reset;
 
+	# Terminal handling
+	term_get_width;
+
 	# Error handling
 	push_error_context_jump;
 	push_error_context_func;
@@ -55,11 +58,12 @@ LIBDPKG_PRIVATE {
 	push_cleanup;
 	push_cleanup_fallback;
 	pop_cleanup;
-	onerr_abort;		# XXX variable, do not export
+	push_fatal_errors_section;
+	pop_fatal_errors_section;
 	ohshitv;
 	ohshite;
 	ohshit;
-	do_internerr;
+	impl_internerr;
 	dpkg_set_report_piped_mode;
 	dpkg_set_report_buffer;
 	dpkg_warning_printer;
@@ -106,6 +110,7 @@ LIBDPKG_PRIVATE {
 	str_match_end;
 	str_fnv_hash;
 	str_concat;
+	str_vfmt;
 	str_fmt;
 	str_escape_fmt;
 	str_strip_quotes;
@@ -255,11 +260,11 @@ LIBDPKG_PRIVATE {
 	decompress_filter;
 
 	# Ar support
+	dpkg_ar_member_parse_size;
 	dpkg_ar_put_magic;
 	dpkg_ar_member_put_header;
 	dpkg_ar_member_put_file;
 	dpkg_ar_member_put_mem;
-	dpkg_ar_member_get_size;
 
 	# deb version support
 	deb_version_parse;
@@ -276,9 +281,13 @@ LIBDPKG_PRIVATE {
 	set_instdir;
 	set_admindir;
 	set_root;
+	print_option_def;
+	print_option_env;
+	print_option_sep;
+	print_option;
 
 	# General logging
-	log_file;		# XXX variable, do not export
+	log_set_file;
 	log_message;
 
 	# Action logging

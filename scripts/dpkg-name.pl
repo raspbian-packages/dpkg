@@ -21,11 +21,13 @@
 use v5.36;
 
 use List::Util qw(none);
+use File::stat ();
 use File::Basename;
 use File::Path qw(make_path);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Version;
 use Dpkg::Control;
@@ -42,28 +44,50 @@ my %options = (
     architecture => 1,
 );
 
-sub version
-{
-    printf(g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION);
-}
-
 sub usage
 {
-    printf(g_("Usage: %s [<option>...] <file>...\n"), $Dpkg::PROGNAME);
+    printf g_(
+"Usage: %s [<option>...] <file>...\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
 
-    print(g_("
-Options:
-  -a, --no-architecture    no architecture part in filename.
-  -o, --overwrite          overwrite if file exists.
-  -k, --symlink            do not create a new file, but a symlink.
-  -s, --subdir [dir]       move file into subdirectory (use with care).
-  -c, --create-dir         create target directory if not there (use with care).
-  -?, --help               show this help message.
-  -v, --version            show the version.
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -a, --no-architecture\n" .
+"          No architecture part in filename.\n" .
+    ''));
+    print_option(g_(
+"  -o, --overwrite\n" .
+"          Overwrite if file exists.\n" .
+    ''));
+    print_option(g_(
+"  -k, --symlink\n" .
+"          Do not create a new file, but a symlink.\n" .
+    ''));
+    print_option(g_(
+"  -s, --subdir [<dir>]\n" .
+"          Move file into subdirectory (use with care).\n" .
+    ''));
+    print_option(g_(
+"  -c, --create-dir\n" .
+"          Create target directory if not there (use with care).\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"  -v, --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
 
-file.deb changes to <package>_<version>_<architecture>.<package_type>
-according to the 'underscores convention'.
-"));
+    printf g_(
+"file.deb changes to <package>_<version>_<architecture>.<package_type>\n" .
+"according to the 'underscores convention'.\n" .
+    '');
 }
 
 sub fileexists
@@ -81,11 +105,10 @@ sub fileexists
 sub filesame
 {
     my ($a, $b) = @_;
-    my @sta = stat($a);
-    my @stb = stat($b);
+    my $sta = File::stat::stat($a);
+    my $stb = File::stat::stat($b);
 
-    # Same device and inode numbers.
-    return (@sta and @stb and $sta[0] == $stb[0] and $sta[1] == $stb[1]);
+    return $sta && $stb && $sta->dev == $stb->dev && $sta->ino == $stb->ino;
 }
 
 sub getfields
@@ -148,13 +171,20 @@ sub getdir
     if (! $options{destdir}) {
         $dir = dirname($filename);
         if ($options{subdir}) {
+            my @sections = qw(
+                no-section
+                contrib
+                non-free-firmware
+                non-free
+            );
+
             my $section = $fields->{Section};
             if (! $section) {
                 $section = 'no-section';
                 warning(g_("assuming section '%s' for '%s'"), $section,
                         $filename);
             }
-            if (none { $section eq $_ } qw(no-section contrib non-free)) {
+            if (none { $section eq $_ } @sections) {
                 $dir = "unstable/binary-$arch/$section";
             } else {
                 $dir = "$section/binary-$arch";
@@ -227,13 +257,13 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif (m/^-v|--version$/) {
-        version();
+        print_version();
         exit(0);
     } elsif (m/^-c|--create-dir$/) {
         $options{createdir} = 1;
     } elsif (m/^-s|--subdir$/) {
         $options{subdir} = 1;
-        if (-d $ARGV[0]) {
+        if (! -f $ARGV[0]) {
             $options{destdir} = shift(@ARGV);
         }
     } elsif (m/^-o|--overwrite$/) {

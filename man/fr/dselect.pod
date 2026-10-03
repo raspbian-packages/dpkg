@@ -60,11 +60,15 @@ Change le répertoire où les fichiers « I<status> », « I<available> » e
 
 =item B<--instdir> I<répertoire>
 
-Définit le répertoire d'installation qui désigne le répertoire où les paquets sont installés (depuis dpkg 1.19.2). Par défaut c'est « I</> » siB<DPKG_ROOT> n'a pas été défini.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.21.2.
 
 =item B<--root> I<répertoire>
 
-Définit le répertoire root à B<directory>, ce qui définit le répertoire d'installation à « I<répertoire> » et le répertoire d'administration à « I<répertoire>B<%ADMINDIR%> » (depuis dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<-D>I<fichier>, B<--debug> I<fichier>
 
@@ -409,7 +413,7 @@ Lorsque la demande de modification entraîne des dépendances non satisfaites ou
 
 La moitié supérieure de cet écran liste tous les paquets ayant des dépendances non résolues ou des conflits dus aux modifications demandées, ainsi que les paquets dont l'installation permettrait de résoudre une dépendance ou dont le retrait permettrait de résoudre un conflit. La moitié inférieure affiche par défaut les dépendances ou conflits pour lesquels le paquet sélectionné se trouve présent dans la liste.
 
-Quand la sous-liste de paquets est affichée pour la première fois, B<dselect> peut avoir déjà fixé les états demandés pour certains des paquets listés, cela afin de résoudre les dépendances ou les conflits qui ont causé l'apparition de l'écran de résolution des dépendances. Il est habituellement recommandé de suivre les suggestions de B<dselect>.
+When the sublist of packages is displayed initially, B<dselect> may have already set the requested selection status of some of the listed packages, to resolve the depends or conflicts that caused the dependency resolution screen to be displayed.  Usually, it is best to follow up the suggestions made by B<dselect>.
 
 L'état de sélection des paquets listés peut être remis dans son état précédent, avant que le problème de dépendance ou le conflit ne soit créé, en appuyant sur la touche « B<R> ». La touche « B<D> » permet de remettre à zéro les suggestions automatiques, tout en conservant les modifications qui ont causé l'apparition de l'écran de résolution des dépendances. Enfin, la touche « B<U> » permet de rétablir les suggestions automatiques.
 
@@ -443,11 +447,15 @@ Erreur fatale ou irrécupérable due à l'utilisation d'une ligne de commande no
 
 =item B<DPKG_ROOT>
 
-Si cette variable est positionnée et que les options B<--instdir> ou B<--root> ne sont pas précisées, ce répertoire sera utilisé comme répertoire racine du système de fichiers (depuis dpkg 1.21.0).
+Si cette variable est positionnée et que les options B<--admindir> ou B<--root> ne sont pas précisées, ce répertoire sera utilisé comme répertoire racine du système de fichiers.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
-Si cette variable est positionnée et que les options B<--admindir> ou B<--root> ne sont pas précisées, ce répertoire sera utilisé comme répertoire de données pour B<dpkg> (depuis dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<HOME>
 

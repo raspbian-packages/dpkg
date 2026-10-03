@@ -38,7 +38,7 @@ Till skillnad från metavariabeln I<#MINVER#> kommer följande metavariabler ald
 
 I några sällsynta fall skiljer sig namnet på biblioteket mellan arkitekturer. För att undvika att hårdkoda namnet på paketet i symbolfilen kan du använda metavariabeln I<#PACKAGE#>. Den ersätts av det faktiska paketnamnet när symbolfilen installeras.
 
-=head2 Använda metavariabeln #CURVER#
+=head3 Använda metavariabeln #CURVER#
 
 I några fall kan en symbol med ett instabilt ABI kräva ett strikt beroende på den aktuella paketversionen. För att undvika att hårdkoda den aktuella versionen i symbolfilen kan du använda metavariabeln I<#CURVER#>. Den kommer att ersättas av en beroendeversionsrestriktion på formen ”(= I<binärversion>)”, där detta vanlitgvis skulle användas i kombination med I<#PACKAGE#>.
 
@@ -74,7 +74,7 @@ Taggen är användbar för symboler som är privata och vars försvinnande inte 
 
 =item B<arch-endian=>I<arkitektur-byteordning>
 
-Dessaa taggar gör det möjligt att begränsa vilken uppsättning arkitekturer symbolen är tänkt att finnas för. Taggarna B<arch-bits> och B<arch-endian> stöds sedan dpkg 1.18.0. När symbollistan uppdateras med symboler som upptäcks i biblioteket behandlas alla arkitekturspecifika symboler som inte gäller den aktuella värdarkitekturen som om de inte fanns. Om en arkitekturspecifik symbol som motsvarar den aktuella värdarkitekturen inte existerar i biblioteket gäller de vanliga reglerna för saknade symboler, och kan få B<dpkg-gensymbols> att misslyckas. Å andra sidan, om en arkitekturspecifik symbol hittas där den inte var menad att finnas (då den aktuella värdarkitekturen inte är listad i taggen eller inte motsvarar byteordningen eller antal bitar), görs den arkitekturneutral (dvs. taggarna arch, arch-bits och arch-endgian tas bort och symbolen kommer finnas med i differensen på grund av denna ändring), men den anses inte som ny.
+These tags allow one to restrict the set of architectures where the symbol is supposed to exist.  When the symbols list is updated with the symbols discovered in the library, all arch-specific symbols which do not concern the current host architecture are treated as if they did not exist.  If an arch-specific symbol matching the current host architecture does not exist in the library, normal procedures for missing symbols apply and it may cause B<dpkg-gensymbols> to fail.  On the other hand, if the arch-specific symbol is found when it was not supposed to exist (because the current host architecture is not listed in the tag or does not match the endianness and bits), it is made arch neutral (i.e. the arch, arch-bits and arch-endian tags are dropped and the symbol will appear in the diff due to this change), but it is not considered as new.
 
 I det vanliga icke-mall-läget skrivs endast de arkitekturspecifika symboler som motsvarar den aktuella värdarkitekturen till symbolfilen. Å andra sidan skrivs alla arkitekturspecifika symboler (inklusive de från andra arkitekturer) till symbolfilen i mall-läget.
 
@@ -97,9 +97,13 @@ Flera begränsningar kan kedjas samman
 
   (arch-bits=32|arch-endian=little)32bitars_le_symbol@Base 1.0
 
+Support for tags B<arch-bits> and B<arch-endian> since dpkg 1.18.0.
+
 =item B<allow-internal>
 
-dpkg-gensymbols har en intern svartlista över symboler som inte ska förekomma i symbolfiler eftersom de oftast bara är sidoeffekter från implementationsdetaljer i verktygskedjan (sedan dpkg 1.20.1). Om du, av någon orsak, verkligen vill att en av dessa symboler ska tas med i symbolfilen måste du tagga symbolen med B<allow-internal>. Det kan vara nödvändigt för lågnivå-verktygskedjebibliotek som ”libgcc”.
+dpkg-gensymbols has a list of internal symbols that should not appear in symbols files as they are usually only side-effects of implementation details of the toolchain.  If for some reason, you really want one of those symbols to be included in the symbols file, you should tag the symbol with B<allow-internal>.  It can be necessary for some low level toolchain libraries like “libgcc”.
+
+Stöds sedan dpkg 1.20.1.
 
 =item B<c++>
 
@@ -119,9 +123,9 @@ Anger I<regex>-symbolmönstret. Se stycket L</Använda symbolmönster> nedan.
 
 Till skillnad från vanliga symbolspecifikationer kan ett mönster täcka flera faktiska symboler från biblioteket. B<dpkg-gensymbols> kommer försöka matcha varje mönster mot varje faktisk symbol som I<inte> har en motsvarande specifik symbol definierad i symbolfilen. Så fort det första mönster som motsvarar symbolen hittas kommer alla dess taggar och egenskaper att användas som en basspecifikation för symbolen. Om inget mönster motsvarar symbolen kommer den att tolkas som ny.
 
-Ett mönster anses som tappat om det inte motsvarar några symboler i biblioteket. Som standard kommer detta få B<dpkg-genchanges> att misslyckas om B<-c1> eller högre anges. Om ett sådant misslyckande inte är önskvärt kan mönstret dock märkas med taggen I<optional>. Om mönstret då inte motsvarar någonting kommer det bara dyka upp i differensen som saknas (MISSING). Mönstret kan dessutom, precis som andra symboler, begränsas till specifika arkitekturer med hjälp av I<arch>-taggen. Se stycket L</Standardsymboltaggar> ovan för mer information.
+A pattern is considered lost if it does not match any symbol in the library.  By default this will trigger a B<dpkg-gensymbols> failure under B<-c1> or higher level.  However, if the failure is undesired, the pattern may be marked with the I<optional> tag.  Then if the pattern does not match anything, it will only appear in the diff as MISSING.  Moreover, like any symbol, the pattern may be limited to the specific architectures with the I<arch> tag.  See the L</Standard symbol tags> subsection above for more information.
 
-Mönster är en utökning av L<deb-symbols(5)>-formatet och är därför endast tillåtna i symbolfilmallar. Syntax för angivelse av mönster skiljer sig inte från den för en specifik symbol. Symbolnamnsdelen av specifikationen fungerar dock som ett uttryck som ska jämföras mot I<namn@version> för den faktiska symbolen. För att skilja mellan olika sorters mönster, taggas mönster normalt med en speciell tagg.
+Patterns are an extension of the L<deb-symbols(5)> format hence they are only valid in symbol file templates.  Pattern specification syntax is not any different from the one of a specific symbol.  However, symbol name part of the specification serves as an expression to be matched against I<name@version> of the real symbol.  To distinguish among different pattern types, a pattern will typically be tagged with a special tag.
 
 För närvarande stöder B<dpkg-gensymbols> tre grundläggande mönstertyper:
 
@@ -139,7 +143,7 @@ Det avmanglade namnet ovan kan hämtas genom att utföra följande kommando:
 
   $ echo '_ZThn8_N3NSB6ClassDD1Ev@Base' | c++filt
 
-Observera att även om det manglade namnet per definition är unikt i biblioteket gäller inte detta för avmanglade namn. Flera distinkta verkliga symboler kan ha samma avmanglade namn. Det gäller till exempel för icke-virtuella ”thunk”-symboler i konfigurationer med komplexa arv eller för de flesta konstruktörer och destruktörer (eftersom g++ normalt genererar två symboler för dem). Eftersom dessa kollisioner sker på ABI-nivån bör de dock inte sänka kvaliteten på symbolfilen.
+Note that while mangled name is unique in the library by definition, this is not necessarily true for demangled names.  A couple of distinct real symbols may have the same demangled name.  For example, that's the case with non-virtual thunk symbols in complex inheritance configurations or with most constructors and destructors (since g++ typically generates two real symbols for them).  However, as these collisions happen on the ABI level, they should not degrade quality of the symbol file.
 
 =item B<symver>
 
@@ -152,7 +156,7 @@ Detta mönster anges med taggen I<symver>. Välunderhållna bibliotek har versio
   access@GLIBC_2.0 2.2
 Alla symboler associerade med versionerna GLIBC_2.0 och GLIBC_2.7 kommer leda till den minimal version 2.0 respektive 2.7, med undantag av symbolen access@GLIBC_2.0. Den sistnämnda kommer leda till ett minsta beroende på libc6 version 2.2 trots att den motsvarar mönstret "(symver)GLIBC_2.0"-mönstret, eftersom specifika symboler gäller före mönster.
 
-Observera att även om den gamla sortens jokerteckenmönster (anges med "*@version" i symbolnamnfältet) fortfarande stöds så rekommenderas de inte längre i och med den nya sortens syntax "(symver|optional)version". Till exempel bör "*@GLIBC_2.0 2.0" skrivas som "(symver|optional)GLIBC_2.0 2.0" om samma beteende behövs.
+Note that while old style wildcard patterns (denoted by "*@version" in the symbol name field) are still supported, they have been deprecated by new style syntax "(symver|optional)version".  For example, "*@GLIBC_2.0 2.0" should be written as "(symver|optional)GLIBC_2.0 2.0" if the same behavior is needed.
 
 =item B<regex>
 
@@ -173,7 +177,7 @@ att träffa symbolerna "_ZN3NSA6ClassA7Private11privmethod1Ei@Base" och "_ZN3NSA
 
 I allmänhet delas alla mönster in i två grupper. alias (grundläggande I<c++> och I<symver>) och generella mönster (I<regex>, samtliga kombinationer av multipla grundläggande mönster). Det går snabbt att träffa grundläggande aliasbaserade mönster (O(1)) medan generella mönster är O(N) (N - antal generella mönster) för varje symbol. Det rekommenderas därför inte att använda för många generella mönster.
 
-När flera mönster träffar samma verkliga symbol föredras alias (först I<c++>, sedan I<symver>) framför generella mönster. Generella mönster träffas i den ordning de upptäcktes i symbolfilmallen fram till den första lyckade träffen. Observera dock att manuell omsortering av poster i mallfilen inte rekommenderas då B<dpkg-gensymbols> genererar differensfiler baserad på den alfanumeriska sorteringsordningen av dess namn.
+When multiple patterns match the same real symbol, aliases (first I<c++>, then I<symver>) are preferred over generic patterns.  Generic patterns are matched in the order they are found in the symbol file template until the first success.  Note, however, that manual reordering of template file entries is not recommended because B<dpkg-gensymbols> generates diffs based on the alphanumerical order of their names.
 
 =head2 Använda inkluderingar
 

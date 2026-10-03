@@ -124,7 +124,9 @@ Em Debian e derivados apenas os caminhos de compilação começados com I</build
 
 =item S< >I<taint-reason-list>
 
-Este campo dobrado contem uma lista separada por espaços de etiquetas de razão não-exaustiva (formadas por caracteres alfanuméricos e traços) as quais identificam porque a compilação actual foi contaminada (desde dpkg 1.19.5).
+This folded field contains a space-separated list of non-exhaustive reason tags (formed by alphanumeric and dash characters) which identify why the current build has been tainted.
+
+Supported since dpkg 1.19.5.
 
 Em Debian e derivados as seguintes etiquetas de razão podem ser emitidas:
 

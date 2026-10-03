@@ -34,6 +34,8 @@
 #include <dpkg/c-ctype.h>
 #include <dpkg/dpkg.h>
 #include <dpkg/string.h>
+#include <dpkg/varbuf.h>
+#include <dpkg/color.h>
 #include <dpkg/options.h>
 
 static const char *printforhelp;
@@ -61,7 +63,7 @@ config_error(const char *file_name, int line_num, const char *fmt, ...)
 	m_vasprintf(&buf, fmt, args);
 	va_end(args);
 
-	ohshit(_("configuration error: %s:%d: %s"), file_name, line_num, buf);
+	ohshit(_("invalid syntax in configuration file: %s:%d: %s"), file_name, line_num, buf);
 }
 
 /* TODO: Refactor to add a context struct to pass to config_error(). */
@@ -76,7 +78,7 @@ dpkg_options_load_file(const char *fn, const struct cmdinfo *cmdinfos)
 	if (!file) {
 		if (errno == ENOENT)
 			return;
-		warning(_("failed to open configuration file '%s' for reading: %s"),
+		warning(_("cannot open configuration file '%s' for reading: %s"),
 		        fn, strerror(errno));
 		return;
 	}
@@ -154,13 +156,13 @@ dpkg_options_load_file(const char *fn, const struct cmdinfo *cmdinfos)
 		}
 	}
 	if (ferror(file))
-		ohshite(_("read error in configuration file '%s'"), fn);
+		ohshite(_("cannot read configuration file '%s'"), fn);
 	if (fclose(file))
-		ohshite(_("error closing configuration file '%s'"), fn);
+		ohshite(_("cannot close configuration file '%s'"), fn);
 }
 
 static int
-valid_config_filename(const struct dirent *dent)
+config_file_filter(const struct dirent *dent)
 {
 	const char *c;
 
@@ -186,14 +188,13 @@ dpkg_options_load_dir(const char *prog, const struct cmdinfo *cmdinfos)
 
 	dirname = str_fmt("%s/%s.cfg.d", CONFIGDIR, prog);
 
-	dlist_n = scandir(dirname, &dlist, valid_config_filename, alphasort);
+	dlist_n = scandir(dirname, &dlist, config_file_filter, alphasort);
 	if (dlist_n < 0) {
 		if (errno == ENOENT) {
 			free(dirname);
 			return;
 		} else {
-			ohshite(_("error opening configuration directory '%s'"),
-			        dirname);
+			ohshite(_("cannot scan directory '%s'"), dirname);
 		}
 	}
 
@@ -307,7 +308,8 @@ dpkg_options_parse(const char *const **argvp, const struct cmdinfo *cmdinfos,
 					if (!*p) {
 						value = *(*argvp)++;
 						if (!value)
-							badusage(_("-%c option takes a value"),cip->oshort);
+							badusage(_("-%c option takes a value"),
+							         cip->oshort);
 					} else {
 						value = p;
 						p = "";
@@ -321,7 +323,8 @@ dpkg_options_parse(const char *const **argvp, const struct cmdinfo *cmdinfos,
 						*cip->sassignto = value;
 				} else {
 					if (*p == '=')
-						badusage(_("-%c option does not take a value"),cip->oshort);
+						badusage(_("-%c option does not take a value"),
+						         cip->oshort);
 
 					if (cip->call)
 						cip->call(cip, NULL);
@@ -351,6 +354,96 @@ dpkg_options_parse_arg_int(const struct cmdinfo *cmd, const char *str)
 	}
 
 	return value;
+}
+
+void
+print_option_sep(void)
+{
+	fputs("\n", stdout);
+}
+
+
+/*
+ * Indent the entries with 10 spaces, to cover 2 for the short option
+ * indentation, 4 for the short option itself, and 4 for the long option.
+ *
+ * "  -s, --short"
+ * "          Description for short.\n"
+ */
+static const int option_desc_indent = 10;
+
+void
+print_option_def(const char *def_fmt, ...)
+{
+	char *def = NULL;
+	va_list args;
+
+	va_start(args, def_fmt);
+	m_vasprintf(&def, def_fmt, args);
+	va_end(args);
+
+	printf("%-*s[%s: %s]\n", option_desc_indent, " ",
+	       C_("cli-options", "default"), def);
+
+	free(def);
+}
+
+void
+print_option_env(const char *env)
+{
+	printf("%-*s[%s: %s=]\n", option_desc_indent, " ",
+	       C_("cli-options", "env"), env);
+}
+
+void
+print_option(const char *opt_fmt_spec, ...)
+{
+	va_list args;
+	struct varbuf color_spec = VARBUF_INIT;
+	const char *opt_desc;
+	char *opt_spec;
+	char *p;
+
+	va_start(args, opt_fmt_spec);
+	opt_spec = str_vfmt(opt_fmt_spec, args);
+	va_end(args);
+	opt_desc = strchr(opt_spec, '\n');
+
+	varbuf_add_str(&color_spec, color_get(COLOR_BOLD));
+	for (p = opt_spec; p < opt_desc; p++) {
+		switch (*p) {
+		case '<':
+			varbuf_add_str(&color_spec, color_get(COLOR_RESET));
+			varbuf_add_char(&color_spec, *p);
+			varbuf_add_str(&color_spec, color_get(COLOR_ITALIC));
+			break;
+		case '>':
+			varbuf_add_str(&color_spec, color_get(COLOR_RESET));
+			varbuf_add_char(&color_spec, *p);
+			varbuf_add_str(&color_spec, color_get(COLOR_BOLD));
+			break;
+		case '[':
+		case ']':
+		case '(':
+		case ')':
+		case '.':
+		case '|':
+			varbuf_add_str(&color_spec, color_get(COLOR_RESET));
+			varbuf_add_char(&color_spec, *p);
+			varbuf_add_str(&color_spec, color_get(COLOR_BOLD));
+			break;
+		default:
+			varbuf_add_char(&color_spec, *p);
+			break;
+		}
+	}
+	varbuf_add_str(&color_spec, color_get(COLOR_RESET));
+
+	varbuf_add_str(&color_spec, opt_desc);
+
+	fputs(color_spec.buf, stdout);
+
+	varbuf_destroy(&color_spec);
 }
 
 void

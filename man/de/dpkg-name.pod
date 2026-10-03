@@ -42,7 +42,7 @@ Existierende Dateien werden überschrieben, falls sie den gleichen Namen wie der
 
 =item B<-s>, B<--subdir> [I<Verzeichnis>]
 
-Dateien werden in ein Unterverzeichnis verschoben. Falls das als Argument existierende Verzeichnis existiert, dann werden die Dateien in das Verzeichnis verschoben, andernfalls wird das Zielverzeichnis aus dem „section“-Feld des Steuerteils des Pakets entnommen. Das Zielverzeichnis wird „unstable/binary-I<Architektur>/I<Bereich>“ sein. Falls die Sektion nicht in der Steuerdatei gefunden werden kann, dann wird B<no-section> angenommen, und in diesem Fall, wie auch für die Sektionen B<non-free> und B<contrib> ist das Zielverzeichnis „I<Bereich>/binary-I<Architektur>“. Das Sektionsfeld muss nicht angegeben werden, daher werden viele Pakete ihren Weg in das B<no-section>-Gebiet finden.
+Files will be moved into a subdirectory.  If the directory given as argument exists the files will be moved into that directory otherwise the name of the target directory is extracted from the section field in the control part of the package.  The target directory will be «unstable/binary-I<architecture>/I<section>».  If the section is not found in the control, then B<no-section> is assumed, and in this case, as well as for sections B<contrib>, B<non-free-firmware> and B<non-free> the target directory is «I<section>/binary-I<architecture>».  The section field is not required so a lot of packages will find their way to the B<no-section> area.
 
 B<Warnung>: Verwenden Sie diese Option mit Vorsicht, sie ist unordentlich.
 
@@ -72,11 +72,15 @@ Setzt die Host-Architektur. Dies betrifft den Architekturnnamen, der im Paket-Da
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -108,7 +112,7 @@ Dies kann beim Bau neuer Pakete verwendet werden.
 
 =head1 SIEHE AUCH
 
-L<deb(5)>, L<deb-control(5)>, L<dpkg(1)>, L<dpkg-deb(1)>, L<find(1)>, L<xargs(1)>.
+L<deb(5)>, L<deb-control(5)>, L<dpkg(1)>, L<dpkg-deb(1)>.
 
 
 =head1 ÜBERSETZUNG

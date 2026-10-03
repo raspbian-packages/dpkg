@@ -47,6 +47,7 @@ use Carp;
 eval q{
     use Data::Dumper;
 
+    use Dpkg::ErrorHandling;
     use Dpkg::File;
 };
 if ($@) {
@@ -70,7 +71,7 @@ sub yesno {
         return 1 if $res =~ /^[Yy]/;
         return 0 if $res =~ /^[Nn]/;
         return $r if $res =~ /^[ \t]*$/;
-        print "Please enter one of the letters 'y' or 'n'\n";
+        print "Enter one of the letters 'y' or 'n'\n";
     }
 }
 
@@ -94,21 +95,22 @@ sub read_config {
         $code = file_slurp($vars);
     };
     if ($@) {
-        warn "$@\n";
-        die "Try to relaunch the 'Access' step in dselect, thanks.\n";
+        errormsg("$@");
+        hint("try to relaunch the 'Access' step in dselect");
+        exit 1;
     }
 
     my $VAR1; ## no critic (Variables::ProhibitUnusedVariables)
     $conf = eval $code;
-    die "cannot eval $vars content: $@\n" if $@;
+    error("cannot parse file '%s' content: %s", $vars, $@) if $@;
     if (ref($conf) =~ /HASH/) {
         foreach my $var (keys %{$conf}) {
             $CONFIG{$var} = $conf->{$var};
         }
     } else {
-        print "Bad $vars file : removing it.\n";
-        print "Please relaunch the 'Access' step in dselect. Thanks.\n";
+        errormsg("bad '%s' file: removing it", $vars);
         unlink $vars;
+        hint("try to relaunch the 'Access' step in dselect");
         exit 0;
     }
 }
@@ -124,7 +126,7 @@ sub store_config {
 
 sub view_mirrors {
     print <<'MIRRORS';
-Please see <https://www.debian.org/mirror/list> for a current
+See <https://www.debian.org/mirror/list> for a current
 list of Debian mirror sites.
 MIRRORS
 }
@@ -136,7 +138,8 @@ sub edit_config {
     # Get a config for the sites.
     while (1) {
         $i = 1;
-        print "\n\nList of selected $method sites :\n";
+        print "\n\n";
+        print "List of selected $method sites :\n";
         foreach my $site (@{$CONFIG{site}}) {
             print "$i. $method://$site->[0]$site->[1] @{$site->[2]}\n";
             $i++;

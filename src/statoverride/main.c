@@ -75,31 +75,79 @@ static int
 usage(const char *const *argv)
 {
 	printf(_(
-"Usage: %s [<option> ...] <command>\n"
-"\n"), dpkg_get_progname());
+"Usage: %s [<option>...] <command>\n"
+	), dpkg_get_progname());
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  --add <owner> <group> <mode> <path>\n"
-"                           add a new <path> entry into the database.\n"
-"  --remove <path>          remove <path> from the database.\n"
-"  --list [<glob-pattern>]  list current overrides in the database.\n"
-"\n"));
+	));
+	print_option(_(
+"      --add <owner> <group> <mode> <path>\n"
+"          Add a new <path> entry into the database.\n"
+	));
+	print_option(_(
+"      --remove <path>\n"
+"          Remove <path> from the database.\n"
+	));
+	print_option(_(
+"      --list [<glob-pattern>]\n"
+"          List current overrides in the database.\n"
+	));
+	print_option(_(
+"      --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --admindir <directory>   set the directory with the statoverride file.\n"
-"  --instdir <directory>    set the root directory, but not the admin dir.\n"
-"  --root <directory>       set the directory of the root filesystem.\n"
-"  --update                 immediately update <path> permissions.\n"
-"  --force                  deprecated alias for --force-all.\n"
-"  --force-<thing>[,...]    override problems (see --force-help).\n"
-"  --no-force-<thing>[,...] stop when problems encountered.\n"
-"  --refuse-<thing>[,...]   ditto.\n"
-"  --quiet                  quiet operation, minimal output.\n"
-"  --help                   show this help message.\n"
-"  --version                show the version.\n"
-"\n"));
+	));
+	print_option(_(
+"      --update\n"
+"          Immediately update <path> permissions.\n"
+	));
+	print_option(_(
+"      --force\n"
+"          Deprecated alias for --force-all.\n"
+	));
+	print_option(_(
+"      --force-<thing>[,...]\n"
+"          Override problems (see --force-help).\n"
+	));
+	print_option(_(
+"      --no-force-<thing>[,...]\n"
+"          Stop when problems encountered.\n"
+	));
+	print_option(_(
+"      --refuse-<thing>[,...]\n"
+"          Alias for --no-force.\n"
+	));
+	print_option(_(
+"      --quiet\n"
+"          Enable quiet mode, minimal output.\n"
+	));
+	print_option(_(
+"      --admindir <directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --instdir <directory>\n"
+"          Change the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --root <directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
 
 	m_output(stdout, _("<standard output>"));
 
@@ -176,10 +224,10 @@ statdb_node_apply(const char *filename, struct file_stat *filestat)
 
 	rc = chown(filename, filestat->uid, filestat->gid);
 	if (forcible_nonroot_error(rc) < 0)
-		ohshite(_("error setting ownership of '%s'"), filename);
+		ohshite(_("cannot set ownership of '%s'"), filename);
 	rc = chmod(filename, filestat->mode & ~S_IFMT);
 	if (forcible_nonroot_error(rc) < 0)
-		ohshite(_("error setting permissions of '%s'"), filename);
+		ohshite(_("cannot set permissions of '%s'"), filename);
 
 	dpkg_selabel_load();
 	dpkg_selabel_set_context(filename, filename, filestat->mode);

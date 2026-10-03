@@ -56,7 +56,7 @@ Med värdet B<yes> används fältet för att ange att ändringsposten är för e
 
 =back
 
-Ändringsdetaljerna kan faktiskt vara valfri serie av rader som börjar med minst två blanksteg (U+0020 B<SPACE>), men sedvanligen inleds varje ändring med en asterisk och ett avdelande blanksteg och fortsättningsrader har ett indrag så att de står i linje med början på texten över. Tomrader kan användas för att avdela grupper av ändringar här, om så önskas.
+The change details may be any series of lines starting with at least two spaces (U+0020 B<SPACE>), but conventionally each change starts with an asterisk and a separating space and continuation lines are indented so as to bring them in line with the start of the text above.  Blank lines may be used here to separate groups of changes, if desired.
 
 Om insändningen rättar fel beskrivna i distributionens felhanteringssystem, kan de stängas automatiskt när paketet tas in i distributionensarkivet genom att ta med strängen:
 
@@ -78,7 +78,7 @@ Det vill säga, strängen bör bestå av ordet B<closes:> följt av en kommaavde
 
 Informationen vidareförs via fältet B<Closes> i I<.changes>-filen. Där, beroende på vilken arkivhanteringsprogramvra som används, alla listade felrapporter kan stängas automatiskt.
 
-Det namn och e-postadress för den ansvarige som används i ändringsloggen bör vara information om den person som förberedde denna utgåva av paketet. Det är B<inte> nödvändigtvis samma som insändaren eller den vanlige paketansvarige. Informationen kopieras till fältet B<Changed-By> i I<.changes>-filen, och kan senare användas för att sända en bekräftelse när det insända paketet har installerats i distributionsarkivet.
+The maintainer name and email address used in the changelog should be the details of the person who prepared this release of the package.  They are B<not> necessarily those of the uploader or usual package maintainer.  The format for the name and email address is described in L<deb-email(7)>.  The information here will be copied to the B<Changed-By> field in the I<.changes> file, and then later might be used to send an acknowledgment when the upload has been installed in the distribution archive.
 
 I<datum> har följande format (kompatibelt med och med samma betydelse som RFC2822 and RFC5322, eller det ”date -R” skapar):
 
@@ -162,7 +162,7 @@ Hela ändringsloggen måste vara kodad i UTF-8.
 
 =head1 SE ÄVEN
 
-L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
+L<deb822(5)>, L<deb-changes(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 ÖVERSÄTTNING

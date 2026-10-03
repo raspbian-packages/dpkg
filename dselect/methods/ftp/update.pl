@@ -20,13 +20,14 @@
 use v5.36;
 
 eval q{
-    # Dummy import to require the presence of Dpkg::*.
-    use Dpkg;
+    use Dpkg::ErrorHandling;
 };
 if ($@) {
     warn "Missing Dpkg modules required by the FTP access method.\n\n";
     exit 1;
 }
+
+use File::stat ();
 
 use Dselect::Method;
 use Dselect::Method::Ftp;
@@ -48,7 +49,7 @@ if ($option eq 'manual') {
         if (-f $fn) {
             system('dpkg', '--merge-avail', $fn);
         } else {
-            print "Could not find $fn, try again\n";
+            errormsg("cannot find '%s', try again", $fn);
         }
     }
 }
@@ -65,7 +66,8 @@ read_config("$vardir/methods/ftp/vars");
 
 chdir "$vardir/methods/ftp";
 
-print "Getting Packages files... (use Ctrl+C to stop)\n\n";
+print "Getting Packages files... (press Ctrl+C to stop)\n";
+print "\n";
 
 my @pkgfiles;
 my $ftp;
@@ -73,7 +75,7 @@ my $packages_modified = 0;
 
 sub download {
     foreach my $site (@{$CONFIG{site}}) {
-        $ftp = do_connect(
+        $ftp = Dselect::Method::Ftp->new(
             ftpsite => $site->[0],
             ftpdir => $site->[1],
             passive => $site->[3],
@@ -93,18 +95,19 @@ sub download {
 
             # Check existing Packages on remote site.
             print "\nChecking for Packages file... ";
-            $newest_pack_date = do_mdtm($ftp, "$dir/Packages.gz");
+            $newest_pack_date = $ftp->mdtm("$dir/Packages.gz");
             if (defined $newest_pack_date) {
                 print "$dir/Packages.gz\n";
             } else {
                 $dir = "$dist";
-                $newest_pack_date = do_mdtm($ftp, "$dir/Packages.gz");
+                $newest_pack_date = $ftp->mdtm("$dir/Packages.gz");
                 if (defined $newest_pack_date) {
                     print "$dir/Packages.gz\n";
                 } else {
-                    print "Cannot find Packages.gz in $dist/binary-$arch or $dist; ignoring.\n";
-                    print "Your setup is probably wrong, check the distributions directories,\n";
-                    print "and try with passive mode enabled/disabled (if you use a proxy/firewall)\n";
+                    errormsg('cannot find Packages.gz in %s or %s; ignoring',
+                             "$dist/binary-$arch", $dist);
+                    hint("the setup is probably wrong, check the distributions directories,\n" .
+                         'and try with passive mode enabled/disabled (when using a proxy/firewall)');
                     next PACKAGE;
                 }
             }
@@ -122,11 +125,13 @@ sub download {
                 $must_get = 1;
             } else {
                 # Else check last modification date.
-                my @pack_stat = stat($file);
-                if ($newest_pack_date > $pack_stat[9]) {
+                my $st = File::stat::stat($file);
+                if (! defined $st) {
+                    $must_get = 1;
+                } elsif ($newest_pack_date > $st->mtime) {
 #                   print "Packages has changed; must get it.\n";
                     $must_get = 1;
-                } elsif ($newest_pack_date < $pack_stat[9]) {
+                } elsif ($newest_pack_date < $st->mtime) {
                     print " Our file is newer than theirs; skipping.\n";
                 } else {
                     print " Already up-to-date; skipping.\n";
@@ -148,12 +153,11 @@ sub download {
                     eval {
                         if ($ftp->get("$dir/Packages.gz", 'Packages.gz', $size)) {
                             if (system('gunzip', 'Packages.gz')) {
-                                print '  Cannot gunzip Packages.gz, stopped';
-                                die 'error';
+                                subprocerr('gunzip Packages.gz');
                             }
                         } else {
-                            print "  Cannot get Packages.gz from $dir !!! Stopped.";
-                            die 'error';
+                            error("cannot get '%s' from directory '%s'",
+                                  'Packages.gz', $dir);
                         }
                     };
                     if ($@) {
@@ -163,7 +167,7 @@ sub download {
                             $ftp->quit();
                         }
                         if (yesno('y', "Transfer failed at $size: retry at once")) {
-                            $ftp = do_connect(
+                            $ftp = Dselect::Method::Ftp->new(
                                 ftpsite => $site->[0],
                                 ftpdir => $site->[1],
                                 passive => $site->[3],
@@ -175,21 +179,21 @@ sub download {
                                 proxypassword => $CONFIG{proxypassword},
                             );
 
-                            if ($newest_pack_date != do_mdtm($ftp, "$dir/Packages.gz")) {
+                            if ($newest_pack_date != $ftp->mdtm("$dir/Packages.gz")) {
                                 print ("Packages file has changed !\n");
                                 $size = 0;
                             }
                             next TRY_GET_PACKAGES;
                         } else {
-                            die 'error';
+                            error("cannot download '%s' file", 'Packages.gz');
                         }
                     }
                     last TRY_GET_PACKAGES;
                 }
 
                 if (! rename 'Packages', "Packages.$site->[0].$dist") {
-                    print "  Cannot rename Packages to Packages.$site->[0].$dist";
-                    die 'error';
+                    error("cannot rename '%s' to '%s'",
+                          'Packages', "Packages.$site->[0].$dist");
                 } else {
                     # Set local Packages file to same date as the one it mirrors
                     # to allow comparison to work.
@@ -205,17 +209,19 @@ sub download {
 
 eval {
     local $SIG{INT} = sub {
-        die "interrupted!\n";
+        error('interrupted!');
     };
     download();
 };
 if ($@) {
     $ftp->quit() if (ref($ftp));
+    my $reason;
     if ($@ =~ /timeout/i) {
-        print "FTP TIMEOUT\n";
+        $reason = 'connection timed out';
     } else {
-        print "FTP ERROR - $@\n";
+        $reason = "$@";
     }
+    errormsg('cannot download using FTP: %s', $reason);
     $exit = 1;
 }
 
@@ -231,8 +237,7 @@ EOM
     if (yesno('y', 'Do you want to clear available list')) {
         print "Clearing...\n";
         if (system('dpkg', '--clear-avail')) {
-            print 'dpkg --clear-avail failed.';
-            die 'error';
+            subprocerr('dpkg --clear-avail');
         }
     }
 }
@@ -242,7 +247,7 @@ if (! $packages_modified) {
 } else {
     foreach my $file (@pkgfiles) {
         if (system('dpkg', '--merge-avail', $file)) {
-            print "Dpkg merge available failed on $file";
+            errormsg('%s subprocess failed', "dpkg --merge-avail $file");
             $exit = 1;
         }
     }

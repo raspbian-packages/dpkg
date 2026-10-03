@@ -30,7 +30,9 @@ B<dpkg-genchanges> leest informatie uit een uitgepakte en gebouwde Debian bronco
 
 =item B<--build=>I<type>
 
-Geeft het bouw-I<type> op uit een lijst van met komma's gescheiden componenten (sinds dpkg 1.18.5).
+Geeft het bouw-I<type> op aan de hand van een lijst van met komma's gescheiden componenten.
+
+Supported since dpkg 1.18.5.
 
 De waarden die gebruikt mogen worden zijn:
 
@@ -60,11 +62,15 @@ Alles uploaden. Dit is een alias voor B<source,any,all> en hetzelfde als de stan
 
 =item B<-g>
 
-Het equivalent van B<--build=source,all> (sinds dpkg 1.17.11).
+Equivalent to B<--build=source,all>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-G>
 
-Het equivalent van B<--build=source,any> (sinds dpkg 1.17.11).
+Equivalent to B<--build=source,any>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-b>
 
@@ -158,7 +164,9 @@ Gewoonlijk produceert B<dpkg-genchanges> informatieve berichten op de standaard 
 
 =item B<-O>[I<bestandsnaam>]
 
-Het changes-bestand op standaarduitvoer tonen (het standaardgedrag) of het naar I<bestandsnaam> schrijven indien dat opgegeven werd (sinds dpkg 1.18.5).
+Print the changes file to standard output (the default) or to I<filename> if specified.
+
+Support for I<filename> argument since dpkg 1.18.5.
 
 =item B<-?>, B<--help>
 
@@ -180,15 +188,19 @@ Stelt de computerarchitectuur in.
 
 =item B<DEB_BUILD_PROFILES>
 
-Indien dit ingesteld is, zal dit gebruikt worden als het/de actieve te gebruiken bouwprofiel(en) bij het genereren van het bestand .changes. Het is een lijst van profielnamen die onderling door spaties gescheiden worden.
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -204,5 +216,5 @@ De lijst van gegenereerde bestanden die deel uitmaken van de upload die voorbere
 
 =head1 ZIE OOK
 
-L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
+L<deb-email(7)>, L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 

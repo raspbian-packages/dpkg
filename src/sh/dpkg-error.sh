@@ -22,29 +22,38 @@
 # Symbols starting with «_dpkg_» are considered private and should not
 # be used outside this shell library.
 
-# Set a default program name (since 1.22.12).
+# Set a default program name (since dpkg 1.22.12).
 : "${PROGNAME:=$(basename "$0")}"
 
 # Standard ANSI colors and attributes.
 COLOR_NORMAL=''
 COLOR_RESET='[0m'
-COLOR_BOLD='[1m'
-COLOR_BLACK='[30m'
-COLOR_RED='[31m'
-COLOR_GREEN='[32m'
-COLOR_YELLOW='[33m'
-COLOR_BLUE='[34m'
-COLOR_MAGENTA='[35m'
-COLOR_CYAN='[36m'
-COLOR_WHITE='[37m'
-COLOR_BOLD_BLACK='[1;30m'
-COLOR_BOLD_RED='[1;31m'
-COLOR_BOLD_GREEN='[1;32m'
-COLOR_BOLD_YELLOW='[1;33m'
-COLOR_BOLD_BLUE='[1;34m'
-COLOR_BOLD_MAGENTA='[1;35m'
-COLOR_BOLD_CYAN='[1;36m'
-COLOR_BOLD_WHITE='[1;37m'
+COLOR_BOLD='[1m'                      # [0m
+COLOR_DIM='[2m'                       # [0m
+COLOR_ITALIC='[3m'                    # [0m
+COLOR_UNDERLINE='[4m'                 # [0m
+COLOR_BLINK='[5m'                     # [0m
+COLOR_INVERT='[7m'                    # [0m
+COLOR_HIDE='[8m'                      # [0m
+COLOR_STRIKE='[9m'                    # [0m
+
+COLOR_BLACK='[30m'                    # [0m
+COLOR_RED='[31m'                      # [0m
+COLOR_GREEN='[32m'                    # [0m
+COLOR_YELLOW='[33m'                   # [0m
+COLOR_BLUE='[34m'                     # [0m
+COLOR_MAGENTA='[35m'                  # [0m
+COLOR_CYAN='[36m'                     # [0m
+COLOR_WHITE='[37m'                    # [0m
+
+COLOR_BOLD_BLACK='[1;30m'             # [0m
+COLOR_BOLD_RED='[1;31m'               # [0m
+COLOR_BOLD_GREEN='[1;32m'             # [0m
+COLOR_BOLD_YELLOW='[1;33m'            # [0m
+COLOR_BOLD_BLUE='[1;34m'              # [0m
+COLOR_BOLD_MAGENTA='[1;35m'           # [0m
+COLOR_BOLD_CYAN='[1;36m'              # [0m
+COLOR_BOLD_WHITE='[1;37m'             # [0m
 
 : "${DPKG_COLORS=auto}"
 

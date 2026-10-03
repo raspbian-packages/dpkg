@@ -28,7 +28,7 @@ B<Opmerking>: indien u het gegenereerde bestand Packages wilt gebruiken met L<ap
 
 I<pad-binair-pakket> is de naam van de boom met binaire pakketten die verwerkt moet worden (bijvoorbeeld B<contrib/binary-i386>). Het is best om dit relatief te maken ten opzichte van de basismap van het Debian-archief, omdat elk Filename-veld uit het nieuwe Packages-bestand met die tekenreeks zal beginnen.
 
-I<override-bestand> is de naam van een bestand dat moet ingelezen worden en dat informatie bevat over hoe het pakket binnen de distributie past (het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5); zie L<deb-override(5)>.
+I<override-file> is the name of a file to read which contains information about how the package fits into the distribution.  The file can be compressed (since dpkg 1.15.5).  See L<deb-override(5)>.
 
 I<padprefix> is een facultatieve tekenreeks die voorgevoegd moet worden in de Filename-velden.
 
@@ -44,21 +44,23 @@ Zoeken naar pakketten van het type *.I<type> in plaats van naar pakketten van he
 
 =item B<-e>, B<--extra-override> I<bestand>
 
-Zoeken in het I<bestand> naar bijkomende vervangingen (het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5). Zie L<deb-extra-override(5)> voor meer informatie over hoe het ingedeeld wordt.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
 
 =item B<-a>, B<--arch> I<arch>
 
-Use a pattern consisting of I<*_all.deb> and I<*_arch.deb>, or I<*_arch.deb> if B<--no-implicit-arch> has been specified, instead of scanning for all debs.
+Een patroon gebruiken dat bestaat uit I<*_all.deb> en I<*_arch.deb>, of I<*_arch.deb> als B<--no-implicit-arch> is opgegeven, in plaats van te zoeken naar alle deb-bestanden.
 
 =item B<--no-implicit-arch>
 
-Do not implicitly add architecture B<all> binary packages when specifying B<--arch>.
+Wanneer B<--arch> wordt opgegeven niet impliciet binaire pakketten van architectuur B<all> toevoegen.
 
-Supported since dpkg 1.23.6.
+Ondersteund sinds dpkg 1.23.6.
 
 =item B<-h>, B<--hash> I<hash-lijst>
 
-Enkel bestandshashes genereren voor de opgegeven lijst van algoritmen, onderling gescheiden door komma's (sinds dpkg 1.17.14). Standaard worden ze voor alle momenteel ondersteunde algoritmen gemaakt. Ondersteunde waarden: B<md5>, B<sha1>, B<sha256>.
+Only generate file hashes for the comma-specified list specified.  The default is to generate all currently supported hashes.  Supported values: B<md5>, B<sha1>, B<sha256>.
+
+Supported since dpkg 1.17.14.
 
 =item B<-m>, B<--multiversion>
 
@@ -66,7 +68,11 @@ Alle gevonden pakketten opnemen in de uitvoer.
 
 =item B<-M>, B<--medium> I<ID-tekenreeks>
 
-Een veld B<X-Medium> toevoegen dat de waarde I<ID-tekenreeks> heeft (sinds dpkg 1.15.5). Dit veld is nodig als u B<Packages.cd>-bestanden wilt genereren voor gebruik door de toegangsmethode B<media> van B<dselect>.
+Add an B<X-Medium> field containing the value I<id-string>.
+
+This field is required if you want to generate B<Packages.cd> files for use by the B<media> access method of B<dselect>.
+
+Supported since dpkg 1.15.5.
 
 =item B<-?>, B<--help>
 
@@ -84,11 +90,15 @@ De versie tonen en afsluiten.
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 

@@ -29,47 +29,97 @@ use Dpkg::Arch qw(:getters :mappers debarch_eq debarch_is);
 
 textdomain('dpkg-dev');
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] [<command>]')
-    . "\n\n" . g_(
-'Commands:
-  -l, --list                list variables (default).
-  -L, --list-known          list valid architectures (matching some criteria).
-  -e, --equal <arch>        compare with host Debian architecture.
-  -i, --is <arch-wildcard>  match against host Debian architecture.
-  -q, --query <variable>    prints only the value of <variable>.
-  -s, --print-set           print command to set environment variables.
-  -u, --print-unset         print command to unset environment variables.
-  -c, --command <command>   set environment and run the command in it.
-  -?, --help                show this help message.
-      --version             show the version.')
-    . "\n\n" . g_(
-'Options:
-  -a, --host-arch <arch>    set host Debian architecture.
-  -t, --host-type <type>    set host GNU system type.
-  -A, --target-arch <arch>  set target Debian architecture.
-  -T, --target-type <type>  set target GNU system type.
-  -W, --match-wildcard <arch-wildcard>
-                            restrict architecture list matching <arch-wildcard>.
-  -B, --match-bits <arch-bits>
-                            restrict architecture list matching <arch-bits>.
-  -E, --match-endian <arch-endian>
-                            restrict architecture list matching <arch-endian>.
-      --print-format <format>
-                            use <format> for --print-set and --print-unset,
-                              allowed values: shell (default), make.
-  -f, --force               force flag (override variables set in environment).')
-    . "\n", $Dpkg::PROGNAME;
+"Usage: %s [<option>...] [<command>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"  -l, --list\n" .
+"          List variables (default command).\n" .
+    ''));
+    print_option(g_(
+"  -L, --list-known\n" .
+"          List valid architectures (matching some criteria).\n" .
+    ''));
+    print_option(g_(
+"  -e, --equal <arch>\n" .
+"          Compare with host Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"  -i, --is <arch-wildcard>\n" .
+"          Match against host Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"  -q, --query <variable>\n" .
+"          Prints the value of <variable>.\n" .
+    ''));
+    print_option(g_(
+"  -s, --print-set\n" .
+"          Print command to set environment variables.\n" .
+    ''));
+    print_option(g_(
+"  -u, --print-unset\n" .
+"          Print command to unset environment variables.\n" .
+    ''));
+    print_option(g_(
+"  -c, --command <command>\n" .
+"          Set environment and run the command in it.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -a, --host-arch <arch>\n" .
+"          Set host Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"  -t, --host-type <type>\n" .
+"          Set host GNU system type.\n" .
+    ''));
+    print_option(g_(
+"  -A, --target-arch <arch>\n" .
+"          Set target Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"  -T, --target-type <type>\n" .
+"          Set target GNU system type.\n" .
+    ''));
+    print_option(g_(
+"  -W, --match-wildcard <arch-wildcard>\n" .
+"          Restrict architecture list matching <arch-wildcard>.\n" .
+    ''));
+    print_option(g_(
+"  -B, --match-bits <arch-bits>\n" .
+"          Restrict architecture list matching <arch-bits>.\n" .
+    ''));
+    print_option(g_(
+"  -E, --match-endian <arch-endian>\n" .
+"          Restrict architecture list matching <arch-endian>.\n" .
+    ''));
+    print_option(g_(
+"      --print-format <format>\n" .
+"          Use <format> for --print-set and --print-unset, allowed values:\n" .
+"            shell (default), make.\n" .
+    ''));
+    print_option(g_(
+"  -f, --force\n" .
+"          Force flag (override variables set in environment).\n" .
+    ''));
 }
 
 sub check_arch_coherency
@@ -78,15 +128,15 @@ sub check_arch_coherency
 
     if ($arch ne '' && $gnu_type eq '') {
         $gnu_type = debarch_to_gnutriplet($arch);
-        error(g_('unknown Debian architecture %s, you must specify ' .
-                 'GNU system type, too'), $arch)
+        error(g_('unknown Debian architecture %s, the GNU system type ' .
+                 'needs to be specified too'), $arch)
             unless defined $gnu_type;
     }
 
     if ($gnu_type ne '' && $arch eq '') {
         $arch = gnutriplet_to_debarch($gnu_type);
-        error(g_('unknown GNU system type %s, you must specify ' .
-                 'Debian architecture, too'), $gnu_type)
+        error(g_('unknown GNU system type %s, the Debian architecture ' .
+                 'needs to be specified too'), $gnu_type)
             unless defined $arch;
     }
 
@@ -241,7 +291,7 @@ while (@ARGV) {
         usage();
         exit 0;
     } elsif ($arg eq '--version') {
-        version();
+        print_version();
         exit 0;
     } else {
         usageerr(g_("unknown option '%s'"), $arg);
@@ -432,7 +482,7 @@ if ($action eq 'list') {
     @ENV{keys %v} = values %v;
     ## no critic (TestingAndDebugging::ProhibitNoWarnings)
     no warnings qw(exec);
-    exec @ARGV or syserr(g_('unable to execute %s'), "@ARGV");
+    exec @ARGV or syserr(g_('cannot execute %s'), "@ARGV");
 } elsif ($action eq 'query') {
     print "$v{$req_variable_to_print}\n";
 } elsif ($action eq 'list-known') {

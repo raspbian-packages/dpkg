@@ -44,7 +44,7 @@ I<nouveau-fichier-de-configuration> [I<dernière-version> [I<paquet>]]
 
 Ce programme est prévu pour être exécuté dans les scripts du responsable afin de réaliser certaines tâches que B<dpkg> ne peut pas (encore) prendre en charge directement à cause de limites de conception ou de limitations actuelles.
 
-Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>).  To avoid mistakes the same call simply needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
+Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>).  To avoid mistakes the same call needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
 
 This program was introduced in dpkg 1.15.7.
 
@@ -159,7 +159,7 @@ Détails de la mise en œuvre actuelle : dans le script B<preinst>, il est vér
 
 =head1 INTÉGRATION DANS LES PAQUETS
 
-When using a packaging helper, please check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
+When using a packaging helper, check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
 
 Given that B<dpkg-maintscript-helper> is used in the B<preinst>, using it unconditionally requires a versioned pre-dependency to ensure that the required version of B<dpkg> has been unpacked before, unless we know we are upgrading from a release where the required dpkg version is going to be satisfied.  The required version depends on the command used, for B<rm_conffile> and B<mv_conffile> it is 1.15.7.2, for B<symlink_to_dir> and B<dir_to_symlink> it is 1.17.14.  For example, if we required support for B<symlink_to_dir> when upgrading from a release that had a dpkg version earlier than 1.17.14, we would need to add:
 
@@ -196,7 +196,9 @@ Si cette variable est positionnée, ce répertoire sera utilisé comme répertoi
 
 =item B<DPKG_COLORS>
 
-Fixe le mode de couleur (depuis dpkg 1.19.1). Les valeurs admises actuellement sont B<auto> (par défaut), B<always> et B<never>.
+Définit le mode de couleur. Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+
+Supported since dpkg 1.19.1.
 
 =back
 

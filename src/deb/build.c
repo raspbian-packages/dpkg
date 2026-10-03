@@ -69,7 +69,7 @@ control_treewalk_feed(const char *dir, int fd_out)
 
 		nodename = str_fmt("./%s", treenode_get_virtname(node));
 		if (fd_write(fd_out, nodename, strlen(nodename) + 1) < 0)
-			ohshite(_("failed to write filename to tar pipe (%s)"),
+			ohshite(_("cannot write filename to tar pipe (%s)"),
 			        _("control member"));
 		free(nodename);
 	}
@@ -180,7 +180,7 @@ file_treewalk_feed(const char *dir, int fd_out)
 			fi = file_info_new(nodename);
 			file_info_list_append(&symlist, &symlist_end, fi);
 		} else if (fd_write(fd_out, nodename, strlen(nodename) + 1) < 0) {
-			ohshite(_("failed to write filename to tar pipe (%s)"),
+			ohshite(_("cannot write filename to tar pipe (%s)"),
 			        _("data member"));
 		}
 
@@ -190,7 +190,7 @@ file_treewalk_feed(const char *dir, int fd_out)
 
 	for (fi = symlist; fi; fi = fi->next)
 		if (fd_write(fd_out, fi->fn, strlen(fi->fn) + 1) < 0)
-			ohshite(_("failed to write filename to tar pipe (%s)"),
+			ohshite(_("cannot write filename to tar pipe (%s)"),
 			        _("data member"));
 
 	file_info_list_free(symlist);
@@ -217,7 +217,7 @@ check_ctrl_perms(const char *ctrldir)
 
 	varbuf_add_fmt(&path, "%s/", ctrldir);
 	if (lstat(path.buf, &mscriptstab))
-		ohshite(_("unable to stat control directory"));
+		ohshite(_("cannot stat control directory"));
 	if (!S_ISDIR(mscriptstab.st_mode))
 		ohshit(_("control directory is not a directory"));
 	if ((mscriptstab.st_mode & 07757) != 0755)
@@ -231,7 +231,8 @@ check_ctrl_perms(const char *ctrldir)
 			if (S_ISLNK(mscriptstab.st_mode))
 				continue;
 			if (!S_ISREG(mscriptstab.st_mode))
-				ohshit(_("maintainer script '%s' is not a plain file or symlink"),
+				ohshit(_("maintainer script '%s' is not "
+				         "a plain file or symbolic link"),
 				       *mscriptp);
 			if ((mscriptstab.st_mode & 07557) != 0555)
 				ohshit(_("maintainer script '%s' has bad permissions %03lo "
@@ -269,7 +270,7 @@ check_conffiles(const char *ctrldir, const char *rootdir)
 			return;
 		}
 
-		ohshite(_("error opening conffiles file"));
+		ohshite(_("cannot open conffiles file"));
 	}
 
 	while (fgets(conffilenamebuf, MAXCONFFILENAME + 1, cf)) {
@@ -369,7 +370,7 @@ check_conffiles(const char *ctrldir, const char *rootdir)
 	varbuf_destroy(&controlfile);
 
 	if (ferror(cf))
-		ohshite(_("error reading conffiles file"));
+		ohshite(_("cannot read conffiles file"));
 	fclose(cf);
 }
 
@@ -474,7 +475,7 @@ gen_dest_pathname(const char *dir, const char *dest)
 
 		if (stat(dest, &dest_stab)) {
 			if (errno != ENOENT)
-				ohshite(_("unable to check for existence of archive '%s'"),
+				ohshite(_("cannot check for existence of archive '%s'"),
 				        dest);
 		} else if (S_ISDIR(dest_stab.st_mode)) {
 			/* Need to compute the destination name from the package
@@ -544,7 +545,7 @@ tarball_pack(const char *dir, filenames_feed_func *tar_filenames_feeder,
 		close(pipe_tarball[1]);
 
 		if (chdir(dir))
-			ohshite(_("failed to chdir to '%s'"), dir);
+			ohshite(_("cannot change directory to '%s'"), dir);
 
 		snprintf(mtime, sizeof(mtime), "@%jd", options->timestamp);
 
@@ -575,7 +576,7 @@ tarball_pack(const char *dir, filenames_feed_func *tar_filenames_feeder,
 	close(pipe_filenames[0]);
 	close(pipe_tarball[1]);
 
-	/* Of course we should not forget to compress the archive as well. */
+	/* We should not forget to compress the archive as well. */
 	pid_comp = subproc_fork();
 	if (pid_comp == 0) {
 		close(pipe_filenames[1]);
@@ -604,9 +605,9 @@ parse_timestamp(const char *value)
 	errno = 0;
 	timestamp = strtoimax(value, &end, 10);
 	if (value == end || *end)
-		ohshit(_("unable to parse timestamp '%s'"), value);
+		ohshit(_("cannot parse timestamp '%s'"), value);
 	else if (errno != 0)
-		ohshite(_("unable to parse timestamp '%s'"), value);
+		ohshite(_("cannot parse timestamp '%s'"), value);
 
 	return timestamp;
 }
@@ -679,11 +680,11 @@ do_build(const char *const *argv)
 	tfbuf = path_make_temp_template("dpkg-deb");
 	gzfd = mkstemp(tfbuf);
 	if (gzfd < 0)
-		ohshite(_("failed to make temporary file (%s)"),
+		ohshite(_("cannot make temporary file (%s)"),
 		        _("control member"));
 	/* Make sure it's gone, the fd will remain until we close it. */
 	if (unlink(tfbuf))
-		ohshit(_("failed to unlink temporary file (%s), %s"),
+		ohshit(_("cannot unlink temporary file (%s), %s"),
 		       _("control member"), tfbuf);
 	free(tfbuf);
 
@@ -708,7 +709,7 @@ do_build(const char *const *argv)
 	free(ctrldir);
 
 	if (lseek(gzfd, 0, SEEK_SET))
-		ohshite(_("failed to rewind temporary file (%s)"),
+		ohshite(_("cannot rewind temporary file (%s)"),
 		        _("control member"));
 
 	/* We have our first file for the ar-archive. Write a header for it
@@ -718,14 +719,14 @@ do_build(const char *const *argv)
 		char versionbuf[40];
 
 		if (fstat(gzfd, &controlstab))
-			ohshite(_("failed to stat temporary file (%s)"),
+			ohshite(_("cannot stat temporary file (%s)"),
 			        _("control member"));
 
 		snprintf(versionbuf, sizeof(versionbuf), "%-8s\n%jd\n",
 		         OLDARCHIVEVERSION, (intmax_t)controlstab.st_size);
 
 		if (fd_write(ar->fd, versionbuf, strlen(versionbuf)) < 0)
-			ohshite(_("error writing '%s'"), debar);
+			ohshite(_("cannot write '%s'"), debar);
 		if (fd_fd_copy(gzfd, ar->fd, -1, &err) < 0)
 			ohshit(_("cannot copy '%s' into archive '%s': %s"),
 			       _("control member"), ar->name, err.str);
@@ -759,11 +760,11 @@ do_build(const char *const *argv)
 		tfbuf = path_make_temp_template("dpkg-deb");
 		gzfd = mkstemp(tfbuf);
 		if (gzfd < 0)
-			ohshite(_("failed to make temporary file (%s)"),
+			ohshite(_("cannot make temporary file (%s)"),
 			        _("data member"));
 		/* Make sure it's gone, the fd will remain until we close it. */
 		if (unlink(tfbuf))
-			ohshit(_("failed to unlink temporary file (%s), %s"),
+			ohshit(_("cannot unlink temporary file (%s), %s"),
 			       _("data member"), tfbuf);
 		free(tfbuf);
 	} else {
@@ -787,7 +788,7 @@ do_build(const char *const *argv)
 		        compressor_get_extension(compress_params.type));
 
 		if (lseek(gzfd, 0, SEEK_SET))
-			ohshite(_("failed to rewind temporary file (%s)"),
+			ohshite(_("cannot rewind temporary file (%s)"),
 			        _("data member"));
 
 		dpkg_ar_member_put_file(ar, datamember, gzfd, -1);
@@ -795,7 +796,7 @@ do_build(const char *const *argv)
 		close(gzfd);
 	}
 	if (fsync(ar->fd))
-		ohshite(_("unable to sync file '%s'"), ar->name);
+		ohshite(_("cannot sync file '%s'"), ar->name);
 
 	dpkg_ar_close(ar);
 

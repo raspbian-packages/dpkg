@@ -38,9 +38,13 @@ De waarde van dit veld is de naam van het broncodepakket en moet overeenkomen me
 
 Moet volgens de indeling «Joe Bloggs E<lt>jbloggs@foo.comE<gt>» opgemaakt zijn en verwijzen naar de persoon die momenteel het pakket onderhoudt, in tegenstelling tot de auteur van de software of de originele verpakker ervan.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<volledige-naam-en-e-mailadres>
 
 Somt al de namen en de e-mailadressen op van de personen die het pakket mee onderhouden volgens dezelfde indeling als van het veld B<Maintainer>. Meerdere mede-beheerders moeten onderling door een komma gescheiden worden.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Standards-Version:> I<versietekenreeks>
 
@@ -64,11 +68,13 @@ De I<URL> van het bugopvolgingssysteem voor dit pakket. De momenteel gebruikte i
 
 Dit experimentele veld specificeert de naam van het bouwstuurprogramma dat gebruikt moet worden om dit pakket te bouwen. Wanneer I<stuurprogrammanaam> wordt weggelaten, wordt dit standaard B<debian-rules>.
 
-Dit veld wordt ondersteund sinds dpkg 1.22.7.
+Ondersteund sinds dpkg 1.22.7.
 
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-trefwoorden>
 
 Dit veld wordt gebruikt om aan te geven of het bestand B<debian/rules> voorrechten van (fake)root nodig heeft om sommige van zijn targets uit te voeren, en zo ja wanneer.
+
+Supported since dpkg 1.19.0.
 
 =over 
 
@@ -146,7 +152,9 @@ Een lijst van pakketten die geïnstalleerd en geconfigureerd moeten zijn om het 
 
 =item B<Build-Depends-Arch:> I<pakketlijst>
 
-Hetzelfde als B<Build-Depends>, maar ze zijn enkel nodig bij het bouwen van de architectuurafhankelijke pakketten. In dit geval worden ook de pakketten uit B<Build-Depends> geïnstalleerd. Dit veld wordt ondersteund sinds dpkg 1.16.4; om met oudere versies van dpkg pakketten te bouwen moet in plaats daarvan B<Build-Depends> gebruikt worden.
+Same as B<Build-Depends>, but they are only needed when building the architecture dependent packages.  The B<Build-Depends> are also installed in this case.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Depends> should be used instead.
 
 =item B<Build-Depends-Indep:> I<pakketlijst>
 
@@ -158,7 +166,9 @@ Een lijst van pakketten die niet geïnstalleerd mogen zijn bij het bouwen van he
 
 =item B<Build-Conflicts-Arch:> I<pakketlijst>
 
-Hetzelfde als B<Build-Conflicts>, maar enkel bij het bouwen van de architectuurafhankelijke pakketten. Dit veld wordt ondersteund sinds dpkg 1.16.4; om met oudere versies van dpkg pakketten te bouwen moet in plaats daarvan B<Build-Conflicts> gebruikt worden.
+Same as B<Build-Conflicts>, but only when building the architecture dependent packages.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Conflicts> should be used instead.
 
 =item B<Build-Conflicts-Indep:> I<pakketlijst>
 
@@ -316,7 +326,7 @@ Houd er rekening mee dat deze door de gebruiker gedefinieerde velden gebruik mak
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
  Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
- Standards-Version: 4.7.3
+ Standards-Version: 4.7.4
  Build-Depends:
   dpkg-build-api (= 1),
   debhelper-compat (= 13),
@@ -367,5 +377,5 @@ Houd er rekening mee dat deze door de gebruiker gedefinieerde velden gebruik mak
 
 =head1 ZIE OOK
 
-I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>
 

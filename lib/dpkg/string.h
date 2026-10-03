@@ -22,6 +22,7 @@
 #define LIBDPKG_STRING_H
 
 #include <stddef.h>
+#include <stdarg.h>
 #include <stdbool.h>
 
 #include <dpkg/macros.h>
@@ -40,6 +41,7 @@ DPKG_BEGIN_DECLS
 static inline bool
 str_is_unset(const char *str)
 {
+	/* cppcheck-suppress[nullPointer]: False positive. */
 	return str == DPKG_NULL || str[0] == '\0';
 }
 
@@ -49,6 +51,7 @@ str_is_unset(const char *str)
 static inline bool
 str_is_set(const char *str)
 {
+	/* cppcheck-suppress[nullPointer]: False positive. */
 	return str != DPKG_NULL && str[0] != '\0';
 }
 
@@ -61,6 +64,9 @@ str_fnv_hash(const char *str);
 char *
 str_concat(char *dst, ...)
 	DPKG_ATTR_SENTINEL;
+char *
+str_vfmt(const char *fmt, va_list args)
+	DPKG_ATTR_VPRINTF(1);
 char *
 str_fmt(const char *fmt, ...)
 	DPKG_ATTR_PRINTF(1);

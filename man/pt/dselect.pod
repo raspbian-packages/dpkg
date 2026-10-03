@@ -60,11 +60,15 @@ Muda o directório onde os ficheiros ‘I<status>’, ‘I<available>’ e semel
 
 =item B<--instdir> I<directory>
 
-Define o directório de instalação, o que se refere ao directório onde os pacotes são instalados (desde dpkg 1.19.2). A predefinição é «I</>» se B<DPKG_ROOT> não estiver definido.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.21.2.
 
 =item B<--root> I<directory>
 
-Define o directório raiz para I<directory>, o que define o directório de instalação para «I<directory>» e o directório administrativo para «I<directory>%ADMINDIR%>» (desde dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<-D>I<file>, B<--debug> I<file>
 
@@ -408,7 +412,7 @@ Quando o pedido de alteração resulta em uma ou mais dependências ou conflitos
 
 A metade do topo deste ecrã lista todos os pacotes que irão ter dependências ou conflitos por resolver, como resultado da alteração pedida, e todos os pacotes cuja instalação pode resolver alguma destas dependências ou cuja remoção pode resolver algum destes conflitos. A metade de baixo por predefinição mostra as dependências ou conflitos que fazem com que o pacote seleccionado esteja na lista.
 
-Quando a sub-lista de pacote é mostrada inicialmente, o B<dselect> pode já ter definido o estado de selecção requerido de alguns dos pacotes listados, de modo a resolver as dependências ou conflitos que causaram que o ecrã de resolução de dependências fosse mostrado. Geralmente, é melhor seguir as sugestões feitas pelo B<dselect>.
+When the sublist of packages is displayed initially, B<dselect> may have already set the requested selection status of some of the listed packages, to resolve the depends or conflicts that caused the dependency resolution screen to be displayed.  Usually, it is best to follow up the suggestions made by B<dselect>.
 
 O estado de selecção dos pacotes listados pode ser revertido às definições originais, como estavam antes de serem criadas as dependências e conflitos não resolvidos, ao pressionar a tecla ‘B<R>’. Ao pressionar a tecla ‘B<D>’, as sugestões automáticas são reiniciadas, mas a alteração que provocou o ecrã de resolução de dependência é mantido como requisitado. Finalmente, ao pressionar B<U>’, as selecções são de novo definidas para os valores da sugestão automática.
 
@@ -442,11 +446,15 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =item B<DPKG_ROOT>
 
-Se definido e as opções B<--instdir> ou B<--root> não foram especificadas, será usado como o directório raiz do sistema de ficheiros (desde dpkg 1.21.0).
+Se definido e as opções B<--instdir> ou B<--root> não foram especificadas, será usado como o directório raiz do sistema de ficheiros.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
-Se definido e a opção B<--admindir> ou B<--root> for especificada, será usado como o directório de base de dados do B<dpkg> (desde dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<HOME>
 

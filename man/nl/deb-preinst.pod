@@ -36,13 +36,13 @@ Vooraleer het pakket geïnstalleerd wordt.
 
 Vooraleer een verwijderd pakket opgewaardeerd wordt.
 
-De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<new-preinst> B<upgrade> I<oude-versie> I<nieuwe-versie>
 
 Vooraleer het pakket opgewaardeerd wordt.
 
-De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<old-preinst> B<abort-upgrade> I<nieuwe-versie>
 

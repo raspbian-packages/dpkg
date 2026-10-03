@@ -30,7 +30,9 @@ B<dpkg-genchanges> läser information från ett uppackat och byggt Debiankällko
 
 =item B<--build=>I<typ>
 
-Anger bygg-I<type> från en kommaavdelad lista med komponenter (sedan dpkg 1.18.5).
+Anger bygg-I<typ> från en kommaavdelad lista över komponenter.
+
+Supported since dpkg 1.18.5.
 
 Tillåtna värden är:
 
@@ -60,11 +62,15 @@ Sänd in allt. Det här är ett alias för B<source,any,all> och är detsamma so
 
 =item B<-g>
 
-Motsvarar B<--build=source,all> (sedan dpkg 1.17.11).
+Equivalent to B<--build=source,all>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-G>
 
-Motsvarar B<--build=source,any> (sedan dpkg 1.17.11).
+Equivalent to B<--build=source,any>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-b>
 
@@ -158,7 +164,9 @@ B<dpkg-genchanges> kommer normalt att generera informativa meddelanden på stand
 
 =item B<-O>[I<filnamn>]
 
-Skriv ändringsfilen på standard ut (förval) eller till I<filnamn> om anges (sedan dpkg 1.18.5).
+Print the changes file to standard output (the default) or to I<filename> if specified.
+
+Support for I<filename> argument since dpkg 1.18.5.
 
 =item B<-?>, B<--help>
 
@@ -180,15 +188,19 @@ Anger värdarkitekturen.
 
 =item B<DEB_BUILD_PROFILES>
 
-Om satt, används som aktiv(a) byggprofil(er) till generering av filen .changes. Det är en blankstegsavdelad lista med profilnamn.
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.19.0). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -204,7 +216,7 @@ Listan över genererade filer som är en del av den insändning som förbereds. 
 
 =head1 SE ÄVEN
 
-L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
+L<deb-email(7)>, L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 
 
 =head1 ÖVERSÄTTNING

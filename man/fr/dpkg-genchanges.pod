@@ -30,7 +30,9 @@ B<dpkg-genchanges> lit les informations à la fois dans une arborescence debian 
 
 =item B<--build=>I<type>
 
-Indique le I<type> de construction à partir d'une liste, séparée par des virgules, de composants (depuis dpkg 1.18.5).
+Indique un I<type> de construction à partir d'une liste séparée par des virgules de composants.
+
+Supported since dpkg 1.18.5.
 
 Les valeurs autorisées sont :
 
@@ -60,11 +62,15 @@ Envoyer tout. C'est un alias de B<source,any,all> et identique au cas par défau
 
 =item B<-g>
 
-Équivalent de B<--build=source,all> (depuis dpkg 1.17.11).
+Equivalent to B<--build=source,all>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-G>
 
-Équivalent de B<--build=source,any> (depuis dpkg 1.17.11).
+Equivalent to B<--build=source,any>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-b>
 
@@ -158,7 +164,9 @@ B<dpkg-genchanges> affiche habituellement des messages d'information sur la sort
 
 =item B<-O>[I<nom-de-fichier>]
 
-Affiche le fichier des modifications sur la sortie standard (par défaut) ou dans I<nom-de-fichier> s'il est indiqué (depuis dpkg 1.18.5).
+Print the changes file to standard output (the default) or to I<filename> if specified.
+
+Support for I<filename> argument since dpkg 1.18.5.
 
 =item B<-?>, B<--help>
 
@@ -180,15 +188,19 @@ Sets the host architecture.
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names.
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DPKG_COLORS>
 
-Définit le mode de couleur (depuis dpkg 1.18.5). Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+Définit le mode de couleur. Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Si cette variable est définie, elle sera utilisée pour décider l'activation de la prise en charge des langues (NLS – Native Language Support), connu aussi comme la gestion de l'internationalisation (ou i18n) (depuis dpkg 1.19.0). Les valeurs permises sont : B<0> et B<1> (par défaut).
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -204,7 +216,7 @@ La liste des fichiers créés qui seront envoyés sur le serveur. B<dpkg-genchan
 
 =head1 VOIR AUSSI
 
-L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
+L<deb-email(7)>, L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 
 
 =head1 TRADUCTION

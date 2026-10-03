@@ -36,8 +36,6 @@ DPKG_BEGIN_DECLS
  * @{
  */
 
-extern volatile int onerr_abort;
-
 enum {
 	ehflag_normaltidy	= DPKG_BIT(0),
 	ehflag_bombout		= DPKG_BIT(1),
@@ -78,6 +76,11 @@ void
 pop_cleanup(int flagset);
 
 void
+push_fatal_errors_section(void);
+void
+pop_fatal_errors_section(void);
+
+void
 ohshitv(const char *fmt, va_list args)
 	DPKG_ATTR_NORET DPKG_ATTR_VPRINTF(1);
 void
@@ -88,10 +91,10 @@ ohshite(const char *fmt, ...)
 	DPKG_ATTR_NORET DPKG_ATTR_PRINTF(1);
 
 void
-do_internerr(const char *file, int line, const char *func,
-             const char *fmt, ...)
+impl_internerr(const char *file, int line, const char *func,
+               const char *fmt, ...)
 	DPKG_ATTR_NORET DPKG_ATTR_PRINTF(4);
-#define internerr(...) do_internerr(__FILE__, __LINE__, __func__, __VA_ARGS__)
+#define internerr(...) impl_internerr(__FILE__, __LINE__, __func__, __VA_ARGS__)
 
 /** @} */
 

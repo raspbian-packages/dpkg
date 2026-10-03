@@ -44,7 +44,7 @@ Após o pacote ser actualizado.
 
 Se a chamada B<upgrade> em cima falhar.
 
-A I<new-version> é passada apenas desde o dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<postrm> B<disappear> I<overwriter-package> I<overwriter-version>
 
@@ -58,13 +58,13 @@ Se I<preinst> falhar durante B<install>.
 
 Se I<preinst> falhar durante B<install> para a actualização de um pacote removido.
 
-A I<new-version> é passada apenas desde o dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<new-postrm> B<abort-upgrade> I<old-version> I<new-version>
 
 Se I<preinst> falhar durante B<upgrade>.
 
-A I<new-version> é passada apenas desde o dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =back
 

@@ -58,9 +58,9 @@ Onbekende stuurcommando's zijn een fout die de installatie van het pakket zullen
 
 De varianten “-noawait” zouden waar mogelijk steeds geprefereerd moeten worden, vermits de triggerende pakketten dan niet in een toestand van triggers-awaited geplaatst worden en dus onmiddellijk geconfigureerd kunnen worden zonder de verwerking van de trigger te hoeven afwachten. Indien de triggerende pakketten vereisten zijn van andere pakketten die opgewaardeerd worden, zal dit een vroege cyclus van triggerverwerking vermijden en het mogelijk maken om de trigger slechts eenmaal uit te voeren als een van de laatste stappen in de opwaardering.
 
-De varianten “-noawait” worden vanaf dpkg 1.16.1 ondersteund en zullen tot fouten leiden als zij met een oudere versie van dpkg gebruikt worden.
+Support for the “-noawait” variants since dpkg 1.16.1, will lead to errors if used with an older dpkg.
 
-De aliasvarianten “-await” worden vanaf dpkg 1.17.21 ondersteund en zullen tot fouten leiden als zij met een oudere versie van dpkg gebruikt worden.
+Support for the “-await” alias variants since dpkg 1.17.21, will lead to errors if used with an older dpkg.
 
 Wanneer een pakket voorziet in een stuurcommando B<interest-noawait>, zal elke activering het triggerende pakket in een modus “noawait” plaatsen, ongeacht welke wachtmodus (“await” of “noawait”) via de activering gevraagd wordt. Wanneer een pakket voorziet in een stuurcommando B<interest> of B<interest-await>, zal elke activering het triggerende pakket in een toestand “await” of “noawait“ plaatsen, afhankelijk van de activeringswijze.
 

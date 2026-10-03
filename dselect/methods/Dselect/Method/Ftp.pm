@@ -29,107 +29,96 @@ package Dselect::Method::Ftp 0.01;
 
 use v5.36;
 
-our @EXPORT = qw(
-    do_connect
-    do_mdtm
-);
-
-use Exporter qw(import);
-use Carp;
+use Time::Local;
 
 eval q{
-    use Net::FTP;
-    use Data::Dumper;
+    use parent qw(Net::FTP);
+
+    use Dselect::Method;
+    use Dpkg::ErrorHandling;
 };
 if ($@) {
-    warn "Missing Net::FTP modules required by the FTP access method.\n\n";
+    warn "Missing Dpkg modules required by the FTP access method.\n\n";
     exit 1;
 }
 
-sub do_connect {
-    my (%opts) = @_;
+sub connect_once(%opts)
+{
+    my ($remotehost, $remoteuser, $remotepass);
 
-    my ($rpass, $remotehost, $remoteuser, $ftp);
-
-    TRY_CONNECT: while (1) {
-        my $exit = 0;
-
-        if ($opts{useproxy}) {
-            $remotehost = $opts{proxyhost};
-            $remoteuser = $opts{username} . '@' . $opts{ftpsite};
-        } else {
-            $remotehost = $opts{ftpsite};
-            $remoteuser = $opts{username};
-        }
-        print "Connecting to $opts{ftpsite}...\n";
-        $ftp = Net::FTP->new($remotehost,
-            Passive => $opts{passive},
-        );
-        if (! $ftp || ! $ftp->ok) {
-            print "Failed to connect\n";
-            $exit = 1;
-        }
-        if (! $exit) {
-#           $ftp->debug(1);
-            if ($opts{useproxy}) {
-                print "Login on $opts{proxyhost}...\n";
-                $ftp->_USER($opts{proxylogname});
-                $ftp->_PASS($opts{proxypassword});
-            }
-            print "Login as $opts{username}...\n";
-            if ($opts{password} eq '?') {
-                print 'Enter password for ftp: ';
-                system('stty', '-echo');
-                $rpass = <STDIN>;
-                chomp $rpass;
-                print "\n";
-                system('stty', 'echo');
-            } else {
-                $rpass = $opts{password};
-            }
-            if (! $ftp->login($remoteuser, $rpass)) {
-                print $ftp->message() . "\n";
-                $exit = 1;
-            }
-        }
-        if (! $exit) {
-            print "Setting transfer mode to binary...\n";
-            if (! $ftp->binary()) {
-                print $ftp->message . "\n";
-                $exit = 1;
-            }
-        }
-        if (! $exit) {
-            print "Cd to '$opts{ftpdir}'...\n";
-            if (! $ftp->cwd($opts{ftpdir})) {
-                print $ftp->message . "\n";
-                $exit = 1;
-            }
-        }
-
-        if ($exit) {
-            if (yesno ('y', 'Retry connection at once')) {
-                next TRY_CONNECT;
-            } else {
-                die 'error';
-            }
-        }
-
-        last TRY_CONNECT;
+    if ($opts{useproxy}) {
+        $remotehost = $opts{proxyhost};
+        $remoteuser = $opts{username} . '@' . $opts{ftpsite};
+    } else {
+        $remotehost = $opts{ftpsite};
+        $remoteuser = $opts{username};
     }
 
-#   if (! $ftp->pasv()) {
-#       print $ftp->message . "\n";
-#       die 'error';
-#   }
+    print "Connecting to $opts{ftpsite}...\n";
+    my $ftp = Net::FTP->new($remotehost,
+        Passive => $opts{passive},
+        Debug => $opts{debug},
+    );
+    if (! $ftp || ! $ftp->ok) {
+        errormsg('cannot connect');
+        return;
+    }
+
+    if ($opts{useproxy}) {
+        print "Login on $opts{proxyhost}...\n";
+        $ftp->_USER($opts{proxylogname});
+        $ftp->_PASS($opts{proxypassword});
+    }
+    print "Login as $opts{username}...\n";
+    if ($opts{password} eq '?') {
+        print 'Enter password for ftp: ';
+        system('stty', '-echo');
+        $remotepass = <STDIN>;
+        chomp $remotepass;
+        print "\n";
+        system('stty', 'echo');
+    } else {
+        $remotepass = $opts{password};
+    }
+    if (! $ftp->login($remoteuser, $remotepass)) {
+        errormsg($ftp->message());
+        return;
+    }
+
+    print "Setting transfer mode to binary...\n";
+    if (! $ftp->binary()) {
+        errormsg($ftp->message);
+        return;
+    }
+
+    print "Cd to '$opts{ftpdir}'...\n";
+    if (! $ftp->cwd($opts{ftpdir})) {
+        errormsg($ftp->message);
+        return;
+    }
 
     return $ftp;
 }
 
-## Support for MDTM.
+sub new($this, %opts)
+{
+    my $class = ref($this) || $this;
 
-# Assume server supports MDTM - will be adjusted if needed.
-my $has_mdtm = 1;
+    TRY_CONNECT: while (1) {
+        my $ftp = connect_once(%opts);
+        return bless $ftp, $class if $ftp;
+
+        if (yesno ('y', 'Retry connection at once')) {
+            next TRY_CONNECT;
+        } else {
+            error('cannot connect to FTP site');
+        }
+    }
+
+    return;
+}
+
+## Support for MDTM.
 
 my %months = (
     Jan => 0,
@@ -159,42 +148,46 @@ my $ls_l_regex = qr<
     \ ([0-9 ][0-9][:0-9][0-9]{2})
 >x;
 
-sub do_mdtm {
-    my ($ftp, $file) = @_;
+sub _debug_cmd_reply($self)
+{
+    my $code = $self->code();
+    my $message = $self->message();
+    print " [ $code: $message ] ";
+
+    return;
+}
+
+sub mdtm($self, $file)
+{
     my $time;
 
-#   if ($has_mdtm) {
-        $time = $ftp->mdtm($file);
-#       my $code = $ftp->code();
-#       my $message = $ftp->message();
-#       print " [ $code: $message ] ";
+    if ($self->supported('MDTM')) {
+        $time = $self->SUPER::mdtm($file);
+        $self->_debug_cmd_reply() if $self->debug();
         # Codes:
         #   500 Command not understood (SUN firewall).
         #   502 MDTM not implemented.
-        if ($ftp->code() == 502 ||
-            $ftp->code() == 500) {
-            $has_mdtm = 0;
-        } elsif (! $ftp->ok()) {
+        if ($self->code() == 502 ||
+            $self->code() == 500) {
+            # Fallback to compatibility implementation.
+        } elsif (! $self->ok()) {
             return;
         }
-#   }
+    }
 
-    if (! $has_mdtm) {
-        require Time::Local;
-
-        my @files = $ftp->dir($file);
+    if (! $self->supported('MDTM')) {
+        my @files = $self->dir($file);
         # Codes:
         #   550 No such file or directory.
         if (($#files == -1) ||
-            ($ftp->code == 550)) {
+            ($self->code == 550)) {
             return;
         }
 
-#       my $code = $ftp->code();
-#       my $message = $ftp->message();
-#       print " [ $code: $message ] ";
-
-#       print "[$#files]";
+        if ($self->debug()) {
+            $self->_debug_cmd_reply();
+            print "[$#files]";
+        }
 
         # Get the date components from the output of 'ls -l'.
         if ($files[0] =~ $ls_l_regex) {
@@ -227,13 +220,13 @@ sub do_mdtm {
                 $minutes = 0;
                 $year = $year_or_time - 1900;
             } else {
-                die 'cannot parse year-or-time';
+                error('cannot parse year-or-time');
             }
 
             # Build a system time.
-            $time = Time::Local::timegm(0, $minutes, $hours, $day, $month, $year);
+            $time = timegm_posix(0, $minutes, $hours, $day, $month, $year);
         } else {
-            die 'regex match failed on LIST output';
+            error('cannot match regex on FTP LIST output');
         }
     }
 

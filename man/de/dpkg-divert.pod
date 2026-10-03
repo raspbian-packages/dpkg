@@ -44,7 +44,9 @@ Listet Umleitungen auf, oder die, die auf I<Glob-Muster> passen.
 
 =item B<--listpackage> I<Datei>
 
-Gibt den Namen des Pakets aus, welches die I<Datei> umleitet (seit Dpkg 1.15.0). Gibt LOCAL aus, falls die Datei lokal umgeleitet wurde und nichts, falls I<Datei> nicht umgeleitet wurde.
+Print the name of the package that diverts I<file>.  Prints LOCAL if I<file> is locally diverted and nothing if I<file> is not diverted.
+
+Supported since dpkg 1.15.0.
 
 =item B<--truename> I<Datei>
 
@@ -62,11 +64,15 @@ Setzt das administrative Verzeichnis auf I<Verzeichnis> (Standard: „I<%ADMINDI
 
 =item B<--instdir> I<Verzeichnis>
 
-Setzt das Installationsverzeichnis, das sich auf das Verzeichnis bezieht, in dem Pakete installiert werden (seit Dpkg 1.19.2). Standardmäßig „I</>“, falls B<DPKG_ROOT> nicht gesetzt wurde.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.19.2.
 
 =item B<--root> I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeichnis auf „I<Verzeichnis>“ und das administrative Verzeichnis auf „I<Verzeichnis>B<%ADMINDIR%>“ gesetzt wird (seit Dpkg 1.19.2), falls B<DPKG_ROOT> nicht gesetzt wurde.
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.19.2.
 
 =item B<--divert> I<Umleitziel>
 
@@ -90,7 +96,9 @@ Schiebt die Dateien tatsächlich beiseite (oder zurück). B<dpkg-divert> wird de
 
 =item B<--no-rename>
 
-Legt fest, dass die Datei beim Hinzufügen oder Entfernen der Umleitung in die Datenbank nicht umbenannt werden soll (seit Dpkg 1.19.1). Dies ist für Umleitungen von Dateien aus der Paketgruppe B<Essential> gedacht, bei der das vorübergehende Verschwinden der ursprünglichen Datei nicht akzeptiert werden kann, da es zu einem nicht funktionalen System führen kann. Dies ist das Standardverhalten. Dies wird sich ändern, sobald es keine bekannten Nutzer mehr gibt, aber nicht vor dem Dpkg 1.23.x-Veröffentlichungszyklus.
+Specifies that the file should not be renamed while adding or removing the diversion into the database.  This is intended for diversions of files from the B<Essential> package set, where the temporary disappearance of the original file is not acceptable, as it can render the system non-functional.  This is the default behavior, which will change once there are no known users, but not before the dpkg 1.23.x release cycle.
+
+Supported since dpkg 1.19.1.
 
 =item B<--test>
 
@@ -126,7 +134,9 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_ROOT>
 
-Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt (seit Dpkg 1.19.2).
+Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt.
+
+Supported since dpkg 1.19.2.
 
 =item B<DPKG_ADMINDIR>
 
@@ -138,15 +148,21 @@ Falls gesetzt und die Optionen B<--local> und B<--package> nicht verwandt wurden
 
 =item B<DPKG_DEBUG>
 
-Setzt die Fehlersuchmaske (seit Dpkg 1.21.10) aus einem oktalen Wert. Die derzeit akzeptierten Schalter werden in der Option B<dpkg --debug> beschrieben, aber nicht alle dieser Schalter könnten Auswirkungen auf dieses Programm haben.
+Sets the debug mask from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
+Supported since dpkg 1.21.10.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.22.7). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.22.7.
 
 =back
 

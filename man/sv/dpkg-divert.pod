@@ -44,7 +44,9 @@ Visa alla omdirigeringar, eller de som matchar I<filnamnsmönster>.
 
 =item B<--listpackage> I<fil>
 
-Visa namnet på paketet som omdirigerar I<fil> (sedan dpkg 1.15.0). Svarar LOCAL om I<fil> har omdirigerats lokalt och ingenting om I<fil> inte är omdirigerad.
+Print the name of the package that diverts I<file>.  Prints LOCAL if I<file> is locally diverted and nothing if I<file> is not diverted.
+
+Supported since dpkg 1.15.0.
 
 =item B<--truename> I<fil>
 
@@ -62,11 +64,15 @@ Ställ den administrativa katalogen till I<katalog>. Förval är ”I<%ADMINDIR%
 
 =item B<--instdir> I<katalog>
 
-Sätt installationskatalogen, som anger katalogen där paket installeras (sedan dpkg 1.19.2). Förval är ”I</>” om B<DPKG_ROOT> inte har satts.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.19.2.
 
 =item B<--root> I<katalog>
 
-Sätt rotkatalogen till B<katalog>, vilket sätter installationskatalogen till ”I<katalog>” och den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.19.2) om B<DPKG_ROOT> inte har satts.
+Set the root directory to B<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>B<%ADMINDIR%>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.19.2.
 
 =item B<--divert> I<omdirigera-till>
 
@@ -90,7 +96,9 @@ Flytta faktiskt filen åt sidan (eller tillbaka). B<dpkg-divert> kommer att avbr
 
 =item B<--no-rename>
 
-Anger att filen inte ska få ett nytt namn när omdirigeringar läggs till eller tas bort i databasen (sedan dpkg 1.19.1). Detta är tänkt för omdirigeringar av filer från paketuppsättningen märkt B<Essential>, där det att originalfilen temporärt försvinner inte är acceptabelt, eftersom det kan göra så att systemet inte längre fungerar. Detta är standardbeteendet, vilket kommer att ändras så fort det inte finns några kända användare, men inte tidigare än dpkg 1.23.x-utgivningscykeln.
+Specifies that the file should not be renamed while adding or removing the diversion into the database.  This is intended for diversions of files from the B<Essential> package set, where the temporary disappearance of the original file is not acceptable, as it can render the system non-functional.  This is the default behavior, which will change once there are no known users, but not before the dpkg 1.23.x release cycle.
+
+Supported since dpkg 1.19.1.
 
 =item B<--test>
 
@@ -126,7 +134,9 @@ Den önskade funktionen utfördes utan fel.
 
 =item B<DPKG_ROOT>
 
-Om satt och flaggorna B<--instdir> och B<--root> inte har angivits används det som filsystemets rotkatalog (sedan dpkg 1.19.2).
+Om satt och flaggan B<--instdir> eller B<-root> inte har angivits kommer det användas som filsystemets rotkatalog.
+
+Supported since dpkg 1.19.2.
 
 =item B<DPKG_ADMINDIR>
 
@@ -138,15 +148,21 @@ Om satt, och flaggorna B<--local> och B<--package> inte har angivits, kommer B<d
 
 =item B<DPKG_DEBUG>
 
-Anger felsökningsmasken (sedan dpkg 1.21.10) från ett oktalt värde. De flaggor som för närvarande godtas beskrivs i flaggan B<dpkg --debug>, men alla dess flaggor påverkar inte nödvändigtvis detta program.
+Sets the debug mask from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
+Supported since dpkg 1.21.10.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.22.7). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Stöds sedan dpkg 1.22.7.
 
 =back
 

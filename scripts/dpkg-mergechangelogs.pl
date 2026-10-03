@@ -25,6 +25,7 @@ use Dpkg ();
 use Dpkg::Changelog::Debian;
 use Dpkg::ErrorHandling;
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::Version;
 use Dpkg::Vendor qw(run_vendor_hook);
 
@@ -43,27 +44,32 @@ BEGIN {
     }
 }
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf "\n" . g_(
-'This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-"Usage: %s [<option>...] <old> <new-a> <new-b> [<out>]
+"Usage: %s [<option>...] <old> <new-a> <new-b> [<out>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
 
-Options:
-  -m, --merge-prereleases  merge pre-releases together, ignores everything
-                             after the last '~' in the version.
-      --merge-unreleased   merge UNRELEASED entries together, ignoring their
-                             version numbers.
-  -?, --help               show this help message.
-      --version            show the version.
-"), $Dpkg::PROGNAME;
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -m, --merge-prereleases\n" .
+"          Merge pre-releases together, ignores everything after the last '~'\n" .
+"          in the version.\n" .
+    ''));
+    print_option(g_(
+"      --merge-unreleased\n" .
+"          Merge UNRELEASED entries together, ignoring their version numbers.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 my $merge_prereleases;
@@ -71,7 +77,10 @@ my $merge_unreleased;
 
 my @options_spec = (
     'help|?' => sub { usage(); exit(0) },
-    'version' => sub { version(); exit(0) },
+    'version' => sub {
+        print_version();
+        exit(0)
+    },
     'merge-prereleases|m' => \$merge_prereleases,
     'merge-unreleased' => \$merge_unreleased,
 );
@@ -173,9 +182,8 @@ sub get_items_to_merge {
     return @items;
 }
 
-# Compares the versions taking into account some oddities like the fact
-# that we want backport versions to sort higher than the version
-# on which they are based.
+# Compares the versions taking into account some oddities like wanting
+# backport versions to sort higher than the version on which they are based.
 sub compare_versions {
     my ($a, $b) = @_;
 

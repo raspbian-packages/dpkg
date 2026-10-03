@@ -25,6 +25,7 @@ use Dselect::Method::Media;
 
 eval q{
     use Dpkg::Version;
+    use Dpkg::ErrorHandling;
 };
 if ($@) {
     warn "Missing Dpkg modules required by the Media access method.\n\n";
@@ -49,13 +50,13 @@ my $umount;
 
 my $exit = 1;
 
-sub do_umount {
+sub media_unmount {
     if (length $umount) {
         system 'umount', $umount;
     }
 }
 
-sub do_mount {
+sub media_mount {
     my $opts = 'nosuid,nodev';
     if (! -b $p_blockdev) {
         $opts .= ',loop';
@@ -67,7 +68,7 @@ sub do_mount {
     }
 }
 
-do_mount();
+media_mount();
 
 my $predep = "$vardir/predep-package";
 my $binaryprefix = "$p_mountpoint$p_hierbase";
@@ -83,10 +84,10 @@ while (1) {
     system "dpkg --admindir '$vardir' --predep-package >'$predep'";
     my $rc = $? >> 8;
     last if $rc == 1;
-    die if $rc != 0;
+    subprocerr('dpkg --predep-package') if $rc;
 
     open my $predep_fh, '<', $predep
-        or die "cannot open $predep: $!\n";
+        or syserr("cannot open '%s'", $predep);
     while (<$predep_fh>) {
         s/\s*\n$//;
         $package = $_ if s/^Package: //i;
@@ -97,8 +98,8 @@ while (1) {
         @filename = split / / if s/^Filename: //i;
     }
     close $predep_fh;
-    die 'internal error - no package' if length($package) == 0;
-    die 'internal error - no filename' if not @filename;
+    internerr('no package') if length($package) == 0;
+    internerr('no filename') if not @filename;
     if ($medium && ($medium ne $thisdisk)) {
         print <<"INFO";
 
@@ -106,7 +107,7 @@ This is
     $thisdisk
 However, $package is expected on disc:
     $medium
-Please change the discs and press <RETURN>.
+Change the discs and press <Enter>.
 
 INFO
         exit(1);
@@ -129,13 +130,13 @@ INFO
             $base =~ s{.*/}{};
             my $c = open my $find_fh, '-|';
             if (not defined $c) {
-                die "failed to fork for find: $!\n";
+                syserr("cannot create child process for '%s'", 'find');
             }
             if (! $c) {
                 exec('find', '-L',
                      length($binaryprefix) ? $binaryprefix : '.',
-                     '-name', $base);
-                die "failed to exec find: $!\n";
+                     '-name', $base)
+                    or syserr("cannot execute '%s'", 'find');
             }
             while (chop($invoke = <$find_fh>)) {
                 last if -f $invoke;
@@ -169,8 +170,8 @@ WARN
     }
 
     print "Running dpkg -iB for $package ...\n";
-    exec('dpkg', '-iB', '--', @invoke);
-    die "failed to exec dpkg: $!\n";
+    exec('dpkg', '-iB', '--', @invoke)
+        or syserr("cannot execute '%s'", 'dpkg');
 }
 
 $SIG{INT} = sub {
@@ -187,7 +188,7 @@ my (%installed, %filename, %medium);
 
 print 'Get currently installed package versions...';
 open my $status_fh, '<', $STATUS
-    or die "cannot open $STATUS: $!\n";
+    or syserr("cannot open '%s'", $STATUS);
 $line = 0;
 {
     local $/ = q{};
@@ -220,7 +221,7 @@ print "\nGot ", scalar keys %installed, " installed/pending packages\n";
 print 'Scanning available packages...';
 $line = 0;
 open my $avail_fh, '<', $AVAIL
-    or die("Cannot open $AVAIL: $!\n");
+    or syserr("cannot open '%s'", $AVAIL);
 {
     local $/ = q{};
     while (<$avail_fh>) {
@@ -271,14 +272,14 @@ foreach my $need (@media) {
     print "Processing disc\n   $need\n";
 
     while ($disk ne $need) {
-        print "Wrong disc.  This is disc\n    $disk\n";
+        print "Wrong disc. This is disc\n    $disk\n";
         print "However, the needed disc is\n    $need\n";
-        print "Please change the discs and press <RETURN>\n";
-        do_umount();
+        print "Change the discs and press <Enter>\n";
+        media_unmount();
         <STDIN>;
-        do_mount();
+        media_mount();
         if ($?) {
-            warn "cannot mount $p_mountpoint\n";
+            warning("cannot mount '%s'", $p_mountpoint);;
         }
     } continue {
         $disk = get_disk_label($p_mountpoint, $p_hierbase);
@@ -286,24 +287,24 @@ foreach my $need (@media) {
 
     if (! -d 'tmp') {
         mkdir 'tmp', 0o755
-            or die("Cannot mkdir tmp: $!\n");
+            or syserr("cannot create directory '%s'", 'tmp');
     }
     unlink <tmp/*>;
 
-    print "creating symlinks...\n";
+    print "creating symbolic links...\n";
     foreach my $pkgname (@{$medium{$need}}) {
         my $basename;
 
         ($basename = $filename{$pkgname}) =~ s/.*\///;
         symlink "$p_mountpoint/$p_hierbase/$filename{$pkgname}", "tmp/$basename";
     }
-    chdir 'tmp' or die "cannot chdir to tmp: $!\n";
+    chdir 'tmp' or syserr("cannot change directory to '%s'", 'tmp');
     system 'dpkg', '-iGROEB', q{.};
     unlink <*>;
     chdir q{..};
 
     if ($?) {
-        print "\nThe dpkg run produced errors. Please state whether to\n",
+        print "\nThe dpkg run produced errors. State whether to\n",
               'continue with the next media disc. [Y/n]: ';
         my $answer = <STDIN>;
         exit 1 if $answer =~ /^n/i;
@@ -314,12 +315,12 @@ foreach my $need (@media) {
 exit $ouch;
 
 
-print 'Installation OK. Hit RETURN.';
+print 'Installation OK. Press <Enter>.';
 <STDIN>;
 
 $exit = 0;
 
 END {
-    do_umount();
+    media_unmount();
     exit $exit;
 }

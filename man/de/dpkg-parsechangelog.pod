@@ -38,11 +38,15 @@ Gibt das Format der Changelog-Datei an. Standardmäßig wird das Format aus eine
 
 =item B<-L> I<libverzeichnis>
 
-Veraltete Option ohne Wirkung (seit Dpkg 1.18.8). Setzen der Perl-Umgebungsvariablen B<PERL5LIB> oder B<PERLLIB> hat eine ähnliche Wirkung, wenn nach Auswerter-Perl-Modulen gesucht wird.
+Obsolete since dpkg 1.18.8, it has no effect.
+
+Setting the perl environment variables B<PERL5LIB> or B<PERLLIB> has a similar effect when looking for the parser perl modules.
 
 =item B<-S>, B<--show-field> I<Feld>
 
-Gibt den Namen des anzuzeigenden Feldes an (seit Dpkg 1.17.0). Der Feldname wird nicht angezeigt, nur sein Wert.
+Specifies the name of the field to show.  The field name is not printed, only its value.
+
+Supported since dpkg 1.17.0.
 
 =item B<-?>, B<--help>
 
@@ -86,13 +90,17 @@ Die höchste Dringlichkeit aller enthaltenen Einträge wird verwandt, gefolgt vo
 
 Der Name und die E-Mail-Adresse der Person, die diese Änderungen erstellt hat. Dies sind B<nicht> notwendigerweise die Daten des Uploaders oder des normalen Paketbetreuers.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Date:> I<Datum>
 
 Das Datum des Eintrags als Zeichenkette, wie es im Changelog erscheint. Mit dem Format L<strptime(3)> „B<%a, %d %b %Y %T %z>“, wobei der Wochentag nicht dem echten Tag aus dem Rest der Datumszeichenkette entsprechen könnte. Falls Sie eine genauere Darstellung des Datums benötigen, verwenden Sie das Feld B<Timestamp>, beachten dabei aber, dass es nicht möglich sein könnte, es auf den genauen Wert in diesem Feld abzubilden.
 
 =item B<Timestamp:> I<Zeitstempel>
 
-Das Datum des Eintrags als Zeitstempel in Sekunden seit der Epoche (seit Dpkg 1.18.8).
+The date of the entry as a timestamp in seconds since the epoch.
+
+Supported since dpkg 1.18.8.
 
 =item B<Closes:> I<Fehlernummer>
 
@@ -112,9 +120,11 @@ Das B<rfc822>-Format verwendet die gleichen Felder, gibt aber einzelne Absätze 
 
 =item B<--reverse>
 
-nimmt alle Änderungen in umgekehrter Reihenfolge auf (seit Dpkg 1.19.1).
+Include all changes in reverse order.
 
 B<Hinweis>: Für das B<dpkg>-Format ist der erste Eintrag der älteste Eintrag.
+
+Supported since dpkg 1.19.1.
 
 =item B<--all>
 
@@ -154,7 +164,7 @@ fügt I<Anzahl> Einträge vom Kopf (oder vom Fuß, falls I<Anzahl> negativ ist) 
 
 Es ist möglich, ein anderes als das Standardformat zu verwenden, indem ein Auswerter für dieses alternative Format bereitgestellt wird.
 
-Damit B<dpkg-parsechangelog> den neuen Auswerter ausführen kann, muss eine Zeile innerhalb der letzten 40 Zeilen der Changelog-Datei enthalten sein, die auf den folgenden regulären Perl-Ausdruck passt: „B<\schangelog-format:\s+([0-9a-z]+)\W>“. Der Anteil in Klammern sollte der Name des Formats sein, beispielsweise:
+To have B<dpkg-parsechangelog> run the new parser, a line must be included within the last 40 lines of the changelog file, matching the Perl regular expression: “B<\schangelog-format:\s+([0-9a-z]+)\W>”.  The part in parentheses should be the name of the format.  For example:
 
 =over 
 
@@ -188,11 +198,15 @@ Das Auswerten kurzer Optionen mit nicht gebündelten Werten ist nur seit Dpkg-Ve
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -212,7 +226,7 @@ Das Feld B<Maintainer> hat einen verwirrenden Namen. Es vergleicht mit dem Feld 
 
 =head1 SIEHE AUCH
 
-L<deb-changelog(5)>.
+L<deb-email(7)>, L<deb-changelog(5)>.
 
 
 =head1 ÜBERSETZUNG

@@ -60,11 +60,15 @@ Alle Optionen können sowohl auf der Befehlszeile als auch in der Konfigurations
 
 =item B<--instdir> I<Verzeichnis>
 
-Setzt das Installationsverzeichnis, das sich auf das Verzeichnis bezieht, in dem Pakete installiert werden (seit Dpkg 1.21.1). Standardmäßig „I</>“, falls B<DPKG_ROOT> nicht gesetzt wurde.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.21.2.
 
 =item B<--root> I<Verzeichnis>
 
-Setzt das Wurzelverzeichnis auf I<Verzeichnis>, wodurch das Installationsverzeichnis auf „I<Verzeichnis>“ und das administrative Verzeichnis auf „I<Verzeichnis>%ADMINDIR%“ gesetzt wird (seit Dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<-D>I<Datei>, B<--debug> I<Datei>
 
@@ -409,7 +413,7 @@ Wenn sich aus der Änderungsanforderung eine oder mehrere unerfüllte Abhängigk
 
 Die obere Hälfte dieses Bildschirms führt alle Pakete auf, die auf Grund der angeforderten Änderung unerfüllte Abhängigkeiten oder Konflikte haben und alle Pakete, deren Installation (einige) dieser Abhängigkeiten erfüllen oder deren Entfernung (einige) der Konflikte beseitigen kann. Die untere Hälfte zeigt standardmäßig die Abhängigkeiten oder Konflikte, die zu der Auflistung des derzeit ausgewählte Paketes geführt haben.
 
-Wenn anfänglich eine Teilliste von Paketen dargestellt wird, könnte B<dselect> bereits den erbetenen Auswahlstatus von einigen der aufgeführten Pakete gesetzt haben, um die Abhängigkeiten oder Konflikte aufzulösen, die dazu geführt hatten, dass der Bildschirm zur Abhängigkeitsauflösung angezeigt wurde. Normalerweise ist es am besten, den Vorschlägen von B<dselect> zu folgen.
+When the sublist of packages is displayed initially, B<dselect> may have already set the requested selection status of some of the listed packages, to resolve the depends or conflicts that caused the dependency resolution screen to be displayed.  Usually, it is best to follow up the suggestions made by B<dselect>.
 
 Durch Drücken der Taste ‚B<R>’ kann der Auswahlzustand der aufgeführten Pakete zu den Originaleinstellungen zurückgesetzt werden, wie er vor den unaufgelösten Abhängigkeiten oder Konflikten war. Durch Drücken der Taste ‚B<D>’ werden die automatischen Vorschläge zurückgesetzt, aber die Änderungen, die zu der Anzeige des Abhängigkeitsauflösungsbildschirms geführt hatten, werden wie gebeten beibehalten. Schließlich werden durch Drücken der Taste ‚B<U>’ die Auswahlen wieder auf die automatischen Auswahlwerte gesetzt.
 
@@ -443,11 +447,15 @@ Fataler oder nicht behebbarer Fehler aufgrund eines ungültigen Befehlszeilenauf
 
 =item B<DPKG_ROOT>
 
-Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt (seit Dpkg 1.21.0).
+Falls gesetzt und die Option B<--instdir> oder B<--root> nicht angegeben wurde, wird dies als Dateisystemwurzelverzeichnis verwandt.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
-Falls gesetzt und die Option B<--admindir> oder B<--root> nicht verwandt wurde, wird dies als Datenbank-Verzeichnis von B<dpkg> verwandt (seit Dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<HOME>
 

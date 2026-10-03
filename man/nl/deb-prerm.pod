@@ -40,7 +40,7 @@ Voor een opwaardering.
 
 Indien de hiervoor vermelde B<upgrade> mislukt.
 
-De optie I<nieuwe-versie> wordt pas meegegeven sinds dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<prerm> B<deconfigure> B<in-favour> I<nieuw-pakket> I<nieuwe-versie>
 

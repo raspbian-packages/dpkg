@@ -29,7 +29,12 @@ use POSIX qw(:sys_wait_h);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
+use Dpkg::Exit qw(
+    push_exit_handler
+    pop_exit_handler
+);
 use Dpkg::SysInfo qw(
     get_num_processors
 );
@@ -55,112 +60,309 @@ use Dpkg::Vendor qw(run_vendor_hook);
 
 textdomain('dpkg-dev');
 
-sub showversion {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    print g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] [--] [<filename.dsc>|<directory>]')
-    . "\n\n" . g_(
-'Options:
-      --build=<type>[,...]    specify the build <type>: full, source, binary,
-                                any, all (default is \'full\').
-  -F, --build=full            normal full build (source and binary; default).
-  -g, --build=source,all      source and arch-indep build.
-  -G, --build=source,any      source and arch-specific build.
-  -b, --build=binary          binary-only, no source files.
-  -B, --build=any             binary-only, only arch-specific files.
-  -A, --build=all             binary-only, only arch-indep files.
-  -S, --build=source          source-only, no binary files.
-  -nc, --no-pre-clean         do not pre clean source tree (implies -b).
-      --pre-clean             pre clean source tree (default).
-      --no-post-clean         do not post clean source tree (default).
-  -tc, --post-clean           post clean source tree.
-      --sanitize-env          sanitize the build environment.
-  -D, --check-builddeps       check build dependencies and conflicts (default).
-  -d, --no-check-builddeps    do not check build dependencies and conflicts.
-      --ignore-builtin-builddeps
-                              do not check builtin build dependencies.
-  -P, --build-profiles=<profiles>
-                              assume comma-separated build <profiles> as active.
-      --rules-requires-root   assume legacy Rules-Requires-Root field value.
-  -R, --rules-file=<rules>    rules file to execute (default is debian/rules).
-  -T, --rules-target=<target> call debian/rules <target>.
-      --as-root               ensure -T calls the target with root rights.
-  -j, --jobs[=<jobs>|auto]    jobs to run simultaneously (passed to <rules>),
-                                (default; default is auto, opt-in mode).
-  -J, --jobs-try[=<jobs>|auto]
-                              alias for -j, --jobs.
-      --jobs-force[=<jobs>|auto]
-                              jobs to run simultaneously (passed to <rules>),
-                                (default is auto, forced mode).
-  -r, --root-command=<command>
-                              command to gain root rights (default is fakeroot).
-      --check-command=<command>
-                              command to check the .changes file (no default).
-      --check-option=<opt>    pass <opt> to check <command>.
-      --hook-<name>=<command> set <command> as the hook <name>, known hooks:
-                                preinit init preclean source build binary
-                                buildinfo changes postclean check sign done
-      --buildinfo-file=<file> set the .buildinfo filename to generate.
-      --buildinfo-option=<opt>
-                              pass option <opt> to dpkg-genbuildinfo.
-      --changes-file=<file>   set the .changes filename to generate.
-      --sign-backend=<backend>
-                              OpenPGP backend to use to sign
-                                (default is auto).
-  -p, --sign-command=<command>
-                              command to sign .dsc and/or .changes files
-                                (default is gpg).
-      --sign-keyfile=<file>   the key file to use for signing.
-  -k, --sign-keyid=<keyid>    the key id to use for signing.
-      --sign-key=<keyid>      alias for -k, --sign-keyid.
-  -ap, --sign-pause           add pause before starting signature process.
-  -us, --unsigned-source      unsigned source package.
-  -ui, --unsigned-buildinfo   unsigned .buildinfo file.
-  -uc, --unsigned-changes     unsigned .buildinfo and .changes file.
-      --no-sign               do not sign any file.
-      --force-sign            force signing the resulting files.
-      --admindir=<directory>  change the administrative directory.
-  -?, --help                  show this help message.
-      --version               show the version.')
-    . "\n\n" . g_(
-'Options passed to dpkg-architecture:
-  -a, --host-arch <arch>      set the host Debian architecture.
-  -t, --host-type <type>      set the host GNU system type.
-      --target-arch <arch>    set the target Debian architecture.
-      --target-type <type>    set the target GNU system type.')
-    . "\n\n" . g_(
-'Options passed to dpkg-genchanges:
-  -si                         source includes orig, if new upstream (default).
-  -sa                         source includes orig, always.
-  -sd                         source is diff and .dsc only.
-  -v<version>                 changes since version <version>.
-  -m, --source-by=<maint>     maintainer for this source or build is <maint>.
-      --build-by=<maint>      ditto.
-  -e, --release-by=<maint>    maintainer for this change or release is <maint>.
-      --changed-by=<maint>    ditto.
-  -C<descfile>                changes are described in <descfile>.
-      --changes-option=<opt>  pass option <opt> to dpkg-genchanges.')
-    . "\n\n" . g_(
-'Options passed to dpkg-source:
-  -sn                         force Debian native source format.
-  -s[sAkurKUR]                see dpkg-source for explanation.
-  -z, --compression-level=<level>
-                              compression level to use for source.
-  -Z, --compression=<compressor>
-                              compression to use for source (gz|xz|bzip2|lzma).
-  -i, --diff-ignore[=<regex>] ignore diffs of files matching <regex>.
-  -I, --tar-ignore[=<pattern>]
-                              filter out files when building tarballs.
-      --source-option=<opt>   pass option <opt> to dpkg-source.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<option>...] [--] [<filename.dsc>|<directory>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"      --build=<type>[,...]\n" .
+"          Specify the build <type>: full, source, binary, any, all.\n" .
+    ''));
+    print_option_def('full');
+    print_option(g_(
+"  -F, --build=full\n" .
+"          Specify a full, source and binary build (default behavior).\n" .
+    ''));
+    print_option(g_(
+"  -g, --build=source,all\n" .
+"          Specify a source and arch-indep build.\n" .
+    ''));
+    print_option(g_(
+"  -G, --build=source,any\n" .
+"          Specify a source and arch-specific build.\n" .
+    ''));
+    print_option(g_(
+"  -b, --build=binary\n" .
+"          Specify a binary-only, no source files build.\n" .
+    ''));
+    print_option(g_(
+"  -B, --build=any\n" .
+"          Specify a binary-only, only arch-specific files build.\n" .
+    ''));
+    print_option(g_(
+"  -A, --build=all\n" .
+"          Specify a binary-only, only arch-indep files build.\n" .
+    ''));
+    print_option(g_(
+"  -S, --build=source\n" .
+"          Specify a source-only, no binary files build.\n" .
+    ''));
+    print_option(g_(
+"  -nc, --no-pre-clean\n" .
+"          Do not pre-clean source tree (implies --build=binary).\n" .
+    ''));
+    print_option(g_(
+"      --pre-clean\n" .
+"          Pre-clean source tree (default behavior).\n" .
+    ''));
+    print_option(g_(
+"      --no-post-clean\n" .
+"          Do not post-clean source tree (default behavior).\n" .
+    ''));
+    print_option(g_(
+"  -tc, --post-clean\n" .
+"          Post-clean source tree.\n" .
+    ''));
+    print_option(g_(
+"      --sanitize-env\n" .
+"          Sanitize the build environment.\n" .
+    ''));
+    print_option(g_(
+"  -D, --check-builddeps\n" .
+"          Check build dependencies and conflicts (default behavior).\n" .
+    ''));
+    print_option(g_(
+"  -d, --no-check-builddeps\n" .
+"          Do not check build dependencies and conflicts.\n" .
+    ''));
+    print_option(g_(
+"      --ignore-builtin-builddeps\n" .
+"          Do not check builtin build dependencies.\n" .
+    ''));
+    print_option(g_(
+"  -P, --build-profiles=<profiles>\n" .
+"          Assume comma-separated build <profiles> as active.\n" .
+    ''));
+    print_option_env('DEB_BUILD_PROFILES');
+    print_option(g_(
+"  -R, --rules-file=<rules>\n" .
+"          Rules file to execute.\n" .
+    ''));
+    print_option_def('debian/rules');
+    print_option(g_(
+"  -T, --rules-target=<target>\n" .
+"          Call <rules> <target>.\n" .
+    ''));
+    print_option(g_(
+"      --as-root\n" .
+"          Ensure --rules-target calls the target with root rights.\n" .
+    ''));
+    print_option(g_(
+"      --rules-requires-root\n" .
+"          Assume legacy Rules-Requires-Root field value.\n" .
+    ''));
+    print_option(g_(
+"  -r, --root-command=<command>\n" .
+"          Command to gain root rights.\n" .
+    ''));
+    print_option_def('fakeroot');
+    print_option(g_(
+"  -j, --jobs[=<jobs>|auto]\n" .
+"          Jobs to run simultaneously in opt-in mode (passed to <rules>),\n" .
+"          (default behavior).\n" .
+    ''));
+    print_option_def('auto');
+    print_option(g_(
+"  -J, --jobs-try[=<jobs>|auto]\n" .
+"          Alias for -j, --jobs.\n" .
+    ''));
+    print_option(g_(
+"      --jobs-force[=<jobs>|auto]\n" .
+"          Jobs to run simultaneously in forced mode (passed to <rules>).\n" .
+    ''));
+    print_option_def('auto');
+    print_option(g_(
+"      --hook-<name>=<command>\n" .
+"          Set <command> as the hook <name>, known hooks:\n" .
+"             preinit init preclean source build binary\n" .
+"             buildinfo changes postclean check sign done\n" .
+    ''));
+    print_option(g_(
+"      --check-command=<command>\n" .
+"          Command to check the .changes file.\n" .
+    ''));
+    print_option_env('DEB_CHECK_COMMAND');
+    print_option(g_(
+"      --check-option=<opt>\n" .
+"          Pass <opt> to check <command>.\n" .
+    ''));
+    print_option(g_(
+"      --buildinfo-file=<file>\n" .
+"          Set the .buildinfo filename to generate.\n" .
+    ''));
+    print_option(g_(
+"      --buildinfo-option=<opt>\n" .
+"          Pass option <opt> to dpkg-genbuildinfo.\n" .
+    ''));
+    print_option(g_(
+"      --changes-file=<file>\n" .
+"          Set the .changes filename to generate.\n" .
+    ''));
+    print_option(g_(
+"      --sign-backend=<backend>\n" .
+"          OpenPGP backend to use to sign.\n" .
+    ''));
+    print_option_def('auto');
+    print_option(g_(
+"  -p, --sign-command=<command>\n" .
+"          Command to sign .dsc and/or .changes files.\n" .
+    ''));
+    print_option_def('auto');
+    print_option(g_(
+"      --sign-keyfile=<file>\n" .
+"          The key file to use for signing.\n" .
+    ''));
+    print_option_env('DEB_SIGN_KEYFILE');
+    print_option(g_(
+"  -k, --sign-keyid=<keyid>\n" .
+"          The key id to use for signing.\n" .
+    ''));
+    print_option_env('DEB_SIGN_KEYID');
+    print_option(g_(
+"      --sign-key=<keyid>\n" .
+"          Deprecated alias for --sign-keyid.\n" .
+    ''));
+    print_option(g_(
+"  -ap, --sign-pause\n" .
+"          Add pause before starting signature process.\n" .
+    ''));
+    print_option(g_(
+"  -us, --unsigned-source\n" .
+"          Do not sign the .dsc file.\n" .
+    ''));
+    print_option(g_(
+"  -ui, --unsigned-buildinfo\n" .
+"          Do not sign the .buildinfo file.\n" .
+    ''));
+    print_option(g_(
+"  -uc, --unsigned-changes\n" .
+"          Do not sign the .buildinfo and .changes files.\n" .
+    ''));
+    print_option(g_(
+"      --no-sign\n" .
+"          Do not sign any file.\n" .
+    ''));
+    print_option(g_(
+"      --force-sign\n" .
+"          Force signing the resulting files.\n" .
+    ''));
+    print_option(g_(
+"      --admindir=<directory>\n" .
+"          Change the administrative directory.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options passed to dpkg-architecture:\n" .
+    '');
+    print_option(g_(
+"  -a, --host-arch <arch>\n" .
+"          Set the host Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"  -t, --host-type <type>\n" .
+"          Set the host GNU system type.\n" .
+    ''));
+    print_option(g_(
+"      --target-arch <arch>\n" .
+"          Set the target Debian architecture.\n" .
+    ''));
+    print_option(g_(
+"      --target-type <type>\n" .
+"          Set the target GNU system type.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options passed to dpkg-genchanges:\n" .
+    '');
+    print_option(g_(
+"  -si\n" .
+"          Source includes original source, if new upstream (default behavior).\n" .
+    ''));
+    print_option(g_(
+"  -sa\n" .
+"          Source includes original source, always.\n" .
+    ''));
+    print_option(g_(
+"  -sd\n" .
+"          Source is diff and .dsc only.\n" .
+    ''));
+    print_option(g_(
+"  -v<version>\n" .
+"          Include all changes later than <version>.\n" .
+    ''));
+    print_option(g_(
+"  -m, --source-by=<maint>\n" .
+"          Maintainer for this source or build is <maint>.\n" .
+    ''));
+    print_option(g_(
+"      --build-by=<maint>\n" .
+"          Alias for --source-by.\n" .
+    ''));
+    print_option(g_(
+"  -e, --release-by=<maint>\n" .
+"          Maintainer for this change or release is <maint>.\n" .
+    ''));
+    print_option(g_(
+"      --changed-by=<maint>\n" .
+"          Alias for --release-by.\n" .
+    ''));
+    print_option(g_(
+"  -C<descfile>\n" .
+"          Changes are described in <descfile>.\n" .
+    ''));
+    print_option(g_(
+"      --changes-option=<opt>\n" .
+"          Pass option <opt> to dpkg-genchanges.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options passed to dpkg-source:\n" .
+    '');
+    print_option(g_(
+"  -sn\n" .
+"          Force Debian native source format.\n" .
+    ''));
+    print_option(g_(
+"  -s[sAkurKUR]\n" .
+"          See dpkg-source for explanation.\n" .
+    ''));
+    print_option(g_(
+"  -Z, --compression=<compressor>\n" .
+"          Compression to use for source (supported are: %s).\n" .
+    ''), join(', ', compression_get_list()));
+    print_option_def(compression_get_default());
+    print_option(g_(
+"  -z, --compression-level=<level>\n" .
+"          Compression level to use for source.\n" .
+    ''));
+    print_option(g_(
+"  -i, --diff-ignore[=<regex>]\n" .
+"          Ignore diffs of files matching <regex>.\n" .
+    ''));
+    print_option(g_(
+"  -I, --tar-ignore[=<pattern>]\n" .
+"          Filter out files when building tarballs.\n" .
+    ''));
+    print_option(g_(
+"      --source-option=<opt>\n" .
+"          Pass option <opt> to dpkg-source.\n" .
+    ''));
 }
 
 my $admindir;
@@ -246,7 +448,7 @@ while (@ARGV) {
         usage;
         exit 0;
     } elsif (/^--version$/) {
-        showversion;
+        print_version;
         exit 0;
     } elsif (/^--admindir$/) {
         $admindir = shift @ARGV;
@@ -260,7 +462,7 @@ while (@ARGV) {
     } elsif (/^--buildinfo-option=(.*)$/) {
         my $buildinfo_opt = $1;
         if ($buildinfo_opt =~ m/^-O(.*)/) {
-            warning(g_('passing %s via %s is not supported; please use %s instead'),
+            warning(g_('passing %s via %s is not supported; use %s instead'),
                     '-O', '--buildinfo-option', '--buildinfo-file');
             $buildinfo_file = $1;
         } else {
@@ -272,7 +474,7 @@ while (@ARGV) {
     } elsif (/^--changes-option=(.*)$/) {
         my $changes_opt = $1;
         if ($changes_opt =~ m/^-O(.*)/) {
-            warning(g_('passing %s via %s is not supported; please use %s instead'),
+            warning(g_('passing %s via %s is not supported; use %s instead'),
                     '-O', '--changes-option', '--changes-file');
             $changes_file = $1;
         } else {
@@ -310,17 +512,18 @@ while (@ARGV) {
         $signcommand = $1;
     } elsif (/^--sign-keyfile=(.*)$/) {
         $signkeyfile = $1;
-    } elsif (/^(?:-k|--sign-keyid=|--sign-key=)(.*)$/) {
+    } elsif (/^(?:-k|--sign-keyid=)(.*)$/) {
         $signkeyid = $1;
+    } elsif (/^(--sign-key)=(.*)$/) {
+        $signkeyid = $2;
+        # Deprecated option.
+        warning(g_('%s is deprecated; use %s instead'), $1, '--sign-keyid');
     } elsif (/^--(no-)?check-builddeps$/) {
         $checkbuilddep = ! (defined $1 and $1 eq 'no-');
     } elsif (/^-([dD])$/) {
         $checkbuilddep = ($1 eq 'D');
     } elsif (/^--ignore-builtin-builddeps$/) {
         $check_builtin_builddep = 0;
-    } elsif (/^-s(gpg|pgp)$/) {
-        # Deprecated option.
-        warning(g_('-s%s is deprecated; always using gpg style interface'), $1);
     } elsif (/^--force-sign$/) {
         $signforce = 1;
     } elsif (/^--no-sign$/) {
@@ -559,7 +762,7 @@ if ($changedby) {
     $maintainer = $changedby;
 } elsif ($maint) {
     $maintainer = $maint;
-} else {
+} elsif (length $changelog->{maintainer}) {
     my $email = mustsetvar($changelog->{maintainer}, g_('source changed by'));
     eval {
         my $addr = Dpkg::Email::Address->new($email);
@@ -710,7 +913,7 @@ run_hook('source', {
 });
 
 if (build_has_any(BUILD_SOURCE)) {
-    warning(g_('building a source package without cleaning up as you asked; ' .
+    warning(g_('building a source package without cleaning up as requested; ' .
                'it might contain undesired files')) if not $preclean;
     run_cmd('dpkg-source', @source_opts, '-b', '.');
 }
@@ -806,7 +1009,7 @@ if ($check_command) {
 }
 
 if ($signpause && ($signsource || $signbuildinfo || $signchanges)) {
-    print g_("Press <enter> to start the signing process.\n");
+    print g_("Press <Enter> to start the signing process.\n");
     getc();
 }
 
@@ -866,7 +1069,7 @@ run_hook('done');
 sub mustsetvar {
     my ($var, $text) = @_;
 
-    error(g_('unable to determine %s'), $text)
+    error(g_('cannot determine %s'), $text)
         unless defined($var);
 
     info("$text $var");
@@ -887,7 +1090,7 @@ sub run_hook {
 
     return if not $cmd;
 
-    info("running hook $name");
+    info(g_('running hook %s'), $name);
 
     my %hook_vars = (
         '%' => '%',
@@ -933,14 +1136,20 @@ sub update_files_field {
 sub signkey_validate {
     return unless $signkey->type eq 'keyid';
 
-    if (length $signkey->handle <= 8) {
+    my $keyid_len = length $signkey->handle;
+
+    if ($keyid_len <= 8) {
         error(g_('short OpenPGP key IDs are broken; ' .
-                 'please use key fingerprints in %s or %s instead'),
+                 'use key fingerprints in %s or %s instead'),
               '-k', 'DEB_SIGN_KEYID');
-    } elsif (length $signkey->handle <= 16) {
+    } elsif ($keyid_len <= 16) {
         warning(g_('long OpenPGP key IDs are strongly discouraged; ' .
-                   'please use key fingerprints in %s or %s instead'),
+                   'use key fingerprints in %s or %s instead'),
                 '-k', 'DEB_SIGN_KEYID');
+    }
+
+    if ($keyid_len != 40 && $keyid_len != 64) {
+        warning(g_('OpenPGP key ID has unknown v4 or v6 fingerprint length'));
     }
 }
 
@@ -950,14 +1159,24 @@ sub signfile {
 
     printcmd("signfile $file");
 
+    # Remove any leftover signed file.
+    if (-e "$signfile.asc") {
+        unlink "$signfile.asc"
+            or syserr(g_('cannot remove %s'), "$signfile.asc");
+    }
+
+    push_exit_handler(sub { unlink "$signfile.asc" });
+
     my $status = $openpgp->inline_sign($signfile, "$signfile.asc", $signkey);
     if ($status == OPENPGP_OK) {
         move("$signfile.asc", $signfile)
-            or syserror(g_('cannot move %s to %s'), "$signfile.asc", $signfile);
+            or syserr(g_('cannot move %s to %s'), "$signfile.asc", $signfile);
     } else {
-        error(g_('failed to sign %s file: %s'), $signfile,
+        error(g_('cannot sign %s file: %s'), $signfile,
               openpgp_errorcode_to_string($status));
     }
+
+    pop_exit_handler();
 
     return $status
 }

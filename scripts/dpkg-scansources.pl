@@ -6,8 +6,8 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or (at
-# your option) any later version.
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,6 +25,7 @@ use File::Find;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Control;
 use Dpkg::Control::Fields;
@@ -70,7 +71,7 @@ my @option_spec = (
         exit 0;
     },
     'version' => sub {
-        version();
+        print_version();
         exit 0;
     },
     'no-sort|n' => \$no_sort,
@@ -78,27 +79,40 @@ my @option_spec = (
     'extra-override|e=s' => \$extra_override_file,
 );
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] <binary-path> [<override-file> [<path-prefix>]] > Sources
+"Usage: %s [<option>...] <binary-path> [<override-file> [<path-prefix>]] > Sources\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
 
-Options:
-  -n, --no-sort            do not sort by package before outputting.
-  -e, --extra-override <file>
-                           use extra override file.
-  -s, --source-override <file>
-                           use file for additional source overrides, default
-                           is regular override file with .src appended.
-      --debug              turn debugging on.
-  -?, --help               show this help message.
-      --version            show the version.
-
-See the man page for the full documentation.
-'), $Dpkg::PROGNAME;
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -n, --no-sort\n" .
+"          Do not sort output source package stanzas by package name.\n" .
+    ''));
+    print_option(g_(
+"  -e, --extra-override <file>\n" .
+"          Use extra override file.\n" .
+    ''));
+    print_option(g_(
+"  -s, --source-override <file>\n" .
+"          Use file for source overrides.\n" .
+    ''));
+    print_option_def(g_('<override-file>.src'));
+    print_option(g_(
+"      --debug\n" .
+"          Enable debugging mode.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 sub load_override {

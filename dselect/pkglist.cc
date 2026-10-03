@@ -600,7 +600,7 @@ packagelist::checksearch(varbuf &rx)
 
 	rc = regcomp(&searchfsm, rx.str(), opt);
 	if (rc != 0) {
-		displayerror(_("error in regular expression"));
+		displayerror(_("invalid syntax in regular expression"));
 		return false;
 	}
 
@@ -655,7 +655,7 @@ packagelist::display()
 		if (whatinfo_height)
 			wcursyncup(whatinfowin);
 		if (doupdate() == ERR)
-			ohshite(_("doupdate failed"));
+			ohshite(_("cannot refresh window"));
 		do {
 			response = getch();
 			if (response == KEY_RESIZE) {
@@ -664,7 +664,7 @@ packagelist::display()
 			}
 		} while (response == ERR && errno == EINTR);
 		if (response == ERR)
-			ohshite(_("getch failed"));
+			ohshite(_("cannot get input character"));
 
 		interp = (*bindings)(response);
 		debug(dbg_general,

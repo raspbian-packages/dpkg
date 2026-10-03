@@ -40,7 +40,7 @@ Een koppelingengroep bevindt zich in de automatische modus als die voor het eers
 
 Aan elk alternatief is een I<prioriteit> gekoppeld. Als een koppelingengroep zich in de automatische modus bevindt, dan zijn het de alternatieven met de hoogste prioriteit waarnaar verwezen zal worden door leden van die groep.
 
-Als de optie B<--config> gebruikt wordt, zal B<update-alternatives> een lijst geven met al de keuzemogelijkheden voor de koppelingengroep waarvan de opgegeven I<naam> de naam is van het hoofdalternatief. De huidige keuze wordt gemarkeerd met een‘*’. Daarna zult u gevraagd worden naar uw keuze voor deze koppelingengroep. Afhankelijk van de gemaakte keuze, kan het zijn dat de koppelingengroep niet langer in de modus I<auto> (automatische modus) verkeert. U zult de optie B<--auto> moeten gebruiken om terug te keren naar de automatische modus (of u kunt B<--config> opnieuw uitvoeren en het item selecteren dat als automatisch gemarkeerd staat).
+When using the B<--config> option, B<update-alternatives> will list all of the choices for the link group of which given I<name> is the master alternative name.  The current choice is marked with a ‘*’.  You will then be prompted for your choice regarding this link group.  Depending on the choice made, the link group might no longer be in I<auto> mode.  You will need to use the B<--auto> option to return to the automatic mode (or you can rerun B<--config> and select the entry marked as automatic).
 
 Indien u op een niet-interactieve manier wilt configureren, kunt u in de plaats daarvan de optie B<--set> gebruiken (zie hierna).
 
@@ -101,7 +101,7 @@ Als een koppelingengroep zich in manuele modus bevindt, zal het alternatievensys
 =item B<--install> I<koppeling naam pad prioriteit> [B<--slave> I<koppeling naam
 pad>]...
 
-Een groep alternatieven toevoegen aan het systeem. I<koppeling> is de algemene naam voor de hoofdkoppeling. I<naam> is de naam van zijn symbolische koppeling in de alternatievenmap. I<pad> is het alternatief dat voor de hoofdkoppeling aangevoerd wordt. De argumenten na B<--slave> zijn de algemene naam, de naam van de symbolische koppeling in de alternatievenmap en het alternatief-pad van een slaaf-koppeling. Nul of meer B<--slave>-opties kunnen opgegeven worden. Elk van hen moet door drie argumenten gevolgd worden. Merk op dat het hoofdalternatief moet bestaan. Zo niet, dan zal de aanroep mislukken. Indien evenwel een slaaf-alternatief niet bestaat, dan zal de overeenkomstige slaaf-alternatievenkoppeling gewoon niet geïnstalleerd worden (er zal wel een waarschuwing gegeven worden). Indien een echt bestand geïnstalleerd is waar een alternatievenkoppeling geïnstalleerd moet worden, wordt dat behouden tenzij de optie B<--force> gebruikt wordt.
+Add a group of alternatives to the system.  I<link> is the generic name for the master link, I<name> is the name of its symlink in the alternatives directory, and I<path> is the alternative being introduced for the master link.  The arguments after B<--slave> are the generic name, symlink name in the alternatives directory and the alternative path for a slave link.  Zero or more B<--slave> options, each followed by three arguments, may be specified.  Note that the master alternative must exist or the call will fail.  However if a slave alternative doesn't exist, the corresponding slave alternative link will not be installed (a warning will still be displayed). If some real file is installed where an alternative link has to be installed, it is kept unless B<--force> is used.
 
 Indien de opgegeven alternatief-naam reeds bestaat in de registers van het alternatievensysteem, dan zal de verstrekte informatie toegevoegd worden als een nieuwe reeks van alternatieven voor de groep. Anders zal een nieuwe groep in automatische modus toegevoegd worden met die informatie. Indien de groep zich in automatische modus bevindt en de pas toegevoegde alternatieven een grotere prioriteit hebben dan om het even welke andere geïnstalleerde alternatieven voor die groep, dan zullen de symbolische koppelingen bijgewerkt worden zodat ze verwijzen naar de pas toegevoegde alternatieven.
 
@@ -131,15 +131,21 @@ Informatie over de koppelingengroep tonen. De getoonde informatie bevat de modus
 
 =item B<--get-selections>
 
-Alle namen opsommen van de hoofdalternatieven (die welke een koppelingengroep controleren) en hun status (sinds versie 1.15.0). Elke regel kan tot 3 velden bevatten (door één of meer spaties van elkaar gescheiden). Het eerste veld is de naam van het alternatief. Het tweede is de status ervan (ofwel B<auto> ofwel B<manual>). Het laatste bevat het momenteel gekozen alternatief (let op: dit is een bestandsnaam en kan dus spaties bevatten).
+List all master alternative names (those controlling a link group)  and their status.  Each line contains up to 3 fields (separated by one or more spaces).  The first field is the alternative name, the second one is the status (either B<auto> or B<manual>), and the last one contains the current choice in the alternative (beware: it's a filename and thus might contain spaces).
+
+Supported since version 1.15.0.
 
 =item B<--set-selections>
 
-Op standaardinvoer configuratie voor alternatieven lezen in de door B<--get-selections> gegenereerde indeling en deze dienovereenkomstig herconfigureren(sinds versie 1.15.0).
+Read configuration of alternatives on standard input in the format generated by B<--get-selections> and reconfigure them accordingly.
+
+Supported since version 1.15.0.
 
 =item B<--query> I<naam>
 
-Informatie weergeven over de koppelingengroep zoals B<--display> dat doet, maar dan op een manier die door een machine ontleed kan worden (sinds versie 1.15.0, zie hierna bij het onderdeel L</INDELING GEGEVENSOPVRAGING>).
+Display information about the link group like B<--display> does, but in a machine parseable way (see section L</QUERY FORMAT> below).
+
+Supported since version 1.15.0.
 
 =item B<--list> I<naam>
 
@@ -173,15 +179,21 @@ Specificeert de administratieve map als die anders dan de standaard moet zijn. S
 
 =item B<--instdir> I<map>
 
-Specificeert de installatiemap waar alternatievenkoppelingen gecreëerd zullen worden (sinds versie 1.20.1). Standaard is dat «I</>» indien B<%INSTDIR_ENVVAR%> niet werd ingesteld.
+Specifies the installation directory where alternatives links will be created.  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+
+Supported since version 1.20.1.
 
 =item B<--root> I<map>
 
-Specificeert de basismap (sinds versie 1.20.1). Hiermee worden ook de alternatieven, installatie- en administratieve mappen aangepast. Standaard is dat «I</>» indien B<%INSTDIR_ENVVAR%> niet werd ingesteld.
+Specifies the root directory.  This also sets the alternatives, installation and administrative directories to match.  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+
+Supported since version 1.20.1.
 
 =item B<--log> I<bestand>
 
-Duidt het logbestand aan (sinds versie 1.15.0) als dat anders dan de standaard (%LOGDIR%/alternatives.log) moet zijn.
+Specifies the log file, when this is to be different from the default (%LOGDIR%/alternatives.log).
+
+Supported since version 1.15.0.
 
 =item B<--force>
 
@@ -201,7 +213,9 @@ Meer commentaar genereren bij wat er gedaan wordt.
 
 =item B<--debug>
 
-Zelfs nog meer commentaar genereren bij wat er gedaan wordt, nuttig bij het debuggen (sinds versie 1.19.3).
+Generate even more comments, helpful for debugging, about what is being done.
+
+Supported since version 1.19.3.
 
 =back
 

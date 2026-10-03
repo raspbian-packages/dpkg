@@ -58,9 +58,9 @@ Unbekannte Direktiven sind ein Fehler, der die Installation des Pakets verhinder
 
 Die Varianten „-noawait“ sollten stets wenn möglich bevorzugt werden, da die Trigger-auslösenden Pakete nicht in den Zustand „triggers-awaited“ überführt werden und daher sofort konfiguriert werden können, ohne die Verarbeitung des Triggers zu verlangen. Falls die Trigger-auslösenden Pakete Abhängigkeiten von anderen, im Upgrade befindlichen Paketen sind, wird dies einen frühzeitigen Lauf der Trigger-Verarbeitung vermeiden und es ermöglichen, den Trigger nur einmal als einen der letzten Schritte des Upgrades auszuführen.
 
-Die Varianten „-noawait“ werden seit Dpkg 1.16.1 unterstützt und bei älteren Dpkg zu Fehlern führen.
+Support for the “-noawait” variants since dpkg 1.16.1, will lead to errors if used with an older dpkg.
 
-Die Alias-Varianten „-await“ werden seit Dpkg 1.17.21 unterstützt und bei älteren Dpkg zu Fehlern führen.
+Support for the “-await” alias variants since dpkg 1.17.21, will lead to errors if used with an older dpkg.
 
 Wenn ein Paket eine Direktive B<interest-noawait> bereitstellt, wird jede Aktivierung das triggernde Paket in den Modus „noawait“ setzen, unabhängig von dem durch die Aktivierung erbetenen Awaiting-Modus (entweder „await“ oder „noawait“). Wenn ein Paket eine Direktive B<interest> oder B<interest-await> bereitstellt, werden alle Aktivierungen des triggernden Paketes in „await“ oder „noawait“ gebracht, abhängig von der Art der Aktivierung.
 

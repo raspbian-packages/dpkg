@@ -36,9 +36,11 @@ Entfernt alle während eines Baus durch verschiedene Dpkg-Werkzeuge erstellte Ar
 
 =item B<is-rootless>
 
-Prüft, ob der Baubuam ohne Root-Privilegien gebaut werden kann (seit Dpkg 1.22.12).
+Checks whether the build tree can be built with no root privileges.
 
 Dieser Befehl kann problemlos sogar mit Versionen verwandt werden, bei denen der Befehl noch nicht verfügbar war, da die Vorgabe der historische Wert ist, bei dem Root benötigt wird.
+
+Supported since dpkg 1.22.12.
 
 =item B<--help>
 

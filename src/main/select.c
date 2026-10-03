@@ -77,8 +77,6 @@ getselections(const char *const *argv)
 	if (!*argv) {
 		for (i = 0; i < array.n_pkgs; i++) {
 			pkg = array.pkgs[i];
-			if (pkg->status == PKG_STAT_NOTINSTALLED)
-				continue;
 
 			getsel1package(pkg);
 		}
@@ -169,17 +167,21 @@ setselections(const char *const *argv)
 			varbuf_add_char(&namevb, c);
 			c = getchar();
 			if (c == EOF)
-				ohshit(_("unexpected end of file in package name at line %d"), lno);
+				ohshit(_("cannot read package name at line %d: %s"),
+				       lno, _("unexpected end of file"));
 			if (c == '\n')
-				ohshit(_("unexpected end of line in package name at line %d"), lno);
+				ohshit(_("cannot read package name at line %d: %s"),
+				       lno, _("unexpected end of line"));
 		}
 
 		while (c != EOF && c_isspace(c)) {
 			c = getchar();
 			if (c == EOF)
-				ohshit(_("unexpected end of file after package name at line %d"), lno);
+				ohshit(_("cannot read after package name at line %d: %s"),
+				       lno, _("unexpected end of file"));
 			if (c == '\n')
-				ohshit(_("unexpected end of line after package name at line %d"), lno);
+				ohshit(_("cannot read after package name at line %d: %s"),
+				       lno, _("unexpected end of line"));
 		}
 
 		varbuf_reset(&selvb);
@@ -217,7 +219,7 @@ setselections(const char *const *argv)
 		lno++;
 	}
 	if (ferror(stdin))
-		ohshite(_("read error on standard input"));
+		ohshite(_("cannot read from standard input"));
 
 	modstatdb_shutdown();
 	varbuf_destroy(&namevb);
@@ -226,7 +228,8 @@ setselections(const char *const *argv)
 	if (db_possibly_outdated)
 		warning(_("found unknown packages; this might mean the available database\n"
 		          "is outdated, and needs to be updated through a frontend method;\n"
-		          "please see the FAQ <https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections>"));
+		          "see the FAQ <%s>"),
+		        "https://wiki.debian.org/Teams/Dpkg/FAQ#set-selections");
 
 	return 0;
 }

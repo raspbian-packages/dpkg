@@ -32,43 +32,87 @@ textdomain('dpkg-dev');
 my %options;
 my $fieldname;
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...]')
-    . "\n\n" . g_(
-'Options:
-  -l, --file <changelog-file>
-                           get per-version info from this file.
-  -F <changelog-format>    force changelog format.
-  -S, --show-field <field> show the values for <field>.
-  -?, --help               show this help message.
-      --version            show the version.')
-    . "\n\n" . g_(
-"Parser options:
-      --format <output-format>
-                           set output format (defaults to 'dpkg').
-      --reverse            include all changes in reverse order.
-      --all                include all changes.
-  -s, --since <version>    include all changes later than <version>.
-  -v <version>             ditto.
-  -u, --until <version>    include all changes earlier than <version>.
-  -f, --from <version>     include all changes equal or later than <version>.
-  -t, --to <version>       include all changes up to or equal than <version>.
-  -c, --count <number>     include <number> entries from the top (or tail
-                             if <number> is lower than 0).
-  -n <number>              ditto.
-  -o, --offset <number>    change starting point for --count, counted from
-                             the top (or tail if <number> is lower than 0).
-"), $Dpkg::PROGNAME;
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -S, --show-field <field>\n" .
+"          Show the values for <field>.\n" .
+    ''));
+    print_option(g_(
+"  -l, --file <changelog-file>\n" .
+"          Get per-version changelog information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -F <changelog-format>\n" .
+"          Force changelog format.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Parser options:\n" .
+    '');
+    print_option(g_(
+"      --format <output-format>\n" .
+"          Set output format.\n" .
+    ''));
+    print_option_def('dpkg');
+    print_option(g_(
+"      --all\n" .
+"          Include all changes.\n" .
+    ''));
+    print_option(g_(
+"      --reverse\n" .
+"          Include all changes in reverse order.\n" .
+    ''));
+    print_option(g_(
+"  -s, --since <version>\n" .
+"          Include all changes later than <version>.\n" .
+    ''));
+    print_option(g_(
+"  -v <version>\n" .
+"          Alias for --since.\n" .
+    ''));
+    print_option(g_(
+"  -u, --until <version>\n" .
+"          Include all changes earlier than <version>.\n" .
+    ''));
+    print_option(g_(
+"  -f, --from <version>\n" .
+"          Include all changes equal or later than <version>.\n" .
+    ''));
+    print_option(g_(
+"  -t, --to <version>\n" .
+"          Include all changes up to or equal than <version>.\n" .
+    ''));
+    print_option(g_(
+"  -c, --count <number>\n" .
+"          Include <number> entries from the top (or tail if <number> is lower\n" .
+"          than 0).\n" .
+    ''));
+    print_option(g_(
+"  -n <number>\n" .
+"          Alias for --count.\n" .
+    ''));
+    print_option(g_(
+"  -o, --offset <number>\n" .
+"          Change starting point for --count, counted from the top (or tail\n" .
+"          if <number> is lower than 0).\n" .
+    ''));
 }
 
 @ARGV = normalize_options(args => \@ARGV, delim => '--');
@@ -117,7 +161,7 @@ while (@ARGV) {
         usage();
         exit 0;
     } elsif ($arg eq '--version') {
-        version();
+        print_version();
         exit 0;
     } else {
         usageerr(g_("unknown option '%s'"), $arg);

@@ -41,7 +41,7 @@ DPKG_BEGIN_DECLS
  * rest should only assume the availability of the public API.
  *
  * Applications need to define the LIBDPKG_VOLATILE_API macro to acknowledge
- * that the API is to be considered volatile, please read doc/README.api for
+ * that the API is to be considered volatile, see doc/README.api for
  * more information.
  *
  * @defgroup dpkg-internal Internal libdpkg C API
@@ -120,7 +120,8 @@ DPKG_BEGIN_DECLS
 
 /*** log.c ***/
 
-extern const char *log_file;
+void
+log_set_file(const char *filename);
 void
 log_message(const char *fmt, ...)
 	DPKG_ATTR_PRINTF(1);

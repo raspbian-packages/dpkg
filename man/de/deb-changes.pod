@@ -76,9 +76,13 @@ Die Dringlichkeit des Uploads. Die derzeit bekannten Werte, in aufsteigender Rei
 
 Sollte in dem Format „Joe Bloggs E<lt>jbloggs@example.orgE<gt>“ sein und ist typischerweise die Person, die das Paket erstellt hat, im Gegensatz zum Autor der Software, die paketiert wurde.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Changed-By:> I<Vollständiger-Name-und-E-Mail>
 
 Sollte in dem Format „Joe Bloggs E<lt>jbloggs@example.orgE<gt>“ sein und ist typischerweise die Person, die die Änderungen für die Veröffentlichung am Paket vorgenommen hat.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> (empfohlen)
 
@@ -96,7 +100,7 @@ Das Feld kennzeichnet, dass der Upload ein rein binärer, nicht-Betreuer-Upload 
 
 =item B<Built-For-Profiles:> I<Profilliste>
 
-Das Feld gibt eine durch Leerraum getrennte Liste von Bauprofilen an, unter denen dieser Upload gebaut wurde.
+This field specifies a whitespace separated list of build profile names (without exclamation marks)  that this upload was built with.
 
 =item B<Changes:> (verpflichtend)
 
@@ -142,7 +146,7 @@ Das Feld B<Files> ist inkonsistent gegenüber den anderen B<Checksums>-Feldern. 
 
 =head1 SIEHE AUCH
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>.
 
 
 =head1 ÜBERSETZUNG

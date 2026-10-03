@@ -52,6 +52,7 @@
 #include <dpkg/string.h>
 #include <dpkg/path.h>
 #include <dpkg/file.h>
+#include <dpkg/term.h>
 #include <dpkg/pager.h>
 #include <dpkg/options.h>
 #include <dpkg/db-ctrl.h>
@@ -115,11 +116,33 @@ pkg_array_match_patterns(struct pkg_array *array,
 
 struct list_format {
 	bool head;
+	int term_width;
+
 	int nw;
 	int vw;
 	int aw;
 	int dw;
+
+	/* Total width. */
+	int tw;
 };
+
+#define LIST_SEP_WIDTH 7
+
+static bool
+list_format_pad_needed(struct list_format *fmt, int pad)
+{
+	return fmt->tw < (fmt->term_width - LIST_SEP_WIDTH) - pad * 3;
+}
+
+static void
+list_format_pad_columns(struct list_format *fmt, int pad)
+{
+	fmt->nw += pad;
+	fmt->vw += pad;
+	fmt->aw += pad;
+	fmt->tw += pad * 3;
+}
 
 /* TODO: Refactor to reduce lines length. */
 static void
@@ -130,10 +153,10 @@ list_format_init(struct list_format *fmt, struct pkg_array *array)
 	if (fmt->nw != 0)
 		return;
 
-	fmt->nw = 14;
-	fmt->vw = 12;
-	fmt->aw = 12;
-	fmt->dw = 33;
+	fmt->nw = str_width(_("Name"));
+	fmt->vw = str_width(_("Version"));
+	fmt->aw = str_width(_("Architecture"));
+	fmt->dw = str_width(_("Description"));
 
 	for (i = 0; i < array->n_pkgs; i++) {
 		int plen, vlen, alen, dlen;
@@ -156,6 +179,20 @@ list_format_init(struct list_format *fmt, struct pkg_array *array)
 		if (dlen > fmt->dw)
 			fmt->dw = dlen;
 	}
+
+	fmt->term_width = term_get_width();
+	fmt->tw = fmt->nw + fmt->vw + fmt->aw + fmt->dw;
+
+	/* Check whether we should pad the columns to a more comfortable
+	 * two spaces, if that does not fit, try with one space. */
+	if (list_format_pad_needed(fmt, 2))
+		list_format_pad_columns(fmt, 2);
+	else if (list_format_pad_needed(fmt, 1))
+		list_format_pad_columns(fmt, 1);
+
+	/* Extend the description column into the end of the "terminal". */
+	if (fmt->tw < (fmt->term_width - LIST_SEP_WIDTH))
+		fmt->dw += (fmt->term_width - LIST_SEP_WIDTH) - fmt->tw;
 }
 
 static void
@@ -197,7 +234,7 @@ list_format_print_header(struct list_format *fmt)
 	 */
 	fputs(_("\
 +-- Desired=Unknown/Install/Remove/Purge/Hold\n\
-|+- Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend\n\
+|+- Status=Inst/Not-inst/Confs/Unpack/halF-conf/Half-inst/trig-aWait/Trig-pend\n\
 ||+ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)\n"), stdout);
 	list_format_print(fmt,
 	                  C_("query-list-header", "|"),
@@ -508,7 +545,6 @@ list_files(const char *const *argv)
 	const char *thisarg;
 	struct fsys_namenode_list *file;
 	struct pkginfo *pkg;
-	struct fsys_namenode *namenode;
 	int misses = 0;
 
 	if (!*argv)
@@ -535,6 +571,8 @@ list_files(const char *const *argv)
 				       pkg_name(pkg, pnaw_nonambig));
 			} else {
 				while (file) {
+					struct fsys_namenode *namenode;
+
 					namenode = file->namenode;
 					puts(namenode->name);
 					if (namenode->divert && !namenode->divert->camefrom) {
@@ -598,7 +636,7 @@ showpackages(const char *const *argv)
 
 	fmt = pkg_format_parse(opt_showformat, &err);
 	if (!fmt) {
-		notice(_("error in show format: %s"), err.str);
+		notice(_("invalid syntax in show format: %s"), err.str);
 		dpkg_error_destroy(&err);
 		return 2;
 	}
@@ -830,36 +868,88 @@ usage(const char *const *argv)
 {
 	printf(_(
 "Usage: %s [<option>...] <command>\n"
-"\n"), DPKGQUERY);
+	), DPKGQUERY);
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  -s, --status [<package>...]      Display package status details.\n"
-"  -p, --print-avail [<package>...] Display available version details.\n"
-"  -L, --listfiles <package>...     List files 'owned' by package(s).\n"
-"  -l, --list [<pattern>...]        List packages concisely.\n"
-"  -W, --show [<pattern>...]        Show information on package(s).\n"
-"  -S, --search <pattern>...        Find package(s) owning file(s).\n"
-"      --control-list <package>     Print the package control file list.\n"
+	));
+	print_option(_(
+"  -s, --status [<package>...]\n"
+"          Show package metadata information.\n"
+	));
+	print_option(_(
+"  -W, --show [<pattern>...]\n"
+"          Show package metadata information, with specified format.\n"
+	));
+	print_option(_(
+"  -l, --list [<pattern>...]\n"
+"          List packages concisely.\n"
+	));
+	print_option(_(
+"  -L, --listfiles <package>...\n"
+"          List files 'owned' by packages.\n"
+	));
+	print_option(_(
+"  -S, --search <pattern>...\n"
+"          Find packages owning files.\n"
+	));
+	print_option(_(
+"  -p, --print-avail [<package>...]\n"
+"          Show available package version information.\n"
+	));
+	print_option(_(
+"      --control-list <package>\n"
+"          List the package metadata control files.\n"
+	));
+	print_option(_(
 "      --control-show <package> <file>\n"
-"                                   Show the package control file.\n"
+"          Show the package metadata control file.\n"
+	));
+	print_option(_(
 "  -c, --control-path <package> [<file>]\n"
-"                                   Print path for package control file.\n"
-"\n"));
-
-	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+"          Print path for package control file.\n"
+	));
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --admindir=<directory>           Use <directory> instead of %s.\n"
-"  --root=<directory>               Use <directory> instead of %s.\n"
-"  --load-avail                     Use available file on --show and --list.\n"
-"  --no-pager                       Disables the use of any pager.\n"
-"  -f|--showformat=<format>         Use alternative format for --show.\n"
-"\n"), ADMINDIR, "/");
+	));
+	print_option(_(
+"  -f, --showformat=<format>\n"
+"          Use alternative format for --show.\n"
+	));
+	/* FIXME: Derive the default from escaping opt_showformat. */
+	print_option_def("${binary:Package}\\t${Version}\\n");
+	print_option(_(
+"      --load-avail\n"
+"          Use available file on --show and --list.\n"
+	));
+	print_option(_(
+"      --no-pager\n"
+"          Disables the use of any pager.\n"
+	));
+	print_option(_(
+"      --admindir=<directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --root=<directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
+	print_option_sep();
 
 	printf(_(
 "Format syntax:\n"

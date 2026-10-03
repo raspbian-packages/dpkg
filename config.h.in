@@ -63,6 +63,9 @@
 /* Define to 1 if you have the 'close_range' function. */
 #undef HAVE_CLOSE_RANGE
 
+/* Define to 1 if 'countof' is declared in <stdcountof.h> */
+#undef HAVE_COUNTOF
+
 /* Define to 1 if you have the <curses.h> header file. */
 #undef HAVE_CURSES_H
 
@@ -301,6 +304,9 @@
 /* Define to 1 if you have the 'uselocale' function. */
 #undef HAVE_USELOCALE
 
+/* Define to 1 if you have the 'utimensat' function. */
+#undef HAVE_UTIMENSAT
+
 /* Define to 1 if the 'va_copy' macro exists */
 #undef HAVE_VA_COPY
 
@@ -411,6 +417,10 @@
 /* Enable extensions on AIX, Interix, z/OS.  */
 #ifndef _ALL_SOURCE
 # undef _ALL_SOURCE
+#endif
+/* Enable extensions on Cosmopolitan Libc. */
+#ifndef _COSMO_SOURCE
+# undef _COSMO_SOURCE
 #endif
 /* Enable general extensions on macOS.  */
 #ifndef _DARWIN_C_SOURCE

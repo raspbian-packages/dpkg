@@ -75,8 +75,8 @@
  *
  *
  * Before quitting from most operations, we trigproc each package in the
- * deferred trigproc list. This may (if not --no-triggers) of course add
- * new things to the deferred trigproc list.
+ * deferred trigproc list. This may (if not --no-triggers) add new things
+ * to the deferred trigproc list.
  *
  *
  * Note that ‘we trigproc T’ must involve trigger cycle detection and
@@ -445,7 +445,7 @@ trigproc(struct pkginfo *pkg, enum trigproc_type type)
 			ohshit(_("dependency problems - leaving triggers unprocessed"));
 		} else if (depwhynot.used) {
 			notice(_("%s: dependency problems, but processing "
-			         "triggers anyway as you requested:\n%s"),
+			         "triggers anyway as requested:\n%s"),
 			       pkg_name(pkg, pnaw_nonambig),
 			       varbuf_str(&depwhynot));
 			varbuf_destroy(&depwhynot);

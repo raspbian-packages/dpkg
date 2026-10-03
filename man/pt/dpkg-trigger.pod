@@ -60,7 +60,9 @@ Altera a localização da base de dados do B<dpkg>. A predefinição é I<%ADMIN
 
 =item B<--root=>I<directory>
 
-Define o directório raiz para I<directory>, o que define o directório administrativo para «I<directory>%ADMINDIR%» (desde dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<--by-package=>I<package>
 
@@ -72,7 +74,9 @@ Esta opção faz com que o pacote chamador I<T> (se existir) não precisa de esp
 
 =item B<--await>
 
-Esta opção faz o inverso de B<--no-await> (desde dpkg 1.17.21). Se o pacote interessado declarou uma directiva “noawait”, então esta opção não será efectiva. Actualmente é o comportamento predefinido.
+This option does the inverse of B<--no-await>.  If the interested package has declared a “noawait” directive, then this option will not be effective. It is currently the default behavior.
+
+Supported since dpkg 1.17.21.
 
 =item B<--no-act>
 
@@ -104,7 +108,9 @@ Erro fatal ou irrecuperável devido a utilização de linha de comandos inválid
 
 =item B<DPKG_ROOT>
 
-Se definido e a opção B<--root> não foi especificada, será usado como o directório raiz do sistema de ficheiros (desde dpkg 1.21.0).
+If set and the B<--root> option has not been specified, it will be used as the filesystem root directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
@@ -112,15 +118,21 @@ Se definido e a opção B<--admindir> não for especificada, será usado como o 
 
 =item B<DPKG_DEBUG>
 
-Define a máscara de depuração (desde dpkg 1.21.10) a partir dum valor octal. As bandeiras presentemente aceites estão descritas na opção B<dpkg --debug>, mas nem todas estas bandeiras podem ter um efeito neste programa.
+Sets the debug mask from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
+Supported since dpkg 1.21.10.
 
 =item B<DPKG_COLORS>
 
-Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.22.7). Os valores aceites são B<0> e B<1> (predefinição).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
+
+Suportado desde dpkg 1.22.7
 
 =back
 

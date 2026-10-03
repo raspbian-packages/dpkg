@@ -66,55 +66,135 @@ usage(const char *const *argv)
 {
 	printf(_(
 "Usage: %s [<option>...] <command>\n"
-"\n"), BACKEND);
+	), BACKEND);
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  -b|--build <directory> [<deb>]   Build an archive.\n"
-"  -c|--contents <deb>              List contents.\n"
-"  -I|--info <deb> [<cfile>...]     Show info to stdout.\n"
-"  -W|--show <deb>                  Show information on package(s)\n"
-"  -f|--field <deb> [<cfield>...]   Show field(s) to stdout.\n"
-"  -e|--control <deb> [<directory>] Extract metadata files.\n"
-"  -x|--extract <deb> <directory>   Extract filesystem files.\n"
-"  -X|--vextract <deb> <directory>  Extract and list filesystem files.\n"
-"  -R|--raw-extract <deb> <directory>\n"
-"                                   Extract metadata and filesystem files.\n"
-"  --ctrl-tarfile <deb>             Output control tarfile.\n"
-"  --fsys-tarfile <deb>             Output filesystem tarfile.\n"
-"\n"));
-
-	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+	));
+	print_option(_(
+"  -b, --build <directory> [<deb>]\n"
+"          Build an archive.\n"
+	));
+	print_option(_(
+"  -c, --contents <deb>\n"
+"          List archive filesystem contents.\n"
+	));
+	print_option(_(
+"  -I, --info <deb> [<cfile>...]\n"
+"          Show archive metadata information.\n"
+	));
+	print_option(_(
+"  -W, --show <deb>\n"
+"          Show archive metadata information, with specified format.\n"
+	));
+	print_option(_(
+"  -f, --field <deb> [<cfield>...]\n"
+"          Show archive metadata fields.\n"
+	));
+	print_option(_(
+"  -e, --control <deb> [<directory>]\n"
+"          Extract archive metadata files.\n"
+	));
+	print_option(_(
+"  -x, --extract <deb> <directory>\n"
+"          Extract archive filesystem files.\n"
+	));
+	print_option(_(
+"  -X, --vextract <deb> <directory>\n"
+"          Extract and list archive filesystem files.\n"
+	));
+	print_option(_(
+"  -R, --raw-extract <deb> <directory>\n"
+"          Extract archive metadata and filesystem files.\n"
+	));
+	print_option(_(
+"      --ctrl-tarfile <deb>\n"
+"          Output archive control tarfile.\n"
+	));
+	print_option(_(
+"      --fsys-tarfile <deb>\n"
+"          Output archive filesystem tarfile.\n"
+	));
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "<deb> is the filename of a Debian format archive.\n"
 "<cfile> is the name of an administrative file component.\n"
 "<cfield> is the name of a field in the main 'control' file.\n"
-"\n"));
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  -v, --verbose                    Enable verbose output.\n"
-"  -D, --debug                      Enable debugging output.\n"
-"      --showformat=<format>        Use alternative format for --show.\n"
-"      --deb-format=<format>        Select archive format.\n"
-"                                     Allowed values: 0.939000, 2.0 (default).\n"
-"      --no-check                   Suppress all checks (build bad packages).\n"
-"      --nocheck                    Alias for --no-check.\n"
-"      --root-owner-group           Forces the owner and groups to root.\n"
-"      --threads-max=<threads>      Use at most <threads> with compressor.\n"
-"      --[no-]uniform-compression   Use the compression params on all members.\n"
-"  -Z, --compression=<compressor>   Set build compression type.\n"
-"                                     Allowed types: gzip, xz, zstd, none.\n"
-"  -z, --compression-level=<level>  Set build compression level.\n"
+	));
+	print_option(_(
+"      --showformat=<format>\n"
+"          Use alternative format for --show.\n"
+	));
+	print_option(_(
+"      --deb-format=<format>\n"
+"          Select archive format. Allowed values:\n"
+"            0.939000, 2.0 (default).\n"
+	));
+	print_option(_(
+"      --no-check\n"
+"          Suppress all checks (build bad packages).\n"
+	));
+	print_option(_(
+"      --nocheck\n"
+"          Alias for --no-check.\n"
+	));
+	print_option(_(
+"      --root-owner-group\n"
+"          Forces the owner and groups to root.\n"
+	));
+	print_option(_(
+"      --threads-max=<threads>\n"
+"          Use at most <threads> with compressor.\n"
+	));
+	print_option_env("DPKG_DEB_THREADS_MAX");
+	print_option(_(
+"  -Z, --compression=<compressor>\n"
+"          Set build compression type. Allowed types:\n"
+"            gzip, xz, zstd, none.\n"
+	));
+	print_option_env("DPKG_DEB_COMPRESSOR_TYPE");
+	print_option(_(
+"  -z, --compression-level=<level>\n"
+"          Set build compression level.\n"
+	));
+	print_option_env("DPKG_DEB_COMPRESSOR_LEVEL");
+	print_option(_(
 "  -S, --compression-strategy=<name>\n"
-"                                   Set build compression strategy.\n"
-"                                     Allowed values: none; extreme (xz);\n"
-"                                     filtered, huffman, rle, fixed (gzip).\n"
-"\n"));
+"          Set build compression strategy. Allowed values:\n"
+"            none; extreme (xz); filtered, huffman, rle, fixed (gzip).\n"
+	));
+	print_option(_(
+"      --uniform-compression\n"
+"          Use the compression parameters on all members.\n"
+	));
+	print_option(_(
+"      --no-uniform-compression\n"
+"          Use the compression parameters only on the data.tar member.\n"
+	));
+	print_option(_(
+"  -v, --verbose\n"
+"          Enable verbose mode.\n"
+	));
+	print_option(_(
+"  -D, --debug\n"
+"          Enable debugging mode.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Format syntax:\n"
@@ -124,10 +204,10 @@ usage(const char *const *argv)
 "  by inserting variable references to package fields using the ${var[;width]}\n"
 "  syntax. Fields will be right-aligned unless the width is negative in which\n"
 "  case left alignment will be used.\n"));
+	print_option_sep();
 
 	printf(_(
-"\n"
-"Use 'dpkg' to install and remove packages from your system, or\n"
+"Use 'dpkg' to install and remove packages from the system, or\n"
 "'apt' or 'aptitude' for user-friendly package management. Packages\n"
 "unpacked using 'dpkg-deb --extract' will be incorrectly installed !\n"));
 

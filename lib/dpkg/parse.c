@@ -567,7 +567,7 @@ parsedb_open(const char *filename, enum parsedbflags flags)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0 && !(errno == ENOENT && (flags & pdb_allow_empty)))
-		ohshite(_("failed to open package control file '%s' for reading"),
+		ohshite(_("cannot open package control file '%s' for reading"),
 		        filename);
 
 	ps = parsedb_new(filename, fd, flags | pdb_close_fd);
@@ -578,7 +578,7 @@ parsedb_open(const char *filename, enum parsedbflags flags)
 }
 
 /**
- * Load data for package deb822 style parsing.
+ * Load data for package deb822 parsing.
  */
 void
 parsedb_load(struct parsedb_state *ps)
@@ -599,7 +599,7 @@ parsedb_load(struct parsedb_state *ps)
 
 		size = fd_vbuf_copy(ps->fd, &buf, -1, &err);
 		if (size < 0)
-			ohshit(_("reading package control file '%s': %s"),
+			ohshit(_("cannot read package control file '%s': %s"),
 			       ps->filename, err.str);
 
 		ps->dataptr = varbuf_detach(&buf);
@@ -615,7 +615,7 @@ parsedb_load(struct parsedb_state *ps)
 		ps->dataptr = m_malloc(st.st_size);
 
 		if (fd_read(ps->fd, ps->dataptr, st.st_size) < 0)
-			ohshite(_("reading package control file '%s'"),
+			ohshite(_("cannot read package control file '%s'"),
 			        ps->filename);
 #endif
 		ps->endptr = ps->dataptr + st.st_size;
@@ -626,7 +626,7 @@ parsedb_load(struct parsedb_state *ps)
 }
 
 /**
- * Parse an RFC-822 style stanza.
+ * Parse a deb822 stanza.
  */
 bool
 parse_stanza(struct parsedb_state *ps, struct field_state *fs,
@@ -761,7 +761,7 @@ parsedb_close(struct parsedb_state *ps)
 		pop_cleanup(ehflag_normaltidy);
 
 		if (ps->fd >= 0 && close(ps->fd) < 0)
-			ohshite(_("failed to close after read: '%s'"),
+			ohshite(_("cannot close file '%s' after read"),
 			        ps->filename);
 	}
 
@@ -778,7 +778,7 @@ parsedb_close(struct parsedb_state *ps)
 }
 
 /**
- * Parse deb822 style package data from a buffer.
+ * Parse deb822 package data from a buffer.
  *
  * donep may be NULL.
  * If donep is not NULL only one package's information is expected.
@@ -790,7 +790,7 @@ parsedb_parse(struct parsedb_state *ps, struct pkginfo **donep)
 	struct pkginfo *new_pkg, *db_pkg;
 	struct pkgbin *new_pkgbin, *db_pkgbin;
 	struct pkg_parse_object pkg_obj;
-	int fieldencountered[array_count(fieldinfos)];
+	int fieldencountered[countof(fieldinfos)];
 	int pdone;
 	struct field_state fs;
 
@@ -857,7 +857,7 @@ parsedb_parse(struct parsedb_state *ps, struct pkginfo **donep)
 }
 
 /**
- * Parse a deb822 style file.
+ * Parse a deb822 file.
  *
  * donep may be NULL.
  * If donep is not NULL only one package's information is expected.
@@ -906,7 +906,7 @@ copy_dependency_links(struct pkginfo *pkg,
                       bool available)
 {
 	struct dependency *dyp;
-	struct deppossi *dop, **revdeps;
+	struct deppossi *dop;
 
 	/* Delete ‘backward’ (‘depended’) links from other packages to
 	 * dependencies listed in old version of this one. We do this by
@@ -931,6 +931,8 @@ copy_dependency_links(struct pkginfo *pkg,
 	for (dyp = newdepends; dyp; dyp = dyp->next) {
 		dyp->up = pkg;
 		for (dop = dyp->list; dop; dop = dop->next) {
+			struct deppossi **revdeps;
+
 			revdeps = available ? &dop->ed->depended.available :
 			                      &dop->ed->depended.installed;
 			dop->rev_next = *revdeps;

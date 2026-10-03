@@ -204,6 +204,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -429,7 +430,7 @@ CLEANFILES = \
 	$(nobase_methods_SCRIPTS) \
 	# EOL
 
-SUFFIXES = .sh .pl
+SUFFIXES = .sh .bash .pl
 subst_shell_rules = "\
 	s{^ADMINDIR=.*$$}{ADMINDIR='$(admindir)'}; \
 	s{^BACKUPSDIR=.*$$}{BACKUPSDIR='$(backupsdir)'}; \
@@ -461,7 +462,7 @@ subst_perl_file = $(PERL) -i -p -e $(subst_perl_rules)
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .sh .pl
+.SUFFIXES: .sh .bash .pl
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/build-aux/subst.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -757,7 +758,7 @@ uninstall-am: uninstall-nobase_dist_methodsDATA \
 .PRECIOUS: Makefile
 
 
-.sh: Makefile
+.sh .bash: Makefile
 	@test -d `dirname $@` || $(MKDIR_P) `dirname $@`
 	$(AM_V_GEN) $(subst_shell_filter) <$< >$@
 	$(AM_V_at) chmod +x $@

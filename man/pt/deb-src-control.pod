@@ -38,9 +38,13 @@ O valor deste campo é o nome do pacote fonte, e tem de corresponder ao nome do 
 
 Deverá estar no formato «Joe Bloggs E<lt>jbloggs@foo.comE<gt>», e refere-se à pessoa que mantém actualmente o pacote, e não o autor do software nem ao empacotador original.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<fullname-email>
 
 Lista todos os nomes e endereços de email de co-maintainers do pacote, no mesmo formato que o campo Maintainer. Vários co-maintainers devem ser separados por uma vírgula.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Standards-Version:> I<version-string>
 
@@ -64,11 +68,13 @@ O I<url> do sistema de acompanhamento de bugs deste pacote. O formato usado actu
 
 Este campo experimental especifica o nome da driver de compilação a usar para compilar este pacote. Quando omitido o I<driver-name> é predefinido para B<debian-rules>.
 
-Este campo é suportado desde dpkg 1.22.7.
+Suportado desde dpkg 1.22.7
 
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-keywords>
 
 Este campo é usado para indicar se o campo B<debian/rules> requer privilégios de (fake)root para correr alguns dos seus alvos, e se sim quando.
+
+Supported since dpkg 1.19.0.
 
 =over 
 
@@ -146,7 +152,9 @@ Uma lista de pacotes que precisam de estar instalados e configurados para ser po
 
 =item B<Build-Depends-Arch:> I<package-list>
 
-O mesmo que B<Build-Depends>, mas são apenas necessárias quando se compila os pacotes dependentes da arquitectura. Os B<Build-Depends> são também instalados neste caso. Este campo é suportado desde dpkg 1.16.4; de modo a compilar com versões antigas do dpkg, deve ser usado B<Build-Depends> em vez disto.
+Same as B<Build-Depends>, but they are only needed when building the architecture dependent packages.  The B<Build-Depends> are also installed in this case.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Depends> should be used instead.
 
 =item B<Build-Depends-Indep:> I<package-list>
 
@@ -158,7 +166,9 @@ Uma lista de pacotes que não devem estar instalados quando o pacote é compilad
 
 =item B<Build-Conflicts-Arch:> I<package-list>
 
-O mesmo que B<Build-Conflicts>, mas apenas quando se compila os pacotes dependentes da arquitectura. Este campo é suportado desde dpkg 1.16.4; de modo a compilar com versões antigas do dpkg, deve ser usado B<Build-Conflicts> em vez disto.
+Same as B<Build-Conflicts>, but only when building the architecture dependent packages.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Conflicts> should be used instead.
 
 =item B<Build-Conflicts-Indep:> I<package-list>
 
@@ -316,7 +326,7 @@ Tenha em conta que estes campos definidos pelo utilizador irão usar o espaço d
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
  Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
- Standards-Version: 4.7.3
+ Standards-Version: 4.7.4
  Build-Depends:
   dpkg-build-api (= 1),
   debhelper-compat (= 13),
@@ -362,7 +372,7 @@ Tenha em conta que estes campos definidos pelo utilizador irão usar o espaço d
 
 =head1 VEJA TAMBÉM
 
-I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>
 
 
 =head1 TRADUÇÃO

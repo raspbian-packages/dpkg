@@ -128,12 +128,18 @@ packagelist::redrawthisstate()
 	varbuf vb;
 
 	if (table[cursorline]->pkg->set->name) {
-		vb.add_fmt(_("%-*s %s%s%s;  %s (was: %s).  %s"),
+		/*
+		 * TRANSLATORS: The format string shows the
+		 *   "<package-name> <package-status>;"
+		 * followed by
+		 *   "<want-selected> (was: <want-original>). <priority>"
+		 */
+		vb.add_fmt(_("%-*s %s%s%s; %s (was: %s). %s"),
 		           col_package.width,
 		           table[cursorline]->pkg->set->name,
 		           gettext(statusstrings[table[cursorline]->pkg->status]),
 		           ((eflagstrings[table[cursorline]->pkg->eflag][0] == ' ') &&
-		            (eflagstrings[table[cursorline]->pkg->eflag][1] == '\0'))  ? "" : " - ",
+		            (eflagstrings[table[cursorline]->pkg->eflag][1] == '\0')) ? "" : " - ",
 		           gettext(eflagstrings[table[cursorline]->pkg->eflag]),
 		           gettext(wantstrings[table[cursorline]->selected]),
 		           gettext(wantstrings[table[cursorline]->original]),

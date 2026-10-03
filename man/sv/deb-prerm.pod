@@ -40,7 +40,7 @@ Före en uppgradering.
 
 Om ovanstående B<upgrade> misslyckas.
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<prerm> B<deconfigure> b<in-favour> I<nytt-paket> i<ny-version>
 

@@ -88,7 +88,9 @@ Cherche les fichiers à installer dans I<répertoire-des-fichiers-à-installer> 
 
 Par défaut le champ B<Build-Kernel-Version> ne sera pas écrit.
 
-Il faut préciser cette option (depuis dpkg 1.19.0) pour toujours remplir un champ B<Build-Kernel-Version> lors de la création de B<.buildinfo>.
+Specify this option to always write a B<Build-Kernel-Version> field when generating the B<.buildinfo>.
+
+Supported since dpkg 1.19.0.
 
 =item B<--always-include-path>
 
@@ -122,11 +124,13 @@ Afficher le numéro de version puis quitter.
 
 =item B<DEB_BUILD_OPTIONS>
 
-Cette variable peut être utilisée pour activer ou désactiver diverses fonctions qui affectent les informations comprises dans le fichier .buildinfo au moyen de l'option B<buildinfo> (depuis dpkg 1.18.19). Cette option fournit une liste, séparée par des virgules, de fonctionnalités, préfixées par les modificateurs « B<+> » ou « B<-> » pour indiquer s'il faut les activer ou les désactiver. La fonction spéciale « B<all> » peut être utilisée pour activer ou désactiver toutes les autres fonctions. La fonction « B<path> » contrôle l'inclusion sans condition du champ B<Build-Path>.
+This variable can be used to enable or disable various features that affect the information included in the .buildinfo file, via the B<buildinfo> option.  This option contains a comma-separated list of features, prefixed with the ‘B<+>’ or ‘B<->’ modifiers, to denote whether to enable or disable them.  The special feature “B<all>” can be used to enable or disable all other features.  The feature “B<path>” controls whether to unconditionally include the B<Build-Path> field.
+
+Supported since dpkg 1.18.19.
 
 =item B<DEB_BUILD_PROFILES>
 
-If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names.
+If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DEB_BUILD_ARCH>
 
@@ -138,11 +142,15 @@ Sets the host architecture.  This affects the filename used for the .buildinfo f
 
 =item B<DPKG_COLORS>
 
-Définit le mode de couleur (depuis dpkg 1.18.5). Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+Définit le mode de couleur. Les valeurs actuellement acceptées sont B<auto> (par défaut), B<always> et B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Si cette variable est définie, elle sera utilisée pour décider l'activation de la prise en charge des langues (NLS – Native Language Support), connu aussi comme la gestion de l'internationalisation (ou i18n) (depuis dpkg 1.19.0). Les valeurs permises sont : B<0> et B<1> (par défaut).
+If set, it will be used to decide whether to activate Native Language Support, also known as internationalization (or i18n) support.  The accepted values are: B<0> and B<1> (default).
+
+Supported since dpkg 1.19.0.
 
 =back
 

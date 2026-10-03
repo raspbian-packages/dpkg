@@ -215,6 +215,7 @@ enum action_code {
 	ACTION_START,
 	ACTION_STOP,
 	ACTION_STATUS,
+	ACTION_PIDOF,
 };
 
 enum LIBCOMPAT_ATTR_ENUM_FLAGS match_code {
@@ -236,6 +237,8 @@ enum {
 
 /* The minimum polling interval, 20ms. */
 static const long MIN_POLL_INTERVAL = 20L * NANOSEC_IN_MILLISEC;
+
+#define PROGNAME "start-stop-daemon"
 
 static enum action_code action;
 static enum match_code match_mode;
@@ -318,6 +321,17 @@ static struct res_schedule *io_sched = NULL;
 static int schedule_length;
 static struct schedule_item *schedule = NULL;
 
+static void LIBCOMPAT_ATTR_NORET
+exit_status(int code)
+{
+	switch (action) {
+	case ACTION_STATUS:
+	case ACTION_PIDOF:
+		exit(STATUS_UNKNOWN);
+	default:
+		exit(code);
+	}
+}
 
 static void LIBCOMPAT_ATTR_PRINTF(1)
 debug(const char *format, ...)
@@ -370,10 +384,7 @@ fatalv(int errno_fatal, const char *format, va_list args)
 	else
 		fprintf(stderr, "\n");
 
-	if (action == ACTION_STATUS)
-		exit(STATUS_UNKNOWN);
-	else
-		exit(2);
+	exit_status(2);
 }
 
 static void LIBCOMPAT_ATTR_NORET LIBCOMPAT_ATTR_PRINTF(1)
@@ -411,10 +422,7 @@ bug(const char *file, int line, const char *func, const char *format, ...)
 	vfprintf(stderr, format, arglist);
 	va_end(arglist);
 
-	if (action == ACTION_STATUS)
-		exit(STATUS_UNKNOWN);
-	else
-		exit(3);
+	exit_status(3);
 }
 
 static void *
@@ -425,7 +433,7 @@ xmalloc(size_t size)
 	ptr = malloc(size);
 	if (ptr)
 		return ptr;
-	fatale("malloc(%zu) failed", size);
+	fatale("cannot allocate memory (%zu bytes)", size);
 }
 
 static char *
@@ -436,7 +444,8 @@ xstrndup(const char *str, size_t n)
 	new_str = strndup(str, n);
 	if (new_str)
 		return new_str;
-	fatale("strndup(%s, %zu) failed", str, n);
+	fatale("cannot allocate memory (%zu bytes) to duplicate string '%s'",
+	       n, str);
 }
 
 static void
@@ -445,12 +454,12 @@ timespec_gettime(struct timespec *ts)
 #if defined(_POSIX_TIMERS) && _POSIX_TIMERS > 0 && \
     defined(_POSIX_MONOTONIC_CLOCK) && _POSIX_MONOTONIC_CLOCK > 0
 	if (clock_gettime(CLOCK_MONOTONIC, ts) < 0)
-		fatale("clock_gettime failed");
+		fatale("cannot get current time");
 #else
 	struct timeval tv;
 
 	if (gettimeofday(&tv, NULL) != 0)
-		fatale("gettimeofday failed");
+		fatale("cannot get current time");
 
 	ts->tv_sec = tv.tv_sec;
 	ts->tv_nsec = tv.tv_usec * NANOSEC_IN_MICROSEC;
@@ -557,7 +566,7 @@ detach_controlling_tty(void)
 		return;
 
 	if (ioctl(tty_fd, TIOCNOTTY, 0) != 0)
-		fatale("unable to detach controlling tty");
+		fatale("cannot detach controlling tty");
 
 	close(tty_fd);
 #endif
@@ -586,7 +595,7 @@ wait_for_child(pid_t pid)
 	} while (child < 0 && errno == EINTR);
 
 	if (child != pid)
-		fatal("error waiting for child");
+		fatal("cannot reap child");
 
 	if (WIFEXITED(status)) {
 		int ret = WEXITSTATUS(status);
@@ -668,9 +677,9 @@ create_notify_socket(void)
 	 * when we have no threading problems to worry about. */
 	flags = fcntl(fd, F_GETFD);
 	if (flags < 0)
-		fatale("cannot read fd flags for notification socket");
+		fatale("cannot get file descriptor flags for notification socket");
 	if (fcntl(fd, F_SETFD, flags | FD_CLOEXEC) < 0)
-		fatale("cannot set close-on-exec flag for notification socket");
+		fatale("cannot set close-on-execute flag for notification socket");
 
 	sockname = setup_socket_name(".s-s-d-notify");
 
@@ -782,7 +791,7 @@ wait_for_notify(int fd)
 					if (parse_unsigned(line + 6, 10, &suberrno) != 0)
 						fatale("cannot parse errno notification %s", line);
 					errno = suberrno;
-					fatale("program failed to initialize");
+					fatale("subprocess failed service startup");
 				} else if (strcmp(line, "READY=1") == 0) {
 					debug("-> Notification => ready for service.\n");
 					return;
@@ -807,12 +816,12 @@ write_pidfile(const char *filename, pid_t pid)
 		fp = fdopen(fd, "w");
 
 	if (fp == NULL)
-		fatale("unable to open pidfile '%s' for writing", filename);
+		fatale("cannot open pidfile '%s' for writing", filename);
 
 	fprintf(fp, "%d\n", pid);
 
 	if (fclose(fp))
-		fatale("unable to close pidfile '%s'", filename);
+		fatale("cannot close pidfile '%s'", filename);
 }
 
 static void
@@ -842,9 +851,12 @@ daemonize(void)
 	if (notify_await)
 		notify_fd = create_notify_socket();
 
+	/* Avoid any potential output duplication. */
+	fflush(stdout);
+
 	pid = fork();
 	if (pid < 0)
-		fatale("unable to do first fork");
+		fatale("cannot do first fork");
 	else if (pid) { /* First Parent. */
 		/* Wait for the second parent to exit, so that if we need to
 		 * perform any actions there, like creating a pidfile, we do
@@ -873,7 +885,7 @@ daemonize(void)
 
 	pid = fork();
 	if (pid < 0)
-		fatale("unable to do second fork");
+		fatale("cannot do second fork");
 	else if (pid) { /* Second parent. */
 		/* Set a default umask for dumb programs, which might get
 		 * overridden by the --umask option later on, so that we get
@@ -918,79 +930,225 @@ pid_list_free(struct pid_list **list)
 }
 
 static void
+print_option_sep()
+{
+	fputs("\n", stdout);
+}
+
+/*
+ * Indent the entries with 10 spaces, to cover 2 for the short option
+ * indentation, 4 for the short option itself, and 4 for the long option.
+ * Such as:
+ *
+ * "  -s, --short"
+ * "          Description for short.\n"
+ */
+static const int option_desc_indent = 10;
+
+static void
+print_option_def(const char *def)
+{
+	printf("%-*s[%s: %s]\n", option_desc_indent, " ",
+	       "default", def);
+}
+
+static void LIBCOMPAT_ATTR_PRINTF(1)
+print_option(const char *fmt_spec, ...)
+{
+	va_list args;
+
+	va_start(args, fmt_spec);
+	vprintf(fmt_spec, args);
+	va_end(args);
+}
+
+static void
 usage(void)
 {
 	printf(
-"Usage: start-stop-daemon [<option>...] <command>\n"
-"\n");
+"Usage: %s [<option>...] <command>\n"
+	, PROGNAME);
+	print_option_sep();
 
 	printf(
 "Commands:\n"
-"  -S, --start -- <argument>...  start a program and pass <arguments> to it\n"
-"  -K, --stop                    stop a program\n"
-"  -T, --status                  get the program status\n"
-"  -H, --help                    print help information\n"
-"  -V, --version                 print version\n"
-"\n");
+	);
+	print_option(
+"  -S, --start -- <argument>...\n"
+"          Start a program and pass <arguments> to it.\n"
+	);
+	print_option(
+"  -K, --stop\n"
+"          Stop a program.\n"
+	);
+	print_option(
+"  -T, --status\n"
+"          Get the program status.\n"
+	);
+	print_option(
+"      --pidof\n"
+"          Print the program pid.\n"
+	);
+	print_option(
+"  -H, --help\n"
+"          Print help information.\n"
+	);
+	print_option(
+"  -V, --version\n"
+"          Print version.\n"
+	);
+	print_option_sep();
 
 	printf(
 "Matching options (at least one is required):\n"
-"      --pid <pid>               pid to check\n"
-"      --ppid <ppid>             parent pid to check\n"
-"  -p, --pidfile <pid-file>      pid file to check\n"
-"  -x, --exec <executable>       program to start/check if it is running\n"
-"  -n, --name <process-name>     process name to check\n"
-"  -u, --user <username|uid>     process owner to check\n"
-"\n");
+	);
+	print_option(
+"      --pid <pid>\n"
+"          Match on pid.\n"
+	);
+	print_option(
+"      --ppid <ppid>\n"
+"          Match on parent pid.\n"
+	);
+	print_option(
+"  -p, --pidfile <pid-file>\n"
+"          Match on pid file.\n"
+	);
+	print_option(
+"  -x, --exec <executable>\n"
+"          Match (if it is running) or start program.\n"
+	);
+	print_option(
+"  -n, --name <process-name>\n"
+"          Match on process name.\n"
+	);
+	print_option(
+"  -u, --user <username|uid>\n"
+"          Match on process owner.\n"
+	);
+	print_option_sep();
 
 	printf(
 "Options:\n"
-"  -g, --group <group|gid>       run process as this group\n"
+	);
+	print_option(
+"  -g, --group <group|gid>\n"
+"          Run process as this group.\n"
+	);
+	print_option(
 "  -c, --chuid <name|uid[:group|gid]>\n"
-"                                change to this user/group before starting\n"
-"                                  process\n"
-"  -s, --signal <signal>         signal to send (default TERM)\n"
-"  -a, --startas <pathname>      program to start (default is <executable>)\n"
-"  -r, --chroot <directory>      chroot to <directory> before starting\n"
-"  -d, --chdir <directory>       change to <directory> (default is /)\n"
-"  -N, --nicelevel <incr>        add incr to the process' nice level\n"
+"          Change to this user/group before starting process.\n"
+	);
+	print_option(
+"  -s, --signal <signal>\n"
+"          Signal to send.\n"
+	);
+	print_option_def("TERM");
+	print_option(
+"  -a, --startas <pathname>\n"
+"          Program to start.\n"
+	);
+	print_option_def("<executable>");
+	print_option(
+"  -r, --chroot <directory>\n"
+"          Change root to <directory> before starting.\n"
+	);
+	print_option(
+"  -d, --chdir <directory>\n"
+"          Change to <directory>.\n"
+	);
+	print_option_def("/");
+	print_option(
+"  -N, --nicelevel <incr>\n"
+"          Add incr to the process' nice level.\n"
+	);
+	print_option(
 "  -P, --procsched <policy[:prio]>\n"
-"                                use <policy> with <prio> for the kernel\n"
-"                                  process scheduler (default prio is 0)\n"
-"  -I, --iosched <class[:prio]>  use <class> with <prio> to set the IO\n"
-"                                  scheduler (default prio is 4)\n"
-"  -k, --umask <mask>            change the umask to <mask> before starting\n"
-"  -b, --background              force the process to detach\n"
-"      --notify-await            wait for a readiness notification\n"
-"      --notify-timeout <int>    timeout after <int> seconds of notify wait\n"
-"  -C, --no-close                do not close any file descriptor\n"
-"  -O, --output <filename>       send stdout and stderr to <filename>\n"
-"  -m, --make-pidfile            create the pidfile before starting\n"
-"      --remove-pidfile          delete the pidfile after stopping\n"
-"  -R, --retry <schedule>        check whether processes die, and retry\n"
-"  -t, --test                    test mode, do not do anything\n"
-"  -o, --oknodo                  exit status 0 (not 1) if nothing done\n"
-"  -q, --quiet                   be more quiet\n"
-"  -v, --verbose                 be more verbose\n"
-"\n");
+"          Use <policy> with <prio> for the kernel process scheduler\n"
+"          (default prio is 0).\n"
+	);
+	print_option(
+"  -I, --iosched <class[:prio]>\n"
+"          Use <class> with <prio> to set the IO scheduler\n"
+"          (default prio is 4).\n"
+	);
+	print_option(
+"  -k, --umask <mask>\n"
+"          Change the umask to <mask> before starting.\n"
+	);
+	print_option(
+"  -b, --background\n"
+"          Force the process to detach.\n"
+	);
+	print_option(
+"      --notify-await\n"
+"          Wait for a readiness notification.\n"
+	);
+	print_option(
+"      --notify-timeout <int>\n"
+"          Timeout after <int> seconds of notify wait.\n"
+	);
+	print_option(
+"  -C, --no-close\n"
+"          Do not close any file descriptor.\n"
+	);
+	print_option(
+"  -O, --output <filename>\n"
+"          Send stdout and stderr to <filename>.\n"
+	);
+	print_option(
+"  -m, --make-pidfile\n"
+"          Create the pidfile before starting.\n"
+	);
+	print_option(
+"      --remove-pidfile\n"
+"          Delete the pidfile after stopping.\n"
+	);
+	print_option(
+"  -R, --retry <schedule>\n"
+"          Check whether processes die, and retry.\n"
+	);
+	print_option(
+"  -t, --test\n"
+"          Print what would be done, but perform no action.\n"
+	);
+	print_option(
+"  -o, --oknodo\n"
+"          Exit status 0 (not 1) if nothing done.\n"
+	);
+	print_option(
+"  -q, --quiet\n"
+"          Enable quiet mode, minimal output.\n"
+	);
+	print_option(
+"  -v, --verbose\n"
+"          Enable verbose mode, more output.\n"
+	);
+	print_option_sep();
 
 	printf(
 "Retry <schedule> is <item>|/<item>/... where <item> is one of\n"
-" -<signal-num>|[-]<signal-name>  send that signal\n"
-" <timeout>                       wait that many seconds\n"
-" forever                         repeat remainder forever\n"
-"or <schedule> may be just <timeout>, meaning <signal>/<timeout>/KILL/<timeout>\n"
-"\n");
+"  -<signal-num>|[-]<signal-name>\n"
+"          Send that signal\n"
+"  <timeout>\n"
+"          Wait that many seconds\n"
+"  forever\n"
+"          Repeat remainder forever\n"
+"or <schedule> may be just <timeout>, meaning <signal>/<timeout>/KILL/<timeout>.\n"
+	);
+	print_option_sep();
 
 	printf(
 "The process scheduler <policy> can be one of:\n"
 "  other, fifo or rr\n"
-"\n");
+	);
+	print_option_sep();
 
 	printf(
 "The IO scheduler <class> can be one of:\n"
 "  real-time, best-effort or idle\n"
-"\n");
+	);
+	print_option_sep();
 
 	printf(
 "Exit status:\n"
@@ -998,17 +1156,19 @@ usage(void)
 "  1 = nothing done (=> 0 if --oknodo)\n"
 "  2 = with --retry, processes would not die\n"
 "  3 = trouble\n"
-"Exit status with --status:\n"
+"Exit status with --status and --pidof:\n"
 "  0 = program is running\n"
 "  1 = program is not running and the pid file exists\n"
 "  3 = program is not running\n"
-"  4 = unable to determine status\n");
+"  4 = cannot determine status\n"
+	);
 }
 
 static void
 do_version(void)
 {
-	printf("start-stop-daemon %s for Debian\n\n", VERSION);
+	printf("%s %s for Debian\n", PROGNAME, VERSION);
+	printf("\n");
 
 	printf("Written by Marek Michalkiewicz, public domain.\n");
 }
@@ -1020,10 +1180,7 @@ badusage(const char *msg)
 		fprintf(stderr, "%s: %s\n", progname, msg);
 	fprintf(stderr, "Try '%s --help' for more information.\n", progname);
 
-	if (action == ACTION_STATUS)
-		exit(STATUS_UNKNOWN);
-	else
-		exit(3);
+	exit_status(3);
 }
 
 struct sigpair {
@@ -1072,7 +1229,7 @@ parse_signal(const char *sig_str, int *sig_num)
 	if (parse_unsigned(sig_str, 10, sig_num) == 0)
 		return 0;
 
-	for (i = 0; i < array_count(siglist); i++) {
+	for (i = 0; i < countof(siglist); i++) {
 		if (strcmp(sig_str, siglist[i].name) == 0) {
 			*sig_num = siglist[i].signal;
 			return 0;
@@ -1180,7 +1337,7 @@ set_proc_schedule(struct res_schedule *sched)
 	param.sched_priority = sched->priority;
 
 	if (sched_setscheduler(getpid(), sched->policy, &param) < 0)
-		fatale("unable to set process scheduler");
+		fatale("cannot set process scheduler");
 #endif
 }
 
@@ -1200,7 +1357,7 @@ set_io_schedule(struct res_schedule *sched)
 
 	io_sched_mask = IOPRIO_PRIO_VALUE(sched->policy, sched->priority);
 	if (ioprio_set(IOPRIO_WHO_PROCESS, getpid(), io_sched_mask) < 0)
-		warning("unable to alter IO priority to mask %i (%s)\n",
+		warning("cannot alter IO priority to mask %i (%s)\n",
 		        io_sched_mask, strerror(errno));
 #endif
 }
@@ -1263,7 +1420,7 @@ parse_schedule(const char *schedule_str)
 			str_len = (size_t)(slash - schedule_str);
 			if (str_len >= sizeof(item_buf))
 				badusage("invalid schedule item: far too long"
-				         " (you must delimit items with slashes)");
+				         " (items must be delimited with slashes)");
 			memcpy(item_buf, schedule_str, str_len);
 			item_buf[str_len] = '\0';
 			schedule_str = *slash ? slash + 1 : slash;
@@ -1309,6 +1466,7 @@ set_action(enum action_code new_action)
 #define OPT_RM_PIDFILE	502
 #define OPT_NOTIFY_AWAIT	503
 #define OPT_NOTIFY_TIMEOUT	504
+#define OPT_PIDOF	505
 
 static void
 parse_options(int argc, char * const *argv)
@@ -1318,6 +1476,7 @@ parse_options(int argc, char * const *argv)
 		{ "stop",	  0, NULL, 'K'},
 		{ "start",	  0, NULL, 'S'},
 		{ "status",	  0, NULL, 'T'},
+		{ "pidof",	  0, NULL, OPT_PIDOF},
 		{ "version",	  0, NULL, 'V'},
 		{ "startas",	  1, NULL, 'a'},
 		{ "name",	  1, NULL, 'n'},
@@ -1378,6 +1537,9 @@ parse_options(int argc, char * const *argv)
 			break;
 		case 'T':  /* --status */
 			set_action(ACTION_STATUS);
+			break;
+		case OPT_PIDOF:
+			set_action(ACTION_PIDOF);
 			break;
 		case 'V':  /* --version */
 			do_version();
@@ -1540,8 +1702,8 @@ parse_options(int argc, char * const *argv)
 #ifdef PROCESS_NAME_SIZE
 	if (cmdname && strlen(cmdname) > PROCESS_NAME_SIZE)
 		warning("this system is not able to track process names\n"
-		        "longer than %d characters, please use --exec "
-		        "instead of --name.\n", PROCESS_NAME_SIZE);
+		        "longer than %d characters, use --exec instead of"
+		        "--name\n", PROCESS_NAME_SIZE);
 #endif
 
 	if (!startas)
@@ -1591,7 +1753,7 @@ setup_options(void)
 			fullexecname = execname;
 
 		if (stat(fullexecname, &exec_stat))
-			fatale("unable to stat %s", fullexecname);
+			fatale("cannot stat %s", fullexecname);
 
 		if (fullexecname != execname)
 			free(fullexecname);
@@ -2335,7 +2497,7 @@ pid_is_running(pid_t pid)
 	else if (errno == ESRCH)
 		return false;
 	else
-		fatale("error checking pid %u status", pid);
+		fatale("cannot check pid %u status", pid);
 }
 #endif
 
@@ -2354,6 +2516,9 @@ pid_check(pid_t pid)
 		return STATUS_DEAD;
 
 	pid_list_push(&found, pid);
+
+	if (action == ACTION_PIDOF)
+		printf("%d\n", pid);
 
 	return STATUS_OK;
 }
@@ -2410,7 +2575,7 @@ do_pidfile(const char *name)
 	} else if (errno == ENOENT)
 		return STATUS_DEAD;
 	else
-		fatale("unable to open pidfile %s", name);
+		fatale("cannot open pidfile %s", name);
 }
 
 #if defined(OS_Linux) || defined(OS_Solaris) || defined(OS_AIX)
@@ -2425,7 +2590,7 @@ do_procinit(void)
 
 	procdir = opendir("/proc");
 	if (!procdir)
-		fatale("unable to opendir /proc");
+		fatale("cannot open directory /proc");
 
 	foundany = 0;
 	while ((entry = readdir(procdir)) != NULL) {
@@ -2621,6 +2786,10 @@ do_start(int argc, char **argv)
 	gid_t rgid;
 	uid_t ruid;
 
+	/* Force line buffering for stdout, even if we are not on a terminal,
+	 * to get timely output. */
+	setvbuf(stdout, NULL, _IOLBF, 0);
+
 	do_findprocs();
 
 	if (found) {
@@ -2667,17 +2836,17 @@ do_start(int argc, char **argv)
 	if (background && close_io) {
 		devnull_fd = open("/dev/null", O_RDONLY);
 		if (devnull_fd < 0)
-			fatale("unable to open '%s'", "/dev/null");
+			fatale("cannot open '%s'", "/dev/null");
 	}
 	if (background && output_io) {
 		output_fd = open(output_io, O_CREAT | O_WRONLY | O_APPEND, 0664);
 		if (output_fd < 0)
-			fatale("unable to open '%s'", output_io);
+			fatale("cannot open '%s'", output_io);
 	}
 	if (nicelevel) {
 		errno = 0;
 		if ((nice(nicelevel) == -1) && (errno != 0))
-			fatale("unable to alter nice level by %i", nicelevel);
+			fatale("cannot alter nice level by %i", nicelevel);
 	}
 	if (proc_sched)
 		set_proc_schedule(proc_sched);
@@ -2685,19 +2854,19 @@ do_start(int argc, char **argv)
 		set_io_schedule(io_sched);
 	if (changeroot != NULL) {
 		if (chdir(changeroot) < 0)
-			fatale("unable to chdir() to %s", changeroot);
+			fatale("cannot change directory to %s", changeroot);
 		if (chroot(changeroot) < 0)
-			fatale("unable to chroot() to %s", changeroot);
+			fatale("cannot change root directory to %s", changeroot);
 	}
 	if (chdir(changedir) < 0)
-		fatale("unable to chdir() to %s", changedir);
+		fatale("cannot change directory to %s", changedir);
 
 	rgid = getgid();
 	ruid = getuid();
 	if (changegroup != NULL) {
 		if (rgid != (gid_t)runas_gid)
 			if (setgid(runas_gid))
-				fatale("unable to set gid to %d", runas_gid);
+				fatale("cannot set gid to %d", runas_gid);
 	}
 	if (changeuser != NULL) {
 		/* We assume that if our real user and group are the same as
@@ -2705,12 +2874,12 @@ do_start(int argc, char **argv)
 		 * will be already in place. */
 		if (rgid != (gid_t)runas_gid || ruid != (uid_t)runas_uid)
 			if (initgroups(changeuser, runas_gid))
-				fatale("unable to set initgroups() with gid %d",
+				fatale("cannot initialize user groups with gid %d",
 				      runas_gid);
 
 		if (ruid != (uid_t)runas_uid)
 			if (setuid(runas_uid))
-				fatale("unable to set uid to %s", changeuser);
+				fatale("cannot set uid to %s", changeuser);
 	}
 
 	if (background && output_fd >= 0) {
@@ -2724,7 +2893,7 @@ do_start(int argc, char **argv)
 		closefrom(3);
 	}
 	execv(startas, argv);
-	fatale("unable to start %s", startas);
+	fatale("cannot start %s", startas);
 }
 
 struct stop_context {
@@ -2758,7 +2927,7 @@ do_stop(struct stop_context *ctx, int sig_num)
 			ctx->n_killed++;
 		} else {
 			if (sig_num)
-				warning("failed to kill %d: %s\n",
+				warning("cannot kill %d: %s\n",
 				        p->pid, strerror(errno));
 			ctx->n_notkilled++;
 		}
@@ -2860,7 +3029,7 @@ do_stop_timeout(struct stop_context *ctx, int timeout)
 
 		rc = pselect(0, NULL, NULL, NULL, &interval, NULL);
 		if (rc < 0 && errno != EINTR)
-			fatale("select() failed for pause");
+			fatale("cannot pause waiting for process to end");
 	}
 }
 
@@ -2963,12 +3132,17 @@ main(int argc, char **argv)
 	argc -= optind;
 	argv += optind;
 
-	if (action == ACTION_START)
+	switch (action) {
+	case ACTION_START:
 		return do_start(argc, argv);
-	else if (action == ACTION_STOP)
+	case ACTION_STOP:
 		return run_stop_schedule();
-	else if (action == ACTION_STATUS)
+	case ACTION_STATUS:
+	case ACTION_PIDOF:
 		return do_findprocs();
+	default:
+		BUG("unknown action[%d]", action);
+	}
 
 	return 0;
 }

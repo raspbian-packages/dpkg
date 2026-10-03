@@ -24,7 +24,7 @@ B<dpkg-gencontrol> [I<optie>...]
 
 B<dpkg-gencontrol> leest informatie uit een uitgepakte Debian broncodeboom en genereert voor een binair pakket een controlebestand (standaard is dat debian/tmp/DEBIAN/control). Tijdens dit proces zal het de relatievelden vereenvoudigen.
 
-Zodoende worden B<Pre-Depends>, B<Depends>, B<Recommends> en B<Suggests> in die volgorde vereenvoudigd door afhankelijkheden weg te laten waarvan op basis van de reeds ontlede sterkere afhankelijkheidsrelaties geweten is dat er aan voldaan wordt. Het zal ook een eventuele afhankelijkheid van zichzelf verwijderen (in feite verwijdert het elke vereiste waaraan voldaan is als de huidige versie van het pakket geïnstalleerd is). Logischerwijze behoudt het de onderlinge verbanden tussen meervoudige afhankelijkheidsrelaties met eenzelfde pakket. De volgorde van afhankelijkheden wordt op de best mogelijke manier behouden: indien eventueel een vereiste verwijderd moet worden omwille van een andere vereiste die verder in het veld te vinden is, zal de vervangende vereiste de plaats innemen van de verwijderde vereiste.
+Thus B<Pre-Depends>, B<Depends>, B<Recommends> and B<Suggests> are simplified in this order by removing dependencies which are known to be true according to the stronger dependencies already parsed.  It will also remove any self-dependency (it will remove any dependency which evaluates to true given the current version of the package as installed).  Logically it keeps the intersection of multiple dependencies on the same package.  The order of dependencies is preserved as best as possible: if any dependency must be discarded due to another dependency appearing further in the field, the superseding dependency will take the place of the discarded one.
 
 Ook de andere relatievelden (B<Enhances>, B<Conflicts>, B<Breaks>, B<Replaces> en B<Provides>) worden individueel vereenvoudigd door de unie te berekenen van de verschillende afhankelijkheden wanneer een pakket meermaals vermeld wordt in het veld.
 
@@ -88,7 +88,9 @@ De I<pakketbouwmap> doorzoeken in plaats van B<debian/tmp>. Deze waarde wordt ge
 
 =item B<-O>[I<bestandsnaam>]
 
-Het bestand control weergeven op de standaarduitvoer (of in I<bestandsnaam> als dit opgegeven werd; sinds dpkg 1.17.2), eerder dan in B<debian/tmp/DEBIAN/control> (of I<pakketbouwmap>B</DEBIAN/control> indien B<-P> gebruikt werd).
+Print the control file to standard output (or I<filename> if specified), rather than to B<debian/tmp/DEBIAN/control> (or I<package-build-dir>B</DEBIAN/control> if B<-P> was used).
+
+Support for optional argument since dpkg 1.17.2.
 
 =item B<-?>, B<--help>
 
@@ -110,11 +112,15 @@ Stelt de computerarchitectuur in.
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 

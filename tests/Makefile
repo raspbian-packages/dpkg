@@ -36,11 +36,12 @@ TESTS_PASS += t-unpack-divert-hardlink
 TESTS_PASS += t-unpack-divert-nowarn
 TESTS_PASS += t-unpack-divert-overwrite
 TESTS_PASS += t-unpack-fifo
-ifdef DPKG_AS_ROOT
+ifdef DPKG_SYS_HAS_MKNOD
 # No permissions for devices
 TESTS_PASS += t-unpack-device
 endif
 TESTS_PASS += t-maintscript-leak
+TESTS_PASS += t-maintscript-abort-notices
 TESTS_PASS += t-filtering
 TESTS_PASS += t-depends
 TESTS_PASS += t-dir-leftover-parents

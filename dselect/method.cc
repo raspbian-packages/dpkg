@@ -62,7 +62,7 @@ sthfailed(const char * reasoning)
 	clear();
 	printw("\n\n%s: %s\n", DSELECT, reasoning);
 	attrset(A_BOLD);
-	addstr(_("\nPress <enter> to continue."));
+	addstr(_("\nPress <Enter> to continue."));
 	attrset(A_NORMAL);
 	refresh();
 	getch();
@@ -131,7 +131,7 @@ lockmethod(void)
 	fl.l_len = 0;
 	if (fcntl(methlockfd, F_SETLK, &fl) < 0) {
 		if (errno == EACCES || errno == EAGAIN) {
-			sthfailed(_("the access method area is already locked"));
+			sthfailed(_("access method area is already locked"));
 			return urqr_fail;
 		}
 		sthfailed(_("cannot lock access method area"));
@@ -169,13 +169,13 @@ falliblesubprocess(struct command *cmd)
 		return urqr_normal;
 	}
 
-	fprintf(stderr, _("Press <enter> to continue.\n"));
+	fprintf(stderr, _("Press <Enter> to continue.\n"));
 	m_output(stderr, _("<standard error>"));
 	do {
 		c = fgetc(stdin);
 	} while ((c == EOF && errno == EINTR) || (c != '\n' && c != EOF));
 	if (c == EOF)
-		ohshite(_("error reading acknowledgement of program failure message"));
+		ohshite(_("cannot read acknowledgement of program failure message"));
 
 	return urqr_fail;
 }

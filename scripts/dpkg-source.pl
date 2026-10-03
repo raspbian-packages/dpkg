@@ -34,6 +34,7 @@ use File::Spec;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Arch qw(:operators);
 use Dpkg::BuildProfiles qw(
@@ -223,7 +224,7 @@ while (@options) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } elsif (m/^-[EW]$/) {
         # Deprecated option.
@@ -616,17 +617,6 @@ sub setopmode {
     $options{opmode} = $opmode;
 }
 
-sub print_option {
-    my $opt = shift;
-
-    my $help = gettext($opt->{help});
-    if (length $opt->{name} > 25) {
-        return sprintf "  %-25s\n%s%s.\n", $opt->{name}, ' ' x 27, $help;
-    } else {
-        return sprintf "  %-25s%s.\n", $opt->{name}, $help;
-    }
-}
-
 sub get_format_help {
     $build_format //= '1.0';
 
@@ -639,96 +629,180 @@ sub get_format_help {
     my $help;
 
     foreach my $opt (@cmdline) {
-        $help_build .= print_option($opt) if $opt->{when} eq 'build';
-        $help_extract .= print_option($opt) if $opt->{when} eq 'extract';
+        my $help_add = format_option_parts($opt->{name}, gettext($opt->{help}));
+
+        $help_build .= $help_add if $opt->{when} eq 'build';
+        $help_extract .= $help_add if $opt->{when} eq 'extract';
     }
 
     if ($help_build) {
         $help .= "\n";
-        $help .= "Build format $build_format options:\n";
+        $help .= sprintf g_("Build format %s options:\n"), $build_format;
         $help .= $help_build || C_('source options', '<none>');
     }
     if ($help_extract) {
         $help .= "\n";
-        $help .= "Extract format $build_format options:\n";
+        $help .= sprintf g_("Extract format %s options:\n"), $build_format;
         $help .= $help_extract || C_('source options', '<none>');
     }
 
     return $help;
 }
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    print g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] <command>')
-    . "\n\n" . g_(
-'Commands:
-  -x, --extract <filename>.dsc [<output-dir>]
-                           extract source package.
-  -b, --build <dir>        build source package.
-      --print-format <dir> print the format to be used for the source package.
-      --before-build <dir> run the corresponding source package format hook.
-      --after-build <dir>  run the corresponding source package format hook.
-      --commit [<dir> [<patch-name>]]
-                           store upstream changes in a new patch.')
-    . "\n\n" . g_(
-"Build options:
-  -c<control-file>         get control info from this file.
-  -l<changelog-file>       get per-version info from this file.
-  -F<changelog-format>     force changelog format.
-  --format=<source-format> set the format to be used for the source package.
-  -V<name>=<value>         set a substitution variable.
-  -T<substvars-file>       read variables here.
-  -D<field>=<value>        override or add a .dsc field and value.
-  -U<field>                remove a field.
-  -i, --diff-ignore[=<regex>]
-                           filter out files to ignore diffs of
-                             (defaults to: '%s').
-  -I, --tar-ignore[=<pattern>]
-                           filter out files when building tarballs
-                             (defaults to: %s).
-  -Z, --compression=<compression>
-                           select compression to use (defaults to '%s',
-                             supported are: %s).
-  -z, --compression-level=<level>
-                           compression level to use (defaults to '%d',
-                             supported are: '1'-'9', 'best', 'fast')")
-    . "\n\n" . g_(
-'Extract options:
-  --no-copy                do not copy .orig tarballs
-  --no-check               do not check signature and checksums on extraction
-  --no-overwrite-dir       do not overwrite directory on extraction
-  --no-vendor-certs        do not use vendor specific certificate keyrings
-  --signer-certs=<keyring> use a signer certificates keyring
-  --require-valid-signature
-                           abort if the package does not have a valid signature
-  --require-strong-checksums
-                           abort if the package contains no strong checksums
-  --ignore-bad-version     allow bad source package versions.')
-    . "\n" .
-    get_format_help()
-    . "\n" . g_(
-'General options:
-      --threads-max=<threads>
-                           use at most <threads> with compressor.
-  -q                       quiet mode.
-  -?, --help               show this help message.
-      --version            show the version.')
-    . "\n\n" . g_(
-'Source format specific build and extract options are available;
-use --format with --help to see them.') . "\n",
-    $Dpkg::PROGNAME,
-    get_default_diff_ignore_regex(),
-    join(' ', map { "-I$_" } get_default_tar_ignore_pattern()),
-    compression_get_default(),
-    join(' ', compression_get_list()),
-    compression_get_default_level();
+"Usage: %s [<option>...] <command>\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"  -x, --extract <filename>.dsc [<output-dir>]\n" .
+"          Extract source package.\n" .
+    ''));
+    print_option(g_(
+"  -b, --build <dir>\n" .
+"          Build source package.\n" .
+    ''));
+    print_option(g_(
+"      --print-format <dir>\n" .
+"          Print the format to be used for the source package.\n" .
+    ''));
+    print_option(g_(
+"      --before-build <dir>\n" .
+"          Run the corresponding source package format hook.\n" .
+    ''));
+    print_option(g_(
+"      --after-build <dir>\n" .
+"          Run the corresponding source package format hook.\n" .
+    ''));
+    print_option(g_(
+"      --commit [<dir> [<patch-name>]]\n" .
+"          Store upstream changes in a new patch.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Build options:\n" .
+    '');
+    print_option(g_(
+"  -c<control-file>\n" .
+"          Get control information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -l<changelog-file>\n" .
+"          Get per-version changelog information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -F<changelog-format>\n" .
+"          Force changelog format.\n" .
+    ''));
+    print_option(g_(
+"      --format=<source-format>\n" .
+"          Set the format to be used for the source package.\n" .
+    ''));
+    print_option(g_(
+"  -T<substvars-file>\n" .
+"          Read substitution variables from this file.\n" .
+    ''));
+    print_option(g_(
+"  -V<name>=<value>\n" .
+"          Set a substitution variable.\n" .
+    ''));
+    print_option(g_(
+"  -D<field>=<value>\n" .
+"          Override or add a .dsc field and value.\n" .
+    ''));
+    print_option(g_(
+"  -U<field>\n" .
+"          Remove a field.\n" .
+    ''));
+    print_option(g_(
+"  -i, --diff-ignore[=<regex>]\n" .
+"          Filter out files to ignore diffs of.\n" .
+    ''));
+    print_option_def(get_default_diff_ignore_regex());
+    print_option(g_(
+"  -I, --tar-ignore[=<pattern>]\n" .
+"          Filter out files when building tarballs.\n" .
+    ''));
+    print_option_def(join ' ', map { "-I$_" } get_default_tar_ignore_pattern());
+    print_option(g_(
+"  -Z, --compression=<compression>\n" .
+"          Select compression to use (supported are: %s).\n" .
+    ''), join(', ', compression_get_list()));
+    print_option_def(compression_get_default());
+    print_option(g_(
+"  -z, --compression-level=<level>\n" .
+"          Compression level to use (supported are: '1'-'9', 'best', 'fast').\n" .
+    ''));
+    print_option_def(compression_get_default_level());
+    print_option_sep();
+
+    printf g_(
+"Extract options:\n" .
+    '');
+    print_option(g_(
+"      --no-copy\n" .
+"          Do not copy original source tarballs.\n" .
+    ''));
+    print_option(g_(
+"      --no-check\n" .
+"          Do not check signature and checksums on extraction.\n" .
+    ''));
+    print_option(g_(
+"      --no-overwrite-dir\n" .
+"          Do not overwrite directory on extraction.\n" .
+    ''));
+    print_option(g_(
+"      --no-vendor-certs\n" .
+"          Do not use vendor specific certificate keyrings.\n" .
+    ''));
+    print_option(g_(
+"      --signer-certs=<keyring>\n" .
+"          Use a signer certificates keyring.\n" .
+    ''));
+    print_option(g_(
+"      --require-valid-signature\n" .
+"          Abort if the package does not have a valid signature.\n" .
+    ''));
+    print_option(g_(
+"      --require-strong-checksums\n" .
+"          Abort if the package contains no strong checksums.\n" .
+    ''));
+    print_option(g_(
+"      --ignore-bad-version\n" .
+"          Allow bad source package versions.\n" .
+    ''));
+
+    printf get_format_help();
+    print_option_sep();
+
+    printf g_(
+"General options:\n" .
+    '');
+    print_option(g_(
+"      --threads-max=<threads>\n" .
+"          Use at most <threads> with compressor.\n" .
+    ''));
+    print_option(g_(
+"  -q\n" .
+"          Enable quiet mode, minimal output.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Source format specific build and extract options are available;\n" .
+"use --format with --help to see them.\n" .
+    '');
 }

@@ -26,7 +26,7 @@ De meerdelige B<.deb>-indeling wordt gebruikt om grote pakketten op te splitsen 
 
 =head1 INDELING
 
-Het bestand is een B<ar>-archief met een magische waarde van B<!E<lt>archE<gt>>. De bestandsnaam mag aan het einde een slash bevatten (sinds dpkg 1.15.6).
+The file is an B<ar> archive with a magic value of B<!E<lt>archE<gt>\n>. The file names might contain a trailing slash (since dpkg 1.15.6).
 
 Het B<ar>-archief is samengesteld uit meerdere elementen in een specifieke volgorde:
 
@@ -68,7 +68,9 @@ Het volgnummer van het huidige deel, gevolgd door een slash en het totaal aantal
 
 =item *
 
-De architectuur van het pakket (sinds dpkg 1.16.1).
+The package architecture.
+
+Supported since dpkg 1.16.1.
 
 =back
 

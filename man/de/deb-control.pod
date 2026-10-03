@@ -48,6 +48,8 @@ B<Hinweis>: Bei einigen Lieferanten wurde L<dpkg> so gebaut, dass native Quellen
 
 Sollte in dem Format „Joe Bloggs E<lt>jbloggs@foo.comE<gt>“ sein und ist typischerweise die Person, die das Paket erstellt hat, im Gegensatz zum Autor der Software, die paketiert wurde.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Description:> I<Kurzbeschreibung> (empfohlen)
 
 =item S< >I<Langbeschreibung>
@@ -200,7 +202,7 @@ Dies ist eine Liste von virtuellen Paketen, die dieses Paket bereitstellt. Gewö
 
 =back
 
-Die Syntax von B<Provides> ist eine Liste von Paketnamen, getrennt durch Kommata (und optionalen Leerraumzeichen). Eine optionale Architekturspezifikation kann mit der gleichen Syntax wie oben an den Paketnamen angehängt werden. Falls diese fehlt, ist die Vorgabe die binäre Paketarchitektur. Eine optionale genaue („identisch mit“) Version kann auch mit der gleichen Syntax wie oben angegeben werden (seit Dpkg 1.17.11 berücksichtigt).
+The syntax of B<Provides> is a list of package names, separated by commas (and optional whitespace).  An optional architecture qualifier can also be appended to the package name with the same syntax as above.  If omitted, the default is the current binary package architecture.  An optional exact (equal to) version can also be given with the same syntax as above (since dpkg 1.17.11).
 
 =over 
 
@@ -216,7 +218,9 @@ Unterstützt seit Dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<Profilliste> (veraltet)
 
-Dieses Feld legte eine durch Leerraumzeichen getrennte Liste von Bauprofilen fest, unter denen dieses Programmpaket gebaut wurde (von Dpkg 1.17.2 bis 1.18.18). Die bisher in diesem Feld enthaltene Informationen können jetzt in der Datei B<.buildinfo> gefunden werden, die es ersetzt.
+This field used to specify a whitespace separated list of build profile names (without exclamation marks)  that this binary packages was built with.  The information previously found in this field can now be found in the B<.buildinfo> file, which supersedes it.
+
+Supported since dpkg 1.17.2.  Obsolete since dpkg 1.18.19.
 
 =item B<Auto-Built-Package:> I<Begründungsliste>
 
@@ -262,7 +266,7 @@ Das Feld B<Build-Ids> verwendet einen eher generischen Namen aus seinem ursprün
 
 =head1 SIEHE AUCH
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb(5)>, L<deb-version(7)>, L<debtags(1)>, L<dpkg(1)>, L<dpkg-deb(1)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb(5)>, L<deb-email(7)>, L<deb-version(7)>, L<debtags(1)>, L<dpkg(1)>, L<dpkg-deb(1)>.
 
 
 =head1 ÜBERSETZUNG

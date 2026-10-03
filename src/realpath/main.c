@@ -65,16 +65,41 @@ usage(const struct cmdinfo *cip, const char *value)
 {
 	printf(_(
 "Usage: %s [<option>...] <pathname>\n"
-"\n"), dpkg_get_progname());
+"       %s <command>\n"
+	), dpkg_get_progname(), dpkg_get_progname());
+	print_option_sep();
+
+	printf(_(
+"Commands:\n"
+	));
+	print_option(_(
+"      --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  -z, --zero                   end output line with NUL, not newline.\n"
-"      --instdir <directory>    set the root directory.\n"
-"      --root <directory>       set the root directory.\n"
-"      --version                show the version.\n"
-"      --help                   show this help message.\n"
-"\n"));
+	));
+	print_option(_(
+"  -z, --zero\n"
+"          End output line with NUL, not newline.\n"
+	));
+	print_option(_(
+"      --instdir <directory>\n"
+"          Change the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --root <directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
 
 	m_output(stdout, _("<standard output>"));
 
@@ -160,7 +185,8 @@ realpath_relative_to(const char *pathname, const char *rootdir)
 			/* Resolve the symlink within result. */
 			linksize = file_readlink(slink.buf, &dst, st.st_size);
 			if (linksize < 0)
-				ohshite(_("cannot read link '%s'"), slink.buf);
+				ohshite(_("cannot read symbolic link '%s'"),
+				        slink.buf);
 			else if ((off_t)linksize != st.st_size)
 				ohshit(_("symbolic link '%s' size has changed from %jd to %zd"),
 				       slink.buf, (intmax_t)st.st_size, linksize);

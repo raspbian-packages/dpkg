@@ -22,7 +22,7 @@ B<dpkg-realpath> [I<Option>…] I<Pfadname>
 
 =head1 BESCHREIBUNG
 
-B<dpkg-realpath> ist ein Werkzeug (seit Dpkg 1.20.1), um einen Pfadnamen aufzulösen, der das Wurzelverzeichnis von L<dpkg(1)> berücksichtigt, entweder implizit von der Umgebungsvariablen B<DPKG_ROOT> oder von den Befehlszeilenoptionen B<--root> oder B<--instdir>, und das dann einen absoluten I<Pfadnamen> relativ zu dem Wurzelverzeichnis zurückliefert. Das Wurzelverzeichnis darf dem I<Pfadnamen> nicht vorangestellt werden, um aufgelöst zu werden.
+B<dpkg-realpath> is a tool to resolve a pathname, that takes the L<dpkg(1)> root directory into account, either implicitly from the B<DPKG_ROOT> environment variable or from the command-line B<--root> or B<--instdir> options, and returns an absolute I<pathname> relative to the root directory.  The root directory must not be prefixed to the I<pathname> to be resolved.
 
 Dies ist für den Einsatz durch andere Hilfsprogramme von B<dpkg> oder Betreuerskripten gedacht, statt L<realpath(1)> oder L<readlink(1)> zu verwenden, um einen kanonischen Pfad zu erhalten, da diese beiden Werkzeuge den kanonischen Pfad nur relativ zu F</> ermitteln können.
 
@@ -34,7 +34,9 @@ Dieses Programm wurde in Dpkg 1.20.1 hinzugefügt.
 
 =item B<-z>, B<--zero>
 
-Verwendet ein NUL-Byte statt eines Zeilenumbruchzeichens, um Ausgabezeilen abzuschließen (seit Dpkg 1.20.6).
+Use a NUL byte to end output lines instead of a new line character.
+
+Supported since dpkg 1.20.6.
 
 =item B<--instdir> I<Verzeichnis>
 
@@ -66,7 +68,9 @@ Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.22.7). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.22.7.
 
 =back
 

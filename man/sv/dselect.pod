@@ -60,11 +60,15 @@ Alla flaggorna kan ges både på kommandoraden och i B<dselect>s konfigurationsf
 
 =item B<--instdir> I<katalog>
 
-Sätt installationskatalogen, som anger katalogen där paket installeras (sedan dpkg 1.21.2). Förval är ”I</>” om B<DPKG_ROOT> inte har satts.
+Set the installation directory, which refers to the directory where packages get installed.  Defaults to «I</>» if B<DPKG_ROOT> has not been set.
+
+Supported since dpkg 1.21.2.
 
 =item B<--root> I<katalog>
 
-Sätt rotkatalogen till I<katalog>, vilket sätter installationskatalogen till ”I<katalog>” och den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the installation directory to «I<directory>» and the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<-D>I<fil>, B<--debug> I<fil>
 
@@ -406,7 +410,7 @@ När ändringar som får en eller flera otillfredsställda beroenden eller konfl
 
 Övre halvan av skärmen listar alla paket som har otillfredsställda beroenden eller konflikter som ett resultat av ändringen som efterfrågas, samt alla paket vars installation kan lösa något av dessa beroenden, eller vars borttagning kan lösa någon av konflikterna. Den nedre halvan visar som förval de beroenden eller konflikter som leder till att det markerade paketet listas.
 
-Redan då paketunderlistan från början visas kan B<dselect> ha satt efterfrågad valstatus för några av de listade paketen, för att lösa de beroenden eller konflikter som fick beroendelösningsskärmen att visas. Det är oftast bäst att följa upp de förslag B<dselect> ger.
+When the sublist of packages is displayed initially, B<dselect> may have already set the requested selection status of some of the listed packages, to resolve the depends or conflicts that caused the dependency resolution screen to be displayed.  Usually, it is best to follow up the suggestions made by B<dselect>.
 
 De listade paketens valstatus kan återställas till ursprungsinställningarna, såsom de var innan de otillfredsställda beroendena eller konflikterna skapades, genom att trycka på tangenten ”B<R>”. Genom att trycka på ”B<D>” återställs de föreslagna lösningarna, men ändringen som fick skärmen att visas behålls i den status de valdes. Slutligen, genom att trycka ”B<U>”> återställs valen återigen till de automatiskt föreslagna värdena.
 
@@ -440,11 +444,15 @@ Det önskade kommandot utfördes utan fel.
 
 =item B<DPKG_ROOT>
 
-Om satt och flaggorna B<--instdir> och B<--root> inte har angivits används det som filsystemets rotkatalog (sedan dpkg 1.21.0).
+Om satt och flaggan B<--instdir> eller B<-root> inte har angivits kommer det användas som filsystemets rotkatalog.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
-Om satt, och flaggorna B<--admindir> och B<-root> inte har angivits, används värdet som administrativ katalog för B<dpkg> (sedan dpkg 1.21.0).
+If set and the B<--admindir> or B<--root> option have not been specified, it will be used as the B<dpkg> database directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<HOME>
 

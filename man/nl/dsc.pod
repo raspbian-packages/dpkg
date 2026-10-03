@@ -70,9 +70,13 @@ De naam van de distributie waaruit dit pakket afkomstig is.
 
 Moet opgemaakt worden volgens de indeling “Joe Bloggs E<lt>jbloggs@foo.comE<gt>”, en is gewoonlijk de persoon die het pakket maakte, in tegenstelling tot de auteur van de verpakte software.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<lijst van volledige-namen-en-e-mailadressen>
 
 Somt al de namen en de e-mailadressen op van de personen die het pakket mee onderhouden volgens dezelfde indeling als van het veld B<Maintainer>. Meerdere mede-beheerders moeten onderling door een komma gescheiden worden.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> I<korte-beschrijving>
 
@@ -203,5 +207,5 @@ Het veld B<Format> combineert de indeling van het B<.dsc>-bestand zelf en de ind
 
 =head1 ZIE OOK
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>.
 

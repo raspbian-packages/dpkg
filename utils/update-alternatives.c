@@ -125,33 +125,110 @@ version(void)
 }
 
 static void
+print_option_sep(void)
+{
+	fputs("\n", stdout);
+}
+
+/*
+ * Indent the entries with 10 spaces, to cover 2 for the short option
+ * indentation, 4 for the short option itself, and 4 for the long option.
+ * Such as:
+ *
+ * "  -s, --short"
+ * "          Description for short.\n"
+ */
+static const int option_desc_indent = 10;
+
+static void
+print_option_def(const char *def)
+{
+	printf("%-*s[%s: %s]\n", option_desc_indent, " ",
+	       C_("cli-options", "default"), def);
+}
+
+static void
+print_option_env(const char *env)
+{
+	printf("%-*s[%s: %s=]\n", option_desc_indent, " ",
+	       C_("cli-options", "env"), env);
+}
+
+static void LIBCOMPAT_ATTR_PRINTF(1)
+print_option(const char *fmt_spec, ...)
+{
+	va_list args;
+
+	va_start(args, fmt_spec);
+	vprintf(fmt_spec, args);
+	va_end(args);
+}
+
+static void
 usage(void)
 {
 	printf(_(
-"Usage: %s [<option> ...] <command>\n"
-"\n"), PROGNAME);
+"Usage: %s [<option>...] <command>\n"
+	), PROGNAME);
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  --install <link> <name> <path> <priority>\n"
-"    [--slave <link> <name> <path>]...\n"
-"                           add a group of alternatives to the system.\n"
-"  --remove <name> <path>   remove <path> from the <name> group alternative.\n"
-"  --remove-all <name>      remove <name> group from the alternatives system.\n"
-"  --auto <name>            switch the master link <name> to automatic mode.\n"
-"  --display <name>         display information about the <name> group.\n"
-"  --query <name>           machine parseable version of --display <name>.\n"
-"  --list <name>            display all targets of the <name> group.\n"
-"  --get-selections         list master alternative names and their status.\n"
-"  --set-selections         read alternative status from standard input.\n"
-"  --config <name>          show alternatives for the <name> group and ask the\n"
-"                           user to select which one to use.\n"
-"  --set <name> <path>      set <path> as alternative for <name>.\n"
-"  --all                    call --config on all alternatives.\n"
-"\n"));
+	));
+	print_option(_(
+"      --install <link> <name> <path> <priority>\n"
+"        [--slave <link> <name> <path>]...\n"
+"          Add a group of alternatives to the system.\n"
+	));
+	print_option(_(
+"      --remove <name> <path>\n"
+"          Remove <path> from the <name> group alternative.\n"
+	));
+	print_option(_(
+"      --remove-all <name>\n"
+"          Remove <name> group from the alternatives system.\n"
+	));
+	print_option(_(
+"      --auto <name>\n"
+"          Switch the master link <name> to automatic mode.\n"
+	));
+	print_option(_(
+"      --display <name>\n"
+"          Display information about the <name> group.\n"
+	));
+	print_option(_(
+"      --query <name>\n"
+"          Machine parseable version of --display <name>.\n"
+	));
+	print_option(_(
+"      --list <name>\n"
+"          Display all targets of the <name> group.\n"
+	));
+	print_option(_(
+"      --get-selections\n"
+"          List master alternative names and their status.\n"
+	));
+	print_option(_(
+"      --set-selections\n"
+"          Read alternative status from standard input.\n"
+	));
+	print_option(_(
+"      --config <name>\n"
+"          Show alternatives for the <name> group and ask the user to select\n"
+"          which one to use.\n"
+	));
+	print_option(_(
+"      --set <name> <path>\n"
+"          Set <path> as alternative for <name>.\n"
+	));
+	print_option(_(
+"      --all\n"
+"          Call --config on all alternatives.\n"
+	));
+	print_option_sep();
 
 	printf(_(
-"<link> is the symlink pointing to %s/<name>.\n"
+"<link> is the symbolic link pointing to %s/<name>.\n"
 "  (e.g. /usr/bin/pager)\n"
 "<name> is the master name for this link group.\n"
 "  (e.g. pager)\n"
@@ -159,26 +236,68 @@ usage(void)
 "  (e.g. /usr/bin/less)\n"
 "<priority> is an integer; options with higher numbers have higher priority in\n"
 "  automatic mode.\n"
-"\n"), altdir);
+	), altdir);
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"  --altdir <directory>     change the alternatives directory\n"
-"                             (default is %s).\n"
-"  --admindir <directory>   change the administrative directory\n"
-"                             (default is %s).\n"
-"  --instdir <directory>    change the installation directory.\n"
-"  --root <directory>       change the filesystem root directory.\n"
-"  --log <file>             change the log file.\n"
-"  --force                  allow replacing files with alternative links.\n"
-"  --skip-auto              skip prompt for alternatives correctly configured\n"
-"                           in automatic mode (relevant for --config only)\n"
-"  --quiet                  quiet operation, minimal output.\n"
-"  --verbose                verbose operation, more output.\n"
-"  --debug                  debug output, way more output.\n"
-"  --help                   show this help message.\n"
-"  --version                show the version.\n"
-), altdir, admdir);
+	));
+	print_option(_(
+"      --skip-auto\n"
+"          Skip prompt for alternatives correctly configured in automatic mode\n"
+"          (relevant for --config only).\n"
+	));
+	print_option(_(
+"      --force\n"
+"          Allow replacing files with alternative links.\n"
+	));
+	print_option(_(
+"      --quiet\n"
+"          Enable quiet mode, minimal output.\n"
+	));
+	print_option(_(
+"      --verbose\n"
+"          Enable verbose mode, more output.\n"
+	));
+	print_option(_(
+"      --debug\n"
+"          Enable debugging mode, way more output.\n"
+	));
+	print_option(_(
+"      --log <file>\n"
+"          Change the log file.\n"
+	));
+	print_option(_(
+"      --altdir <directory>\n"
+"          Change the alternatives directory.\n"
+	));
+	print_option_def(altdir);
+	print_option(_(
+"      --admindir <directory>\n"
+"          Change the administrative directory.\n"
+	));
+	print_option_def(admdir);
+	print_option_env(ADMINDIR_ENVVAR);
+	print_option(_(
+"      --instdir <directory>\n"
+"          Change the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option_env(INSTDIR_ENVVAR);
+	print_option(_(
+"      --root <directory>\n"
+"          Change the filesystem root directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 }
 
 static void LIBCOMPAT_ATTR_NORET LIBCOMPAT_ATTR_PRINTF(1)
@@ -301,7 +420,7 @@ xmalloc(size_t size)
 
 	ptr = malloc(size);
 	if (!ptr)
-		error(_("malloc failed (%zu bytes)"), size);
+		error(_("cannot allocate memory (%zu bytes)"), size);
 
 	return ptr;
 }
@@ -316,7 +435,9 @@ xstrdup(const char *str)
 
 	new_str = strdup(str);
 	if (!new_str)
-		error(_("failed to allocate memory"));
+		error(_("cannot allocate memory (%zu bytes) "
+		        "to duplicate string '%s'"),
+		      strlen(str), str);
 
 	return new_str;
 }
@@ -331,7 +452,7 @@ xstrndup(const char *str, size_t n)
 
 	new_str = strndup(str, n);
 	if (!new_str)
-		error(_("failed to allocate memory"));
+		error(_("cannot allocate memory (%zu bytes)"), n);
 
 	return new_str;
 }
@@ -342,7 +463,7 @@ xvasprintf(const char *fmt, va_list args)
 	char *str;
 
 	if (vasprintf(&str, fmt, args) < 0)
-		error(_("failed to allocate memory"));
+		error(_("cannot allocate memory"));
 
 	return str;
 }
@@ -401,15 +522,15 @@ spawn(const char *prog, const char *args[])
 
 	pid = fork();
 	if (pid < 0)
-		error(_("fork failed"));
+		error(_("cannot create child process"));
 	if (pid == 0) {
 		execvp(prog, (char *const *)args);
-		syserr(_("unable to execute %s (%s)"), prog, prog);
+		syserr(_("cannot execute %s (%s)"), prog, prog);
 	}
 	while ((dead_pid = waitpid(pid, &status, 0)) < 0 && errno == EINTR)
 		;
 	if (dead_pid != pid)
-		error(_("wait for subprocess %s failed"), prog);
+		error(_("cannot reap %s subprocess"), prog);
 
 	return status;
 }
@@ -436,7 +557,7 @@ static void
 xrename(const char *src, const char *dst)
 {
 	if (!rename_mv(src, dst))
-		syserr(_("unable to install '%s' as '%s'"), src, dst);
+		syserr(_("cannot install '%s' as '%s'"), src, dst);
 }
 
 static void LIBCOMPAT_ATTR_PRINTF(1)
@@ -450,7 +571,7 @@ xunlink_args(const char *fmt, ...)
 	va_end(args);
 
 	if (unlink(path) < 0 && errno != ENOENT)
-		syserr(_("unable to remove '%s'"), path);
+		syserr(_("cannot remove '%s'"), path);
 
 	free(path);
 }
@@ -458,7 +579,8 @@ xunlink_args(const char *fmt, ...)
 static char *
 xdirname(const char *pathname)
 {
-	char *dirname, *slash;
+	const char *slash;
+	char *dirname;
 
 	slash = strrchr(pathname, '/');
 	if (slash)
@@ -628,7 +750,8 @@ fsys_xreadlink(const char *linkname)
 
 	buf = fsys_areadlink(linkname);
 	if (buf == NULL)
-		syserr(_("unable to read link '%s%s'"), instdir, linkname);
+		syserr(_("cannot read symbolic link '%s%s'"),
+		       instdir, linkname);
 
 	return buf;
 }
@@ -647,7 +770,7 @@ fsys_set_ref_time(const char *linkname, const char *target)
 
 	if (fsys_lstat(target, &st) < 0) {
 		if (errno != ENOENT)
-			syserr(_("unable to get file '%s%s' metadata"),
+			syserr(_("cannot get file '%s%s' metadata"),
 			       instdir, target);
 		return;
 	}
@@ -659,7 +782,8 @@ fsys_set_ref_time(const char *linkname, const char *target)
 
 	root_linkname = fsys_get_path(linkname);
 	if (lutimes(root_linkname, tv) < 0 && errno != ENOSYS)
-		syserr(_("cannot set symlink '%s' timestamp"), root_linkname);
+		syserr(_("cannot set symbolic link '%s' timestamp"),
+		       root_linkname);
 	free(root_linkname);
 #endif
 }
@@ -672,10 +796,10 @@ fsys_symlink(const char *filename, const char *linkname)
 	root_linkname = fsys_get_path(linkname);
 
 	if (unlink(root_linkname) < 0 && errno != ENOENT)
-		syserr(_("unable to remove '%s'"), root_linkname);
+		syserr(_("cannot remove '%s'"), root_linkname);
 
 	if (symlink(filename, root_linkname))
-		syserr(_("error creating symbolic link '%s'"), root_linkname);
+		syserr(_("cannot create symbolic link '%s'"), root_linkname);
 
 	free(root_linkname);
 }
@@ -703,7 +827,7 @@ fsys_rm(const char *f)
 	root_f = fsys_get_path(f);
 
 	if (unlink(root_f) < 0 && errno != ENOENT)
-		syserr(_("unable to remove '%s'"), root_f);
+		syserr(_("cannot remove '%s'"), root_f);
 
 	free(root_f);
 }
@@ -1356,13 +1480,13 @@ altdb_get_line(struct altdb_context *ctx, const char *name)
 			bufsz *= 2;
 			buf = realloc(buf, bufsz);
 			if (!buf)
-				error(_("failed to allocate memory"));
+				error(_("cannot allocate memory"));
 			continue;
 		}
 		if (feof(ctx->fh))
 			altdb_bad_format(ctx,
-			                 _("unexpected end of file while "
-			                   "trying to read %s"), name);
+			                 _("cannot read file '%s': %s"),
+			                 name, _("unexpected end of file"));
 		altdb_bad_format(ctx, _("while reading %s: %s"),
 		                 name, strerror(errno));
 	}
@@ -1397,7 +1521,7 @@ altdb_print_line(struct altdb_context *ctx, const char *line)
 		      line);
 
 	if (fprintf(ctx->fh, "%s\n", line) < (int) strlen(line) + 1)
-		syserr(_("unable to write file '%s'"), ctx->filename);
+		syserr(_("cannot write file '%s'"), ctx->filename);
 }
 
 static bool
@@ -1529,7 +1653,7 @@ alternative_load(struct alternative *a, enum altdb_flags flags)
 			return false;
 		}
 
-		syserr(_("unable to open file '%s'"), ctx.filename);
+		syserr(_("cannot open file '%s'"), ctx.filename);
 	}
 
 	if (setjmp(ctx.on_error)) {
@@ -1570,7 +1694,7 @@ alternative_load(struct alternative *a, enum altdb_flags flags)
 
 	/* Close database file */
 	if (fclose(ctx.fh))
-		syserr(_("unable to close file '%s'"), ctx.filename);
+		syserr(_("cannot close file '%s'"), ctx.filename);
 	free(ctx.filename);
 
 	/* Initialize the modified field which has been erroneously changed
@@ -1637,7 +1761,7 @@ alternative_save(struct alternative *a)
 		ctx.fh = fopen(ctx.filename, "w");
 	}
 	if (ctx.fh == NULL)
-		syserr(_("unable to create file '%s'"), ctx.filename);
+		syserr(_("cannot create file '%s'"), ctx.filename);
 
 	altdb_print_line(&ctx, alternative_status_string(a->status));
 	altdb_print_line(&ctx, a->master_link);
@@ -1668,11 +1792,11 @@ alternative_save(struct alternative *a)
 
 	/* Close database file */
 	if (fflush(ctx.fh))
-		syserr(_("unable to flush file '%s'"), ctx.filename);
+		syserr(_("cannot flush file '%s'"), ctx.filename);
 	if (fsync(fileno(ctx.fh)))
-		syserr(_("unable to sync file '%s'"), ctx.filename);
+		syserr(_("cannot sync file '%s'"), ctx.filename);
 	if (fclose(ctx.fh))
-		syserr(_("unable to close file '%s'"), ctx.filename);
+		syserr(_("cannot close file '%s'"), ctx.filename);
 
 	/* Put in place atomically. */
 	xrename(filenew, file);
@@ -1859,7 +1983,7 @@ alternative_select_choice(struct alternative *a)
 		for (fs = a->choices; fs; fs = fs->next, idx++)
 			alternative_print_choice(a, ALT_ST_MANUAL, fs, idx, len);
 		printf("\n");
-		printf(_("Press <enter> to keep the current choice[*], "
+		printf(_("Press <Enter> to keep the current choice[*], "
 		         "or type selection number: "));
 		ret = fgets(selection, sizeof(selection), stdin);
 		if (ret == NULL || strlen(selection) == 0) {
@@ -2098,7 +2222,7 @@ alternative_prepare_install(struct alternative *a, const char *choice)
 		if (alternative_path_can_remove(sl->link))
 			alternative_add_commit_op(a, OPCODE_RM, sl->link, NULL);
 		else
-			warning(_("not removing %s since it is not a symlink"),
+			warning(_("not removing %s since it is not a symbolic link"),
 			        sl->link);
 		alternative_add_commit_op(a, OPCODE_RM, fn, NULL);
 		free(fn);
@@ -2714,7 +2838,7 @@ alternative_set_selections(FILE *input, const char *desc)
 		 * contain a space */
 		res = fgets(line, sizeof(line), input);
 		if (res == NULL && errno) {
-			syserr(_("read error in %s"), desc);
+			syserr(_("cannot read in '%s'"), desc);
 		} else if (res == NULL) {
 			break;
 		}
@@ -2822,6 +2946,7 @@ alternative_check_install_args(struct alternative *inst_alt,
 	if (found && strcmp(found->master_name, inst_alt->master_name) != 0) {
 		found = alternative_map_find(alt_map_parent,
 		                             found->master_name);
+		assert(found);
 		error(_("alternative link %s is already managed by %s"),
 		      inst_alt->master_link, found->master_name);
 	}
@@ -2895,7 +3020,7 @@ set_action_from_name(const char *new_action)
 {
 	size_t i;
 
-	for (i = 0; i < array_count(action_names); i++) {
+	for (i = 0; i < countof(action_names); i++) {
 		if (strcmp(new_action, action_names[i].name) == 0) {
 			set_action(action_names[i].action);
 			return;
@@ -2963,8 +3088,9 @@ main(int argc, char **argv)
 	admdir = admindir_init();
 	log_file = fsys_get_path(LOGDIR "/alternatives.log");
 
-	if (setvbuf(stdout, NULL, _IONBF, 0))
-		syserr("setvbuf failed");
+	if (setvbuf(stdout, NULL, _IOLBF, 0))
+		syserr(_("cannot set line buffering for %s"),
+		       _("<standard output>"));
 
 	prog_path = argv[0];
 

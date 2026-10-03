@@ -60,7 +60,7 @@ cu_info_treewalk_fixup_dir(struct treenode *node)
 
 	nodename = treenode_get_pathname(node);
 	if (chmod(nodename, 0755) < 0)
-		ohshite(_("error setting permissions of '%s'"), nodename);
+		ohshite(_("cannot set permissions of '%s'"), nodename);
 
 	return 0;
 }
@@ -92,7 +92,7 @@ info_prepare(const char *const **argvp, const char **debarp, const char **dirp,
 
 	dbuf = mkdtemp(path_make_temp_template("dpkg-deb"));
 	if (!dbuf)
-		ohshite(_("unable to create temporary directory"));
+		ohshite(_("cannot create temporary directory"));
 	*dirp = dbuf;
 
 	push_cleanup(cu_info_prepare, -1, 1, (void *)dbuf);
@@ -101,7 +101,7 @@ info_prepare(const char *const **argvp, const char **debarp, const char **dirp,
 }
 
 static int
-ilist_select(const struct dirent *de)
+ctrl_file_filter(const struct dirent *de)
 {
 	return strcmp(de->d_name, ".") && strcmp(de->d_name, "..");
 }
@@ -191,7 +191,7 @@ info_list(const char *debar, const char *dir)
 	int cdn, n;
 	FILE *cc;
 
-	cdn = scandir(dir, &cdlist, &ilist_select, alphasort);
+	cdn = scandir(dir, &cdlist, ctrl_file_filter, alphasort);
 	if (cdn < 0)
 		ohshite(_("cannot scan directory '%s'"), dir);
 
@@ -321,7 +321,7 @@ do_showinfo(const char *const *argv)
 
 	fmt = pkg_format_parse(opt_showformat, &err);
 	if (!fmt)
-		ohshit(_("error in show format: %s"), err.str);
+		ohshit(_("invalid syntax in show format: %s"), err.str);
 
 	info_prepare(&argv, &debar, &dir, 1);
 

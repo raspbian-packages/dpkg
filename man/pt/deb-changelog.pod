@@ -56,7 +56,7 @@ Com um valor B<yes>, é usado para denotar que esta entrada no changelog é para
 
 =back
 
-Os detalhes da alteração podem de facto serem qualquer série de linhas começando com pelo menos dois espaços (U+0020 B<SPACE>), mas convencionalmente cada alteração começa com um asterisco e um espaço de separação e as linhas de continuação são recuadas para as alinhar com o inicio de texto em cima. Linhas vazias podem ser usadas aqui para separar grupos de alterações, se desejado.
+The change details may be any series of lines starting with at least two spaces (U+0020 B<SPACE>), but conventionally each change starts with an asterisk and a separating space and continuation lines are indented so as to bring them in line with the start of the text above.  Blank lines may be used here to separate groups of changes, if desired.
 
 Se este envio resolver bugs guardados no sistema de acompanhamento de bugs da distribuição, estes podem ser fechados automaticamente na inclusão deste pacote no arquivo da distribuição ao incluir a string:
 
@@ -78,7 +78,7 @@ Isto é, a string deve consistir da palavra B<closes:> seguida por uma lista sep
 
 Esta informação é transmitida via campo B<Closes> no ficheiro I<.changes>. Onde, dependendo do software de manutenção do arquivo, todos os números de bug listados podem ser fechados automaticamente.
 
-O nome de maintainer e endereço email usado no changelog deverão ser os detalhes da pessoa que preparou este lançamento do pacote. B<Não> são necessários os da pessoa que faz o envio ou do maintainer habitual do pacote. A informação daqui será copiada para o campo B<Changed-By> no ficheiro I<.changes>, e depois mais tarde pode ser usada para enviar uma confirmação quando o pacote enviado for instalado no arquivo da distribuição.
+The maintainer name and email address used in the changelog should be the details of the person who prepared this release of the package.  They are B<not> necessarily those of the uploader or usual package maintainer.  The format for the name and email address is described in L<deb-email(7)>.  The information here will be copied to the B<Changed-By> field in the I<.changes> file, and then later might be used to send an acknowledgment when the upload has been installed in the distribution archive.
 
 O I<date> tem o seguinte formato (compatível com as mesmas semânticas de RFC2822 e RFC5322, ou o que «date -R» gerar):
 
@@ -162,7 +162,7 @@ Todo o changelog tem de estar codificado em UTF-8.
 
 =head1 VEJA TAMBÉM
 
-L<deb822(5)>, L<deb-changes(5)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
+L<deb822(5)>, L<deb-changes(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-parsechangelog(1)>.
 
 
 =head1 TRADUÇÃO

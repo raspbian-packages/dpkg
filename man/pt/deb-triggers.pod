@@ -58,9 +58,9 @@ Directivas desconhecidas são um erro que irá impedir a instalação do pacote.
 
 As variantes “-noawait” devem sempre ser favorecidas quando possível pois os pacotes desencadeadores não são postos em estado esperar-por-gatilho e assim podem ser configurados imediatamente sem se requerer o processamento de um gatilho. Se os pacotes desencadeadores forem dependências de outros pacotes actualizados, irá evitar um processamento adiantado de um gatilho e torna possível correr o gatilho apenas num dos últimos passos da actualização.
 
-As variantes “-noawait” são suportadas desde dpkg 1.16.1, e irão produzir erros se usadas com um dpkg anterior.
+Support for the “-noawait” variants since dpkg 1.16.1, will lead to errors if used with an older dpkg.
 
-As alias de variantes “-await” são suportadas desde dpkg 1.17.21, e irão produzir erros se usadas com um dpkg anterior.
+Support for the “-await” alias variants since dpkg 1.17.21, will lead to errors if used with an older dpkg.
 
 Quando um pacote disponibiliza uma directiva B<interest-noawait>, qualquer activação irá colocar o pacote desencadeador em modo “noawait”, independentemente do modo de espera requisitado pela activação (seja “await” ou “noawait”). Quando um pacote disponibiliza uma directiva B<interest> ou B<interest-await>, qualquer activação irá coloca ro pacote desencadeador em modo “await” ou “noawait“ dependendo do modo como foi activado.
 

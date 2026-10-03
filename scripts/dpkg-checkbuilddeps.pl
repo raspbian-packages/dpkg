@@ -25,6 +25,7 @@ use Getopt::Long qw(:config posix_default bundling_values no_ignorecase);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Arch qw(get_host_arch);
 use Dpkg::Vendor qw(run_vendor_hook);
@@ -34,32 +35,62 @@ use Dpkg::Control::Info;
 
 textdomain('dpkg-dev');
 
-sub version
-{
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...] [<control-file>]')
-    . "\n\n" . g_(
-'Options:
-  -A             ignore Build-Depends-Arch and Build-Conflicts-Arch.
-  -B             ignore Build-Depends-Indep and Build-Conflicts-Indep.
-  -I             ignore built-in build dependencies and conflicts.
-  -d build-deps  use given string as build dependencies instead of
-                 retrieving them from control file
-  -c build-conf  use given string for build conflicts instead of
-                 retrieving them from control file
-  -a arch        assume given host architecture
-  -P profiles    assume given build profiles (comma-separated list)
-  --admindir=<directory>
-                 change the administrative directory.
-  -?, --help     show this help message.
-      --version  show the version.')
-    . "\n\n" . g_(
-'<control-file> is the control file to process (default: debian/control).')
-    . "\n", $Dpkg::PROGNAME;
+"Usage: %s [<option>...] [<control-file>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -A\n" .
+"          Ignore Build-Depends-Arch and Build-Conflicts-Arch.\n" .
+    ''));
+    print_option(g_(
+"  -B\n" .
+"          Ignore Build-Depends-Indep and Build-Conflicts-Indep.\n" .
+    ''));
+    print_option(g_(
+"  -I\n" .
+"          Ignore built-in build dependencies and conflicts.\n" .
+    ''));
+    print_option(g_(
+"  -d <build-deps>\n" .
+"          Use given string as build dependencies instead of retrieving them\n" .
+"          from control file.\n" .
+    ''));
+    print_option(g_(
+"  -c <build-conf>\n" .
+"          Use given string for build conflicts instead of retrieving them\n" .
+"          from control file.\n" .
+    ''));
+    print_option(g_(
+"  -a <arch>\n" .
+"          Assume given host architecture.\n" .
+    ''));
+    print_option(g_(
+"  -P <profiles>\n" .
+"          Assume given build profiles (comma-separated list).\n" .
+    ''));
+    print_option(g_(
+"      --admindir=<directory>\n" .
+"          Change the administrative directory.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"<control-file> is the control file to process (default: debian/control).\n" .
+    '');
 }
 
 my $ignore_bd_arch = 0;
@@ -75,7 +106,7 @@ my @options_spec = (
         exit 0;
     },
     'version' => sub {
-        version();
+        print_version();
         exit 0;
     },
     'A' => \$ignore_bd_arch,

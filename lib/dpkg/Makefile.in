@@ -209,8 +209,9 @@ am_libdpkg_la_OBJECTS = ar.lo arch.lo atomic-file.lo buffer.lo \
 	pkg-hash.lo pkg-list.lo pkg-namevalue.lo pkg-queue.lo \
 	pkg-show.lo pkg-spec.lo progname.lo program.lo progress.lo \
 	report.lo string.lo strhash.lo strvec.lo strwide.lo subproc.lo \
-	sysuser.lo tarfn.lo treewalk.lo trigname.lo trignote.lo \
-	triglib.lo trigdeferred.lo utils.lo varbuf.lo version.lo
+	sysuser.lo tarfn.lo term.lo treewalk.lo trigname.lo \
+	trignote.lo triglib.lo trigdeferred.lo utils.lo varbuf.lo \
+	version.lo
 libdpkg_la_OBJECTS = $(am_libdpkg_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -477,32 +478,32 @@ am__depfiles_remade = ./$(DEPDIR)/ar.Plo ./$(DEPDIR)/arch.Plo \
 	./$(DEPDIR)/strhash.Plo ./$(DEPDIR)/string.Plo \
 	./$(DEPDIR)/strvec.Plo ./$(DEPDIR)/strwide.Plo \
 	./$(DEPDIR)/subproc.Plo ./$(DEPDIR)/sysuser.Plo \
-	./$(DEPDIR)/tarfn.Plo ./$(DEPDIR)/treewalk.Plo \
-	./$(DEPDIR)/trigdeferred.Plo ./$(DEPDIR)/triglib.Plo \
-	./$(DEPDIR)/trigname.Plo ./$(DEPDIR)/trignote.Plo \
-	./$(DEPDIR)/utils.Plo ./$(DEPDIR)/varbuf.Plo \
-	./$(DEPDIR)/version.Plo t/$(DEPDIR)/b-fsys-hash.Po \
-	t/$(DEPDIR)/b-pkg-hash.Po t/$(DEPDIR)/c-tarextract.Po \
-	t/$(DEPDIR)/c-treewalk.Po t/$(DEPDIR)/c-trigdeferred.Po \
-	t/$(DEPDIR)/t-ar.Po t/$(DEPDIR)/t-arch.Po \
-	t/$(DEPDIR)/t-buffer.Po t/$(DEPDIR)/t-c-ctype.Po \
-	t/$(DEPDIR)/t-command.Po t/$(DEPDIR)/t-compat-getent.Po \
-	t/$(DEPDIR)/t-deb-version.Po t/$(DEPDIR)/t-ehandle.Po \
-	t/$(DEPDIR)/t-error.Po t/$(DEPDIR)/t-file.Po \
-	t/$(DEPDIR)/t-fsys-dir.Po t/$(DEPDIR)/t-fsys-hash.Po \
-	t/$(DEPDIR)/t-headers-cpp.Po t/$(DEPDIR)/t-macros.Po \
-	t/$(DEPDIR)/t-meminfo.Po t/$(DEPDIR)/t-mod-db.Po \
-	t/$(DEPDIR)/t-namevalue.Po t/$(DEPDIR)/t-pager.Po \
-	t/$(DEPDIR)/t-path.Po t/$(DEPDIR)/t-pkg-format.Po \
-	t/$(DEPDIR)/t-pkg-hash.Po t/$(DEPDIR)/t-pkg-list.Po \
-	t/$(DEPDIR)/t-pkg-queue.Po t/$(DEPDIR)/t-pkg-show.Po \
-	t/$(DEPDIR)/t-pkginfo.Po t/$(DEPDIR)/t-progname.Po \
-	t/$(DEPDIR)/t-string.Po t/$(DEPDIR)/t-strvec.Po \
-	t/$(DEPDIR)/t-subproc.Po t/$(DEPDIR)/t-sysuser.Po \
-	t/$(DEPDIR)/t-tar.Po t/$(DEPDIR)/t-test-skip.Po \
-	t/$(DEPDIR)/t-test.Po t/$(DEPDIR)/t-trigger.Po \
-	t/$(DEPDIR)/t-varbuf-cpp.Po t/$(DEPDIR)/t-varbuf.Po \
-	t/$(DEPDIR)/t-version.Po
+	./$(DEPDIR)/tarfn.Plo ./$(DEPDIR)/term.Plo \
+	./$(DEPDIR)/treewalk.Plo ./$(DEPDIR)/trigdeferred.Plo \
+	./$(DEPDIR)/triglib.Plo ./$(DEPDIR)/trigname.Plo \
+	./$(DEPDIR)/trignote.Plo ./$(DEPDIR)/utils.Plo \
+	./$(DEPDIR)/varbuf.Plo ./$(DEPDIR)/version.Plo \
+	t/$(DEPDIR)/b-fsys-hash.Po t/$(DEPDIR)/b-pkg-hash.Po \
+	t/$(DEPDIR)/c-tarextract.Po t/$(DEPDIR)/c-treewalk.Po \
+	t/$(DEPDIR)/c-trigdeferred.Po t/$(DEPDIR)/t-ar.Po \
+	t/$(DEPDIR)/t-arch.Po t/$(DEPDIR)/t-buffer.Po \
+	t/$(DEPDIR)/t-c-ctype.Po t/$(DEPDIR)/t-command.Po \
+	t/$(DEPDIR)/t-compat-getent.Po t/$(DEPDIR)/t-deb-version.Po \
+	t/$(DEPDIR)/t-ehandle.Po t/$(DEPDIR)/t-error.Po \
+	t/$(DEPDIR)/t-file.Po t/$(DEPDIR)/t-fsys-dir.Po \
+	t/$(DEPDIR)/t-fsys-hash.Po t/$(DEPDIR)/t-headers-cpp.Po \
+	t/$(DEPDIR)/t-macros.Po t/$(DEPDIR)/t-meminfo.Po \
+	t/$(DEPDIR)/t-mod-db.Po t/$(DEPDIR)/t-namevalue.Po \
+	t/$(DEPDIR)/t-pager.Po t/$(DEPDIR)/t-path.Po \
+	t/$(DEPDIR)/t-pkg-format.Po t/$(DEPDIR)/t-pkg-hash.Po \
+	t/$(DEPDIR)/t-pkg-list.Po t/$(DEPDIR)/t-pkg-queue.Po \
+	t/$(DEPDIR)/t-pkg-show.Po t/$(DEPDIR)/t-pkginfo.Po \
+	t/$(DEPDIR)/t-progname.Po t/$(DEPDIR)/t-string.Po \
+	t/$(DEPDIR)/t-strvec.Po t/$(DEPDIR)/t-subproc.Po \
+	t/$(DEPDIR)/t-sysuser.Po t/$(DEPDIR)/t-tar.Po \
+	t/$(DEPDIR)/t-test-skip.Po t/$(DEPDIR)/t-test.Po \
+	t/$(DEPDIR)/t-trigger.Po t/$(DEPDIR)/t-varbuf-cpp.Po \
+	t/$(DEPDIR)/t-varbuf.Po t/$(DEPDIR)/t-version.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -618,6 +619,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -906,6 +908,7 @@ libdpkg_la_SOURCES = \
 	subproc.c \
 	sysuser.c \
 	tarfn.c \
+	term.c \
 	test.h \
 	treewalk.c \
 	trigname.c \
@@ -964,6 +967,7 @@ pkginclude_HEADERS = \
 	subproc.h \
 	sysuser.h \
 	tarfn.h \
+	term.h \
 	treewalk.h \
 	trigdeferred.h \
 	triglib.h \
@@ -1438,6 +1442,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/subproc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysuser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tarfn.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/term.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/treewalk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/trigdeferred.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/triglib.Plo@am__quote@ # am--include-marker
@@ -1794,6 +1799,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/subproc.Plo
 	-rm -f ./$(DEPDIR)/sysuser.Plo
 	-rm -f ./$(DEPDIR)/tarfn.Plo
+	-rm -f ./$(DEPDIR)/term.Plo
 	-rm -f ./$(DEPDIR)/treewalk.Plo
 	-rm -f ./$(DEPDIR)/trigdeferred.Plo
 	-rm -f ./$(DEPDIR)/triglib.Plo
@@ -1959,6 +1965,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/subproc.Plo
 	-rm -f ./$(DEPDIR)/sysuser.Plo
 	-rm -f ./$(DEPDIR)/tarfn.Plo
+	-rm -f ./$(DEPDIR)/term.Plo
 	-rm -f ./$(DEPDIR)/treewalk.Plo
 	-rm -f ./$(DEPDIR)/trigdeferred.Plo
 	-rm -f ./$(DEPDIR)/triglib.Plo
@@ -2076,11 +2083,11 @@ tap-check: $(test_data) $(test_programs) $(test_scripts)
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \
-	  CC=$(CC) \
-	  SHELL=$(SHELL) \
-	  PERL=$(PERL) \
+	  CC="$(CC)" \
+	  SHELL="$(SHELL)" \
+	  PERL="$(PERL)" \
 	  PERL_DL_NONLAZY=1 \
-	  PERL5OPT=$(TEST_COVERAGE) \
+	  PERL5OPT="$(TEST_COVERAGE)" \
 	  $(PERL) $(top_srcdir)/build-aux/test-runner \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))

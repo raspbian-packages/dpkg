@@ -22,7 +22,7 @@ B<override>
 
 =head1 BESCHRIJVING
 
-Terwijl de meeste informatie over een pakket in het bestand control gevonden kan worden, wordt sommige informatie centraal beheerd door de distributie-tsaren in plaats van door de beheerder om een zekere globale consistentie te bieden. Deze informatie is te vinden in het bestand override.
+While most information about a package can be found in the control file, some is managed centrally by the distribution czars rather than by the maintainer to offer some global consistency.  This information is found in the override file.
 
 Het override-bestand heeft een eenvoudige indeling waarbij de elementen door witruimte van elkaar gescheiden worden. Commentaar is toegestaan (aangegeven met een B<#>).
 

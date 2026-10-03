@@ -24,7 +24,7 @@ B<dpkg-gencontrol> [I<option>...]
 
 B<dpkg-gencontrol> lê informação a partir duma árvore fonte Debian desempacotada e gera um ficheiro de controle de pacote binário (que por predefinição é debian/tmp/DEBIAN/control); durante este processo irá simplificar so campos de relação.
 
-Portanto B<Pre-Depends>, B<Depends>, B<Recommends> e B<Suggests> são simplificados nesta ordem ao se remover dependências que se sabe serem verdadeiras de acordo com as dependências mais fortes já analisadas. Irá também remover qualquer auto-dependência (de facto irá remover qualquer dependência que avalia para verdadeira dado a versão actual do pacote como instalado). Logicamente mantém a intersecção de múltiplas dependências no mesmo pacote. A ordem de dependências é preservada o melhor possível. Se qualquer dependência deve ser descartada devido a outra dependência que aparece mais à frente no campo, a dependência substituta irá tomar o  lugar da descartada.
+Thus B<Pre-Depends>, B<Depends>, B<Recommends> and B<Suggests> are simplified in this order by removing dependencies which are known to be true according to the stronger dependencies already parsed.  It will also remove any self-dependency (it will remove any dependency which evaluates to true given the current version of the package as installed).  Logically it keeps the intersection of multiple dependencies on the same package.  The order of dependencies is preserved as best as possible: if any dependency must be discarded due to another dependency appearing further in the field, the superseding dependency will take the place of the discarded one.
 
 Os outros campos de relação (B<Enhances>, B<Conflicts>, B<Breaks>, B<Replaces> e B<Provides>) são também simplificados individualmente  ao computar a união de várias dependências quando um pacote é listado várias vezes no campo.
 
@@ -88,7 +88,9 @@ Sonda I<package-build-dir> em vez de B<debian/tmp>. Este valor é usado para enc
 
 =item B<-O>[I<filename>]
 
-Escreve o ficheiro de controle na saída standard (ou I<filename> se especificado, (desde dpkg 1.17.2), em vez de para B<debian/tmp/DEBIAN/control> (ou I<package-build-dir>B</DEBIAN/control> se B<-P> foi usado).
+Print the control file to standard output (or I<filename> if specified), rather than to B<debian/tmp/DEBIAN/control> (or I<package-build-dir>B</DEBIAN/control> if B<-P> was used).
+
+Support for optional argument since dpkg 1.17.2.
 
 =item B<-?>, B<--help>
 
@@ -110,11 +112,15 @@ Define a arquitectura da máquina anfitriã.
 
 =item B<DPKG_COLORS>
 
-Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.19.0). Os valores aceites são B<0> e B<1> (predefinição).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
+
+Supported since dpkg 1.19.0.
 
 =back
 

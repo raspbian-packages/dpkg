@@ -103,14 +103,14 @@ show_prompt(const char *cfgfile, const char *realold, const char *realnew,
 
 	if (what & CFOF_IS_NEW) {
 		fprintf(stderr,
-		        _(" ==> File on system created by you or by a script.\n"
-		          " ==> File also in package provided by package maintainer.\n"));
+		        _(" ==> File on system created locally.\n"
+		          " ==> File also in package provided by package distributor.\n"));
 	} else {
 		fprintf(stderr, !useredited ?
-		        _("     Not modified since installation.\n") :
+		        _("     Not modified locally since installation.\n") :
 		        !(what & CFOF_USER_DEL) ?
-		        _(" ==> Modified (by you or by a script) since installation.\n") :
-		        _(" ==> Deleted (by you or by a script) since installation.\n"));
+		        _(" ==> Modified locally since installation.\n") :
+		        _(" ==> Deleted locally since installation.\n"));
 
 		fprintf(stderr, distedited ?
 		        _(" ==> Package distributor has shipped an updated version.\n") :
@@ -123,11 +123,11 @@ show_prompt(const char *cfgfile, const char *realold, const char *realnew,
 	if (!(in_force(FORCE_CONFF_DEF) && (what & (CFOF_INSTALL | CFOF_KEEP)))) {
 		if (in_force(FORCE_CONFF_NEW)) {
 			fprintf(stderr,
-			        _(" ==> Using new file as you requested.\n"));
+			        _(" ==> Using new file as requested.\n"));
 			return 'y';
 		} else if (in_force(FORCE_CONFF_OLD)) {
 			fprintf(stderr,
-			        _(" ==> Using current old file as you requested.\n"));
+			        _(" ==> Using current old file as requested.\n"));
 			return 'n';
 		}
 	}
@@ -146,15 +146,15 @@ show_prompt(const char *cfgfile, const char *realold, const char *realnew,
 	}
 
 	fprintf(stderr,
-	        _("   What would you like to do about it ?  Your options are:\n"
-	          "    Y or I  : install the package maintainer's version\n"
-	          "    N or O  : keep your currently-installed version\n"
+	        _("   What would you like to do about it ? Your options are:\n"
+	          "    Y or I  : install the new package distributor's version\n"
+	          "    N or O  : keep the current locally installed version\n"
 	          "      D     : show the differences between the versions\n"
 	          "      Z     : start a shell to examine the situation\n"));
 
 	if (what & CFOF_KEEP)
 		fprintf(stderr,
-		        _(" The default action is to keep your current version.\n"));
+		        _(" The default action is to keep the current version.\n"));
 	else if (what & CFOF_INSTALL)
 		fprintf(stderr,
 		        _(" The default action is to install the new version.\n"));
@@ -166,7 +166,8 @@ show_prompt(const char *cfgfile, const char *realold, const char *realnew,
 	        _("[no default]"));
 
 	if (ferror(stderr))
-		ohshite(_("error writing to stderr, discovered before conffile prompt"));
+		ohshite(_("cannot write to %s, discovered before conffile prompt"),
+		        _("<standard error>"));
 
 	cc = 0;
 	while ((c = getchar()) != EOF && c != '\n')
@@ -175,8 +176,10 @@ show_prompt(const char *cfgfile, const char *realold, const char *realnew,
 
 	if (c == EOF) {
 		if (ferror(stdin))
-			ohshite(_("read error on stdin at conffile prompt"));
-		ohshit(_("end of file on stdin at conffile prompt"));
+			ohshite(_("cannot read from %s at conffile prompt"),
+			        _("<standard input>"));
+		ohshit(_("end of file on %s at conffile prompt"),
+		       _("<standard input>"));
 	}
 
 	if (!cc) {
@@ -412,7 +415,7 @@ deferred_configure_conffile(struct pkginfo *pkg, struct conffile *conff)
 			deferred_configure_ghost_conffile(pkg, conff);
 			return;
 		}
-		ohshite(_("unable to stat new distributed conffile '%s'"),
+		ohshite(_("cannot stat new distributed conffile '%s'"),
 		        cdr_new.buf);
 	}
 	md5hash(pkg, newdisthash, cdr_new.buf);
@@ -422,7 +425,7 @@ deferred_configure_conffile(struct pkginfo *pkg, struct conffile *conff)
 	if (!stat(cdr.buf, &stab))
 		file_copy_perms(cdr.buf, cdr_new.buf);
 	else if (errno != ENOENT)
-		ohshite(_("unable to stat current installed conffile '%s'"),
+		ohshite(_("cannot stat current installed conffile '%s'"),
 		        cdr.buf);
 
 	/* Select what to do. */
@@ -437,7 +440,7 @@ deferred_configure_conffile(struct pkginfo *pkg, struct conffile *conff)
 		fprintf(stderr,
 		        _("\n"
 		          "Configuration file '%s', does not exist on system.\n"
-		          "Installing new config file as you requested.\n"),
+		          "Installing new config file as requested.\n"),
 		        usenode->name);
 		what = CFO_NEW_CONFF;
 		useredited = -1;
@@ -476,36 +479,36 @@ deferred_configure_conffile(struct pkginfo *pkg, struct conffile *conff)
 	switch (what & ~(CFOF_IS_NEW | CFOF_USER_DEL)) {
 	case CFO_KEEP | CFOF_BACKUP:
 		if (unlink(cdr_old.buf) && errno != ENOENT)
-			warning(_("%s: failed to remove old backup '%s': %s"),
+			warning(_("%s: cannot remove old backup '%s': %s"),
 			        pkg_name(pkg, pnaw_nonambig), cdr_old.buf,
 			        strerror(errno));
 
 		trig_path_activate(usenode, pkg);
 		if (rename(cdr_new.buf, cdr_dist.buf))
-			warning(_("%s: failed to rename '%s' to '%s': %s"),
+			warning(_("%s: cannot rename '%s' to '%s': %s"),
 			        pkg_name(pkg, pnaw_nonambig),
 			        cdr_new.buf, cdr_dist.buf,
 			        strerror(errno));
 		break;
 	case CFO_KEEP:
 		if (unlink(cdr_new.buf))
-			warning(_("%s: failed to remove '%s': %s"),
+			warning(_("%s: cannot remove '%s': %s"),
 			        pkg_name(pkg, pnaw_nonambig), cdr_new.buf,
 			        strerror(errno));
 		break;
 	case CFO_INSTALL | CFOF_BACKUP:
 		if (unlink(cdr_dist.buf) && errno != ENOENT)
-			warning(_("%s: failed to remove old distributed version '%s': %s"),
+			warning(_("%s: cannot remove old distributed version '%s': %s"),
 			        pkg_name(pkg, pnaw_nonambig),
 			        cdr_dist.buf,
 			        strerror(errno));
 		if (unlink(cdr_old.buf) && errno != ENOENT)
-			warning(_("%s: failed to remove '%s' (before overwrite): %s"),
+			warning(_("%s: cannot remove '%s' (before overwrite): %s"),
 			        pkg_name(pkg, pnaw_nonambig), cdr_old.buf,
 			        strerror(errno));
 		if (!(what & CFOF_USER_DEL))
 			if (link(cdr.buf, cdr_old.buf))
-				warning(_("%s: failed to link '%s' to '%s': %s"),
+				warning(_("%s: cannot link '%s' to '%s': %s"),
 				        pkg_name(pkg, pnaw_nonambig),
 				        cdr.buf,
 				        cdr_old.buf, strerror(errno));
@@ -517,7 +520,7 @@ deferred_configure_conffile(struct pkginfo *pkg, struct conffile *conff)
 	case CFO_NEW_CONFF:
 		trig_path_activate(usenode, pkg);
 		if (rename(cdr_new.buf, cdr.buf))
-			ohshite(_("unable to install '%s' as '%s'"),
+			ohshite(_("cannot install '%s' as '%s'"),
 			        cdr_new.buf, cdr.buf);
 		break;
 	default:
@@ -617,7 +620,7 @@ deferred_configure(struct pkginfo *pkg)
 		varbuf_destroy(&aemsgs);
 		ohshit(_("dependency problems - leaving unconfigured"));
 	} else if (aemsgs.used) {
-		notice(_("%s: dependency problems, but configuring anyway as you requested:\n%s"),
+		notice(_("%s: dependency problems, but configuring anyway as requested:\n%s"),
 		       pkg_name(pkg, pnaw_nonambig), varbuf_str(&aemsgs));
 	}
 	varbuf_destroy(&aemsgs);
@@ -625,8 +628,8 @@ deferred_configure(struct pkginfo *pkg)
 
 	if (pkg->eflag & PKG_EFLAG_REINSTREQ)
 		forcibleerr(FORCE_REMOVE_REINSTREQ,
-		            _("package is in a very bad inconsistent state; you should\n"
-		              " reinstall it before attempting configuration"));
+		            _("package is in a very bad inconsistent state; it should\n"
+		              " be reinstalled before attempting configuration"));
 
 	printf(_("Setting up %s (%s) ...\n"), pkg_name(pkg, pnaw_nonambig),
 	       versiondescribe(&pkg->installed.version, vdew_nonambig));
@@ -715,7 +718,7 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 		         in, result->buf);
 		if (lstat(result->buf, &stab)) {
 			if (errno != ENOENT)
-				warning(_("%s: unable to stat config file '%s'\n"
+				warning(_("%s: cannot stat config file '%s'\n"
 				          " (= '%s'): %s"),
 				        pkg_name(pkg, pnaw_nonambig), in,
 				        result->buf, strerror(errno));
@@ -741,7 +744,7 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 			linksize = file_readlink(result->buf, &target,
 			                         stab.st_size);
 			if (linksize < 0) {
-				warning(_("%s: unable to readlink conffile '%s'\n"
+				warning(_("%s: cannot readlink conffile '%s'\n"
 				          " (= '%s'): %s"),
 				        pkg_name(pkg, pnaw_nonambig), in,
 				        result->buf, strerror(errno));
@@ -772,7 +775,7 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 					;
 				if (r < 0) {
 					warning(_("%s: conffile '%s' resolves to degenerate filename\n"
-					          " ('%s' is a symlink to '%s')"),
+					          " ('%s' is a symbolic link to '%s')"),
 					        pkg_name(pkg, pnaw_nonambig),
 					        in, result->buf, target.buf);
 					return -1;
@@ -786,7 +789,7 @@ conffderef(struct pkginfo *pkg, struct varbuf *result, const char *in)
 			}
 			varbuf_add_varbuf(result, &target);
 		} else {
-			warning(_("%s: conffile '%s' is not a plain file or symlink (= '%s')"),
+			warning(_("%s: conffile '%s' is not a plain file or symbolic link (= '%s')"),
 			        pkg_name(pkg, pnaw_nonambig), in, result->buf);
 			return -1;
 		}
@@ -821,7 +824,7 @@ md5hash(struct pkginfo *pkg, char *hashbuf, const char *fn)
 	} else if (errno == ENOENT) {
 		strcpy(hashbuf, NONEXISTENTFLAG);
 	} else {
-		warning(_("%s: unable to open %s to compute its digest: %s"),
+		warning(_("%s: cannot open %s to compute its digest: %s"),
 		        pkg_name(pkg, pnaw_nonambig), fn, strerror(errno));
 		strcpy(hashbuf, EMPTYHASHFLAG);
 	}

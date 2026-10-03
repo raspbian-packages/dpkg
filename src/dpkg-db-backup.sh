@@ -45,12 +45,12 @@ done
 dbdir="$ADMINDIR"
 
 # Backup the N last versions of dpkg databases containing user data.
-if cd $BACKUPSDIR ; then
+if cd $BACKUPSDIR; then
   # We backup all relevant database files if any has changed, so that
   # the rotation number always contains an internally consistent set.
   dbchanged=no
   dbfiles="arch status diversions statoverride"
-  for db in $dbfiles ; do
+  for db in $dbfiles; do
     if ! [ -s "dpkg.${db}.0" ] && ! [ -s "$dbdir/$db" ]; then
       # Special case the files not existing or being empty as being equal.
       continue
@@ -59,8 +59,8 @@ if cd $BACKUPSDIR ; then
       break
     fi
   done
-  if [ "$dbchanged" = "yes" ] ; then
-    for db in $dbfiles ; do
+  if [ "$dbchanged" = "yes" ]; then
+    for db in $dbfiles; do
       if [ -e "$dbdir/$db" ]; then
         cp -p "$dbdir/$db" "dpkg.$db"
       else
@@ -76,7 +76,7 @@ if cd $BACKUPSDIR ; then
   # XXX: Ideally we'd use --warning=none instead of discarding stderr, but
   # as of GNU tar 1.27.1, it does not seem to work reliably (see #749307).
   if ! test -e ${dbalt}.tar.0 ||
-     ! $TAR -df ${dbalt}.tar.0 -C $dbdir $dbalt >/dev/null 2>&1 ;
+     ! $TAR -df ${dbalt}.tar.0 -C $dbdir $dbalt >/dev/null 2>&1
   then
     $TAR -cf ${dbalt}.tar -C $dbdir $dbalt >/dev/null 2>&1
     savelog -c "$ROTATE" ${dbalt}.tar >/dev/null

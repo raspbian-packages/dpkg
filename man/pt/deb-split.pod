@@ -26,7 +26,7 @@ I<filename>B<.deb>
 
 =head1 FORMATO
 
-O ficheiro é um arquivo B<ar> com um valor mágico de B<!E<lt>archE<gt>>. Os nomes dos ficheiros podem conter uma barra à direita (desde o dpkg 1.15.6).
+The file is an B<ar> archive with a magic value of B<!E<lt>archE<gt>\n>. The file names might contain a trailing slash (since dpkg 1.15.6).
 
 O arquivo B<ar> é composto de múltiplos membros numa ordem específica:
 
@@ -68,7 +68,9 @@ O numero de parte actual, seguido de uma barra e a quantidade total de partes (c
 
 =item *
 
-A arquitectura do pacote (desde dpkg 1.16.1).
+The package architecture.
+
+Supported since dpkg 1.16.1.
 
 =back
 

@@ -35,7 +35,14 @@
 #include <dpkg/dpkg-db.h>
 #include <dpkg/fdio.h>
 
-const char *log_file = NULL;
+static char *log_file = NULL;
+
+void
+log_set_file(const char *filename)
+{
+	free(log_file);
+	log_file = m_strdup(filename);
+}
 
 void
 log_message(const char *fmt, ...)
@@ -53,7 +60,7 @@ log_message(const char *fmt, ...)
 	if (logfd < 0) {
 		logfd = open(log_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (logfd < 0) {
-			notice(_("could not open log '%s': %s"),
+			notice(_("cannot open log '%s': %s"),
 			       log_file, strerror(errno));
 			log_file = NULL;
 			return;
@@ -121,7 +128,7 @@ statusfd_send(const char *fmt, ...)
 
 	for (pipef = status_pipes; pipef; pipef = pipef->next) {
 		if (fd_write(pipef->fd, vb.buf, vb.used) < 0)
-			ohshite(_("unable to write to status fd %d"),
+			ohshite(_("cannot write to package status and progress file descriptor %d"),
 			        pipef->fd);
 	}
 }

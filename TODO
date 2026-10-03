@@ -67,7 +67,6 @@ Tasks
    - Check usage of '|' instead of ', '.
    - Check position of short option before long option.
    - Fix dpkg man page, refs to dpkg-deb and dpkg-split, etc.
-   - Fix «.  ».
 
  * L10n:
    - Check dpkg-divert strings for new and fixable ones.
@@ -112,15 +111,11 @@ Tasks
    Only unknown scripts can be called this way. dpkg would also not keep
    track of any state for these scripts.
 
- ? dpkg: _Always_ show section in --yet-to-unpack.
-
  * dpkg: Fix:
    <joeyh_> package a conflicted with old versions of package b. package b
             conflicted with old versions of package a. I had the old versions
             of both installed, and told dpkg to install the new versions of
             a and b simultaneously. It refused.
-
- * dselect: Automatically do --yet-to-unpack in installation methods.
 
  * dselect: Make it understand Replaces.
 

@@ -74,11 +74,15 @@ Should be in the format «Joe Bloggs E<lt>jbloggs@foo.comE<gt>», and references
 person who currently maintains the package, as opposed to the author of the
 software or the original packager.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<fullname-email>
 
 Lists all the names and email addresses of co-maintainers of the package, in
 the same format as the B<Maintainer> field.
 Multiple co-maintainers should be separated by a comma.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Standards-Version:> I<version-string>
 
@@ -114,12 +118,14 @@ This experimental field specifies the name of the build driver to use to
 build this package.
 When omitted the I<driver-name> defaults to B<debian-rules>.
 
-This field is supported since dpkg 1.22.7.
+Supported since dpkg 1.22.7.
 
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-keywords>
 
 This field is used to indicate whether the B<debian/rules> file requires
 (fake)root privileges to run some of its targets, and if so when.
+
+Supported since dpkg 1.19.0.
 
 =over
 
@@ -243,9 +249,10 @@ package.
 Same as B<Build-Depends>, but they are only needed when building the
 architecture dependent packages.
 The B<Build-Depends> are also installed in this case.
-This field is supported since dpkg 1.16.4; in
-order to build with older dpkg versions, B<Build-Depends>
-should be used instead.
+
+Supported since dpkg 1.16.4;
+to build with older dpkg versions, B<Build-Depends> should
+be used instead.
 
 =item B<Build-Depends-Indep:> I<package-list>
 
@@ -267,8 +274,9 @@ used for source-only builds.
 
 Same as B<Build-Conflicts>, but only when building the architecture
 dependent packages.
-This field is supported since dpkg 1.16.4; in
-order to build with older dpkg versions, B<Build-Conflicts> should
+
+Supported since dpkg 1.16.4;
+to build with older dpkg versions, B<Build-Conflicts> should
 be used instead.
 
 =item B<Build-Conflicts-Indep:> I<package-list>
@@ -551,7 +559,7 @@ fields with B<Private->, such as B<XB-Private-New-Field>.
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
  Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
- Standards-Version: 4.7.3
+ Standards-Version: 4.7.4
  Build-Depends:
   dpkg-build-api (= 1),
   debhelper-compat (= 13),
@@ -600,5 +608,6 @@ fields with B<Private->, such as B<XB-Private-New-Field>.
 I<%PKGDOCDIR%/spec/rootless-builds.txt>,
 L<deb822(5)>,
 L<deb-control(5)>,
+L<deb-email(7)>,
 L<deb-version(7)>,
 L<dpkg-source(1)>

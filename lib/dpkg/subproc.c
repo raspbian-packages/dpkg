@@ -40,15 +40,15 @@ static int signo_ignores[] = {
 	SIGQUIT,
 	SIGINT,
 };
-static struct sigaction sa_save[array_count(signo_ignores)];
+static struct sigaction sa_save[countof(signo_ignores)];
 
 static void
 subproc_reset_signal(int sig, struct sigaction *sa_old)
 {
 	if (sigaction(sig, sa_old, NULL)) {
-		fprintf(stderr, _("error un-catching signal %s: %s\n"),
+		fprintf(stderr, _("cannot restore signal %s to its previous disposition: %s\n"),
 		        strsignal(sig), strerror(errno));
-		onerr_abort++;
+		push_fatal_errors_section();
 	}
 }
 
@@ -57,7 +57,7 @@ subproc_set_signal(int sig, struct sigaction *sa, struct sigaction *sa_old,
                    const char *name)
 {
 	if (sigaction(sig, sa, sa_old))
-		ohshite(_("unable to ignore signal %s before running %s"),
+		ohshite(_("cannot ignore signal %s before running %s"),
 		        strsignal(sig), name);
 }
 
@@ -67,17 +67,17 @@ subproc_signals_ignore(const char *name)
 	struct sigaction sa;
 	size_t i;
 
-	onerr_abort++;
+	push_fatal_errors_section();
 	memset(&sa, 0, sizeof(sa));
 	sigemptyset(&sa.sa_mask);
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
 
-	for (i = 0; i < array_count(signo_ignores); i++)
+	for (i = 0; i < countof(signo_ignores); i++)
 		subproc_set_signal(signo_ignores[i], &sa, &sa_save[i], name);
 
 	push_cleanup(subproc_signals_cleanup, ~0, 0);
-	onerr_abort--;
+	pop_fatal_errors_section();
 }
 
 void
@@ -85,7 +85,7 @@ subproc_signals_cleanup(int argc, void **argv)
 {
 	size_t i;
 
-	for (i = 0; i < array_count(signo_ignores); i++)
+	for (i = 0; i < countof(signo_ignores); i++)
 		subproc_reset_signal(signo_ignores[i], &sa_save[i]);
 }
 
@@ -108,8 +108,8 @@ subproc_fork(void)
 
 	pid = fork();
 	if (pid < 0) {
-		onerr_abort++;
-		ohshite(_("fork failed"));
+		push_fatal_errors_section();
+		ohshite(_("cannot create child process"));
 	}
 	if (pid > 0)
 		return pid;
@@ -176,8 +176,8 @@ subproc_wait(pid_t pid, const char *desc)
 		;
 
 	if (dead_pid != pid) {
-		onerr_abort++;
-		ohshite(_("wait for %s subprocess failed"), desc);
+		push_fatal_errors_section();
+		ohshite(_("cannot reap %s subprocess"), desc);
 	}
 
 	return status;

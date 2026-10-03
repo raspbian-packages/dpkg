@@ -170,15 +170,15 @@ file_copy_perms(const char *src, const char *dst)
 	if (stat(src, &stab) < 0) {
 		if (errno == ENOENT)
 			return;
-		ohshite(_("unable to stat source file '%s'"), src);
+		ohshite(_("cannot stat source file '%s'"), src);
 	}
 
 	if (chown(dst, stab.st_uid, stab.st_gid) < 0)
-		ohshite(_("unable to change ownership of target file '%s'"),
+		ohshite(_("cannot change ownership of target file '%s'"),
 		        dst);
 
 	if (chmod(dst, (stab.st_mode & ~S_IFMT)) < 0)
-		ohshite(_("unable to set mode of target file '%s'"), dst);
+		ohshite(_("cannot set mode of target file '%s'"), dst);
 }
 
 static int
@@ -248,7 +248,7 @@ file_unlock(int lockfd, const char *lockfile, const char *lockdesc)
 	file_lock_setup(&fl, F_UNLCK);
 
 	if (fcntl(lockfd, F_SETLK, &fl) < 0)
-		ohshite(_("unable to unlock %s"), lockdesc);
+		ohshite(_("cannot unlock %s"), lockdesc);
 }
 
 static void
@@ -275,12 +275,26 @@ file_is_locked(int lockfd, const char *filename)
 	file_lock_setup(&fl, F_WRLCK);
 
 	if (fcntl(lockfd, F_GETLK, &fl) < 0)
-		ohshit(_("unable to check file '%s' lock status"), filename);
+		ohshit(_("cannot check file '%s' lock status"), filename);
 
 	if (fl.l_type == F_WRLCK && fl.l_pid != getpid())
 		return true;
 	else
 		return false;
+}
+
+/*
+ * FIXME: This function introduces a short-lived leak for the allocated string.
+ * Once we have support for automatic registration and destruction of error
+ * messages, we can switch to it and stop leaking.
+ */
+static char *
+file_lock_removal_note(void)
+{
+	return str_fmt(_(
+"Note: removing the lock file is always wrong, can damage the locked area\n"
+"and the entire system. See <%s>."
+	), "https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock");
 }
 
 /**
@@ -309,27 +323,21 @@ file_lock(int *lockfd, enum file_lock_flags flags, const char *filename,
 		lock_cmd = F_SETLK;
 
 	if (fcntl(*lockfd, lock_cmd, &fl) < 0) {
-		const char *warnmsg;
 		char *execname;
 
 		if (errno != EACCES && errno != EAGAIN)
-			ohshite(_("unable to lock %s"), desc);
-
-		warnmsg = _("Note: removing the lock file is always wrong, "
-		            "can damage the locked area\n"
-		            "and the entire system. "
-		            "See <https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock>.");
+			ohshite(_("cannot lock %s"), desc);
 
 		file_lock_setup(&fl, F_WRLCK);
 		if (fcntl(*lockfd, F_GETLK, &fl) < 0)
 			ohshit(_("%s was locked by another process\n%s"),
-			       desc, warnmsg);
+			       desc, file_lock_removal_note());
 
 		execname = dpkg_get_pid_execname(fl.l_pid);
 
 		ohshit(_("%s was locked by %s process with pid %d\n%s"),
 		       desc, execname ? execname : C_("process", "<unknown>"),
-		       fl.l_pid, warnmsg);
+		       fl.l_pid, file_lock_removal_note());
 	}
 
 	push_cleanup(file_unlock_cleanup, ~0, 3, lockfd, filename, desc);

@@ -24,7 +24,7 @@ B<dpkg-mergechangelogs> [I<Option> …] I<alt> I<neu-a> I<neu-b> [I<Ausgabe>]
 
 Dieses Programm wird die drei bereitgestellten Versionen des Debian-Changelogs verwenden, um eine zusammengeführte Changelog-Datei zu erstellen. Das resultierende Changelog wird in der Datei I<Ausgabe> gespeichert oder an die Standardausgabe ausgegeben, falls dieser Parameter fehlt.
 
-Jeder Eintrag wird durch seine Versionsnummer identifiziert und es wird angenommen, dass sie nicht im Konflikt stehen, sie werden einfach in der richtigen Reihenfolge eingemischt (in absteigender Reihenfolge). Wenn B<--merge-prereleases> verwandt wird, wird der Anteil der Versionsnummer nach der letzten Tilde entfernt, so dass 1.0-1~exp1 und 1.0-1~exp5 als gleicher Eintrag angenommen werden. Wenn die gleiche Version sowohl in I<neu-a> als auch in I<neu-b> verfügbar ist, wird eine normale, zeilenbasierte 3-Wege-Zusammenführung versucht (vorausgesetzt, dass das Modul Algorithm::Merge verfügbar ist — es ist Teil des Pakets libalgorithm-merge-perl — andernfalls erhalten Sie einen globalen Konflikt im Inhalt des Eintrags).
+Each entry is identified by its version number and they are assumed to be not conflicting, they are merged in the right order (by decreasing version number).  When B<--merge-prereleases> is used, the part of the version number after the last tilde is dropped so that 1.0-1~exp1 and 1.0-1~exp5 are considered to be the same entry.  When the same version is available in both I<new-a> and I<new-b>, a standard line-based 3-way merge is attempted (provided that the module Algorithm::Merge is available — it's part of the package libalgorithm-merge-perl — otherwise you get a global conflict on the content of the entry).
 
 Dieses Programm wurde in Dpkg 1.15.7 hinzugefügt.
 
@@ -34,9 +34,11 @@ Dieses Programm wurde in Dpkg 1.15.7 hinzugefügt.
 
 =item B<--merge-unreleased>
 
-Ignoriert die Versionsnummer, wenn die Einträge als B<UNRELEASED> markiert sind (seit Dpkg 1.21.0).
+Ignore the version number when the entries are marked as B<UNRELEASED>.
 
 Dies ist nützlich, wenn Sie auseinanderlaufende Entwicklungen für Versionen haben, die noch nicht veröffentlicht wurden. Beispielsweise wurde die 2.1-1 Instanz veröffentlicht, dann passiert die Entwicklung für die neue 2.2-1 und dann 2.3-1, wo es dann Sinn ergibt, nur in einem vereinigten Eintrag für 2.3-1 zu enden, der sämtliche in 2.2-1 vorgenommene Entwicklung enthält.
+
+Supported since dpkg 1.21.0.
 
 =item B<-m>, B<--merge-prereleases>
 
@@ -60,11 +62,15 @@ Gibt die Version aus und beendet das Programm.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 

@@ -24,7 +24,7 @@ B<dpkg-gencontrol> [I<flagga>...]
 
 B<dpkg-gencontrol> läser information från ett uppackat Debiankällkodsträd och genererar en binärpaketsstyrfil (som standard debian/tmp/DEBIAN/control). Relationsfälten kommer att förenklas.
 
-Fälten B<Pre-Depends>, B<Depends>, B<Recommends> och B<Suggests> förenklas därmed, i den följden, genom att ta bort beroenden som programmet vet tillhandahålls av starkare beroenden som redan tolkats. Det kommer även ta bort eventuella egenberoenden (programmet tar bort alla beroenden som är uppfyllda när den nuvarande versionen av paketet är installerat). Logiskt behålls snittet av multipla beroenden på samma paket. Ordningsföljden mellan beroendena behålls så långt som möjligt: om ett beroende måste tas bort på grund av att ett beroende återkommer senare i fältet kommer det nya beroendet att ta platsen från det som ersattes.
+Thus B<Pre-Depends>, B<Depends>, B<Recommends> and B<Suggests> are simplified in this order by removing dependencies which are known to be true according to the stronger dependencies already parsed.  It will also remove any self-dependency (it will remove any dependency which evaluates to true given the current version of the package as installed).  Logically it keeps the intersection of multiple dependencies on the same package.  The order of dependencies is preserved as best as possible: if any dependency must be discarded due to another dependency appearing further in the field, the superseding dependency will take the place of the discarded one.
 
 Övriga relationsfält (B<Enhances>, B<Conflicts>, B<Breaks>, B<Replaces> och B<Provides>) förenklas även individuellt genom att beräkna unionen av de olika beroendena när ett paket förekommer flera gånger i samma fält.
 
@@ -88,7 +88,9 @@ Sök I<paketbyggkatalog> istället för B<debian/tmp>, Värdet används för att
 
 =item B<-O>[I<filnamn>]
 
-Skriv control-filen på standard ut (eller I<filnamn>, om angivet, sedan dpkg 1.17.2), i stället för till B<debian/tmp/DEBIAN/control> (eller I<paketbyggkatalog>B</DEBIAN/control> om B<-P> användes).
+Print the control file to standard output (or I<filename> if specified), rather than to B<debian/tmp/DEBIAN/control> (or I<package-build-dir>B</DEBIAN/control> if B<-P> was used).
+
+Support for optional argument since dpkg 1.17.2.
 
 =item B<-?>, B<--help>
 
@@ -110,11 +112,15 @@ Anger värdarkitekturen.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.19.0). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Supported since dpkg 1.19.0.
 
 =back
 

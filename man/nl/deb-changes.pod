@@ -76,9 +76,13 @@ De dringendheid van de upload. De momenteel toegelaten waarden, in oplopende vol
 
 Moet opgemaakt worden volgens de indeling “Joe Bloggs E<lt>jbloggs@example.orgE<gt>”, en is gewoonlijk de persoon die het pakket maakte, in tegenstelling tot de auteur van de verpakte software.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Changed-By:> I<volledige-naam-en-e-mailadres>
 
 Moet opgemaakt worden volgens de indeling “Joe Bloggs E<lt>jbloggs@example.orgE<gt>”, en is gewoonlijk de persoon die voor deze release verantwoordelijk is voor de veranderingen aan het pakket.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> (aanbevolen)
 
@@ -96,7 +100,7 @@ Dit veld geeft aan dat deze upload gebeurt na de niet door de pakketbeheerder ui
 
 =item B<Built-For-Profiles:> I<profiel-lijst>
 
-Dit veld somt een lijst van door een spatie van elkaar gescheiden bouwprofielen op waarmee deze upload gebouwd werd.
+This field specifies a whitespace separated list of build profile names (without exclamation marks)  that this upload was built with.
 
 =item B<Changes:> (verplicht)
 
@@ -142,5 +146,5 @@ Het veld B<Files> is niet consistent met de andere B<Checksums>-velden. De velde
 
 =head1 ZIE OOK
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>.
 

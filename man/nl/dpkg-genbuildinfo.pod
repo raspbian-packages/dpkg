@@ -88,7 +88,9 @@ De bestanden die geüpload moeten worden opzoeken in I<map-upload-bestanden> eer
 
 Standaard wordt het veld B<Build-Kernel-Version> niet opgeschreven.
 
-Geef deze optie op (sinds dpkg 1.19.0) om steeds een veld B<Build-Kernel-Version> aan te maken als B<.buildinfo> gegenereerd wordt.
+Specify this option to always write a B<Build-Kernel-Version> field when generating the B<.buildinfo>.
+
+Supported since dpkg 1.19.0.
 
 =item B<--always-include-path>
 
@@ -122,11 +124,13 @@ De versie tonen en afsluiten.
 
 =item B<DEB_BUILD_OPTIONS>
 
-Deze variabele kan gebruikt worden via de optie B<buildinfo> voor het activeren of deactiveren van verschillende functies die invloed hebben op de informatie die opgenomen wordt in het bestand .buildinfo (sinds dpkg 1.18.19). Deze optie bevat een lijst van onderling door komma's gescheiden functies, die voorafgegaan worden door de bepaling ‘B<+>’ of ‘B<->’, welke aangeven of die functie al dan niet geactiveerd moet worden. De bijzondere functie “B<all>” kan gebruikt worden om alle overige functies te activeren of te deactiveren. De functie “B<path>” regelt of het veld B<Build-Path> onvoorwaardelijk mee opgenomen moet worden.
+This variable can be used to enable or disable various features that affect the information included in the .buildinfo file, via the B<buildinfo> option.  This option contains a comma-separated list of features, prefixed with the ‘B<+>’ or ‘B<->’ modifiers, to denote whether to enable or disable them.  The special feature “B<all>” can be used to enable or disable all other features.  The feature “B<path>” controls whether to unconditionally include the B<Build-Path> field.
+
+Supported since dpkg 1.18.19.
 
 =item B<DEB_BUILD_PROFILES>
 
-Indien dit ingesteld is, zal dit gebruikt worden als het/de actieve te gebruiken bouwprofiel(en) bij het genereren van het bestand .buildinfo. Het is een lijst van profielnamen die onderling door spaties gescheiden worden.
+If set, it will be used as the active build profile(s) to use when generating the .buildinfo file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DEB_BUILD_ARCH>
 
@@ -138,11 +142,15 @@ Stelt de computerarchitectuur in. Dit beïnvloedt de bestandsnaam die gebruikt w
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 

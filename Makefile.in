@@ -302,6 +302,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -538,11 +539,11 @@ EXTRA_DIST = .editorconfig ChangeLog.old README.l10n autogen \
 	build-aux/get-version build-aux/lcov-inject \
 	build-aux/run-script build-aux/test-runner \
 	doc/coding-style.txt debian/README.bug-usertags \
-	debian/changelog debian/control debian/copyright \
-	debian/dpkg-dev.NEWS debian/dpkg-dev.docs \
-	debian/dpkg-dev.install debian/dpkg-dev.manpages \
-	debian/dpkg.alternatives.logrotate debian/dpkg.cfg \
-	debian/dpkg.cron.daily debian/dpkg.docs \
+	debian/buildpackage.conf debian/changelog debian/control \
+	debian/copyright debian/dpkg-dev.NEWS debian/dpkg-dev.docs \
+	debian/dpkg-dev.install debian/dpkg-dev.lintian-overrides \
+	debian/dpkg-dev.manpages debian/dpkg.alternatives.logrotate \
+	debian/dpkg.cfg debian/dpkg.cron.daily debian/dpkg.docs \
 	debian/dpkg.dpkg-db-backup.service \
 	debian/dpkg.dpkg-db-backup.timer debian/dpkg.install \
 	debian/dpkg.manpages debian/dpkg.postinst debian/dpkg.postrm \
@@ -609,6 +610,7 @@ CPAN_DIST_VERSION = $(PACKAGE_VERSION)
 @PACKAGE_DIST_IS_RELEASE_FALSE@CPAN_DIST_SUFFIX = -TRIAL
 CPAN_DIST = $(CPAN_DIST_NAME)-$(CPAN_DIST_VERSION)$(CPAN_DIST_SUFFIX)
 CPAN_DIST_ARCHIVE = $(CPAN_DIST).tar.gz
+TAR_OPTIONS = --owner=0 --group=0
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -1280,11 +1282,11 @@ tap-check: $(test_data) $(test_programs) $(test_scripts)
 	  abs_top_srcdir=$(abs_top_srcdir) \
 	  abs_top_builddir=$(abs_top_builddir) \
 	  srcdir=$(srcdir) builddir=$(builddir) \
-	  CC=$(CC) \
-	  SHELL=$(SHELL) \
-	  PERL=$(PERL) \
+	  CC="$(CC)" \
+	  SHELL="$(SHELL)" \
+	  PERL="$(PERL)" \
 	  PERL_DL_NONLAZY=1 \
-	  PERL5OPT=$(TEST_COVERAGE) \
+	  PERL5OPT="$(TEST_COVERAGE)" \
 	  $(PERL) $(top_srcdir)/build-aux/test-runner \
 	    $(addprefix $(builddir)/,$(test_programs)) \
 	    $(addprefix $(srcdir)/,$(test_scripts))
@@ -1343,6 +1345,7 @@ dist-cpan:
 	: # Cleanup the CPAN source tree.
 	find $(CPAN_DIST) -type d ! -perm -200 -exec chmod u+w {} ';'
 	rm -rf $(CPAN_DIST)
+export TAR_OPTIONS
 
 # If we create the dist tarball from the git repository, make sure
 # that we're not forgetting some files, and we are not storing any symlink

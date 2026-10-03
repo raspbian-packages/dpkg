@@ -22,6 +22,7 @@ use v5.36;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling qw(:DEFAULT report REPORT_STATUS);
 use Dpkg::BuildEnv;
 use Dpkg::BuildFlags;
@@ -29,36 +30,59 @@ use Dpkg::Vendor qw(get_current_vendor);
 
 textdomain('dpkg-dev');
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<command>]')
-    . "\n\n" . g_(
-'Commands:
-  --get <flag>       output the requested flag to stdout.
-  --origin <flag>    output the origin of the flag to stdout:
-                     value is one of vendor, system, user, env.
-  --status           output a synopsis with all parameters affecting the
-                     program behavior, the resulting flags and their origin.
-  --query            like --status, but in deb822 format.
-  --query-features <area>
-                     output the status of features for the given area.
-  --list             output a list of the flags supported by the current vendor.
-  --export=(sh|make|cmdline|configure)
-                     output something convenient to import the compilation
-                     flags in a shell script, in make, or in a command line.
-  --dump             output all compilation flags with their values.
-  --help             show this help message.
-  --version          show the version.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<command>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"      --get <flag>\n" .
+"          Show the requested flag.\n" .
+    ''));
+    print_option(g_(
+"      --origin <flag>\n" .
+"          Show the origin of the flag, value is one of:\n" .
+"            vendor, system, user, env.\n" .
+    ''));
+    print_option(g_(
+"      --list\n" .
+"          Show a list of the flags supported by the current vendor.\n" .
+    ''));
+    print_option(g_(
+"      --query\n" .
+"          Show a synopsis with all parameters affecting the program behavior,\n" .
+"          the resulting flags and their origin (output format: deb822).\n" .
+    ''));
+    print_option(g_(
+"      --query-features <area>\n" .
+"          Show the status of features for the given area.\n" .
+    ''));
+    print_option(g_(
+"      --status\n" .
+"          Show a synopsis with all parameters affecting the program behavior,\n" .
+"          the resulting flags and their origin (output format: line).\n" .
+    ''));
+    print_option(g_(
+"      --export=(sh|make|cmdline|configure)\n" .
+"          Output something convenient to import the compilation flags in a\n" .
+"          shell script, in make, or in a command line.\n" .
+    ''));
+    print_option(g_(
+"      --dump\n" .
+"          Output all compilation flags with their values.\n" .
+    ''));
+    print_option(g_(
+"      --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 my ($param, $action);
@@ -88,7 +112,7 @@ while (@ARGV) {
         usage();
         exit 0;
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit 0;
     } else {
         usageerr(g_("unknown option '%s'"), $_);

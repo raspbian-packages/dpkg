@@ -21,30 +21,37 @@ use v5.36;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::BuildTree;
 
 textdomain('dpkg-dev');
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<command>]')
-    . "\n\n" . g_(
-'Commands:
-  clean              clean dpkg generated artifacts from the build tree.
-  is-rootless        checks whether the build tree needs root to build.
-  --help             show this help message.
-  --version          show the version.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<command>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"      clean\n" .
+"          Clean dpkg generated artifacts from the build tree.\n" .
+    ''));
+    print_option(g_(
+"      is-rootless\n" .
+"          Checks whether the build tree needs root to build.\n" .
+    ''));
+    print_option(g_(
+"      --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 my %known_actions = map { $_ => 1 } qw(
@@ -63,7 +70,7 @@ while (@ARGV) {
         usage();
         exit 0;
     } elsif ($arg eq '--version') {
-        version();
+        print_version();
         exit 0;
     } else {
         usageerr(g_("unknown option '%s'"), $arg);

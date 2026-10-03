@@ -176,7 +176,7 @@ static const menuentry menuentries[] = {
 		"select",
 		N_("s"),
 		N_("[S]elect"),
-		N_("Request which packages you want on your system."),
+		N_("Request which packages to install on the system."),
 		&urq_list,
 	}, {
 		"install",
@@ -238,47 +238,84 @@ usage(const struct cmdinfo *ci, const char *value)
 
 	printf(_(
 "Usage: %s [<option>...] [<command>...]\n"
-"\n"), DSELECT);
+	), DSELECT);
+	print_option_sep();
 
 	printf(_("Commands:\n"));
 	for (i = 0; menuentries[i].command; i++)
-		printf("  %-10s  %s\n",
+		print_option(
+		       "      %s\n"
+		       "          %s\n",
 		       menuentries[i].command,
 		       menuentries[i].menuent);
-	fputs("\n", stdout);
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"      --admindir <directory>       Use <directory> instead of %s.\n"
-"      --instdir <directory>        Use <directory> instead of %s.\n"
-"      --root <directory>           Use <directory> instead of %s.\n"
-"      --expert                     Turn on expert mode.\n"
-"  -D, --debug <file>               Turn on debugging, send output to <file>.\n"
-"      --color <color-spec>         Configure screen colors.\n"
-"      --colour <color-spec>        Ditto.\n"
-), ADMINDIR, "/", "/");
+	));
+	print_option(_(
+"      --color <color-spec>\n"
+"          Configure screen colors.\n"
+	));
+	print_option(_(
+"      --colour <color-spec>\n"
+"          Alias for --color.\n"
+	));
+	print_option(_(
+"      --expert\n"
+"          Enable expert mode.\n"
+	));
+	print_option(_(
+"  -D, --debug <file>\n"
+"          Enable debugging mode, send output to <file>.\n"
+	));
+	print_option(_(
+"      --admindir <directory>\n"
+"          Set the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --instdir <directory>\n"
+"          Set the installation directory.\n"
+	));
+	print_option_def("/");
+	print_option(_(
+"      --root <directory>\n"
+"          Set the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
+	print_option_sep();
 
-	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+	printf(_("<color-spec> is:\n"
+	         "  <screen-part>:[<foreground>],[<background>][:<attr>[+<attr>]...]\n"));
 
-	printf(_("<color-spec> is <screen-part>:[<foreground>],[<background>][:<attr>[+<attr>]...]\n"));
-
-	printf(_("<screen-part> is:"));
+	printf(_("<screen-part> is:\n"));
+	printf(" ");
 	for (i = 0; screenparttable[i].name; i++)
 		printf(" %s", screenparttable[i].name);
-	fputs("\n", stdout);
+	print_option_sep();
 
-	printf(_("<color> is:"));
+	printf(_("<color> is:\n"));
+	printf(" ");
 	for (i = 0; colortable[i].name; i++)
 		printf(" %s", colortable[i].name);
-	fputs("\n", stdout);
+	print_option_sep();
 
-	printf(_("<attr> is:"));
+	printf(_("<attr> is:\n"));
+	printf(" ");
 	for (i = 0; attrtable[i].name; i++)
 		printf(" %s", attrtable[i].name);
-	fputs("\n", stdout);
+	print_option_sep();
 
 	m_output(stdout, _("<standard output>"));
 
@@ -295,7 +332,7 @@ set_debug(const struct cmdinfo*, const char *v)
 
 	fp = fopen(v, "a");
 	if (!fp)
-		ohshite(_("cannot open debug file '%s'\n"), v);
+		ohshite(_("cannot open debug file '%s'"), v);
 
 	debug_set_output(fp, v);
 	debug_set_mask(dbg_general | dbg_depcon);
@@ -427,7 +464,7 @@ curseson()
 			fputs(_("Terminal does not appear to support highlighting.\n"),
 			      stderr);
 		fprintf(stderr,
-		        _("Set your TERM variable correctly, use a better terminal,\n"
+		        _("Set the TERM variable correctly, use a better terminal,\n"
 		          "or make do with the per-package management tool %s.\n"),
 		        DPKG);
 		ohshit(_("terminal lacks necessary features, giving up"));
@@ -512,9 +549,11 @@ refreshmenu(void)
 		display_menu_entry(i, 0);
 
 	attrset(A_BOLD);
-	addstr(_("\n\n"
+	addstr("\n\n");
+	addstr(_(
 	       "Move around with Ctrl+P and Ctrl+N, cursor keys, initial letters, or digits;\n"
-	       "Press <enter> to confirm selection. Ctrl+L redraws screen.\n\n"));
+	       "Press <Enter> to confirm selection. Ctrl+L redraws screen.\n"));
+	addstr("\n");
 
 	attrset(A_NORMAL);
 	addstr(_("Copyright (C) 1994-1996 Ian Jackson.\n"
@@ -522,9 +561,10 @@ refreshmenu(void)
 	addstr(gettext(licensestring));
 
 	modstatdb_init();
-	if (!modstatdb_can_lock())
-		addstr(_("\n\n"
-		         "Read-only access: only preview of selections is available!"));
+	if (!modstatdb_can_lock()) {
+		addstr("\n\n");
+		addstr(_("Read-only access: only preview of selections is available!"));
+	}
 	modstatdb_done();
 
 	return i;
@@ -550,7 +590,7 @@ urq_menu(void)
 		} while (c == ERR && errno == EINTR);
 		if (c == ERR)  {
 			if (errno != 0) {
-				ohshite(_("failed to getch in main menu"));
+				ohshite(_("cannot get input character"));
 			} else {
 				clearok(stdscr, TRUE);
 				clear();

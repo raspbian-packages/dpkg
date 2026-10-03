@@ -22,7 +22,7 @@ B<override>
 
 =head1 DESCRIPTION
 
-Bien que l'on puisse trouver dans le fichier « control » la plupart des informations concernant un paquet, certaines doivent être inscrites par les responsables de la distribution plutôt que par le responsable du paquet afin de garantir une cohérence globale. Ces informations se trouvent dans le fichier « override ».
+While most information about a package can be found in the control file, some is managed centrally by the distribution czars rather than by the maintainer to offer some global consistency.  This information is found in the override file.
 
 Les éléments du fichier « override » sont séparés simplement par des espaces. Les commentaires commencent par un caractère « B<#> ».
 

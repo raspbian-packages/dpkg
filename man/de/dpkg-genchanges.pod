@@ -30,7 +30,9 @@ B<dpkg-genchanges> liest Informationen aus einem entpackten und gebauten Debian-
 
 =item B<--build=>I<Typ>
 
-Gibt den Bau-I<Typ> aus einer Kommata-getrennten Liste von Komponenten an (seit Dpkg 1.18.5).
+Gibt den Bau-I<Typ> aus einer Kommata-getrennten Liste von Komponenten an.
+
+Supported since dpkg 1.18.5.
 
 Die erlaubten Werte sind:
 
@@ -60,11 +62,15 @@ Alles hochladen. Dies ist ein Alias für B<source,any,all> und identisch zum Sta
 
 =item B<-g>
 
-Äquivalent zu B<--build=source,all> (seit Dpkg 1.17.11).
+Equivalent to B<--build=source,all>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-G>
 
-Äquivalent zu B<--build=source,any> (seit Dpkg 1.17.11).
+Equivalent to B<--build=source,any>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-b>
 
@@ -158,7 +164,9 @@ Normalerweise schreibt B<dpkg-genchanges> informative Meldungen auf die Standard
 
 =item B<-O>[I<Dateiname>]
 
-Gibt die changes-Datei auf der Standardausgabe (Vorgabe) oder in I<Dateiname>, falls angegeben, aus (seit Dpkg 1.18.5).
+Print the changes file to standard output (the default) or to I<filename> if specified.
+
+Support for I<filename> argument since dpkg 1.18.5.
 
 =item B<-?>, B<--help>
 
@@ -180,15 +188,19 @@ Setzt die Host-Architektur.
 
 =item B<DEB_BUILD_PROFILES>
 
-Falls gesetzt, wird es als aktive(s) Bau-Profil(e) zur Verwendung beim Erstellen der Datei .changes verwandt. Es ist eine durch Leerzeichen getrennte Liste von Profilnamen.
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -204,7 +216,7 @@ Die Liste der erstellten Dateien, die Teil der zum Hochladen vorbereiteten Datei
 
 =head1 SIEHE AUCH
 
-L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
+L<deb-email(7)>, L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 
 
 =head1 ÜBERSETZUNG

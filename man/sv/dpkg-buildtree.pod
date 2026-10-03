@@ -36,9 +36,11 @@ Tar bort alla artefakter som skapats under ett bygge av olika dpkg-verktyg, och 
 
 =item B<is-rootless>
 
-Kontrollerar om byggträdet kan byggas utan root-behörighet (sedan dpkg 1.22.12).
+Checks whether the build tree can be built with no root privileges.
 
 Kommandot kan användas på ett säkert sätt även med versioner där kommandot ännu inte var tillgängligt eftersom förvalet kommer då vara det historiska där root krävdes.
+
+Supported since dpkg 1.22.12.
 
 =item B<--help>
 

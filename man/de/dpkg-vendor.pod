@@ -78,11 +78,15 @@ Diese Einstellung definiert den aktuellen Lieferanten. Falls nicht gesetzt, wird
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.18.5). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird (seit Dpkg 1.19.0). Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, auch als Unterstützung für Internationalisierung (oder i18n) bekannt, aktiviert wird. Die akzeptierten Werte sind: B<0> und B<1> (Vorgabe).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -94,7 +98,9 @@ Falls dies gesetzt ist, wird es zur Entscheidung, ob Native Language Support, au
 
 =item B<%PKGDATADIR%/vendor.mk>
 
-Make-Steuerdateischnipsel, das den aktuelle Lieferanten und seine Eltern in Variablen setzt und Make-Makros bereitstellt, um auf Abgeleitete zu prüfen (seit Dpkg 1.16.1).
+Makefile snippet that sets the current vendor and its parent into variables, and provides make macros to check for derivatives.
+
+Supported since dpkg 1.16.1.
 
 =back
 

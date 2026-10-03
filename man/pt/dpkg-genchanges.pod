@@ -30,7 +30,9 @@ B<dpkg-genchanges> lê informação a partir de uma árvore fonte de compilaçã
 
 =item B<--build=>I<type>
 
-Especifica o I<type> de compilação a partir de uma lista de componentes separados por vírgulas (desde dpkg 1.18.5).
+Especifica o I<type> de compilação a partir de uma lista de componente separados por vírgulas.
+
+Supported since dpkg 1.18.5.
 
 Os valores permitidos são:
 
@@ -60,11 +62,15 @@ Envia tudo. Isto é um alias para B<source,any,all>, e o mesmo que o caso predef
 
 =item B<-g>
 
-Equivalente a B<--build=source,all> (desde dpkg 1.17.11).
+Equivalent to B<--build=source,all>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-G>
 
-Equivalente a B<--build=source,any> (desde dpkg 1.17.11).
+Equivalent to B<--build=source,any>.
+
+Supported since dpkg 1.17.11.
 
 =item B<-b>
 
@@ -158,7 +164,9 @@ Geralmente B<dpkg-genchanges> irá produzir mensagens informativas no erro stand
 
 =item B<-O>[I<filename>]
 
-Escreve o ficheiro de alterações na saída standard (o predefinido) ou para I<filename> se especificado (desde dpkg 1.18.5).
+Print the changes file to standard output (the default) or to I<filename> if specified.
+
+Support for I<filename> argument since dpkg 1.18.5.
 
 =item B<-?>, B<--help>
 
@@ -180,15 +188,19 @@ Define a arquitectura da máquina anfitriã.
 
 =item B<DEB_BUILD_PROFILES>
 
-Se definido, será usado como perfil(es) de compilação activos para usar quando se gera o ficheiro .changes.  É uma lista separada por espaços de nomes de perfis.
+If set, it will be used as the active build profile(s) to use when generating the .changes file.  It is a space separated list of profile names, without any exclamation marks.
 
 =item B<DPKG_COLORS>
 
-Define o modo de cor (desde dpkg 1.18.5). Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+Define o modo de cor. Os valores actualmente aceites são: B<auto> (predefinido), B<always> e B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n) (desde dpkg 1.19.0). Os valores aceites são B<0> e B<1> (predefinição).
+Se definida, será usada para decidir se deve activar o Suporte a Linguagem Nativa. Também como conhecido como suporte de internacionalização (ou i18n). Os valores aceites são B<0> e B<1> (predefinição).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -204,7 +216,7 @@ A lista de ficheiros gerados que são parte do envio (upload) que está a ser pr
 
 =head1 VEJA TAMBÉM
 
-L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
+L<deb-email(7)>, L<deb-substvars(5)>, L<deb-src-control(5)>, L<deb-src-files(5)>, L<deb-changelog(5)>, L<deb-changes(5)>.
 
 
 =head1 TRADUÇÃO

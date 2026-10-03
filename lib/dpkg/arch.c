@@ -197,7 +197,7 @@ dpkg_arch_get(enum dpkg_arch_type type)
 /**
  * Return the complete list of architectures.
  *
- * In fact it returns the first item of the linked list and you can
+ * It returns the first item of the linked list and you can
  * traverse the list by following arch->next until it's NULL.
  */
 struct dpkg_arch *
@@ -365,7 +365,7 @@ dpkg_arch_save_list(void)
 			continue;
 
 		if (fprintf(file->fp, "%s\n", arch->name) < 0)
-			ohshite(_("error writing to architecture list"));
+			ohshite(_("cannot write to architecture list"));
 	}
 
 	atomic_file_sync(file);

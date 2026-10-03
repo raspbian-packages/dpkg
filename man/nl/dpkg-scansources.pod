@@ -42,11 +42,13 @@ De indexonderdelen niet sorteren. Normaal gezien worden ze volgens de naam van h
 
 =item B<-e>, B<--extra-override> I<bestand>
 
-In I<bestand> zoeken naar bijkomende vervangingen (sinds dpkg 1.15.4; het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5). Zie L<deb-extra-override(5)> voor meer informatie over de indeling ervan.
+Scan I<file> to find supplementary overrides.  The file can be compressed (since dpkg 1.15.5).  See L<deb-extra-override(5)> for more information on its format.
+
+Supported since dpkg 1.15.4.
 
 =item B<-s>, B<--source-override> I<bestand>
 
-I<bestand> gebruiken als het override-bestand van de broncode (het bestand mag gecomprimeerd zijn sinds dpkg 1.15.5). Als standaard geldt de naam van het override-bestand dat u opgaf, met daaraan I<.src> toegevoegd.
+Use I<file> as the source override file.  The file can be compressed (since dpkg 1.15.5).  The default is the name of the override file you specified with I<.src> appended.
 
 Het override-bestand voor de broncode heeft een andere indeling dan het override-bestand voor het binaire pakket. Het bevat slechts twee velden die onderling door witruimte gescheiden worden. Het eerste veld bevat de naam van het broncodepakket en het tweede de sectie waartoe het behoort. Lege regels en commentaarregels worden op de normale manier genegeerd. Indien een pakket in beide bestanden voorkomt, heeft het override-bestand van de broncode voorrang bij het instellen van de sectie.
 
@@ -70,11 +72,15 @@ De versie tonen en afsluiten.
 
 =item B<DPKG_COLORS>
 
-Stelt de kleurmodus in (sinds dpkg 1.18.5). Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+Stelt de kleurmodus in. Waarden die momenteel gebruikt mogen worden zijn: B<auto> (standaard), B<always> en B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n) (sinds dpkg 1.19.0). Geldige waarden zijn: B<0> and B<1> (standaard).
+Indien dit ingesteld is, zal het gebruikt worden om te beslissen over het activeren van moedertaalondersteuning, ook gekend als internationaliseringsondersteuning (of i18n). Geldige waarden zijn: B<0> and B<1> (standaard).
+
+Supported since dpkg 1.19.0.
 
 =back
 

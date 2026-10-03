@@ -124,7 +124,9 @@ Unter Debian und abgeleiteten Distributionen werden nur Baupfade, die mit I</bui
 
 =item S< >I<taint-Begründungsliste>
 
-Dieses gefaltete Feld enthält eine durch Leerzeichen getrennte, nicht abschließende Liste von Markierungen (die durch alphanumerische und Bindestrichzeichen aufgebaut werden), die identifizieren, warum der aktuelle Bau unsauber (tainted) wurde (seit Dpkg 1.19.5).
+This folded field contains a space-separated list of non-exhaustive reason tags (formed by alphanumeric and dash characters) which identify why the current build has been tainted.
+
+Supported since dpkg 1.19.5.
 
 Unter Debian und abgeleiteten Distributionen können die folgenden Begründungsmarkierungen ausgegeben werden:
 

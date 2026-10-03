@@ -21,29 +21,40 @@ use v5.36;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::BuildAPI qw(get_build_api);
 use Dpkg::Control::Info;
 
 textdomain('dpkg-dev');
 
-sub version
-{
-    printf(g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION);
-}
-
 sub usage
 {
     printf g_(
-'Usage: %s [<option>...] [<command>]')
-    . "\n\n" . g_(
-'Commands:
-  -?, --help               show this help message.
-      --version            show the version.')
-    . "\n\n" . g_(
-'Options:
-  -c<control-file>         get control info from this file.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<option>...] [<command>]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -c<control-file>\n" .
+"          Get control information from this file.\n" .
+    ''));
 }
 
 my $controlfile = 'debian/control';
@@ -54,7 +65,7 @@ while (@ARGV) {
         usage();
         exit 0;
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit 0;
     } elsif (m/-c(.*)$/) {
         $controlfile = $1;

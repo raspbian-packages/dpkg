@@ -64,7 +64,7 @@ you can use the I<#PACKAGE#> metavariable.
 It will be replaced by the real package name during installation of the
 symbols files.
 
-=head2 Using the #CURVER# metavariable
+=head3 Using the #CURVER# metavariable
 
 In some cases,
 a symbol with an unstable ABI will require a strict dependency on the
@@ -162,7 +162,6 @@ value: it could be used to indicate why the symbol is considered optional.
 
 These tags allow one to restrict the set of architectures where the symbol
 is supposed to exist.
-The B<arch-bits> and B<arch-endian> tags are supported since dpkg 1.18.0.
 When the symbols list is updated with
 the symbols
 discovered in the library, all arch-specific symbols which do not concern
@@ -211,14 +210,18 @@ Multiple restrictions can be chained.
 
   (arch-bits=32|arch-endian=little)32bit_le_symbol@Base 1.0
 
+Support for tags B<arch-bits> and B<arch-endian> since dpkg 1.18.0.
+
 =item B<allow-internal>
 
 dpkg-gensymbols has a list of internal symbols that should not
 appear in symbols files as they are usually only side-effects of
-implementation details of the toolchain (since dpkg 1.20.1).
+implementation details of the toolchain.
 If for some reason, you really want one of those symbols to be included in
 the symbols file, you should tag the symbol with B<allow-internal>.
 It can be necessary for some low level toolchain libraries like “libgcc”.
+
+Supported since dpkg 1.20.1.
 
 =item B<c++>
 
@@ -262,8 +265,7 @@ Then if the pattern does not match anything,
 it will only appear in the diff as MISSING.
 Moreover, like any symbol,
 the pattern may be limited to the specific architectures with the I<arch> tag.
-Please
-refer to L</Standard symbol tags> subsection above for more information.
+See the L</Standard symbol tags> subsection above for more information.
 
 Patterns are an extension of the L<deb-symbols(5)> format hence they are
 only valid in symbol file templates.
@@ -272,7 +274,7 @@ specific symbol.
 However, symbol name part of the
 specification serves as an expression to be matched against I<name@version>
 of the real symbol.
-In order to distinguish among different pattern types, a
+To distinguish among different pattern types, a
 pattern will typically be tagged with a special tag.
 
 At the moment, B<dpkg-gensymbols> supports three basic pattern types:
@@ -306,7 +308,7 @@ The demangled name above can be obtained by executing the following command:
 
   $ echo '_ZThn8_N3NSB6ClassDD1Ev@Base' | c++filt
 
-Please note that while mangled name is unique in the library by definition,
+Note that while mangled name is unique in the library by definition,
 this is not necessarily true for demangled names.
 A couple of distinct real symbols may have the same demangled name.
 For example, that's the case with
@@ -339,7 +341,7 @@ The latter will lead to a minimal dependency on libc6 version
 2.2 despite being in the scope of the "(symver)GLIBC_2.0" pattern because
 specific symbols take precedence over patterns.
 
-Please note that while old style wildcard patterns (denoted by "*@version" in
+Note that while old style wildcard patterns (denoted by "*@version" in
 the symbol name field) are still supported, they have been deprecated by new
 style syntax "(symver|optional)version".
 For example, "*@GLIBC_2.0 2.0" should
@@ -399,7 +401,7 @@ then I<symver>) are preferred over generic patterns.
 Generic patterns are
 matched in the order they are found in the symbol file template until the first
 success.
-Please note, however, that manual reordering of template file entries
+Note, however, that manual reordering of template file entries
 is not recommended because B<dpkg-gensymbols> generates diffs based on the
 alphanumerical order of their names.
 

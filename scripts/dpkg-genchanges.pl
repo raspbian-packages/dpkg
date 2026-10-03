@@ -26,6 +26,7 @@ use POSIX qw(:errno_h :locale_h);
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::File;
 use Dpkg::Checksums;
 use Dpkg::ErrorHandling;
@@ -83,49 +84,126 @@ my $substvars_loaded = 0;
 my $substvars = Dpkg::Substvars->new();
 $substvars->set_as_auto('Format', $changes_format);
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...]')
-    . "\n\n" . g_(
-"Options:
-  --build=<type>[,...]     specify the build <type>: full, source, binary,
-                             any, all (default is \'full\').
-  -g                       source and arch-indep build.
-  -G                       source and arch-specific build.
-  -b                       binary-only, no source files.
-  -B                       binary-only, only arch-specific files.
-  -A                       binary-only, only arch-indep files.
-  -S                       source-only, no binary files.
-  -c<control-file>         get control info from this file.
-  -l<changelog-file>       get per-version info from this file.
-  -f<files-list-file>      get .deb files list from this file.
-  -v<since-version>        include all changes later than version.
-  -C<changes-description>  use change description from this file.
-  -m<maintainer>           override control's maintainer value.
-  -e<maintainer>           override changelog's maintainer value.
-  -u<upload-files-dir>     directory with files (default is '..').
-  -si                      source includes orig, if new upstream (default).
-  -sa                      source includes orig, always.
-  -sd                      source is diff and .dsc only.
-  -q                       quiet - no informational messages on stderr.
-  -F<changelog-format>     force changelog format.
-  -V<name>=<value>         set a substitution variable.
-  -T<substvars-file>       read variables here, not debian/substvars.
-  -D<field>=<value>        override or add a field and value.
-  -U<field>                remove a field.
-  -O[<filename>]           write to stdout (default) or <filename>.
-  -?, --help               show this help message.
-      --version            show the version.
-"), $Dpkg::PROGNAME;
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"      --build=<type>[,...]\n" .
+"          Specify the build <type>: full, source, binary, any, all.\n" .
+    ''));
+    print_option_def('full');
+    print_option(g_(
+"  -g, --build=source,all\n" .
+"          Specify a source and arch-indep build.\n" .
+    ''));
+    print_option(g_(
+"  -G, --build=source,any\n" .
+"          Specify a source and arch-specific build.\n" .
+    ''));
+    print_option(g_(
+"  -b, --build=binary\n" .
+"          Specify a binary-only, no source files build.\n" .
+    ''));
+    print_option(g_(
+"  -B, --build=any\n" .
+"          Specify a binary-only, only arch-specific files build.\n" .
+    ''));
+    print_option(g_(
+"  -A, --build=all\n" .
+"          Specify a binary-only, only arch-indep files build.\n" .
+    ''));
+    print_option(g_(
+"  -S, --build=source\n" .
+"          Specify a source-only, no binary files build.\n" .
+    ''));
+    print_option(g_(
+"  -si\n" .
+"          Source includes original source, if new upstream (default behavior).\n" .
+    ''));
+    print_option(g_(
+"  -sa\n" .
+"          Source includes original source, always.\n" .
+    ''));
+    print_option(g_(
+"  -sd\n" .
+"          Source is diff and .dsc only.\n" .
+    ''));
+    print_option(g_(
+"  -v<since-version>\n" .
+"          Include all changes later than version.\n" .
+    ''));
+    print_option(g_(
+"  -m<maintainer>\n" .
+"          Override control's maintainer value.\n" .
+    ''));
+    print_option(g_(
+"  -e<maintainer>\n" .
+"          Override changelog's maintainer value.\n" .
+    ''));
+    print_option(g_(
+"  -c<control-file>\n" .
+"          Get control information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -l<changelog-file>\n" .
+"          Get per-version changelog information from this file.\n" .
+    ''));
+    print_option(g_(
+"  -F<changelog-format>\n" .
+"          Force changelog format.\n" .
+    ''));
+    print_option(g_(
+"  -C<changes-description>\n" .
+"          Use change description from this file.\n" .
+    ''));
+    print_option(g_(
+"  -f<files-list-file>\n" .
+"          Get list of built artifacts from this file.\n" .
+    ''));
+    print_option(g_(
+"  -u<upload-files-dir>\n" .
+"          Directory with built artifacts.\n" .
+    ''));
+    print_option_def('..');
+    print_option(g_(
+"  -T<substvars-file>\n" .
+"          Read substitution variables from this file.\n" .
+    ''));
+    print_option_def('debian/substvars');
+    print_option(g_(
+"  -V<name>=<value>\n" .
+"          Set a substitution variable.\n" .
+    ''));
+    print_option(g_(
+"  -D<field>=<value>\n" .
+"          Override or add a field and value.\n" .
+    ''));
+    print_option(g_(
+"  -U<field>\n" .
+"          Remove a field.\n" .
+    ''));
+    print_option(g_(
+"  -O[<filename>]\n" .
+"          Write to stdout (default) or <filename>.\n" .
+    ''));
+    print_option(g_(
+"  -q\n" .
+"          Enable quiet mode, no informational messages on stderr.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 sub format_desc
@@ -189,7 +267,7 @@ while (@ARGV) {
     } elsif (m/^-D([^\=:]+)[=:](.*)$/s) {
         $override{$1} = $2;
     } elsif (m/^-u(.*)$/) {
-        $uploadfilesdir = $1;
+        $uploadfilesdir = parse_option_dir('-u', $1);
     } elsif (m/^-U([^\=:]+)$/) {
         $remove{$1} = 1;
     } elsif (m/^-V(\w[-:0-9A-Za-z]*)[=:](.*)$/s) {
@@ -200,7 +278,7 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } else {
         usageerr(g_("unknown option '%s'"), $_);
@@ -439,8 +517,10 @@ foreach my $f (keys %{$changelog}) {
     if ($f eq 'Source') {
         set_source_name($v);
     } elsif ($f eq 'Maintainer') {
-        my $addr = Dpkg::Email::Address->new($v);
-        $fields->{'Changed-By'} = $addr->as_string();
+        if (length $v) {
+            my $addr = Dpkg::Email::Address->new($v);
+            $fields->{'Changed-By'} = $addr->as_string();
+        }
     } else {
         field_transfer_single($changelog, $fields, $f);
     }

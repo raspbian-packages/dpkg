@@ -40,7 +40,7 @@ Avant une mise à niveau.
 
 Si le B<upgrade> ci-dessus échoue.
 
-La I<nouvelle_version> est passée depuis dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<prerm> B<deconfigure> B<in-favour> I<nouveau-paquet> I<nouvelle-version>
 

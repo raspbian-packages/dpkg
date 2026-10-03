@@ -70,9 +70,13 @@ Namnet på den distribution paketet härstammar från.
 
 Ska vara på formatet ”Joe Bloggs E<lt>jbloggs@foo.comE<gt>” och är normalt sett den person som skapat paketet, till skillnad från författaren av den programvara som paketerades.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<fullt-namn-epost-lista>
 
 Räknar upp namn och e-postadresser till med-underhållare av paketet, i samma format som fältet B<Maintainer>. Flera med-underhållare bör avdelas med kommatecken.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Description:> I<kort-beskrivning>
 
@@ -202,7 +206,7 @@ Fältet B<Format> blandar formatet på själva B<.dsc>-filen och formatet på de
 
 =head1 SE ÄVEN
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>.
 
 
 =head1 ÖVERSÄTTNING

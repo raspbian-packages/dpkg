@@ -21,6 +21,7 @@ use v5.36;
 
 use Dpkg ();
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Archive::Ar;
 
@@ -28,23 +29,35 @@ textdomain('dpkg-dev');
 
 my $action;
 
-sub version
-{
-    printf(g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION);
-}
-
 sub usage
 {
-    printf(g_("Usage: %s [<option>...]\n"), $Dpkg::PROGNAME);
+    printf g_(
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
 
-    print(g_('
-Commands:
-      --create <archive> <file>...      create an ar archive.
-      --list <archive>                  list the contents of an ar archive.
-      --extract <archive> [<file>...]   extract the contents of an ar archive.
-  -?, --help                            show this help message.
-      --version                         show the version.
-'));
+    print g_(
+"Commands:\n" .
+    '');
+    print_option(g_(
+"      --create <archive> <file>...\n" .
+"          Create an ar archive.\n" .
+    ''));
+    print_option(g_(
+"      --list <archive>\n" .
+"          List the contents of an ar archive.\n" .
+    ''));
+    print_option(g_(
+"      --extract <archive> [<file>...]\n" .
+"          Extract the contents of an ar archive.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 sub create
@@ -94,7 +107,7 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif ($arg eq '-v' or $arg eq '--version') {
-        version();
+        print_version();
         exit(0);
     } elsif ($arg eq '--create') {
         $action = 'create';

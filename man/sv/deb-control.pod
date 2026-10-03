@@ -48,6 +48,8 @@ B<Observera>: För några leverantörer har dpkg ändrats så att det tillåter 
 
 Ska vara på formatet ”Joe Bloggs E<lt>jbloggs@foo.comE<gt>” och är normalt sett den person som skapat paketet, till skillnad från författaren av den programvara som paketerades.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Description:> I<kort-beskrivning> (rekommenderas)
 
 =item S< >I<lång-beskrivning>
@@ -200,7 +202,7 @@ Detta är en lista av virtuella paket som tillhandahålls av detta. Normalt sett
 
 =back
 
-Syntaxen för B<Provides> är en lista över paketnamn avdelade med komman (och eventuella blanktecken). En valfri arkitekturangivelse kan också läggas till paketnamnet med samma syntax som över. Om det inte anges är förvalet binärpaketets arkitektur. Ett eventuellt exakt (lika med) versionsnummer kan också anges, med samma syntax som ovan (sedan dpkg 1.17.11).
+The syntax of B<Provides> is a list of package names, separated by commas (and optional whitespace).  An optional architecture qualifier can also be appended to the package name with the same syntax as above.  If omitted, the default is the current binary package architecture.  An optional exact (equal to) version can also be given with the same syntax as above (since dpkg 1.17.11).
 
 =over 
 
@@ -216,7 +218,9 @@ Stöds sedan dpkg 1.21.3.
 
 =item B<Built-For-Profiles:> I<profillista> (föråldrat)
 
-Det här fältet används för att ange en blankstegsavdelad lista med byggprofiler som det binära paketet byggdes med (sedan dpkg 1.17.2 fram till 1.18.18). Informationen som tidigare fanns i det här fältet finns nu i filen B<.buildinfo> som ersätter det.
+This field used to specify a whitespace separated list of build profile names (without exclamation marks)  that this binary packages was built with.  The information previously found in this field can now be found in the B<.buildinfo> file, which supersedes it.
+
+Supported since dpkg 1.17.2.  Obsolete since dpkg 1.18.19.
 
 =item B<Auto-Built-Package:> I<orsakslista>
 
@@ -261,7 +265,7 @@ Fältet B<Build-Ids> använder ett ganska allmänt namn utanför sitt ursprungli
 
 =head1 SE ÄVEN
 
-L<deb822(5)>, L<deb-src-control(5)>, L<deb(5)>, L<deb-version(7)>, L<debtags(1)>, L<dpkg(1)>, L<dpkg-deb(1)>.
+L<deb822(5)>, L<deb-src-control(5)>, L<deb(5)>, L<deb-email(7)>, L<deb-version(7)>, L<debtags(1)>, L<dpkg(1)>, L<dpkg-deb(1)>.
 
 
 =head1 ÖVERSÄTTNING

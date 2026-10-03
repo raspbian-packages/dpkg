@@ -44,7 +44,7 @@ dpkg_ar_fdopen(const char *filename, int fd)
 	struct stat st;
 
 	if (fstat(fd, &st) != 0)
-		ohshite(_("failed to fstat archive"));
+		ohshite(_("cannot fstat archive"));
 
 	ar = m_malloc(sizeof(*ar));
 	ar->name = filename;
@@ -52,6 +52,13 @@ dpkg_ar_fdopen(const char *filename, int fd)
 	ar->size = st.st_size;
 	ar->time = st.st_mtime;
 	ar->fd = fd;
+	ar->is_seekable = lseek(fd, 0, SEEK_CUR) == 0;
+	/* The size returned for a pipe file descriptor is neither portable
+	 * nor deterministic. On many BSD systems, it might return 0 or
+	 * the size of the file clamped to the size of a specific kernel
+	 * buffer size. We force the size to 0, to get consistent behavior. */
+	if (! ar->is_seekable)
+		ar->size = 0;
 
 	return ar;
 }
@@ -66,7 +73,7 @@ dpkg_ar_open(const char *filename)
 	else
 		fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ohshite(_("failed to read archive '%s'"), filename);
+		ohshite(_("cannot read archive '%s'"), filename);
 
 	return dpkg_ar_fdopen(filename, fd);
 }
@@ -78,7 +85,7 @@ dpkg_ar_create(const char *filename, mode_t mode)
 
 	fd = creat(filename, mode);
 	if (fd < 0)
-		ohshite(_("unable to create '%s'"), filename);
+		ohshite(_("cannot create '%s'"), filename);
 
 	return dpkg_ar_fdopen(filename, fd);
 }
@@ -101,7 +108,7 @@ void
 dpkg_ar_close(struct dpkg_ar *ar)
 {
 	if (close(ar->fd))
-		ohshite(_("unable to close file '%s'"), ar->name);
+		ohshite(_("cannot close file '%s'"), ar->name);
 	free(ar);
 }
 
@@ -133,7 +140,7 @@ dpkg_ar_normalize_name(struct dpkg_ar_hdr *arh)
 }
 
 off_t
-dpkg_ar_member_get_size(struct dpkg_ar *ar, struct dpkg_ar_hdr *arh)
+dpkg_ar_member_parse_size(struct dpkg_ar *ar, struct dpkg_ar_hdr *arh)
 {
 	const char *str = arh->ar_size;
 	int len = sizeof(arh->ar_size);
@@ -167,7 +174,7 @@ void
 dpkg_ar_put_magic(struct dpkg_ar *ar)
 {
 	if (fd_write(ar->fd, DPKG_AR_MAGIC, strlen(DPKG_AR_MAGIC)) < 0)
-		ohshite(_("unable to write file '%s'"), ar->name);
+		ohshite(_("cannot write file '%s'"), ar->name);
 }
 
 void
@@ -194,7 +201,7 @@ dpkg_ar_member_put_header(struct dpkg_ar *ar, struct dpkg_ar_member *member)
 		ohshit(_("generated corrupt ar header for '%s'"), ar->name);
 
 	if (fd_write(ar->fd, header, n) < 0)
-		ohshite(_("unable to write file '%s'"), ar->name);
+		ohshite(_("cannot write file '%s'"), ar->name);
 }
 
 void
@@ -208,11 +215,11 @@ dpkg_ar_member_put_mem(struct dpkg_ar *ar,
 
 	/* Copy data contents. */
 	if (fd_write(ar->fd, data, size) < 0)
-		ohshite(_("unable to write file '%s'"), ar->name);
+		ohshite(_("cannot write file '%s'"), ar->name);
 
 	if (size & 1)
 		if (fd_write(ar->fd, "\n", 1) < 0)
-			ohshite(_("unable to write file '%s'"), ar->name);
+			ohshite(_("cannot write file '%s'"), ar->name);
 }
 
 void
@@ -226,7 +233,7 @@ dpkg_ar_member_put_file(struct dpkg_ar *ar,
 		struct stat st;
 
 		if (fstat(fd, &st))
-			ohshite(_("failed to fstat ar member file (%s)"), name);
+			ohshite(_("cannot fstat ar member file (%s)"), name);
 		size = st.st_size;
 	}
 
@@ -240,5 +247,5 @@ dpkg_ar_member_put_file(struct dpkg_ar *ar,
 
 	if (size & 1)
 		if (fd_write(ar->fd, "\n", 1) < 0)
-			ohshite(_("unable to write file '%s'"), ar->name);
+			ohshite(_("cannot write file '%s'"), ar->name);
 }

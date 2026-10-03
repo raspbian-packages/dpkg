@@ -22,7 +22,11 @@ B<debian/shlibs>, B<debian/>I<binary-name>B<.shlibs>, B<DEBIAN/shlibs>
 
 =head1 DESCRIÇÃO
 
-Ficheiros B<shlibs> mapeiam nomes de bibliotecas partilhadas e versões (I<SONAMEs>) para dependências apropriados para um ficheiro de controle de pacote. Existe uma entrada por linha. Linhas vazias B<não> são permitidas. Linha começadas com um caractere B<#> são consideradas comentários, e são ignoradas. Todas as outras linhas têm de ter o formato
+B<shlibs> files map shared library names and versions (I<SONAMEs>)  to dependencies suitable for a package control file.
+
+A B<shlibs> file must be shipped in the same binary package as the shared libraries described within.  This is to guarantee that the mappings match the shared library being described, and so that the B<shlibs> file can be found from the package owning the shared library.
+
+There is one entry per line.  Blank lines are B<not> allowed.  Lines beginning with a B<#> character are considered commentary, and are ignored. All other lines must have the format:
 
 =over 
 

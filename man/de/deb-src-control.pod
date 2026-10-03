@@ -38,9 +38,13 @@ Der Wert dieses Feldes ist der Name des Quellpakets und muss mit dem Namen des Q
 
 Sollte in dem Format „Joe Bloggs E<lt>jbloggs@foo.comE<gt>“ sein und verweist auf die Person, die derzeit das Paket betreut, im Gegensatz zum Autor der Software, die paketiert wurde, oder dem ursprünglichen Paketierer.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Uploaders:> I<Vollständiger-Name-und-E-Mail>
 
 Listet die Namen und E-Mail-Adressen der Ko-Betreuer des Pakets auf, im gleichen Format wie das Feld B<Maintainer>. Mehrere Ko-Betreuer sollten durch Kommata getrennt werden.
+
+The format is described in L<deb-email(7)>.
 
 =item B<Standards-Version:>  I<Versionszeichenkette>
 
@@ -64,11 +68,13 @@ Die I<URL> der Fehlerdatenbank für dieses Paket. Das derzeit verwendete Format 
 
 Dieses experiementelle Feld legt den Namen des Bautreibers fest, der zum Bau dieses Pakets verwendet werden soll. Falls nicht angegeben, ist die Vorgabe für I<Treibername> B<debian-rules>.
 
-Dieses Feld wird seit Dpkg 1.22.7 unterstützt.
+Supported since dpkg 1.22.7.
 
 =item B<Rules-Requires-Root:> B<no>|B<binary-targets>|I<impl-keywords>
 
 Dieses Feld wird verwandt, um anzuzeigen, ob die Datei B<debian/rules> (fake)root-Priviliegien benötigt, um einige ihrer Ziele auszuführen, und falls ja, wann.
+
+Supported since dpkg 1.19.0.
 
 =over 
 
@@ -146,7 +152,9 @@ Eine Liste der Pakete, die installiert und konfiguriert sein müssen, um das Pak
 
 =item B<Build-Depends-Arch:> I<Paketliste>
 
-Identisch zu B<Build-Depends>, wird aber nur zum Bau der architekturabhängigen Pakete benötigt. In diesem Fall sind die B<Build-Depends> auch installiert. Dieses Feld wurde seit Dpkg 1.16.4 unterstützt; um mit älteren Dpkg-Versionen zu bauen, sollte stattdessen B<Build-Depends> verwandt werden.
+Same as B<Build-Depends>, but they are only needed when building the architecture dependent packages.  The B<Build-Depends> are also installed in this case.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Depends> should be used instead.
 
 =item B<Build-Depends-Indep:> I<Paketliste>
 
@@ -158,7 +166,9 @@ Eine Liste von Paketen, die beim Bau des Pakets nicht installiert sein sollten, 
 
 =item B<Build-Conflicts-Arch:> I<Paketliste>
 
-Identisch zu B<Build-Conflicts>, aber nur beim Bau der architekturabhängigen Pakete. Dieses Feld wird seit Dpkg 1.16.4 unterstützt; um mit älteren Dpkg-Versionen zu bauen, sollte stattdessen B<Build-Conflicts> verwandt werden.
+Same as B<Build-Conflicts>, but only when building the architecture dependent packages.
+
+Supported since dpkg 1.16.4; to build with older dpkg versions, B<Build-Conflicts> should be used instead.
 
 =item B<Build-Conflicts-Indep:> I<Paketliste>
 
@@ -316,7 +326,7 @@ Beachten Sie, dass diese benutzerdefinierten Felder den globalen Namensraum nutz
  Homepage: https://wiki.debian.org/Teams/Dpkg
  Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git
  Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git
- Standards-Version: 4.7.3
+ Standards-Version: 4.7.4
  Build-Depends:
   dpkg-build-api (= 1),
   debhelper-compat (= 13),
@@ -362,7 +372,7 @@ Beachten Sie, dass diese benutzerdefinierten Felder den globalen Namensraum nutz
 
 =head1 SIEHE AUCH
 
-I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-version(7)>, L<dpkg-source(1)>
+I<%PKGDOCDIR%/spec/rootless-builds.txt>, L<deb822(5)>, L<deb-control(5)>, L<deb-email(7)>, L<deb-version(7)>, L<dpkg-source(1)>
 
 
 =head1 ÜBERSETZUNG

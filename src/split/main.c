@@ -63,41 +63,89 @@ static int
 usage(const char *const *argv)
 {
 	printf(_(
-"Usage: %s [<option> ...] <command>\n"
-"\n"), SPLITTER);
+"Usage: %s [<option>...] <command>\n"
+	), SPLITTER);
+	print_option_sep();
 
 	printf(_(
 "Commands:\n"
-"  -s|--split <file> [<prefix>]     Split an archive.\n"
-"  -j|--join <part> <part> ...      Join parts together.\n"
-"  -I|--info <part> ...             Display info about a part.\n"
-"  -a|--auto -o <complete> <part>   Auto-accumulate parts.\n"
-"  -l|--listq                       List unmatched pieces.\n"
-"  -d|--discard [<filename> ...]    Discard unmatched pieces.\n"
-"\n"));
-
-	printf(_(
-"  -?, --help                       Show this help message.\n"
-"      --version                    Show the version.\n"
-"\n"));
+	));
+	print_option(_(
+"  -s, --split <file> [<prefix>]\n"
+"          Split an archive.\n"
+	));
+	print_option(_(
+"  -j, --join <part> <part>...\n"
+"          Join archive parts together.\n"
+	));
+	print_option(_(
+"  -I, --info <part>...\n"
+"          Show information about an archive part.\n"
+	));
+	print_option(_(
+"  -a, --auto -o <complete> <part>\n"
+"          Auto-accumulate archive parts via the queue.\n"
+	));
+	print_option(_(
+"  -l, --listq\n"
+"          List unmatched archive parts in the queue.\n"
+	));
+	print_option(_(
+"  -d, --discard [<filename>...]\n"
+"          Discard unmatched archive parts in the queue.\n"
+	));
+	print_option(_(
+"  -?, --help\n"
+"          Show this help message.\n"
+	));
+	print_option(_(
+"      --version\n"
+"          Show the version.\n"
+	));
+	print_option_sep();
 
 	printf(_(
 "Options:\n"
-"      --depotdir <directory>       Use <directory> instead of %s/%s.\n"
-"      --admindir <directory>       Use <directory> instead of %s.\n"
-"      --root <directory>           Use <directory> instead of %s.\n"
-"  -S, --partsize <size>            In KiB, for -s (default is 450).\n"
-"  -o, --output <file>              Filename, for -j (default is\n"
-"                                     <package>_<version>_<arch>.deb).\n"
-"  -Q, --npquiet                    Be quiet when -a is not a part.\n"
-"\n"), ADMINDIR, PARTSDIR, ADMINDIR, "/");
+	));
+	print_option(_(
+"  -S, --partsize <size>\n"
+"          Set the part size in KiB, for --split.\n"
+	));
+	print_option_def("%d", SPLITPARTDEFMAX / 1024);
+	print_option(_(
+"  -o, --output <file>\n"
+"          Set the filename for --join.\n"
+	));
+	print_option_def(_("<package>_<version>_<arch>.deb"));
+	print_option(_(
+"  -Q, --npquiet\n"
+"          Enable quiet mode, no output when --auto is not an archive part.\n"
+	));
+	print_option(_(
+"      --depotdir <directory>\n"
+"          Change the archive parts queue directory.\n"
+	));
+	print_option_def(ADMINDIR "/" PARTSDIR);
+	print_option(_(
+"      --admindir <directory>\n"
+"          Change the database directory.\n"
+	));
+	print_option_def(ADMINDIR);
+	print_option_env("DPKG_ADMINDIR");
+	print_option(_(
+"      --root <directory>\n"
+"          Change the root directory.\n"
+	));
+	print_option_def("/");
+	print_option_env("DPKG_ROOT");
+	print_option_sep();
 
 	printf(_(
 "Exit status:\n"
 "  0 = ok\n"
-"  1 = with --auto, file is not a part\n"
-"  2 = trouble\n"));
-
+"  1 = with --auto, file is not an archive part\n"
+"  2 = trouble\n"
+	));
 
 	m_output(stdout, _("<standard output>"));
 
@@ -115,10 +163,10 @@ void DPKG_ATTR_NORET
 read_fail(int rc, const char *filename, const char *what)
 {
 	if (rc >= 0)
-		ohshit(_("unexpected end of file in %s in %s"),
-		       what, filename);
+		ohshit(_("cannot read %s from file %s: %s"),
+		       what, filename, _("unexpected end of file"));
 	else
-		ohshite(_("error reading %s from file %s"), what, filename);
+		ohshite(_("cannot read %s from file %s"), what, filename);
 }
 
 static void

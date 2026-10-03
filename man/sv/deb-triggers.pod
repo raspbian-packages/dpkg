@@ -58,9 +58,9 @@ Okända direktiv är ett fel som förhindrar paketet från att installeras.
 
 Varianterna med ”-noawait” kommer alltid att föredras när så är möjligt eftersom de utlösande paketen inte försätts i avvaktande tillstånd och kan därför konfigureras omedelbart utan att utlösaren behöver hanteras. Om de utlösande paketen beror på andra uppgraderade paket kan det undvika att utlösare hanteras tidigt och göra det möjligt att köra utlösaren endast en gång som ett av de sista stegen i uppgraderingen.
 
-Varianterna med ”-noawait” stöds endast sedan dpkg 1.16.1, och kommer leda till fel om de används med äldre versioner av dpkg.
+Support for the “-noawait” variants since dpkg 1.16.1, will lead to errors if used with an older dpkg.
 
-Aliasvarianterna med ”-await” stöds endast sedan dpkg 1.17.21, och kommer leda till fel om de används med äldre versioner av dpkg.
+Support for the “-await” alias variants since dpkg 1.17.21, will lead to errors if used with an older dpkg.
 
 När ett paket tillhandahåller direktivet B<interest-noawait> kommer alla aktivering att försätta det utlösande paketet i ”noawait”-läge, oberoende av avvaktande-läget som efterfrågades av aktiveringen (antingen ”await” eller ”noawait”). När ett paket tillhandahåller direktivet B<interest> eller B<interest-await> kommer aktiveringen sätta det utlösande paketet till ”await” eller ”noawait” beroende av hur det aktiverades.
 

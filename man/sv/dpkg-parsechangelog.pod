@@ -38,11 +38,15 @@ Anger format på ändringsloggen. Som standard läses formatet från en speciell
 
 =item B<-L> I<bibliotekskatalog>
 
-Föråldrad flagga utan effekt (sedan dpkg 1.18.8). En liknande effekt kan uppnås för att söka perl-tolkningsmodulerna genom att sätta miljövariablerna B<PERL5LIB> eller B<PERLLIB> 
+Obsolete since dpkg 1.18.8, it has no effect.
+
+Setting the perl environment variables B<PERL5LIB> or B<PERLLIB> has a similar effect when looking for the parser perl modules.
 
 =item B<-S>, B<--show-field> I<fält>
 
-Anger namnet på ett fält att visa (sedan dpkg 1.17.0). Fältnamnet visas inte, endast dess värde.
+Specifies the name of the field to show.  The field name is not printed, only its value.
+
+Supported since dpkg 1.17.0.
 
 =item B<-?>, B<--help>
 
@@ -86,13 +90,17 @@ Högsta brådskan av alla de inkluderade posterna används, följt av de sammans
 
 Namn och e-postadress till den person som förberett ändringarna, de är B<inte> nödvändigtvis samma som den som sänt in dem eller den vanlige paketansvarige.
 
+The format is described in L<deb-email(7)>.
+
 =item B<Date:> I<datum>
 
 Postens datum, så som det står skrivet i ändringsloggen. Med ett L<strptime(3)>-format på "B<%a, %d %b %Y %T %z>", men där veckodagen kanske inte nödvändigtvis motsvarar den faktiska dagen som hämtas från resten av datumsträngen. Om du behöver en mer korrekt representation av datumet, använd fältet B<Timestamp>, men tänk på att det kanske inte är möjligt att koppla det tillbaka till det exakta värdet på det här fältet. 
 
 =item B<Timestamp:> I<tidsstämpel>
 
-Datumet för posten som en tidsstämpel i sekundeer sedan epoken (sedan dpkg 1.18.8).
+The date of the entry as a timestamp in seconds since the epoch.
+
+Supported since dpkg 1.18.8.
 
 =item B<Closes:> I<nummer-på-felrapport>
 
@@ -112,9 +120,11 @@ B<rfc822>-formatet använder samma fält, men ger ett separat stycke för varje 
 
 =item B<--reverse>
 
-Inkludera alla ändringar i omvänd ordning (sedan dpkg 1.19.1).
+Include all changes in reverse order.
 
 B<Observera>: För B<dpkg>-formatet kommer den första posten vara den äldsta posten.
+
+Supported since dpkg 1.19.1.
 
 =item B<--all>
 
@@ -154,7 +164,7 @@ Ta med I<antal> ändringar från början (eller slutet om I<antal> är lägre ä
 
 Det är möjligt att använda ett annat format än standard, genom att tillhandahålla en tolk för det alternativa formatet.
 
-För att låta B<dpkg-parsechangelog> köra den nya tolken måste en rad som motsvarar det reguljära uttrycket (Perl-format) “B<\schangelog-format:\s+([0-9a-z]+)\W>” läggas in bland de 40 sista raderna i ändringsloggfilen. Delen i parentes är namnet på formatet. Till exempel:
+To have B<dpkg-parsechangelog> run the new parser, a line must be included within the last 40 lines of the changelog file, matching the Perl regular expression: “B<\schangelog-format:\s+([0-9a-z]+)\W>”.  The part in parentheses should be the name of the format.  For example:
 
 =over 
 
@@ -188,11 +198,15 @@ Hantering av korta flaggor med icke-medsända värden är endast tillgängligt e
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.19.0). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -212,7 +226,7 @@ Fältet B<Maintainer> har ett förvirrande namn som motsvarar fältet i filen F<
 
 =head1 SE ÄVEN
 
-L<deb-changelog(5)>.
+L<deb-email(7)>, L<deb-changelog(5)>.
 
 
 =head1 ÖVERSÄTTNING

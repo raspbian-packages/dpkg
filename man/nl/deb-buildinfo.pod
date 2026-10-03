@@ -124,7 +124,9 @@ Op Debian en zijn derivaten zullen enkel bouwpaden die beginnen met I</build/> a
 
 =item S< >I<lijst-met-bezoedelingsredenen>
 
-Dit gevouwen veld bevat een niet-exhaustieve lijst, met spatie als scheidingsteken, van labels (samengesteld uit alfanumerieke tekens en gedachtestreepjes) met redenen die aanduiden waarom de huidige bouw bezoedeld werd (sinds dpkg 1.19.5).
+This folded field contains a space-separated list of non-exhaustive reason tags (formed by alphanumeric and dash characters) which identify why the current build has been tainted.
+
+Supported since dpkg 1.19.5.
 
 Op Debian en zijn derivaten kunnen de volgende reden-labels gegeven worden:
 

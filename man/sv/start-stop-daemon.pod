@@ -40,7 +40,15 @@ Testa om den angivna processen existerar. Om så är fallet sänder B<start-stop
 
 =item B<-T>, B<--status>
 
-Se om den angivna processen existerar, och returnerar en statuskod i enlighet med LBS Init Script Actions (sedan version 1.16.1).
+Check for the existence of a specified process, and returns an exit status code, according to the LSB Init Script Actions
+
+Supported since version 1.16.1.
+
+=item B<--pidof>
+
+Check for the existence of specified processes, print their PIDs, and returns an exist status just like B<--status>.
+
+Supported since version 1.23.8.
 
 =item B<-H>, B<--help>
 
@@ -60,11 +68,15 @@ Visa programversion och avsluta.
 
 =item B<--pid> I<pid>
 
-Se efter en process med angiven I<pid> (sedan version 1.17.6). I<pid> måste vara ett tal större än 0.
+Check for a process with the specified I<pid>.  The I<pid> must be a number greater than 0.
+
+Supported since version 1.17.6.
 
 =item B<--ppid> I<ppid>
 
-Se efter en process med angiven föräldra-pid I<ppid> (sedan version 1.17.7). I<ppid> måste vara ett tal större än 0.
+Check for a process with the specified parent pid I<ppid>.  The I<ppid> must be a number greater than 0.
+
+Supported since version 1.17.7.
 
 =item B<-p>, B<--pidfile> I<pidfil>
 
@@ -138,7 +150,7 @@ Byt till användarnamnet/användar-id:t innan processen startas. Du kan även an
 
 =item B<-r>, B<--chroot> I<rot>
 
-Byt katalog och rot till B<rot> innan processen startas. Observera att även pidfilen skrivs efter chroot har utförts.
+Change directory and chroot to I<root> before starting the process.  Note that the pidfile is also written after the chroot.
 
 =item B<-d>, B<--chdir> I<sökväg>
 
@@ -152,7 +164,7 @@ B<Observera>: Avslutningsstatus från ett sent icke väntat misslyckande under p
 
 =item B<--notify-await>
 
-Vänta på att bakgrundsprocessen sänder en bekräftelse på att den är redo innan tjänsten anses vara startad (sedan version 1.19.3). Flaggan kan endast användas med B<--background>.
+Wait for the background process to send a readiness notification before considering the service started This option can only be used with B<--background>.
 
 Detta implementar delar av systemd:s beredskapsprotokoll, så som det anges i manualsidan L<sd_notify(3)>. Följande variabler stöds:
 
@@ -172,17 +184,25 @@ Programmet avslutar med en felkod. Gör detsamma och skriv ut den användarvänl
 
 =back
 
+Supported since version 1.19.3.
+
 =item B<--notify-timeout> I<tidsgräns>
 
-Sätt en tidsgräns för flaggan B<--notify-await> (sedan version 1.19.3). När tidsgränsen nås kommer B<start-stop-daemon> avslutas med en felkod, och ingen beredskapsinformation kommer väntas på. Förvalet är B<60> sekunder.
+Set a timeout for the B<--notify-await> option.  When the timeout is reached, B<start-stop-daemon> will exit with an error code, and no readiness notification will be awaited.  The default is B<60> seconds.
+
+Supported since version 1.19.3.
 
 =item B<-C>, B<--no-close>
 
-Stäng inte filbeskrivare när serverprocessen tvingas till bakgrunden (sedan version 1.16.5). Använd för felsöknignssyften för att se processutdata, eller för att omdirigera filbeskrivare för att logga processutdata. Endast relevant när B<--background> används.
+Do not close any file descriptor when forcing the daemon into the background.  Used for debugging purposes to see the process output, or to redirect file descriptors to log the process output.  Only relevant when using B<--background>.
+
+Supported since version 1.16.5.
 
 =item B<-O>, B<--output> I<sökväg>
 
-Omdirigera B<standard ut> och B<standard fel> till I<sökväg> när serverprocessen tvingas till bakgrunden (sedan version 1.20.6). Endast relevant när B<--background> används.
+Redirect B<stdout> and B<stderr> to I<pathname> when forcing the daemon into the background.  Only relevant when using B<--background>.
+
+Supported since version 1.20.6.
 
 =item B<-N>, B<--nicelevel> I<heltal>
 
@@ -190,19 +210,25 @@ Omdirigera B<standard ut> och B<standard fel> till I<sökväg> när serverproces
 
 =item B<-P>, B<--procsched> I<policy>B<:>I<prioritet>
 
-Ändrar processschemaläggarens policy och prioritet för processen innan den startas (sedan version 1.15.0). Prioriteten är valfri och anges genom att lägga till ett B<:> följt av värdet. Standardvärdet för I<prioritet> är 0. För närvarande stöds värdena B<other>, B<fifo> och B<rr> för I<policy>.
+This alters the process scheduler policy and priority of the process before starting it.  The priority can be optionally specified by appending a B<:> followed by the value.  The default I<priority> is 0.  The currently supported policy values are B<other>, B<fifo> and B<rr>.
 
 Det är möjligt att flaggan inte gör något på system där POSIX-processschemaläggning inte stöds.
 
+Supported since version 1.15.0.
+
 =item B<-I>, B<--iosched> I<klass>B<:>I<prioritet>
 
-Ändrar I/O-schemaläggarens klass och -prioritet för processen innan den startas (sedan version 1.15.0). Prioriteten är valfri och anges genom att lägga till ett B<:> följt av värdet. Standardvärdet för I<prioritet> är 4, såvida inte I<klass> är B<idle>, då är I<prioritet> alltid 7. För närvarande stöds värdena B<idle>, B<best-effort> och B<real-time> för I<klass>.
+This alters the IO scheduler class and priority of the process before starting it.  The priority can be optionally specified by appending a B<:> followed by the value.  The default I<priority> is 4, unless I<class> is B<idle>, then I<priority> will always be 7.  The currently supported values for I<class> are B<idle>, B<best-effort> and B<real-time>.
 
 Det är möjligt att flaggan inte gör något på system där Linux-I/O-schemaläggning inte stöds.
 
+Supported since version 1.15.0.
+
 =item B<-k>, B<--umask> I<maskvärde>
 
-Ställer in umaskvärdet på processen innan den startas (sedan version 1.13.22).
+This sets the umask of the process before starting it.
+
+Supported since version 1.13.22.
 
 =item B<-m>, B<--make-pidfile>
 
@@ -212,7 +238,9 @@ B<Observera>: Funktionen kanske inte alltid fungerar. Framförallt inte när pro
 
 =item B<--remove-pidfile>
 
-Används när ett program som inte tar bort sin egen pid-fil stoppas (sedan version 1.17.19). Flaggan gör att B<start-stop-daemon> tar bort filen som anges med B<--pidfile> efter att processen stoppats.
+Used when stopping a program that does not remove its own pid file.  This option will make B<start-stop-daemon> remove the file referenced with B<--pidfile> after terminating the process.
+
+Supported since version 1.17.19.
 
 =item B<-v>, B<--verbose>
 
@@ -242,7 +270,7 @@ Alla andra fel.
 
 =back
 
-Med B<--status>-åtgärden returneras följande statuskoder:
+When using the B<--status> or B<--pidof> commands, the following status codes are returned:
 
 =over 
 

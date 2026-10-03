@@ -36,13 +36,13 @@ Innan paketet installeras.
 
 Innan ett borttaget paketet uppgraderas.
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<ny-preinst> B<upgrade> I<gammal-version> I<ny-version>
 
 Innan paketet uppgraderas.
 
-I<ny-version> sänds endast sedan dpkg 1.18.5.
+Support for I<new-version> since dpkg 1.18.5.
 
 =item I<gammal-preinst> B<abort-upgrade> I<ny-version>
 

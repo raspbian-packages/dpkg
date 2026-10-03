@@ -40,7 +40,7 @@ Beim erstmaligen Einführen in das System befindet sich eine Linkgruppe im autom
 
 Jede Alternative hat eine ihr zugeordnete I<Priorität>. Befindet sich eine Linkgruppe im automatischen Modus, zeigen die Mitglieder einer Gruppe auf die Alternative mit der höchsten Priorität.
 
-Wird die Option B<--config> verwendet, dann zeigt B<update-alternatives> alle Auswahlmöglichkeiten für die Link-Gruppe an, für die der gegebene I<Name> der Master-Alternative-Name ist. Die aktuelle Auswahl ist mit ‚*’ markiert. Sie werden dann aufgefordert, Ihre Auswahl bezüglich der Linkgruppe anzugeben. Abhängig von der getroffenen Auswahl könnte sich die Link-Gruppe nicht mehr im I<automatischen> Modus befinden. Sie müssen dann die Option B<--auto> verwenden, um wieder in den automatischen Zustand zurückzukehren (oder Sie können B<--config> erneut ausführen und den als automatisch markierten Eintrag auswählen).
+When using the B<--config> option, B<update-alternatives> will list all of the choices for the link group of which given I<name> is the master alternative name.  The current choice is marked with a ‘*’.  You will then be prompted for your choice regarding this link group.  Depending on the choice made, the link group might no longer be in I<auto> mode.  You will need to use the B<--auto> option to return to the automatic mode (or you can rerun B<--config> and select the entry marked as automatic).
 
 Falls Sie nicht-interaktiv konfigurieren möchten, können Sie stattdessen die Option B<--set> verwenden (siehe unten).
 
@@ -100,7 +100,7 @@ Ist eine Linkgruppe im manuellen Modus, dann führt das Alternativ-System keine 
 
 =item B<--install> I<Link Name Pfad Priorität> [B<--slave> I<Link Name Pfad>] …
 
-Fügt eine Gruppe von Alternativen zum System hinzu. I<Link> ist der generische Name des Master-Links, I<Name> ist der Name seines Symlinks im Alternativ-Verzeichnis und I<Pfad> ist die Alternative, die für den Master-Link eingeführt wird. Die Argumente nach B<--slave> sind der generische Name, Symlink-Name in dem Alternativ-Verzeichnis und der Alternativ-Pfad für den Slave-Link. Null oder mehrere B<--slave>-Optionen, jede von drei Argumenten gefolgt, können spezifiziert werden. Beachten Sie, dass die Master-Alternative existieren muss, ansonsten schlägt der Aufruf fehl. Falls allerdings eine Slave-Alternative nicht existiert, wird der zugehörige Slave-Alternative-Link einfach nicht installiert (es wird noch eine Warnung ausgegeben). Falls eine echte Datei an einer Stelle installiert wird, an der ein Alternativ-Link installiert werden muss, wird diese beibehalten, solange B<--force> nicht verwandt wird.
+Add a group of alternatives to the system.  I<link> is the generic name for the master link, I<name> is the name of its symlink in the alternatives directory, and I<path> is the alternative being introduced for the master link.  The arguments after B<--slave> are the generic name, symlink name in the alternatives directory and the alternative path for a slave link.  Zero or more B<--slave> options, each followed by three arguments, may be specified.  Note that the master alternative must exist or the call will fail.  However if a slave alternative doesn't exist, the corresponding slave alternative link will not be installed (a warning will still be displayed). If some real file is installed where an alternative link has to be installed, it is kept unless B<--force> is used.
 
 Falls der angegebene Alternativ-Name bereits in den Aufzeichnungen des Alternativ-Systems existiert, werden die angegebenen Informationen als neuer Satz von Alternativen für die Gruppe hinzugefügt. Andernfalls wird eine neue Gruppe, eingestellt im automatischen Modus, mit dieser Information hinzugefügt. Falls die Gruppe sich im automatischen Modus befindet und die Priorität der neu hinzugefügten Alternative höher ist als die jeder anderen installierten Alternative für diese Gruppe, werden die Symlinks aktualisiert, so dass sie auf die neu hinzugefügte Alternative zeigen.
 
@@ -130,15 +130,21 @@ Zeigt Informationen über die Linkgruppe an. Die angezeigten Informationen entha
 
 =item B<--get-selections>
 
-Führt alle Master-Alternativ-Namen (die eine Linkgruppe steuern) mit ihrem Status auf (seit Version 1.15.0). Jede Zeile enthält bis zu 3 Felder (getrennt durch mindestens ein Leerzeichen). Im ersten Feld steht der Alternativ-Name, im zweiten der Status (entweder B<auto> oder B<manual>) und im letzten die derzeitige Wahl der Alternative (Achtung: Dies ist ein Dateiname, der Leerzeichen enthalten kann).
+List all master alternative names (those controlling a link group)  and their status.  Each line contains up to 3 fields (separated by one or more spaces).  The first field is the alternative name, the second one is the status (either B<auto> or B<manual>), and the last one contains the current choice in the alternative (beware: it's a filename and thus might contain spaces).
+
+Supported since version 1.15.0.
 
 =item B<--set-selections>
 
-Liest eine Konfiguration von Alternativen über die Standardeingabe im von „B<--get-selections>“ generierten Format und konfiguriert die Alternativen entsprechend neu (seit Version 1.15.0).
+Read configuration of alternatives on standard input in the format generated by B<--get-selections> and reconfigure them accordingly.
+
+Supported since version 1.15.0.
 
 =item B<--query> I<Name>
 
-Zeigt alle Informationen über die Linkgruppe an, wie dies auch von B<--display> erfolgt, allerdings in einem maschinenlesbaren Format (seit Version 1.15.0, siehe nachfolgenden Abschnitt L</ABFRAGE-FORMAT>).
+Display information about the link group like B<--display> does, but in a machine parseable way (see section L</QUERY FORMAT> below).
+
+Supported since version 1.15.0.
 
 =item B<--list> I<Name>
 
@@ -172,15 +178,21 @@ Spezifiziert das administrative Verzeichnis, wenn sich dieses von der Standardei
 
 =item B<--instdir> I<Verzeichnis>
 
-Spezifiziert das Installationsverzeichnis, in dem Alternatives-Links erstellt werden (seit Dpkg 1.20.1). Standardmäßig „I</>“, falls B<%INSTDIR_ENVVAR%> nicht gesetzt wurde.
+Specifies the installation directory where alternatives links will be created.  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+
+Supported since version 1.20.1.
 
 =item B<--root> I<Verzeichnis>
 
-Spezifiziert das Wurzelverzeichnis (seit Version 1.201.). Dies setzt auch passend die Alternatives-, Installations- und administrativen Verzeichnisse. Standardmäßig „I</>“, falls B<%INSTDIR_ENVVAR%> nicht gesetzt wurde.
+Specifies the root directory.  This also sets the alternatives, installation and administrative directories to match.  Defaults to «I</>» if B<%INSTDIR_ENVVAR%> has not been set.
+
+Supported since version 1.20.1.
 
 =item B<--log> I<Datei>
 
-Gibt die Protokolldatei an (seit Version 1.15.0), wenn diese sich von der Vorgabe (%LOGDIR%/alternatives.log) unterscheiden soll.
+Specifies the log file, when this is to be different from the default (%LOGDIR%/alternatives.log).
+
+Supported since version 1.15.0.
 
 =item B<--force>
 
@@ -200,7 +212,9 @@ Erzeugt mehr Kommentare darüber, was getan wird.
 
 =item B<--debug>
 
-Erzeugt mehr Kommentare darüber, hilfreich für die Fehlersuche, was getan wird (seit Version 1.19.3).
+Generate even more comments, helpful for debugging, about what is being done.
+
+Supported since version 1.19.3.
 
 =back
 

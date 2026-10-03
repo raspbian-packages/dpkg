@@ -26,7 +26,7 @@ Das mehrteilige B<.deb>-Format wird zum Aufteilen von großen Paketen in kleiner
 
 =head1 FORMAT
 
-Die Datei ist ein B<ar>-Archiv mit einer magischen Zahl von B<!E<lt>archE<gt>>. Der Dateiname kann (seit Dpkg 1.15.6) mit einem Schrägstrich abschließen.
+The file is an B<ar> archive with a magic value of B<!E<lt>archE<gt>\n>. The file names might contain a trailing slash (since dpkg 1.15.6).
 
 Das B<ar>-Archiv besteht aus einer Reihe von Elementen in einer bestimmten Reihenfolge:
 
@@ -68,7 +68,9 @@ Die aktuelle Teilenummer, gefolgt von einem Schrägstrich und der Gesamtanzahl a
 
 =item *
 
-Die Paketarchitektur (seit Dpkg 1.16.1).
+The package architecture.
+
+Supported since dpkg 1.16.1.
 
 =back
 

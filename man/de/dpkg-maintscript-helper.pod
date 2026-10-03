@@ -43,7 +43,7 @@ B<dpkg-maintscript-helper> I<Befehl> [I<Parameter> …] B<--> I<Betr-Skript-Para
 
 Dieses Programm wurde so entworfen, dass es in Betreuerskripten ausgeführt werden kann, um einige Aufgaben zu erledigen, die B<dpkg> (noch) nicht selbst erledigen kann, entweder aufgrund von Design-Entscheidungen oder aufgrund aktueller Einschränkungen.
 
-Viele dieser Aufgaben benötigen koordinierte Aktionen aus mehreren Betreuerskripten (B<preinst>, B<postinst>, B<prerm>, B<postrm>). Um Fehler zu vermeiden, wird der gleiche Aufruf einfach in alle Skripte eingefügt und das Programm wird sein Verhalten automatisch abhängig von der Variable B<DPKG_MAINTSCRIPT_NAME> und den Argumenten im Betreuerskript, die Sie nach einem doppelten Bindestrich übergeben müssen, anpassen.
+Many of those tasks require coordinated actions from several maintainer scripts (B<preinst>, B<postinst>, B<prerm>, B<postrm>).  To avoid mistakes the same call needs to be put in all scripts and the program will automatically adapt its behavior based on the environment variable B<DPKG_MAINTSCRIPT_NAME> and on the maintainer scripts arguments that you have to forward after a double hyphen.
 
 Dieses Programm wurde in Dpkg 1.15.7 hinzugefügt.
 
@@ -157,7 +157,7 @@ Aktuelle Implementierung: das B<preinst> überprüft, ob das Verzeichnis existie
 
 =head1 INTEGRATION IN PAKETE
 
-Bei der Benutzung der Paketierungshelfer prüfen Sie bitte, ob eine native B<dpkg-maintscript-helper>-Integration existiert. Hierdurch könnte Ihr Aufwand verringert werden. Lesen Sie beispielsweise L<dh_installdeb(1)>.
+When using a packaging helper, check if it has native B<dpkg-maintscript-helper> integration, which might make your life easier. See for example L<dh_installdeb(1)>.
 
 Da B<dpkg-maintscript-helper> im B<preinst> verwandt wird, benötigt der bedingungslose Einsatz eine versionierten prä-Abhängigkeit (I<pre-dependency>), um sicherzustellen, dass die Mindestversion von B<dpkg> bereits entpackt wurde, außer es ist bekannt, dass das Upgrade von einer Veröffentlichung erfolgt, in der die Dpkg-Version erfüllt ist. Die benötigte Version hängt vom verwandten Befehl ab, für B<rm_conffile> und B<mv_conffile> lautet sie 1.15.7.2, für B<symlink_to_dir> und B<dir_to_symlink> lautet sie 1.17.14. Wird beispielsweise Unterstützung für B<symlink_to_dir> beim Upgrade von einer Veröffentlichung benötigt, die Dpkg-Version älter als 1.17.14 hatte, dann müsste Folgendes ergänzt werden:
 
@@ -194,7 +194,9 @@ Falls gesetzt wird dies als Datenverzeichnis von B<dpkg> verwandt.
 
 =item B<DPKG_COLORS>
 
-Setzt den Farbmodus (seit Dpkg 1.19.1). Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+Setzt den Farbmodus. Die derzeit unterstützten Werte sind: B<auto> (Vorgabe), B<always> und B<never>.
+
+Supported since dpkg 1.19.1.
 
 =back
 

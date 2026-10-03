@@ -28,7 +28,7 @@
  */
 
 #ifndef LIBDPKG_VOLATILE_API
-#error "The libdpkg API is to be considered volatile, please read 'README.api'."
+#error "The libdpkg API is to be considered volatile, see 'README.api'."
 #endif
 
 /* Language definitions. */
@@ -67,7 +67,7 @@
 #endif
 
 /* Supported since gcc 5.1.0 and clang 2.9.0. For attributes that appeared
- * before these versions, in addition we need to do version checks.  */
+ * before these versions, in addition we need to do version checks. */
 #ifndef __has_attribute
 #define __has_attribute(x)	0
 #endif
@@ -198,15 +198,6 @@
  * Return the integer value of bit n.
  */
 #define DPKG_BIT(n)	(1UL << (n))
-
-/**
- * @def array_count
- *
- * Returns the amount of items in an array.
- */
-#ifndef array_count
-#define array_count(a) (sizeof(a) / sizeof((a)[0]))
-#endif
 
 /* For C++ use native implementations from STL or similar. */
 #ifndef __cplusplus

@@ -73,7 +73,11 @@ control part of the package.
 The target directory will be
 «unstable/binary-I<architecture>/I<section>».
 If the section is not found in the control, then B<no-section> is assumed,
-and in this case, as well as for sections B<non-free> and B<contrib>
+and in this case,
+as well as for sections
+B<contrib>,
+B<non-free-firmware> and
+B<non-free>
 the target directory is «I<section>/binary-I<architecture>».
 The section field is not required so a lot of packages will find their way
 to the B<no-section> area.
@@ -109,15 +113,19 @@ This affects the architecture name used in the package filename.
 
 =item B<DPKG_COLORS>
 
-Sets the color mode (since dpkg 1.18.5).
+Sets the color mode.
 The currently accepted values are: B<auto> (default), B<always> and
 B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
 If set, it will be used to decide whether to activate Native Language Support,
-also known as internationalization (or i18n) support (since dpkg 1.19.0).
+also known as internationalization (or i18n) support.
 The accepted values are: B<0> and B<1> (default).
+
+Supported since dpkg 1.19.0.
 
 =back
 
@@ -167,6 +175,4 @@ This can be used when building new packages.
 L<deb(5)>,
 L<deb-control(5)>,
 L<dpkg(1)>,
-L<dpkg-deb(1)>,
-L<find(1)>,
-L<xargs(1)>.
+L<dpkg-deb(1)>.

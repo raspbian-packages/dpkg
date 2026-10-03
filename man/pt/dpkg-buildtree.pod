@@ -36,9 +36,11 @@ Remove todos os artefactos gerados durante uma compilação pelas várias ferram
 
 =item B<is-rootless>
 
-Verifica se a árvore de compilação pode ser compilada sem privilégios de root (desde dpkg 1.22.12).
+Checks whether the build tree can be built with no root privileges.
 
 Este comando pode ser usado em segurança mesmo com versões onde o comando ainda não estava disponível pois a predefinição será a histórica onde root era requerido.
+
+Supported since dpkg 1.22.12.
 
 =item B<--help>
 

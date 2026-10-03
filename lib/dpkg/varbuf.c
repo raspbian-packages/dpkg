@@ -178,12 +178,11 @@ varbuf_add_char(struct varbuf *v, int c)
 void
 varbuf_dup_char(struct varbuf *v, int c, size_t n)
 {
-	if (n == 0)
-		return;
-
 	varbuf_grow(v, n + 1);
-	memset(v->buf + v->used, c, n);
-	v->used += n;
+	if (n > 0) {
+		memset(v->buf + v->used, c, n);
+		v->used += n;
+	}
 	v->buf[v->used] = '\0';
 }
 
@@ -208,11 +207,11 @@ varbuf_add_dir(struct varbuf *v, const char *dirname)
 void
 varbuf_add_buf(struct varbuf *v, const void *s, size_t size)
 {
-	if (size == 0)
-		return;
 	varbuf_grow(v, size + 1);
-	memcpy(v->buf + v->used, s, size);
-	v->used += size;
+	if (size > 0) {
+		memcpy(v->buf + v->used, s, size);
+		v->used += size;
+	}
 	v->buf[v->used] = '\0';
 }
 
@@ -285,13 +284,13 @@ varbuf_add_vfmt(struct varbuf *v, const char *fmt, va_list args)
 	va_end(args_copy);
 
 	if (needed < 0)
-		ohshite(_("error formatting string into varbuf variable"));
+		ohshite(_("cannot format string into varbuf variable"));
 
 	varbuf_grow(v, needed + 1);
 
 	n = vsnprintf(v->buf + v->used, needed + 1, fmt, args);
 	if (n < 0)
-		ohshite(_("error formatting string into varbuf variable"));
+		ohshite(_("cannot format string into varbuf variable"));
 
 	v->used += n;
 

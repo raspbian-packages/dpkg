@@ -38,7 +38,7 @@
 /* Incremented when we do some kind of generally necessary operation,
  * so that loops &c know to quit if we take an error exit. Decremented
  * again afterwards. */
-volatile int onerr_abort = 0;
+static volatile int onerr_abort = 0;
 
 #define NCALLS 2
 
@@ -128,7 +128,7 @@ print_fatal_error(const char *emsg, const void *data)
 static void
 print_abort_error(const char *etype, const char *emsg)
 {
-	fprintf(stderr, _("%s%s%s: %s%s:%s\n %s\n"),
+	fprintf(stderr, "%s%s:%s %s%s:%s\n %s\n",
 	        color_get(COLOR_PROG), dpkg_get_progname(), color_reset(),
 	        color_get(COLOR_ERROR), etype, color_reset(), emsg);
 }
@@ -357,7 +357,7 @@ cleanup_entry_new(void (*call1)(int argc, void **argv), int mask1,
 
 	cep = malloc(sizeof(*cep) + sizeof(void *) * (nargs + 1));
 	if (!cep) {
-		if (nargs > array_count(emergency.args))
+		if (nargs > countof(emergency.args))
 			ohshite(_("out of memory for new cleanup entry with "
 			          "many arguments"));
 		e = errno;
@@ -464,10 +464,8 @@ run_error_handler(void)
 	}
 
 	if (econtext == NULL) {
-		print_abort_error(_("outside error context, aborting"),
-		                  _("an error occurred with no error handling "
-		                    "in place"));
-		exit(2);
+		internerr("error outside error context, aborting; "
+		          "an error occurred with no error handling in place");
 	} else if (econtext->handler_type == HANDLER_TYPE_FUNC) {
 		econtext->handler.func();
 		internerr("error handler returned unexpectedly!");
@@ -477,6 +475,18 @@ run_error_handler(void)
 		internerr("unknown error handler type %d!",
 		          econtext->handler_type);
 	}
+}
+
+void
+push_fatal_errors_section(void)
+{
+	onerr_abort++;
+}
+
+void
+pop_fatal_errors_section(void)
+{
+	onerr_abort--;
 }
 
 void
@@ -527,7 +537,8 @@ ohshite(const char *fmt, ...)
 }
 
 void
-do_internerr(const char *file, int line, const char *func, const char *fmt, ...)
+impl_internerr(const char *file, int line, const char *func,
+               const char *fmt, ...)
 {
 	va_list args;
 

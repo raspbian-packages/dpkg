@@ -69,12 +69,14 @@ EXTRA_DIST = \
 	build-aux/test-runner \
 	doc/coding-style.txt \
 	debian/README.bug-usertags \
+	debian/buildpackage.conf \
 	debian/changelog \
 	debian/control \
 	debian/copyright \
 	debian/dpkg-dev.NEWS \
 	debian/dpkg-dev.docs \
 	debian/dpkg-dev.install \
+	debian/dpkg-dev.lintian-overrides \
 	debian/dpkg-dev.manpages \
 	debian/dpkg.alternatives.logrotate \
 	debian/dpkg.cfg \
@@ -235,6 +237,9 @@ update-po:
 	$(MAKE) -C man update-po
 
 include $(top_srcdir)/build-aux/cpan.am
+
+TAR_OPTIONS = --owner=0 --group=0
+export TAR_OPTIONS
 
 # If we create the dist tarball from the git repository, make sure
 # that we're not forgetting some files, and we are not storing any symlink

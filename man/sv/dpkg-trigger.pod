@@ -60,7 +60,9 @@ Visar version och avslutar.
 
 =item B<--root>=I<katalog>
 
-Sätt rotkatalogen till I<katalog>, vilket sätter den administrativa katalogen till ”I<katalog>B<%ADMINDIR%>” (sedan dpkg 1.21.0).
+Set the root directory to I<directory>, which sets the administrative directory to «I<directory>%ADMINDIR%».
+
+Supported since dpkg 1.21.0.
 
 =item B<--by-package=>I<paket>
 
@@ -72,7 +74,9 @@ Denna flagga gör så att det anropade paketet I<T> (om det finns) inte behöver
 
 =item B<--await>
 
-Flaggan gör det motsatta mot B<--no-await> (sedan dpkg 1.17.21). Om det intresserade paketet har angivit ”noawait”-direktivet kommer flaggan inte att ha någon effekt. Det är för närvarande standardbetendet.
+This option does the inverse of B<--no-await>.  If the interested package has declared a “noawait” directive, then this option will not be effective. It is currently the default behavior.
+
+Supported since dpkg 1.17.21.
 
 =item B<--no-act>
 
@@ -104,7 +108,9 @@ Ett test eller ett påstående returnerade falskt.
 
 =item B<DPKG_ROOT>
 
-Om satt och flaggan B<--root> inte har angivits används det som filsystemets rotkatalog (sedan dpkg 1.21.0).
+If set and the B<--root> option has not been specified, it will be used as the filesystem root directory.
+
+Supported since dpkg 1.21.0.
 
 =item B<DPKG_ADMINDIR>
 
@@ -112,15 +118,21 @@ Om satt, och flaggan B<--admindir> inte har angivits, används värdet som datak
 
 =item B<DPKG_DEBUG>
 
-Anger felsökningsmasken (sedan dpkg 1.21.10) från ett oktalt värde. De flaggor som för närvarande godtas beskrivs i flaggan B<dpkg --debug>, men alla dess flaggor påverkar inte nödvändigtvis detta program.
+Sets the debug mask from an octal value.  The currently accepted flags are described in the B<dpkg --debug> option, but not all these flags might have an effect on this program.
+
+Supported since dpkg 1.21.10.
 
 =item B<DPKG_COLORS>
 
-Väljer färgläge (sedan dpkg 1.18.5). För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+Väljer färgläge. För närvarande godtas följande värden: B<auto> (förval), B<always> och B<never>.
+
+Supported since dpkg 1.18.5.
 
 =item B<DPKG_NLS>
 
-Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n) (sedan dpkg 1.22.7). Tillåtna värden är: B<0> och B<1> (förval).
+Om satt, används för att bestämma om lokalt språkstöd ska aktiveras, även känt som internationaliseringsstöd (eller i18n). Tillåtna värden är: B<0> och B<1> (förval).
+
+Stöds sedan dpkg 1.22.7.
 
 =back
 

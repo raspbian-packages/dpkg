@@ -211,6 +211,7 @@ CYGPATH_W = @CYGPATH_W@
 DEB_DEFAULT_COMPRESSOR = @DEB_DEFAULT_COMPRESSOR@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DESIRED_LINGUAS = @DESIRED_LINGUAS@
 DLLTOOL = @DLLTOOL@
 DOXYGEN = @DOXYGEN@
 DPKG_DEFAULT_PAGER = @DPKG_DEFAULT_PAGER@
@@ -396,8 +397,8 @@ zshcompletionsdir = @zshcompletionsdir@
 EXTRA_DIST = po/ChangeLog.old po/dpkg-man.pot po/po4a.cfg \
 	utf8toman.sed deb-buildinfo.pod deb-changelog.pod \
 	deb-changes.pod deb-conffiles.pod deb-control.pod \
-	deb-extra-override.pod deb-md5sums.pod deb-old.pod \
-	deb-origin.pod deb-override.pod deb-postinst.pod \
+	deb-email.pod deb-extra-override.pod deb-md5sums.pod \
+	deb-old.pod deb-origin.pod deb-override.pod deb-postinst.pod \
 	deb-postrm.pod deb-preinst.pod deb-prerm.pod deb-shlibs.pod \
 	deb-split.pod deb-src-control.pod deb-src-files.pod \
 	deb-src-rules.pod deb-src-symbols.pod deb-substvars.pod \
@@ -417,7 +418,7 @@ EXTRA_DIST = po/ChangeLog.old po/dpkg-man.pot po/po4a.cfg \
 	EOL
 CLEANFILES = $(man_MANS)
 man_MANS = deb-buildinfo.5 deb-changelog.5 deb-changes.5 \
-	deb-conffiles.5 deb-control.5 deb-extra-override.5 \
+	deb-conffiles.5 deb-control.5 deb-email.7 deb-extra-override.5 \
 	deb-md5sums.5 deb-old.5 deb-origin.5 deb-override.5 \
 	deb-postinst.5 deb-postrm.5 deb-preinst.5 deb-prerm.5 \
 	deb-shlibs.5 deb-split.5 deb-src-control.5 deb-src-files.5 \

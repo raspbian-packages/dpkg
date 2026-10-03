@@ -22,7 +22,7 @@ B<override>
 
 =head1 DESCRIÇÃO
 
-Enquanto a maioria da informação acerca de uma pacote pode ser encontrada no ficheiro de controle, alguma é gerida centralmente pelos czars da distribuição em vez de pelo maintainer de modo a oferecer alguma consistência global. Esta informação encontra-se no ficheiro de sobreposição (override).
+While most information about a package can be found in the control file, some is managed centrally by the distribution czars rather than by the maintainer to offer some global consistency.  This information is found in the override file.
 
 O ficheiro override tem um formato simples de delimitação por espaços em branco. São permitidos comentários (denotados com um B<#>).
 

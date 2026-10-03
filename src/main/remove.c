@@ -173,7 +173,7 @@ deferred_remove(struct pkginfo *pkg)
 		        pkg_name(pkg, pnaw_nonambig), varbuf_str(&raemsgs));
 		ohshit(_("dependency problems - not removing"));
 	} else if (raemsgs.used) {
-		notice(_("%s: dependency problems, but removing anyway as you requested:\n%s"),
+		notice(_("%s: dependency problems, but removing anyway as requested:\n%s"),
 		        pkg_name(pkg, pnaw_nonambig), varbuf_str(&raemsgs));
 	}
 	varbuf_destroy(&raemsgs);
@@ -181,8 +181,8 @@ deferred_remove(struct pkginfo *pkg)
 
 	if (pkg->eflag & PKG_EFLAG_REINSTREQ)
 		forcibleerr(FORCE_REMOVE_REINSTREQ,
-		            _("package is in a very bad inconsistent state; you should\n"
-		              " reinstall it before attempting a removal"));
+		            _("package is in a very bad inconsistent state; it should\n"
+		              " be reinstalled before attempting a removal"));
 
 	ensure_allinstfiles_available();
 	fsys_hash_init();
@@ -249,7 +249,7 @@ removal_bulk_remove_file(const char *filename, const char *filetype)
 	debug_at(dbg_stupidlyverbose, "metadata file not postrm nor list");
 
 	if (unlink(filename))
-		ohshite(_("unable to delete package metadata file '%s'"),
+		ohshite(_("cannot delete package metadata file '%s'"),
 		        filename);
 
 	debug_at(dbg_scripts, "metadata file unlinked %s", filename);
@@ -376,7 +376,7 @@ removal_bulk_remove_files(struct pkginfo *pkg)
 			push_leftover(&leftover, namenode);
 			continue;
 		} else if (errno == EBUSY || errno == EPERM) {
-			warning(_("while removing %s, unable to remove directory '%s': "
+			warning(_("while removing %s, cannot remove directory '%s': "
 			          "%s - directory may be a mount point?"),
 			        pkg_name(pkg, pnaw_nonambig), namenode->name,
 			        strerror(errno));
@@ -387,7 +387,7 @@ removal_bulk_remove_files(struct pkginfo *pkg)
 			ohshite(_("cannot remove '%s'"), fnvb.buf);
 		debug_at(dbg_eachfiledetail, "unlinking '%s'", fnvb.buf);
 		if (secure_unlink(fnvb.buf))
-			ohshite(_("unable to securely remove '%s'"),
+			ohshite(_("cannot securely remove '%s'"),
 			        fnvb.buf);
 	}
 	write_filelist_except(pkg, &pkg->installed, leftover, 0);
@@ -479,7 +479,7 @@ removal_bulk_remove_leftover_dirs(struct pkginfo *pkg)
 			push_leftover(&leftover, namenode);
 			continue;
 		} else if (errno == EBUSY || errno == EPERM) {
-			warning(_("while removing %s, unable to remove directory '%s': "
+			warning(_("while removing %s, cannot remove directory '%s': "
 			          "%s - directory may be a mount point?"),
 			        pkg_name(pkg, pnaw_nonambig), namenode->name,
 			        strerror(errno));
@@ -616,7 +616,7 @@ removal_bulk_remove_configfiles(struct pkginfo *pkg)
 			errno = e;
 			if (errno == ENOENT || errno == ENOTDIR)
 				continue;
-			ohshite(_("cannot read config file directory '%s' (from '%s')"),
+			ohshite(_("cannot open config file directory '%s' (from '%s')"),
 			        fnvb.buf, conff->name);
 		}
 		debug_at(dbg_conffdetail, "conffile cleaning dir %s", fnvb.buf);
@@ -703,7 +703,7 @@ removal_bulk(struct pkginfo *pkg)
 
 	if (!foundpostrm && !pkg->installed.conffiles) {
 		/* If there are no config files and no postrm script then we
-		 * go straight into ‘purge’.  */
+		 * go straight into ‘purge’. */
 		debug_at(dbg_general, "no postrm, no conffiles, purging");
 
 		pkg_set_want(pkg, PKG_WANT_PURGE);

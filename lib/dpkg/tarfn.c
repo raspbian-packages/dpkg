@@ -28,6 +28,7 @@
 #include <sys/stat.h>
 
 #include <errno.h>
+#include <limits.h>
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
@@ -365,7 +366,14 @@ tar_gnu_long(struct tar_archive *tar, struct tar_entry *te, char **longp)
 	char buf[TARBLKSZ];
 	char *bp;
 	int status = 0;
-	int long_read;
+	off_t long_read;
+
+	if (te->size > SSIZE_MAX) {
+		errno = 0;
+		status = dpkg_put_error(&tar->err,
+		                        _("tar entry long name or link is too big"));
+		return status;
+	}
 
 	free(*longp);
 	*longp = bp = m_malloc(te->size + 1);

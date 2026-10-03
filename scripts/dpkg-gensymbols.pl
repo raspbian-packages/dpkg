@@ -28,6 +28,7 @@ use Dpkg::Shlibs qw(get_library_paths);
 use Dpkg::Shlibs::Objdump;
 use Dpkg::Shlibs::SymbolFile;
 use Dpkg::Gettext;
+use Dpkg::Getopt;
 use Dpkg::ErrorHandling;
 use Dpkg::Control::Info;
 use Dpkg::Changelog::Parse;
@@ -51,46 +52,86 @@ my $verbose_output = 0;
 my $debug = 0;
 my $host_arch = get_host_arch();
 
-sub version {
-    printf g_("Debian %s version %s.\n"), $Dpkg::PROGNAME, $Dpkg::PROGVERSION;
-
-    printf g_('
-This is free software; see the GNU General Public License version 2 or
-later for copying conditions. There is NO warranty.
-');
-}
-
 sub usage {
     printf g_(
-'Usage: %s [<option>...]')
-    . "\n\n" . g_(
-'Options:
-  -l<library-path>         add directory to private shared library search list.
-  -p<package>              generate symbols file for package.
-  -P<package-build-dir>    temporary build directory instead of debian/tmp.
-  -e<library>              explicitly list libraries to scan.
-  -v<version>              version of the packages (defaults to
-                           version extracted from debian/changelog).
-  -c<level>                compare generated symbols file with the reference
-                           template in the debian directory and fail if
-                           difference is too important; level goes from 0 for
-                           no check, to 4 for all checks (default level is 1).
-  -q                       keep quiet and never emit any warnings or
-                           generate a diff between generated symbols
-                           file and the reference template.
-  -I<file>                 force usage of <file> as reference symbols
-                           file instead of the default file.
-  -O[<file>]               write to stdout (or <file>), not .../DEBIAN/symbols.
-  -t                       write in template mode (tags are not
-                           processed and included in output).
-  -V                       verbose output; write deprecated symbols and pattern
-                           matching symbols as comments (in template mode only).
-  -a<arch>                 assume <arch> as host architecture when processing
-                           symbol files.
-  -d                       display debug information during work.
-  -?, --help               show this help message.
-      --version            show the version.
-'), $Dpkg::PROGNAME;
+"Usage: %s [<option>...]\n" .
+    ''), $Dpkg::PROGNAME;
+    print_option_sep();
+
+    printf g_(
+"Options:\n" .
+    '');
+    print_option(g_(
+"  -p<package>\n" .
+"          Generate symbols file for package.\n" .
+    ''));
+    print_option(g_(
+"  -e<library>\n" .
+"          Explicitly list libraries to scan.\n" .
+    ''));
+    print_option(g_(
+"  -P<package-build-dir>\n" .
+"          Set temporary build directory to use.\n" .
+    ''));
+    print_option_def('debian/tmp');
+    print_option(g_(
+"  -I<file>\n" .
+"          Force usage of <file> as reference symbols file instead of the\n" .
+"          default file.\n" .
+    ''));
+    print_option(g_(
+"  -l<library-path>\n" .
+"          Add directory to private shared library search list.\n" .
+    ''));
+    print_option(g_(
+"  -v<version>\n" .
+"          Version of the packages.\n" .
+    ''));
+    print_option_def(g_('version from debian/changelog'));
+    print_option(g_(
+"  -a<arch>\n" .
+"          Assume <arch> as host architecture when processing symbol files.\n" .
+    ''));
+    print_option(g_(
+"  -c<level>\n" .
+"          Compare generated symbols file with the reference template in the\n" .
+"          debian directory and fail if difference is too important; level goes\n" .
+"          from 0 for no check, to 4 for all checks.\n" .
+    ''));
+    print_option_def('1');
+    print_option_env('DPKG_GENSYMBOLS_CHECK_LEVEL');
+    print_option(g_(
+"  -t\n" .
+"          Write in template mode (tags are not processed and included in\n" .
+"          output).\n" .
+    ''));
+    print_option(g_(
+"  -O[<file>]\n" .
+"          Write to stdout (or <file>).\n" .
+    ''));
+    print_option_def(g_('<package-build-dir>/DEBIAN/symbols'));
+    print_option(g_(
+"  -q\n" .
+"          Enable quiet mode; never emit any warnings or generate a diff\n" .
+"          between generated symbols file and the reference template.\n" .
+    ''));
+    print_option(g_(
+"  -V\n" .
+"          Enable verbose mode; write deprecated symbols and pattern matching\n" .
+"          symbols as comments (in template mode only).\n" .
+    ''));
+    print_option(g_(
+"  -d\n" .
+"          Enable debugging mode.\n" .
+    ''));
+    print_option(g_(
+"  -?, --help\n" .
+"          Show this help message.\n" .
+    ''));
+    print_option(g_(
+"      --version\n" .
+"          Show the version.\n" .
+    ''));
 }
 
 my @files;
@@ -121,8 +162,7 @@ while (@ARGV) {
                 unless scalar(@to_add);
         }
     } elsif (m/^-P(.+)$/) {
-        $packagebuilddir = $1;
-        $packagebuilddir =~ s{/+$}{};
+        $packagebuilddir = parse_option_dir('-P', $1);
     } elsif (m/^-O$/) {
         $stdout = 1;
     } elsif (m/^-I(.+)$/) {
@@ -139,7 +179,7 @@ while (@ARGV) {
         usage();
         exit(0);
     } elsif (m/^--version$/) {
-        version();
+        print_version();
         exit(0);
     } else {
         usageerr(g_("unknown option '%s'"), $_);
@@ -214,7 +254,7 @@ if (not scalar @files) {
             next PATH if -l $updir;
         }
         opendir(my $libdir_dh, "$libdir")
-            or syserr(g_('cannot read directory %s: %s'), $libdir, $!);
+            or syserr(g_('cannot open directory %s: %s'), $libdir, $!);
         push @files, grep {
             /(\.so\.|\.so$)/ && -f &&
             Dpkg::Shlibs::Objdump::is_elf($_);

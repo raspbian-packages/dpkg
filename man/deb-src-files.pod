@@ -55,12 +55,19 @@ The allowed values are specific to each distribution archive.
 I<keyword=value...>
 corresponds to an optional whitespace-delimited list of attributes for this
 entry.
-The only currently supported keyword is B<automatic> with value
-B<yes>, to mark automatically generated files.
+The only currently supported keyword is:
+
+=over 4
+
+=item * B<automatic>
+
+With value B<yes>, to mark automatically generated files.
+
+=back
 
 =head1 NOTES
 
-This file is not intended to be modified directly, please use one of
+This file is not intended to be modified directly, use one of
 B<dpkg-gencontrol> or B<dpkg-distaddfile> to add entries to it.
 
 =head1 SEE ALSO
